@@ -1,7 +1,5 @@
+import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 import { HomeComponent } from './pages/guest/home/home.component';
-import { RestaurantComponent } from './pages/guest/restaurant/restaurant.component';
-import { ServicesComponent } from './pages/guest/services/services.component';
-import { RoomsComponent } from './pages/guest/rooms/rooms.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnnouncementDatabaseComponent } from './pages/admin/announcement-database/announcement-database.component';
@@ -15,6 +13,8 @@ import { RoomDatabaseComponent } from './pages/admin/room-database/room-database
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { StockDatabaseComponent } from './pages/admin/stock-database/stock-database.component';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
+import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
+import { BrowseServicesComponent } from './pages/guest/services/services.component';
 
 const routes: Routes = [
 
@@ -88,7 +88,7 @@ const routes: Routes = [
         pathMatch: "full"
       },
       {
-        component: RoomsComponent,
+        component: BrowseRoomsComponent,
         path: "browse"
       },
     ]
@@ -102,7 +102,7 @@ const routes: Routes = [
         pathMatch: "full"
       },
       {
-        component: ServicesComponent,
+        component: BrowseServicesComponent,
         path: "browse"
       }
     ]
@@ -116,7 +116,7 @@ const routes: Routes = [
         pathMatch: "full"
       },
       {
-        component: RestaurantComponent,
+        component: MenuComponent,
         path: "browse"
       }
     ]

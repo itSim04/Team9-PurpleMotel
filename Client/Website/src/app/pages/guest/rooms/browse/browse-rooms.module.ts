@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowseServicesComponent } from './services.component';
+import { BrowseRoomsComponent } from './browse-rooms.component';
 
 
 
 @NgModule({
   declarations: [
-    BrowseServicesComponent
+    BrowseRoomsComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    BrowseServicesComponent
+    BrowseRoomsComponent
   ]
 })
-export class BrowseServicesModule { }
+export class BrowseRoomsModule { }
