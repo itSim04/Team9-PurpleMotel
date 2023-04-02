@@ -1,0 +1,96 @@
+.main {
+
+    height: fit-content;
+    padding: 32px;
+    background: #14274A;
+
+}
+
+.footer {
+
+    display: inline;
+    table-layout: fixed;
+    display: flex;
+    justify-content: center;
+
+}
+
+.check-btn {
+
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background: white;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 25px;
+    margin-left: 12px;
+
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+
+    color: #14274A;
+
+    border: 0px;
+}
+
+td {
+
+    vertical-align: middle;
+}
+
+
+.title {
+
+
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 24px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: white;
+
+}
+
+.title-1 {
+
+    @extend .title;
+    font-weight: 400;
+
+}
+
+.title-2 {
+
+    @extend .title;
+    font-weight: 700;
+    display: inline;
+
+}
+
+.title-3 {
+
+    @extend .title;
+    font-size: smaller;
+    display: inline;
+    text-align: right;
+    margin: 3vw;
+    font-weight: 400;
+    text-transform: uppercase;
+
+}
+
+.title-4 {
+
+    @extend .title;
+    font-size: smaller;
+    display: inline;
+    text-align: right;
+    padding: 3vw;
+    font-weight: 700;
+    text-transform: uppercase;
+
+}

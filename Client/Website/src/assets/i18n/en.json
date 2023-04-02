@@ -1,1 +1,13 @@
-{}
+{
+    "admin_panel": "Admin Panel",
+    "website_name": "Purple Motel",
+    "home": "Home",
+    "services": "Services",
+    "restaurant": "Restaurant",
+    "rooms": "Rooms",
+    "room": "Room",
+    "stock": "Stock",
+    "login": "Login",
+    "sign_up": "Sign Up",
+    "support": "Support"
+}
