@@ -1,3 +1,4 @@
+import { FooterModule } from './components/general/footer/footer.module';
 import { NavBarModule } from './components/general/nav-bar/nav-bar.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,7 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
 
     NavBarModule,
-     BrowserAnimationsModule
+    FooterModule,
+    BrowserAnimationsModule
 
   ],
   providers: [],
