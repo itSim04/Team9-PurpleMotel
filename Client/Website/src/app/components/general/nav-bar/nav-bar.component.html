@@ -1,0 +1,55 @@
+<div class="main">
+
+    <table style="table-layout: fixed; width: 100%">
+        <tr>
+            <td style="text-align:start">
+                <p class="title-2">
+                    EN
+                </p>
+                <img style="padding-left: 40px;" src="../../../assets/phone-icon.png" width="20vw">
+                <img style="padding-left: 48px;" src="../../../assets/message-icon.png"
+                    width="20vw">
+            </td>
+            <td style="text-align:center">
+                <p class="title-1">
+                    {{ "website_name" | translate}}
+                </p>
+            </td>
+            <td style="text-align:end">
+                <button class="check-btn">
+                    {{ "admin_panel" | translate}}
+                </button>
+                <button class="check-btn">
+                    {{ "support" | translate}}
+                </button>
+            </td>
+        </tr>
+    </table>
+    <mat-divider style="border-top-color: white; margin-top: 8px;"></mat-divider>
+    <table class="footer">
+
+        <tr>
+
+            <td>
+                <a [routerLink]="['/home']" class="title-3">{{"home" | translate}}</a>
+            </td>
+            <td>
+                <a [routerLink]="['/services']" class="title-3">{{"services" | translate}}</a>
+            </td>
+            <td>
+                <a [routerLink]="['/rooms']" class="title-3">{{"rooms" | translate}}</a>
+            </td>
+            <td>
+                <a [routerLink]="['/restaurant']" class="title-3">{{"restaurant" | translate}}</a>
+            </td>
+
+
+        </tr>
+
+
+    </table>
+    <div style="margin: -30px; float: right;">
+        <p style="padding-right: 16px;" class="title-4">{{"login" | translate}}</p>
+        <p style="padding-left: 16px;" class="title-4">{{"sign_up" | translate}}</p>
+    </div>
+</div>
