@@ -26,7 +26,7 @@
     </div>
 </div>
 <div mat-dialog-actions>
-    <button style="width: 30%;" class="back-btn"
+    <button style="width: 30%;" class="back-btn" (click)="login()"
     [disabled]="!email || !password" [style.background]="(!email || !password) ? 'gray' : '#14274A'" mat-button color="primary">
     {{'sign_in'|translate}}
     </button>
