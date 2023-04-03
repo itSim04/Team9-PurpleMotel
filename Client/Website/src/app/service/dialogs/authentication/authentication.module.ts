@@ -1,8 +1,13 @@
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticationDialogService } from './authentication.service';
 import { LoginComponent } from './login/login.component';
-import {MatDialogModule } from '@angular/material/dialog';
+import { LanguageModule } from '../../language/language.module';
+
 
 
 
@@ -10,7 +15,11 @@ import {MatDialogModule } from '@angular/material/dialog';
   
   imports: [
     CommonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    LanguageModule
   ],
   providers: [
     AuthenticationDialogService

@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div mat-dialog-title>
+    <p class="title">{{'sign_in'|translate}}</p>
+</div>
+<div style="overflow: hidden;" class="content" mat-dialog-content>
+    <!-- Fields -->
+
+    <!-- Email -->
+    <mat-form-field class="full-width input">
+        <mat-label class="label">{{'email'|translate}}</mat-label>
+        <input matInput>
+        <div class="number-error">
+            {{'invalid_email'|translate}} </div>
+    </mat-form-field>
+
+    <!-- Password -->
+    <mat-form-field class="full-width input">
+        <mat-label class="label">{{'password'|translate}}</mat-label>
+        <input matInput>
+    </mat-form-field>
+    <a style="color: #14274A; float:right; font-family: 'Montserrat';font-size: 14px;">
+        {{'forgot_password'|translate}}?
+    </a>
+    <br>
+    <div class="register">
+        <p>{{'no_account'|translate}}? {{'sign_up'|translate}}</p>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button style="width: 30%;" class="back-btn" mat-button color="primary">{{'sign_in'|translate}}
+    </button>
+</div>
