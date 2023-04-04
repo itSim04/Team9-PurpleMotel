@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class AuthenticationController extends Controller
@@ -30,7 +31,7 @@ class AuthenticationController extends Controller
         $user = Auth::user();
         return response()->json([
             'status' => 'success',
-            'data' => $user,
+            'data' => new UserResource($user),
             'authorisation' => [
                 'token' => $token,
                 'type' => 'bearer',
