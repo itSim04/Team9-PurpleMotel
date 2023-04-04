@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->string('country');
             $table->string('tier');
+            $table->integer('language')->default(1);
             $table->tinyInteger('gender');
             $table->string('date_of_birth');
             $table->timestamp('email_verified_at')->nullable();
