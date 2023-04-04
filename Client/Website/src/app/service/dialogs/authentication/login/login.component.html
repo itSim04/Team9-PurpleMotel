@@ -16,6 +16,8 @@
     <mat-form-field class="full-width input">
         <mat-label class="label">{{'password'|translate}}</mat-label>
         <input [(ngModel)]="password" matInput>
+        <div class="number-error"*ngIf="!validated_credentials">
+            {{'invalid_credentials'|translate}} </div>
     </mat-form-field>
     <a class="forgot-pass">
         {{'forgot_password'|translate}}?
