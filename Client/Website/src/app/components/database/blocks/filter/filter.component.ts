@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Column, DataInjection } from 'src/app/models/Database';
+import { formatWord, parseInt, Required } from '../../database.component';
 
 @Component({
   selector: 'app-filter',
@@ -10,23 +11,15 @@ import { Column, DataInjection } from 'src/app/models/Database';
 })
 export class FilterComponent<Data> {
 
-  @Input() data: [string, Data][] = [];
-  @Input() data_injection!: DataInjection<Data>;
-  @Input() filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
+  @Input() @Required data: [string, Data][] = [];
+  @Input() @Required data_injection!: DataInjection<Data>;
+  @Input() @Required filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
   filter_by!: Column<Data>;
   filter: string | number = "";
   formatWord(word: string | number | symbol | undefined) {
 
-    if (!word) return "";
+    return formatWord(word);
 
-    const splits = word.toString().replaceAll("_", " ").split(" ");
-    for (let i = 0; i < splits.length; i++) {
-
-      splits[i] = splits[i][0].toUpperCase() + splits[i].slice(1).toLowerCase();
-
-    }
-
-    return splits.join(" ");
   }
 
   updateFilter(event: Column<Data>) {
@@ -72,15 +65,7 @@ export class FilterComponent<Data> {
 
   parseInt(num: string | number) {
 
-    try {
-
-      return Number.parseFloat(num + "");
-
-    } catch {
-
-      return 0;
-
-    }
+    return parseInt(num);
 
   }
 
