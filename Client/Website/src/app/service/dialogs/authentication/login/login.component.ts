@@ -8,8 +8,8 @@ import { AuthenticationDialogService } from '../authentication.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  email = "";
-  password = "";
+  email = "clovis.prosacco@example.comfhdfd";
+  password = "fehfuhiuh";
   validated_email = true;
   constructor (private authentication_service: AuthenticationDialogService) {}
 
@@ -22,8 +22,8 @@ export class LoginComponent {
 
       this.authentication_service.login({
         email:'clovis.prosacco@example.com',
-        password:'password'
-      })
+        password:'password2'
+      }).subscribe(result => console.log(result))
     }
   }
 
