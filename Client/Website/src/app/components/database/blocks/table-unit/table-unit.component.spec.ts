@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
 
 import { TableUnitComponent } from './table-unit.component';
 
@@ -10,7 +9,7 @@ describe('TableUnitComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TableUnitComponent ],
-      imports: [IonicModule.forRoot()]
+
     }).compileComponents();
 
     fixture = TestBed.createComponent(TableUnitComponent);

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
 
 import { DatabaseComponent } from './database.component';
 
@@ -10,7 +9,7 @@ describe('DatabaseComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DatabaseComponent ],
-      imports: [IonicModule.forRoot()]
+
     }).compileComponents();
 
     fixture = TestBed.createComponent(DatabaseComponent);
