@@ -48,8 +48,9 @@ export class AuthenticationDialogService {
         localStorage.setItem('user', JSON.stringify(result.data.attributes));
         return;
 
-      }),
+      })
 
+      
     )
   }
 }

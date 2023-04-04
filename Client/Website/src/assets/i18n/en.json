@@ -23,7 +23,8 @@
     "no_account": "Don't Have an Account",
     "forgot_password": "Forgot Password",
     "invalid_credentials": "Incorrect Credentials",
-    "invalid_email": "Invalid Email"
+    "invalid_email": "Invalid Email",
+    "connection_error": "Connection Error"
 
 
 }

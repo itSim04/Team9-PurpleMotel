@@ -14,12 +14,15 @@ export class LoginComponent {
   password = 'password';
   validated_email = true;
   validated_credentials = true;
+  connection_error = false;
 
   constructor(private dialogRef: MatDialogRef<LoginComponent>, private authentication_service: AuthenticationDialogService) { }
 
 
   login() {
 
+    this.connection_error = false;
+    this.validated_credentials = true;
     this.validated_email = this.validateEmail();
 
     if (this.validated_email) {
@@ -31,12 +34,21 @@ export class LoginComponent {
 
         next: result => {
 
-          this.dialogRef.close();    
+          this.dialogRef.close();
 
         }, error: error => {
 
-          this.validated_credentials = false;
+          if (error.status == 401) {
 
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            this.validated_credentials = false;
+
+          } else {
+
+            this.connection_error = true;
+
+          }
         }
       })
     }
