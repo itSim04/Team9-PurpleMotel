@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
+import { StarRatingModule } from 'angular-star-rating';
 
 
 
@@ -25,7 +26,9 @@ import { MatOptionModule } from '@angular/material/core';
     MatFormFieldModule,
     FormsModule,
     MatOptionModule,
-    LanguageModule
+    LanguageModule,
+    StarRatingModule
+    
 
   ]
 })
