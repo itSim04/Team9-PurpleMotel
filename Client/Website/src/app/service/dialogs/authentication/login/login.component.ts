@@ -15,7 +15,7 @@ export class LoginComponent {
   validated_email = true;
   validated_credentials = true;
   connection_error = false;
-
+  loading = false;
   constructor(private dialogRef: MatDialogRef<LoginComponent>, private authentication_service: AuthenticationDialogService) { }
 
 
@@ -24,7 +24,7 @@ export class LoginComponent {
     this.connection_error = false;
     this.validated_credentials = true;
     this.validated_email = this.validateEmail();
-
+    this.loading = true;
     if (this.validated_email) {
 
       this.authentication_service.login({
@@ -37,6 +37,8 @@ export class LoginComponent {
           this.dialogRef.close();
 
         }, error: error => {
+
+          this.loading = false;
 
           if (error.status == 401) {
 

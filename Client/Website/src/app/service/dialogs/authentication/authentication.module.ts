@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationDialogService } from './authentication.service';
 import { LoginComponent } from './login/login.component';
 import { LanguageModule } from '../../language/language.module';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -19,7 +19,8 @@ import { LanguageModule } from '../../language/language.module';
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    LanguageModule
+    LanguageModule,
+    MatProgressBarModule
   ],
   providers: [
     AuthenticationDialogService
