@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -30,6 +32,10 @@ export class AuthenticationDialogService {
     }
 
     return this.dialog.open(component, {});
+  }
+
+  login(user: UserCredentials){
+    
   }
 }
 
