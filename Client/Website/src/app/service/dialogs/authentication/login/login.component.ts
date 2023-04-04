@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { AuthenticationDialogService } from '../authentication.service';
 
 @Component({
   selector: 'app-login-dialog',
@@ -10,7 +11,7 @@ export class LoginComponent {
   email = "";
   password = "";
   validated_email = true;
-  constructor (private http: HttpClient) {}
+  constructor (private authentication_service: AuthenticationDialogService) {}
 
 
   login() {
@@ -19,7 +20,10 @@ export class LoginComponent {
     
     if (this.validated_email) {
 
-      //call to the api
+      this.authentication_service.login({
+        email:'clovis.prosacco@example.com',
+        password:'password'
+      })
     }
   }
 
