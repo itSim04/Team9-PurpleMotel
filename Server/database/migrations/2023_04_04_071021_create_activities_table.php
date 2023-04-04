@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('description');
+            $table->integer('price')->default(0);
+            $table->string('start_date');
+            $table->string('end_date');
+            $table->integer('capacity');
             $table->timestamps();
         });
     }

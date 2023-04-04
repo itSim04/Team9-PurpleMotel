@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
+            $table->string('start_date');
+            $table->string('end_date');
+            $table->integer('activity_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
