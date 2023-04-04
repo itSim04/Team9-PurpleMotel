@@ -43,6 +43,35 @@ export function Required(target: object, propertyKey: string) {
   });
 }
 
+export function formatPrice(price: number | undefined, reversed = false): string {
+
+  if (price) {
+
+    const numStr = price.toString();
+
+    // split the number string into groups of three digits from right to left
+    const numArr = numStr.split('').reverse().join('').match(/(\d{1,3})/g);
+
+    // join the groups with commas and return the result from right to left
+    const temp = numArr?.join(',')?.split('').reverse().join('') || numStr;
+
+    if (reversed) {
+
+      return temp + " USD";
+
+    } else {
+
+      return "USD " + temp;
+
+    }
+
+  } else {
+
+    return '';
+
+  }
+}
+
 
 
 @Component({
