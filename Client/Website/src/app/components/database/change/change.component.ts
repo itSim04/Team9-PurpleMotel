@@ -101,6 +101,32 @@ export class ChangeComponent<Data> {
 
   }
 
+  delete() {
+
+    if (this.old_data) {
+
+      const dialogRef = this.confirmation_controller.openDialog(`Delete ${this.data_type}`, `Would you like to delete the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Delete", "Cancel");
+      dialogRef.afterClosed().subscribe(confirmation => {
+
+        if (confirmation && this.old_data) {
+
+          this.delete_service(this.old_data.key).subscribe(result => {
+
+            if (result.length) {
+
+              this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
+
+            } else if (this.old_data) {
+
+              this.dialogRef.close({ key: this.old_data.key, value: undefined });
+
+            }
+
+          });
+        }
+      });
+    }
+  }
 
   triggerToggle() {
 
