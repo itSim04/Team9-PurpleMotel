@@ -16,4 +16,8 @@ export class NavBarComponent {
     this.authentication_service.openDialog("login");
 
   }
+
+  signUp(){
+    this.authentication_service.openDialog("register")
+  }
 }
