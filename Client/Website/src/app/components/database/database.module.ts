@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { ChangeComponent } from './change/change.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { LanguageModule } from './../../service/language/language.module';
@@ -15,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatPaginatorModule,
     MatSortModule,
     MatProgressBarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule,
+    MatSelectModule
 
   ]
 })

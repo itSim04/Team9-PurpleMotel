@@ -12,7 +12,7 @@ import { isNum } from '../database.component';
   templateUrl: './change.component.html',
   styleUrls: ['./change.component.scss']
 })
-export class ChangeComponent<Data> {
+export class ChangeComponent<Data extends { [key: string]: string | boolean | number; }> {
 
 
   modification_mode = false;

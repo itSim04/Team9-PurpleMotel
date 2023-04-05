@@ -55,7 +55,86 @@
                                 <input class="input" [(ngModel)]="data[field.key]" matInput>
                             </mat-form-field>
 
-                            
+                            <!-- Number -->
+                            <mat-form-field *ngIf="field.type === 'number'"
+                                class="full-width input">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <input class="input" type="number" [(ngModel)]="data[field.key]"
+                                    matInput>
+                                <div class="number-error"
+                                    *ngIf="field.condition && data[field.key] ? !field.condition(data[field.key]) : false">
+                                    Please enter a valid number </div>
+                            </mat-form-field>
+
+                            <!-- Constraint Text -->
+                            <mat-form-field
+                                *ngIf="field.type === 'digits_string' || field.type === 'positive_digits_string'"
+                                class="full-width input"
+                                [color]="data[field.key] && !isNum(data[field.key].toString()) ? 'warn' : 'primary'">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <input [min]="field.type === 'positive_digits_string' ? 0 : -999999"
+                                    class="input" [(ngModel)]="data[field.key]" matInput>
+                                <div class="number-error"
+                                    *ngIf="!isNum(data[field.key].toString()) && data[field.key]">
+                                    Please enter a number </div>
+                            </mat-form-field>
+
+                            <!-- Selection -->
+                            <mat-form-field
+                                *ngIf="!field.choices?.link && field.choices && (field.type === 'selection' || field.type === 'choices')"
+                                class="full-width input">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <mat-select [multiple]="field.type === 'choices'" class="input"
+                                    [ngModel]="data[field.key]" (ngModelChange)="data[field.key]=$event">
+                                    <mat-option class="input"
+                                        *ngFor="let type of field.choices.choices"
+                                        [value]="field.choices.key ? field.choices.key(type) : type[0]">
+                                        {{field.choices.format ? field.choices.format(type[1]) :
+                                        type[1]}}
+                                    </mat-option> </mat-select>
+                            </mat-form-field>
+
+                            <!-- Linked Selection -->
+                            <mat-form-field
+                                *ngIf="field.choices?.link && field.choices && (field.type === 'selection' || field.type === 'choices')"
+                                class="full-width input">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <mat-select [multiple]="field.type === 'choices'" class="input"
+                                    [ngModel]="data[field.key]" (ngModelChange)="data[field.key]=$event">
+                                    <mat-option class="input"
+                                        *ngFor="let type of linked_data | keyvalue"
+                                        [value]="field.choices.key ? field.choices.key([type.key, type.value]) : type.key">
+                                        {{field.choices.format ? field.choices.format(type.value) :
+                                        type.value}}
+                                    </mat-option> </mat-select>
+                            </mat-form-field>
+
+                        </td>
+
+                    </tr>
+                    <tr *ngFor="let field of static_fields">
+
+                        <td>
+
+                            <!-- Readonly -->
+                            <mat-form-field class="full-width input" *ngIf="field.value">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <input class="input" [value]="field.value(data) || ''" readonly
+                                    name="occupancy" matInput>
+                            </mat-form-field>
+
+                            <!-- Readonly -->
+                            <mat-form-field class="full-width input"
+                                *ngIf="!field.value && field.linked_value">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <input class="input"
+                                    [value]="(field.linked_value.format && linked_data.get(data[field.linked_value.value].toString())) ? field.linked_value.format(linked_data.get(data[field.linked_value.value].toString())) : ''"
+                                    readonly name="occupancy" matInput>
+                            </mat-form-field>
+
+                        </td>
+
+                    </tr>
                 </table>
             </td>
         </tr>
