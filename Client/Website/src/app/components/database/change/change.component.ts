@@ -59,4 +59,35 @@ export class ChangeComponent<Data> {
 
   }
 
+  triggerToggle() {
+
+    if (this.toggle) {
+
+      if (this.modification_mode) {
+
+        const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? this.toggle.off_value : this.toggle.on_value) + this.data_type, `Would you like to ${!(this.data[this.toggle.key] as boolean) ? this.toggle.off_value : this.toggle.on_value} the ${this.data_type} ${this.identifier(this.data)}`, !(this.data[this.toggle.key] as boolean) ? this.toggle.off_value : this.toggle.on_value, 'Cancel');
+
+        dialogRef.afterClosed().subscribe(result => {
+
+          if (result && this.toggle) {
+
+            (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
+
+          }
+
+        });
+
+      } else {
+
+        (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
+
+      }
+
+
+
+
+
+    }
+  }
+
 }

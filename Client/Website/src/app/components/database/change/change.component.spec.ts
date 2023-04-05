@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeComponent } from './change.component';
 
 describe('ChangeComponent', () => {
-  let component: ChangeComponent;
-  let fixture: ComponentFixture<ChangeComponent>;
+  let component: ChangeComponent<unknown>;
+  let fixture: ComponentFixture<ChangeComponent<unknown>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
