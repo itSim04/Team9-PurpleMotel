@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 class AuthenticationController extends Controller
 {
     public function login(Request $request)
@@ -35,8 +37,46 @@ class AuthenticationController extends Controller
             'authorisation' => [
                 'token' => $token,
                 'type' => 'bearer',
-            ]
+                ]
+            ]);
+
+        }
+    public function register(Request $request)
+    {
+        $validatedData = $request->validate([
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:8',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'required|numeric|unique:users',
+            'gender' => 'required|between:0,3',
+            'date_of_birth' => 'required|date',
+            'country' => 'required|string'
         ]);
+    
+        $user = User::create([
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
+            'phone' => $validatedData['phone'],
+            'gender' => $validatedData['gender'],
+            'date_of_birth' => $validatedData['date_of_birth'],
+            'country' => $validatedData['country'],
+            'tier' => 0
+        ]);
+        
+        Auth::login($user);
+        $token = Auth::attempt($request->only('email', 'password'));
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => new UserResource($user),
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+                ]
+            ], 201);
 
     }
 }
