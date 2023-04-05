@@ -8,7 +8,15 @@ export interface UserCredentials {
 
 
 }
-
+export interface UserInformation {
+    first_name: string,
+    last_name: string,
+    email: string,
+    password: string,
+    gender: number,
+    phone: string,
+    date_of_birth: string
+}
 export interface UserResponse {
 
 
@@ -21,7 +29,6 @@ export interface UserResponse {
             last_name: string,
             email: string
             gender: number,
-            country: string,
             phone: string,
             language: number,
             date_of_birth: string,

@@ -51,7 +51,6 @@ class AuthenticationController extends Controller
             'phone' => 'required|numeric|unique:users',
             'gender' => 'required|between:0,3',
             'date_of_birth' => 'required|date',
-            'country' => 'required|string'
         ]);
     
         $user = User::create([
@@ -62,7 +61,6 @@ class AuthenticationController extends Controller
             'phone' => $validatedData['phone'],
             'gender' => $validatedData['gender'],
             'date_of_birth' => $validatedData['date_of_birth'],
-            'country' => $validatedData['country'],
             'tier' => 0
         ]);
         

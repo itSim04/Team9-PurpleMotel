@@ -38,7 +38,7 @@
                 <!-- Confirm Password -->
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'confirm_password'|translate}}</mat-label>
-                    <input [(ngModel)]="password" matInput>
+                    <input [(ngModel)]="confirm_password" matInput>
                     <div class="number-error" *ngIf="connection_error">
                         {{'connection_error'|translate}} </div>
                 </mat-form-field>
@@ -91,7 +91,7 @@
 
 </div>
 <div mat-dialog-actions>
-    <button style="width: 30%;" class="back-btn" (click)="signUp()"
+    <button style="width: 30%;" class="back-btn" (click)="register()"
         [disabled]="!email || !password || !first_name || !last_name || !date_of_birth || !phone_number || !gender"
         [style.background]="(!email || !password || !first_name || !last_name || !date_of_birth || !phone_number || !gender) ? 'gray' : '#14274A'"
         mat-button color="primary">
