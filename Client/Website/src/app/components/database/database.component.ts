@@ -105,5 +105,35 @@ export class DatabaseComponent<Data, Data2> {
   @Input() change_injection?: ChangeInjection<Data>;
   @Input() extra_change_injection?: ChangeInjection<Data2>;
 
+  getExtra(id: unknown) {
+
+    const temp = this.all_extra?.find(value => value[0] == id)?.[1];
+
+    if (temp) {
+
+      return temp;
+
+    } else {
+
+      return undefined;
+
+    }
+
+  }
+
+  parseInt(num: string | number) {
+
+    return parseInt(num);
+
+  }
+
+  formatWord(word: string | number | symbol | undefined) {
+
+    return formatWord(word);
+
+  }
+
+
+
 
 }
