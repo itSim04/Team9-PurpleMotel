@@ -60,6 +60,25 @@ export class ChangeComponent<Data> {
 
   }
 
+  add() {
+
+    const dialogRef = this.confirmation_controller.openDialog(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add", "Cancel");
+    dialogRef.afterClosed().subscribe(confirmation => {
+
+      if (confirmation) {
+
+        this.add_service(this.data).subscribe(result => {
+
+          console.log(result);
+          this.dialogRef.close({ key: result, value: this.data });
+
+        });
+
+      }
+    });
+
+  }
+
   modify() {
 
     if (this.old_data) {
@@ -69,7 +88,6 @@ export class ChangeComponent<Data> {
 
         if (confirmation && this.old_data) {
 
-          console.log(this.data);
           this.modify_service(this.old_data.key, this.data).subscribe(() => {
             if (this.old_data) {
 
