@@ -1,3 +1,4 @@
+import { MatDividerModule } from '@angular/material/divider';
 import { LanguageModule } from './../../service/language/language.module';
 import { DatabaseComponent } from './database.component';
 import { TableUnitComponent } from './blocks/table-unit/table-unit.component';
@@ -35,8 +36,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressBarModule
-    
+    MatProgressBarModule,
+    MatDividerModule
+
   ]
 })
 export class DatabaseModule { }

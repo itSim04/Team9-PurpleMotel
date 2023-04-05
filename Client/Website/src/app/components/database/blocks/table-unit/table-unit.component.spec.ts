@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TableUnitComponent } from './table-unit.component';
 
 describe('TableUnitComponent', () => {
-  let component: TableUnitComponent;
-  let fixture: ComponentFixture<TableUnitComponent>;
+  let component: TableUnitComponent<unknown, unknown>;
+  let fixture: ComponentFixture<TableUnitComponent<unknown, unknown>>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
