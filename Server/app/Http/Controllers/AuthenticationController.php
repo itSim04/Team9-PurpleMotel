@@ -64,9 +64,8 @@ class AuthenticationController extends Controller
             'tier' => 0
         ]);
         
-        Auth::login($user);
-        $token = Auth::attempt($request->only('email', 'password'));
-        
+        $token = Auth::login($user);
+                
         return response()->json([
             'status' => 'success',
             'data' => new UserResource($user),
@@ -76,5 +75,25 @@ class AuthenticationController extends Controller
                 ]
             ], 201);
 
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully logged out',
+        ]);
+    }
+
+    public function refresh()
+    {
+        return response()->json([
+            'status' => 'success',
+            'user' => Auth::user(),
+            'authorisation' => [
+                'token' => Auth::refresh(),
+                'type' => 'bearer',
+            ]
+        ]);
     }
 }

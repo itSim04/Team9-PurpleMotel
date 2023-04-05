@@ -34,10 +34,9 @@ function updateTemplate(Request $request, string $model, string $id, string $res
         
         $data = $old->update($credentials);
 
-
         if ($data) {
 
-            return generateResponse(201, new $resource($model));
+            return generateResponse(201, new $resource($old));
             
         } else {
 

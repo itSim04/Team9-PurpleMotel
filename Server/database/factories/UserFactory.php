@@ -22,7 +22,6 @@ class UserFactory extends Factory
             'last_name' => fake()->lastName(),
             'gender' => random_int(0, 3),
             'date_of_birth' => fake()->date(),
-            'country' => fake()->country(),
             'tier' => random_int(1, 10),
             'phone' => fake()->unique()->phoneNumber(),
             'language' => random_int(1, 10),
