@@ -25,3 +25,5 @@ export function parseDate(date: Date) {
     return `${year}-${month}-${day}`
 
 }
+
+export const genders = ['male', 'female','other','rather_not_say']

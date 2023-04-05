@@ -11,7 +11,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { RegisterComponent } from './register/register.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -26,6 +26,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressBarModule,
     MatDatepickerModule,
     MatNativeDateModule, 
+    MatSelectModule
 
   ],
   providers: [

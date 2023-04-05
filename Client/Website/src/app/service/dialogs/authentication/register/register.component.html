@@ -77,10 +77,13 @@
             <td>
                 <!-- Gender -->
                 <mat-form-field class="full-width input">
-                    <mat-label class="label">{{'gender'|translate}}</mat-label>
-                    <input [(ngModel)]="gender" matInput>
-                    
-                </mat-form-field>
+                    <mat-label class="label">{{'gender'|translate}}</mat-label>          
+                        <mat-select>
+                          <mat-option *ngFor="let gender of genders;let i = index" [value]="i">
+                            {{gender|translate}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
             </td>
         </tr>
     </table>
@@ -92,7 +95,7 @@
 
     <div class="register">
        
-        <p>{{'have_account'|translate}}? {{'sign_in'|translate}}</p>
+        <p>{{'have_account'|translate}}? </p> <p (click)="goToLogin()" style="display: inline; text-decoration: underline; margin-left: 2px;">{{'sign_in'|translate}}</p>
     </div>
 
 </div>

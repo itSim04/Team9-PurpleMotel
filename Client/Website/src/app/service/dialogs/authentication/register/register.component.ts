@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { parseDate, validateEmail, validatePassword } from '../authentication.utility';
+import { genders, parseDate, validateEmail, validatePassword } from '../authentication.utility';
 import { AuthenticationDialogService } from '../authentication.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -67,6 +67,15 @@ export class RegisterComponent {
         }
       })
     }
+  }
+
+  get genders(){
+    return genders;
+  }
+
+  goToLogin(){
+    this.dialogRef.close();
+    this.authentication_service.openDialog('login');
   }
 
   

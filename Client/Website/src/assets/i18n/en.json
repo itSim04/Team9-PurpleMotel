@@ -33,7 +33,11 @@
     "have_account": "Already Have an Account",
     "confirm_password": "Confirm Password",
     "password_match": "Passwords should be the same",
-    "weak_password": "Password is too weak"
+    "weak_password": "Password is too weak",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "rather_not_say": "Rather Not Say"
 
 
 }

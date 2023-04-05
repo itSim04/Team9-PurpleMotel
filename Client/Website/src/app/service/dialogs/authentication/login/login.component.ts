@@ -56,6 +56,10 @@ export class LoginComponent {
       })
     }
   }
+  goToRegister(){
+    this.dialogRef.close();
+    this.authentication_service.openDialog('register');
+  }
 
 }
 
