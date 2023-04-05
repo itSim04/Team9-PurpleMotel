@@ -1,0 +1,162 @@
+<div>
+    <table style="table-layout: fixed; width: 100%;">
+        <td>
+            <button style="margin-left: 16px;" class="back-btn" [mat-dialog-close] mat-button
+                color="primary">Go Back
+            </button>
+        </td>
+
+        <td>
+            <p class="title"> {{modification_mode ? 'Modify' : 'Add'}} {{data_type}} </p>
+        </td>
+        <td> </td>
+    </table>
+</div>
+<div style="overflow: hidden;" class="content" mat-dialog-content>
+    <table style="table-layout: fixed; width: 100%;">
+        <tr>
+            <td class="padded" style="text-align: right; vertical-align: bottom;">
+                <table style="table-layout: fixed">
+                    <tr>
+                        <td colspan="2"> <img width="100%" src="../../../../../assets/room-1.png"
+                                height="100%"> </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-right: 0px; width: 50%;"> <button class="image-btn">Add
+                                Picture</button> </td>
+                        <td style="padding-left: 0px; width: 50%;"> <button class="image-btn">Remove
+                                Picture</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field *ngIf="standalone_field" class="full-width">
+                                <mat-label
+                                    class="label">{{formatLabel(standalone_field.key)}}</mat-label>
+                                <textarea class="input" [(ngModel)]="data[standalone_field.key]"
+                                    name="description" matInput></textarea>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="padded" style="text-align: left;">
+
+                <!-- Fields -->
+
+                <table style="table-layout: fixed; width: 90%;">
+
+                    <tr *ngFor="let field of fields">
+                        <td>
+
+                            <!-- Raw Text -->
+                            <mat-form-field *ngIf="field.type === 'text'" class="full-width input">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <input class="input" [(ngModel)]="data[field.key]" matInput>
+                            </mat-form-field>
+
+                            <!-- Number -->
+                            <mat-form-field *ngIf="field.type === 'number'"
+                                class="full-width input">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <input class="input" type="number" [(ngModel)]="data[field.key]"
+                                    matInput>
+                                <div class="number-error"
+                                    *ngIf="field.condition && data[field.key] ? !field.condition(data[field.key]) : false">
+                                    Please enter a valid number </div>
+                            </mat-form-field>
+
+                            <!-- Constraint Text -->
+                            <mat-form-field
+                                *ngIf="field.type === 'digits_string' || field.type === 'positive_digits_string'"
+                                class="full-width input"
+                                [color]="data[field.key] && !isNum(data[field.key].toString()) ? 'warn' : 'primary'">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <input [min]="field.type === 'positive_digits_string' ? 0 : -999999"
+                                    class="input" [(ngModel)]="data[field.key]" matInput>
+                                <div class="number-error"
+                                    *ngIf="!isNum(data[field.key].toString()) && data[field.key]">
+                                    Please enter a number </div>
+                            </mat-form-field>
+
+                            <!-- Selection -->
+                            <mat-form-field
+                                *ngIf="!field.choices?.link && field.choices && (field.type === 'selection' || field.type === 'choices')"
+                                class="full-width input">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <mat-select [multiple]="field.type === 'choices'" class="input"
+                                    [ngModel]="data[field.key]" (ngModelChange)="data[field.key]=$event">
+                                    <mat-option class="input"
+                                        *ngFor="let type of field.choices.choices"
+                                        [value]="field.choices.key ? field.choices.key(type) : type[0]">
+                                        {{field.choices.format ? field.choices.format(type[1]) :
+                                        type[1]}}
+                                    </mat-option> </mat-select>
+                            </mat-form-field>
+
+                            <!-- Linked Selection -->
+                            <mat-form-field
+                                *ngIf="field.choices?.link && field.choices && (field.type === 'selection' || field.type === 'choices')"
+                                class="full-width input">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <mat-select [multiple]="field.type === 'choices'" class="input"
+                                    [ngModel]="data[field.key]" (ngModelChange)="data[field.key]=$event">
+                                    <mat-option class="input"
+                                        *ngFor="let type of linked_data | keyvalue"
+                                        [value]="field.choices.key ? field.choices.key([type.key, type.value]) : type.key">
+                                        {{field.choices.format ? field.choices.format(type.value) :
+                                        type.value}}
+                                    </mat-option> </mat-select>
+                            </mat-form-field>
+
+                        </td>
+
+                    </tr>
+                    <tr *ngFor="let field of static_fields">
+
+                        <td>
+
+                            <!-- Readonly -->
+                            <mat-form-field class="full-width input" *ngIf="field.value">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <input class="input" [value]="field.value(data) || ''" readonly
+                                    name="occupancy" matInput>
+                            </mat-form-field>
+
+                            <!-- Readonly -->
+                            <mat-form-field class="full-width input"
+                                *ngIf="!field.value && field.linked_value">
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <input class="input"
+                                    [value]="(field.linked_value.format && linked_data.get(data[field.linked_value.value].toString())) ? field.linked_value.format(linked_data.get(data[field.linked_value.value].toString())) : ''"
+                                    readonly name="occupancy" matInput>
+                            </mat-form-field>
+
+                        </td>
+
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<div mat-dialog-actions>
+    <table style="table-layout: fixed; width: 100%;">
+        <tr>
+            <td class="padded" style="text-align: right;">
+                <button style="width: 30%;" (click)="delete()" class="delete-btn" mat-button
+                    color="primary" *ngIf="modification_mode">Delete</button>
+                <button style="width: 30%;" class="back-btn"
+                    (click)="modification_mode ? modify() : add()" [disabled]="!fieldsCompleteness || !differenceCheck"
+                    [style.background]="(!fieldsCompleteness || !differenceCheck) ? 'gray' : '#14274A'" mat-button
+                    color="primary">{{modification_mode ?
+                    'Modify' : 'Add'}} {{data_type}}</button>
+            </td>
+            <td *ngIf="toggle" class="padded" style="text-align: left;"> <button style="width: 30%;"
+                    class="back-btn" (click)="triggerToggle()"
+                    [style.background]="!data[toggle.key] ? 'gray' : '#14274A'" mat-button
+                    color="primary">{{data[toggle.key] ? toggle.on_value :
+                    toggle.off_value}}</button> </td>
+        </tr>
+    </table>
+</div>

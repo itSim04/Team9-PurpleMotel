@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StarRatingModule } from 'angular-star-rating';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthenticationModule } from './service/dialogs/authentication/authentication.module';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -23,6 +24,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
     NavBarModule,
     FooterModule,
     BrowserAnimationsModule,
+
+    StarRatingModule.forRoot(),
     AuthenticationModule
 
   ],

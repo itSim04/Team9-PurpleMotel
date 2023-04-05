@@ -37,7 +37,9 @@
     "male": "Male",
     "female": "Female",
     "other": "Other",
-    "rather_not_say": "Rather Not Say"
-
+    "rather_not_say": "Rather Not Say",
+    "reset_filter": "Reset Filter",
+    "filter": "Filter",
+    "filter_by": "Filter By"
 
 }
