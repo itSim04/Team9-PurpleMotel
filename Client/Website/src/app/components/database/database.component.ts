@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
+import { DataInjection, Column, ChangeInjection } from 'src/app/models/Database';
 
 export function formatWord(word: string | number | symbol | undefined) {
 
@@ -79,10 +83,27 @@ export function formatPrice(price: number | undefined, reversed = false): string
   templateUrl: './database.component.html',
   styleUrls: ['./database.component.scss'],
 })
-export class DatabaseComponent implements OnInit {
+export class DatabaseComponent<Data, Data2> {
 
-  constructor () { }
+  @Input() @Required data_injection!: DataInjection<Data>;
+  @Input() dual_fetcher: (() => Observable<[Map<string, Data>, Map<string, Data2>]>) | undefined;
+  @Input() extra_injection?: DataInjection<Data2>;
 
-  ngOnInit() { }
+  all_data_map!: Map<string, Data>;
+  all_data!: [string, Data][];
+  all_extra_map?: Map<string, Data2>;
+  all_extra?: [string, Data2][];
+  filter_by!: Column<Data>;
+  extra_filter_by?: Column<Data2>;
+  filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
+  extra_data?: MatTableDataSource<[string, Data2], MatPaginator>;
+  filter: string | number = "";
+  extra_filter: string | number = "";
+  display_hover: [string, Data | undefined] = ["-1", undefined];
+  extra_display_hover: [string, Data2 | undefined] = ["-1", undefined];
+
+  @Input() change_injection?: ChangeInjection<Data>;
+  @Input() extra_change_injection?: ChangeInjection<Data2>;
+
 
 }
