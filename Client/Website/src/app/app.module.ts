@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthenticationModule } from './service/dialogs/authentication/authentication.module';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 @NgModule({
@@ -26,8 +27,8 @@ import { AuthenticationModule } from './service/dialogs/authentication/authentic
 
   ],
   providers: [
-    MatDialogModule
-  ],
+    MatDialogModule,
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

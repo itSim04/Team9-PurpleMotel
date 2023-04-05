@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { validateEmail, validatePassword } from '../authentication.utility';
+import { parseDate, validateEmail, validatePassword } from '../authentication.utility';
 import { AuthenticationDialogService } from '../authentication.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -16,7 +16,7 @@ export class RegisterComponent {
   password = "chacA$4ds";
   confirm_password = "chacA$4ds";
   phone_number = "12213";
-  date_of_birth = "2004-01-11"
+  date_of_birth = new Date();
   validated_email = true;
   validated_password = true;
   connection_error = false;
@@ -32,7 +32,7 @@ export class RegisterComponent {
     this.validated_email = validateEmail(this.email);
     this.validated_password = validatePassword(this.password);
     this.password_match = this.password === this.confirm_password;
-
+    console.log(parseDate(this.date_of_birth))
     if (this.validated_email && this.password_match && this.validated_password) {
       this.loading = true;
       this.authentication_service.register({
@@ -41,7 +41,7 @@ export class RegisterComponent {
         first_name: this.first_name,
         last_name: this.last_name,
         gender: Number.parseInt(this.gender),
-        date_of_birth: this.date_of_birth,
+        date_of_birth: parseDate(this.date_of_birth),
         phone: this.phone_number
 
       }).subscribe({
@@ -49,11 +49,11 @@ export class RegisterComponent {
         next: result => {
 
           this.dialogRef.close();
-
+        
         }, error: error => {
 
           this.loading = false;
-        
+          console.error(error)
           if (error.status == 401) {
 
             localStorage.removeItem('token');

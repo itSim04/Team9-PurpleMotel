@@ -12,35 +12,15 @@
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'first_name'|translate}}</mat-label>
                     <input [(ngModel)]="first_name" matInput>
-
+                    
                 </mat-form-field>
             </td>
-            <td>
-                <!-- Password -->
-                <mat-form-field class="full-width input">
-                    <mat-label class="label">{{'password'|translate}}</mat-label>
-                    <input [(ngModel)]="password" matInput>
-                    <div class="number-error" *ngIf="!validated_password">
-                        {{'weak_password'|translate}} </div>
-                </mat-form-field>
-            </td>
-        </tr>
-        <tr>
             <td>
                 <!-- Last Name -->
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'last_name'|translate}}</mat-label>
                     <input [(ngModel)]="last_name" matInput>
-
-                </mat-form-field>
-            </td>
-            <td>
-                <!-- Confirm Password -->
-                <mat-form-field class="full-width input">
-                    <mat-label class="label">{{'confirm_password'|translate}}</mat-label>
-                    <input [(ngModel)]="confirm_password" matInput>
-                    <div class="number-error" *ngIf="!password_match">
-                        {{'password_match'|translate}} </div>
+        
                 </mat-form-field>
             </td>
         </tr>
@@ -56,12 +36,33 @@
             </td>
             <td>
                 <!-- Date of Birth -->
-                <mat-form-field class="full-width input">
-                    <mat-label class="label">{{'date_of_birth'|translate}}</mat-label>
-                    <input [(ngModel)]="date_of_birth" matInput>
-
+                <mat-form-field class="full-width input" appearance="fill">
+                    <mat-label class="label">Choose a date</mat-label>
+                    <input [(ngModel)]="date_of_birth" matInput [matDatepicker]="picker" readonly>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Password -->
+                <mat-form-field class="full-width input">
+                    <mat-label class="label">{{'password'|translate}}</mat-label>
+                    <input [(ngModel)]="password" matInput>
+                    <div class="number-error" *ngIf="!validated_password">
+                        {{'weak_password'|translate}} </div>
+                </mat-form-field>
+            </td>
+            <td>
+                <!-- Confirm Password -->
+                <mat-form-field class="full-width input">
+                    <mat-label class="label">{{'confirm_password'|translate}}</mat-label>
+                    <input [(ngModel)]="confirm_password" matInput>
+                    <div class="number-error" *ngIf="!password_match">
+                        {{'password_match'|translate}} </div>
+                </mat-form-field>
             </td>
         </tr>
         <tr>
@@ -78,7 +79,7 @@
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'gender'|translate}}</mat-label>
                     <input [(ngModel)]="gender" matInput>
-
+                    
                 </mat-form-field>
             </td>
         </tr>

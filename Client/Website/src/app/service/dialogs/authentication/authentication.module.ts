@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { LanguageModule } from '../../language/language.module';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { RegisterComponent } from './register/register.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -21,10 +23,14 @@ import { RegisterComponent } from './register/register.component';
     FormsModule,
     MatInputModule,
     LanguageModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule, 
+
   ],
   providers: [
-    AuthenticationDialogService
+    AuthenticationDialogService,
+    
   ],
   declarations: [
     LoginComponent,
