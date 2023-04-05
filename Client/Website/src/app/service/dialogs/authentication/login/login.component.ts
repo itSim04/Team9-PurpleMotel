@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthenticationDialogService } from '../authentication.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { validateEmail } from '../authentication.utility';
 
 @Component({
   selector: 'app-login-dialog',
@@ -23,7 +24,7 @@ export class LoginComponent {
 
     this.connection_error = false;
     this.validated_credentials = true;
-    this.validated_email = this.validateEmail();
+    this.validated_email = validateEmail(this.email);
     this.loading = true;
     if (this.validated_email) {
 
@@ -54,14 +55,6 @@ export class LoginComponent {
         }
       })
     }
-  }
-
-  validateEmail() {
-    const expression = /^[A-Za-z](\w|\.|_)*@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-
-    const result: boolean = expression.test(this.email);
-
-    return result;
   }
 
 }
