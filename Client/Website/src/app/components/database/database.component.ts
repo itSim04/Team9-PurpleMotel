@@ -76,6 +76,12 @@ export function formatPrice(price: number | undefined, reversed = false): string
   }
 }
 
+export function isNum(val: string) {
+
+  return !Number.isNaN(Number(val));
+
+}
+
 
 
 @Component({

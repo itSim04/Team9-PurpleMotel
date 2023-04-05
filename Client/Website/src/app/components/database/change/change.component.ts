@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Field, Toggle, StaticField, ChangeInjection } from 'src/app/models/Database';
 import { ConfirmationDialogService } from 'src/app/service/dialogs/confirmation/confirmation.service';
 import { WarningDialogService } from 'src/app/service/dialogs/warning/warning.service';
+import { isNum } from '../database.component';
 
 @Component({
   selector: 'app-change',
@@ -88,6 +89,33 @@ export class ChangeComponent<Data> {
 
 
     }
+  }
+
+  get differenceCheck() {
+
+    return !this.modification_mode || JSON.stringify(this.old_data?.value) != JSON.stringify(this.data);
+
+  }
+
+  get fieldsCompleteness() {
+
+    for (const field of this.fields) {
+
+      if (field.condition ? !field.condition(this.data[field.key]) : !this.data[field.key]) {
+
+        return false;
+
+      }
+
+    }
+    return true;
+
+  }
+
+  isNum(val: string) {
+
+    return isNum(val);
+
   }
 
 }
