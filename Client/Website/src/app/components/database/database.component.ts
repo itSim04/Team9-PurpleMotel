@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
+import { debounceTime, Observable, Subject } from 'rxjs';
 import { DataInjection, Column, ChangeInjection } from 'src/app/models/Database';
 
 export function formatWord(word: string | number | symbol | undefined) {
@@ -83,7 +83,7 @@ export function formatPrice(price: number | undefined, reversed = false): string
   templateUrl: './database.component.html',
   styleUrls: ['./database.component.scss'],
 })
-export class DatabaseComponent<Data, Data2> implements AfterViewInit {
+export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
   @Input() @Required data_injection!: DataInjection<Data>;
   @Input() dual_fetcher: (() => Observable<[Map<string, Data>, Map<string, Data2>]>) | undefined;
@@ -105,8 +105,65 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit {
   @Input() change_injection?: ChangeInjection<Data>;
   @Input() extra_change_injection?: ChangeInjection<Data2>;
 
+  // These fields are used by the hovering display only
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  mouseX = 0;
+  mouseY = 0;
+  mouseMoveSubject = new Subject<MouseEvent>();
+  mouseMove$: Observable<MouseEvent>;
+  hover_list: [string, Data2][] = [];
+  extra_list: [string, Data][] = [];
+
+
+  constructor(private cdr: ChangeDetectorRef) {
+
+    this.mouseMove$ = this.mouseMoveSubject.asObservable().pipe(
+
+      debounceTime(1) // debounce time in milliseconds
+
+    );
+
+  }
+
+  ngOnInit() {
+    this.mouseMove$.subscribe((event: MouseEvent) => {
+
+      if (this.all_extra) {
+
+        this.hover_list = this.all_extra.filter(t => {
+
+          if (this.data_injection && this.data_injection.hover_fetcher && this.display_hover[1] && this.all_extra) {
+
+            return t[0] == this.display_hover[1][this.data_injection.hover_fetcher.key];
+
+          } else {
+
+            return false;
+
+          }
+
+        });
+
+
+        this.mouseX = event.clientX;
+        this.mouseY = event.clientY;
+
+      }
+
+      if (this.extra_injection && this.extra_injection.hover_fetcher && this.extra_display_hover[1]) {
+
+        this.extra_list = this.all_data.filter(t => t[0] == this.extra_injection?.hover_fetcher?.key);
+
+        this.mouseX = event.clientX;
+        this.mouseY = event.clientY;
+
+      }
+
+
+    });
+  }
+
+
 
   ngAfterViewInit() {
 
@@ -197,8 +254,19 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit {
 
 
     }
-    
+
     this.cdr.detectChanges();
+  }
+
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+
+    if (this.display_hover || this.extra_display_hover) {
+
+      this.mouseMoveSubject.next(event);
+
+    }
+
   }
 
   getExtra(id: unknown) {
@@ -229,7 +297,6 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit {
 
   }
 
-
-
+  
 
 }

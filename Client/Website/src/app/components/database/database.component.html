@@ -1,3 +1,28 @@
+<div *ngIf="hover_list && data_injection.hover_fetcher && display_hover[1]" class="follow-mouse"
+  [style.left]="(mouseX + 16) + 'px'" [style.top]="(mouseY + 16) + 'px'">
+
+
+  <div *ngFor="let item of hover_list">
+    <div *ngFor="let row of data_injection.hover_fetcher.format(item[1])">
+      {{row}}
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="hover_list && extra_injection?.hover_fetcher && extra_display_hover[1]"
+  class="follow-mouse" [style.left]="(mouseX + 16) + 'px'" [style.top]="(mouseY + 16) + 'px'">
+
+  <ng-container *ngFor="let item of extra_list">
+    <div *ngIf="extra_injection && extra_injection.hover_fetcher">
+      <div *ngFor="let row of extra_injection.hover_fetcher.format(item[1])">
+        {{row}}
+      </div>
+    </div>
+  </ng-container>
+
+</div>
+
 <table>
   <tr>
     <td style="vertical-align: top;">
