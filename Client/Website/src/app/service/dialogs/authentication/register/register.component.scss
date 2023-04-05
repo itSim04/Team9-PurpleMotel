@@ -104,8 +104,13 @@
     display: flex;
 }
 
+.number-error-2 {
+    @extend .number-error;
+    display: flex;
+    justify-content: center;
+}
 .number-error {
-    color: rgb(138, 13, 13);
+    color: #8a0d0d;
     font-size: smaller;
 }
 

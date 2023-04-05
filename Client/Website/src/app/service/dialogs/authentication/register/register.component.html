@@ -20,8 +20,8 @@
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'password'|translate}}</mat-label>
                     <input [(ngModel)]="password" matInput>
-                    <div class="number-error" *ngIf="connection_error">
-                        {{'connection_error'|translate}} </div>
+                    <div class="number-error" *ngIf="!validated_password">
+                        {{'weak_password'|translate}} </div>
                 </mat-form-field>
             </td>
         </tr>
@@ -39,8 +39,8 @@
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'confirm_password'|translate}}</mat-label>
                     <input [(ngModel)]="confirm_password" matInput>
-                    <div class="number-error" *ngIf="connection_error">
-                        {{'connection_error'|translate}} </div>
+                    <div class="number-error" *ngIf="!password_match">
+                        {{'password_match'|translate}} </div>
                 </mat-form-field>
             </td>
         </tr>
@@ -84,8 +84,13 @@
         </tr>
     </table>
 
+  
+    <div class="number-error-2" *ngIf="connection_error">
+        {{'connection_error'|translate}} 
+    </div>
 
     <div class="register">
+       
         <p>{{'have_account'|translate}}? {{'sign_in'|translate}}</p>
     </div>
 

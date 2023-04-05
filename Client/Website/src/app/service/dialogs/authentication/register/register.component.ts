@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { validateEmail } from '../authentication.utility';
+import { validateEmail, validatePassword } from '../authentication.utility';
 import { AuthenticationDialogService } from '../authentication.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -10,27 +10,31 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  first_name = "";
-  last_name = "";
-  email = "";
-  password = "";
-  confirm_password = "";
-  phone_number = "";
-  date_of_birth = ""
+  first_name = "charbel";
+  last_name = "gerges";
+  email = "charfbe@ex.com";
+  password = "chacA$4ds";
+  confirm_password = "chacA$4ds";
+  phone_number = "12213";
+  date_of_birth = "2004-01-11"
   validated_email = true;
+  validated_password = true;
   connection_error = false;
   loading = false;
-  gender = "";
- 
+  gender = "2";
+  password_match = true;
+
   constructor(private authentication_service: AuthenticationDialogService, private dialogRef: MatDialogRef<RegisterComponent>){}
 
   register() {
 
     this.connection_error = false;
     this.validated_email = validateEmail(this.email);
-    this.loading = true;
-    if (this.validated_email) {
+    this.validated_password = validatePassword(this.password);
+    this.password_match = this.password === this.confirm_password;
 
+    if (this.validated_email && this.password_match && this.validated_password) {
+      this.loading = true;
       this.authentication_service.register({
         email: this.email,
         password: this.password,
@@ -49,7 +53,7 @@ export class RegisterComponent {
         }, error: error => {
 
           this.loading = false;
-          console.error(error)
+        
           if (error.status == 401) {
 
             localStorage.removeItem('token');
