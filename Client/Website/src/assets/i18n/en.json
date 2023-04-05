@@ -16,6 +16,9 @@
     "about_us": "About Us",
     "terms_conditions": "Terms & Conditions",
     "subscribe": "Subscribe to our newsletter",
-    "ok": "Ok"
+    "ok": "Ok",
+    "reset_filter": "Reset Filter",
+    "filter": "Filter",
+    "filter_by": "Filter By"
 
 }
