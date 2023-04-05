@@ -12,19 +12,20 @@ import { StarRatingModule } from 'angular-star-rating';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
   declarations: [
 
-    FilterComponent, 
-    TableComponent, 
-    TableUnitComponent, 
+    FilterComponent,
+    TableComponent,
+    TableUnitComponent,
     DatabaseComponent
 
   ],
   imports: [
+
     CommonModule,
     MatFormFieldModule,
     FormsModule,
@@ -33,9 +34,9 @@ import { MatSortModule } from '@angular/material/sort';
     StarRatingModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressBarModule
     
-
   ]
 })
 export class DatabaseModule { }

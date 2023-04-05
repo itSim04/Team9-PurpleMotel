@@ -46,7 +46,41 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   formatDataField(col: Column<Data>, element: [number, Data]) {
 
 
-    return element[1][col.key];
+    switch (col.type) {
+
+      case "link":
+
+        if (col.link) {
+
+          return col.link.format(this.getExtra(element[1][col.link.key]));
+
+        } else {
+
+          throw new Error("Type Link requires Format");
+
+        }
+
+      case "price":
+
+        return this.formatPrice(element[1][col.key] as number);
+
+      case "custom":
+
+        if (col.custom) {
+
+          return col.custom(element[1]);
+
+        } else {
+
+          throw new Error("Type Custom requires Format");
+
+        }
+
+      default:
+
+        return element[1][col.key];
+
+    }
 
 
   }
@@ -54,7 +88,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   getExtra(id: unknown) {
 
     const temp = this.extra_data?.find(value => value[0] == id)?.[1];
-    
+
     if (temp) {
 
       return temp;

@@ -14,6 +14,35 @@
       </ng-container>
   </ng-container>
 
+  <!-- Boolean -->
+  <ng-container *ngFor="let col of data_injection.displayed_columns">
+      <ng-container *ngIf="col.type === 'boolean'">
+          <ng-container [matColumnDef]="col.key.toString()">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{col.header_alt || formatWord(col.key.toString())}} </th>
+              <td class="cell" mat-cell *matCellDef="let element">
+                  <mat-checkbox [(ngModel)]="element[1][col.key]" class="example-margin"
+                      [disabled]="true">
+                  </mat-checkbox>
+              </td>
+          </ng-container>
+      </ng-container>
+  </ng-container>
+
+  <!-- Rating -->
+  <ng-container *ngFor="let col of data_injection.displayed_columns">
+      <ng-container *ngIf="col.type === 'rating'">
+          <ng-container [matColumnDef]="col.key.toString()">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{col.header_alt || formatWord(col.key.toString())}} </th>
+              <td class="cell" mat-cell *matCellDef="let element" style="padding-left: 0px;">
+                  <star-rating staticColor="ok" [readOnly]="true" [rating]="element[1][col.key]"
+                      [showHalfStars]="true"></star-rating>
+              </td>
+          </ng-container>
+      </ng-container>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="getDisplayedColumnsKey; sticky: true">
   </tr>
   <tr (mouseenter)="hover.emit(row)" (mouseleave)="hover.emit(['-1', undefined]);"
@@ -21,6 +50,7 @@
       *matRowDef="let row; columns: getDisplayedColumnsKey;">
   </tr>
 </table>
+<mat-progress-bar *ngIf="!this.data" mode="indeterminate"></mat-progress-bar>
 
 <div [hidden]="!this.data">
   <mat-paginator style="display: flex; justify-content: center; margin-bottom: 32px;"
