@@ -8,6 +8,7 @@ import { AuthenticationDialogService } from './authentication.service';
 import { LoginComponent } from './login/login.component';
 import { LanguageModule } from '../../language/language.module';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -26,7 +27,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     AuthenticationDialogService
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ]
 })
 export class AuthenticationModule { }

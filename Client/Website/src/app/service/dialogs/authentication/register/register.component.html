@@ -1,1 +1,80 @@
-<p>works</p>
+<div mat-dialog-title>
+    <p class="title">{{'sign_up'|translate}}</p>
+</div>
+<div style="overflow: hidden;" class="content" mat-dialog-content>
+    <!-- Fields -->
+
+
+
+    <!-- First Name -->
+    <mat-form-field class="full-width input">
+        <mat-label class="label">{{'first_name'|translate}}</mat-label>
+        <input [(ngModel)]="first_name" matInput>
+   
+    </mat-form-field>
+
+
+    <!-- Last Name -->
+    <mat-form-field class="full-width input">
+        <mat-label class="label">{{'last_name'|translate}}</mat-label>
+        <input [(ngModel)]="last_name" matInput>
+        
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field class="full-width input">
+        <mat-label class="label">{{'email'|translate}}</mat-label>
+        <input [(ngModel)]="email" matInput>
+        <div class="number-error" *ngIf="!validated_email">
+            {{'invalid_email'|translate}} </div>
+    </mat-form-field>
+
+    <!-- Password -->
+    <mat-form-field class="full-width input">
+        <mat-label class="label">{{'password'|translate}}</mat-label>
+        <input [(ngModel)]="password" matInput>
+        <div class="number-error" *ngIf="connection_error">
+            {{'connection_error'|translate}} </div>
+    </mat-form-field>
+
+    <!-- Password -->
+    <mat-form-field class="full-width input">
+        <mat-label class="label">{{'confirm_password'|translate}}</mat-label>
+        <input [(ngModel)]="password" matInput>
+        <div class="number-error" *ngIf="connection_error">
+            {{'connection_error'|translate}} </div>
+    </mat-form-field>
+    
+    <!-- Phone Number -->
+    <mat-form-field class="full-width input">
+        <mat-label class="label">{{'phone_number'|translate}}</mat-label>
+        <input [(ngModel)]="phone_number" matInput>
+        
+    </mat-form-field>
+    <!-- Date of Birth -->
+    <mat-form-field class="full-width input">
+        <mat-label class="label">{{'date_of_birth'|translate}}</mat-label>
+        <input [(ngModel)]="date_of_birth" matInput>
+        
+    </mat-form-field>
+
+     <!-- Gender -->
+     <mat-form-field class="full-width input">
+        <mat-label class="label">{{'gender'|translate}}</mat-label>
+        <input [(ngModel)]="gender" matInput>
+        
+    </mat-form-field>
+
+    <div class="register">
+        <p>{{'have_account'|translate}}? {{'sign_in'|translate}}</p>
+    </div>
+
+</div>
+<div mat-dialog-actions>
+    <button style="width: 30%;" class="back-btn" (click)="signUp()" [disabled]="!email || !password || !first_name || !last_name || !date_of_birth || !phone_number || !gender"
+        [style.background]="(!email || !password) ? 'gray' : '#14274A'" mat-button color="primary">
+        {{'sign_up'|translate}}
+    </button>
+</div>
+
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
