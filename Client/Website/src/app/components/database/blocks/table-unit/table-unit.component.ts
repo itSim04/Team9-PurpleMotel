@@ -23,4 +23,6 @@ export class TableUnitComponent<Data, Data2> {
 
   @Output() hover: EventEmitter<[string, Data | undefined]> = new EventEmitter();
 
+  
+
 }

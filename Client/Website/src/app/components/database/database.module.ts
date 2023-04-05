@@ -1,3 +1,4 @@
+import { ChangeComponent } from './change/change.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { LanguageModule } from './../../service/language/language.module';
 import { DatabaseComponent } from './database.component';
@@ -22,7 +23,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FilterComponent,
     TableComponent,
     TableUnitComponent,
-    DatabaseComponent
+    DatabaseComponent,
+    ChangeComponent
 
   ],
   imports: [
