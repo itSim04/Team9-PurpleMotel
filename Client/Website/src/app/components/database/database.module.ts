@@ -9,6 +9,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
 import { StarRatingModule } from 'angular-star-rating';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -27,7 +30,10 @@ import { StarRatingModule } from 'angular-star-rating';
     FormsModule,
     MatOptionModule,
     LanguageModule,
-    StarRatingModule
+    StarRatingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
     
 
   ]

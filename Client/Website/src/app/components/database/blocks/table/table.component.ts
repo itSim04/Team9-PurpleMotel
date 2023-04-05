@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Data } from '@angular/router';
-import { DataInjection } from 'src/app/models/Database';
+import { Column, DataInjection } from 'src/app/models/Database';
 import { formatPrice, formatWord, Required } from '../../database.component';
 
 @Component({
@@ -40,6 +40,38 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   formatWord(word: string | number | symbol | undefined) {
 
     return formatWord(word);
+
+  }
+
+  formatDataField(col: Column<Data>, element: [number, Data]) {
+
+
+    return element[1][col.key];
+
+
+  }
+
+  getExtra(id: unknown) {
+
+    const temp = this.extra_data?.find(value => value[0] == id)?.[1];
+    
+    if (temp) {
+
+      return temp;
+
+    } else {
+
+      return undefined;
+
+    }
+
+
+  }
+
+  get getDisplayedColumnsKey() {
+
+    return this.data_injection.displayed_columns.map(t => t.key);
+
 
   }
 
