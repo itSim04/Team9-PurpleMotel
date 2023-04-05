@@ -60,6 +60,30 @@ export class ChangeComponent<Data> {
 
   }
 
+  modify() {
+
+    if (this.old_data) {
+
+      const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
+      dialogRef.afterClosed().subscribe(confirmation => {
+
+        if (confirmation && this.old_data) {
+
+          console.log(this.data);
+          this.modify_service(this.old_data.key, this.data).subscribe(() => {
+            if (this.old_data) {
+
+              this.dialogRef.close({ key: this.old_data.key, value: this.data });
+            }
+          });
+        }
+      });
+    }
+
+
+  }
+
+
   triggerToggle() {
 
     if (this.toggle) {
@@ -118,4 +142,19 @@ export class ChangeComponent<Data> {
 
   }
 
+  formatLabel(word: string | number | symbol) {
+
+    if (!word) return word;
+
+    const splits = word.toString().replace("_", " ").split(" ");
+
+    for (let i = 0; i < splits.length; i++) {
+
+      splits[i] = splits[i][0].toUpperCase() + splits[i].slice(1).toLowerCase();
+
+    }
+
+
+    return splits.join(" ");
+  }
 }
