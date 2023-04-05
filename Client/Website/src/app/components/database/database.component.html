@@ -1,3 +1,50 @@
-<p>
-  database works!
-</p>
+<table>
+  <tr>
+    <td style="vertical-align: top;">
+      <table style="table-layout: fixed;">
+        <tr>
+
+          <td [style.width]="!extra_injection ? '20%' : '5%'">
+
+          </td>
+          <td style="text-align: center;">
+
+            <app-table-unit [change_injection]="change_injection" [data_map]="all_data_map"
+              [extra_data_map]="all_extra_map" [data]="all_data" [data_injection]="data_injection"
+              [extra_data]="all_extra" [filtered_data]="filtered_data"
+              (hover)="display_hover = $event"></app-table-unit>
+
+          </td>
+          <td [style.width]="!extra_injection ? '20%' : '5%'">
+
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td *ngIf="all_extra && extra_data && extra_injection && all_extra_map"
+      style="vertical-align: top;">
+
+
+      <table style="table-layout: fixed;">
+        <tr>
+
+          <td [style.width]="!extra_injection ? '20%' : '5%'">
+
+          </td>
+          <td style="text-align: center;">
+
+            <app-table-unit [change_injection]="extra_change_injection" [data_map]="all_extra_map"
+              [extra_data_map]="undefined" [data]="all_extra" [data_injection]="extra_injection"
+              [extra_data]="all_extra" [filtered_data]="extra_data"
+              (hover)="extra_display_hover = $event"></app-table-unit>
+
+          </td>
+          <td [style.width]="!extra_injection ? '20%' : '5%'">
+
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+</table>
