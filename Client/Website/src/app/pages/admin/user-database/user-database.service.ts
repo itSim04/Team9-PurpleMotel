@@ -1,3 +1,4 @@
+import { UserType, UserTypePackage, UserTypeResponse } from './../../../models/UserType';
 import { UrlBuilderService } from './../../../services/url-builder.service';
 import { HttpClient } from '@angular/common/http';
 import { User, UserCredentials, UserResponse, UserPackage, UsersResponse, UsersPackage } from './../../../models/User';
@@ -5,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { RoomsPackage, RoomsResponse, Room, RoomPackage, RoomResponse } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
+import { UserTypesPackage, UserTypesResponse } from 'src/app/models/UserType';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +80,7 @@ export class UserDatabaseService {
 
     try {
 
-      return this.http.post<UserResponse>(this.url.generateUrl('users'), {...user, password: 'password', date_of_birth: '1970-01-01', language: '0'}).pipe(
+      return this.http.post<UserResponse>(this.url.generateUrl('users'), { ...user, password: 'password', date_of_birth: '1970-01-01', language: '0' }).pipe(
 
         map(result => {
 
@@ -123,6 +125,122 @@ export class UserDatabaseService {
     }
 
   }
+
+
+
+
+  getAllUserTypes(): Observable<UserTypesPackage> {
+
+    try {
+
+      return this.http.get<UserTypesResponse>(this.url.generateUrl('user-types')).pipe(
+
+        map((response: UserTypesResponse): UserTypesPackage => {
+
+          const users = new Map<string, UserType>();
+
+          response.data.forEach(user => {
+
+            users.set(user.id, user.attributes);
+
+          });
+
+          return {
+
+            users: users
+
+          };
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+
+  }
+  getOneUserType(id: string): Observable<UserTypePackage> {
+
+    try {
+
+      return this.http.get<UserTypeResponse>(this.url.generateUrl(`user-types/${id}`)).pipe(
+        map((response: UserTypeResponse): UserTypePackage => {
+
+          return {
+
+            user: {
+
+              key: response.data.id,
+              value: response.data.attributes
+
+            },
+          };
+
+
+        })
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  addNewUserType(user: UserType) {
+
+    try {
+
+      return this.http.post<UserTypeResponse>(this.url.generateUrl('user-types'), user).pipe(
+
+        map(result => {
+
+          return result.data.id;
+
+        })
+
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  modifyUserType(user_id: string, user: UserType) {
+
+    try {
+
+      return this.http.put(this.url.generateUrl(`user-types/${user_id}`), user).pipe(map(() => undefined));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  deleteUserType(key: string) {
+
+    try {
+
+      return this.http.delete(this.url.generateUrl(`user-types/${key}`)).pipe(map(() => []));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+
 
 
 }
