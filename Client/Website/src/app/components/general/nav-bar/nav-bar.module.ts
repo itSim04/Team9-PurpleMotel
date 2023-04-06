@@ -15,7 +15,7 @@ import { MatDividerModule } from '@angular/material/divider';
     CommonModule,
     LanguageModule,
     RouterModule,
-
+    
     MatDividerModule
   ],
   exports: [

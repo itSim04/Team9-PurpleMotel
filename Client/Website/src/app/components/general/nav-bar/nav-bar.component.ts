@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationDialogService } from 'src/app/service/dialogs/authentication/authentication.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class NavBarComponent {
 
+  constructor(private authentication_service: AuthenticationDialogService){}
+
+
+  login(){
+
+    this.authentication_service.openDialog("login");
+
+  }
+
+  signUp(){
+    this.authentication_service.openDialog("register")
+  }
 }
