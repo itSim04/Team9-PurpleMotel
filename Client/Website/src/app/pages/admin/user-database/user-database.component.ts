@@ -46,9 +46,10 @@ export class UserDatabaseComponent {
 
   change_injection: ChangeInjection<User> = {
 
+    side_panel: 'empty',
     default_state: {
 
-      date_of_birth: '',
+      date_of_birth: '1970-01-01',
       email: '',
       first_name: '',
       gender: '0',
@@ -100,9 +101,7 @@ export class UserDatabaseComponent {
 
           ]
         }
-      }
-
-
+      },
 
     ],
     add_service: user => this.user_service.addNewUser(user),

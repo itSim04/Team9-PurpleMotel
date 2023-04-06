@@ -13,11 +13,11 @@ class UserController extends Controller
     protected $model_name = 'Users';
     protected $options = [
 
-        'email' => 'required|string|email',
+        'email' => 'required|string|email|unique:Users',
         'password' => 'required|string|min:8',
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
-        'phone' => 'required|string',
+        'phone' => 'required|string|unique:Users',
         'gender' => 'required|between:0,3',
         'date_of_birth' => 'required|date',
         'tier' => 'required|between:0,2|numeric'

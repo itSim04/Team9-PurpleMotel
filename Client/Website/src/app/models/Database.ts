@@ -74,6 +74,8 @@ export interface StaticField<Data> {
 
 export interface ChangeInjection<Data> {
     affected_data?: KeyValue<string, Data>; // Old Data
+
+    side_panel: 'images' | 'permissions' | 'empty'
     data_type: string; // Type of Data
     standalone_field?: Field<Data>; // The Field that appears alone
     toggle?: Toggle<Data>; // A button that appears in the lower area

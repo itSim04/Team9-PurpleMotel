@@ -16,6 +16,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
 
   modification_mode = false;
+  side_panel: 'images' | 'permissions' | 'empty';
   data: Data;
   data_type: string;
   standalone_field?: Field<Data>;
@@ -38,6 +39,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     this.modify_service = injected_data.injection.modify_service;
     this.delete_service = injected_data.injection.delete_service;
     this.identifier = injected_data.injection.identifier;
+    this.side_panel = injected_data.injection.side_panel;
     this.toggle = injected_data.injection.toggle;
     this.data_type = injected_data.injection.data_type;
     this.fields = injected_data.injection.fields;

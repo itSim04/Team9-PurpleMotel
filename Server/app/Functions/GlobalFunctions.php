@@ -26,7 +26,11 @@ function updateTemplate(Request $request, string $model, string $id, string $res
 
     $options = str_replace('required|', '', $options);
 
-    // $request->validate($options);
+    $options = str_replace('|unique:'.$model_table, '', $options);
+
+    $options = str_replace('|unique:'.$model_table, '', $options);
+
+    $request->validate($options);
 
     $old = $model::find($id);
 
