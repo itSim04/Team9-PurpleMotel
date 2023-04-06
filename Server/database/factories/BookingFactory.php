@@ -17,7 +17,10 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'check_in' => fake()->date(),
+            'end_date' => fake()->date(),
+            'exhausted' => fake()->boolean()    
         ];
     }
+    
 }
