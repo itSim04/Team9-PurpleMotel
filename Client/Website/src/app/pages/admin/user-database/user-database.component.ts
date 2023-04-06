@@ -5,6 +5,8 @@ import { DataInjection, ChangeInjection } from 'src/app/models/Database';
 import { Component } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { map } from 'rxjs';
+import { UserType } from 'src/app/models/UserType';
+import { formatWord, parsePermission } from 'src/app/components/database/database.component';
 
 @Component({
   selector: 'app-user-database',
@@ -25,9 +27,6 @@ export class UserDatabaseComponent {
         key: 'last_name'
       },
       {
-        key: 'email'
-      },
-      {
         key: 'date_of_birth'
       },
       {
@@ -35,9 +34,6 @@ export class UserDatabaseComponent {
       },
       {
         key: 'tier'
-      },
-      {
-        key: 'language'
       }
     ],
     data_fetcher: () => this.user_service.getAllUsers().pipe(map(data => data.users))
@@ -110,6 +106,62 @@ export class UserDatabaseComponent {
     identifier: (data) => data.first_name + " " + data.last_name,
 
 
+
+  };
+
+  extra_injection: DataInjection<UserType> = {
+
+    title: 'User Type',
+    displayed_columns: [
+
+      {
+        key: 'label'
+      },
+      {
+        key: 'description'
+      }
+    ],
+    data_fetcher: () => this.user_service.getAllUserTypes().pipe(map(data => data.users)),
+    hover_display: (data) => data.permissions?.map(data => {
+
+      const permissions = parsePermission(data.permission);
+      if (permissions.find(t => t == true)) {
+       
+        return `${formatWord(data.label)}: ${permissions[0] ? 'Delete' : ''} ${permissions[1] ? 'Write' : ''} ${permissions[2] ? 'Read' : ''}`;
+      
+      } else {
+
+        return '';
+
+      } 
+    })
+
+  };
+
+  extra_change_injection: ChangeInjection<UserType> = {
+
+    data_type: 'User Type',
+    side_panel: 'permissions',
+    fields: [
+      {
+        key: 'label',
+        type: 'text'
+      },
+      {
+        key: 'description',
+        type: 'text'
+      }
+    ],
+    add_service: (data) => this.user_service.addNewUserType(data),
+    modify_service: (data, id) => this.user_service.modifyUserType(data, id),
+    delete_service: (id) => this.user_service.deleteUserType(id),
+    identifier: (data) => data.label,
+    default_state: {
+
+      description: '',
+      label: ''
+
+    }
 
   };
 

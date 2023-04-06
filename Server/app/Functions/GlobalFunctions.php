@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Permission;
 use Illuminate\Http\Request;
 
 function generateResponse(int $code, $collection = null, $included = [], bool $error = false)
@@ -98,14 +99,15 @@ function storeTemplate(Request $request, string $model, string $resource, array 
     }
 }
 
-function showTemplate(string $model, string $resource, int $id, string $extra_model = null, string $extra_resource = null)
+function showTemplate(string $model, string $resource, int $id, string $extra_model = null, string $extra_resource = null, string $concerned_key = null)
 {
 
     $data = $model::find($id);
 
     if ($data) {
 
-        return generateResponse(200, new $resource($data), $extra_resource && $extra_model ? [new $extra_resource($extra_model::find($data->type))] : []);
+        return generateResponse(200, new $resource($data), $extra_resource && $extra_model && $concerned_key ? [$extra_resource::collection($extra_model::where($concerned_key, $data->id)->get())] : []);
+        
     } else {
 
         return generateResponse(404, $id . " not in Database", true);

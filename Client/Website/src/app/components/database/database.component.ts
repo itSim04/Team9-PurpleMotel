@@ -82,6 +82,25 @@ export function isNum(val: string) {
 
 }
 
+export function parsePermission(permission: number): boolean[] {
+
+  if (permission === 0) {
+    return [false, false, false];
+  }
+  let binary = '';
+  let number = permission;
+  while (number > 0) {
+    binary = (number % 2) + binary;
+    number = Math.floor(number / 2);
+  }
+
+  binary = binary.toString().padStart(3, '0');
+  console.log(binary);
+
+  return [binary.charAt(0) == '1', binary.charAt(1) == '1', binary.charAt(2) == '1'];
+
+}
+
 
 
 @Component({
@@ -121,7 +140,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   extra_list: [string, Data][] = [];
 
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor (private cdr: ChangeDetectorRef) {
 
     this.mouseMove$ = this.mouseMoveSubject.asObservable().pipe(
 
@@ -134,37 +153,37 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   ngOnInit() {
     this.mouseMove$.subscribe((event: MouseEvent) => {
 
-      if (this.all_extra) {
+      if (this.data_injection.hover_fetcher) {
 
-        this.hover_list = this.all_extra.filter(t => {
+        if (this.all_extra) {
 
-          if (this.data_injection && this.data_injection.hover_fetcher && this.display_hover[1] && this.all_extra) {
+          this.hover_list = this.all_extra.filter(t => {
 
-            return t[0] == this.display_hover[1][this.data_injection.hover_fetcher.key];
+            if (this.data_injection && this.data_injection.hover_fetcher && this.display_hover[1] && this.all_extra) {
 
-          } else {
+              return t[0] == this.display_hover[1][this.data_injection.hover_fetcher.key];
 
-            return false;
+            } else {
 
-          }
+              return false;
 
-        });
+            }
+
+          });
 
 
-        this.mouseX = event.clientX;
-        this.mouseY = event.clientY;
-
+        }
       }
 
       if (this.extra_injection && this.extra_injection.hover_fetcher && this.extra_display_hover[1]) {
 
         this.extra_list = this.all_data.filter(t => t[0] == this.extra_injection?.hover_fetcher?.key);
 
-        this.mouseX = event.clientX;
-        this.mouseY = event.clientY;
-
       }
 
+      if (this.data_injection.hover_display || this.data_injection.hover_fetcher || this.extra_injection?.hover_display || this.extra_injection?.hover_fetcher)
+        this.mouseX = event.clientX;
+      this.mouseY = event.clientY;
 
     });
   }
@@ -267,6 +286,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
 
+
     if (this.display_hover || this.extra_display_hover) {
 
       this.mouseMoveSubject.next(event);
@@ -303,6 +323,6 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
   }
 
-  
+
 
 }

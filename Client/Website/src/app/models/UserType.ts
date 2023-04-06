@@ -1,9 +1,20 @@
 import { KeyValue } from '@angular/common';
 
 
-export interface UserType {
+export interface UserTypeAttributes {
     label: string,
-    description: string
+    description: string;
+}
+
+export interface UserType extends UserTypeAttributes {
+
+    permissions?: {
+
+        'label': string,
+        'permission': number,
+
+    }[];
+
 }
 
 export interface UserTypePackage {
@@ -25,7 +36,7 @@ export interface UserTypeResponse {
     data: {
         id: string,
         type: string,
-        attributes: UserType;
+        attributes: UserTypeAttributes;
     },
     authorisation?: {
         token: string,
@@ -40,7 +51,23 @@ export interface UserTypesResponse {
     data: {
         id: string,
         type: string,
-        attributes: UserType;
+        attributes: UserTypeAttributes;
+    }[];
+    included?: {
+
+        id: string,
+        type: string,
+        attributes: {
+
+            label: string,
+            concerned_party: string,
+            is_singular: boolean,
+            read: boolean,
+            write: boolean,
+            delete: boolean;
+
+        };
+
     }[];
 
 }

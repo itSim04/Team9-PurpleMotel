@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PermissionResource;
 use App\Models\UserType;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserTypeResource;
+use App\Models\Permission;
 
 class UserTypeController extends Controller
 {
@@ -23,7 +25,7 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource);
+        return indexTemplate($this->model, $this->resource, Permission::class, PermissionResource::class);
     }
 
     /**
@@ -40,7 +42,7 @@ class UserTypeController extends Controller
     public function show(int $id)
     {
 
-        return showTemplate($this->model, $this->resource, $id);
+        return showTemplate($this->model, $this->resource, $id, Permission::class, PermissionResource::class, 'concerned_party');
     }
 
     /**

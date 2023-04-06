@@ -136,12 +136,33 @@ export class UserDatabaseService {
       return this.http.get<UserTypesResponse>(this.url.generateUrl('user-types')).pipe(
 
         map((response: UserTypesResponse): UserTypesPackage => {
-
           const users = new Map<string, UserType>();
 
           response.data.forEach(user => {
 
             users.set(user.id, user.attributes);
+
+          });
+
+          response.included?.forEach(permission => {
+
+            const user = users.get(permission.attributes.concerned_party);
+
+            if (user) {
+
+              if(!user.permissions) {
+
+                user.permissions = [];
+
+              }
+              user.permissions.push({
+
+                label: permission.attributes.label,
+                permission: Number.parseInt(`${permission.attributes.delete}${permission.attributes.write}${permission.attributes.read}`, 2)
+                
+
+              });
+            }
 
           });
 
@@ -161,32 +182,32 @@ export class UserDatabaseService {
 
 
   }
-  getOneUserType(id: string): Observable<UserTypePackage> {
+  getOneUserType(id: string): void {
 
-    try {
+    // try {
 
-      return this.http.get<UserTypeResponse>(this.url.generateUrl(`user-types/${id}`)).pipe(
-        map((response: UserTypeResponse): UserTypePackage => {
+    //   return this.http.get<UserTypeResponse>(this.url.generateUrl(`user-types/${id}`)).pipe(
+    //     map((response: UserTypeResponse): UserTypePackage => {
 
-          return {
+    //       return {
 
-            user: {
+    //         user: {
 
-              key: response.data.id,
-              value: response.data.attributes
+    //           key: response.data.id,
+    //           value: response.data.attributes
 
-            },
-          };
+    //         },
+    //       };
 
 
-        })
-      );
+    //     })
+    //   );
 
-    } catch (e: unknown) {
+    // } catch (e: unknown) {
 
-      throw new Error(JSON.stringify(e));
+    //   throw new Error(JSON.stringify(e));
 
-    }
+    // }
 
   }
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPermissions;
+use App\Http\Controllers\UserPermissionsController;
 use App\Http\Controllers\UserTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

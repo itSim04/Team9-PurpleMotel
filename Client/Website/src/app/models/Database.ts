@@ -26,12 +26,12 @@ export interface DataInjection<Data> {
     
     data_fetcher: (() => Observable<Map<string, Data>>) | undefined; // Fetches data for ONE table. Will not be applied if a dual fetcher is provided manually.
     hover_fetcher?: {
-
+    
         key: keyof Data, // The foreign key of the data to fetch
         format: (value: unknown) => string[]; // The way the data is displayed in the popup
 
     }; // Fetches a list of item to display when hovered over a cell from the other table
-    hover_display?: (data: unknown) => string;
+    hover_display?: (data: Data) => string[] | undefined;
 
 
 }
