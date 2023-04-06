@@ -1,3 +1,4 @@
+import { DatabaseModule } from './../../../components/database/database.module';
 import { UserDatabaseComponent } from './user-database.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,7 +10,9 @@ import { CommonModule } from '@angular/common';
     UserDatabaseComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    DatabaseModule,
+
   ],
   exports: [
     UserDatabaseComponent

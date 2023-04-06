@@ -3,8 +3,8 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Field, Toggle, StaticField, ChangeInjection } from 'src/app/models/Database';
-import { ConfirmationDialogService } from 'src/app/service/dialogs/confirmation/confirmation.service';
-import { WarningDialogService } from 'src/app/service/dialogs/warning/warning.service';
+import { ConfirmationDialogService } from 'src/app/services/dialogs/confirmation/confirmation.service';
+import { WarningDialogService } from 'src/app/services/dialogs/warning/warning.service';
 import { isNum } from '../database.component';
 
 @Component({
