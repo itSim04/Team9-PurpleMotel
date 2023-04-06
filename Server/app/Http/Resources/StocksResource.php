@@ -14,6 +14,16 @@ class StocksResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => (string)$this->id,
+            'type' => 'Stocks',
+            'attributes' => [
+                'label' => $this->label,
+                'description' => $this->description,
+                'available_quantity' => $this->available_quantity,
+                'is_ingredient' => $this->is_ingredient
+                
+            ]
+        ];
     }
 }
