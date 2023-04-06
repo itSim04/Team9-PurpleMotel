@@ -21,6 +21,18 @@ class BookingResource extends JsonResource
                 'check_in' => $this->check_in,
                 'end_date' => $this->end_date,
                 'exhausted' => $this->exhausted
+            ],
+            'relationships' => [
+                'room' => [
+                    'data' => [
+                        'id' => (string)$this->room_id
+                    ]
+                ],
+                'user' => [
+                    'data' => [
+                        'id' => (string)$this->user_id
+                    ]
+                ]
             ]
         ];
     }

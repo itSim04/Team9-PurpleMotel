@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
@@ -20,4 +21,5 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::apiResource('users', UserController::class);
+    Route::apiResource('bookings', BookingController::class);
 });
