@@ -20,4 +20,5 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::apiResource('users', UserController::class);
+    Route::apiResource('rooms', RoomController::class);
 });
