@@ -24,6 +24,8 @@ function indexTemplate(string $model, string $resource, string $extra_model = nu
 function updateTemplate(Request $request, string $model, string $id, string $resource, array $options)
 {
 
+    $options = str_replace('required|', '', $options);
+
     $request->validate($options);
 
     $old = $model::find($id);
