@@ -17,7 +17,10 @@ class StocksFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'label' => fake()->firstName(),
+            'description' => fake()->sentence(),
+            'available_quantity' => random_int(0,400),
+            'is_ingredient' => fake()->boolean(),
         ];
     }
 }
