@@ -14,7 +14,7 @@ import { throwError } from 'rxjs';
 })
 export class AuthenticationDialogService {
 
-  constructor(public dialog: MatDialog, private request: HttpClient) { }
+  constructor (public dialog: MatDialog, private request: HttpClient) { }
 
   openDialog(type: 'login' | 'register') {
 
@@ -44,14 +44,18 @@ export class AuthenticationDialogService {
 
       map(result => {
 
-        localStorage.setItem('token', result.authorisation.token);
-        localStorage.setItem('user', JSON.stringify(result.data.attributes));
+        if (result.authorisation) {
+
+          localStorage.setItem('token', result.authorisation.token);
+          localStorage.setItem('user', JSON.stringify(result.data.attributes));
+        }
+
         return;
 
       })
 
-      
-    )
+
+    );
   }
   register(user: UserInformation) {
 
@@ -60,13 +64,17 @@ export class AuthenticationDialogService {
 
       map(result => {
 
-        localStorage.setItem('token', result.authorisation.token);
-        localStorage.setItem('user', JSON.stringify(result.data.attributes));
+        if (result.authorisation) {
+         
+          localStorage.setItem('token', result.authorisation.token);
+          localStorage.setItem('user', JSON.stringify(result.data.attributes));
+          
+        }
         return;
 
       })
 
-      
-    )
+
+    );
   }
 }

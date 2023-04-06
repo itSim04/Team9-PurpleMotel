@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthenticationDialogService } from 'src/app/service/dialogs/authentication/authentication.service';
+import { AuthenticationDialogService } from 'src/app/services/dialogs/authentication/authentication.service';
 
 @Component({
   selector: 'app-nav-bar',
