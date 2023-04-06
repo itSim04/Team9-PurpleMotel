@@ -12,12 +12,13 @@ class Room extends Model
 {
     use HasFactory;
     protected $fillable=[
+        
         'label',
         'description',
         'number',
         'level',
         'type',
-        'is_open',
+        'open',
         'rating'
     ];
     
