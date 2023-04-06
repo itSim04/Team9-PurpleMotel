@@ -17,7 +17,13 @@ class RoomFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'level' => random_int(1, 9),
+            'number' => random_int(1, 99),
+            'type' => random_int(1, 20),
+            'open' => fake()->boolean(),
+            'rating' => fake()->randomFloat(1, 0, 5),
+            'label' => fake()->firstName(),
+            'description' => fake()->sentence()
         ];
     }
 }
