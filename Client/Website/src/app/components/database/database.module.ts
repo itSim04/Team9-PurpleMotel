@@ -45,6 +45,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatSelectModule
 
+  ],
+  exports: [
+    DatabaseComponent
   ]
 })
 export class DatabaseModule { }
