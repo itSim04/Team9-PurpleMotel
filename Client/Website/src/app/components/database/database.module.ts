@@ -31,11 +31,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ChangeComponent
 
   ],
-  exports: [
-
-    DatabaseComponent
-
-  ],
   imports: [
 
     CommonModule,

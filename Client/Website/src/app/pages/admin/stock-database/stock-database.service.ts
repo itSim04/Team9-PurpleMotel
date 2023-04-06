@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { StocksResponse, Stock, StockResponse, StockPackage, StocksPackage } from "src/app/models/Stock";
-import { UrlBuilderService } from "src/app/service/url-builder.service";
+import { UrlBuilderService } from "src/app/services/url-builder.service";
 
 
 @Injectable({
