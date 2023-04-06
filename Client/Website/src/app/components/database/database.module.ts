@@ -1,7 +1,7 @@
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChangeComponent } from './change/change.component';
 import { MatDividerModule } from '@angular/material/divider';
-import { LanguageModule } from './../../service/language/language.module';
+import { LanguageModule } from './../../services/language/language.module';
 import { DatabaseComponent } from './database.component';
 import { TableUnitComponent } from './blocks/table-unit/table-unit.component';
 import { TableComponent } from './blocks/table/table.component';
