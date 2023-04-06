@@ -18,14 +18,17 @@ export interface UserInformation {
     phone: string,
     date_of_birth: string;
 }
+export interface UserInjection extends UserInformation {
+    tier: string,
+}
 export interface User {
 
     first_name: string,
     last_name: string,
     email: string;
-    gender: number,
+    gender: string,
     phone: string,
-    language: number,
+    language: string,
     date_of_birth: string,
     tier: string,
 }

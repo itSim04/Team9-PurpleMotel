@@ -78,7 +78,7 @@ export class UserDatabaseService {
 
     try {
 
-      return this.http.post<UserResponse>(this.url.generateUrl('users'), user).pipe(
+      return this.http.post<UserResponse>(this.url.generateUrl('users'), {...user, password: 'password', date_of_birth: new Date(), language: '0'}).pipe(
 
         map(result => {
 

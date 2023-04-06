@@ -1,3 +1,4 @@
+import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChangeComponent } from './change/change.component';
 import { MatDividerModule } from '@angular/material/divider';
@@ -17,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -29,10 +31,16 @@ import { MatSelectModule } from '@angular/material/select';
     ChangeComponent
 
   ],
+  exports: [
+
+    DatabaseComponent
+
+  ],
   imports: [
 
     CommonModule,
     MatFormFieldModule,
+    MatInputModule,
     FormsModule,
     MatOptionModule,
     LanguageModule,
@@ -43,7 +51,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatProgressBarModule,
     MatDividerModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
 
   ]
 })

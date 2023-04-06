@@ -10,13 +10,14 @@ class UserController extends Controller
 {
     protected $resource = UserResource::class;
     protected $model = User::class;
+    protected $model_name = 'Users';
     protected $options = [
 
-        'email' => 'required|string|email|unique:users',
+        'email' => 'required|string|email',
         'password' => 'required|string|min:8',
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
-        'phone' => 'required|string|unique:users',
+        'phone' => 'required|string',
         'gender' => 'required|between:0,3',
         'date_of_birth' => 'required|date',
         'tier' => 'required|between:0,2|numeric'
@@ -54,7 +55,7 @@ class UserController extends Controller
     public function update(Request $request, string $room_id)
     {
        
-        return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options);
+        return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options, $this->model_name);
     }
 
     /**

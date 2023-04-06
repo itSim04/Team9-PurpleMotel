@@ -1,3 +1,6 @@
+import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
+import { UserDatabaseModule } from './pages/admin/user-database/user-database.module';
+import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { FooterModule } from './components/general/footer/footer.module';
 import { NavBarModule } from './components/general/nav-bar/nav-bar.module';
 import { NgModule } from '@angular/core';
@@ -20,9 +23,13 @@ import { AuthenticationModule } from './services/dialogs/authentication/authenti
     AppRoutingModule,
     HttpClientModule,
 
+    ConfirmationDialogModule,
+
     NavBarModule,
     FooterModule,
     BrowserAnimationsModule,
+
+    UserDatabaseModule,
 
     StarRatingModule.forRoot(),
     AuthenticationModule
@@ -30,7 +37,7 @@ import { AuthenticationModule } from './services/dialogs/authentication/authenti
   ],
   providers: [
     MatDialogModule,
-],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

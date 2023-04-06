@@ -21,27 +21,54 @@ function indexTemplate(string $model, string $resource, string $extra_model = nu
     return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()) : []);
 }
 
-function updateTemplate(Request $request, string $model, string $id, string $resource, array $options)
+function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null)
 {
 
     $options = str_replace('required|', '', $options);
 
-    $request->validate($options);
+    // $request->validate($options);
 
     $old = $model::find($id);
 
     $credentials = $request->only(array_keys($options));
 
+    $updateData = [];
+
+    foreach ($credentials as $key => $value) {
+
+        if ($old->{$key} !== $value) {
+
+            $updateData[$key] = $value;
+
+        }
+
+    }
+
+    if ($model_table && isset($updateData['phone'])) {
+        $request->validate([
+            'phone' => 'unique:'.$model_table
+        ]);
+    }
+    
+    if ($model_table && isset($updateData['email'])) {
+        $request->validate([
+            'email' => 'unique:'.$model_table
+        ]);
+    }
+
     try {
 
-        $data = $old->update($credentials);
+        if (!empty($updateData)) {
 
-        if ($data) {
+            $data = $old->update($updateData);
 
-            return generateResponse(201, new $resource($old));
-        } else {
+            if ($data) {
 
-            return generateResponse(500, "An error occured", true);
+                return generateResponse(201, new $resource($old));
+            } else {
+
+                return generateResponse(500, "An error occured", true);
+            }
         }
     } catch (Exception $e) {
 
