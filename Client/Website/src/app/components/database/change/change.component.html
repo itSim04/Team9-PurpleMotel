@@ -142,7 +142,7 @@
                                 *ngIf="field.choices?.link && field.choices && (field.type === 'selection' || field.type === 'choices')"
                                 class="full-width input">
                                 <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <mat-select [disabled]="!modification_rule(this.data)" [multiple]="field.type === 'choices'" class="input"
+                                <mat-select [multiple]="field.type === 'choices'" class="input"
                                     [ngModel]="data[field.key]"
                                     (ngModelChange)="data[field.key]=$event">
                                     <mat-option [disabled]="!modification_rule(this.data)" class="input"

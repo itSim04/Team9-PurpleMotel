@@ -25,6 +25,7 @@ export class UserDatabaseService {
 
     try {
 
+
       return this.http.get<UsersResponse>(this.url.generateUrl('users'), { headers: headers }).pipe(
 
         map((response: UsersResponse): UsersPackage => {
@@ -33,9 +34,16 @@ export class UserDatabaseService {
 
           response.data.forEach(user => {
 
-            users.set(user.id, { ...user.attributes, permissions: new Map<string, number>() });
+            const new_user = {
+              ...user.attributes,
+              type: user.relationships.user_type.data.id,
+              permissions: new Map<string, number>()
+            };
+            users.set(user.id, new_user);
 
           });
+
+          console.log(users);
 
           response.included?.forEach(permission => {
 
@@ -191,7 +199,7 @@ export class UserDatabaseService {
             }
 
           });
-          console.log(users);
+
           return {
 
             users: users

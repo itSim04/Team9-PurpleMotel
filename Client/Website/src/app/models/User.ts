@@ -36,6 +36,7 @@ export interface UserAttributes {
 export interface User extends UserAttributes {
 
     permissions: Map<string, number>;
+    type: string;
 
 }
 
@@ -59,7 +60,31 @@ export interface UserResponse {
         id: string,
         type: string,
         attributes: UserAttributes;
+        relationships: {
+            user_type: {
+                data: {
+                    id: string;
+                    type: string;
+                };
+            };
+        };
     },
+    included?: {
+
+        id: string,
+        type: string,
+        attributes: {
+
+            label: string,
+            concerned_party: string,
+            is_singular: boolean,
+            read: boolean,
+            write: boolean,
+            delete: boolean;
+
+        };
+
+    };
     authorisation?: {
         token: string,
         type: string;
@@ -74,7 +99,16 @@ export interface UsersResponse {
         id: string,
         type: string,
         attributes: UserAttributes;
+        relationships: {
+            user_type: {
+                data: {
+                    id: string;
+                    type: string;
+                };
+            };
+        };
     }[];
+
     included?: {
 
         id: string,

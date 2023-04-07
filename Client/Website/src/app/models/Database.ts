@@ -13,7 +13,7 @@ export interface Column<Data> {
     link?: {
 
         key: keyof Data,
-        format: (value: unknown) => string; // 'Unknown' represents the Linked data (aka the other Table's data)
+        format: (value: unknown, org?: Data) => string; // 'Unknown' represents the Linked data (aka the other Table's data)
 
     }; // Exclusively used with Link
 

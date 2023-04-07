@@ -56,7 +56,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
 
         if (col.link) {
 
-          return col.link.format(this.getExtra(element[1][col.link.key]));
+          return col.link.format(this.getExtra(element[1][col.link.key]), element[1]);
 
         } else {
 
@@ -119,7 +119,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
         return `#${this.data_injection.special_case.color}`;
 
       }
-      
+
     } else {
 
       if (this.hovered == data[0]) {

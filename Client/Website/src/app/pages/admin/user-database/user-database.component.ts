@@ -30,42 +30,67 @@ export class UserDatabaseComponent {
 
     displayed_columns: [
       {
-        key: 'first_name'
+        key: 'first_name',
+        type: 'custom',
+        custom: (data) => data.first_name + ' ' + data.last_name
       },
       {
-        key: 'last_name'
-      },
-      {
-        key: 'date_of_birth'
+        key: 'date_of_birth',
+        header_alt: 'Birthday',
+        type: 'custom',
+        custom: (data) => {
+
+          return data.date_of_birth.slice(8, 10) + '/' + data.date_of_birth.slice(5, 7) + '/' + data.date_of_birth.slice(0, 4);
+
+        }
       },
       {
         key: 'phone',
       },
       {
-        key: 'tier',
-        type: 'custom',
-        custom: (data) => {
+        key: 'type',
+        type: 'link',
+        link: {
 
-          switch (data.tier) {
+          key: 'type',
+          format: (value, org) => {
 
-            case '0':
+            let tier = '';
 
-              return 'Guest';
+            switch (org?.tier) {
 
-            case '1':
+              case '0':
 
-              return 'Staff';
+                tier = 'Guest';
+                break;
 
-            case '2':
+              case '1':
 
-              return 'Admin';
+                tier = 'Staff';
+                break;
 
-            default:
+              case '2':
 
-              return 'Unidentified';
+                tier = 'Admin';
+                break;
+
+              default:
+
+                tier = 'Unidentified';
+
+            }
+
+            if (org?.tier != '2') {
+
+              return tier + " - " + (value as UserType).label;
+
+            } else {
+
+              return tier;
+
+            }
 
           }
-
         }
       }
     ],
@@ -73,15 +98,18 @@ export class UserDatabaseComponent {
     hover_display: (data) => {
 
       const result: string[] = [];
-      data.permissions.forEach((permission, label) => {
 
-        const permissions = parsePermission(permission);
-        if (permissions.find(t => t == true)) {
+      if (data.tier != '2') {
+        data.permissions.forEach((permission, label) => {
 
-          result.push(`${formatWord(label)}: ${permissions[0] ? 'Delete' : ''} ${permissions[1] ? 'Write' : ''} ${permissions[2] ? 'Read' : ''}`);
+          const permissions = parsePermission(permission);
+          if (permissions.find(t => t == true)) {
 
-        }
-      });
+            result.push(`${formatWord(label)}: ${permissions[0] ? 'Delete' : ''} ${permissions[1] ? 'Write' : ''} ${permissions[2] ? 'Read' : ''}`);
+
+          }
+        });
+      }
       return result;
 
     }
@@ -119,6 +147,7 @@ export class UserDatabaseComponent {
       last_name: '',
       phone: '',
       tier: '0',
+      type: '0',
       permissions: new Map()
 
     },
@@ -166,6 +195,16 @@ export class UserDatabaseComponent {
           key: (choice) => choice[0].toString()
         }
       },
+      {
+        key: 'type',
+        type: 'selection',
+        choices: {
+
+          link: true,
+          format: (choice) => (choice as UserType).label
+
+        }
+      }
 
     ],
     add_service: user => this.user_service.addNewUser(user),

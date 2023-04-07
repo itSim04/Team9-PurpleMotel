@@ -18,21 +18,42 @@ function generateResponse(int $code, $collection = null, $included = [], bool $e
     return response()->json($response, $code);
 }
 
-function extractPermissions($id) {
-
-    $permissions = [];
+function extractPermissions($id, $type)
+{
 
     foreach (Permission::where('is_singular', true)->where('concerned_party', $id)->get() as $permission) {
 
-        $permissions[$permission->label] = [$permission->read, $permission->write, $permission->delete];
+        $permissions_final[$permission->label] = [$permission->read, $permission->write, $permission->delete];
     }
-    return $permissions;
 
+
+    foreach (Permission::where('is_singular', false)->where('concerned_party', $type)->get() as $permission_type) {
+
+        if (array_key_exists($permission_type->label, $permissions_final)) {
+
+            $permissions_final[$permission_type->label][0] = max($permissions_final[$permission_type->label][0], $permission_type->read);
+            $permissions_final[$permission_type->label][1] = max($permissions_final[$permission_type->label][1], $permission_type->write);
+            $permissions_final[$permission_type->label][2] = max($permissions_final[$permission_type->label][2], $permission_type->delete);
+        } else {
+
+            $permissions_final[$permission_type->label] = [$permission_type->read, $permission_type->write, $permission_type->delete];
+        }
+    }
+
+
+    
+    return $permissions_final;
 }
 
-function indexTemplate(string $model, string $resource, string $extra_model = null, string $extra_resource = null)
+function indexTemplate(string $model, string $resource, string $extra_model = null, string $extra_resource = null, string $condition = null, $condition_value = null)
 {
-    return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()) : []);
+    if ($condition) {
+
+        return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()->where($condition, $condition_value)) : []);
+    } else {
+
+        return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()) : []);
+    }
 }
 
 function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null, bool $singular = true)
@@ -72,6 +93,7 @@ function updateTemplate(Request $request, string $model, string $id, string $res
         ]);
     }
 
+
     try {
 
         if (isset($request->permissions)) {
@@ -84,6 +106,7 @@ function updateTemplate(Request $request, string $model, string $id, string $res
         if (!empty($updateData)) {
 
             $data = $old->update($updateData);
+
 
             if ($data) {
 

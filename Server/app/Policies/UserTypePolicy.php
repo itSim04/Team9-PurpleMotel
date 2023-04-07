@@ -27,7 +27,7 @@ class UserTypePolicy
         if($user->tier == 2) {
             return true;
         }
-        $permissions = extractPermissions($user->id);
+        $permissions = extractPermissions($user->id, $user->type);
         if (!array_key_exists('user_type', $permissions)) {
 
             return false;
@@ -52,7 +52,7 @@ class UserTypePolicy
         if($user->tier == 2) {
             return true;
         }
-        $permissions = extractPermissions($user->id);
+        $permissions = extractPermissions($user->id, $user->type);
         if (!array_key_exists('user_type', $permissions)) {
 
             return false;
@@ -69,7 +69,7 @@ class UserTypePolicy
         if($user->tier == 2) {
             return true;
         }
-        $permissions = extractPermissions($user->id);
+        $permissions = extractPermissions($user->id, $user->type);
         if (!array_key_exists('user_type', $permissions)) {
 
             return false;
@@ -87,7 +87,7 @@ class UserTypePolicy
         if($user->tier == 2) {
             return true;
         }
-        $permissions = extractPermissions($user->id);
+        $permissions = extractPermissions($user->id, $user->type);
         if (!array_key_exists('user_type', $permissions)) {
 
             return false;
