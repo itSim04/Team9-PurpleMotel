@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { RoomsResponse, Room, RoomResponse, RoomPackage, RoomsPackage } from "src/app/models/Room";
-import { RoomType } from "src/app/models/RoomType";
+import { RoomTypeResponse, RoomType, RoomTypesResponse, RoomTypePackage, RoomTypesPackage } from "src/app/models/RoomType";
 import { UrlBuilderService } from "src/app/services/url-builder.service";
 
 
@@ -111,6 +111,67 @@ export class RoomDatabaseService {
 
   }
 
+  getAllRoomTypes(): Observable<RoomTypesPackage> {
+
+    try {
+
+      return this.http.get<RoomTypesResponse>(this.url.generateUrl('roomtypes')).pipe(
+
+        map((response: RoomTypesResponse): RoomTypesPackage => {
+
+          const roomtypes = new Map<string, RoomType>();
+
+          response.data.forEach(room_type => {
+
+            roomtypes.set(room_type.id, room_type.attributes);
+
+          });
+
+          return {
+
+            room_types: roomtypes
+
+          };
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+
+  }
+  getOneRoomType(id: string): Observable<RoomTypePackage> {
+
+    try {
+
+      return this.http.get<RoomTypeResponse>(this.url.generateUrl(`roomtypes/${id}`)).pipe(
+        map((response: RoomTypeResponse): RoomTypePackage => {
+
+          return {
+
+            room_type: {
+
+              key: response.data.id,
+              value: response.data.attributes
+
+            },
+          };
+
+
+        })
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
   addNewRoom(room: Room) {
 
     try {
@@ -160,4 +221,55 @@ export class RoomDatabaseService {
     }
 
   }
+
+  addNewRoomType(roomType: RoomType) {
+
+    try {
+
+      return this.http.post<RoomTypeResponse>(this.url.generateUrl('roomtypes'), roomType).pipe(
+
+        map(result => {
+
+          return result.data.id;
+
+        })
+
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  modifyRoomType(roomType_id: string, roomType: RoomType) {
+
+    try {
+
+      return this.http.put(this.url.generateUrl(`roomtypes/${roomType_id}`), roomType).pipe(map(() => undefined));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  deleteRoomType(key: string) {
+
+    try {
+
+      return this.http.delete(this.url.generateUrl(`roomtypes/${key}`)).pipe(map(() => []));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
 }
