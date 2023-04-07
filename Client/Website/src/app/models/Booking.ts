@@ -5,7 +5,7 @@ import { RoomType } from "./RoomType";
 export interface BookingAttributes {
 
   
-  start_date: Date,
+  check_in: Date,
   end_date: Date,
   exhausted: boolean;
 
@@ -13,23 +13,19 @@ export interface BookingAttributes {
 
 export interface Booking extends BookingAttributes {
 
-  room_id: string,
+  room_id?: string,
   user_id?: number,
 
 }
 
 export interface BookingPackage {
 
-  room: KeyValue<string, Room>;
-  room_type: KeyValue<string, RoomType>;
   booking: KeyValue<string, Booking>;
 
 
 }
 export interface BookingsPackage {
 
-  rooms: Map<string, Room>;
-  room_types: Map<string, RoomType>;
   bookings: Map<string, Booking>;
 
 }
@@ -79,7 +75,7 @@ export interface BookingsResponse {
         };
       };
     }[];
-  };
+  }[];
   included?: {
 
     id: string;
