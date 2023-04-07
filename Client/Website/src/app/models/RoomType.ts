@@ -36,6 +36,7 @@ export interface RoomTypeResponse {
 export interface RoomTypesResponse {
   status: string,
   data: {
+    forEach(arg0: (room_type: any) => void): unknown;
     id: string;
     type: string;
     attributes: RoomType;
