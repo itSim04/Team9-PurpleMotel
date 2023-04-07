@@ -27,6 +27,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  hovered = '-1';
   ngAfterViewInit(): void {
 
     this.filtered_data.paginator = this.paginator;
@@ -105,16 +106,31 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
 
   }
 
-  mark(data: any) {
+  mark(data: [string, Data]) {
 
-    if (this.data_injection.special_case && this.data_injection.special_case.rule(data)) {
+    if (this.data_injection.special_case && this.data_injection.special_case.rule(data[1])) {
 
-      return `#${this.data_injection.special_case.color}`;
+      if (this.hovered == data[0]) {
 
+        return `#${this.data_injection.special_case.alt_color}`;
+
+      } else {
+
+        return `#${this.data_injection.special_case.color}`;
+
+      }
+      
     } else {
 
-      return 'white';
+      if (this.hovered == data[0]) {
 
+        return 'lightgray';
+
+      } else {
+       
+        return 'white';
+
+      }
     }
 
 

@@ -25,9 +25,10 @@ export interface DataInjection<Data> {
     title: string;
 
     special_case?: {
-
+        
         rule: (data: Data) => boolean,
         color: string;
+        alt_color: string;
 
     };
     displayed_columns: Column<Data>[]; // The columns of the database
