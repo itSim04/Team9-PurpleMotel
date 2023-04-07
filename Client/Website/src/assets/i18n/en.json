@@ -41,6 +41,7 @@
     "reset_filter": "Reset Filter",
     "filter": "Filter",
     "user": "User",
+    "user_type": "User Type",
     "filter_by": "Filter By"
 
 }

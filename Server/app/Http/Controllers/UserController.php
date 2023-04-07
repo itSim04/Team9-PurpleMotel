@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PermissionResource;
 use App\Http\Resources\UserResource;
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -29,7 +31,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource);
+        return indexTemplate($this->model, $this->resource, Permission::class, PermissionResource::class);
     }
 
     /**

@@ -294,7 +294,10 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
         }, error: error => {
 
           this.loading[0] = true;
-          this.loadPrimaryData();
+          setTimeout(() => {
+            this.loadPrimaryData();
+          }, 5000);
+
 
         }
       }));
@@ -321,7 +324,9 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
         }, error: error => {
 
           this.loading[1] = true;
-          this.loadSecondaryData();
+          setTimeout(() => {
+            this.loadSecondaryData();
+          }, 5000);
 
         }
 

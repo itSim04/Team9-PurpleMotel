@@ -1,9 +1,9 @@
-import { UserInformation, UserInjection } from './../../../models/User';
+import { User, UserInformation, UserInjection } from './../../../models/User';
 import { genders } from './../../../services/dialogs/authentication/authentication.utility';
 import { UserDatabaseService } from './user-database.service';
 import { DataInjection, ChangeInjection } from 'src/app/models/Database';
 import { Component } from '@angular/core';
-import { User } from 'src/app/models/User';
+import { UserAttributes } from 'src/app/models/User';
 import { map } from 'rxjs';
 import { UserType } from 'src/app/models/UserType';
 import { formatWord, parsePermission } from 'src/app/components/database/database.component';
@@ -36,13 +36,43 @@ export class UserDatabaseComponent {
         key: 'tier'
       }
     ],
-    data_fetcher: () => this.user_service.getAllUsers().pipe(map(data => data.users))
+    data_fetcher: () => this.user_service.getAllUsers().pipe(map(data => data.users)),
+    hover_display: (data) => {
 
+      const result: string[] = [];
+      data.permissions.forEach((permission, label) => {
+
+        const permissions = parsePermission(permission);
+        if (permissions.find(t => t == true)) {
+
+          result.push(`${formatWord(label)}: ${permissions[0] ? 'Delete' : ''} ${permissions[1] ? 'Write' : ''} ${permissions[2] ? 'Read' : ''}`);
+
+        }
+      });
+      return result;
+
+    }
   };
 
   change_injection: ChangeInjection<User> = {
 
-    side_panel: 'empty',
+    side_panel: 'permissions',
+    permissions: {
+
+      columns: ['Delete', 'Write', 'Read'],
+      rows: ['room', 'user', 'stock', 'user_type'],
+      key: 'permissions',
+
+      update: (data: User, label: string, result: number) => data.permissions.set(label, result),
+
+      retrieve: (result: User, label: string) => parsePermission(result.permissions.get(label)),
+      format: (result) => {
+
+        return Number.parseInt(`${result[0] ? '1' : 0}${result[1] ? '1' : 0}${result[2] ? '1' : 0}`, 2).toString();
+
+      }
+
+    },
     default_state: {
 
       date_of_birth: '1970-01-01',
@@ -53,6 +83,7 @@ export class UserDatabaseComponent {
       last_name: '',
       phone: '',
       tier: '0',
+      permissions: new Map()
 
     },
     data_type: 'Users',
@@ -145,8 +176,8 @@ export class UserDatabaseComponent {
     side_panel: 'permissions',
     permissions: {
 
-      columns: ['Read', 'Write', 'Delete'],
-      rows: ['room', 'user', 'stock'],
+      columns: ['Delete', 'Write', 'Read'],
+      rows: ['room', 'user', 'stock', 'user_type'],
       key: 'permissions',
 
       update: (data: UserType, label: string, result: number) => data.permissions.set(label, result),

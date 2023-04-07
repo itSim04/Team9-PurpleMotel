@@ -1,12 +1,13 @@
 import { UserType, UserTypePackage, UserTypeResponse } from './../../../models/UserType';
 import { UrlBuilderService } from './../../../services/url-builder.service';
-import { HttpClient } from '@angular/common/http';
-import { User, UserCredentials, UserResponse, UserPackage, UsersResponse, UsersPackage } from './../../../models/User';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserAttributes, UserCredentials, UserResponse, UserPackage, UsersResponse, UsersPackage, User } from './../../../models/User';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { RoomsPackage, RoomsResponse, Room, RoomPackage, RoomResponse } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { UserTypesPackage, UserTypesResponse } from 'src/app/models/UserType';
+import { clone } from 'src/app/components/database/change/change.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,16 @@ export class UserDatabaseService {
 
   constructor (private http: HttpClient, private url: UrlBuilderService) { }
 
+
+
   getAllUsers(): Observable<UsersPackage> {
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     try {
 
-      return this.http.get<UsersResponse>(this.url.generateUrl('users')).pipe(
+      return this.http.get<UsersResponse>(this.url.generateUrl('users'), { headers: headers }).pipe(
 
         map((response: UsersResponse): UsersPackage => {
 
@@ -27,7 +33,18 @@ export class UserDatabaseService {
 
           response.data.forEach(user => {
 
-            users.set(user.id, user.attributes);
+            users.set(user.id, { ...user.attributes, permissions: new Map<string, number>() });
+
+          });
+
+          response.included?.forEach(permission => {
+
+            const user = users.get(permission.attributes.concerned_party);
+
+            if (user) {
+
+              user.permissions.set(permission.attributes.label, Number.parseInt(`${permission.attributes.delete}${permission.attributes.write}${permission.attributes.read}`, 2));
+            }
 
           });
 
@@ -76,7 +93,7 @@ export class UserDatabaseService {
 
   }
 
-  addNewUser(user: User) {
+  addNewUser(user: UserAttributes) {
 
     try {
 
@@ -100,10 +117,22 @@ export class UserDatabaseService {
 
   modifyUser(user_id: string, user: User) {
 
-    
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    const permissions: any = {};
+    user.permissions.forEach((permission, label) => {
+
+      permissions[label] = permission;
+
+    });
+
+    const user_request = clone(user);
+    user_request.permissions = permissions;
+
     try {
 
-      return this.http.put(this.url.generateUrl(`users/${user_id}`), user).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`users/${user_id}`), user_request, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -132,9 +161,12 @@ export class UserDatabaseService {
 
   getAllUserTypes(): Observable<UserTypesPackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.get<UserTypesResponse>(this.url.generateUrl('user-types')).pipe(
+      return this.http.get<UserTypesResponse>(this.url.generateUrl('user-types'), { headers: headers }).pipe(
 
         map((response: UserTypesResponse): UserTypesPackage => {
           const users = new Map<string, UserType>();
@@ -214,7 +246,7 @@ export class UserDatabaseService {
 
     });
 
-    console.log(permissions)
+    console.log(permissions);
     try {
 
       return this.http.post<UserTypeResponse>(this.url.generateUrl('user-types'), { label: user.label, description: user.description, permissions: permissions }).pipe(
@@ -237,6 +269,9 @@ export class UserDatabaseService {
 
   modifyUserType(user_id: string, user: UserType) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     const permissions: any = {};
     user.permissions.forEach((permission, label) => {
 
@@ -246,7 +281,7 @@ export class UserDatabaseService {
 
     try {
 
-      return this.http.put(this.url.generateUrl(`user-types/${user_id}`), { label: user.label, description: user.description, permissions: permissions }).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`user-types/${user_id}`), { label: user.label, description: user.description, permissions: permissions }, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 

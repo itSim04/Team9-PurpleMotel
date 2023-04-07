@@ -7,6 +7,10 @@ use App\Http\Controllers\UserPermissions;
 use App\Http\Controllers\UserPermissionsController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\UserTypePermissionController;
+use App\Models\User;
+use App\Models\UserType;
+use App\Policies\UserPolicy;
+use App\Policies\UserTypePolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -25,23 +29,24 @@ Route::prefix('v1')->group(function () {
     });
 
     Gate::policy(User::class, UserPolicy::class);
+    Gate::policy(UserType::class, UserTypePolicy::class);
 
-    Route::middleware('auth:api')->prefix('users')->group(function () {
+    Route::middleware('auth:api')->prefix('users')->controller(UserController::class)->group(function () {
 
-        Route::get('', [UserController::class, 'index'])->middleware('can:viewAny,App\User');
-        Route::post('', [UserController::class, 'store'])->middleware('can:create,App\User');
-        Route::get('/{user}', [UserController::class, 'show'])->middleware('can:view,App\User,user');
-        Route::put('/{user}', [UserController::class, 'update'])->middleware('can:update,App\User');
-        Route::delete('/{user}', [UserController::class, 'destroy'])->middleware('can:delete,App\User');
-
+        Route::get('', 'index')->middleware('can:viewAny,App\User');
+        Route::post('', 'store')->middleware('can:create,App\User');
+        Route::get('/{user}', 'show')->middleware('can:view,App\User,user');
+        Route::put('/{user}', 'update')->middleware('can:update,App\User');
+        Route::delete('/{user}', 'destroy')->middleware('can:delete,App\User');
     });
 
-    Route::prefix('users-types')->group(function () {
-        Route::get('user-types', [UserTypeController::class, 'index'])->middleware('can:viewAny,' . UserTypeController::class);
-        Route::post('user-types', [UserTypeController::class, 'store'])->middleware('can:create,' . UserTypeController::class);
-        Route::get('user-types/{user_type}', [UserTypeController::class, 'show'])->middleware('can:view,user_type');
-        Route::put('user-types/{user_type}', [UserTypeController::class, 'update'])->middleware('can:update,user_type');
-        Route::delete('user-types/{user_type}', [UserTypeController::class, 'destroy'])->middleware('can:delete,user_type');
+    Route::middleware('auth:api')->prefix('user-types')->controller(UserTypeController::class)->group(function () {
+
+        Route::get('', 'index')->middleware('can:viewAny,App\UserType');
+        Route::post('', 'store')->middleware('can:create,App\UserType');
+        Route::get('/{user_type}', 'show')->middleware('can:view,App\UserType,user_type');
+        Route::put('/{user_type}', 'update')->middleware('can:update,App\UserType');
+        Route::delete('/{user_type}', 'destroy')->middleware('can:delete,App\UserType');
     });
 
     Route::prefix('permissions')->group(function () {
@@ -61,9 +66,9 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::prefix('usertype-permissions')->group(function () {
-        Route::get('usertype-permissions', [UserTypePermissionController::class, 'index'])->middleware('can:viewAny,' . UserTypePermissionController::class);
+        Route::get('', [UserTypePermissionController::class, 'index'])->middleware('can:viewAny,' . UserTypePermissionController::class);
         Route::post('usertype-permissions', [UserTypePermissionController::class, 'store'])->middleware('can:create,' . UserTypePermissionController::class);
-        Route::get('usertype-permissions/{usertype_permission}', [UserTypePermissionController::class, 'show'])->middleware('can:view,usertype_permission');
+        Route::get('/{usertype_permission}', [UserTypePermissionController::class, 'show']);
         Route::put('usertype-permissions/{usertype_permission}', [UserTypePermissionController::class, 'update'])->middleware('can:update,usertype_permission');
         Route::delete('usertype-permissions/{usertype_permission}', [UserTypePermissionController::class, 'destroy'])->middleware('can:delete,usertype_permission');
     });
