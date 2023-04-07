@@ -22,7 +22,7 @@ export class UserDatabaseComponent {
 
     special_case: {
 
-      rule: (data) => data.email == JSON.parse(localStorage.getItem('user') || '')?.email,
+      rule: (data) => data.email == JSON.parse(localStorage.getItem('user') || '{}')?.email,
       color: 'A4274A',
       alt_color: 'C02E57'
 
@@ -82,7 +82,7 @@ export class UserDatabaseComponent {
 
             if (org?.tier != '2') {
 
-              return tier + " - " + (value as UserType).label;
+              return tier + " - " + (value as UserType)?.label;
 
             } else {
 

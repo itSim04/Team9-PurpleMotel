@@ -43,7 +43,6 @@ export class UserDatabaseService {
 
           });
 
-          console.log(users);
 
           response.included?.forEach(permission => {
 
