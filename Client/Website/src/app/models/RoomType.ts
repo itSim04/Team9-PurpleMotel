@@ -1,3 +1,5 @@
+import { KeyValue } from "@angular/common";
+
 export interface RoomType {
 
 
@@ -29,4 +31,29 @@ export interface RoomTypeResponse {
       };
     };
   };
+}
+
+export interface RoomTypesResponse {
+  status: string,
+  data: {
+    id: string;
+    type: string;
+    attributes: RoomType;
+    relationships: {
+      room_type: {
+        data: {
+          id: string;
+          type: string;
+        };
+      };
+    };
+  };
+}
+
+export interface RoomTypePackage{
+  room_type: KeyValue<string,RoomType>
+}
+
+export interface RoomTypesPackage{
+  room_types: Map<string,RoomType>
 }
