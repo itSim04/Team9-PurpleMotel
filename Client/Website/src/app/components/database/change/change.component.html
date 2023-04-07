@@ -15,19 +15,61 @@
 <div style="overflow: hidden;" class="content" mat-dialog-content>
     <table style="table-layout: fixed; width: 100%;">
         <tr>
-            <td class="padded" style="text-align: right; vertical-align: bottom;">
+            <td class="padded" style="text-align: right; vertical-align: bottom;"
+                *ngIf="side_panel != 'empty' || standalone_field">
                 <table style="table-layout: fixed">
-                    <tr>
-                        <td colspan="2"> <img width="100%" src="../../../../../assets/room-1.png"
-                                height="100%"> </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-right: 0px; width: 50%;"> <button class="image-btn">Add
-                                Picture</button> </td>
-                        <td style="padding-left: 0px; width: 50%;"> <button class="image-btn">Remove
-                                Picture</button>
-                        </td>
-                    </tr>
+                    <ng-container *ngIf="side_panel == 'images'">
+
+                        <tr>
+                            <td colspan="2">
+                                <img width="100%" src="../../../../../assets/room-1.png"
+                                    height="100%">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-right: 0px; width: 50%;"> <button
+                                    class="image-btn">Add
+                                    Picture</button> </td>
+                            <td style="padding-left: 0px; width: 50%;"> <button
+                                    class="image-btn">Remove
+                                    Picture</button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="side_panel == 'permissions' && permissions">
+
+                        <table style="table-layout: fixed;">
+
+                            <tr>
+                                <td class="permissions"></td>
+                                <td class="permissions" *ngFor="let col of permissions?.columns">
+                                    {{col | translate}}
+                                </td>
+
+                            </tr>
+
+                            <tr *ngFor="let row of permissions?.rows">
+
+                                <td class="permissions">
+                                    {{row | translate}}
+                                </td>
+                                <td class="permissions"
+                                    *ngFor="let col of permissions?.columns; let i = index">
+
+                                    <mat-checkbox [disabled]="!modification_rule(this.data)" (ngModelChange)="debug(i, row, $event)"
+                                        [ngModel]="permissions.retrieve(data, row)[i]"
+                                        class="example-margin">
+                                    </mat-checkbox>
+
+
+                                </td>
+
+                            </tr>
+
+
+                        </table>
+
+                    </ng-container>
                     <tr>
                         <td colspan="2">
                             <mat-form-field *ngIf="standalone_field" class="full-width">
@@ -52,14 +94,14 @@
                             <!-- Raw Text -->
                             <mat-form-field *ngIf="field.type === 'text'" class="full-width input">
                                 <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input class="input" [(ngModel)]="data[field.key]" matInput>
+                                <input [disabled]="!modification_rule(this.data)" class="input" [(ngModel)]="data[field.key]" matInput>
                             </mat-form-field>
 
                             <!-- Number -->
                             <mat-form-field *ngIf="field.type === 'number'"
                                 class="full-width input">
                                 <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input class="input" type="number" [(ngModel)]="data[field.key]"
+                                <input [disabled]="!modification_rule(this.data)" class="input" type="number" [(ngModel)]="data[field.key]"
                                     matInput>
                                 <div class="number-error"
                                     *ngIf="field.condition && data[field.key] ? !field.condition(data[field.key]) : false">
@@ -72,7 +114,7 @@
                                 class="full-width input"
                                 [color]="data[field.key] && !isNum(data[field.key].toString()) ? 'warn' : 'primary'">
                                 <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input [min]="field.type === 'positive_digits_string' ? 0 : -999999"
+                                <input [disabled]="!modification_rule(this.data)" [min]="field.type === 'positive_digits_string' ? 0 : -999999"
                                     class="input" [(ngModel)]="data[field.key]" matInput>
                                 <div class="number-error"
                                     *ngIf="!isNum(data[field.key].toString()) && data[field.key]">
@@ -85,12 +127,13 @@
                                 class="full-width input">
                                 <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
                                 <mat-select [multiple]="field.type === 'choices'" class="input"
-                                    [ngModel]="data[field.key]" (ngModelChange)="data[field.key]=$event">
-                                    <mat-option class="input"
+                                    [ngModel]="data[field.key]"
+                                    (ngModelChange)="data[field.key]=$event">
+                                    <mat-option [disabled]="!modification_rule(this.data)" class="input"
                                         *ngFor="let type of field.choices.choices"
                                         [value]="field.choices.key ? field.choices.key(type) : type[0]">
-                                        {{field.choices.format ? field.choices.format(type[1]) :
-                                        type[1]}}
+                                        {{field.choices.format ? (field.choices.format(type[1]) | translate) :
+                                        type[1] + "" | translate}}
                                     </mat-option> </mat-select>
                             </mat-form-field>
 
@@ -100,8 +143,9 @@
                                 class="full-width input">
                                 <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
                                 <mat-select [multiple]="field.type === 'choices'" class="input"
-                                    [ngModel]="data[field.key]" (ngModelChange)="data[field.key]=$event">
-                                    <mat-option class="input"
+                                    [ngModel]="data[field.key]"
+                                    (ngModelChange)="data[field.key]=$event">
+                                    <mat-option [disabled]="!modification_rule(this.data)" class="input"
                                         *ngFor="let type of linked_data | keyvalue"
                                         [value]="field.choices.key ? field.choices.key([type.key, type.value]) : type.key">
                                         {{field.choices.format ? field.choices.format(type.value) :
@@ -145,11 +189,12 @@
         <tr>
             <td class="padded" style="text-align: right;">
                 <button style="width: 30%;" (click)="delete()" class="delete-btn" mat-button
-                    color="primary" *ngIf="modification_mode">Delete</button>
-                <button style="width: 30%;" class="back-btn"
-                    (click)="modification_mode ? modify() : add()" [disabled]="!fieldsCompleteness || !differenceCheck"
-                    [style.background]="(!fieldsCompleteness || !differenceCheck) ? 'gray' : '#14274A'" mat-button
-                    color="primary">{{modification_mode ?
+                    color="primary" *ngIf="modification_rule(this.data) && modification_mode">Delete</button>
+                <button *ngIf="modification_rule(this.data)" style="width: 30%;" class="back-btn"
+                    (click)="modification_mode ? modify() : add()"
+                    [disabled]="!fieldsCompleteness || !differenceCheck"
+                    [style.background]="(!fieldsCompleteness || !differenceCheck) ? 'gray' : '#14274A'"
+                    mat-button color="primary">{{modification_mode ?
                     'Modify' : 'Add'}} {{data_type}}</button>
             </td>
             <td *ngIf="toggle" class="padded" style="text-align: left;"> <button style="width: 30%;"

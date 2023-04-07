@@ -21,7 +21,7 @@ export interface UserInformation {
 export interface UserInjection extends UserInformation {
     tier: string,
 }
-export interface User {
+export interface UserAttributes {
 
     first_name: string,
     last_name: string,
@@ -33,15 +33,22 @@ export interface User {
     tier: string,
 }
 
+export interface User extends UserAttributes {
+
+    permissions: Map<string, number>;
+    type: string;
+
+}
+
 export interface UserPackage {
 
-    user: KeyValue<string, User>
+    user: KeyValue<string, UserAttributes>;
 
 
 }
 export interface UsersPackage {
 
-    users: Map<string, User>
+    users: Map<string, User>;
 
 }
 
@@ -52,8 +59,32 @@ export interface UserResponse {
     data: {
         id: string,
         type: string,
-        attributes: User;
+        attributes: UserAttributes;
+        relationships: {
+            user_type: {
+                data: {
+                    id: string;
+                    type: string;
+                };
+            };
+        };
     },
+    included?: {
+
+        id: string,
+        type: string,
+        attributes: {
+
+            label: string,
+            concerned_party: string,
+            is_singular: boolean,
+            read: boolean,
+            write: boolean,
+            delete: boolean;
+
+        };
+
+    };
     authorisation?: {
         token: string,
         type: string;
@@ -67,7 +98,32 @@ export interface UsersResponse {
     data: {
         id: string,
         type: string,
-        attributes: User;
-    }[]
+        attributes: UserAttributes;
+        relationships: {
+            user_type: {
+                data: {
+                    id: string;
+                    type: string;
+                };
+            };
+        };
+    }[];
+
+    included?: {
+
+        id: string,
+        type: string,
+        attributes: {
+
+            label: string,
+            concerned_party: string,
+            is_singular: boolean,
+            read: boolean,
+            write: boolean,
+            delete: boolean;
+
+        };
+
+    }[];
 
 }

@@ -143,10 +143,11 @@ class AuthenticationController extends Controller
             $user = User::firstWhere('email', $passwordReset->email);
     
             // update user password
-            $user->update($request->only('password'));
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
     
             // delete current code 
-            echo json_encode($passwordReset);
             $passwordReset->delete();
     
             return response(['message' =>'password has been successfully reset'], 200);
