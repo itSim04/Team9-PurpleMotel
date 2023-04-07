@@ -100,6 +100,7 @@ export class UserDatabaseService {
 
   modifyUser(user_id: string, user: User) {
 
+    
     try {
 
       return this.http.put(this.url.generateUrl(`users/${user_id}`), user).pipe(map(() => undefined));

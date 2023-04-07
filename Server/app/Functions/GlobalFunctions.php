@@ -2,6 +2,7 @@
 
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 function generateResponse(int $code, $collection = null, $included = [], bool $error = false)
 {
@@ -17,12 +18,24 @@ function generateResponse(int $code, $collection = null, $included = [], bool $e
     return response()->json($response, $code);
 }
 
+function extractPermissions($id) {
+
+    $permissions = [];
+
+    foreach (Permission::where('is_singular', true)->where('concerned_party', $id)->get() as $permission) {
+
+        $permissions[$permission->label] = [$permission->read, $permission->write, $permission->delete];
+    }
+    return $permissions;
+
+}
+
 function indexTemplate(string $model, string $resource, string $extra_model = null, string $extra_resource = null)
 {
     return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()) : []);
 }
 
-function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null)
+function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null, bool $singular = true)
 {
 
     $options = str_replace('required|', '', $options);
@@ -64,7 +77,7 @@ function updateTemplate(Request $request, string $model, string $id, string $res
         if (isset($request->permissions)) {
             foreach ($request->permissions as $key => $permission) {
 
-                addPermissions($key, $id, $permission);
+                addPermissions($key, $id, $permission, $singular);
             }
         }
 
@@ -89,7 +102,7 @@ function updateTemplate(Request $request, string $model, string $id, string $res
     }
 }
 
-function addPermissions($label, string $concerned, $permission)
+function addPermissions($label, string $concerned, $permission, bool $singular)
 {
     $old = Permission::where('concerned_party', $concerned)->where('label', $label)->first();
     $permissions = sprintf("%03d", decbin(intval($permission)));
@@ -100,7 +113,7 @@ function addPermissions($label, string $concerned, $permission)
         'read' => $permissions[2],
         'write' => $permissions[1],
         'delete' => $permissions[0],
-        'is_singular' => false
+        'is_singular' => $singular
 
     ];
 
@@ -114,7 +127,7 @@ function addPermissions($label, string $concerned, $permission)
         return $old;
     }
 }
-function storeTemplate(Request $request, string $model, string $resource, array $options)
+function storeTemplate(Request $request, string $model, string $resource, array $options, bool $singular = true)
 {
 
     $request->validate($options);
@@ -129,7 +142,7 @@ function storeTemplate(Request $request, string $model, string $resource, array 
         if (isset($request->permissions)) {
             foreach ($request->permissions as $key => $permission) {
 
-                addPermissions($key, $data->id, $permission);
+                addPermissions($key, $data->id, $permission, $singular);
             }
         }
 

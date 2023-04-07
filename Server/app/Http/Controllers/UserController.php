@@ -55,7 +55,7 @@ class UserController extends Controller
     public function update(Request $request, string $room_id)
     {
        
-        return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options, $this->model_name);
+        return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options, $this->model_name, true);
     }
 
     /**

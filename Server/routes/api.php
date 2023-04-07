@@ -8,6 +8,7 @@ use App\Http\Controllers\UserPermissionsController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\UserTypePermissionController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
 
@@ -21,12 +22,49 @@ Route::prefix('v1')->group(function () {
         Route::post('refresh', 'refresh');
         Route::get('forgot-password-1', 'forgotPassword1');
         Route::get('forgot-password-2', 'forgotPassword2');
+    });
+
+    Gate::policy(User::class, UserPolicy::class);
+
+    Route::middleware('auth:api')->prefix('users')->group(function () {
+
+        Route::get('', [UserController::class, 'index'])->middleware('can:viewAny,App\User');
+        Route::post('', [UserController::class, 'store'])->middleware('can:create,App\User');
+        Route::get('/{user}', [UserController::class, 'show'])->middleware('can:view,App\User,user');
+        Route::put('/{user}', [UserController::class, 'update'])->middleware('can:update,App\User');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->middleware('can:delete,App\User');
 
     });
 
-    Route::apiResource('users', UserController::class);
-    Route::apiResource('user-types', UserTypeController::class);
-    Route::apiResource('permissions', PermissionController::class);
-    Route::apiResource('user-permissions', UserPermissionsController::class);
-    Route::apiResource('usertype-permissions', UserTypePermissionController::class);
+    Route::prefix('users-types')->group(function () {
+        Route::get('user-types', [UserTypeController::class, 'index'])->middleware('can:viewAny,' . UserTypeController::class);
+        Route::post('user-types', [UserTypeController::class, 'store'])->middleware('can:create,' . UserTypeController::class);
+        Route::get('user-types/{user_type}', [UserTypeController::class, 'show'])->middleware('can:view,user_type');
+        Route::put('user-types/{user_type}', [UserTypeController::class, 'update'])->middleware('can:update,user_type');
+        Route::delete('user-types/{user_type}', [UserTypeController::class, 'destroy'])->middleware('can:delete,user_type');
+    });
+
+    Route::prefix('permissions')->group(function () {
+        Route::get('permissions', [PermissionController::class, 'index'])->middleware('can:viewAny,' . PermissionController::class);
+        Route::post('permissions', [PermissionController::class, 'store'])->middleware('can:create,' . PermissionController::class);
+        Route::get('permissions/{permission}', [PermissionController::class, 'show'])->middleware('can:view,permission');
+        Route::put('permissions/{permission}', [PermissionController::class, 'update'])->middleware('can:update,permission');
+        Route::delete('permissions/{permission}', [PermissionController::class, 'destroy'])->middleware('can:delete,permission');
+    });
+
+    Route::prefix('user-permissions')->group(function () {
+        Route::get('user-permissions', [UserPermissionsController::class, 'index'])->middleware('can:viewAny,' . UserPermissionsController::class);
+        Route::post('user-permissions', [UserPermissionsController::class, 'store'])->middleware('can:create,' . UserPermissionsController::class);
+        Route::get('user-permissions/{user_permissions}', [UserPermissionsController::class, 'show'])->middleware('can:view,user_permissions');
+        Route::put('user-permissions/{user_permissions}', [UserPermissionsController::class, 'update'])->middleware('can:update,user_permissions');
+        Route::delete('user-permissions/{user_permissions}', [UserPermissionsController::class, 'destroy'])->middleware('can:delete,user_permissions');
+    });
+
+    Route::prefix('usertype-permissions')->group(function () {
+        Route::get('usertype-permissions', [UserTypePermissionController::class, 'index'])->middleware('can:viewAny,' . UserTypePermissionController::class);
+        Route::post('usertype-permissions', [UserTypePermissionController::class, 'store'])->middleware('can:create,' . UserTypePermissionController::class);
+        Route::get('usertype-permissions/{usertype_permission}', [UserTypePermissionController::class, 'show'])->middleware('can:view,usertype_permission');
+        Route::put('usertype-permissions/{usertype_permission}', [UserTypePermissionController::class, 'update'])->middleware('can:update,usertype_permission');
+        Route::delete('usertype-permissions/{usertype_permission}', [UserTypePermissionController::class, 'destroy'])->middleware('can:delete,usertype_permission');
+    });
 });

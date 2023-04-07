@@ -60,7 +60,7 @@ class UserTypeController extends Controller
      */
     public function store(Request $request)
     {
-        return storeTemplate($request, $this->model, $this->resource, $this->options);
+        return storeTemplate($request, $this->model, $this->resource, $this->options, false);
     }
 
     /**
@@ -77,7 +77,7 @@ class UserTypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return updateTemplate($request, $this->model, $id, $this->resource, $this->options, $this->model_name);
+        return updateTemplate($request, $this->model, $id, $this->resource, $this->options, $this->model_name, false);
     }
 
     /**
