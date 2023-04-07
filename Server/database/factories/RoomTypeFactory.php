@@ -16,8 +16,17 @@ class RoomTypeFactory extends Factory
      */
     public function definition(): array
     {
+        $adults_capacity = random_int(2, 40);
+        $adults_with_kids = floor($adults_capacity / 6);
+        $kids_capacity = $adults_capacity - $adults_with_kids;
+
         return [
-            //
+            'label' => fake()->firstName(),
+            'price' => fake()->randomFloat(2, 0, 5000),
+            'description'  => fake()->sentence(),
+            'adults_capacity' => $adults_capacity,
+            'adults_with_kids_capacity' => $adults_with_kids,
+            'kids_capacity' => $kids_capacity,
         ];
     }
 }
