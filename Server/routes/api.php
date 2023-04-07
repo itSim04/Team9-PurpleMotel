@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPermissions;
 use App\Http\Controllers\UserPermissionsController;
 use App\Http\Controllers\UserTypeController;
+use App\Http\Controllers\UserTypePermissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
@@ -27,5 +28,5 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('user-types', UserTypeController::class);
     Route::apiResource('permissions', PermissionController::class);
     Route::apiResource('user-permissions', UserPermissionsController::class);
-    Route::apiResource('usertype-permissions', UserTypeController::class);
+    Route::apiResource('usertype-permissions', UserTypePermissionController::class);
 });

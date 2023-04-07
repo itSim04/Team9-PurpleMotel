@@ -1,3 +1,4 @@
+import { Data } from '@angular/router';
 import { Observable } from 'rxjs';
 import { KeyValue } from "@angular/common";
 
@@ -23,10 +24,10 @@ export interface DataInjection<Data> {
 
     title: string;
     displayed_columns: Column<Data>[]; // The columns of the database
-    
+
     data_fetcher: (() => Observable<Map<string, Data>>) | undefined; // Fetches data for ONE table. Will not be applied if a dual fetcher is provided manually.
     hover_fetcher?: {
-    
+
         key: keyof Data, // The foreign key of the data to fetch
         format: (value: unknown) => string[]; // The way the data is displayed in the popup
 
@@ -75,7 +76,17 @@ export interface StaticField<Data> {
 export interface ChangeInjection<Data> {
     affected_data?: KeyValue<string, Data>; // Old Data
 
-    side_panel: 'images' | 'permissions' | 'empty'
+    permissions?: {
+
+        rows: string[];
+        columns: string[];
+        update: (data: Data, label: string, result: number) => void;
+        format: (result: boolean[]) => string;
+        retrieve: (result: Data, label: string) => boolean[];
+        key: keyof Data;
+
+    };
+    side_panel: 'images' | 'permissions' | 'empty';
     data_type: string; // Type of Data
     standalone_field?: Field<Data>; // The Field that appears alone
     toggle?: Toggle<Data>; // A button that appears in the lower area

@@ -8,12 +8,7 @@ export interface UserTypeAttributes {
 
 export interface UserType extends UserTypeAttributes {
 
-    permissions?: {
-
-        'label': string,
-        'permission': number,
-
-    }[];
+    permissions: Map<string, number>;
 
 }
 

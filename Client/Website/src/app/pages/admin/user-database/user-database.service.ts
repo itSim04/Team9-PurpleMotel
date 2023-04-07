@@ -140,7 +140,7 @@ export class UserDatabaseService {
 
           response.data.forEach(user => {
 
-            users.set(user.id, user.attributes);
+            users.set(user.id, { ...user.attributes, permissions: new Map<string, number>() });
 
           });
 
@@ -150,22 +150,15 @@ export class UserDatabaseService {
 
             if (user) {
 
-              if(!user.permissions) {
 
-                user.permissions = [];
+              user.permissions.set(permission.attributes.label, Number.parseInt(`${permission.attributes.delete}${permission.attributes.write}${permission.attributes.read}`, 2)
 
-              }
-              user.permissions.push({
 
-                label: permission.attributes.label,
-                permission: Number.parseInt(`${permission.attributes.delete}${permission.attributes.write}${permission.attributes.read}`, 2)
-                
-
-              });
+              );
             }
 
           });
-
+          console.log(users);
           return {
 
             users: users
@@ -209,13 +202,21 @@ export class UserDatabaseService {
 
     // }
 
-  }
+  };
 
   addNewUserType(user: UserType) {
 
+    const permissions: any = {};
+    user.permissions.forEach((permission, label) => {
+
+      permissions[label] = permission;
+
+    });
+
+    console.log(permissions)
     try {
 
-      return this.http.post<UserTypeResponse>(this.url.generateUrl('user-types'), user).pipe(
+      return this.http.post<UserTypeResponse>(this.url.generateUrl('user-types'), { label: user.label, description: user.description, permissions: permissions }).pipe(
 
         map(result => {
 
@@ -235,9 +236,16 @@ export class UserDatabaseService {
 
   modifyUserType(user_id: string, user: UserType) {
 
+    const permissions: any = {};
+    user.permissions.forEach((permission, label) => {
+
+      permissions[label] = permission;
+
+    });
+
     try {
 
-      return this.http.put(this.url.generateUrl(`user-types/${user_id}`), user).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`user-types/${user_id}`), { label: user.label, description: user.description, permissions: permissions }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 

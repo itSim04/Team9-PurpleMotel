@@ -36,6 +36,39 @@
                             </td>
                         </tr>
                     </ng-container>
+                    <ng-container *ngIf="side_panel == 'permissions' && permissions">
+
+                        <table style="table-layout: fixed;">
+
+                            <tr>
+                                <td class="permissions"></td>
+                                <td class="permissions" *ngFor="let col of permissions?.columns">
+                                    {{col | translate}}
+                                </td>
+
+                            </tr>
+
+                            <tr *ngFor="let row of permissions?.rows">
+
+                                <td class="permissions">
+                                    {{row | translate}}
+                                </td>
+                                <td class="permissions" *ngFor="let col of permissions?.columns; let i = index">
+
+                                    <mat-checkbox (ngModelChange)="debug(i, row, $event)"
+                                        [ngModel]="permissions.retrieve(data, row)[i]"
+                                        class="example-margin">
+                                    </mat-checkbox>
+
+
+                                </td>
+
+                            </tr>
+
+
+                        </table>
+
+                    </ng-container>
                     <tr>
                         <td colspan="2">
                             <mat-form-field *ngIf="standalone_field" class="full-width">

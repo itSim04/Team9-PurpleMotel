@@ -10,6 +10,33 @@ use App\Models\Permission;
 
 class UserTypeController extends Controller
 {
+
+    function addPermissions($label, string $concerned, $permission)
+    {
+        $old = Permission::where('concerned_party', $concerned)->where('label', $label)->first();
+        $permissions = sprintf("%03d", decbin(intval($permission)));
+        $new = [
+
+            'label' => $label,
+            'concerned_party' => $concerned,
+            'read' => $permissions[2],
+            'write' => $permissions[1],
+            'delete' => $permissions[0],
+            'is_singular' => false
+
+        ];
+
+        if (!$old) {
+
+            $new = Permission::create($new);
+            return $new;
+        } else {
+
+            $old->update($new);
+            return $old;
+        }
+    }
+
     protected $resource = UserTypeResource::class;
     protected $model = UserType::class;
     protected $model_name = 'UserTypes';
@@ -50,7 +77,6 @@ class UserTypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
         return updateTemplate($request, $this->model, $id, $this->resource, $this->options, $this->model_name);
     }
 

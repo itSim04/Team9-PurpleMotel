@@ -8,6 +8,7 @@
       {{row}}
     </div>
   </div>
+  
   <div *ngIf="data_injection.hover_fetcher">
     <div *ngFor="let item of hover_list">
       <div *ngFor="let row of data_injection.hover_fetcher.format(item[1])">
@@ -19,7 +20,7 @@
 </div>
 
 <div
-  *ngIf="extra_display_hover[1] && ((hover_list && extra_injection?.hover_fetcher) || (extra_injection?.hover_display && extra_injection?.hover_display(extra_display_hover[1])))"
+  *ngIf="extra_display_hover[1] && ((hover_list && extra_injection?.hover_fetcher) || (extra_injection?.hover_display && extra_injection?.hover_display(extra_display_hover[1])?.length))"
   class="follow-mouse" [style.left]="(mouseX + 16) + 'px'" [style.top]="(mouseY + 16) + 'px'">
 
   <div *ngIf="extra_injection?.hover_display">

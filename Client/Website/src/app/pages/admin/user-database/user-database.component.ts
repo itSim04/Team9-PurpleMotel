@@ -122,26 +122,43 @@ export class UserDatabaseComponent {
       }
     ],
     data_fetcher: () => this.user_service.getAllUserTypes().pipe(map(data => data.users)),
-    hover_display: (data) => data.permissions?.map(data => {
+    hover_display: (data) => {
 
-      const permissions = parsePermission(data.permission);
-      if (permissions.find(t => t == true)) {
-       
-        return `${formatWord(data.label)}: ${permissions[0] ? 'Delete' : ''} ${permissions[1] ? 'Write' : ''} ${permissions[2] ? 'Read' : ''}`;
-      
-      } else {
+      const result: string[] = [];
+      data.permissions.forEach((permission, label) => {
 
-        return '';
+        const permissions = parsePermission(permission);
+        if (permissions.find(t => t == true)) {
 
-      } 
-    })
+          result.push(`${formatWord(label)}: ${permissions[0] ? 'Delete' : ''} ${permissions[1] ? 'Write' : ''} ${permissions[2] ? 'Read' : ''}`);
 
+        }
+      });
+      return result;
+
+    }
   };
 
   extra_change_injection: ChangeInjection<UserType> = {
 
     data_type: 'User Type',
     side_panel: 'permissions',
+    permissions: {
+
+      columns: ['Read', 'Write', 'Delete'],
+      rows: ['room', 'user', 'stock'],
+      key: 'permissions',
+
+      update: (data: UserType, label: string, result: number) => data.permissions.set(label, result),
+
+      retrieve: (result: UserType, label: string) => parsePermission(result.permissions.get(label)),
+      format: (result) => {
+
+        return Number.parseInt(`${result[0] ? '1' : 0}${result[1] ? '1' : 0}${result[2] ? '1' : 0}`, 2).toString();
+
+      }
+
+    },
     fields: [
       {
         key: 'label',
@@ -159,10 +176,11 @@ export class UserDatabaseComponent {
     default_state: {
 
       description: '',
-      label: ''
+      label: '',
+      permissions: new Map()
 
     }
 
   };
 
-}
+};

@@ -82,9 +82,9 @@ export function isNum(val: string) {
 
 }
 
-export function parsePermission(permission: number): boolean[] {
+export function parsePermission(permission: number | undefined): boolean[] {
 
-  if (permission === 0) {
+  if (permission === 0 || !permission) {
     return [false, false, false];
   }
   let binary = '';
@@ -95,8 +95,7 @@ export function parsePermission(permission: number): boolean[] {
   }
 
   binary = binary.toString().padStart(3, '0');
-  console.log(binary);
-
+  
   return [binary.charAt(0) == '1', binary.charAt(1) == '1', binary.charAt(2) == '1'];
 
 }
