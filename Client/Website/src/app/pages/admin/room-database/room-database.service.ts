@@ -50,39 +50,6 @@ export class RoomDatabaseService {
 
   }
 
-  /*getAllRooms(): Observable<RoomsPackage> {
-    try {
-      return this.http.get<RoomsResponse>(this.url.generateUrl('rooms')).pipe(
-        map((response: RoomsResponse): RoomsPackage => {
-          const rooms = new Map<string, Room>();
-  
-          // Create a Map of RoomType objects
-          const roomTypes = new Map<string, RoomType>();
-          response.included?.forEach((roomType: RoomType) => {
-            roomTypes.set(roomType.id, roomType);
-          });
-  
-          response.data.forEach(roomData => {
-            const room = roomData.attributes;
-            const roomId = roomData.id;
-            const roomType = roomTypes.get(roomData.relationships.room_type.data.id);
-            
-            // Merge the RoomType object into the Room object
-            rooms.set(roomId, {...room, type: roomType?.name});
-          });
-  
-          return {
-            rooms: rooms,
-            room_types: roomTypes
-          };
-        })
-      );
-    } catch (e: unknown) {
-      throw new Error(JSON.stringify(e));
-    }
-  }*/
-  
-  
 
   getOneRoom(id: string): Observable<RoomPackage> {
 
