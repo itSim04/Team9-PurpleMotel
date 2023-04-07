@@ -14,6 +14,20 @@ class RoomTypeResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+
+            'id' => (string)$this->id,
+            'type' => 'RoomTypes',
+            'attributes' => [
+
+                'label' => $this->label,
+                'price' => $this->price,
+                'description' => $this->description,
+                'adults_capacity' => $this->adults_capacity,
+                'adults_with_kids_capacity' => $this->adults_with_kids_capacity,
+                'kids_capacity' => $this->kids_capacity,
+
+            ]
+        ];
     }
 }
