@@ -95,7 +95,7 @@ export function parsePermission(permission: number | undefined): boolean[] {
   }
 
   binary = binary.toString().padStart(3, '0');
-  
+
   return [binary.charAt(0) == '1', binary.charAt(1) == '1', binary.charAt(2) == '1'];
 
 }
@@ -113,18 +113,19 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   @Input() dual_fetcher: (() => Observable<[Map<string, Data>, Map<string, Data2>]>) | undefined;
   @Input() extra_injection?: DataInjection<Data2>;
 
-  all_data_map!: Map<string, Data>;
-  all_data!: [string, Data][];
-  all_extra_map?: Map<string, Data2>;
-  all_extra?: [string, Data2][];
+  all_data_map: Map<string, Data> = new Map();
+  all_data: [string, Data][] = [];
+  all_extra_map: Map<string, Data2> = new Map();
+  all_extra: [string, Data2][] = [];
   filter_by!: Column<Data>;
   extra_filter_by?: Column<Data2>;
-  filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
-  extra_data?: MatTableDataSource<[string, Data2], MatPaginator>;
+  filtered_data: MatTableDataSource<[string, Data], MatPaginator> = new MatTableDataSource();
+  extra_data: MatTableDataSource<[string, Data2], MatPaginator> = new MatTableDataSource();
   filter: string | number = "";
   extra_filter: string | number = "";
   display_hover: [string, Data | undefined] = ["-1", undefined];
   extra_display_hover: [string, Data2 | undefined] = ["-1", undefined];
+  loading: [boolean, boolean] = [false, false];
 
   @Input() change_injection?: ChangeInjection<Data>;
   @Input() extra_change_injection?: ChangeInjection<Data2>;
@@ -191,7 +192,12 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
 
-    this.filtered_data = new MatTableDataSource();
+    this.loading[0] = true;
+    if (this.extra_injection) {
+
+      this.loading[1] = true;
+
+    }
 
     // The initial filter will default to the first column
     this.filter_by = this.data_injection.displayed_columns[0];
@@ -215,7 +221,6 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
     // This reflects the first table logic on the second if it exists
     if (this.extra_injection) {
 
-      this.extra_data = new MatTableDataSource();
       this.extra_filter_by = this.extra_injection?.displayed_columns[0];
 
       this.extra_data.sortingDataAccessor = (data, id: string) => {
@@ -250,31 +255,10 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
     } else if (this.data_injection.data_fetcher) {
 
-      this.data_injection.data_fetcher().subscribe((result => {
 
-        this.all_data_map = result;
-        this.all_data = Array.from(result);
-        this.filtered_data.data = this.all_data;
+      this.loadPrimaryData();
 
-      }));
-
-      if (this.extra_injection?.data_fetcher) {
-
-        this.extra_injection.data_fetcher()?.subscribe((result => {
-
-          if (this.extra_data) {
-
-            this.all_extra_map = result;
-            this.all_extra = Array.from(result);
-            this.extra_data.data = this.all_extra;
-
-          }
-
-        }));
-
-
-
-      }
+      this.loadSecondaryData();
 
 
     }
@@ -289,6 +273,62 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
     if (this.display_hover || this.extra_display_hover) {
 
       this.mouseMoveSubject.next(event);
+
+    }
+
+  }
+
+
+  loadPrimaryData() {
+
+    if (this.data_injection.data_fetcher)
+      this.data_injection.data_fetcher().subscribe(({
+
+        next: result => {
+
+          this.all_data_map = result;
+          this.all_data = Array.from(result);
+          this.filtered_data.data = this.all_data;
+          this.loading[0] = false;
+
+        }, error: error => {
+
+          this.loading[0] = true;
+          this.loadPrimaryData();
+
+        }
+      }));
+
+  }
+
+  loadSecondaryData() {
+
+    if (this.extra_injection?.data_fetcher) {
+
+      this.extra_injection.data_fetcher()?.subscribe(({
+
+        next: result => {
+
+          if (this.extra_data) {
+
+            this.all_extra_map = result;
+            this.all_extra = Array.from(result);
+            this.extra_data.data = this.all_extra;
+            this.loading[1] = false;
+
+          }
+
+        }, error: error => {
+
+          this.loading[1] = true;
+          this.loadSecondaryData();
+
+        }
+
+
+      }));
+
+
 
     }
 

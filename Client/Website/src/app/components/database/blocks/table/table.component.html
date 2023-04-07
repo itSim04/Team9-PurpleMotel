@@ -50,7 +50,7 @@
       *matRowDef="let row; columns: getDisplayedColumnsKey;">
   </tr>
 </table>
-<mat-progress-bar *ngIf="!this.data" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="this.loading" mode="indeterminate"></mat-progress-bar>
 
 <div [hidden]="!this.data">
   <mat-paginator style="display: flex; justify-content: center; margin-bottom: 32px;"
