@@ -27,7 +27,9 @@ export class RoomDatabaseService {
 
           response.data.forEach(room => {
 
-            rooms.set(room.id, {...room.attributes, type: room.relationships.room_type.data.id});
+            const roomType = room.relationships?.room_type?.data?.id;
+            rooms.set(room.id, {...room.attributes, type: roomType});
+            //rooms.set(room.id, {...room.attributes, type: room.relationships.room_type.data.id});
 
 
           });
