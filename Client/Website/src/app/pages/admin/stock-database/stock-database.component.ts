@@ -3,6 +3,7 @@ import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Stock } from 'src/app/models/Stock';
 import { StockDatabaseService } from './stock-database.service';
 import { map } from 'rxjs';
+import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-stock-database',
@@ -54,12 +55,15 @@ export class StockDatabaseComponent {
       {
         key: 'available_quantity',
         type: 'number'
-      },
-      {
-        key: 'is_ingredient',
-        type: 'number'
       }
     ],
+
+    toggle:
+      {
+        key: 'is_ingredient',
+        on_value: 'Is not ingredient',
+        off_value: 'Is ingredient'
+      },
     
     add_service: stock => this.stock_service.addNewStock(stock),
     modify_service: (key,data) => this.stock_service.modifyStock(key, data),
