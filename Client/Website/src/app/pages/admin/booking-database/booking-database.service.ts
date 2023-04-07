@@ -22,7 +22,6 @@ export class BookingDatabaseService {
         map((response: BookingsResponse): BookingsPackage => {
 
           const bookings = new Map<string, Booking>();
-          console.log(bookings)
 
             response.data.forEach(booking => {
 
@@ -80,8 +79,8 @@ export class BookingDatabaseService {
   addNewBooking(booking: Booking) {
 
     try {
-
-      return this.http.post<BookingResponse>(this.url.generateUrl('bookings'), {...booking, password: 'password', date_of_birth: new Date(), language: '0'}).pipe(
+      console.log(booking)
+      return this.http.post<BookingResponse>(this.url.generateUrl('bookings'), {...booking, room_id:'1', 'user_id':'68'}).pipe(
 
         map(result => {
 
