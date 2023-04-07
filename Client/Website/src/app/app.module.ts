@@ -1,3 +1,6 @@
+import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
+import { UserDatabaseModule } from './pages/admin/user-database/user-database.module';
+import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { FooterModule } from './components/general/footer/footer.module';
 import { NavBarModule } from './components/general/nav-bar/nav-bar.module';
 import { NgModule } from '@angular/core';
@@ -8,10 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AuthenticationModule } from './service/dialogs/authentication/authentication.module';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { AuthenticationModule } from './services/dialogs/authentication/authentication.module';
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
-import { ConfirmationDialogModule } from './service/dialogs/confirmation/confirmation.module';
 
 
 @NgModule({
@@ -23,9 +24,13 @@ import { ConfirmationDialogModule } from './service/dialogs/confirmation/confirm
     AppRoutingModule,
     HttpClientModule,
 
+    ConfirmationDialogModule,
+
     NavBarModule,
     FooterModule,
     BrowserAnimationsModule,
+
+    UserDatabaseModule,
 
     StarRatingModule.forRoot(),
     AuthenticationModule,
@@ -36,7 +41,7 @@ import { ConfirmationDialogModule } from './service/dialogs/confirmation/confirm
   ],
   providers: [
     MatDialogModule,
-],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

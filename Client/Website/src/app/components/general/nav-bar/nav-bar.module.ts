@@ -1,5 +1,5 @@
 import { RouterModule } from '@angular/router';
-import { LanguageModule } from './../../../service/language/language.module';
+import { LanguageModule } from './../../../services/language/language.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './nav-bar.component';

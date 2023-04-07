@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DataInjection } from 'src/app/models/Database';
 import { Required } from '../../database.component';
 import { KeyValue } from '@angular/common';
-import { AddDialogControllerService } from 'src/app/service/dialogs/add/add-dialog-controller.service';
+import { AddDialogControllerService } from 'src/app/services/dialogs/add/add-dialog-controller.service';
 
 @Component({
   selector: 'app-table-unit',

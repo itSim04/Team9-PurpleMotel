@@ -12,3 +12,27 @@
     justify-content: center;
 
 }
+
+.add-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    color: white;
+
+    font-weight: 400;
+    font-size: 16px;
+    padding: 16px;
+    padding-left: 32px;
+    padding-right: 32px;
+    line-height: 25px;
+    text-align: center;
+
+    text-transform: uppercase;
+
+    background: #14274A;
+    border: 1px solid #14274A;
+    position: fixed;
+    bottom: 16px;
+    // right: 16px;
+
+}
