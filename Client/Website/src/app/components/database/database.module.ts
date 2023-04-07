@@ -54,6 +54,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     MatCheckboxModule
 
-  ]
+  ],
 })
 export class DatabaseModule { }
