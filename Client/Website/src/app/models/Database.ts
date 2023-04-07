@@ -23,6 +23,13 @@ export interface Column<Data> {
 export interface DataInjection<Data> {
 
     title: string;
+
+    special_case?: {
+
+        rule: (data: Data) => boolean,
+        color: string;
+
+    };
     displayed_columns: Column<Data>[]; // The columns of the database
 
     data_fetcher: (() => Observable<Map<string, Data>>) | undefined; // Fetches data for ONE table. Will not be applied if a dual fetcher is provided manually.
@@ -74,8 +81,12 @@ export interface StaticField<Data> {
 }
 
 export interface ChangeInjection<Data> {
+
+
     affected_data?: KeyValue<string, Data>; // Old Data
 
+    
+    modification_rule?: (data: Data) => boolean;
     permissions?: {
 
         rows: string[];

@@ -42,6 +42,9 @@
     "filter": "Filter",
     "user": "User",
     "user_type": "User Type",
-    "filter_by": "Filter By"
+    "filter_by": "Filter By",
+    "room_type": "Room Type",
+    "language": "Language",
+    "booking": "Booking"
 
 }

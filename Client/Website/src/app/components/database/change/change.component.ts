@@ -7,6 +7,7 @@ import { Field, Toggle, StaticField, ChangeInjection } from 'src/app/models/Data
 import { ConfirmationDialogService } from 'src/app/services/dialogs/confirmation/confirmation.service';
 import { WarningDialogService } from 'src/app/services/dialogs/warning/warning.service';
 import { isNum } from '../database.component';
+import { User } from 'src/app/models/User';
 
 
 export function clone(obj: any) {
@@ -39,6 +40,9 @@ export function clone(obj: any) {
   styleUrls: ['./change.component.scss']
 })
 export class ChangeComponent<Data extends { [key: string]: string | boolean | number; }> {
+  debug2($event: any) {
+    console.log($event);
+  }
 
 
   debug(id: number, row: string, result: boolean) {
@@ -75,6 +79,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   readonly modify_service: (key: string, data: Data) => Observable<undefined>;
   readonly delete_service: (key: string) => Observable<string[]>;
   readonly identifier: (data: Data) => string;
+  readonly modification_rule;
 
   readonly linked_data: Map<string, unknown>;
 
@@ -87,6 +92,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     this.delete_service = injected_data.injection.delete_service;
     this.identifier = injected_data.injection.identifier;
     this.permissions = injected_data.injection.permissions;
+    this.modification_rule = injected_data.injection.modification_rule || (data => true);
     this.side_panel = injected_data.injection.side_panel;
     this.toggle = injected_data.injection.toggle;
     this.data_type = injected_data.injection.data_type;
@@ -107,7 +113,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
       this.modification_mode = false;
 
     }
-    console.log(injected_data, this.data);
+    console.log((this.data as unknown as User).gender);
 
   }
 
@@ -180,7 +186,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   triggerToggle() {
 
-    if (this.toggle) {
+    if (this.toggle && this.modification_rule(this.data)) {
 
       if (this.modification_mode) {
 

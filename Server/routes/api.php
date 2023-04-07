@@ -38,6 +38,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/{user}', 'show')->middleware('can:view,App\User,user');
         Route::put('/{user}', 'update')->middleware('can:update,App\User');
         Route::delete('/{user}', 'destroy')->middleware('can:delete,App\User');
+        
     });
 
     Route::middleware('auth:api')->prefix('user-types')->controller(UserTypeController::class)->group(function () {

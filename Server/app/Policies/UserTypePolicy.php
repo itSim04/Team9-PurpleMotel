@@ -24,6 +24,9 @@ class UserTypePolicy
      */
     public function viewAny(User $user)
     {
+        if($user->tier == 2) {
+            return true;
+        }
         $permissions = extractPermissions($user->id);
         if (!array_key_exists('user_type', $permissions)) {
 
@@ -43,10 +46,13 @@ class UserTypePolicy
      * @param  string  $model
      * @return bool
      */
-    public function view(User $user_type, string $model): bool
+    public function view(User $user, string $model): bool
     {
 
-        $permissions = extractPermissions($user_type->id);
+        if($user->tier == 2) {
+            return true;
+        }
+        $permissions = extractPermissions($user->id);
         if (!array_key_exists('user_type', $permissions)) {
 
             return false;
@@ -60,6 +66,9 @@ class UserTypePolicy
 
     public function update(User $user) {
 
+        if($user->tier == 2) {
+            return true;
+        }
         $permissions = extractPermissions($user->id);
         if (!array_key_exists('user_type', $permissions)) {
 
@@ -75,6 +84,9 @@ class UserTypePolicy
 
     public function delete(User $user) {
 
+        if($user->tier == 2) {
+            return true;
+        }
         $permissions = extractPermissions($user->id);
         if (!array_key_exists('user_type', $permissions)) {
 

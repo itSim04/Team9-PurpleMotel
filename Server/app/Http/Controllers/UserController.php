@@ -22,7 +22,9 @@ class UserController extends Controller
         'phone' => 'required|string|unique:Users',
         'gender' => 'required|between:0,3',
         'date_of_birth' => 'required|date',
-        'tier' => 'required|between:0,2|numeric'
+        'tier' => 'required|between:0,2|numeric',
+        'type' => 'required|numeric',
+        'language' => 'required|numeric'
 
     ];
 

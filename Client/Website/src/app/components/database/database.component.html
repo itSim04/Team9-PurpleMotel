@@ -1,5 +1,5 @@
 <div
-  *ngIf="display_hover[1] && ((hover_list && data_injection.hover_fetcher) || (data_injection.hover_display && data_injection.hover_display(display_hover[1])))"
+  *ngIf="display_hover[1] && ((hover_list && data_injection.hover_fetcher) || (data_injection.hover_display && data_injection.hover_display(display_hover[1])?.length))"
   class="follow-mouse" [style.left]="(mouseX + 16) + 'px'" [style.top]="(mouseY + 16) + 'px'">
 
 

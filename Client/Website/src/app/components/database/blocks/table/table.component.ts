@@ -13,6 +13,8 @@ import { formatPrice, formatWord, Required } from '../../database.component';
 })
 export class TableComponent<Data, Data2> implements AfterViewInit {
 
+
+
   @Input() @Required data: [string, Data][] = [];
   @Input() @Required data_injection!: DataInjection<Data>;
   @Input() @Required filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
@@ -97,6 +99,21 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
     } else {
 
       return undefined;
+
+    }
+
+
+  }
+
+  mark(data: any) {
+
+    if (this.data_injection.special_case && this.data_injection.special_case.rule(data)) {
+
+      return `#${this.data_injection.special_case.color}`;
+
+    } else {
+
+      return 'white';
 
     }
 

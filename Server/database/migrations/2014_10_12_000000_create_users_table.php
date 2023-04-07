@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('tier');
             $table->integer('language')->default(1);
             $table->tinyInteger('gender');
+            $table->integer('type')->default(0);
             $table->string('date_of_birth');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

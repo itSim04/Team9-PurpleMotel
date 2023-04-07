@@ -19,6 +19,14 @@ export class UserDatabaseComponent {
   data_injection: DataInjection<User> = {
 
     title: 'Users',
+
+    special_case: {
+
+      rule: (data) => data.email == JSON.parse(localStorage.getItem('user') || '')?.email,
+      color: 'A4274A'
+
+    },
+
     displayed_columns: [
       {
         key: 'first_name'
@@ -33,7 +41,31 @@ export class UserDatabaseComponent {
         key: 'phone',
       },
       {
-        key: 'tier'
+        key: 'tier',
+        type: 'custom',
+        custom: (data) => {
+
+          switch (data.tier) {
+
+            case '0':
+
+              return 'Guest';
+
+            case '1':
+
+              return 'Staff';
+
+            case '2':
+
+              return 'Admin';
+
+            default:
+
+              return 'Unidentified';
+
+          }
+
+        }
       }
     ],
     data_fetcher: () => this.user_service.getAllUsers().pipe(map(data => data.users)),
@@ -57,10 +89,13 @@ export class UserDatabaseComponent {
   change_injection: ChangeInjection<User> = {
 
     side_panel: 'permissions',
+
+    modification_rule: data => data.tier != '2',
+
     permissions: {
 
       columns: ['Delete', 'Write', 'Read'],
-      rows: ['room', 'user', 'stock', 'user_type'],
+      rows: ['room', 'user', 'stock', 'user_type', 'room_type', 'language', 'booking'],
       key: 'permissions',
 
       update: (data: User, label: string, result: number) => data.permissions.set(label, result),
@@ -86,7 +121,7 @@ export class UserDatabaseComponent {
       permissions: new Map()
 
     },
-    data_type: 'Users',
+    data_type: 'User',
     fields: [
       {
         key: 'first_name',
@@ -126,7 +161,8 @@ export class UserDatabaseComponent {
             ['2', genders[2]],
             ['3', genders[3]],
 
-          ]
+          ],
+          key: (choice) => choice[0].toString()
         }
       },
 
@@ -177,7 +213,7 @@ export class UserDatabaseComponent {
     permissions: {
 
       columns: ['Delete', 'Write', 'Read'],
-      rows: ['room', 'user', 'stock', 'user_type'],
+      rows: ['room', 'user', 'stock', 'user_type', 'room_type', 'language', 'booking'],
       key: 'permissions',
 
       update: (data: UserType, label: string, result: number) => data.permissions.set(label, result),

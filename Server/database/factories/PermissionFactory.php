@@ -17,10 +17,13 @@ class PermissionFactory extends Factory
     public function definition(): array
     {
         {
+
+            $permissions = ['room', 'user', 'booking', 'language', 'stock', 'room_type', 'user_type'];
+
             return [
                 'concerned_party' => random_int(1, 30),
                 'is_singular' => fake()->boolean(),
-                'label' => fake()->firstName(),
+                'label' => $permissions[random_int(0, 6)],
                 'read' => fake()->boolean(),
                 'write' => fake()->boolean(),
                 'delete' => fake()->boolean()
