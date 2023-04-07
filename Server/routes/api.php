@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\UserController;
+<<<<<<< HEAD
 use App\Http\Controllers\RoomTypeController;
+=======
+use App\Http\Controllers\RoomController;
+>>>>>>> rooms-database
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
@@ -21,5 +25,6 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::apiResource('users', UserController::class);
+    Route::apiResource('rooms', RoomController::class);
     Route::apiResource('roomtypes', RoomTypeController::class);
 });

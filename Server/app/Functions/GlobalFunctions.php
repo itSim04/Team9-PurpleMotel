@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 
 function generateResponse(int $code, $collection = null, $included = [], bool $error = false)
 {
-
     $response = ['status' => $error ? 'error' : 'success'];
 
     if ($collection) {

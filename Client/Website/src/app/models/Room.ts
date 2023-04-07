@@ -18,7 +18,7 @@ export interface RoomAttributes {
 
 }
 
-export interface RoomPackage {
+/*export interface RoomPackage {
 
   room: KeyValue<string, Room>;
   room_type: KeyValue<string, RoomType>;
@@ -30,7 +30,7 @@ export interface RoomsPackage {
   rooms: Map<string, Room>;
   room_types: Map<string, RoomType>;
 
-}
+}*/
 
 export interface RoomResponse {
   status: string,
@@ -83,4 +83,12 @@ export interface RoomsResponse {
     attributes: RoomType;
 
   }[];
+}
+
+export interface RoomPackage{
+  room: KeyValue<string,Room>
+}
+
+export interface RoomsPackage{
+  rooms: Map<string,Room>
 }
