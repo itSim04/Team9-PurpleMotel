@@ -25,7 +25,7 @@ export interface DataInjection<Data> {
     title: string;
 
     special_case?: {
-        
+
         rule: (data: Data) => boolean,
         color: string;
         alt_color: string;
@@ -67,6 +67,15 @@ export interface Toggle<Data> {
     on_value: string, // Text displayed when on
     off_value: string; // Text displayed when off
 
+    on_prompt?: string;
+    off_prompt?: string;
+
+    on_confirm?: string;
+    off_confirm?: string;
+
+    on_title?: string;
+    off_title?: string;
+
 }
 
 export interface StaticField<Data> {
@@ -86,7 +95,7 @@ export interface ChangeInjection<Data> {
 
     affected_data?: KeyValue<string, Data>; // Old Data
 
-    
+
     modification_rule?: (data: Data) => boolean;
     permissions?: {
 

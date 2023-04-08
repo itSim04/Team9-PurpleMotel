@@ -191,7 +191,41 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
       if (this.modification_mode) {
 
-        const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? this.toggle.off_value : this.toggle.on_value) + this.data_type, `Would you like to ${!(this.data[this.toggle.key] as boolean) ? this.toggle.off_value : this.toggle.on_value} the ${this.data_type} ${this.identifier(this.data)}`, !(this.data[this.toggle.key] as boolean) ? this.toggle.off_value : this.toggle.on_value, 'Cancel');
+        let prompt;
+
+        if (this.data[this.toggle.key] as boolean) {
+
+          if (this.toggle.on_prompt) {
+
+            prompt = this.toggle.on_prompt;
+            prompt = prompt.replace('$name', this.identifier(this.data));
+
+          } else {
+
+            prompt = `Would you like to ${this.toggle.on_value} the ${this.data_type} ${this.identifier(this.data)}`;
+
+          }
+
+
+
+        } else {
+
+
+          if (this.toggle.off_prompt) {
+
+            prompt = this.toggle.off_prompt;
+            prompt = prompt.replace('$name', this.identifier(this.data));
+
+          } else {
+
+            prompt = `Would you like to ${this.toggle.off_value} the ${this.data_type} ${this.identifier(this.data)}`;
+
+          }
+
+
+        }
+
+        const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? (this.toggle.off_title || this.toggle.off_value + ' ' + this.data_type) : (this.toggle.on_title || this.toggle.on_value + ' ' + this.data_type)), prompt, !(this.data[this.toggle.key] as boolean) ? (this.toggle.off_confirm || this.toggle.off_value) : (this.toggle.on_confirm || this.toggle.on_value), 'Cancel');
 
         dialogRef.afterClosed().subscribe(result => {
 

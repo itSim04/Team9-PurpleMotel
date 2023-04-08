@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StocksController;
 use App\Http\Controllers\UserPermissions;
 use App\Http\Controllers\UserPermissionsController;
 use App\Http\Controllers\UserTypeController;
@@ -29,6 +30,8 @@ Route::prefix('v1')->group(function () {
         Route::get('forgot-password-2', 'forgotPassword2');
     });
 
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('stocks', StocksController::class);
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
 
