@@ -42,7 +42,10 @@ export class StockDatabaseComponent {
       is_ingredient: true
     },
 
-    data_type: 'Stocks',
+    side_panel: 'empty',
+
+    data_type: 'stock',
+
     fields:[
       {
         key: 'label',
@@ -61,14 +64,20 @@ export class StockDatabaseComponent {
     toggle:
       {
         key: 'is_ingredient',
-        on_value: 'Is not ingredient',
-        off_value: 'Is ingredient'
+        on_value: 'Is ingredient',
+        off_value: 'Is not ingredient',
+
+        on_prompt: 'Would you like to unassign the stock $name as an ingredient?',
+        off_prompt: 'Would you like to assign the stock $name as an ingredient?',
+
+        on_confirm: 'Unassign as Ingredient',
+        off_confirm: 'Assign as Ingredient'
       },
     
     add_service: stock => this.stock_service.addNewStock(stock),
     modify_service: (key,data) => this.stock_service.modifyStock(key, data),
     delete_service: key => this.stock_service.deleteStock(key),
-    identifier: (data) => data.label,
+    identifier: (data) => '' + data.label,
   }
 
 }
