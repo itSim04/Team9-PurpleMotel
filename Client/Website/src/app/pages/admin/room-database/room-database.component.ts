@@ -5,6 +5,40 @@ import { RoomDatabaseService } from './room-database.service';
 import { map, Observable } from 'rxjs';
 import { RoomType } from 'src/app/models/RoomType';
 
+export function formatOccupancy(capacity: [number?, number?, number?]): string {
+  const adults = capacity[0];
+  const adults_with_kids = capacity[1];
+  const kids = capacity[2];
+  if (adults) {
+    let result = "";
+    result += `${adults} adult${adults == 1 ? '' : 's'}`;
+    if (adults_with_kids) {
+      result += ` or ${adults_with_kids} adult${adults_with_kids == 1 ? '' : 's'} + ${kids} ${kids == 1 ? 'child' : 'children'}`;
+    }
+    return result;
+  } else {
+    return "";
+  }
+}
+export function formatPrice(price: number | undefined): string {
+
+  if (price) {
+
+    const numStr = price.toString();
+
+    // split the number string into groups of three digits from right to left
+    const numArr = numStr.split('').reverse().join('').match(/(\d{1,3})/g);
+
+    // join the groups with commas and return the result from right to left
+    return (numArr?.join(',')?.split('').reverse().join('') || numStr) + " USD";
+
+  } else {
+
+    return '';
+
+  }
+}
+
 @Component({
   selector: 'app-room-database',
   templateUrl: './room-database.component.html',
