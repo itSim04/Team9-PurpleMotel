@@ -32,6 +32,7 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('users', UserController::class);
     Route::apiResource('stocks', StocksController::class);
+    Route::apiResource('activities', ActivityController::class);
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
 
