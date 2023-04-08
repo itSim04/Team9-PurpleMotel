@@ -31,9 +31,9 @@ export interface Activity {
   }
 
   export interface ActivityPackage{
-    stock: KeyValue<string,Activity>
+    activity: KeyValue<string,Activity>
   }
   
   export interface ActivitiesPackage{
-    stocks: Map<string,Activity>
+    activities: Map<string,Activity>
   }
