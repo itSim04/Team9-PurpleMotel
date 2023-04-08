@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataInjection } from 'src/app/models/Database';
+import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Room } from 'src/app/models/Room';
 import { RoomDatabaseService } from './room-database.service';
 import { map, Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { RoomType } from 'src/app/models/RoomType';
   styleUrls: ['./room-database.component.scss']
 })
 export class RoomDatabaseComponent {
+constructor (private room_service: RoomDatabaseService) { }
 
   data_injection: DataInjection<Room> = {
     title: 'Room',
@@ -82,7 +83,72 @@ export class RoomDatabaseComponent {
       })
     );
   };
-  constructor (private room_service: RoomDatabaseService) { }
+
+  
+  change_injection: ChangeInjection<Room> = {
+    default_state:{
+      label: '',
+      description: '',
+      number: '',
+      level: '',
+      type: '',
+      rating: 0,
+      image_path: '',
+      open: true
+    },
+
+    //side_panel: 'empty',
+
+    data_type: 'room',
+
+    fields:[
+      {
+        key: 'label',
+        type: 'text'
+      },
+      {
+        key: 'description',
+        type: 'text'
+      },
+      {
+        key: 'number',
+        type: 'text'
+      },
+      {
+        key: 'level',
+        type: 'text'
+      },
+      {
+        key: 'type',
+        type: 'text'
+      },
+      {
+        key: 'rating',
+        type: 'number'
+      },
+      {
+        key: 'image_path',
+        type: 'text'
+      },
+      {
+        key: 'open',
+        type: 'choices'
+      }
+
+    ],
+
+    toggle:
+      {
+        key: 'open',
+        on_value: 'Is open',
+        off_value: 'Is not open'
+      },
+    
+    add_service: room => this.room_service.addNewRoom(room),
+    modify_service: (key,data) => this.room_service.modifyRoom(key, data),
+    delete_service: key => this.room_service.deleteRoom(key),
+    identifier: (data) => '' + data.label,
+  }
 
 }
 
