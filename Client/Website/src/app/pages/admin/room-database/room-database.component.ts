@@ -84,7 +84,6 @@ constructor (private room_service: RoomDatabaseService) { }
     );
   };
 
-  
   change_injection: ChangeInjection<Room> = {
     default_state:{
       label: '',
@@ -148,7 +147,58 @@ constructor (private room_service: RoomDatabaseService) { }
     modify_service: (key,data) => this.room_service.modifyRoom(key, data),
     delete_service: key => this.room_service.deleteRoom(key),
     identifier: (data) => '' + data.label,
-  }
+  };
+
+  extra_change_injection: ChangeInjection<RoomType> = {
+    default_state:{
+      label: '',
+      description: '',
+      price: 0,
+      kids_capacity: 0,
+      adults_capacity: 0,
+      adults_with_kids_capacity: 0,
+    },
+
+    //side_panel: 'empty',
+
+    data_type: 'room_type',
+
+    fields:[
+      {
+        key: 'label',
+        type: 'text'
+      },
+      {
+        key: 'description',
+        type: 'text'
+      },
+      {
+        key: 'price',
+        type: 'number'
+      },
+      {
+        key: 'kids_capacity',
+        type: 'number'
+      },
+      {
+        key: 'adults_capacity',
+        type: 'number'
+      },
+      {
+        key: 'adults_with_kids_capacity',
+        type: 'number'
+      }
+
+
+    ],
+
+    add_service: room_type => this.room_service.addNewRoomType(room_type),
+    modify_service: (key,data) => this.room_service.modifyRoomType(key, data),
+    delete_service: key => this.room_service.deleteRoomType(key),
+    identifier: (data) => '' + data.label,
+  };
+
+  
 
 }
 
