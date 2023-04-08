@@ -171,6 +171,19 @@ export class RoomDatabaseComponent {
       }
 
     ],
+    static_fields: [
+
+      {
+        key: 'price',
+        //value: (data: Room) => formatPrice(this.room_types.get(data.type)?.price)
+      },
+      {
+        key: 'occupancy',
+        //value: (data: Room) => formatOccupancy([this.room_types.get(data.type)?.adults_capacity, this.room_types.get(data.type)?.adults_with_kids_capacity, this.room_types.get(data.type)?.kids_capacity])
+      }
+
+
+    ],
 
     toggle:
       {
@@ -214,15 +227,28 @@ export class RoomDatabaseComponent {
       },
       {
         key: 'kids_capacity',
-        type: 'number'
+        type: 'number',
+        condition: (data: unknown) => {
+          const room = data as RoomType;
+          return room.kids_capacity >= 0;
+        }
       },
       {
         key: 'adults_capacity',
-        type: 'number'
+        type: 'number',
+        condition: (data: unknown) => {
+          const room = data as RoomType;
+          return room.adults_capacity > 0;
+        }
+        
       },
       {
         key: 'adults_with_kids_capacity',
-        type: 'number'
+        type: 'number',
+        condition: (data: unknown) => {
+          const room = data as RoomType;
+          return room.adults_with_kids_capacity >= 0;
+        }
       }
 
 
