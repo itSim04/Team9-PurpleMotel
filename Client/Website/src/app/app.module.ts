@@ -18,7 +18,9 @@ import { BookingDatabaseModule } from './pages/admin/booking-database/booking-da
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+   
+   
   ],
   imports: [
     BrowserModule,

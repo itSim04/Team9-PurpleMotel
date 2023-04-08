@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\UserPermissions;
 use App\Http\Controllers\UserPermissionsController;
