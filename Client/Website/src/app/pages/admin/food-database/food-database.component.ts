@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs';
-import { DataInjection } from 'src/app/models/Database';
+import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { FoodDatabaseService } from './food-database.service';
 import { Food } from 'src/app/models/Food';
 
@@ -33,4 +33,50 @@ export class FoodDatabaseComponent {
     data_fetcher: () => this.food_service.getAllFoods().pipe(map(data => data.foods))
 
   };
+
+  change_injection: ChangeInjection<Food> = {
+    default_state:{
+      label: '',
+      description: '',
+      price: 0,
+      is_served: true,
+      image_path: '',
+      ingredients: []
+    },
+
+    //side_panel: 'empty',
+
+    data_type: 'food',
+
+    fields:[
+      {
+        key: 'label',
+        type: 'text'
+      },
+      {
+        key: 'description',
+        type: 'text'
+      },
+      {
+        key: 'price',
+        type: 'number'
+      },
+      {
+        key: 'ingredients',
+        type: 'number'
+      }
+    ],
+
+    toggle:
+      {
+        key: 'is_served',
+        on_value: 'Is served',
+        off_value: 'Is not served',
+      },
+    
+    add_service: food => this.food_service.addNewFood(food),
+    modify_service: (key,data) => this.food_service.modifyFood(key, data),
+    delete_service: key => this.food_service.deleteFood(key),
+    identifier: (data) => '' + data.label,
+  }
 }
