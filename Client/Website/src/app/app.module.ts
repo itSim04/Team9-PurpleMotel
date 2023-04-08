@@ -13,6 +13,7 @@ import { StarRatingModule } from 'angular-star-rating';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthenticationModule } from './services/dialogs/authentication/authentication.module';
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
+import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { StockDatabaseModule } from './pages/admin/stock-database/stock-database
     BrowserAnimationsModule,
 
     UserDatabaseModule,
-
+    BookingDatabaseModule,
     StarRatingModule.forRoot(),
     AuthenticationModule,
 

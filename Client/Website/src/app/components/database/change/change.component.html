@@ -153,6 +153,14 @@
                                     </mat-option> </mat-select>
                             </mat-form-field>
 
+                            <!-- Date -->
+                            <mat-form-field *ngIf="field.type === 'date'" class="full-width input" appearance="fill">
+                                <mat-label class="label">Choose a date</mat-label>
+                                <input [ngModel]="data[field.key]" (ngModelChange)="data[field.key]=parseDate($event)" matInput [matDatepicker]="picker" readonly>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
                         </td>
 
                     </tr>

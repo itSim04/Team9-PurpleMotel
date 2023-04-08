@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\UserType;
 use App\Policies\UserPolicy;
 use App\Policies\UserTypePolicy;
+use App\Http\Controllers\BookingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -76,4 +77,5 @@ Route::prefix('v1')->group(function () {
         Route::put('usertype-permissions/{usertype_permission}', [UserTypePermissionController::class, 'update'])->middleware('can:update,usertype_permission');
         Route::delete('usertype-permissions/{usertype_permission}', [UserTypePermissionController::class, 'destroy'])->middleware('can:delete,usertype_permission');
     });
+    Route::apiResource('bookings', BookingController::class);
 });

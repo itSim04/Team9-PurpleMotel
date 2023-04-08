@@ -56,7 +56,7 @@ export interface Choices {
 
 export interface Field<Data> {
     key: keyof Data, // Key of the field
-    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number';
+    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date';
     choices?: Choices; // Can only be used with selection and choices.
     condition?: (data: unknown) => boolean; // When to consider the value as satisfied. Not required with Text and Number
     formatting?: (data: Data) => string; // The way to display the value. NOT used
