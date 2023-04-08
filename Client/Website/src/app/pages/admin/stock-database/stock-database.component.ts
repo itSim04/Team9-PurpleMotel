@@ -71,7 +71,10 @@ export class StockDatabaseComponent {
         off_prompt: 'Would you like to assign the stock $name as an ingredient?',
 
         on_confirm: 'Unassign as Ingredient',
-        off_confirm: 'Assign as Ingredient'
+        off_confirm: 'Assign as Ingredient',
+
+        on_title: 'Assignment change',
+        off_title: 'Assignment change'
       },
     
     add_service: stock => this.stock_service.addNewStock(stock),

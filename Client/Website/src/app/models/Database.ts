@@ -73,6 +73,9 @@ export interface Toggle<Data> {
     on_confirm?: string;
     off_confirm?: string;
 
+    on_title?: string;
+    off_title?: string;
+
 }
 
 export interface StaticField<Data> {

@@ -224,7 +224,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
         }
 
-        const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? this.toggle.off_value : this.toggle.on_value) + ' ' + this.data_type, prompt, !(this.data[this.toggle.key] as boolean) ? (this.toggle.off_confirm || this.toggle.off_value) : (this.toggle.on_confirm || this.toggle.on_value), 'Cancel');
+        const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? (this.toggle.off_title || this.toggle.off_value + ' ' + this.data_type) : (this.toggle.on_title || this.toggle.on_value + ' ' + this.data_type)), prompt, !(this.data[this.toggle.key] as boolean) ? (this.toggle.off_confirm || this.toggle.off_value) : (this.toggle.on_confirm || this.toggle.on_value), 'Cancel');
 
         dialogRef.afterClosed().subscribe(result => {
 
