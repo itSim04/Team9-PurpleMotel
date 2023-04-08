@@ -1,0 +1,39 @@
+import { KeyValue } from "@angular/common";
+
+export interface Activity {
+
+    title: string, //Label of a certain stock item
+    description: string, //Information about it
+    capacity: number, //Current available quantity of said stock item
+    price: number,
+    start_date: Date,
+    end_date: Date
+  
+  }
+
+  export interface ActivitiesResponse {
+    status: string,
+    data: {
+      id: string;
+      type: string;
+      attributes: Activity;
+    }[];
+    
+  }
+
+  export interface ActivityResponse {
+    status: string,
+    data: {
+      id: string;
+      type: string;
+      attributes: Activity;
+    };
+  }
+
+  export interface ActivityPackage{
+    stock: KeyValue<string,Activity>
+  }
+  
+  export interface ActivitiesPackage{
+    stocks: Map<string,Activity>
+  }
