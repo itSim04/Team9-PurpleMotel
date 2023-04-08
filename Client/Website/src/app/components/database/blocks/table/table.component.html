@@ -8,7 +8,7 @@
           <ng-container [matColumnDef]="col.key.toString()">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                   {{col.header_alt || formatWord(col.key.toString())}} </th>
-              <td class="cell" mat-cell *matCellDef="let element">{{formatDataField(col,
+              <td (mouseleave)="hovered = '-1'" (mouseenter)="hovered = element[0]" [style.background]="mark(element)" class="cell" mat-cell *matCellDef="let element">{{formatDataField(col,
                   element)}}</td>
           </ng-container>
       </ng-container>
@@ -20,7 +20,7 @@
           <ng-container [matColumnDef]="col.key.toString()">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                   {{col.header_alt || formatWord(col.key.toString())}} </th>
-              <td class="cell" mat-cell *matCellDef="let element">
+              <td [style.background]="mark(element[1])" class="cell" mat-cell *matCellDef="let element">
                   <mat-checkbox [(ngModel)]="element[1][col.key]" class="example-margin"
                       [disabled]="true">
                   </mat-checkbox>
@@ -35,7 +35,7 @@
           <ng-container [matColumnDef]="col.key.toString()">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                   {{col.header_alt || formatWord(col.key.toString())}} </th>
-              <td class="cell" mat-cell *matCellDef="let element" style="padding-left: 0px;">
+              <td [style.background]="mark(element[1])" class="cell" mat-cell *matCellDef="let element" style="padding-left: 0px;">
                   <star-rating staticColor="ok" [readOnly]="true" [rating]="element[1][col.key]"
                       [showHalfStars]="true"></star-rating>
               </td>
@@ -50,7 +50,7 @@
       *matRowDef="let row; columns: getDisplayedColumnsKey;">
   </tr>
 </table>
-<mat-progress-bar *ngIf="!this.data" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="this.loading" mode="indeterminate"></mat-progress-bar>
 
 <div [hidden]="!this.data">
   <mat-paginator style="display: flex; justify-content: center; margin-bottom: 32px;"

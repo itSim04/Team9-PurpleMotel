@@ -1,11 +1,39 @@
+import { UserType } from 'src/app/models/UserType';
 import { KeyValue } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Field, Toggle, StaticField, ChangeInjection } from 'src/app/models/Database';
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { ConfirmationDialogService } from 'src/app/services/dialogs/confirmation/confirmation.service';
 import { WarningDialogService } from 'src/app/services/dialogs/warning/warning.service';
 import { isNum } from '../database.component';
+import { User } from 'src/app/models/User';
+
+
+export function clone(obj: any) {
+
+  if (obj == null || typeof obj !== 'object') {
+    return obj;
+  }
+
+  if (obj instanceof Map) {
+    const clonedMap = new Map();
+    for (const [key, value] of obj.entries()) {
+      clonedMap.set(key, clone(value));
+    }
+    return clonedMap;
+  }
+
+  const temp = new obj.constructor();
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      temp[key] = clone(obj[key]);
+    }
+  }
+  return temp;
+
+}
 
 @Component({
   selector: 'app-change',
@@ -13,20 +41,46 @@ import { isNum } from '../database.component';
   styleUrls: ['./change.component.scss']
 })
 export class ChangeComponent<Data extends { [key: string]: string | boolean | number; }> {
+  debug2($event: any) {
+    console.log($event);
+  }
+
+
+  debug(id: number, row: string, result: boolean) {
+
+    const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
+
+    old_permissions[id] = result;
+
+    this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
+
+  }
 
 
   modification_mode = false;
+  side_panel: 'images' | 'permissions' | 'empty';
   data: Data;
   data_type: string;
   standalone_field?: Field<Data>;
   fields: Field<Data>[];
   toggle?: Toggle<Data>;
   static_fields?: StaticField<Data>[];
+  permissions?: {
+
+    rows: string[];
+    columns: string[];
+    format: (result: boolean[]) => string;
+    update: (data: Data, label: string, result: number) => void;
+    retrieve: (result: Data, id: string) => boolean[];
+    key: keyof Data;
+
+  };
   readonly old_data?: KeyValue<string, Data>;
   readonly add_service: (data: Data) => Observable<string>;
   readonly modify_service: (key: string, data: Data) => Observable<undefined>;
   readonly delete_service: (key: string) => Observable<string[]>;
   readonly identifier: (data: Data) => string;
+  readonly modification_rule;
 
   readonly linked_data: Map<string, unknown>;
 
@@ -38,6 +92,9 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     this.modify_service = injected_data.injection.modify_service;
     this.delete_service = injected_data.injection.delete_service;
     this.identifier = injected_data.injection.identifier;
+    this.permissions = injected_data.injection.permissions;
+    this.modification_rule = injected_data.injection.modification_rule || (data => true);
+    this.side_panel = injected_data.injection.side_panel;
     this.toggle = injected_data.injection.toggle;
     this.data_type = injected_data.injection.data_type;
     this.fields = injected_data.injection.fields;
@@ -47,16 +104,17 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     if (injected_data.injection.affected_data) {
 
       this.old_data = injected_data.injection.affected_data;
-      this.data = JSON.parse(JSON.stringify(injected_data.injection.affected_data.value));
+      this.data = clone(injected_data.injection.affected_data.value);
       this.modification_mode = true;
 
     } else {
 
       this.old_data = undefined;
-      this.data = JSON.parse(JSON.stringify(injected_data.injection.default_state));
+      this.data = clone(injected_data.injection.default_state);
       this.modification_mode = false;
 
     }
+    console.log((this.data as unknown as User).gender);
 
   }
 
@@ -69,7 +127,6 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
         this.add_service(this.data).subscribe(result => {
 
-          console.log(result);
           this.dialogRef.close({ key: result, value: this.data });
 
         });
@@ -130,7 +187,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   triggerToggle() {
 
-    if (this.toggle) {
+    if (this.toggle && this.modification_rule(this.data)) {
 
       if (this.modification_mode) {
 
@@ -159,11 +216,49 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     }
   }
 
-  get differenceCheck() {
+  areEqual(a: any, b: any) {
+    if (a === b) {
+      return true;
+    }
 
-    return !this.modification_mode || JSON.stringify(this.old_data?.value) != JSON.stringify(this.data);
+    if (a instanceof Map && b instanceof Map) {
+      if (a.size !== b.size) {
+        return false;
+      }
 
+      for (const [key, value] of a.entries()) {
+        if (!b.has(key) || !this.areEqual(value, b.get(key))) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
+      return a === b;
+    }
+
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+
+    if (keysA.length !== keysB.length) {
+      return false;
+    }
+
+    for (const key of keysA) {
+      if (!keysB.includes(key) || !this.areEqual(a[key], b[key])) {
+        return false;
+      }
+    }
+
+    return true;
   }
+
+  get differenceCheck() {
+    return !this.modification_mode || !this.areEqual(this.old_data?.value, this.data);
+  }
+
 
   get fieldsCompleteness() {
 
@@ -200,5 +295,11 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
 
     return splits.join(" ");
+  }
+
+  parseDate(date: string): any {
+
+    return parseDate(new Date(date));
+
   }
 }
