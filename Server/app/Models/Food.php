@@ -13,5 +13,6 @@ class Food extends Model
         'price',
         'is_served',
     ];
+    protected $table = 'Foods';
     use HasFactory;
 }
