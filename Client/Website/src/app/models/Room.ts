@@ -86,9 +86,11 @@ export interface RoomsResponse {
 }
 
 export interface RoomPackage{
-  room: KeyValue<string,Room>
+  room: KeyValue<string,Room>;
+  room_type: KeyValue<string,RoomType>;
 }
 
 export interface RoomsPackage{
-  rooms: Map<string,Room>
+  rooms: Map<string,Room>;
+  room_types: Map<string,RoomType>;
 }

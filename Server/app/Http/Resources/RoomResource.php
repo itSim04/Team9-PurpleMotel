@@ -22,13 +22,20 @@ class RoomResource extends JsonResource
 
                 'level' => $this->level,
                 'number' => $this->number,
-                'type' => $this->type,
                 'open' => $this->open,
                 'rating' => $this->rating,
                 'label' => $this->label,
                 'description' => $this->description
 
+            ],
+            'relationships' => [
+                'room_type' => [
+                    'data' => [
+                        'id' => (string)$this->type,
+                        'type' => 'Room_Types'
+                    ]
+                ]
             ]
-            ];
+        ];
     }
 }

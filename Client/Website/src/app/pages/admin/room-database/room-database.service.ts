@@ -23,20 +23,31 @@ export class RoomDatabaseService {
         map((response: RoomsResponse): RoomsPackage => {
 
           const rooms = new Map<string, Room>();
-          
+          const room_types = new Map<string, RoomType>();
+
 
           response.data.forEach(room => {
 
             const roomType = room.relationships?.room_type?.data?.id;
-            rooms.set(room.id, {...room.attributes, type: roomType});
-            //rooms.set(room.id, {...room.attributes, type: room.relationships.room_type.data.id});
-
+            rooms.set(room.id, { ...room.attributes, type: roomType });
 
           });
 
+          if (response.included) {
+
+            response.included.forEach(room_type => {
+
+              room_types.set(room_type.id, room_type.attributes);
+
+            });
+
+          }
+
           return {
 
-            rooms: rooms
+            rooms: rooms,
+            room_types: room_types
+
           };
 
         }));
@@ -58,16 +69,28 @@ export class RoomDatabaseService {
       return this.http.get<RoomResponse>(this.url.generateUrl(`rooms/${id}`)).pipe(
         map((response: RoomResponse): RoomPackage => {
 
-          return {
+          if (response.included) {
 
-            room: {
+            return {
 
-              key: response.data.id,
-              value: {...response.data.attributes, type: response.data.relationships.room_type.data.id}
+              room: {
 
-            },
-          };
+                key: id,
+                value: { ...response.data.attributes, type: response.data.relationships.room_type.data.id }
 
+              },
+
+              room_type: {
+
+                key: response.data.relationships.room_type.data.id,
+                value: response.included[0].attributes
+
+              }
+
+            };
+
+          }
+          throw new Error(`Foreign key Constraint failure: Room ${id}`);
 
         })
       );

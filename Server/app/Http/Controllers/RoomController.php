@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\RoomType;
 use App\Http\Resources\RoomResource;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Http\Resources\RoomTypeResource;
+
 
 class RoomController extends Controller
 {
@@ -29,8 +32,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        // return JWTAuth::parseToken()->authenticate();
-        return indexTemplate($this->model, $this->resource);
+        return indexTemplate($this->model, $this->resource, RoomType::class, RoomTypeResource::class);
     }
 
     /**
