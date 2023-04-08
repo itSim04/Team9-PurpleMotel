@@ -4,6 +4,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Field, Toggle, StaticField, ChangeInjection } from 'src/app/models/Database';
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { ConfirmationDialogService } from 'src/app/services/dialogs/confirmation/confirmation.service';
 import { WarningDialogService } from 'src/app/services/dialogs/warning/warning.service';
 import { isNum } from '../database.component';
@@ -294,5 +295,11 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
 
     return splits.join(" ");
+  }
+
+  parseDate(date: string): any {
+
+    return parseDate(new Date(date));
+
   }
 }

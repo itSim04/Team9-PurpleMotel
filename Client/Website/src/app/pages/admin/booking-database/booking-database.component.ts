@@ -22,13 +22,15 @@ export class BookingDatabaseComponent {
         key: 'end_date'
       },
       {
-        key: 'exhausted'
+        key: 'exhausted',
+        type: 'boolean'
       }
     ],
     data_fetcher: () => this.booking_service.getAllBookings().pipe(map(data => data.bookings))
     
   };
   change_injection: ChangeInjection<Booking> = {
+    side_panel: 'empty',
     default_state:{
       check_in: new Date(),
       end_date: new Date(),
@@ -38,17 +40,17 @@ export class BookingDatabaseComponent {
     fields: [
       {
         key:'check_in',
-        type:'text'
+        type:'date'
       },
       {
         key:'end_date',
-        type:'text'
+        type:'date'
       }
     ],
     toggle : {
       key: 'exhausted',
-      on_value: 'Booking is Exhausted',
-      off_value: 'Booking in Progress'
+      on_value: 'Exhausted',
+      off_value: 'Pending'
     },
     add_service: booking => this.booking_service.addNewBooking(booking),
     modify_service: (key, data) => this.booking_service.modifyBooking(key, data),
