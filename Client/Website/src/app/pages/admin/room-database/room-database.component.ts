@@ -11,8 +11,8 @@ import { RoomType } from 'src/app/models/RoomType';
   styleUrls: ['./room-database.component.scss']
 })
 export class RoomDatabaseComponent {
-constructor (private room_service: RoomDatabaseService) { }
 
+  constructor (private room_service: RoomDatabaseService) {}
   data_injection: DataInjection<Room> = {
     title: 'Room',
     displayed_columns: [
@@ -84,6 +84,8 @@ constructor (private room_service: RoomDatabaseService) { }
     );
   };
 
+  
+  
   change_injection: ChangeInjection<Room> = {
     default_state:{
       label: '',
@@ -98,7 +100,14 @@ constructor (private room_service: RoomDatabaseService) { }
 
     //side_panel: 'empty',
 
-    data_type: 'room',
+    data_type: 'Room',
+
+    standalone_field: {
+
+      key: 'description',
+      type: 'text'
+
+    },
 
     fields:[
       {
@@ -106,32 +115,24 @@ constructor (private room_service: RoomDatabaseService) { }
         type: 'text'
       },
       {
-        key: 'description',
-        type: 'text'
-      },
-      {
         key: 'number',
-        type: 'text'
+        type: 'positive_digits_string'
       },
       {
         key: 'level',
-        type: 'text'
-      },
-      {
-        key: 'type',
-        type: 'text'
+        type: 'digits_string'
       },
       {
         key: 'rating',
         type: 'number'
       },
       {
-        key: 'image_path',
-        type: 'text'
-      },
-      {
         key: 'open',
         type: 'choices'
+      },
+      {
+        key: 'type',
+        type: 'selection',
       }
 
     ],
@@ -139,8 +140,8 @@ constructor (private room_service: RoomDatabaseService) { }
     toggle:
       {
         key: 'open',
-        on_value: 'Is open',
-        off_value: 'Is not open'
+        on_value: 'Close',
+        off_value: 'Open'
       },
     
     add_service: room => this.room_service.addNewRoom(room),
@@ -149,7 +150,7 @@ constructor (private room_service: RoomDatabaseService) { }
     identifier: (data) => '' + data.label,
   };
 
-  extra_change_injection: ChangeInjection<RoomType> = {
+  extra_change_injection: ChangeInjection<RoomType>  = {
     default_state:{
       label: '',
       description: '',
@@ -161,7 +162,7 @@ constructor (private room_service: RoomDatabaseService) { }
 
     //side_panel: 'empty',
 
-    data_type: 'room_type',
+    data_type: 'Room Type',
 
     fields:[
       {
@@ -192,12 +193,12 @@ constructor (private room_service: RoomDatabaseService) { }
 
     ],
 
-    add_service: room_type => this.room_service.addNewRoomType(room_type),
-    modify_service: (key,data) => this.room_service.modifyRoomType(key, data),
-    delete_service: key => this.room_service.deleteRoomType(key),
+    add_service: data => this.room_service.addNewRoomType(data),
+    modify_service: (data, id) => this.room_service.modifyRoomType(data, id),
+    delete_service: (id) => this.room_service.deleteRoomType(id),
     identifier: (data) => '' + data.label,
   };
-
+  
   
 
 }
