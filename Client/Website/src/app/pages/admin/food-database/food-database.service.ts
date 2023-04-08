@@ -22,7 +22,7 @@ export class FoodDatabaseService {
 
           const foods = new Map<string, Food>();
 
-          response.data.forEach((food: { id: string; attributes: Food; }) => {
+          response.data.forEach(food=> {
 
             foods.set(food.id, food.attributes);
 
