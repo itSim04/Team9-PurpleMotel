@@ -13,10 +13,13 @@ import { formatPrice, formatWord, Required } from '../../database.component';
 })
 export class TableComponent<Data, Data2> implements AfterViewInit {
 
+
+
   @Input() @Required data: [string, Data][] = [];
   @Input() @Required data_injection!: DataInjection<Data>;
   @Input() @Required filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
   @Input() @Required extra_data: [string, Data2][] | undefined = [];
+  @Input() @Required loading = false;
 
   @Output() modify_click: EventEmitter<[string, Data]> = new EventEmitter();
   @Output() hover: EventEmitter<[string, Data | undefined]> = new EventEmitter();
@@ -24,6 +27,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  hovered = '-1';
   ngAfterViewInit(): void {
 
     this.filtered_data.paginator = this.paginator;
@@ -52,7 +56,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
 
         if (col.link) {
 
-          return col.link.format(this.getExtra(element[1][col.link.key]));
+          return col.link.format(this.getExtra(element[1][col.link.key]), element[1]);
 
         } else {
 
@@ -97,6 +101,36 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
 
       return undefined;
 
+    }
+
+
+  }
+
+  mark(data: [string, Data]) {
+
+    if (this.data_injection.special_case && this.data_injection.special_case.rule(data[1])) {
+
+      if (this.hovered == data[0]) {
+
+        return `#${this.data_injection.special_case.alt_color}`;
+
+      } else {
+
+        return `#${this.data_injection.special_case.color}`;
+
+      }
+
+    } else {
+
+      if (this.hovered == data[0]) {
+
+        return 'lightgray';
+
+      } else {
+       
+        return 'white';
+
+      }
     }
 
 

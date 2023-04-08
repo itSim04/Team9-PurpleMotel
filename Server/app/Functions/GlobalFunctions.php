@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 function generateResponse(int $code, $collection = null, $included = [], bool $error = false)
 {
@@ -16,17 +18,54 @@ function generateResponse(int $code, $collection = null, $included = [], bool $e
     return response()->json($response, $code);
 }
 
-function indexTemplate(string $model, string $resource, string $extra_model = null, string $extra_resource = null)
+function extractPermissions($id, $type)
 {
-    return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()) : []);
+
+    foreach (Permission::where('is_singular', true)->where('concerned_party', $id)->get() as $permission) {
+
+        $permissions_final[$permission->label] = [$permission->read, $permission->write, $permission->delete];
+    }
+
+
+    foreach (Permission::where('is_singular', false)->where('concerned_party', $type)->get() as $permission_type) {
+
+        if (array_key_exists($permission_type->label, $permissions_final)) {
+
+            $permissions_final[$permission_type->label][0] = max($permissions_final[$permission_type->label][0], $permission_type->read);
+            $permissions_final[$permission_type->label][1] = max($permissions_final[$permission_type->label][1], $permission_type->write);
+            $permissions_final[$permission_type->label][2] = max($permissions_final[$permission_type->label][2], $permission_type->delete);
+        } else {
+
+            $permissions_final[$permission_type->label] = [$permission_type->read, $permission_type->write, $permission_type->delete];
+        }
+    }
+
+
+    
+    return $permissions_final;
 }
 
-function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null)
+function indexTemplate(string $model, string $resource, string $extra_model = null, string $extra_resource = null, string $condition = null, $condition_value = null)
+{
+    if ($condition) {
+
+        return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()->where($condition, $condition_value)) : []);
+    } else {
+
+        return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()) : []);
+    }
+}
+
+function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null, bool $singular = true)
 {
 
     $options = str_replace('required|', '', $options);
 
-    // $request->validate($options);
+    $options = str_replace('|unique:' . $model_table, '', $options);
+
+    $options = str_replace('|unique:' . $model_table, '', $options);
+
+    $request->validate($options);
 
     $old = $model::find($id);
 
@@ -39,36 +78,46 @@ function updateTemplate(Request $request, string $model, string $id, string $res
         if ($old->{$key} !== $value) {
 
             $updateData[$key] = $value;
-
         }
-
     }
 
     if ($model_table && isset($updateData['phone'])) {
         $request->validate([
-            'phone' => 'unique:'.$model_table
-        ]);
-    }
-    
-    if ($model_table && isset($updateData['email'])) {
-        $request->validate([
-            'email' => 'unique:'.$model_table
+            'phone' => 'unique:' . $model_table
         ]);
     }
 
+    if ($model_table && isset($updateData['email'])) {
+        $request->validate([
+            'email' => 'unique:' . $model_table
+        ]);
+    }
+
+
     try {
+
+        if (isset($request->permissions)) {
+            foreach ($request->permissions as $key => $permission) {
+
+                addPermissions($key, $id, $permission, $singular);
+            }
+        }
 
         if (!empty($updateData)) {
 
             $data = $old->update($updateData);
 
+
             if ($data) {
+
 
                 return generateResponse(201, new $resource($old));
             } else {
 
                 return generateResponse(500, "An error occured", true);
             }
+        } else {
+            return generateResponse(200);
         }
     } catch (Exception $e) {
 
@@ -76,7 +125,32 @@ function updateTemplate(Request $request, string $model, string $id, string $res
     }
 }
 
-function storeTemplate(Request $request, string $model, string $resource, array $options)
+function addPermissions($label, string $concerned, $permission, bool $singular)
+{
+    $old = Permission::where('concerned_party', $concerned)->where('label', $label)->first();
+    $permissions = sprintf("%03d", decbin(intval($permission)));
+    $new = [
+
+        'label' => $label,
+        'concerned_party' => $concerned,
+        'read' => $permissions[2],
+        'write' => $permissions[1],
+        'delete' => $permissions[0],
+        'is_singular' => $singular
+
+    ];
+
+    if (!$old) {
+
+        $new = Permission::create($new);
+        return $new;
+    } else {
+
+        $old->update($new);
+        return $old;
+    }
+}
+function storeTemplate(Request $request, string $model, string $resource, array $options, bool $singular = true)
 {
 
     $request->validate($options);
@@ -87,6 +161,14 @@ function storeTemplate(Request $request, string $model, string $resource, array 
     try {
 
         $data = $model::create($credentials);
+
+        if (isset($request->permissions)) {
+            foreach ($request->permissions as $key => $permission) {
+
+                addPermissions($key, $data->id, $permission, $singular);
+            }
+        }
+
         return generateResponse(201, new $resource($data));
     } catch (Exception $e) {
 
@@ -94,14 +176,14 @@ function storeTemplate(Request $request, string $model, string $resource, array 
     }
 }
 
-function showTemplate(string $model, string $resource, int $id, string $extra_model = null, string $extra_resource = null)
+function showTemplate(string $model, string $resource, int $id, string $extra_model = null, string $extra_resource = null, string $concerned_key = null)
 {
 
     $data = $model::find($id);
 
     if ($data) {
 
-        return generateResponse(200, new $resource($data), $extra_resource && $extra_model ? [new $extra_resource($extra_model::find($data->type))] : []);
+        return generateResponse(200, new $resource($data), $extra_resource && $extra_model && $concerned_key ? [$extra_resource::collection($extra_model::where($concerned_key, $data->id)->get())] : []);
     } else {
 
         return generateResponse(404, $id . " not in Database", true);

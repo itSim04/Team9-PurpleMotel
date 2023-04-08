@@ -1,3 +1,4 @@
+import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChangeComponent } from './change/change.component';
@@ -31,11 +32,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ChangeComponent
 
   ],
-  exports: [
-
-    DatabaseComponent
-
-  ],
   imports: [
 
     CommonModule,
@@ -52,8 +48,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDividerModule,
     MatDialogModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatButtonModule
 
+
+  ],
+  exports: [
+    DatabaseComponent
   ]
 })
 export class DatabaseModule { }
