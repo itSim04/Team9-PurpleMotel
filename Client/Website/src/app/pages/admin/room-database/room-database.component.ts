@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Room } from 'src/app/models/Room';
 import { RoomDatabaseService } from './room-database.service';
@@ -107,7 +107,7 @@ export class RoomDatabaseComponent {
     data_fetcher: undefined
   };
 
-  dual_fetcher: () => Observable<[Map<string, Room>, Map<string, RoomType>]> = () => {
+  @Input() dual_fetcher: () => Observable<[Map<string, Room>, Map<string, RoomType>]> = () => {
 
     return this.room_service.getAllRooms().pipe(
       map(result => {
@@ -119,8 +119,9 @@ export class RoomDatabaseComponent {
   };
 
   
-  
+
   change_injection: ChangeInjection<Room> = {
+    
     default_state:{
       label: '',
       description: '',
@@ -161,12 +162,12 @@ export class RoomDatabaseComponent {
         type: 'number'
       },
       {
-        key: 'open',
-        type: 'choices'
-      },
-      {
         key: 'type',
         type: 'selection',
+        choices: {
+          link: true,
+          format: (choice) => (choice as RoomType).label
+        }
       }
 
     ],
