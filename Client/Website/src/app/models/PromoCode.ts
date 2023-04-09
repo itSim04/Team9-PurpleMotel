@@ -27,10 +27,10 @@ export interface PromoCode {
     };
   }
 
-  export interface ActivityPackage{
+  export interface PromoCodePackage{
     promo_code: KeyValue<string,PromoCode>
   }
   
-  export interface ActivitiesPackage{
+  export interface PromoCodesPackage{
     promo_codes: Map<string,PromoCode>
   }
