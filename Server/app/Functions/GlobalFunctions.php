@@ -35,7 +35,6 @@ function extractPermissions($id, $type)
             $permissions_final[$permission_type->label][0] = max($permissions_final[$permission_type->label][0], $permission_type->read);
             $permissions_final[$permission_type->label][1] = max($permissions_final[$permission_type->label][1], $permission_type->write);
             $permissions_final[$permission_type->label][2] = max($permissions_final[$permission_type->label][2], $permission_type->delete);
-
         } else {
 
             $permissions_final[$permission_type->label] = [$permission_type->read, $permission_type->write, $permission_type->delete];
@@ -43,19 +42,39 @@ function extractPermissions($id, $type)
     }
 
 
-    
+
     return $permissions_final;
 }
 
-function indexTemplate(string $model, string $resource, string $extra_model = null, string $extra_resource = null, string $condition = null, $condition_value = null)
+function indexTemplate(string $model, string $resource, array $extra_model = [], string $condition = null, $condition_value = null)
 {
+
+    $included = [];
+
     if ($condition) {
 
-        return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()->where($condition, $condition_value)) : []);
+        foreach ($extra_model as $key => $extra) {
+
+            foreach ($extra::collection($key::all()->where($condition, $condition_value)) as $item) {
+
+                $included[] = $item;
+            }
+        }
+
     } else {
 
-        return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()) : []);
+        foreach ($extra_model as $key => $extra) {
+
+            foreach ($extra::collection($key::all()) as $item) {
+
+                $included[] = $item;
+            }
+        }
     }
+
+    
+
+    return generateResponse(200, $resource::collection($model::all()), $included);
 }
 
 function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null, bool $singular = true)

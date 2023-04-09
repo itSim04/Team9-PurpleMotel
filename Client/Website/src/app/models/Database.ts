@@ -6,7 +6,7 @@ export interface Column<Data> {
 
 
     key: keyof Data,
-    type?: 'text' | 'boolean' | 'price' | 'rating' | 'custom' | 'link';
+    type?: 'text' | 'boolean' | 'price' | 'rating' | 'custom' | 'link' | 'outer_link';
     custom?: (data: Data) => string; // Exclusively used with Custom
 
     header_alt?: string; // An alternative name for a header
@@ -16,6 +16,14 @@ export interface Column<Data> {
         format: (value: unknown, org?: Data) => string; // 'Unknown' represents the Linked data (aka the other Table's data)
 
     }; // Exclusively used with Link
+
+    outer_link?: {
+
+        key: keyof Data,
+        index: number,
+        format: (value: unknown, org?: Data) => string; // 'Unknown' represents the Linked data (aka the other Table's data)
+
+    }; // Exclusively used with Outer Link
 
 
 }
@@ -33,7 +41,8 @@ export interface DataInjection<Data> {
     };
     displayed_columns: Column<Data>[]; // The columns of the database
 
-    data_fetcher: (() => Observable<Map<string, Data>>) | undefined; // Fetches data for ONE table. Will not be applied if a dual fetcher is provided manually.
+    data_fetcher: (() => Observable<[Map<string, Data>, Map<string, unknown>[] | undefined]>) | undefined; // Fetches data for ONE table. Will not be applied if a dual fetcher is provided manually.
+
     hover_fetcher?: {
 
         key: keyof Data, // The foreign key of the data to fetch

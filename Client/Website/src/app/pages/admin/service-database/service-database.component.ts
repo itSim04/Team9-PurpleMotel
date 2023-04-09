@@ -27,7 +27,7 @@ export class ServiceDatabaseComponent {
         key: 'description'
       }
     ],
-    data_fetcher: () => this.activity_service.getAllFacilities().pipe(map(data => data.facilities))
+    data_fetcher: () => this.activity_service.getAllFacilities().pipe(map(data => [data.facilities, undefined]))
   };
 
   change_injection: ChangeInjection<Facility> = {
@@ -93,7 +93,7 @@ export class ServiceDatabaseComponent {
       },
 
     ],
-    data_fetcher: () => this.activity_service.getAllActivities().pipe(map(data => data.activities))
+    data_fetcher: () => this.activity_service.getAllActivities().pipe(map(data => [data.activities, undefined]))
   };
 
   constructor (private activity_service: ServiceDatabaseService) { }

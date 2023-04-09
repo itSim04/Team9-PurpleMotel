@@ -1,3 +1,5 @@
+import { Room } from 'src/app/models/Room';
+import { User } from 'src/app/models/User';
 import { Component } from '@angular/core';
 import { Booking } from 'src/app/models/Booking';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
@@ -18,6 +20,29 @@ export class BookingDatabaseComponent {
     title: "Bookings",
     displayed_columns: [
       {
+        key: 'user_id',
+        type: 'outer_link',
+        outer_link: {
+
+          key: 'user_id',
+          index: 3,
+          format: (value) => (value as User)?.first_name + ' ' + (value as User)?.last_name
+
+        },
+      },
+      {
+        key: 'room_id',
+        type: 'outer_link',
+        outer_link: {
+
+          key: 'user_id',
+          index: 1,
+          format: (value) => (value as Room)?.label
+
+        },
+
+      },
+      {
         key: 'check_in'
       },
       {
@@ -28,28 +53,35 @@ export class BookingDatabaseComponent {
         type: 'boolean'
       }
     ],
-    data_fetcher: () => this.booking_service.getAllBookings().pipe(map(data => data.bookings))
-    
+    data_fetcher: () => this.booking_service.getAllBookings().pipe(map(data => {
+
+
+      return [data.bookings, [data.room_types, data.rooms, data.user_types, data.users]];
+
+    }))
+
   };
   change_injection: ChangeInjection<Booking> = {
     side_panel: 'empty',
-    default_state:{
+    default_state: {
       check_in: new Date(),
       end_date: new Date(),
-      exhausted:false
+      exhausted: false,
+      room_id: '0',
+      user_id: '0'
     },
     data_type: 'Bookings',
     fields: [
       {
-        key:'check_in',
-        type:'date'
+        key: 'check_in',
+        type: 'date'
       },
       {
-        key:'end_date',
-        type:'date'
+        key: 'end_date',
+        type: 'date'
       }
     ],
-    toggle : {
+    toggle: {
       key: 'exhausted',
       on_value: 'Exhausted',
       off_value: 'Pending'
@@ -58,6 +90,6 @@ export class BookingDatabaseComponent {
     modify_service: (key, data) => this.booking_service.modifyBooking(key, data),
     delete_service: key => this.booking_service.deleteBooking(key),
     identifier: (data) => data.check_in + " " + data.end_date,
-  }
-  
+  };
+
 }

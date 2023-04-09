@@ -32,7 +32,7 @@ export class FoodDatabaseComponent {
         key: 'is_served', type: 'boolean'
       }
     ],
-    data_fetcher: () => this.food_service.getAllFoods().pipe(map(data => data.foods))
+    data_fetcher: () => this.food_service.getAllFoods().pipe(map(data => [data.foods, undefined]))
 
   };
 

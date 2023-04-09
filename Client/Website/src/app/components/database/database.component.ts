@@ -24,41 +24,41 @@ export function extractUser() {
 
 export function extractPermission(operation: 'read' | 'write' | 'delete', permission: string): boolean {
 
-    if (extractUser()?.tier == '2') {
+  if (extractUser()?.tier == '2') {
 
-      return true;
-
-    }
-
-    try {
-
-      const permissions = JSON.parse(localStorage.getItem('permissions') || '{}');
-
-      let target: number;
-      switch (operation) {
-
-        case 'read':
-          target = 0;
-          break;
-
-        case 'write':
-          target = 1;
-          break;
-
-        case 'delete':
-          target = 2;
-          break;
-
-      };
-      return permissions[permission][target];
-
-    } catch (e: unknown) {
-
-      return false;
-
-    }
+    return true;
 
   }
+
+  try {
+
+    const permissions = JSON.parse(localStorage.getItem('permissions') || '{}');
+
+    let target: number;
+    switch (operation) {
+
+      case 'read':
+        target = 0;
+        break;
+
+      case 'write':
+        target = 1;
+        break;
+
+      case 'delete':
+        target = 2;
+        break;
+
+    };
+    return permissions[permission][target];
+
+  } catch (e: unknown) {
+
+    return false;
+
+  }
+
+}
 
 
 export function formatWord(word: string | number | symbol | undefined) {
@@ -174,6 +174,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   all_data: [string, Data][] = [];
   all_extra_map: Map<string, Data2> = new Map();
   all_extra: [string, Data2][] = [];
+  all_data_outer: (Map<string, unknown>)[] | undefined;
   filter_by!: Column<Data>;
   extra_filter_by?: Column<Data2>;
   filtered_data: MatTableDataSource<[string, Data], MatPaginator> = new MatTableDataSource();
@@ -324,7 +325,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
   }
 
-  
+
   loadBothData() {
 
     this.loading = true;
@@ -383,19 +384,22 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
       this.loading = false;
 
-    } else if (this.data_injection.data_fetcher)
+    } else if (this.data_injection.data_fetcher) {
 
       this.data_injection.data_fetcher().subscribe(({
-
+        
         next: result => {
-
-          this.all_data_map = result;
-          this.all_data = Array.from(result);
+          
+          this.all_data_map = result[0];
+          this.all_data = Array.from(result[0]);
+          this.all_data_outer = result[1]
           this.filtered_data.data = this.all_data;
           this.loading = false;
 
+
         }, error: error => {
 
+          // console.error(error);
           this.loading = true;
           setTimeout(() => {
             this.loadPrimaryData();
@@ -404,6 +408,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
         }
       }));
+    }
 
   }
 
@@ -423,8 +428,9 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
           if (this.extra_data) {
 
-            this.all_extra_map = result;
-            this.all_extra = Array.from(result);
+            this.all_extra_map = result[0];
+            this.all_extra = Array.from(result[0]);
+            this.all_data_outer = result[1]
             this.extra_data.data = this.all_extra;
             this.extra_loading = false;
 

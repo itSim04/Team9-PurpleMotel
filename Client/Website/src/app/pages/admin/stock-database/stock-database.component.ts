@@ -32,7 +32,7 @@ export class StockDatabaseComponent {
         header_alt: "Ingredient?"
       }
     ],
-    data_fetcher:()=>this.stock_service.getAllStocks().pipe(map(data => data.stocks))
+    data_fetcher:()=>this.stock_service.getAllStocks().pipe(map(data => [data.stocks, undefined]))
   }
   
   constructor(private stock_service: StockDatabaseService){}

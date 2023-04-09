@@ -4,7 +4,7 @@
     <!-- Text | Price | Custom -->
     <ng-container *ngFor="let col of data_injection.displayed_columns">
         <ng-container
-            *ngIf="!col.type || col.type === 'text' || col.type === 'price' || col.type === 'custom' || col.type === 'link'">
+            *ngIf="!col.type || col.type === 'text' || col.type === 'price' || col.type === 'custom' || col.type === 'link' || col.type === 'outer_link'">
             <ng-container [matColumnDef]="col.key.toString()">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     {{col.header_alt || formatWord(col.key.toString())}} </th>

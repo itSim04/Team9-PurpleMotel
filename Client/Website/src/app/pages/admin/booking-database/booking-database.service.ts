@@ -1,3 +1,6 @@
+import { UserType } from 'src/app/models/UserType';
+import { RoomAttributes } from './../../../models/Room';
+import { User, UserAttributes } from 'src/app/models/User';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
@@ -17,25 +20,76 @@ export class BookingDatabaseService {
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+
     try {
 
-      return this.http.get<BookingsResponse>(this.url.generateUrl('bookings'), {headers: headers}).pipe(
+      return this.http.get<BookingsResponse>(this.url.generateUrl('bookings'), { headers: headers }).pipe(
+
 
         map((response: BookingsResponse): BookingsPackage => {
 
           const bookings = new Map<string, Booking>();
+          const rooms = new Map<string, Room>();
+          const room_types = new Map<string, RoomType>();
+          const users = new Map<string, User>();
+          const user_types = new Map<string, UserType>();
 
-            response.data.forEach(booking => {
+          response.data.forEach(booking => {
 
-              bookings.set(booking.id, booking.attributes);
-             
+            bookings.set(booking.id, { ...booking.attributes, room_id: booking.relationships.room.data.id, user_id: booking.relationships.user.data.id });
+
+          });
+
+          if (response.included) {
+
+            response.included.forEach(value => {
+
+              switch (value.type) {
+
+                case 'Rooms':
+
+                  rooms.set(value.id, { ...value.attributes as RoomAttributes, type: value.relationships.room_type.data.id });
+
+                  break;
+
+                case 'RoomTypes':
+
+                  room_types.set(value.id, value.attributes as RoomType);
+
+                  break;
+
+                case 'Users':
+
+
+
+                  users.set(value.id, { ...value.attributes as UserAttributes, type: value.relationships.user_type.data.id, permissions: new Map() });
+
+                  break;
+
+                case 'UserTypes':
+
+                  user_types.set(value.id, value.attributes as UserType);
+
+                  break;
+
+
+              }
+
+
+
             });
+
+          }
+
+
 
           return {
 
             bookings: bookings,
-           
+            room_types: room_types,
+            rooms: rooms,
+            user_types: user_types,
+            users: users
 
           };
 
@@ -53,10 +107,10 @@ export class BookingDatabaseService {
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+
     try {
 
-      return this.http.get<BookingResponse>(this.url.generateUrl(`bookings/${id}`), {headers: headers}).pipe(
+      return this.http.get<BookingResponse>(this.url.generateUrl(`bookings/${id}`), { headers: headers }).pipe(
         map((response: BookingResponse): BookingPackage => {
 
           return {
@@ -64,7 +118,7 @@ export class BookingDatabaseService {
             booking: {
 
               key: response.data.id,
-              value: response.data.attributes
+              value: { ...response.data.attributes, room_id: response.data.relationships.room.data.id, user_id: response.data.relationships.user.data.id }
 
             },
 
@@ -86,10 +140,10 @@ export class BookingDatabaseService {
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+
     try {
-      console.log(booking)
-      return this.http.post<BookingResponse>(this.url.generateUrl('bookings'), {...booking, room_id:'1', user_id:'68'}, {headers: headers}).pipe(
+      console.log(booking);
+      return this.http.post<BookingResponse>(this.url.generateUrl('bookings'), { ...booking, room_id: '1', user_id: '68' }, { headers: headers }).pipe(
 
         map(result => {
 
@@ -111,10 +165,10 @@ export class BookingDatabaseService {
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+
     try {
 
-      return this.http.put(this.url.generateUrl(`bookings/${booking_id}`), booking, {headers: headers}).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`bookings/${booking_id}`), booking, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -128,10 +182,10 @@ export class BookingDatabaseService {
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+
     try {
 
-      return this.http.delete(this.url.generateUrl(`bookings/${key}`), {headers: headers}).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`bookings/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 
