@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\PromoCode;
-use App\Resources\PromoCodeResource;
+use App\Http\Resources\PromoCodeResource;
 use Illuminate\Http\Request;
 
 class PromoCodeController extends Controller
