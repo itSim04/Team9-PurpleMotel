@@ -12,6 +12,9 @@ import { DatabaseModule } from 'src/app/components/database/database.module';
   imports: [
     CommonModule,
     DatabaseModule
+  ],
+  exports: [
+    PromoDatabaseComponent
   ]
 })
 export class PromoDatabaseModule { }

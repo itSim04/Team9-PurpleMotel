@@ -18,6 +18,7 @@ import { StockDatabaseModule } from './pages/admin/stock-database/stock-database
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FoodDatabaseModule,
 
     BookingDatabaseModule,
-
+    PromoDatabaseModule,
     StarRatingModule.forRoot(),
     AuthenticationModule,
     RoomDatabaseModule,

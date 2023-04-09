@@ -11,6 +11,24 @@ import { DataInjection } from 'src/app/models/Database';
 export class PromoDatabaseComponent {
   constructor (private promo_code_service: PromoCodeDatabaseService) { }
 
+  data_injection: DataInjection<PromoCode> = {
 
+    permission: 'food',
+    title: 'Foods',
+    displayed_columns: [
+      {
+        key: 'change'
+      },
+      {
+        key: 'start_date'
+      },
+      {
+        key: 'end_date',
+
+      }
+    ],
+    data_fetcher: () => this.promo_code_service.getAllPromoCodes().pipe(map(data => [data.promo_codes, undefined]))
+
+  };
 
 }

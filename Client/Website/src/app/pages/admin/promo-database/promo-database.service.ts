@@ -20,7 +20,7 @@ export class PromoCodeDatabaseService {
 
     try {
 
-      return this.http.get<PromoCodesResponse>(this.url.generateUrl('promo_codes'), { headers: headers }).pipe(
+      return this.http.get<PromoCodesResponse>(this.url.generateUrl('promocodes'), { headers: headers }).pipe(
 
         map((response: PromoCodesResponse): PromoCodesPackage => {
 
@@ -55,7 +55,7 @@ export class PromoCodeDatabaseService {
 
     try {
 
-      return this.http.get<PromoCodeResponse>(this.url.generateUrl(`promo_codes/${id}`), { headers: headers }).pipe(
+      return this.http.get<PromoCodeResponse>(this.url.generateUrl(`promocodes/${id}`), { headers: headers }).pipe(
         map((response: PromoCodeResponse): PromoCodePackage => {
 
           return {
@@ -87,7 +87,7 @@ export class PromoCodeDatabaseService {
 
     try {
 
-      return this.http.post<PromoCodeResponse>(this.url.generateUrl('promo_codes'), promo_code, { headers: headers }).pipe(
+      return this.http.post<PromoCodeResponse>(this.url.generateUrl('promocodes'), promo_code, { headers: headers }).pipe(
 
         map(result => {
 
@@ -112,7 +112,7 @@ export class PromoCodeDatabaseService {
 
     try {
 
-      return this.http.put(this.url.generateUrl(`promo_codes/${promo_code_id}`), promo_code, { headers: headers }).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`promocodes/${promo_code_id}`), promo_code, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -129,7 +129,7 @@ export class PromoCodeDatabaseService {
 
     try {
 
-      return this.http.delete(this.url.generateUrl(`promo_codes/${key}`), { headers: headers }).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`promocodes/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 
