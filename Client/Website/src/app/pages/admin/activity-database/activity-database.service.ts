@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { ActivitiesResponse, Activity, ActivityResponse, ActivityPackage, ActivitiesPackage } from "src/app/models/Activity";
+import { FacilitiesPackage, FacilitiesResponse, Facility, FacilityPackage, FacilityResponse } from "src/app/models/Facility";
 import { UrlBuilderService } from "src/app/services/url-builder.service";
 
 
@@ -122,5 +123,114 @@ export class ActivityDatabaseService {
     }
 
   }
- 
+  getAllFacilities(): Observable<FacilitiesPackage> {
+
+    try {
+
+      return this.http.get<FacilitiesResponse>(this.url.generateUrl('facilities')).pipe(
+
+        map((response: FacilitiesResponse): FacilitiesPackage => {
+
+          const facilities = new Map<string, Facility>();
+
+          response.data.forEach(facility => {
+
+            facilities.set(facility.id, facility.attributes);
+
+          });
+
+          return {
+
+            facilities: facilities
+
+          };
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+
+  }
+  getOneFacility(id: string): Observable<FacilityPackage> {
+
+    try {
+
+      return this.http.get<FacilityResponse>(this.url.generateUrl(`facilities/${id}`)).pipe(
+        map((response: FacilityResponse): FacilityPackage => {
+
+          return {
+
+            facility: {
+
+              key: response.data.id,
+              value: response.data.attributes
+
+            },
+          };
+
+
+        })
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  addNewFacility(facility: Facility) {
+
+    try {
+
+      return this.http.post<FacilityResponse>(this.url.generateUrl('facilities'), facility).pipe(
+
+        map(result => {
+
+          return result.data.id;
+
+        })
+
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  modifyFacility(facility_id: string, facility: Facility) {
+
+    try {
+
+      return this.http.put(this.url.generateUrl(`facilities/${facility_id}`), facility).pipe(map(() => undefined));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  deleteFacility(key: string) {
+
+    try {
+
+      return this.http.delete(this.url.generateUrl(`facilities/${key}`)).pipe(map(() => []));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
 }

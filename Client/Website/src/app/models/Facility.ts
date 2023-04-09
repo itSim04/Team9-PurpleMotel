@@ -26,9 +26,9 @@ export interface Facility {
   }
 
   export interface FacilityPackage{
-    activity: KeyValue<string,Facility>
+    facility: KeyValue<string,Facility>
   }
   
   export interface FacilitiesPackage{
-    activities: Map<string,Facility>
+    facilities: Map<string,Facility>
   }
