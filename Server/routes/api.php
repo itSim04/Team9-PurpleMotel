@@ -18,6 +18,7 @@ use App\Models\UserType;
 use App\Policies\UserPolicy;
 use App\Policies\UserTypePolicy;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PromoCodeController;
 use App\Models\Stocks;
 use App\Policies\StocksPolicy;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
 
+Route::apiResource('promocodes', PromoCodeController::class);
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->controller(AuthenticationController::class)->group(function () {
