@@ -89,6 +89,17 @@ export interface UserResponse {
         token: string,
         type: string;
     };
+    permissions?: {
+
+        room?: number[]
+        user?: number[]
+        stock?: number[]
+        user_type?: number[]
+        room_type?: number[]
+        language?: number[]
+        booking?: number[]
+
+    }
 
 }
 export interface UsersResponse {

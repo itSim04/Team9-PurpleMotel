@@ -36,6 +36,12 @@
 
 }
 
+.back-btn:hover {
+    
+    border: 1px solid #4668a6;
+    background: #4668a6;
+}
+
 .delete-btn {
 
     font-family: 'Roboto';
@@ -55,6 +61,13 @@
 
     color: white;
 
+}
+
+
+.delete-btn:hover {
+    
+    border: 1px solid #4668a6;
+    background: #4668a6;
 }
 
 .content {
