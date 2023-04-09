@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\FoodController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActivityController;
@@ -35,6 +36,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::apiResource('users', UserController::class);
+    Route::apiResource('foods', FoodController::class);
     Route::apiResource('rooms', RoomController::class);
     Route::apiResource('roomtypes', RoomTypeController::class);
     Route::apiResource('stocks', StocksController::class);
