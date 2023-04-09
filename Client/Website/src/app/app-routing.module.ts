@@ -15,6 +15,7 @@ import { UserDatabaseComponent } from './pages/admin/user-database/user-database
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
 import { BrowseServicesComponent } from './pages/guest/services/services.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
+import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
 
 const routes: Routes = [
 
@@ -53,7 +54,7 @@ const routes: Routes = [
       },
       {
         path: "promo-database",
-        component: FoodDatabaseComponent,
+        component: PromoDatabaseComponent,
       },
       {
         path: "registration-database",
