@@ -53,8 +53,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule
-
-
   ],
   exports: [
     DatabaseComponent

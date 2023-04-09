@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthenticationModule } from './services/dialogs/authentication/authentication.module';
+import { RoomDatabaseModule } from './pages/admin/room-database/room-database.module';
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 
@@ -35,7 +36,7 @@ import { BookingDatabaseModule } from './pages/admin/booking-database/booking-da
     BookingDatabaseModule,
     StarRatingModule.forRoot(),
     AuthenticationModule,
-
+    RoomDatabaseModule,
     StockDatabaseModule,
     ConfirmationDialogModule
 
