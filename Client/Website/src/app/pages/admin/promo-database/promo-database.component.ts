@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { PromoCodeDatabaseService } from './promo-database.service';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { map } from 'rxjs';
-import { DataInjection } from 'src/app/models/Database';
+import { ChangeInjection, DataInjection } from 'src/app/models/Database';
+
 @Component({
   selector: 'app-promo-database',
   templateUrl: './promo-database.component.html',
@@ -13,8 +14,8 @@ export class PromoDatabaseComponent {
 
   data_injection: DataInjection<PromoCode> = {
 
-    permission: 'food',
-    title: 'Foods',
+    permission: 'promo_code',
+    title: 'Promo Codes',
     displayed_columns: [
       {
         key: 'change'
@@ -28,7 +29,37 @@ export class PromoDatabaseComponent {
       }
     ],
     data_fetcher: () => this.promo_code_service.getAllPromoCodes().pipe(map(data => [data.promo_codes, undefined]))
+    
+  };
 
+  change_injection: ChangeInjection<PromoCode> = {
+
+    side_panel: 'empty',
+    default_state: {
+      change: '',
+      start_date: new Date(),
+      end_date: new Date(),
+    },  
+    data_type: 'Promo Code',
+
+    fields: [
+      {
+        key: 'change',
+        type: 'text'
+      },
+      {
+        key: 'start_date',
+        type: 'date'
+      },
+      {
+        key: 'end_date',
+        type: 'date'
+      }
+    ],
+    add_service: promo_code => this.promo_code_service.addNewPromoCode(promo_code),
+    modify_service: (key, data) => this.promo_code_service.modifyPromoCode(key, data),
+    delete_service: key => this.promo_code_service.deletePromoCode(key),
+    identifier: (data) => '' + data.change,
   };
 
 }
