@@ -1,47 +1,47 @@
-<p>Admin panel works!</p>
 <table class="footer">
 
-    <tr>
+  <div class="row">
+    <div class="col-md-3">
+        <button [routerLink]="['../user-database']" class="check-btn">{{"User Database" | translate}}</button>
+    </div>
+    <div class="col-md-3">
+        <button [routerLink]="['../rooms-database']" class="check-btn">{{"Room Database" | translate}}</button>
+    </div>
+    <div class="col-md-3">
+        <button [routerLink]="['../booking-database']" class="check-btn">{{"Booking Database" | translate}}</button>
+    </div>
+    <div class="col-md-3">
+        <button [routerLink]="['../food-database']" class="check-btn">{{"Food Database" | translate}}</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <button [routerLink]="['../announcement-database']" class="check-btn">{{"Announcement Database" | translate}}</button>
+    </div>
+    <div class="col-md-3">
+        <button [routerLink]="['../language-database']" class="check-btn">{{"Language Database" | translate}}</button>
+    </div>
+    <div class="col-md-3">
+        <button [routerLink]="['../news-database']" class="check-btn">{{"News Database" | translate}}</button>
+    </div>
+    <div class="col-md-3">
+        <button [routerLink]="['../order-database']" class="check-btn">{{"Order Database" | translate}}</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <button [routerLink]="['../promo-database']" class="check-btn">{{"Promo-Code Database" | translate}}</button>
+    </div>
+    <div class="col-md-3">
+        <button [routerLink]="['../registration-database']" class="check-btn">{{"Registration Database" | translate}}</button>
+    </div>
+    <div class="col-md-3">
+        <button [routerLink]="['../services-database']" class="check-btn">{{"Services Database" | translate}}</button>
+    </div>
+    <div class="col-md-3">
+        <button [routerLink]="['../stock-database']" class="check-btn">{{"Stock Database" | translate}}</button>
+    </div>
+</div>
 
-        <td>
-            <a [routerLink]="['./user-database']" class="title-3">{{"User Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./rooms-database']" class="title-3">{{"Room Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./booking-database']" class="title-3">{{"Booking Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./food-database']" class="title-3">{{"Food Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./announcement-database']" class="title-3">{{"Announcement Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./language-database']" class="title-3">{{"Language Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./news-database']" class="title-3">{{"News Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./order-database']" class="title-3">{{"Order Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./promo-database']" class="title-3">{{"Promo-Code Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./registration-database']" class="title-3">{{"Registration Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./services-database']" class="title-3">{{"Services Database" | translate}}</a>
-        </td>
-        <td>
-            <a [routerLink]="['./stock-database']" class="title-3">{{"Stock Database" | translate}}</a>
-        </td>
-
-
-    </tr>
-
-
+      
 </table>
