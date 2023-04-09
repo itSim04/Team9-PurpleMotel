@@ -25,7 +25,8 @@ export class FoodDatabaseComponent {
         key: 'description'
       },
       {
-        key: 'price'
+        key: 'price',
+        type: 'price'
       },
       {
         key: 'is_served', type: 'boolean'

@@ -1,3 +1,4 @@
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { Component } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Activity } from 'src/app/models/Activity';
@@ -20,14 +21,14 @@ export class ServiceDatabaseComponent {
     title: 'Facility',
     displayed_columns: [
       {
-        key:'title'
+        key: 'title'
       },
       {
-        key:'description'
+        key: 'description'
       }
     ],
-    data_fetcher:()=>this.activity_service.getAllFacilities().pipe(map(data => data.facilities))
-  }
+    data_fetcher: () => this.activity_service.getAllFacilities().pipe(map(data => data.facilities))
+  };
 
   change_injection: ChangeInjection<Facility> = {
     default_state: {
@@ -53,7 +54,7 @@ export class ServiceDatabaseComponent {
     delete_service: key => this.activity_service.deleteFacility(key),
     identifier: (data) => '' + data.title,
     side_panel: 'empty'
-  }
+  };
 
   extra_injection: DataInjection<Activity> = {
 
@@ -61,29 +62,41 @@ export class ServiceDatabaseComponent {
     title: 'Activity',
     displayed_columns: [
       {
-        key:'title'
+        key: 'title'
       },
       {
-        key:'description'
+        key: 'price',
+        type: 'price'
       },
       {
-        key:'price'
+        key: 'capacity'
       },
       {
-        key:'capacity'
+        key: 'start_date',
+        type: 'custom',
+        custom: (data) => {
+
+          const date = data.start_date.toString();
+          return date.slice(8, 10) + '/' + date.slice(5, 7) + '/' + date.slice(0, 4);
+
+        }
       },
       {
-        key:'start_date'
-      },
-      {
-        key:'end_date'
+        key: 'end_date',
+        type: 'custom',
+        custom: (data) => {
+
+          const date = data.start_date.toString();
+          return date.slice(8, 10) + '/' + date.slice(5, 7) + '/' + date.slice(0, 4);
+
+        }
       },
 
     ],
-    data_fetcher:()=>this.activity_service.getAllActivities().pipe(map(data => data.activities))
-  }
-  
-  constructor(private activity_service: ServiceDatabaseService){}
+    data_fetcher: () => this.activity_service.getAllActivities().pipe(map(data => data.activities))
+  };
+
+  constructor (private activity_service: ServiceDatabaseService) { }
 
   extra_change_injection: ChangeInjection<Activity> = {
     default_state: {
@@ -91,8 +104,8 @@ export class ServiceDatabaseComponent {
       description: '',
       price: 0,
       capacity: 0,
-      start_date: new Date(),
-      end_date: new Date()
+      start_date: '1970-01-01',
+      end_date: '1970-01-01'
     },
 
     data_type: 'activity',
@@ -129,6 +142,6 @@ export class ServiceDatabaseComponent {
     delete_service: key => this.activity_service.deleteActivity(key),
     identifier: (data) => '' + data.title,
     side_panel: 'empty'
-  }
+  };
 
 }
