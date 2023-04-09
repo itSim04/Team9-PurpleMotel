@@ -21,6 +21,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -52,9 +53,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatButtonModule
-
-
+    MatButtonModule,
+    MatSnackBarModule
   ],
   exports: [
     DatabaseComponent

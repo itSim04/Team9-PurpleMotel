@@ -1,3 +1,5 @@
+import { KeyValue } from "@angular/common";
+
 export interface Food extends FoodAttributes {
 
     ingredients: number[], //The ingredients constituting the food
@@ -12,3 +14,32 @@ export interface FoodAttributes {
     image_path: string; //Path of the image representing the food
 
 }
+
+export interface FoodsResponse {
+    status: string,
+    data: {
+      id: string;
+      type: string;
+      attributes: Food;
+    }[];
+    
+  }
+
+  export interface FoodResponse {
+    status: string,
+    data: {
+      id: string;
+      type: string;
+      attributes: Food;
+    };
+    }
+
+    export interface FoodPackage {
+        food: KeyValue<string,Food>
+    }
+
+    export interface FoodsPackage {
+        foods: Map<string,Food>
+    }
+    
+  

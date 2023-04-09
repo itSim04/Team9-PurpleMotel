@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserType } from 'src/app/models/UserType';
 import { KeyValue } from '@angular/common';
 import { Component, Inject } from '@angular/core';
@@ -7,7 +8,7 @@ import { Field, Toggle, StaticField, ChangeInjection } from 'src/app/models/Data
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { ConfirmationDialogService } from 'src/app/services/dialogs/confirmation/confirmation.service';
 import { WarningDialogService } from 'src/app/services/dialogs/warning/warning.service';
-import { isNum } from '../database.component';
+import { extractPermission, isNum } from '../database.component';
 import { User } from 'src/app/models/User';
 
 
@@ -81,10 +82,13 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   readonly delete_service: (key: string) => Observable<string[]>;
   readonly identifier: (data: Data) => string;
   readonly modification_rule;
+  readonly permission;
+
+  readonly outer_data: Map<string, unknown>[] | undefined;
 
   readonly linked_data: Map<string, unknown>;
 
-  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>) {
+  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar) {
 
     this.linked_data = injected_data.link;
 
@@ -92,6 +96,8 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     this.modify_service = injected_data.injection.modify_service;
     this.delete_service = injected_data.injection.delete_service;
     this.identifier = injected_data.injection.identifier;
+    this.permission = injected_data.permission;
+    this.outer_data = injected_data.outer_data;
     this.permissions = injected_data.injection.permissions;
     this.modification_rule = injected_data.injection.modification_rule || (data => true);
     this.side_panel = injected_data.injection.side_panel;
@@ -138,50 +144,65 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   modify() {
 
-    if (this.old_data) {
 
-      const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
-      dialogRef.afterClosed().subscribe(confirmation => {
+    if (extractPermission('write', this.permission)) {
 
-        if (confirmation && this.old_data) {
+      if (this.old_data) {
 
-          this.modify_service(this.old_data.key, this.data).subscribe(() => {
-            if (this.old_data) {
 
-              this.dialogRef.close({ key: this.old_data.key, value: this.data });
-            }
-          });
-        }
-      });
+        const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
+        dialogRef.afterClosed().subscribe(confirmation => {
+
+          if (confirmation && this.old_data) {
+
+            this.modify_service(this.old_data.key, this.data).subscribe(() => {
+              if (this.old_data) {
+
+                this.dialogRef.close({ key: this.old_data.key, value: this.data });
+              }
+            });
+          }
+        });
+      }
+    } else {
+
+      this.snackbar.open('You do not have writing permissions');
+
     }
-
 
   }
 
   delete() {
 
-    if (this.old_data) {
+    if (extractPermission('delete', this.permission)) {
 
-      const dialogRef = this.confirmation_controller.openDialog(`Delete ${this.data_type}`, `Would you like to delete the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Delete", "Cancel");
-      dialogRef.afterClosed().subscribe(confirmation => {
+      if (this.old_data) {
 
-        if (confirmation && this.old_data) {
+        const dialogRef = this.confirmation_controller.openDialog(`Delete ${this.data_type}`, `Would you like to delete the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Delete", "Cancel");
+        dialogRef.afterClosed().subscribe(confirmation => {
 
-          this.delete_service(this.old_data.key).subscribe(result => {
+          if (confirmation && this.old_data) {
 
-            if (result.length) {
+            this.delete_service(this.old_data.key).subscribe(result => {
 
-              this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
+              if (result.length) {
 
-            } else if (this.old_data) {
+                this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
 
-              this.dialogRef.close({ key: this.old_data.key, value: undefined });
+              } else if (this.old_data) {
 
-            }
+                this.dialogRef.close({ key: this.old_data.key, value: undefined });
 
-          });
-        }
-      });
+              }
+
+            });
+          }
+        });
+      }
+    } else {
+
+      this.snackbar.open('You do not have deletion permissions');
+
     }
   }
 

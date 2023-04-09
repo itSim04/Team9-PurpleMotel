@@ -20,6 +20,8 @@ export class UserDatabaseComponent {
 
     title: 'Users',
 
+    permission: 'user',
+
     special_case: {
 
       rule: (data) => data.email == JSON.parse(localStorage.getItem('user') || '{}')?.email,
@@ -94,7 +96,7 @@ export class UserDatabaseComponent {
         }
       }
     ],
-    data_fetcher: () => this.user_service.getAllUsers().pipe(map(data => data.users)),
+    data_fetcher: () => this.user_service.getAllUsers().pipe(map(data => [data.users, undefined])),
     hover_display: (data) => {
 
       const result: string[] = [];
@@ -219,6 +221,7 @@ export class UserDatabaseComponent {
   extra_injection: DataInjection<UserType> = {
 
     title: 'User Type',
+    permission: 'user_type',
     displayed_columns: [
 
       {
@@ -228,7 +231,7 @@ export class UserDatabaseComponent {
         key: 'description'
       }
     ],
-    data_fetcher: () => this.user_service.getAllUserTypes().pipe(map(data => data.users)),
+    data_fetcher: () => this.user_service.getAllUserTypes().pipe(map(data => [data.users, undefined])),
     hover_display: (data) => {
 
       const result: string[] = [];
