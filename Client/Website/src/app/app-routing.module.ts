@@ -15,6 +15,7 @@ import { StockDatabaseComponent } from './pages/admin/stock-database/stock-datab
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
 import { BrowseServicesComponent } from './pages/guest/services/services.component';
+import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
 
@@ -25,6 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    component: AdminDashboardComponent,
     children: [
       
       {

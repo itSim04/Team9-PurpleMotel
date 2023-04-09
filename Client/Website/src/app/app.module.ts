@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AuthenticationModule } from './services/dialogs/authentication/authentication.module';
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
+import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { BookingDatabaseModule } from './pages/admin/booking-database/booking-da
     FooterModule,
     BrowserAnimationsModule,
 
+    AdminDashboardModule,
     UserDatabaseModule,
     BookingDatabaseModule,
     StarRatingModule.forRoot(),
