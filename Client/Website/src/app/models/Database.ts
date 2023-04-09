@@ -23,7 +23,7 @@ export interface Column<Data> {
 export interface DataInjection<Data> {
 
     title: string;
-
+    permission: string;
     special_case?: {
 
         rule: (data: Data) => boolean,

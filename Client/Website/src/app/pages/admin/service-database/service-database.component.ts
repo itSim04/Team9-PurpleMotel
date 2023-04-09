@@ -16,6 +16,7 @@ export class ServiceDatabaseComponent {
 
   data_injection: DataInjection<Facility> = {
 
+    permission: 'facility',
     title: 'Facility',
     displayed_columns: [
       {
@@ -56,6 +57,7 @@ export class ServiceDatabaseComponent {
 
   extra_injection: DataInjection<Activity> = {
 
+    permission: 'activity',
     title: 'Activity',
     displayed_columns: [
       {

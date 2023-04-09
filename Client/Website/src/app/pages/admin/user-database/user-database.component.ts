@@ -20,6 +20,8 @@ export class UserDatabaseComponent {
 
     title: 'Users',
 
+    permission: 'user',
+
     special_case: {
 
       rule: (data) => data.email == JSON.parse(localStorage.getItem('user') || '{}')?.email,
@@ -219,6 +221,7 @@ export class UserDatabaseComponent {
   extra_injection: DataInjection<UserType> = {
 
     title: 'User Type',
+    permission: 'user_type',
     displayed_columns: [
 
       {

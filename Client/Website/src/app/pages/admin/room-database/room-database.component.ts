@@ -48,6 +48,8 @@ export class RoomDatabaseComponent {
 
   constructor (private room_service: RoomDatabaseService) {}
   data_injection: DataInjection<Room> = {
+
+    permission: 'room',
     title: 'Room',
     displayed_columns: [
       {
@@ -72,7 +74,7 @@ export class RoomDatabaseComponent {
         type: 'link',
         link: {
 
-          format: (value) => (value as RoomType).label,
+          format: (value) => (value as RoomType)?.label || 'Unauthorized',
           key: 'type'
 
         }
@@ -81,6 +83,8 @@ export class RoomDatabaseComponent {
     data_fetcher: undefined
   };
   extra_injection: DataInjection<RoomType> = {
+
+    permission: 'room_type',
     title: 'Room Type',
     displayed_columns: [
       {

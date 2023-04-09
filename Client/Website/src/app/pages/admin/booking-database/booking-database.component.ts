@@ -13,6 +13,8 @@ export class BookingDatabaseComponent {
 
   constructor (private booking_service: BookingDatabaseService) { }
   data_injection: DataInjection<Booking> = {
+
+    permission: 'booking',
     title: "Bookings",
     displayed_columns: [
       {

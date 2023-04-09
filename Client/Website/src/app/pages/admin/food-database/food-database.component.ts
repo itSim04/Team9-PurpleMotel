@@ -15,6 +15,7 @@ export class FoodDatabaseComponent {
 
   data_injection: DataInjection<Food> = {
 
+    permission: 'food',
     title: 'Foods',
     displayed_columns: [
       {

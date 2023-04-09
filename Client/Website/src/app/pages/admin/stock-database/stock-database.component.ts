@@ -14,6 +14,7 @@ export class StockDatabaseComponent {
 
   data_injection: DataInjection<Stock> = {
 
+    permission: 'stock',
     title: 'Stock',
     displayed_columns: [
       {

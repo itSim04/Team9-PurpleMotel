@@ -1,3 +1,4 @@
+import { User } from 'src/app/models/User';
 import { Component, Input, OnInit, AfterViewInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -125,7 +126,8 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   extra_filter: string | number = "";
   display_hover: [string, Data | undefined] = ["-1", undefined];
   extra_display_hover: [string, Data2 | undefined] = ["-1", undefined];
-  loading: [boolean, boolean] = [false, false];
+  loading: boolean = false;
+  extra_loading: boolean = false;
 
   @Input() change_injection?: ChangeInjection<Data>;
   @Input() extra_change_injection?: ChangeInjection<Data2>;
@@ -192,10 +194,10 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
 
-    this.loading[0] = true;
+    this.loading = true;
     if (this.extra_injection) {
 
-      this.loading[1] = true;
+      this.extra_loading = true;
 
     }
 
@@ -263,45 +265,120 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
   }
 
+  extractUser() {
+
+    const user = localStorage.getItem('user');
+    if (user) {
+
+      return JSON.parse(user) as User;
+
+    } else {
+
+      return undefined;
+
+    }
+
+  }
+
+  extractPermission(operation: 'read' | 'write' | 'delete', permission: string): boolean {
+
+    if (this.extractUser()?.tier == '2') {
+
+      return true;
+
+    }
+
+    try {
+
+      const permissions = JSON.parse(localStorage.getItem('permissions') || '{}');
+
+      let target: number;
+      switch (operation) {
+
+        case 'read':
+          target = 0;
+          break;
+
+        case 'write':
+          target = 1;
+          break;
+
+        case 'delete':
+          target = 2;
+          break;
+
+      };
+      return permissions[permission][target];
+
+    } catch (e: unknown) {
+
+      return false;
+
+    }
+
+  }
+
 
   loadBothData() {
 
-    this.dual_fetcher!().subscribe({
+    this.loading = true;
+    this.extra_loading = true;
+    if (this.extractPermission('read', this.data_injection.permission) || this.extractPermission('read', this.extra_injection!.permission)) {
+      
+      this.dual_fetcher!().subscribe({
 
-      next: result => {
+        next: result => {
 
-        if (this.extra_injection && this.extra_data) {
+          if (this.extra_injection && this.extra_data) {
 
-          this.all_data_map = result[0];
-          this.all_extra_map = result[1];
+            if (this.extractPermission('read', this.data_injection.permission)) {
 
-          this.all_data = Array.from(result[0]);
-          this.all_extra = Array.from(result[1]);
+              this.all_data = Array.from(result[0]);
+              this.all_data_map = result[0];
+              this.filtered_data.data = this.all_data;
 
-          this.filtered_data.data = this.all_data;
-          this.extra_data.data = this.all_extra;
+            }
 
-          this.loading[0] = false;
-          this.loading[1] = false;
+
+
+            if (this.extractPermission('read', this.extra_injection.permission)) {
+
+              this.all_extra = Array.from(result[1]);
+              this.all_extra_map = result[1];
+              this.extra_data.data = this.all_extra;
+
+            }
+
+            this.loading = false;
+            this.extra_loading = false;
+
+
+
+          }
+        },
+        error: error => {
+
+          this.loading = true;
+          this.extra_loading = true;
+          setTimeout(() => {
+            this.loadPrimaryData();
+          }, 5000);
 
         }
-      },
-      error: error => {
-
-        this.loading[0] = true;
-        this.loading[1] = true;
-        setTimeout(() => {
-          this.loadPrimaryData();
-        }, 5000);
-
-      }
-    });
-
+      });
+    }
 
   }
   loadPrimaryData() {
 
-    if (this.data_injection.data_fetcher)
+    this.loading = true;
+
+    if (!this.extractPermission('read', this.data_injection.permission)) {
+
+      this.loading = false;
+
+    } else if (this.data_injection.data_fetcher)
+
       this.data_injection.data_fetcher().subscribe(({
 
         next: result => {
@@ -309,11 +386,11 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
           this.all_data_map = result;
           this.all_data = Array.from(result);
           this.filtered_data.data = this.all_data;
-          this.loading[0] = false;
+          this.loading = false;
 
         }, error: error => {
 
-          this.loading[0] = true;
+          this.loading = true;
           setTimeout(() => {
             this.loadPrimaryData();
           }, 5000);
@@ -326,7 +403,13 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
   loadSecondaryData() {
 
-    if (this.extra_injection?.data_fetcher) {
+    this.extra_loading = true;
+
+    if (!this.extractPermission('read', this.extra_injection!.permission)) {
+
+      this.extra_loading = false;
+
+    } else if (this.extra_injection?.data_fetcher) {
 
       this.extra_injection.data_fetcher()?.subscribe(({
 
@@ -337,13 +420,13 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
             this.all_extra_map = result;
             this.all_extra = Array.from(result);
             this.extra_data.data = this.all_extra;
-            this.loading[1] = false;
+            this.extra_loading = false;
 
           }
 
         }, error: error => {
 
-          this.loading[1] = true;
+          this.extra_loading = true;
           setTimeout(() => {
             this.loadSecondaryData();
           }, 5000);

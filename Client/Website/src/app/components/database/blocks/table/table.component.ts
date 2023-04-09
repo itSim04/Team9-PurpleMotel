@@ -19,8 +19,9 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   @Input() @Required data_injection!: DataInjection<Data>;
   @Input() @Required filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
   @Input() @Required extra_data: [string, Data2][] | undefined = [];
-  @Input() @Required loading = false;
+  @Input() @Required loading: boolean = false;
 
+  @Output() download: EventEmitter<void> = new EventEmitter();
   @Output() modify_click: EventEmitter<[string, Data]> = new EventEmitter();
   @Output() hover: EventEmitter<[string, Data | undefined]> = new EventEmitter();
 

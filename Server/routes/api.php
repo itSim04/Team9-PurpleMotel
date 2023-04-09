@@ -39,7 +39,6 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware('auth:api')->group(function () {
 
-        Route::apiResource('users', UserController::class);
         Route::apiResource('foods', FoodController::class);
         Route::apiResource('rooms', RoomController::class);
         Route::apiResource('roomtypes', RoomTypeController::class);

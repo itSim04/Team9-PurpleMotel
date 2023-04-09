@@ -20,6 +20,8 @@ function generateResponse(int $code, $collection = null, $included = [], bool $e
 function extractPermissions($id, $type)
 {
 
+    $permissions_final = [];
+
     foreach (Permission::where('is_singular', true)->where('concerned_party', $id)->get() as $permission) {
 
         $permissions_final[$permission->label] = [$permission->read, $permission->write, $permission->delete];
@@ -33,6 +35,7 @@ function extractPermissions($id, $type)
             $permissions_final[$permission_type->label][0] = max($permissions_final[$permission_type->label][0], $permission_type->read);
             $permissions_final[$permission_type->label][1] = max($permissions_final[$permission_type->label][1], $permission_type->write);
             $permissions_final[$permission_type->label][2] = max($permissions_final[$permission_type->label][2], $permission_type->delete);
+
         } else {
 
             $permissions_final[$permission_type->label] = [$permission_type->read, $permission_type->write, $permission_type->delete];
