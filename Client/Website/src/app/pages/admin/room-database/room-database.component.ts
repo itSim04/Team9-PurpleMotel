@@ -229,16 +229,17 @@ export class RoomDatabaseComponent {
         key: 'kids_capacity',
         type: 'number',
         condition: (data: unknown) => {
-          const room = data as RoomType;
-          return room.kids_capacity >= 0;
+          const room = data as number;
+          console.log(room);
+          return room >= 0;
         }
       },
       {
         key: 'adults_capacity',
         type: 'number',
         condition: (data: unknown) => {
-          const room = data as RoomType;
-          return room.adults_capacity > 0;
+          const room = data as number;
+          return room > 0;
         }
         
       },
@@ -246,8 +247,8 @@ export class RoomDatabaseComponent {
         key: 'adults_with_kids_capacity',
         type: 'number',
         condition: (data: unknown) => {
-          const room = data as RoomType;
-          return room.adults_with_kids_capacity >= 0;
+          const room = data as number;
+          return room >= 0;
         }
       }
 
