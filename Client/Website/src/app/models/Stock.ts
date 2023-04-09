@@ -1,3 +1,5 @@
+import { KeyValue } from "@angular/common";
+
 export interface Stock {
 
     label: string, //Label of a certain stock item
@@ -24,5 +26,12 @@ export interface Stock {
       type: string;
       attributes: Stock;
     };
-    
+  }
+
+  export interface StockPackage{
+    stock: KeyValue<string,Stock>
+  }
+  
+  export interface StocksPackage{
+    stocks: Map<string,Stock>
   }

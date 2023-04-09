@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PermissionResource;
 use App\Http\Resources\UserResource;
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,14 +15,16 @@ class UserController extends Controller
     protected $model_name = 'Users';
     protected $options = [
 
-        'email' => 'required|string|email',
+        'email' => 'required|string|email|unique:Users',
         'password' => 'required|string|min:8',
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
-        'phone' => 'required|string',
+        'phone' => 'required|string|unique:Users',
         'gender' => 'required|between:0,3',
         'date_of_birth' => 'required|date',
-        'tier' => 'required|between:0,2|numeric'
+        'tier' => 'required|between:0,2|numeric',
+        'type' => 'required|numeric',
+        'language' => 'required|numeric'
 
     ];
 
@@ -29,7 +33,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource);
+        return indexTemplate($this->model, $this->resource, Permission::class, PermissionResource::class, 'is_singular', true);
     }
 
     /**
@@ -55,7 +59,7 @@ class UserController extends Controller
     public function update(Request $request, string $room_id)
     {
        
-        return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options, $this->model_name);
+        return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options, $this->model_name, true);
     }
 
     /**

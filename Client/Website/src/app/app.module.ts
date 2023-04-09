@@ -13,11 +13,15 @@ import { StarRatingModule } from 'angular-star-rating';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthenticationModule } from './services/dialogs/authentication/authentication.module';
 import { FoodDatabaseModule } from './pages/admin/food-database/food-database.module';
+import { RoomDatabaseModule } from './pages/admin/room-database/room-database.module';
+import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
+import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
+import { ActivityDatabaseModule } from './pages/admin/activity-database/activity-database.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, 
   ],
   imports: [
     BrowserModule,
@@ -33,8 +37,14 @@ import { FoodDatabaseModule } from './pages/admin/food-database/food-database.mo
     UserDatabaseModule,
     FoodDatabaseModule,
 
+    BookingDatabaseModule,
+
     StarRatingModule.forRoot(),
-    AuthenticationModule
+    AuthenticationModule,
+    RoomDatabaseModule,
+    StockDatabaseModule,
+    ConfirmationDialogModule,
+    ActivityDatabaseModule
 
   ],
   providers: [

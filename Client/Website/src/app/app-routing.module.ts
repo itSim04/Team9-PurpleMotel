@@ -15,6 +15,7 @@ import { StockDatabaseComponent } from './pages/admin/stock-database/stock-datab
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
 import { BrowseServicesComponent } from './pages/guest/services/services.component';
+import { ActivityDatabaseComponent } from './pages/admin/activity-database/activity-database.component';
 
 const routes: Routes = [
 
@@ -76,7 +77,12 @@ const routes: Routes = [
       {
         path: "user-database",
         component: UserDatabaseComponent,
-      }
+      },
+      {
+        path: "activity-database",
+        component: ActivityDatabaseComponent,
+      },
+
     ]
   },
   {
