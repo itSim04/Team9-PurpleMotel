@@ -22,9 +22,10 @@ class UserFactory extends Factory
             'last_name' => fake()->lastName(),
             'gender' => random_int(0, 3),
             'date_of_birth' => fake()->date(),
-            'tier' => random_int(1, 10),
+            'tier' => random_int(0, 2),
             'phone' => fake()->unique()->phoneNumber(),
             'language' => random_int(1, 10),
+            'type' => random_int(1, 40),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

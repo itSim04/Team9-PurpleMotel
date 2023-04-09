@@ -24,6 +24,7 @@ export class TableUnitComponent<Data, Data2> {
   @Input() @Required filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
   @Input() @Required extra_data: [string, Data2][] | undefined = [];
   @Input() @Required extra_data_map: Map<string, Data2> | undefined = new Map();
+  @Input() @Required loading = false;
 
   @Output() hover: EventEmitter<[string, Data | undefined]> = new EventEmitter();
 

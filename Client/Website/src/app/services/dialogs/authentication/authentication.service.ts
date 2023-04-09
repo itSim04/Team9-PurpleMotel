@@ -3,10 +3,10 @@ import { RegisterComponent } from './register/register.component';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UserCredentials, UserInformation, UserResponse } from '../../../models/User';
-import { Observable, catchError, map, of } from 'rxjs';
-import { throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
+import { UserCredentials, UserResponse, UserInformation } from 'src/app/models/User';
+
 
 
 @Injectable({

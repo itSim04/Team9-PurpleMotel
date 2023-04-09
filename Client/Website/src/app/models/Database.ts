@@ -1,3 +1,4 @@
+import { Data } from '@angular/router';
 import { Observable } from 'rxjs';
 import { KeyValue } from "@angular/common";
 
@@ -12,7 +13,7 @@ export interface Column<Data> {
     link?: {
 
         key: keyof Data,
-        format: (value: unknown) => string; // 'Unknown' represents the Linked data (aka the other Table's data)
+        format: (value: unknown, org?: Data) => string; // 'Unknown' represents the Linked data (aka the other Table's data)
 
     }; // Exclusively used with Link
 
@@ -22,8 +23,16 @@ export interface Column<Data> {
 export interface DataInjection<Data> {
 
     title: string;
+
+    special_case?: {
+
+        rule: (data: Data) => boolean,
+        color: string;
+        alt_color: string;
+
+    };
     displayed_columns: Column<Data>[]; // The columns of the database
-    
+
     data_fetcher: (() => Observable<Map<string, Data>>) | undefined; // Fetches data for ONE table. Will not be applied if a dual fetcher is provided manually.
     hover_fetcher?: {
 
@@ -31,7 +40,7 @@ export interface DataInjection<Data> {
         format: (value: unknown) => string[]; // The way the data is displayed in the popup
 
     }; // Fetches a list of item to display when hovered over a cell from the other table
-    hover_display?: (data: unknown) => string;
+    hover_display?: (data: Data) => string[] | undefined;
 
 
 }
@@ -47,7 +56,7 @@ export interface Choices {
 
 export interface Field<Data> {
     key: keyof Data, // Key of the field
-    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number';
+    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date';
     choices?: Choices; // Can only be used with selection and choices.
     condition?: (data: unknown) => boolean; // When to consider the value as satisfied. Not required with Text and Number
     formatting?: (data: Data) => string; // The way to display the value. NOT used
@@ -57,6 +66,15 @@ export interface Toggle<Data> {
     key: keyof Data, // Key of the data
     on_value: string, // Text displayed when on
     off_value: string; // Text displayed when off
+
+    on_prompt?: string;
+    off_prompt?: string;
+
+    on_confirm?: string;
+    off_confirm?: string;
+
+    on_title?: string;
+    off_title?: string;
 
 }
 
@@ -73,7 +91,23 @@ export interface StaticField<Data> {
 }
 
 export interface ChangeInjection<Data> {
+
+
     affected_data?: KeyValue<string, Data>; // Old Data
+
+
+    modification_rule?: (data: Data) => boolean;
+    permissions?: {
+
+        rows: string[];
+        columns: string[];
+        update: (data: Data, label: string, result: number) => void;
+        format: (result: boolean[]) => string;
+        retrieve: (result: Data, label: string) => boolean[];
+        key: keyof Data;
+
+    };
+    side_panel: 'images' | 'permissions' | 'empty';
     data_type: string; // Type of Data
     standalone_field?: Field<Data>; // The Field that appears alone
     toggle?: Toggle<Data>; // A button that appears in the lower area
