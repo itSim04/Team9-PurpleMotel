@@ -235,22 +235,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
     // Fetches both tables at the same time
     if (this.dual_fetcher) {
 
-      this.dual_fetcher().subscribe(result => {
-
-        if (this.extra_injection && this.extra_data) {
-
-          this.all_data_map = result[0];
-          this.all_extra_map = result[1];
-
-          this.all_data = Array.from(result[0]);
-          this.all_extra = Array.from(result[1]);
-
-          this.filtered_data.data = this.all_data;
-          this.extra_data.data = this.all_extra;
-
-
-        }
-      });
+      this.loadBothData();
 
 
     } else if (this.data_injection.data_fetcher) {
@@ -279,6 +264,41 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   }
 
 
+  loadBothData() {
+
+    this.dual_fetcher!().subscribe({
+
+      next: result => {
+
+        if (this.extra_injection && this.extra_data) {
+
+          this.all_data_map = result[0];
+          this.all_extra_map = result[1];
+
+          this.all_data = Array.from(result[0]);
+          this.all_extra = Array.from(result[1]);
+
+          this.filtered_data.data = this.all_data;
+          this.extra_data.data = this.all_extra;
+
+          this.loading[0] = false;
+          this.loading[1] = false;
+
+        }
+      },
+      error: error => {
+
+        this.loading[0] = true;
+        this.loading[1] = true;
+        setTimeout(() => {
+          this.loadPrimaryData();
+        }, 5000);
+
+      }
+    });
+
+
+  }
   loadPrimaryData() {
 
     if (this.data_injection.data_fetcher)

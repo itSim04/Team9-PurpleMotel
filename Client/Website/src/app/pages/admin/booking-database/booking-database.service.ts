@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { BookingsPackage, BookingsResponse, Booking, BookingPackage, BookingResponse, BookingAttributes } from 'src/app/models/Booking';
@@ -15,9 +15,12 @@ export class BookingDatabaseService {
 
   getAllBookings(): Observable<BookingsPackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
     try {
 
-      return this.http.get<BookingsResponse>(this.url.generateUrl('bookings')).pipe(
+      return this.http.get<BookingsResponse>(this.url.generateUrl('bookings'), {headers: headers}).pipe(
 
         map((response: BookingsResponse): BookingsPackage => {
 
@@ -48,9 +51,12 @@ export class BookingDatabaseService {
   }
   getOneBooking(id: string): Observable<BookingPackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
     try {
 
-      return this.http.get<BookingResponse>(this.url.generateUrl(`bookings/${id}`)).pipe(
+      return this.http.get<BookingResponse>(this.url.generateUrl(`bookings/${id}`), {headers: headers}).pipe(
         map((response: BookingResponse): BookingPackage => {
 
           return {
@@ -78,9 +84,12 @@ export class BookingDatabaseService {
 
   addNewBooking(booking: Booking) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
     try {
       console.log(booking)
-      return this.http.post<BookingResponse>(this.url.generateUrl('bookings'), {...booking, room_id:'1', 'user_id':'68'}).pipe(
+      return this.http.post<BookingResponse>(this.url.generateUrl('bookings'), {...booking, room_id:'1', user_id:'68'}, {headers: headers}).pipe(
 
         map(result => {
 
@@ -100,9 +109,12 @@ export class BookingDatabaseService {
 
   modifyBooking(booking_id: string, booking: Booking) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
     try {
 
-      return this.http.put(this.url.generateUrl(`bookings/${booking_id}`), booking).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`bookings/${booking_id}`), booking, {headers: headers}).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -114,9 +126,12 @@ export class BookingDatabaseService {
 
   deleteBooking(key: string) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
     try {
 
-      return this.http.delete(this.url.generateUrl(`bookings/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`bookings/${key}`), {headers: headers}).pipe(map(() => []));
 
     } catch (e: unknown) {
 

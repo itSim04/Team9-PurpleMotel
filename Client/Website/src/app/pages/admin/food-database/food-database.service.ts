@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { FoodsResponse, Food, FoodResponse, FoodPackage, FoodsPackage } from "src/app/models/Food";
@@ -12,17 +12,21 @@ export class FoodDatabaseService {
 
   constructor (private http: HttpClient, private url: UrlBuilderService) { }
 
+
   getAllFoods(): Observable<FoodsPackage> {
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     try {
 
-      return this.http.get<FoodsResponse>(this.url.generateUrl('foods')).pipe(
+      return this.http.get<FoodsResponse>(this.url.generateUrl('foods'), { headers: headers }).pipe(
 
         map((response: FoodsResponse): FoodsPackage => {
 
           const foods = new Map<string, Food>();
 
-          response.data.forEach(food=> {
+          response.data.forEach(food => {
 
             foods.set(food.id, food.attributes);
 
@@ -46,9 +50,12 @@ export class FoodDatabaseService {
   }
   getOneFood(id: string): Observable<FoodPackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.get<FoodResponse>(this.url.generateUrl(`foods/${id}`)).pipe(
+      return this.http.get<FoodResponse>(this.url.generateUrl(`foods/${id}`), { headers: headers }).pipe(
         map((response: FoodResponse): FoodPackage => {
 
           return {
@@ -75,9 +82,12 @@ export class FoodDatabaseService {
 
   addNewFood(food: Food) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.post<FoodResponse>(this.url.generateUrl('foods'), food).pipe(
+      return this.http.post<FoodResponse>(this.url.generateUrl('foods'), food, { headers: headers }).pipe(
 
         map(result => {
 
@@ -97,9 +107,12 @@ export class FoodDatabaseService {
 
   modifyFood(food_id: string, food: Food) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.put(this.url.generateUrl(`foods/${food_id}`), food).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`foods/${food_id}`), food, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -111,9 +124,12 @@ export class FoodDatabaseService {
 
   deleteFood(key: string) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.delete(this.url.generateUrl(`foods/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`foods/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 
