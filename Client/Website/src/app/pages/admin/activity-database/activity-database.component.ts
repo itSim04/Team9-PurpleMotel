@@ -28,6 +28,31 @@ export class ActivityDatabaseComponent {
     data_fetcher:()=>this.activity_service.getAllFacilities().pipe(map(data => data.facilities))
   }
 
+  change_injection: ChangeInjection<Facility> = {
+    default_state: {
+      title: '',
+      description: '',
+    },
+
+    data_type: 'facility',
+
+    fields: [
+      {
+        key: 'title',
+        type: 'text'
+      },
+      {
+        key: 'description',
+        type: 'text'
+      }
+    ],
+
+    add_service: facility => this.activity_service.addNewFacility(facility),
+    modify_service: (key, data) => this.activity_service.modifyFacility(key, data),
+    delete_service: key => this.activity_service.deleteFacility(key),
+    identifier: (data) => '' + data.title,
+    side_panel: 'empty'
+  }
 
   extra_injection: DataInjection<Activity> = {
 
