@@ -5,6 +5,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\RoomTypeController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\UserPermissions;
 use App\Http\Controllers\UserPermissionsController;
@@ -33,6 +35,8 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::apiResource('users', UserController::class);
+    Route::apiResource('rooms', RoomController::class);
+    Route::apiResource('roomtypes', RoomTypeController::class);
     Route::apiResource('stocks', StocksController::class);
     Route::apiResource('facilities', FacilityController::class);
     Route::apiResource('activities', ActivityController::class);

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 
 function generateResponse(int $code, $collection = null, $included = [], bool $error = false)
 {
-
     $response = ['status' => $error ? 'error' : 'success'];
 
     if ($collection) {
