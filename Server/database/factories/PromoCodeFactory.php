@@ -17,7 +17,9 @@ class PromoCodeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'change' => random_int(0,1000),
+            'start_date' => fake()->date(),
+            'end_date' => fake()->date(),    
         ];
     }
 }
