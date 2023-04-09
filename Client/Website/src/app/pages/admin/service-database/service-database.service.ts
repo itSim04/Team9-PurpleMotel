@@ -9,7 +9,7 @@ import { UrlBuilderService } from "src/app/services/url-builder.service";
 @Injectable({
   providedIn: 'root'
 })
-export class ActivityDatabaseService {
+export class ServiceDatabaseService {
 
   constructor (private http: HttpClient, private url: UrlBuilderService) { }
 
