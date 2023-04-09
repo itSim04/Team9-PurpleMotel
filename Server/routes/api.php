@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
 
-Route::apiResource('promocodes', PromoCodeController::class);
+
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->controller(AuthenticationController::class)->group(function () {
@@ -50,6 +50,7 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('facilities', FacilityController::class);
         Route::apiResource('activities', ActivityController::class);
         Route::apiResource('bookings', BookingController::class);
+        Route::apiResource('promocodes', PromoCodeController::class);
 
         Route::prefix('stocks')->controller(StocksController::class)->group(function () {
 

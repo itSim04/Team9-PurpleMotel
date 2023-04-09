@@ -17,7 +17,7 @@ class PromoCodeResource extends JsonResource
         return [
             'id'=>(string)$this->id,
             'type'=> 'PromoCodes',
-            'attributes'=>[
+            'attributes'=> [
                 'change'=>$this->change,
                 'start_date'=>$this->start_date,
                 'end_date'=>$this->end_date

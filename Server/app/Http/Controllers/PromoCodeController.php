@@ -2,65 +2,63 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\PromoCode;
-use App\Http\Requests\StorePromoCodeRequest;
-use App\Http\Requests\UpdatePromoCodeRequest;
+use App\Resources\PromoCodeResource;
+use Illuminate\Http\Request;
 
 class PromoCodeController extends Controller
 {
+    protected $resource = PromoCodeResource::class;
+    protected $model = PromoCode::class;
+    protected $model_name = 'PromoCodes';
+    protected $options = [
+
+        'change' => 'required|string',
+        'start_date' => 'required|date',
+        'end_date' => 'required|date',
+    ];
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return indexTemplate($this->model, $this->resource);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePromoCodeRequest $request)
+    public function store(Request $request)
     {
-        //
+        return storeTemplate($request, $this->model, $this->resource, $this->options);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(PromoCode $promoCode)
+    public function show(int $id)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PromoCode $promoCode)
-    {
-        //
+        return showTemplate($this->model, $this->resource, $id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePromoCodeRequest $request, PromoCode $promoCode)
+    public function update(Request $request, string $promo_code_id)
     {
-        //
+
+        return updateTemplate($request, $this->model, $promo_code_id, $this->resource, $this->options, $this->model_name);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PromoCode $promoCode)
+    public function destroy(int $id)
     {
-        //
+
+        return destroyTemplate($this->model, $id);
     }
 }
