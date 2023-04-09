@@ -15,15 +15,12 @@ import { AuthenticationModule } from './services/dialogs/authentication/authenti
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { ActivityDatabaseModule } from './pages/admin/activity-database/activity-database.module';
-import { FacilityDatabaseComponent } from './pages/admin/facility-database/facility-database.component';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FacilityDatabaseComponent,
-   
-   
+    AppComponent, 
   ],
   imports: [
     BrowserModule,

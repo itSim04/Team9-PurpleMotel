@@ -4,6 +4,7 @@ import { Activity } from 'src/app/models/Activity';
 import { ActivityDatabaseService } from './activity-database.service';
 import { map } from 'rxjs';
 import { Data } from '@angular/router';
+import { Facility } from 'src/app/models/Facility';
 
 @Component({
   selector: 'app-activity-database',
@@ -11,6 +12,22 @@ import { Data } from '@angular/router';
   styleUrls: ['./activity-database.component.scss']
 })
 export class ActivityDatabaseComponent {
+
+
+  data_injection: DataInjection<Facility> = {
+
+    title: 'Facility',
+    displayed_columns: [
+      {
+        key:'title'
+      },
+      {
+        key:'description'
+      }
+    ],
+    data_fetcher:()=>this.activity_service.getAllFacilities().pipe(map(data => data.facilities))
+  }
+
 
   extra_injection: DataInjection<Activity> = {
 
