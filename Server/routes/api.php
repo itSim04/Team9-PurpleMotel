@@ -18,6 +18,8 @@ use App\Models\UserType;
 use App\Policies\UserPolicy;
 use App\Policies\UserTypePolicy;
 use App\Http\Controllers\BookingController;
+use App\Models\Stocks;
+use App\Policies\StocksPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -36,39 +38,51 @@ Route::prefix('v1')->group(function () {
     });
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
+    Gate::policy(Stocks::class, StocksPolicy::class);
 
     Route::middleware('auth:api')->group(function () {
 
         Route::apiResource('foods', FoodController::class);
         Route::apiResource('rooms', RoomController::class);
         Route::apiResource('roomtypes', RoomTypeController::class);
-        Route::apiResource('stocks', StocksController::class);
         Route::apiResource('facilities', FacilityController::class);
         Route::apiResource('activities', ActivityController::class);
         Route::apiResource('bookings', BookingController::class);
 
+        Route::prefix('stocks')->controller(StocksController::class)->group(function () {
+
+            Route::get('', 'index')->middleware('can:viewAny,App\Stocks');
+            Route::post('', 'store')->middleware('can:update,App\Stocks');
+            Route::get('/{user}', 'show')->middleware('can:view,App\Stocks,stocks');
+            Route::put('/{user}', 'update')->middleware('can:update,App\Stocks');
+            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Stocks');
+
+        });
+
         Route::prefix('users')->controller(UserController::class)->group(function () {
 
             Route::get('', 'index')->middleware('can:viewAny,App\User');
-            Route::post('', 'store')->middleware('can:create,App\User');
+            Route::post('', 'store')->middleware('can:update,App\User');
             Route::get('/{user}', 'show')->middleware('can:view,App\User,user');
             Route::put('/{user}', 'update')->middleware('can:update,App\User');
             Route::delete('/{user}', 'destroy')->middleware('can:delete,App\User');
+
         });
 
         Route::prefix('user-types')->controller(UserTypeController::class)->group(function () {
 
             Route::get('', 'index')->middleware('can:viewAny,App\UserType');
-            Route::post('', 'store')->middleware('can:create,App\UserType');
+            Route::post('', 'store')->middleware('can:update,App\UserType');
             Route::get('/{user_type}', 'show')->middleware('can:view,App\UserType,user_type');
             Route::put('/{user_type}', 'update')->middleware('can:update,App\UserType');
             Route::delete('/{user_type}', 'destroy')->middleware('can:delete,App\UserType');
+
         });
 
         Route::prefix('permissions')->group(function () {
 
             Route::get('', [PermissionController::class, 'index'])->middleware('can:viewAny,' . PermissionController::class);
-            Route::post('', [PermissionController::class, 'store'])->middleware('can:create,' . PermissionController::class);
+            Route::post('', [PermissionController::class, 'store'])->middleware('can:update,' . PermissionController::class);
             Route::get('/{permission}', [PermissionController::class, 'show'])->middleware('can:view,permission');
             Route::put('/{permission}', [PermissionController::class, 'update'])->middleware('can:update,permission');
             Route::delete('/{permission}', [PermissionController::class, 'destroy'])->middleware('can:delete,permission');

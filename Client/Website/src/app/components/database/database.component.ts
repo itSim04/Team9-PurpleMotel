@@ -5,6 +5,62 @@ import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, Observable, Subject } from 'rxjs';
 import { DataInjection, Column, ChangeInjection } from 'src/app/models/Database';
 
+
+export function extractUser() {
+
+  const user = localStorage.getItem('user');
+  if (user) {
+
+    return JSON.parse(user) as User;
+
+  } else {
+
+    return undefined;
+
+  }
+
+}
+
+
+export function extractPermission(operation: 'read' | 'write' | 'delete', permission: string): boolean {
+
+    if (extractUser()?.tier == '2') {
+
+      return true;
+
+    }
+
+    try {
+
+      const permissions = JSON.parse(localStorage.getItem('permissions') || '{}');
+
+      let target: number;
+      switch (operation) {
+
+        case 'read':
+          target = 0;
+          break;
+
+        case 'write':
+          target = 1;
+          break;
+
+        case 'delete':
+          target = 2;
+          break;
+
+      };
+      return permissions[permission][target];
+
+    } catch (e: unknown) {
+
+      return false;
+
+    }
+
+  }
+
+
 export function formatWord(word: string | number | symbol | undefined) {
 
   if (!word) return "";
@@ -242,10 +298,13 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
     } else if (this.data_injection.data_fetcher) {
 
-
       this.loadPrimaryData();
 
-      this.loadSecondaryData();
+      if (this.extra_injection) {
+
+        this.loadSecondaryData();
+
+      }
 
 
     }
@@ -265,73 +324,20 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
   }
 
-  extractUser() {
-
-    const user = localStorage.getItem('user');
-    if (user) {
-
-      return JSON.parse(user) as User;
-
-    } else {
-
-      return undefined;
-
-    }
-
-  }
-
-  extractPermission(operation: 'read' | 'write' | 'delete', permission: string): boolean {
-
-    if (this.extractUser()?.tier == '2') {
-
-      return true;
-
-    }
-
-    try {
-
-      const permissions = JSON.parse(localStorage.getItem('permissions') || '{}');
-
-      let target: number;
-      switch (operation) {
-
-        case 'read':
-          target = 0;
-          break;
-
-        case 'write':
-          target = 1;
-          break;
-
-        case 'delete':
-          target = 2;
-          break;
-
-      };
-      return permissions[permission][target];
-
-    } catch (e: unknown) {
-
-      return false;
-
-    }
-
-  }
-
-
+  
   loadBothData() {
 
     this.loading = true;
     this.extra_loading = true;
-    if (this.extractPermission('read', this.data_injection.permission) || this.extractPermission('read', this.extra_injection!.permission)) {
-      
+    if (extractPermission('read', this.data_injection.permission) || extractPermission('read', this.extra_injection!.permission)) {
+
       this.dual_fetcher!().subscribe({
 
         next: result => {
 
           if (this.extra_injection && this.extra_data) {
 
-            if (this.extractPermission('read', this.data_injection.permission)) {
+            if (extractPermission('read', this.data_injection.permission)) {
 
               this.all_data = Array.from(result[0]);
               this.all_data_map = result[0];
@@ -341,7 +347,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
 
 
-            if (this.extractPermission('read', this.extra_injection.permission)) {
+            if (extractPermission('read', this.extra_injection.permission)) {
 
               this.all_extra = Array.from(result[1]);
               this.all_extra_map = result[1];
@@ -373,7 +379,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
     this.loading = true;
 
-    if (!this.extractPermission('read', this.data_injection.permission)) {
+    if (!extractPermission('read', this.data_injection.permission)) {
 
       this.loading = false;
 
@@ -405,7 +411,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
     this.extra_loading = true;
 
-    if (!this.extractPermission('read', this.extra_injection!.permission)) {
+    if (!extractPermission('read', this.extra_injection!.permission)) {
 
       this.extra_loading = false;
 
