@@ -27,7 +27,6 @@ export class BookingDatabaseComponent {
           key: 'user_id',
           index: 3,
           format: (value) => (value as User)?.first_name + ' ' + (value as User)?.last_name
-
         },
       },
       {
@@ -35,7 +34,7 @@ export class BookingDatabaseComponent {
         type: 'outer_link',
         outer_link: {
 
-          key: 'user_id',
+          key: 'room_id',
           index: 1,
           format: (value) => (value as Room)?.label
 
@@ -70,7 +69,7 @@ export class BookingDatabaseComponent {
       room_id: '0',
       user_id: '0'
     },
-    data_type: 'Bookings',
+    data_type: 'Booking',
     fields: [
       {
         key: 'check_in',
@@ -79,6 +78,31 @@ export class BookingDatabaseComponent {
       {
         key: 'end_date',
         type: 'date'
+      },
+      {
+        key: 'user_id',
+        type: 'outer_selection',
+        outer_choices: {
+
+          format: (choice) => (choice as User)?.first_name + ' ' + (choice as User)?.last_name,
+          index: 3
+
+
+        }
+      },
+      {
+        key: 'room_id',
+        type: 'outer_selection',
+        outer_choices: {
+
+          format: (choice) => {
+
+            return (choice as Room)?.label;
+          },
+          index: 1
+
+
+        }
       }
     ],
     toggle: {

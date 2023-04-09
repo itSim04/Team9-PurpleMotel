@@ -56,7 +56,8 @@
                                 <td class="permissions"
                                     *ngFor="let col of permissions?.columns; let i = index">
 
-                                    <mat-checkbox [disabled]="!modification_rule(this.data)" (ngModelChange)="debug(i, row, $event)"
+                                    <mat-checkbox [disabled]="!modification_rule(this.data)"
+                                        (ngModelChange)="debug(i, row, $event)"
                                         [ngModel]="permissions.retrieve(data, row)[i]"
                                         class="example-margin">
                                     </mat-checkbox>
@@ -71,7 +72,7 @@
 
                     </ng-container>
                     <tr>
-                        <td colspan="2">
+                        <td style="width: 100%;" colspan="2">
                             <mat-form-field *ngIf="standalone_field" class="full-width">
                                 <mat-label
                                     class="label">{{formatLabel(standalone_field.key)}}</mat-label>
@@ -94,15 +95,16 @@
                             <!-- Raw Text -->
                             <mat-form-field *ngIf="field.type === 'text'" class="full-width input">
                                 <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input [disabled]="!modification_rule(this.data)" class="input" [(ngModel)]="data[field.key]" matInput>
+                                <input [disabled]="!modification_rule(this.data)" class="input"
+                                    [(ngModel)]="data[field.key]" matInput>
                             </mat-form-field>
 
                             <!-- Number -->
                             <mat-form-field *ngIf="field.type === 'number'"
                                 class="full-width input">
                                 <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input [disabled]="!modification_rule(this.data)" class="input" type="number" [(ngModel)]="data[field.key]"
-                                    matInput>
+                                <input [disabled]="!modification_rule(this.data)" class="input"
+                                    type="number" [(ngModel)]="data[field.key]" matInput>
                                 <div class="number-error"
                                     *ngIf="field.condition && data[field.key] ? !field.condition(data[field.key]) : false">
                                     Please enter a valid number </div>
@@ -114,7 +116,8 @@
                                 class="full-width input"
                                 [color]="data[field.key] && !isNum(data[field.key].toString()) ? 'warn' : 'primary'">
                                 <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input [disabled]="!modification_rule(this.data)" [min]="field.type === 'positive_digits_string' ? 0 : -999999"
+                                <input [disabled]="!modification_rule(this.data)"
+                                    [min]="field.type === 'positive_digits_string' ? 0 : -999999"
                                     class="input" [(ngModel)]="data[field.key]" matInput>
                                 <div class="number-error"
                                     *ngIf="!isNum(data[field.key].toString()) && data[field.key]">
@@ -129,10 +132,11 @@
                                 <mat-select [multiple]="field.type === 'choices'" class="input"
                                     [ngModel]="data[field.key]"
                                     (ngModelChange)="data[field.key]=$event">
-                                    <mat-option [disabled]="!modification_rule(this.data)" class="input"
-                                        *ngFor="let type of field.choices.choices"
+                                    <mat-option [disabled]="!modification_rule(this.data)"
+                                        class="input" *ngFor="let type of field.choices.choices"
                                         [value]="field.choices.key ? field.choices.key(type) : type[0]">
-                                        {{field.choices.format ? (field.choices.format(type[1]) | translate) :
+                                        {{field.choices.format ? (field.choices.format(type[1]) |
+                                        translate) :
                                         type[1] + "" | translate}}
                                     </mat-option> </mat-select>
                             </mat-form-field>
@@ -145,19 +149,43 @@
                                 <mat-select [multiple]="field.type === 'choices'" class="input"
                                     [ngModel]="data[field.key]"
                                     (ngModelChange)="data[field.key]=$event">
-                                    <mat-option [disabled]="!modification_rule(this.data)" class="input"
-                                        *ngFor="let type of linked_data | keyvalue"
+                                    <mat-option [disabled]="!modification_rule(this.data)"
+                                        class="input" *ngFor="let type of linked_data | keyvalue"
                                         [value]="field.choices.key ? field.choices.key([type.key, type.value]) : type.key">
                                         {{field.choices.format ? field.choices.format(type.value) :
                                         type.value}}
                                     </mat-option> </mat-select>
                             </mat-form-field>
 
+                            <!-- Outer Linked Selection -->
+                            <mat-form-field
+                                *ngIf="field.outer_choices && (field.type === 'outer_selection' || field.type === 'outer_choices')"
+                                class="full-width input">
+
+                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                                <mat-select *ngIf="outer_data"
+                                    [multiple]="field.type === 'outer_choices'" class="input"
+                                    [ngModel]="data[field.key]"
+                                    (ngModelChange)="data[field.key]=$event">
+                                    <mat-option [disabled]="!modification_rule(this.data)"
+                                        class="input"
+                                        *ngFor="let type of outer_data[field.outer_choices.index!] | keyvalue"
+                                        [value]="field.outer_choices.key ? field.outer_choices.key([type.key, type.value]) : type.key">
+                                        {{field.outer_choices.format ?
+                                        field.outer_choices.format(type.value) :
+                                        type.value}}
+                                    </mat-option> </mat-select>
+                            </mat-form-field>
+
                             <!-- Date -->
-                            <mat-form-field *ngIf="field.type === 'date'" class="full-width input" appearance="fill">
+                            <mat-form-field *ngIf="field.type === 'date'" class="full-width input"
+                                appearance="fill">
                                 <mat-label class="label">Choose a date</mat-label>
-                                <input [ngModel]="data[field.key]" (ngModelChange)="data[field.key]=parseDate($event)" matInput [matDatepicker]="picker" readonly>
-                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <input [ngModel]="data[field.key]"
+                                    (ngModelChange)="data[field.key]=parseDate($event)" matInput
+                                    [matDatepicker]="picker" readonly>
+                                <mat-datepicker-toggle matIconSuffix
+                                    [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
 
@@ -197,7 +225,8 @@
         <tr>
             <td class="padded" style="text-align: right;">
                 <button style="width: 30%;" (click)="delete()" class="delete-btn" mat-button
-                    color="primary" *ngIf="modification_rule(this.data) && modification_mode">Delete</button>
+                    color="primary"
+                    *ngIf="modification_rule(this.data) && modification_mode">Delete</button>
                 <button *ngIf="modification_rule(this.data)" style="width: 30%;" class="back-btn"
                     (click)="modification_mode ? modify() : add()"
                     [disabled]="!fieldsCompleteness || !differenceCheck"

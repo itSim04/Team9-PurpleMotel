@@ -58,6 +58,7 @@ export interface Choices {
 
     choices?: [string, unknown][], // The list of choices. Will not be registered if link is True.
     link?: boolean, // Dictates whether the choices are hardcoded or will be taken from the other table
+    index?: number;
     key?: (choice: [string, unknown]) => string, // The way every choice is identified (the key)
     format?: (choice: unknown) => string, // The way every choice is displayed
 }
@@ -65,8 +66,10 @@ export interface Choices {
 
 export interface Field<Data> {
     key: keyof Data, // Key of the field
-    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date';
+    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices';
     choices?: Choices; // Can only be used with selection and choices.
+
+    outer_choices?: Choices; // Can only be used with outer selection.
     condition?: (data: unknown) => boolean; // When to consider the value as satisfied. Not required with Text and Number
     formatting?: (data: Data) => string; // The way to display the value. NOT used
 }
