@@ -50,10 +50,10 @@ class ActivityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $room_id)
+    public function update(Request $request, string $activity_id)
     {
        
-        return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options, $this->model_name);
+        return updateTemplate($request, $this->model, $activity_id, $this->resource, $this->options, $this->model_name);
     }
 
     /**
