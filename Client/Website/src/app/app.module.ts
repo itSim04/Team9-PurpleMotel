@@ -15,11 +15,13 @@ import { AuthenticationModule } from './services/dialogs/authentication/authenti
 import { RoomDatabaseModule } from './pages/admin/room-database/room-database.module';
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
+import { ActivityDatabaseModule } from './pages/admin/activity-database/activity-database.module';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, 
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import { BookingDatabaseModule } from './pages/admin/booking-database/booking-da
     AuthenticationModule,
     RoomDatabaseModule,
     StockDatabaseModule,
-    ConfirmationDialogModule
+    ConfirmationDialogModule,
+    ActivityDatabaseModule
 
   ],
   providers: [

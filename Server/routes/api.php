@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\StocksController;
@@ -36,11 +38,14 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('rooms', RoomController::class);
     Route::apiResource('roomtypes', RoomTypeController::class);
     Route::apiResource('stocks', StocksController::class);
+    Route::apiResource('facilities', FacilityController::class);
+    Route::apiResource('activities', ActivityController::class);
+    Route::apiResource('bookings', BookingController::class);
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
 
     Route::middleware('auth:api')->prefix('users')->controller(UserController::class)->group(function () {
-
+        
         Route::get('', 'index')->middleware('can:viewAny,App\User');
         Route::post('', 'store')->middleware('can:create,App\User');
         Route::get('/{user}', 'show')->middleware('can:view,App\User,user');
@@ -81,5 +86,4 @@ Route::prefix('v1')->group(function () {
         Route::put('usertype-permissions/{usertype_permission}', [UserTypePermissionController::class, 'update'])->middleware('can:update,usertype_permission');
         Route::delete('usertype-permissions/{usertype_permission}', [UserTypePermissionController::class, 'destroy'])->middleware('can:delete,usertype_permission');
     });
-    Route::apiResource('bookings', BookingController::class);
 });
