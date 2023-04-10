@@ -1,9 +1,12 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable, map } from "rxjs";
-import { OrdersResponse, Order, OrderResponse, OrderPackage, OrdersPackage } from "src/app/models/Order";
-import { UrlBuilderService } from "src/app/services/url-builder.service";
-
+import { UserType } from 'src/app/models/UserType';
+import { FoodAttributes } from './../../../models/Food';
+import { User, UserAttributes } from 'src/app/models/User';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
+import { OrdersPackage, OrdersResponse, Order, OrderPackage, OrderResponse, OrderAttributes } from 'src/app/models/Order';
+import { Food } from 'src/app/models/Food';
+import { UrlBuilderService } from 'src/app/services/url-builder.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,6 @@ import { UrlBuilderService } from "src/app/services/url-builder.service";
 export class OrderDatabaseService {
 
   constructor (private http: HttpClient, private url: UrlBuilderService) { }
-
 
   getAllOrders(): Observable<OrdersPackage> {
 
@@ -22,19 +24,59 @@ export class OrderDatabaseService {
 
       return this.http.get<OrdersResponse>(this.url.generateUrl('orders'), { headers: headers }).pipe(
 
+
         map((response: OrdersResponse): OrdersPackage => {
 
           const orders = new Map<string, Order>();
+          const foods = new Map<string, Food>();
+          const users = new Map<string, User>();
+          const user_types = new Map<string, UserType>();
 
           response.data.forEach(order => {
 
-            orders.set(order.id, order.attributes);
+            orders.set(order.id, { ...order.attributes, food_id: order.relationships.food.data.id, user_id: order.relationships.user.data.id });
 
           });
 
+          if (response.included) {
+
+            response.included.forEach(value => {
+
+              switch (value.type) {
+
+                case 'Foods':
+
+                  foods.set(value.id, { ...value.attributes } as Food);
+
+                  break;
+
+                case 'Users':
+
+                  users.set(value.id, { ...value.attributes as UserAttributes, type: value.relationships.user_type.data.id, permissions: new Map() });
+
+                  break;
+
+                case 'UserTypes':
+
+                  user_types.set(value.id, value.attributes as UserType);
+
+                  break;
+
+
+              }
+
+
+
+            });
+
+          }
+          
           return {
 
-            orders: orders
+            orders: orders,
+            foods: foods,
+            user_types: user_types,
+            users: users
 
           };
 
@@ -63,9 +105,10 @@ export class OrderDatabaseService {
             order: {
 
               key: response.data.id,
-              value: response.data.attributes
+              value: { ...response.data.attributes, food_id: response.data.relationships.food.data.id, user_id: response.data.relationships.user.data.id }
 
             },
+
           };
 
 
@@ -86,8 +129,8 @@ export class OrderDatabaseService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     try {
-
-      return this.http.post<OrderResponse>(this.url.generateUrl('orders'), order, { headers: headers }).pipe(
+      console.log(order);
+      return this.http.post<OrderResponse>(this.url.generateUrl('orders'), { ...order, food_id: '1', user_id: '68' }, { headers: headers }).pipe(
 
         map(result => {
 
