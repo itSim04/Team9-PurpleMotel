@@ -205,10 +205,10 @@
 
                             <!-- Readonly -->
                             <mat-form-field class="full-width input"
-                                *ngIf="!field.value && field.linked_value">
+                                *ngIf="!field.value && field.link">
                                 <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
                                 <input class="input"
-                                    [value]="(field.linked_value.format && linked_data.get(data[field.linked_value.value].toString())) ? field.linked_value.format(linked_data.get(data[field.linked_value.value].toString())) : ''"
+                                    [value]="(field.link.format && linked_data.get(data[field.link.value].toString())) ? field.link.format(linked_data.get(data[field.link.value].toString())) : ''"
                                     readonly name="occupancy" matInput>
                             </mat-form-field>
 
