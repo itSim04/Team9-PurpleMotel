@@ -6,10 +6,8 @@ import { Food, FoodAttributes } from "./Food";
 
 export interface OrderAttributes {
 
-  
-  check_in: Date,
-  end_date: Date,
-  exhausted: boolean;
+  date: Date,
+  status: string;
 
 }
 
@@ -90,7 +88,7 @@ export interface OrdersResponse {
   included?: {
 
     id: string;
-    type: 'Users' | 'UserTypes' | 'Foods' | 'FoodTypes';
+    type: 'Users' | 'UserTypes' | 'Foods' ;
     attributes: FoodAttributes | UserTypeAttributes | UserAttributes;
     relationships: {
       user: {
@@ -100,12 +98,6 @@ export interface OrdersResponse {
         };
       };
       food: {
-        data: {
-          id: string;
-          type: string;
-        };
-      };
-      food_type: {
         data: {
           id: string;
           type: string;
