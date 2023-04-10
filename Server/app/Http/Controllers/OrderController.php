@@ -16,7 +16,7 @@ class OrderController extends Controller
     protected $options = [
 
         'date' => 'required|date',
-        'status'=> 'required|string'
+        'status'=> 'required|number'
 
     ];
 

@@ -19,7 +19,7 @@ class OrderResource extends JsonResource
             'type' => 'Orders',
             'attributes' => [
                 'date' => $this->date,
-                'status' => $this->description
+                'status' => $this->status
             ]
         ];
     }
