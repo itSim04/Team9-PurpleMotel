@@ -2,65 +2,61 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LanguageListResource;
 use App\Models\LanguageList;
-use App\Http\Requests\StoreLanguageListRequest;
-use App\Http\Requests\UpdateLanguageListRequest;
+use Illuminate\Http\Request;
 
 class LanguageListController extends Controller
 {
+    protected $resource = LanguageListResource::class;
+    protected $model = LanguageList::class;
+    protected $model_name = 'Languages';
+    protected $options = [
+
+        'language_name' => 'required|string'
+
+    ];
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return indexTemplate($this->model, $this->resource);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLanguageListRequest $request)
+    public function store(Request $request)
     {
-        //
+        return storeTemplate($request, $this->model, $this->resource, $this->options);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(LanguageList $languageList)
+    public function show(int $id)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(LanguageList $languageList)
-    {
-        //
+        return showTemplate($this->model, $this->resource, $id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLanguageListRequest $request, LanguageList $languageList)
+    public function update(Request $request, string $id)
     {
-        //
+
+        return updateTemplate($request, $this->model, $id, $this->resource, $this->options, $this->model_name);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LanguageList $languageList)
+    public function destroy(int $id)
     {
-        //
+
+        return destroyTemplate($this->model, $id);
     }
 }
