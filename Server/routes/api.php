@@ -45,8 +45,8 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function () {
 
         Route::apiResource('languages', LanguageController::class);
-    Route::apiResource('language-list', LanguageListController::class);
-    Route::apiResource('foods', FoodController::class);
+        Route::apiResource('language-list', LanguageListController::class);
+        Route::apiResource('foods', FoodController::class);
         Route::apiResource('rooms', RoomController::class);
         Route::apiResource('roomtypes', RoomTypeController::class);
         Route::apiResource('facilities', FacilityController::class);
@@ -60,7 +60,6 @@ Route::prefix('v1')->group(function () {
             Route::get('/{user}', 'show')->middleware('can:view,App\Stocks,stocks');
             Route::put('/{user}', 'update')->middleware('can:update,App\Stocks');
             Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Stocks');
-
         });
 
         Route::prefix('users')->controller(UserController::class)->group(function () {
@@ -70,7 +69,6 @@ Route::prefix('v1')->group(function () {
             Route::get('/{user}', 'show')->middleware('can:view,App\User,user');
             Route::put('/{user}', 'update')->middleware('can:update,App\User');
             Route::delete('/{user}', 'destroy')->middleware('can:delete,App\User');
-
         });
 
         Route::prefix('user-types')->controller(UserTypeController::class)->group(function () {
@@ -80,7 +78,6 @@ Route::prefix('v1')->group(function () {
             Route::get('/{user_type}', 'show')->middleware('can:view,App\UserType,user_type');
             Route::put('/{user_type}', 'update')->middleware('can:update,App\UserType');
             Route::delete('/{user_type}', 'destroy')->middleware('can:delete,App\UserType');
-
         });
 
         Route::prefix('permissions')->group(function () {

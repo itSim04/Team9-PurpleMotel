@@ -17,6 +17,8 @@ export class FoodDatabaseService {
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    headers.set('Access-Control-Allow-Origin', '*');
+    headers.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
 
     try {
 

@@ -15,7 +15,20 @@ class LanguageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            $this->term => $this->value
+            'id' => (string)$this->id,
+            'type' => 'Foods',
+            'attributes' => [
+                'term' => $this->term,
+                'value' => $this->value
+            ],
+            'relationships' => [
+                'language' => [
+                    'data' => [
+                        'id' => str($this->language),
+                        'type' => 'Language_List'
+                    ]
+                ]
+            ]
         ];
     }
 }

@@ -1,3 +1,4 @@
+import { LanguageDatabaseModule } from './pages/admin/language-database/language-database.module';
 import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
 import { UserDatabaseModule } from './pages/admin/user-database/user-database.module';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
@@ -45,7 +46,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RoomDatabaseModule,
     StockDatabaseModule,
     ConfirmationDialogModule,
-    ServiceDatabaseModule
+    ServiceDatabaseModule,
+    LanguageDatabaseModule
 
   ],
   providers: [

@@ -49,8 +49,6 @@ export class FoodDatabaseComponent {
       ingredients: []
     },
 
-    //side_panel: 'empty',
-
     data_type: 'food',
 
     fields: [

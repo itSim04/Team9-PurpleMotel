@@ -21,6 +21,14 @@ class LanguageController extends Controller
     ];
 
     /**
+     * Display the specified resource.
+     */
+    public function index()
+    {
+        return indexTemplate($this->model, $this->resource);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
