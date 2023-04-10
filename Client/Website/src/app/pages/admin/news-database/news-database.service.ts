@@ -54,7 +54,7 @@ export class NewsDatabaseService {
 
     try {
 
-      return this.http.get<NewsResponse>(this.url.generateUrl(`newses/${id}`), {headers: headers}).pipe(
+      return this.http.get<NewsResponse>(this.url.generateUrl(`news/${id}`), {headers: headers}).pipe(
         map((response: NewsResponse): NewsPackage => {
 
           return {
@@ -86,7 +86,7 @@ export class NewsDatabaseService {
 
     try {
 
-      return this.http.post<NewsResponse>(this.url.generateUrl('newses'), news, {headers: headers}).pipe(
+      return this.http.post<NewsResponse>(this.url.generateUrl('news'), news, {headers: headers}).pipe(
 
         map(result => {
 
@@ -111,7 +111,7 @@ export class NewsDatabaseService {
 
     try {
 
-      return this.http.put(this.url.generateUrl(`newses/${news_id}`), news, {headers: headers}).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`news/${news_id}`), news, {headers: headers}).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -128,7 +128,7 @@ export class NewsDatabaseService {
 
     try {
 
-      return this.http.delete(this.url.generateUrl(`newses/${key}`), {headers: headers}).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`news/${key}`), {headers: headers}).pipe(map(() => []));
 
     } catch (e: unknown) {
 
