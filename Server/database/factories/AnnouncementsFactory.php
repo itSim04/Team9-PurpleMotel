@@ -17,7 +17,8 @@ class AnnouncementsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'label' => fake()->firstName(),
+            'body' => fake()->sentence()
         ];
     }
 }
