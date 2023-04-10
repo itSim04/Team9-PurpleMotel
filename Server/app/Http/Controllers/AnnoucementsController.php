@@ -2,65 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Annoucements;
-use App\Http\Requests\StoreAnnoucementsRequest;
-use App\Http\Requests\UpdateAnnoucementsRequest;
+use App\Http\Resources\AnnouncementsResource;
+use App\Models\Announcements;
+use Illuminate\Http\Request;
 
-class AnnoucementsController extends Controller
+class AnnouncementsController extends Controller
 {
+    protected $resource = AnnouncementsResource::class;
+    protected $model = Announcements::class;
+    protected $options = [
+
+        'label' => 'required|string|max:64',
+        'body' => 'string|max:255',
+
+    ];
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return indexTemplate($this->model, $this->resource);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAnnoucementsRequest $request)
+    public function store(Request $request)
     {
-        //
+        return storeTemplate($request, $this->model, $this->resource, $this->options);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Annoucements $annoucements)
+    public function show(int $id)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Annoucements $annoucements)
-    {
-        //
+        return showTemplate($this->model, $this->resource, $id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAnnoucementsRequest $request, Annoucements $annoucements)
+    public function update(Request $request, string $announcements_id)
     {
-        //
+       
+        return updateTemplate($request, $this->model, $announcements_id, $this->resource, $this->options);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Annoucements $annoucements)
+    public function destroy(int $id)
     {
-        //
+
+        return destroyTemplate($this->model, $id);
     }
 }
