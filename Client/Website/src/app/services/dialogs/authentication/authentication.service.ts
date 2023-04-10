@@ -48,6 +48,7 @@ export class AuthenticationDialogService {
 
           localStorage.setItem('token', result.authorisation.token);
           localStorage.setItem('user', JSON.stringify(result.data.attributes));
+          if (result.permissions) localStorage.setItem('permissions', JSON.stringify(result.permissions));
         }
 
         return;
@@ -65,10 +66,10 @@ export class AuthenticationDialogService {
       map(result => {
 
         if (result.authorisation) {
-         
+
           localStorage.setItem('token', result.authorisation.token);
           localStorage.setItem('user', JSON.stringify(result.data.attributes));
-          
+
         }
         return;
 

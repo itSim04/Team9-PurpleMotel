@@ -14,6 +14,7 @@ export class StockDatabaseComponent {
 
   data_injection: DataInjection<Stock> = {
 
+    permission: 'stock',
     title: 'Stock',
     displayed_columns: [
       {
@@ -26,10 +27,12 @@ export class StockDatabaseComponent {
         key:'available_quantity'
       },
       {
-        key:'is_ingredient', type:'boolean'
+        key:'is_ingredient', 
+        type:'boolean',
+        header_alt: "Ingredient?"
       }
     ],
-    data_fetcher:()=>this.stock_service.getAllStocks().pipe(map(data => data.stocks))
+    data_fetcher:()=>this.stock_service.getAllStocks().pipe(map(data => [data.stocks, undefined]))
   }
   
   constructor(private stock_service: StockDatabaseService){}

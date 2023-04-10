@@ -15,6 +15,7 @@ export class FoodDatabaseComponent {
 
   data_injection: DataInjection<Food> = {
 
+    permission: 'food',
     title: 'Foods',
     displayed_columns: [
       {
@@ -24,18 +25,22 @@ export class FoodDatabaseComponent {
         key: 'description'
       },
       {
-        key: 'price'
+        key: 'price',
+        type: 'price'
       },
       {
-        key: 'is_served', type:'boolean'
+        key: 'is_served', 
+        type: 'boolean'
       }
     ],
-    data_fetcher: () => this.food_service.getAllFoods().pipe(map(data => data.foods))
+    data_fetcher: () => this.food_service.getAllFoods().pipe(map(data => [data.foods, undefined]))
 
   };
 
   change_injection: ChangeInjection<Food> = {
-    default_state:{
+
+    side_panel: 'images',
+    default_state: {
       label: '',
       description: '',
       price: 0,
@@ -48,7 +53,7 @@ export class FoodDatabaseComponent {
 
     data_type: 'food',
 
-    fields:[
+    fields: [
       {
         key: 'label',
         type: 'text'
@@ -68,15 +73,15 @@ export class FoodDatabaseComponent {
     ],
 
     toggle:
-      {
-        key: 'is_served',
-        on_value: 'Is served',
-        off_value: 'Is not served',
-      },
-    
+    {
+      key: 'is_served',
+      on_value: 'Is served',
+      off_value: 'Is not served',
+    },
+
     add_service: food => this.food_service.addNewFood(food),
-    modify_service: (key,data) => this.food_service.modifyFood(key, data),
+    modify_service: (key, data) => this.food_service.modifyFood(key, data),
     delete_service: key => this.food_service.deleteFood(key),
     identifier: (data) => '' + data.label,
-  }
+  };
 }

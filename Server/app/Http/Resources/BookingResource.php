@@ -25,12 +25,14 @@ class BookingResource extends JsonResource
             'relationships' => [
                 'room' => [
                     'data' => [
-                        'id' => (string)$this->room_id
+                        'id' => (string)$this->room_id,
+                        "type" => "room"
                     ]
                 ],
                 'user' => [
                     'data' => [
-                        'id' => (string)$this->user_id
+                        'id' => (string)$this->user_id,
+                        "type" => "user"
                     ]
                 ]
             ]
