@@ -18,7 +18,7 @@ export class NewsDatabaseService {
 
     try {
 
-      return this.http.get<NewsesResponse>(this.url.generateUrl('newses'), {headers: headers}).pipe(
+      return this.http.get<NewsesResponse>(this.url.generateUrl('news'), {headers: headers}).pipe(
 
         map((response: NewsesResponse): NewsesPackage => {
 

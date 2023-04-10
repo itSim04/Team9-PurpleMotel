@@ -18,6 +18,7 @@ import { StockDatabaseModule } from './pages/admin/stock-database/stock-database
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
 
 
 @NgModule({
@@ -45,7 +46,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RoomDatabaseModule,
     StockDatabaseModule,
     ConfirmationDialogModule,
-    ServiceDatabaseModule
+    ServiceDatabaseModule,
+
+    NewsDatabaseModule
 
   ],
   providers: [
