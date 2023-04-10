@@ -2,10 +2,10 @@ import { KeyValue } from "@angular/common";
 
 export interface News {
 
-    label: string, //Label of a certain news item
-    description: string, //Information about it
-    available_quantity: number; //Current available quantity of said news item
-    is_ingredient: boolean;
+    title: string, //title of a certain news feed
+    body: string, //Information about it
+    date: string; //the date the feed was created
+    likes: number; //the number of liked a feed has
   
   }
 
