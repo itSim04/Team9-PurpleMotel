@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\LanguageResource;
 use App\Models\Language;
+use App\Models\LanguageList;
 use Illuminate\Http\Request;
 
 class LanguageController extends Controller
@@ -20,14 +21,6 @@ class LanguageController extends Controller
     ];
 
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return indexTemplate($this->model, $this->resource);
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -40,8 +33,7 @@ class LanguageController extends Controller
      */
     public function show(int $id)
     {
-
-        return showTemplate($this->model, $this->resource, $id);
+        return indexTemplate($this->model, $this->resource, condition: 'language', condition_value: $id);
     }
 
     /**

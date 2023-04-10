@@ -18,6 +18,8 @@ use App\Models\UserType;
 use App\Policies\UserPolicy;
 use App\Policies\UserTypePolicy;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LanguageListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +38,8 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::apiResource('users', UserController::class);
+    Route::apiResource('languages', LanguageController::class);
+    Route::apiResource('language-list', LanguageListController::class);
     Route::apiResource('foods', FoodController::class);
     Route::apiResource('rooms', RoomController::class);
     Route::apiResource('roomtypes', RoomTypeController::class);

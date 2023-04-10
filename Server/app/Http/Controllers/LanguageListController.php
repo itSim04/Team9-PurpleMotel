@@ -13,7 +13,8 @@ class LanguageListController extends Controller
     protected $model_name = 'Languages';
     protected $options = [
 
-        'language_name' => 'required|string'
+        'language_name' => 'required|string|unique:Language_Lists',
+        'code_name' => 'required|string'
 
     ];
 

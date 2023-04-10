@@ -11,7 +11,8 @@ class LanguageList extends Model
 
     protected $fillable = [
 
-        'language_name'
+        'language_name',
+        'code_name'
 
     ];
 }

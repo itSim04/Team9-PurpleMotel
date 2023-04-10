@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LanguageResource extends JsonResource
+class LanguageListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +15,12 @@ class LanguageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            $this->term => $this->value
+            'id' => (string)$this->id,
+            'type' => 'Foods',
+            'attributes' => [
+                'language_name' => $this->language_name,
+                'code_name' => $this->code_name
+            ]
         ];
     }
 }
