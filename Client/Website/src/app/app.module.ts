@@ -17,6 +17,7 @@ import { RoomDatabaseModule } from './pages/admin/room-database/room-database.mo
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { ActivityDatabaseModule } from './pages/admin/activity-database/activity-database.module';
+import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/announcement-database.module';
 
 
 @NgModule({
@@ -44,7 +45,9 @@ import { ActivityDatabaseModule } from './pages/admin/activity-database/activity
     RoomDatabaseModule,
     StockDatabaseModule,
     ConfirmationDialogModule,
-    ActivityDatabaseModule
+    ActivityDatabaseModule,
+
+    AnnouncementDatabaseModule
 
   ],
   providers: [

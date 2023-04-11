@@ -2,10 +2,8 @@ import { KeyValue } from "@angular/common";
 
 export interface Announcement {
 
-    label: string, //Label of a certain announcement item
-    description: string, //Information about it
-    available_quantity: number; //Current available quantity of said announcement item
-    is_ingredient: boolean;
+    label: string, //Label of a certain announcement
+    body: string, //Information about it
   
   }
 
