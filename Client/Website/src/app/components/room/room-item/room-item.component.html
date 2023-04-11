@@ -2,7 +2,9 @@
     <div style="background: #14274A;">
         <img [src]="room?.value?.image_path || '../../../assets/room-1.png'" height="400vh"
             width="100%" style="object-fit: cover;">
-        <p class="label">{{room?.value?.label}}</p>
+            <div style="vertical-align: center; display: flex; flex-direction: column;" >
+                <p class="label">{{room?.value?.label}}</p>
+            </div>
     </div>
 
 
@@ -10,7 +12,7 @@
         <tr>
             <td>
                 <p class="price">
-                    USD {{formatPrice}}
+                    {{formatPrice}}
 
                 </p>
             </td>

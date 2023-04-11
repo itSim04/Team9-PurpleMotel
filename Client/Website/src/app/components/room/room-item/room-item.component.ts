@@ -11,8 +11,8 @@ import { formatPrice } from '../../database/database.component';
 })
 export class RoomItemComponent {
 
-  @Input() room?: KeyValue<number, Room>;
-  @Input() room_type?: KeyValue<number, RoomType>;
+  @Input() room?: KeyValue<string, Room>;
+  @Input() room_type?: KeyValue<string, RoomType>;
 
   get formatPrice(): string {
 

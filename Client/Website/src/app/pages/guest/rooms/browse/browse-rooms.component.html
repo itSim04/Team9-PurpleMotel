@@ -9,3 +9,29 @@
     </div>
     <app-quick-availability class="quick-container"></app-quick-availability>
 </div>
+
+<div style="width: 100%;">
+    <p class="header">Rooms and Rates</p>
+    <mat-divider
+        style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
+    <p class="sub-header">Each of our bright, light-flooded rooms come with everything you could
+        possibly need for a comfortable stay. And yes,
+        comfort isn't our only objective, we also value good design, sleek contemporary furnishing
+        complemented
+        by the rich tones of nature's palette as visible from our rooms' sea-view windows and
+        terraces. </p>
+    <!-- <mat-grid-list cols="2" rowHeight="7:6" style="margin-left: 2.5%;"> -->
+
+    <div style="display: flex; flex-wrap: wrap;">
+        <div *ngFor="let room of rooms | keyvalue"  style="width: 50%;">
+            <app-room-item class="item" [room]="room" [room_type]="room_types.getPair(room.value.type)"></app-room-item>
+            <mat-divider
+                style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
+        </div>
+    </div>
+
+
+    <!-- </mat-grid-list> -->
+
+
+</div>
