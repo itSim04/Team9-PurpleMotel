@@ -1,0 +1,70 @@
+    <div class="main">
+
+        <table style="width: 100%">
+
+            <tr>
+
+                <td>
+                    <p class="content">Check-in</p>
+                </td>
+
+                <td>
+                    <p class="content">Check-out</p>
+                </td>
+
+                <td>
+                    <p class="content">Adults</p>
+                </td>
+
+                <td>
+                    <p class="content">Kids</p>
+                </td>
+
+                <td rowspan="2">
+                    <button (click)="checkAvailability()" class="check-btn">
+                        Check Availability
+                    </button>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label class="selectors">Choose a date</mat-label>
+                        <input [(ngModel)]="end_date_value" matInput [matDatepicker]="checkout">
+                        <mat-datepicker-toggle matIconSuffix [for]="checkout">
+                            <mat-icon color="primary" matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #checkout></mat-datepicker>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label class="selectors">Choose a date</mat-label>
+                        <input [(ngModel)]="start_date_value" matInput [matDatepicker]="checkin">
+                        <mat-datepicker-toggle matIconSuffix [for]="checkin">
+                            <mat-icon color="primary" matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #checkin></mat-datepicker>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label class="selectors">Input Number</mat-label>
+                        <input type="number" [(ngModel)]="adults_value" matInput>
+                        <mat-icon color="primary" matIconSuffix>keyboard_arrow_down</mat-icon>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label class="selectors">Input Number</mat-label>
+                        <input type="number" [(ngModel)]="kids_value" matInput>
+                        <mat-icon color="primary" matIconSuffix>keyboard_arrow_down</mat-icon>
+                    </mat-form-field>
+                </td>
+
+            </tr>
+
+        </table>
+    </div>
