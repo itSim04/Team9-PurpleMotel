@@ -17,6 +17,7 @@ import { RoomDatabaseModule } from './pages/admin/room-database/room-database.mo
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
+import { BrowseRoomsModule } from './pages/guest/rooms/browse/browse-rooms.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
@@ -45,7 +46,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RoomDatabaseModule,
     StockDatabaseModule,
     ConfirmationDialogModule,
-    ServiceDatabaseModule
+    ServiceDatabaseModule,
+    BrowseRoomsModule
 
   ],
   providers: [
