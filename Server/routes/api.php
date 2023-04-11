@@ -20,6 +20,9 @@ use App\Policies\UserTypePolicy;
 use App\Http\Controllers\BookingController;
 use App\Models\Stocks;
 use App\Policies\StocksPolicy;
+use App\Models\Food;
+use App\Models\Permission;
+use App\Policies\FoodPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -39,15 +42,30 @@ Route::prefix('v1')->group(function () {
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
     Gate::policy(Stocks::class, StocksPolicy::class);
+    Gate::policy(Food::class, FoodPolicy::class);
 
     Route::middleware('auth:api')->group(function () {
 
-        Route::apiResource('foods', FoodController::class);
+        Route::apiResource('languages', LanguageController::class);
+        Route::apiResource('language-list', LanguageListController::class);
         Route::apiResource('rooms', RoomController::class);
         Route::apiResource('roomtypes', RoomTypeController::class);
         Route::apiResource('facilities', FacilityController::class);
         Route::apiResource('activities', ActivityController::class);
         Route::apiResource('bookings', BookingController::class);
+        
+        Route::apiResource('foods', FoodController::class);
+
+        Route::prefix('foods')->controller(FoodController::class)->group(function () {
+
+            Route::get('', 'index')->middleware('can:viewAny,App\Foods');
+            Route::post('', 'store')->middleware('can:update,App\Foods');
+            Route::get('/{user}', 'show')->middleware('can:view,App\Foods,foods');
+            Route::put('/{user}', 'update')->middleware('can:update,App\Foods');
+            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Foods');
+
+        });
+
 
         Route::prefix('stocks')->controller(StocksController::class)->group(function () {
 
