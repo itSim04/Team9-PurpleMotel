@@ -8,8 +8,9 @@ use App\Http\Resources\RoomResource;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Http\Resources\BookingResource;
 use App\Http\Resources\RoomTypeResource;
-
+use App\Models\Booking;
 
 class RoomController extends Controller
 {
@@ -68,5 +69,32 @@ class RoomController extends Controller
     {
 
         return destroyTemplate($this->model, $id);
+    }
+
+    public function filter(Request $request)
+    {
+
+        $start_date = strtotime($request->check_in);
+        $end_date = strtotime($request->check_out);
+
+        $bookings = Booking::all();
+        $conflictingBooking = [];
+        foreach($bookings as $booking) {
+
+            $current_check_in = strtotime($booking->check_in);
+            $current_end_date = strtotime($booking->end_date);
+
+            if (($start_date >= $current_check_in && $start_date < $current_end_date) || ($end_date <= $current_end_date && $end_date > $current_check_in)) {
+
+                $conflictingBooking[] = $booking;
+                
+            } else {
+                
+                
+            }
+
+        }
+        
+        return BookingResource::collection($conflictingBooking);
     }
 }
