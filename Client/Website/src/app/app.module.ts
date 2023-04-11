@@ -16,7 +16,8 @@ import { FoodDatabaseModule } from './pages/admin/food-database/food-database.mo
 import { RoomDatabaseModule } from './pages/admin/room-database/room-database.module';
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
-import { ActivityDatabaseModule } from './pages/admin/activity-database/activity-database.module';
+import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -44,11 +45,11 @@ import { ActivityDatabaseModule } from './pages/admin/activity-database/activity
     RoomDatabaseModule,
     StockDatabaseModule,
     ConfirmationDialogModule,
-    ActivityDatabaseModule
+    ServiceDatabaseModule
 
   ],
   providers: [
-    MatDialogModule,
+    MatDialogModule
   ],
   bootstrap: [AppComponent]
 })

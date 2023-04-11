@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { ActivitiesResponse, Activity, ActivityResponse, ActivityPackage, ActivitiesPackage } from "src/app/models/Activity";
@@ -9,15 +9,19 @@ import { UrlBuilderService } from "src/app/services/url-builder.service";
 @Injectable({
   providedIn: 'root'
 })
-export class ActivityDatabaseService {
+export class ServiceDatabaseService {
 
   constructor (private http: HttpClient, private url: UrlBuilderService) { }
 
   getAllActivities(): Observable<ActivitiesPackage> {
 
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.get<ActivitiesResponse>(this.url.generateUrl('activities')).pipe(
+      return this.http.get<ActivitiesResponse>(this.url.generateUrl('activities'), { headers: headers }).pipe(
 
         map((response: ActivitiesResponse): ActivitiesPackage => {
 
@@ -47,9 +51,13 @@ export class ActivityDatabaseService {
   }
   getOneActivity(id: string): Observable<ActivityPackage> {
 
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.get<ActivityResponse>(this.url.generateUrl(`activities/${id}`)).pipe(
+      return this.http.get<ActivityResponse>(this.url.generateUrl(`activities/${id}`), { headers: headers }).pipe(
         map((response: ActivityResponse): ActivityPackage => {
 
           return {
@@ -76,9 +84,13 @@ export class ActivityDatabaseService {
 
   addNewActivity(activity: Activity) {
 
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.post<ActivityResponse>(this.url.generateUrl('activities'), activity).pipe(
+      return this.http.post<ActivityResponse>(this.url.generateUrl('activities'), activity, { headers: headers }).pipe(
 
         map(result => {
 
@@ -98,9 +110,13 @@ export class ActivityDatabaseService {
 
   modifyActivity(activity_id: string, activity: Activity) {
 
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.put(this.url.generateUrl(`activities/${activity_id}`), activity).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`activities/${activity_id}`), activity, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -112,9 +128,12 @@ export class ActivityDatabaseService {
 
   deleteActivity(key: string) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.delete(this.url.generateUrl(`activities/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`activities/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 
@@ -125,9 +144,12 @@ export class ActivityDatabaseService {
   }
   getAllFacilities(): Observable<FacilitiesPackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.get<FacilitiesResponse>(this.url.generateUrl('facilities')).pipe(
+      return this.http.get<FacilitiesResponse>(this.url.generateUrl('facilities'), { headers: headers }).pipe(
 
         map((response: FacilitiesResponse): FacilitiesPackage => {
 
@@ -157,9 +179,12 @@ export class ActivityDatabaseService {
   }
   getOneFacility(id: string): Observable<FacilityPackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.get<FacilityResponse>(this.url.generateUrl(`facilities/${id}`)).pipe(
+      return this.http.get<FacilityResponse>(this.url.generateUrl(`facilities/${id}`), { headers: headers }).pipe(
         map((response: FacilityResponse): FacilityPackage => {
 
           return {
@@ -186,9 +211,12 @@ export class ActivityDatabaseService {
 
   addNewFacility(facility: Facility) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.post<FacilityResponse>(this.url.generateUrl('facilities'), facility).pipe(
+      return this.http.post<FacilityResponse>(this.url.generateUrl('facilities'), facility, { headers: headers }).pipe(
 
         map(result => {
 
@@ -208,9 +236,12 @@ export class ActivityDatabaseService {
 
   modifyFacility(facility_id: string, facility: Facility) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.put(this.url.generateUrl(`facilities/${facility_id}`), facility).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`facilities/${facility_id}`), facility, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -222,9 +253,12 @@ export class ActivityDatabaseService {
 
   deleteFacility(key: string) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.delete(this.url.generateUrl(`facilities/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`facilities/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 

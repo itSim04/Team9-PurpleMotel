@@ -1,60 +1,68 @@
 <!-- First Table -->
 <table matSort mat-table [dataSource]="filtered_data" class="mat-elevation-z8">
 
-  <!-- Text | Price | Custom -->
-  <ng-container *ngFor="let col of data_injection.displayed_columns">
-      <ng-container
-          *ngIf="!col.type || col.type === 'text' || col.type === 'price' || col.type === 'custom' || col.type === 'link'">
-          <ng-container [matColumnDef]="col.key.toString()">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  {{col.header_alt || formatWord(col.key.toString())}} </th>
-              <td (mouseleave)="hovered = '-1'" (mouseenter)="hovered = element[0]" [style.background]="mark(element)" class="cell" mat-cell *matCellDef="let element">{{formatDataField(col,
-                  element)}}</td>
-          </ng-container>
-      </ng-container>
-  </ng-container>
+    <!-- Text | Price | Custom -->
+    <ng-container *ngFor="let col of data_injection.displayed_columns">
+        <ng-container
+            *ngIf="!col.type || col.type === 'text' || col.type === 'price' || col.type === 'custom' || col.type === 'link' || col.type === 'outer_link'">
+            <ng-container [matColumnDef]="col.key.toString()">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{col.header_alt || formatWord(col.key.toString())}} </th>
+                <td (mouseleave)="hovered = '-1'" (mouseenter)="hovered = element[0]"
+                    [style.background]="mark(element)" class="cell" mat-cell
+                    *matCellDef="let element">{{formatDataField(col,
+                    element)}}</td>
+            </ng-container>
+        </ng-container>
+    </ng-container>
 
-  <!-- Boolean -->
-  <ng-container *ngFor="let col of data_injection.displayed_columns">
-      <ng-container *ngIf="col.type === 'boolean'">
-          <ng-container [matColumnDef]="col.key.toString()">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  {{col.header_alt || formatWord(col.key.toString())}} </th>
-              <td [style.background]="mark(element[1])" class="cell" mat-cell *matCellDef="let element">
-                  <mat-checkbox [(ngModel)]="element[1][col.key]" class="example-margin"
-                      [disabled]="true">
-                  </mat-checkbox>
-              </td>
-          </ng-container>
-      </ng-container>
-  </ng-container>
+    <!-- Boolean -->
+    <ng-container *ngFor="let col of data_injection.displayed_columns">
+        <ng-container *ngIf="col.type === 'boolean'">
+            <ng-container [matColumnDef]="col.key.toString()">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{col.header_alt || formatWord(col.key.toString())}} </th>
+                <td [style.background]="mark(element[1])" class="cell" mat-cell
+                    *matCellDef="let element">
+                    <mat-checkbox [(ngModel)]="element[1][col.key]" class="example-margin"
+                        [disabled]="true">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+        </ng-container>
+    </ng-container>
 
-  <!-- Rating -->
-  <ng-container *ngFor="let col of data_injection.displayed_columns">
-      <ng-container *ngIf="col.type === 'rating'">
-          <ng-container [matColumnDef]="col.key.toString()">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  {{col.header_alt || formatWord(col.key.toString())}} </th>
-              <td [style.background]="mark(element[1])" class="cell" mat-cell *matCellDef="let element" style="padding-left: 0px;">
-                  <star-rating staticColor="ok" [readOnly]="true" [rating]="element[1][col.key]"
-                      [showHalfStars]="true"></star-rating>
-              </td>
-          </ng-container>
-      </ng-container>
-  </ng-container>
+    <!-- Rating -->
+    <ng-container *ngFor="let col of data_injection.displayed_columns">
+        <ng-container *ngIf="col.type === 'rating'">
+            <ng-container [matColumnDef]="col.key.toString()">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{col.header_alt || formatWord(col.key.toString())}} </th>
+                <td [style.background]="mark(element[1])" class="cell" mat-cell
+                    *matCellDef="let element" style="padding-left: 0px;">
+                    <star-rating staticColor="ok" [readOnly]="true" [rating]="element[1][col.key]"
+                        [showHalfStars]="true"></star-rating>
+                </td>
+            </ng-container>
+        </ng-container>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="getDisplayedColumnsKey; sticky: true">
-  </tr>
-  <tr (mouseenter)="hover.emit(row)" (mouseleave)="hover.emit(['-1', undefined]);"
-      (click)="modify_click.emit(row)" mat-row
-      *matRowDef="let row; columns: getDisplayedColumnsKey;">
-  </tr>
+    <tr mat-header-row *matHeaderRowDef="getDisplayedColumnsKey; sticky: true">
+    </tr>
+    <tr (mouseenter)="hover.emit(row)" (mouseleave)="hover.emit(['-1', undefined]);"
+        (click)="modify_click.emit(row)" mat-row
+        *matRowDef="let row; columns: getDisplayedColumnsKey;">
+    </tr>
+    <tr *matNoDataRow>
+        <td *ngIf="!loading" style="padding: 32px;" class="mat-cell"
+            [attr.colspan]="data_injection.displayed_columns.length">Access Denied... <div (click)="download.emit()" class="retry">Try again?</div></td>
+    </tr>
 </table>
 <mat-progress-bar *ngIf="this.loading" mode="indeterminate"></mat-progress-bar>
 
 <div [hidden]="!this.data">
-  <mat-paginator style="display: flex; justify-content: center; margin-bottom: 32px;"
-      [pageSize]="10" [showFirstLastButtons]="true" [pageSizeOptions]="[]" [hidePageSize]="true"
-      aria-label="Select page">
-  </mat-paginator>
+    <mat-paginator style="display: flex; justify-content: center; margin-bottom: 32px;"
+        [pageSize]="10" [showFirstLastButtons]="true" [pageSizeOptions]="[]" [hidePageSize]="true"
+        aria-label="Select page">
+    </mat-paginator>
 </div>
