@@ -1,0 +1,95 @@
+.main {
+    padding: 16px;
+    width: 100%;
+    background-color: #14274A;
+
+
+}
+
+
+.room-label {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    // line-height: 71px;
+    padding-left: 16px;
+    padding-top: 16px;
+    color: white;
+}
+
+.title {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-size: 2vw;
+    line-height: 3.5vh;
+    letter-spacing: 0.02em;
+    color: white;
+
+}
+
+.title-1 {
+
+    @extend .title;
+    font-weight: 400;
+
+}
+
+.title-2 {
+
+    @extend .title;
+    font-weight: 700;
+
+}
+
+.content {
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 1.2vw;
+    line-height: 3vh;
+    color: white;
+    margin: 0px
+}
+
+.content-1 {
+
+    @extend .content;
+    font-weight: 700;
+
+}
+
+.content-2 {
+
+    @extend .content;
+    font-weight: 400;
+
+}
+
+.content-3 {
+
+    @extend .content;
+    font-weight: 400;
+    font-size: 24px;
+
+}
+
+.cancel-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    color: #14274A;
+
+    font-weight: 400;
+    font-size: 16px;
+    padding: 8px;
+    line-height: 25px;
+    text-align: center;
+
+    text-transform: uppercase;
+
+    background: #FFFFFF;
+    border: 1px solid #14274A;
+}
