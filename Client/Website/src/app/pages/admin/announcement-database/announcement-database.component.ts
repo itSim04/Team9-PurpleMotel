@@ -30,4 +30,32 @@ export class AnnouncementDatabaseComponent {
 
     data_fetcher:()=>this.announcement_service.getAllAnnouncements().pipe(map(data => data.announcements)) 
   }
+
+  change_injection: ChangeInjection<Announcement> = {
+    
+    data_type: 'announcement',
+
+    default_state: {
+      label: '',
+      body: ''
+    },
+
+    side_panel: 'empty',
+
+    fields: [
+      {
+        key: 'label',
+        type: 'text'
+      },
+      {
+        key: 'body',
+        type: 'text'
+      }
+    ],
+
+    add_service: announcement => this.announcement_service.addNewAnnouncement(announcement),
+    modify_service: (key, data) => this.announcement_service.modifyAnnouncement(key, data),
+    delete_service: (key) => this.announcement_service.deleteAnnouncement(key),
+    identifier: data => data.label
+  }
 }
