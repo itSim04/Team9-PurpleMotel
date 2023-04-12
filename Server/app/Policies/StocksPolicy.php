@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Policies;
-
-use App\Models\UserType;
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
 
 class UserTypePolicy
 {

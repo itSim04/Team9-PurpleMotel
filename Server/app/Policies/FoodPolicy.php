@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Policies;
+use App\Models\User;
 
-use App\Models\UserType;
-use Illuminate\Foundation\Auth\User;
-
-class UserTypePolicy
+class FoodPolicy
 {
 
     private $permission_name = 'food';

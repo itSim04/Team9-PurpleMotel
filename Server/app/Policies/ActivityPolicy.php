@@ -1,11 +1,10 @@
 <?php
 
+
 namespace App\Policies;
+use App\Models\User;
 
-use App\Models\UserType;
-use Illuminate\Foundation\Auth\User;
-
-class UserTypePolicy
+class ActivityPolicy
 {
 
     private $permission_name = 'activity';
