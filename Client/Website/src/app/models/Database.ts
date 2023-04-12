@@ -28,10 +28,27 @@ export interface Column<Data> {
 
 }
 
+export interface Button<Data> {
+
+
+    label: string,
+
+    concerned_data: keyof Data,
+    format: (data: Data, result: unknown) => string,
+    title: string,
+    prompt: string,
+    action: 'input',
+    updater: (key: string, data: Data) => Observable<undefined>;
+
+
+}
+
 export interface DataInjection<Data> {
 
     title: string;
     permission: string;
+
+    buttons?: Button<Data>[];
     special_case?: {
 
         rule: (data: Data) => boolean,
@@ -66,9 +83,10 @@ export interface Choices {
 
 export interface Field<Data> {
     key: keyof Data, // Key of the field
+
+
     type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices';
     choices?: Choices; // Can only be used with selection and choices.
-
     outer_choices?: Choices; // Can only be used with outer selection.
     condition?: (data: unknown) => boolean; // When to consider the value as satisfied. Not required with Text and Number
     formatting?: (data: Data) => string; // The way to display the value. NOT used
@@ -93,7 +111,7 @@ export interface Toggle<Data> {
 export interface StaticField<Data> {
     key: string, // Key of the Field
     value?: (data: Data) => string; // Cannot be used with linked_value. Displays a static value extracted from the data
-    linked_value?: {
+    link?: {
 
         format: (value: unknown) => string; // The way the data should be formatted
         value: (keyof Data); // The foreign key of the data

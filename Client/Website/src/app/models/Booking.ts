@@ -8,8 +8,8 @@ import { RoomType } from "./RoomType";
 export interface BookingAttributes {
 
   
-  check_in: Date,
-  end_date: Date,
+  check_in: string,
+  end_date: string,
   exhausted: boolean;
 
 }

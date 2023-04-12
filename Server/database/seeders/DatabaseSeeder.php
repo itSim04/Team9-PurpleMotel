@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTypeSeeder::class);
         $this->call(BookingSeeder::class);
         $this->call(OrderSeeder::class);
+        $this->call(NewsSeeder::class);
+        $this->call(PromoCodeSeeder::class);
     }
 }

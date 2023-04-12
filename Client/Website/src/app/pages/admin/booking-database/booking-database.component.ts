@@ -1,3 +1,4 @@
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { Room } from 'src/app/models/Room';
 import { User } from 'src/app/models/User';
 import { Component } from '@angular/core';
@@ -63,8 +64,8 @@ export class BookingDatabaseComponent {
   change_injection: ChangeInjection<Booking> = {
     side_panel: 'empty',
     default_state: {
-      check_in: new Date(),
-      end_date: new Date(),
+      check_in: parseDate(new Date()),
+      end_date: parseDate(new Date()),
       exhausted: false,
       room_id: '0',
       user_id: '0'
@@ -73,10 +74,12 @@ export class BookingDatabaseComponent {
     fields: [
       {
         key: 'check_in',
+        condition: (data) => (data as number) > 0,
         type: 'date'
       },
       {
         key: 'end_date',
+        condition: (data) => (data as number) > 0,
         type: 'date'
       },
       {
