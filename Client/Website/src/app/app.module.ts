@@ -18,6 +18,7 @@ import { StockDatabaseModule } from './pages/admin/stock-database/stock-database
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MenuModule } from './pages/guest/restaurant/menu/menu.module';
 import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/announcement-database.module';
 import { LanguageDatabaseModule } from './pages/admin/language-database/language-database.module';
 import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
@@ -56,7 +57,8 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
     LanguageDatabaseModule,
     NewsDatabaseModule,
     OrderDatabaseModule,
-    RegistrationDatabaseModule
+    RegistrationDatabaseModule,
+    MenuModule
 
   ],
   providers: [

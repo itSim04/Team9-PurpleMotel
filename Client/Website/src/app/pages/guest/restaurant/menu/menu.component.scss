@@ -1,0 +1,20 @@
+.restaurant-header{
+    background: url('../../../../../assets/restaurant-paris.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+
+.restaurant-container{
+    display: flex;
+    justify-content: center;
+    
+}
+.restaurant-title{
+    color: #14274A;
+    font-weight: 142px;
+    font-size: 40px;
+    letter-spacing: 0.05em;
+    padding-top: 10px;
+}
