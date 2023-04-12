@@ -16,6 +16,8 @@ import { FoodDatabaseModule } from './pages/admin/food-database/food-database.mo
 import { RoomDatabaseModule } from './pages/admin/room-database/room-database.module';
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
+import { ActivityDatabaseModule } from './pages/admin/activity-database/activity-database.module';
+import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/announcement-database.module';
 import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -57,6 +59,9 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
     RoomDatabaseModule,
     StockDatabaseModule,
     ConfirmationDialogModule,
+    ActivityDatabaseModule,
+
+    AnnouncementDatabaseModule
     ServiceDatabaseModule,
 
     NewsDatabaseModule

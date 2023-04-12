@@ -5,6 +5,7 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\RoomController;
@@ -43,6 +44,8 @@ Route::prefix('v1')->group(function () {
         Route::get('forgot-password-1', 'forgotPassword1');
         Route::get('forgot-password-2', 'forgotPassword2');
     });
+    
+    Route::apiResource('announcements', AnnouncementsController::class);
 
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
