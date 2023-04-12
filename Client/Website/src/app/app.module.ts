@@ -39,7 +39,9 @@ import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashbo
     AuthenticationModule,
 
     StockDatabaseModule,
-    ConfirmationDialogModule
+    ConfirmationDialogModule,
+
+    BookingDatabaseModule
 
   ],
   providers: [

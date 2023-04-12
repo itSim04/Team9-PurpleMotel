@@ -26,9 +26,13 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminDashboardComponent,
     children: [
-      
+      {
+
+        path: "",
+        component: AdminDashboardComponent,
+
+      },
       {
         path: "announcement-database",
         component: AnnouncementDatabaseComponent,
