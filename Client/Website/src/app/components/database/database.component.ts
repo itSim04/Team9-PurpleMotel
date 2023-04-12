@@ -365,12 +365,20 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
         },
         error: error => {
 
-          this.loading = true;
-          this.extra_loading = true;
-          setTimeout(() => {
-            this.loadPrimaryData();
-          }, 5000);
 
+          if (error.status == 401) {
+
+            this.loading = false;
+            this.extra_loading = false;
+
+          } else {
+            this.loading = true;
+            this.extra_loading = true;
+            setTimeout(() => {
+              this.loadPrimaryData();
+            }, 5000);
+
+          }
         }
       });
     }
@@ -387,23 +395,31 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
     } else if (this.data_injection.data_fetcher) {
 
       this.data_injection.data_fetcher().subscribe(({
-        
+
         next: result => {
-          
+
           this.all_data_map = result[0];
           this.all_data = Array.from(result[0]);
-          this.all_data_outer = result[1]
+          this.all_data_outer = result[1];
           this.filtered_data.data = this.all_data;
           this.loading = false;
 
 
         }, error: error => {
 
-          // console.error(error);
-          this.loading = true;
-          setTimeout(() => {
-            this.loadPrimaryData();
-          }, 5000);
+          if (error.status == 401) {
+
+            this.loading = false;
+
+          } else {
+
+            this.loading = true;
+            setTimeout(() => {
+              this.loadPrimaryData();
+            }, 5000);
+
+          }
+
 
 
         }
@@ -430,7 +446,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
             this.all_extra_map = result[0];
             this.all_extra = Array.from(result[0]);
-            this.all_data_outer = result[1]
+            this.all_data_outer = result[1];
             this.extra_data.data = this.all_extra;
             this.extra_loading = false;
 
@@ -438,13 +454,20 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
         }, error: error => {
 
-          this.extra_loading = true;
-          setTimeout(() => {
-            this.loadSecondaryData();
-          }, 5000);
 
+          if (error.status == 401) {
+
+            this.extra_loading = false;
+
+          } else {
+
+            this.extra_loading = true;
+            setTimeout(() => {
+              this.loadSecondaryData();
+            }, 5000);
+
+          }
         }
-
 
       }));
 

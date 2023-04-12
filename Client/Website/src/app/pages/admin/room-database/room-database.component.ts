@@ -46,7 +46,7 @@ export function formatPrice(price: number | undefined): string {
 })
 export class RoomDatabaseComponent {
 
-  constructor (private room_service: RoomDatabaseService) {}
+  constructor (private room_service: RoomDatabaseService) { }
   data_injection: DataInjection<Room> = {
 
     permission: 'room',
@@ -122,13 +122,13 @@ export class RoomDatabaseComponent {
     );
   };
 
-  
+
 
   change_injection: ChangeInjection<Room> = {
 
     side_panel: 'images',
-    
-    default_state:{
+
+    default_state: {
       label: '',
       description: '',
       number: '',
@@ -150,7 +150,7 @@ export class RoomDatabaseComponent {
 
     },
 
-    fields:[
+    fields: [
       {
         key: 'label',
         type: 'text'
@@ -181,34 +181,47 @@ export class RoomDatabaseComponent {
 
       {
         key: 'price',
-        //value: (data: Room) => formatPrice(this.room_types.get(data.type)?.price)
+        link: {
+
+          value: 'type',
+          format: (value) => (value as RoomType).price.toString()
+
+        }
       },
       {
         key: 'occupancy',
-        //value: (data: Room) => formatOccupancy([this.room_types.get(data.type)?.adults_capacity, this.room_types.get(data.type)?.adults_with_kids_capacity, this.room_types.get(data.type)?.kids_capacity])
-      }
+        link: {
 
+          value: 'type',
+          format: (value) => {
+
+            const room_type = (value as RoomType);
+            return formatOccupancy([room_type.adults_capacity, room_type.adults_with_kids_capacity, room_type.kids_capacity]);
+
+          }
+        }
+      }
 
     ],
 
     toggle:
-      {
-        key: 'open',
-        on_value: 'Close',
-        off_value: 'Open'
-      },
-    
+    {
+      key: 'open',
+      on_value: 'Close',
+      off_value: 'Open'
+    },
+
     add_service: room => this.room_service.addNewRoom(room),
-    modify_service: (key,data) => this.room_service.modifyRoom(key, data),
+    modify_service: (key, data) => this.room_service.modifyRoom(key, data),
     delete_service: key => this.room_service.deleteRoom(key),
     identifier: (data) => '' + data.label,
   };
 
-  extra_change_injection: ChangeInjection<RoomType>  = {
+  extra_change_injection: ChangeInjection<RoomType> = {
 
     side_panel: 'empty',
 
-    default_state:{
+    default_state: {
       label: '',
       description: '',
       price: 0,
@@ -219,7 +232,7 @@ export class RoomDatabaseComponent {
 
     data_type: 'Room Type',
 
-    fields:[
+    fields: [
       {
         key: 'label',
         type: 'text'
@@ -248,7 +261,7 @@ export class RoomDatabaseComponent {
           const room = data as number;
           return room > 0;
         }
-        
+
       },
       {
         key: 'adults_with_kids_capacity',
@@ -267,8 +280,8 @@ export class RoomDatabaseComponent {
     delete_service: (id) => this.room_service.deleteRoomType(id),
     identifier: (data) => '' + data.label,
   };
-  
-  
+
+
 
 }
 

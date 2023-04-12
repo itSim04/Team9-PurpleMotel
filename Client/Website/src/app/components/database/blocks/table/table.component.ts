@@ -1,9 +1,11 @@
+import { QuickDialogService } from './../../../../services/dialogs/quick/quick.service';
+import { QuickDialogModule } from './../../../../services/dialogs/quick/quick.module';
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Data } from '@angular/router';
-import { Column, DataInjection } from 'src/app/models/Database';
+import { Button, Column, DataInjection } from 'src/app/models/Database';
 import { formatPrice, formatWord, Required } from '../../database.component';
 
 @Component({
@@ -31,12 +33,38 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   hovered = '-1';
+
+  constructor (private quick_controller: QuickDialogService) { }
   ngAfterViewInit(): void {
 
     this.filtered_data.paginator = this.paginator;
     this.filtered_data.sort = this.sort;
 
   }
+
+  displayQuick(button: Button<Data>, data: [string, Data]) {
+
+    switch (button.action) {
+
+      case 'input':
+
+        const dialogRef = this.quick_controller.openDialog(button.title, button.prompt, 'Ok', 'Cancel');
+        dialogRef.afterClosed().subscribe(result => {
+
+          if (result) {
+
+            const goal = button.format(data[1], result);
+            (data[1][button.concerned_data] as string) = goal;
+            button.updater(data[0], data[1]).subscribe();
+
+          }
+        });
+        break;
+
+    }
+
+  }
+
 
   formatPrice(price: number): string {
 
@@ -171,8 +199,13 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
 
   get getDisplayedColumnsKey() {
 
-    return this.data_injection.displayed_columns.map(t => t.key);
+    const keys = this.data_injection.displayed_columns.map(t => t.key as string);
+    if (this.data_injection.buttons) {
 
+      keys.push('buttons');
+
+    }
+    return keys;
 
   }
 

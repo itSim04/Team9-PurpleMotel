@@ -47,6 +47,20 @@
         </ng-container>
     </ng-container>
 
+    <!-- Quick Buttons -->
+    <ng-container *ngIf="data_injection.buttons">
+        <ng-container [matColumnDef]="'buttons'">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{'quick_actions' | translate}} </th>
+            <td [style.background]="mark(element[1])" class="cell" mat-cell
+                *matCellDef="let element" style="padding-left: 0px;">
+                <ng-container *ngFor="let button of data_injection.buttons">
+                    <button (click)="displayQuick(button, element)" class="quick-btn" mat-button>{{button.label}}</button>
+                </ng-container>
+            </td>
+        </ng-container>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="getDisplayedColumnsKey; sticky: true">
     </tr>
     <tr (mouseenter)="hover.emit(row)" (mouseleave)="hover.emit(['-1', undefined]);"
@@ -55,9 +69,12 @@
     </tr>
     <tr *matNoDataRow>
         <td *ngIf="!loading" style="padding: 32px;" class="mat-cell"
-            [attr.colspan]="data_injection.displayed_columns.length">Access Denied... <div (click)="download.emit()" class="retry">Try again?</div></td>
+            [attr.colspan]="data_injection.displayed_columns.length + (data_injection.buttons ? 1 : 0)">
+            Access Denied... <div (click)="download.emit()" class="retry">Try again?</div>
+        </td>
     </tr>
 </table>
+
 <mat-progress-bar *ngIf="this.loading" mode="indeterminate"></mat-progress-bar>
 
 <div [hidden]="!this.data">

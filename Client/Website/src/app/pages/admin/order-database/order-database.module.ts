@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderDatabaseComponent } from './order-database.component';
+import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module';
 
 
 
@@ -9,7 +10,8 @@ import { OrderDatabaseComponent } from './order-database.component';
     OrderDatabaseComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NavBarModule
   ],
   exports: [
     OrderDatabaseComponent

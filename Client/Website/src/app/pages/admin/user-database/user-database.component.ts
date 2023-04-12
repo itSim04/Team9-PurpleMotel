@@ -25,8 +25,8 @@ export class UserDatabaseComponent {
     special_case: {
 
       rule: (data) => data.email == JSON.parse(localStorage.getItem('user') || '{}')?.email,
-      color: 'A4274A',
-      alt_color: 'C02E57'
+      color: '14274A33',
+      alt_color: '14274A66'
 
     },
 

@@ -34,7 +34,14 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource, [User::class => UserResource::class, UserType::class => UserTypeResource::class, Room::class => RoomResource::class, RoomType::class => RoomTypeResource::class]);
+        return indexTemplate($this->model, $this->resource, [
+            
+            User::class => UserResource::class, 
+            UserType::class => UserTypeResource::class, 
+            Room::class => RoomResource::class, 
+            RoomType::class => RoomTypeResource::class
+        
+        ]);
     }
 
     /**
