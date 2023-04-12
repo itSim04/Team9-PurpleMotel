@@ -1,0 +1,6 @@
+<p *ngFor="let m of chat?.messages">
+    {{m.content}}
+</p>
+
+<input [(ngModel)]="message">
+<button (click)="postMessage()">Send Message</button>

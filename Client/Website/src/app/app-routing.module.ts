@@ -1,3 +1,4 @@
+import { ChatsPageComponent } from './pages/chat/chat.component';
 import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 import { HomeComponent } from './pages/guest/home/home.component';
 import { NgModule } from '@angular/core';
@@ -27,6 +28,12 @@ const routes: Routes = [
     path: 'admin',
     children: [
       
+      {
+
+        path: "chat/:id",
+        component: ChatsPageComponent,
+
+      },
       {
         path: "announcement-database",
         component: AnnouncementDatabaseComponent,

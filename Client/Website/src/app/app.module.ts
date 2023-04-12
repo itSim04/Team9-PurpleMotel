@@ -1,3 +1,4 @@
+import { ChatsPageModule } from './pages/chat/chat.module';
 import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
 import { UserDatabaseModule } from './pages/admin/user-database/user-database.module';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
@@ -18,6 +19,9 @@ import { StockDatabaseModule } from './pages/admin/stock-database/stock-database
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
 
 
 @NgModule({
@@ -45,7 +49,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RoomDatabaseModule,
     StockDatabaseModule,
     ConfirmationDialogModule,
-    ServiceDatabaseModule
+    ServiceDatabaseModule,
+    ChatsPageModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase())
 
   ],
   providers: [

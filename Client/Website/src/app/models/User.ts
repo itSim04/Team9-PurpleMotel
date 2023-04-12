@@ -91,15 +91,15 @@ export interface UserResponse {
     };
     permissions?: {
 
-        room?: number[]
-        user?: number[]
-        stock?: number[]
-        user_type?: number[]
-        room_type?: number[]
-        language?: number[]
-        booking?: number[]
+        room?: number[];
+        user?: number[];
+        stock?: number[];
+        user_type?: number[];
+        room_type?: number[];
+        language?: number[];
+        booking?: number[];
 
-    }
+    };
 
 }
 export interface UsersResponse {
@@ -136,5 +136,31 @@ export interface UsersResponse {
         };
 
     }[];
+
+}
+
+export function extractSessionUser() {
+
+    try {
+
+        const json = localStorage.getItem('user');
+
+        if(json) {
+
+            return JSON.parse(json) as User;
+            
+        } else {
+
+            return undefined;
+
+        }
+
+
+    } catch (e: unknown) {
+
+        return undefined
+
+    }
+
 
 }
