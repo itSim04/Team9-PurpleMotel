@@ -18,6 +18,11 @@ import { StockDatabaseModule } from './pages/admin/stock-database/stock-database
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/announcement-database.module';
+import { LanguageDatabaseModule } from './pages/admin/language-database/language-database.module';
+import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
+import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
+import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
 
 
 @NgModule({
@@ -45,7 +50,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RoomDatabaseModule,
     StockDatabaseModule,
     ConfirmationDialogModule,
-    ServiceDatabaseModule
+    ServiceDatabaseModule,
+
+    AnnouncementDatabaseModule,
+    LanguageDatabaseModule,
+    NewsDatabaseModule,
+    OrderDatabaseModule,
+    RegistrationDatabaseModule
 
   ],
   providers: [
