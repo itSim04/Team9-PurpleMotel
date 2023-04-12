@@ -48,7 +48,7 @@
           </td>
           <td style="text-align: center;">
 
-            <app-table-unit [loading]="loading[0]" [change_injection]="change_injection" [data_map]="all_data_map"
+            <app-table-unit [outer_data]="all_data_outer" (download)="dual_fetcher ? loadBothData() : loadPrimaryData()" [loading]="loading" [change_injection]="change_injection" [data_map]="all_data_map"
               [extra_data_map]="all_extra_map" [data]="all_data" [data_injection]="data_injection"
               [extra_data]="all_extra" [filtered_data]="filtered_data"
               (hover)="display_hover = $event"></app-table-unit>
@@ -60,7 +60,7 @@
         </tr>
       </table>
     </td>
-    <td *ngIf="loading[1] || (all_extra && extra_data && extra_injection && all_extra_map)"
+    <td *ngIf="extra_loading || (all_extra && extra_data && extra_injection && all_extra_map)"
       style="vertical-align: top;">
 
 
@@ -72,7 +72,7 @@
           </td>
           <td *ngIf="extra_injection" style="text-align: center;">
 
-            <app-table-unit [loading]="loading[1]" [change_injection]="extra_change_injection" [data_map]="all_extra_map!"
+            <app-table-unit (download)="dual_fetcher ? loadBothData() : loadSecondaryData()" [loading]="extra_loading" [change_injection]="extra_change_injection" [data_map]="all_extra_map!"
               [extra_data_map]="undefined" [data]="all_extra!" [data_injection]="extra_injection"
               [extra_data]="all_extra" [filtered_data]="extra_data!"
               (hover)="extra_display_hover = $event"></app-table-unit>

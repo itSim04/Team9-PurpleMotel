@@ -40,9 +40,10 @@ class UserTypePolicy
     }
 
     /**
+
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user_type
+     * @param  \App\Models\User  $user
      * @return bool
      */
     public function view(User $user): bool
@@ -96,6 +97,5 @@ class UserTypePolicy
             return $permissions[$this->permission_name][2];
             
         }
-
     }
 }

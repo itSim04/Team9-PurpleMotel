@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuthenticationDialogService } from 'src/app/services/dialogs/authentication/authentication.service';
 
 @Component({
@@ -7,17 +7,17 @@ import { AuthenticationDialogService } from 'src/app/services/dialogs/authentica
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+  @Input() transparent = false;
+  constructor(private authentication_service: AuthenticationDialogService) { }
 
-  constructor(private authentication_service: AuthenticationDialogService){}
 
-
-  login(){
+  login() {
 
     this.authentication_service.openDialog("login");
 
   }
 
-  signUp(){
+  signUp() {
     this.authentication_service.openDialog("register")
   }
 }

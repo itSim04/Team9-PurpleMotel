@@ -72,10 +72,12 @@ export class UserDatabaseService {
 
   }
   getOneUser(id: string): Observable<UserPackage> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     try {
 
-      return this.http.get<UserResponse>(this.url.generateUrl(`users/${id}`)).pipe(
+      return this.http.get<UserResponse>(this.url.generateUrl(`users/${id}`), { headers: headers }).pipe(
         map((response: UserResponse): UserPackage => {
 
           return {
@@ -102,9 +104,12 @@ export class UserDatabaseService {
 
   addNewUser(user: UserAttributes) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.post<UserResponse>(this.url.generateUrl('users'), { ...user, password: 'password', date_of_birth: '1970-01-01', language: '0' }).pipe(
+      return this.http.post<UserResponse>(this.url.generateUrl('users'), { ...user, password: 'password', date_of_birth: '1970-01-01', language: '0' }, { headers: headers }).pipe(
 
         map(result => {
 
@@ -151,9 +156,12 @@ export class UserDatabaseService {
 
   deleteUser(key: string) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.delete(this.url.generateUrl(`users/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`users/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 

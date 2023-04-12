@@ -1,9 +1,11 @@
+import { QuickDialogService } from './../../../../services/dialogs/quick/quick.service';
+import { QuickDialogModule } from './../../../../services/dialogs/quick/quick.module';
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Data } from '@angular/router';
-import { Column, DataInjection } from 'src/app/models/Database';
+import { Button, Column, DataInjection } from 'src/app/models/Database';
 import { formatPrice, formatWord, Required } from '../../database.component';
 
 @Component({
@@ -19,8 +21,11 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   @Input() @Required data_injection!: DataInjection<Data>;
   @Input() @Required filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
   @Input() @Required extra_data: [string, Data2][] | undefined = [];
-  @Input() @Required loading = false;
+  @Input() @Required loading: boolean = false;
 
+  @Input() outer_data: Map<unknown, unknown>[] | undefined;
+
+  @Output() download: EventEmitter<void> = new EventEmitter();
   @Output() modify_click: EventEmitter<[string, Data]> = new EventEmitter();
   @Output() hover: EventEmitter<[string, Data | undefined]> = new EventEmitter();
 
@@ -28,12 +33,38 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   hovered = '-1';
+
+  constructor (private quick_controller: QuickDialogService) { }
   ngAfterViewInit(): void {
 
     this.filtered_data.paginator = this.paginator;
     this.filtered_data.sort = this.sort;
 
   }
+
+  displayQuick(button: Button<Data>, data: [string, Data]) {
+
+    switch (button.action) {
+
+      case 'input':
+
+        const dialogRef = this.quick_controller.openDialog(button.title, button.prompt, 'Ok', 'Cancel');
+        dialogRef.afterClosed().subscribe(result => {
+
+          if (result) {
+
+            const goal = button.format(data[1], result);
+            (data[1][button.concerned_data] as string) = goal;
+            button.updater(data[0], data[1]).subscribe();
+
+          }
+        });
+        break;
+
+    }
+
+  }
+
 
   formatPrice(price: number): string {
 
@@ -61,6 +92,19 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
         } else {
 
           throw new Error("Type Link requires Format");
+
+        }
+
+      case 'outer_link':
+
+        if (col.outer_link) {
+
+          const temp = this.getOuter(element[1][col.outer_link.key], col.outer_link.index);
+          return col.outer_link.format(temp, element[1]);
+
+        } else {
+
+          throw new Error("Type Link requires Format and Index");
 
         }
 
@@ -106,6 +150,23 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
 
   }
 
+  getOuter(id: unknown, index: number) {
+
+    const temp = this.outer_data?.at(index)?.get(id);
+
+    if (temp) {
+
+      return temp;
+
+    } else {
+
+      return undefined;
+
+    }
+
+
+  }
+
   mark(data: [string, Data]) {
 
     if (this.data_injection.special_case && this.data_injection.special_case.rule(data[1])) {
@@ -127,7 +188,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
         return 'lightgray';
 
       } else {
-       
+
         return 'white';
 
       }
@@ -138,8 +199,13 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
 
   get getDisplayedColumnsKey() {
 
-    return this.data_injection.displayed_columns.map(t => t.key);
+    const keys = this.data_injection.displayed_columns.map(t => t.key as string);
+    if (this.data_injection.buttons) {
 
+      keys.push('buttons');
+
+    }
+    return keys;
 
   }
 
