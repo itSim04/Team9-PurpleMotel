@@ -23,6 +23,7 @@ import { LanguageDatabaseModule } from './pages/admin/language-database/language
 import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
 import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
+import { BrowseServicesModule } from './pages/guest/services/services.module';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
     StockDatabaseModule,
     ConfirmationDialogModule,
     ServiceDatabaseModule,
+    BrowseServicesModule,
 
     AnnouncementDatabaseModule,
     LanguageDatabaseModule,
