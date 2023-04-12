@@ -18,6 +18,7 @@ use App\Models\UserType;
 use App\Policies\UserPolicy;
 use App\Policies\UserTypePolicy;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PromoCodeController;
 use App\Models\Stocks;
 use App\Policies\StocksPolicy;
@@ -41,6 +42,7 @@ Route::prefix('v1')->group(function () {
         Route::get('forgot-password-1', 'forgotPassword1');
         Route::get('forgot-password-2', 'forgotPassword2');
     });
+
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
     Gate::policy(Stocks::class, StocksPolicy::class);
@@ -109,4 +111,5 @@ Route::prefix('v1')->group(function () {
             Route::delete('/{permission}', [PermissionController::class, 'destroy'])->middleware('can:delete,permission');
         });
     });
+    Route::apiResource('news', NewsController::class);
 });
