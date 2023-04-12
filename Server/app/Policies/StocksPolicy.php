@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Policies;
-
-use App\Models\Stocks;
 use App\Models\User;
 
-class StocksPolicy
+class UserTypePolicy
 {
+
+    private $permission_name = 'stock';
+
     /**
      * Create a new policy instance.
      */
@@ -16,80 +17,85 @@ class StocksPolicy
     }
 
     /**
-     * Determine whether the stocks can view the model.
+     * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $stocks
+     * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(User $stocks)
+    public function viewAny(User $user)
     {
-
-        if ($stocks->tier == 2) {
+        if($user->tier == 2) {
             return true;
         }
-        $permissions = extractPermissions($stocks->id, $stocks->type);
-        if (!array_key_exists('stock', $permissions)) {
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
+
         } else {
 
-            return $permissions['stock'][0];
+            return $permissions[$this->permission_name][0];
+
         }
     }
 
     /**
-     * Determine whether the stocks can view the model.
+
+     * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $stocks
-     * @param  string  $model
+     * @param  \App\Models\User  $user
      * @return bool
      */
-    public function view(User $stocks, string $model): bool
+    public function view(User $user): bool
     {
-        if ($stocks->tier == 2) {
 
+        if($user->tier == 2) {
             return true;
         }
-
-        $permissions = extractPermissions($stocks->id, $stocks->type);
-        if (!array_key_exists('stock', $permissions)) {
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
+
         } else {
 
-            return $permissions['stock'][0];
+            return $permissions[$this->permission_name][0];
+            
         }
     }
 
-    public function update(User $stocks)
-    {
+    public function update(User $user) {
 
-        if ($stocks->tier == 2) {
+        if($user->tier == 2) {
             return true;
         }
-        $permissions = extractPermissions($stocks->id, $stocks->type);
-        if (!array_key_exists('stock', $permissions)) {
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
+
         } else {
 
-            return $permissions['stock'][1];
+            return $permissions[$this->permission_name][1];
+            
         }
+
     }
 
-    public function delete(User $stocks)
-    {
+    public function delete(User $user) {
 
-        if ($stocks->tier == 2) {
+        if($user->tier == 2) {
             return true;
         }
-        $permissions = extractPermissions($stocks->id, $stocks->type);
-        if (!array_key_exists('stock', $permissions)) {
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
+
         } else {
 
-            return $permissions['stock'][2];
+            return $permissions[$this->permission_name][2];
+            
         }
     }
 }
