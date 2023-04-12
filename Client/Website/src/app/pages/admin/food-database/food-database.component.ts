@@ -29,7 +29,8 @@ export class FoodDatabaseComponent {
         type: 'price'
       },
       {
-        key: 'is_served', type: 'boolean'
+        key: 'is_served', 
+        type: 'boolean'
       }
     ],
     data_fetcher: () => this.food_service.getAllFoods().pipe(map(data => [data.foods, undefined]))

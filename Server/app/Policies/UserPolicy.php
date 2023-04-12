@@ -27,6 +27,7 @@ class UserPolicy
         if($user->tier == 2) {
             return true;
         }
+        
         $permissions = extractPermissions($user->id, $user->type);
         if (!array_key_exists('user', $permissions)) {
 

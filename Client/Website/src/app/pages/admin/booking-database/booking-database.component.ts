@@ -1,3 +1,4 @@
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { Room } from 'src/app/models/Room';
 import { User } from 'src/app/models/User';
 import { Component } from '@angular/core';
@@ -27,7 +28,6 @@ export class BookingDatabaseComponent {
           key: 'user_id',
           index: 3,
           format: (value) => (value as User)?.first_name + ' ' + (value as User)?.last_name
-
         },
       },
       {
@@ -35,7 +35,7 @@ export class BookingDatabaseComponent {
         type: 'outer_link',
         outer_link: {
 
-          key: 'user_id',
+          key: 'room_id',
           index: 1,
           format: (value) => (value as Room)?.label
 
@@ -64,21 +64,48 @@ export class BookingDatabaseComponent {
   change_injection: ChangeInjection<Booking> = {
     side_panel: 'empty',
     default_state: {
-      check_in: new Date(),
-      end_date: new Date(),
+      check_in: parseDate(new Date()),
+      end_date: parseDate(new Date()),
       exhausted: false,
       room_id: '0',
       user_id: '0'
     },
-    data_type: 'Bookings',
+    data_type: 'Booking',
     fields: [
       {
         key: 'check_in',
+        condition: (data) => (data as number) > 0,
         type: 'date'
       },
       {
         key: 'end_date',
+        condition: (data) => (data as number) > 0,
         type: 'date'
+      },
+      {
+        key: 'user_id',
+        type: 'outer_selection',
+        outer_choices: {
+
+          format: (choice) => (choice as User)?.first_name + ' ' + (choice as User)?.last_name,
+          index: 3
+
+
+        }
+      },
+      {
+        key: 'room_id',
+        type: 'outer_selection',
+        outer_choices: {
+
+          format: (choice) => {
+
+            return (choice as Room)?.label;
+          },
+          index: 1
+
+
+        }
       }
     ],
     toggle: {
