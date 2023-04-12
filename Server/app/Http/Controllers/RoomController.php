@@ -79,22 +79,30 @@ class RoomController extends Controller
 
         $bookings = Booking::all();
         $conflictingBooking = [];
-        foreach($bookings as $booking) {
+        foreach ($bookings as $booking) {
 
             $current_check_in = strtotime($booking->check_in);
             $current_end_date = strtotime($booking->end_date);
 
-            if (($start_date >= $current_check_in && $start_date < $current_end_date) || ($end_date <= $current_end_date && $end_date > $current_check_in)) {
 
-                $conflictingBooking[] = $booking;
-                
-            } else {
-                
-                
+            if (!($end_date < $current_check_in || $start_date > $current_end_date)) {
+
+                $conflictingBooking[] = $booking->room_id;
             }
-
         }
-        
-        return BookingResource::collection($conflictingBooking);
+
+        return RoomResource::collection(Room::all()->whereNotIn('id', $conflictingBooking));
+    }
+
+    public function roomBookings(Request $request)
+    {
+
+        $request->validate([
+
+            'room_id' => 'required|numeric'
+
+        ]);
+
+        return BookingResource::collection(Booking::all()->where('room_id', $request->room_id));
     }
 }

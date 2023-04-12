@@ -7,7 +7,7 @@
         <p class="title-4">Book your stay and enjoy Luxury<br>redefined at the most affordable
             rates.</p>
     </div>
-    <app-quick-availability class="quick-container"></app-quick-availability>
+    <app-quick-availability (result)="filterRooms($event)" class="quick-container"></app-quick-availability>
 </div>
 
 <div style="width: 100%;">
@@ -26,13 +26,13 @@
 
     <ng-container *ngIf="filtered">
 
-        <p class="header">Found</p>
+        <p class="header">{{filtered_rooms.size}} Found</p>
         <mat-divider
             style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
     </ng-container>
 
     <div style="display: flex; flex-wrap: wrap;">
-        <div *ngFor="let room of rooms | keyvalue" style="width: 50%;">
+        <div *ngFor="let room of filtered_rooms | keyvalue" style="width: 50%;">
             <app-room-item class="item" [room]="room" [room_type]="room_types.getPair(room.value.type)"></app-room-item>
             <mat-divider
                 style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>

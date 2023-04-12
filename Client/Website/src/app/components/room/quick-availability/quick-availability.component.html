@@ -1,16 +1,19 @@
-    <div class="main">
+<div class="main">
 
-        <table style="width: 100%">
+    <div class="flex">
+
+
+        <table style="width: 90%">
 
             <tr>
 
                 <td>
-                    <p class="content">Check-in</p>
+                    <p class="content">Stay</p>
                 </td>
 
-                <td>
+                <!-- <td>
                     <p class="content">Check-out</p>
-                </td>
+                </td> -->
 
                 <td>
                     <p class="content">Adults</p>
@@ -21,7 +24,8 @@
                 </td>
 
                 <td rowspan="2">
-                    <button (click)="checkAvailability()" class="check-btn">
+                    <button [disabled]="!start_date_value || !end_date_value"
+                        (click)="checkAvailability()" class="check-btn">
                         Check Availability
                     </button>
                 </td>
@@ -30,16 +34,10 @@
 
             <tr>
                 <td>
-                    <mat-form-field appearance="fill">
-                        <mat-label class="selectors">Choose a date</mat-label>
-                        <input [(ngModel)]="end_date_value" matInput [matDatepicker]="checkout">
-                        <mat-datepicker-toggle matIconSuffix [for]="checkout">
-                            <mat-icon color="primary" matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                        </mat-datepicker-toggle>
-                        <mat-datepicker #checkout></mat-datepicker>
-                    </mat-form-field>
+                    <app-calendar
+                        (result)="start_date_value = $event.check_in; end_date_value = $event.check_out"></app-calendar>
                 </td>
-                <td>
+                <!-- <td>
                     <mat-form-field appearance="fill">
                         <mat-label class="selectors">Choose a date</mat-label>
                         <input [(ngModel)]="start_date_value" matInput [matDatepicker]="checkin">
@@ -48,7 +46,7 @@
                         </mat-datepicker-toggle>
                         <mat-datepicker #checkin></mat-datepicker>
                     </mat-form-field>
-                </td>
+                </td> -->
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label class="selectors">Input Number</mat-label>
@@ -67,4 +65,7 @@
             </tr>
 
         </table>
+    </div>
+    <div>
+        <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
     </div>

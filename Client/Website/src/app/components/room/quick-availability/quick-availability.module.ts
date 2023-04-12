@@ -1,3 +1,5 @@
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CalendarModule } from './../calendar/calendar.module';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgModule } from '@angular/core';
@@ -25,7 +27,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    CalendarModule,
+    MatProgressBarModule
   ],
   exports: [
     QuickAvailabilityComponent

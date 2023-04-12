@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { RawRoomsPackage } from './../../../models/Room';
+import { BookingDatabaseService } from './../../../pages/admin/booking-database/booking-database.service';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 
 @Component({
   selector: 'app-quick-availability',
@@ -7,22 +10,33 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class QuickAvailabilityComponent {
 
-  @Output() start_date: EventEmitter<Date> = new EventEmitter();
-  @Output() end_date: EventEmitter<Date> = new EventEmitter();
-  @Output() adults: EventEmitter<number> = new EventEmitter();
-  @Output() kids: EventEmitter<number> = new EventEmitter();
+  @Output() result: EventEmitter<RawRoomsPackage> = new EventEmitter();
 
-  start_date_value: Date = new Date();
-  end_date_value: Date = new Date();
+  start_date_value?: Date;
+  end_date_value?: Date;
   adults_value: number = 0;
   kids_value: number = 0;
 
+  loading = false;
+
+  constructor (private booking_service: BookingDatabaseService) { }
+
+
   checkAvailability() {
 
-    this.start_date.emit(this.start_date_value);
-    this.end_date.emit(this.end_date_value);
-    this.adults.emit(this.adults_value);
-    this.kids.emit(this.kids_value);
-    
+    if (this.start_date_value && this.end_date_value) {
+      this.loading = true;
+      this.booking_service.filterBookings(
+        parseDate(this.start_date_value),
+        parseDate(this.end_date_value)
+      ).subscribe(data => {
+
+
+        this.result.emit(data);
+        this.loading = false;
+
+      });
+
+    }
   }
 }

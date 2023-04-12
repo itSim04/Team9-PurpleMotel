@@ -1,10 +1,10 @@
 import { UserType } from 'src/app/models/UserType';
-import { RoomAttributes } from './../../../models/Room';
+import { RawRoomsPackage, RoomAttributes, RoomsResponse } from './../../../models/Room';
 import { User, UserAttributes } from 'src/app/models/User';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { BookingsPackage, BookingsResponse, Booking, BookingPackage, BookingResponse, BookingAttributes } from 'src/app/models/Booking';
+import { BookingsPackage, BookingsResponse, Booking, BookingPackage, BookingResponse, BookingAttributes, RawBookingsPackage } from 'src/app/models/Booking';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { UrlBuilderService } from 'src/app/services/url-builder.service';
@@ -103,6 +103,81 @@ export class BookingDatabaseService {
 
 
   }
+  getAllRoomsBookings(room_id: string): Observable<RawBookingsPackage> {
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    try {
+
+      return this.http.get<BookingsResponse>(this.url.generateUrl(`room_bookings?room_id=${room_id}`), { headers: headers }).pipe(
+
+
+        map((response: BookingsResponse): RawBookingsPackage => {
+
+          const bookings = new Map<string, Booking>();
+
+          response.data.forEach(booking => {
+
+            bookings.set(booking.id, { ...booking.attributes, room_id: booking.relationships.room.data.id, user_id: booking.relationships.user.data.id });
+
+          });
+
+          return {
+
+            bookings: bookings,
+
+          };
+
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+
+  }
+
+  filterBookings(check_in: string, check_out: string): Observable<RawRoomsPackage> {
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    try {
+
+      return this.http.post<RoomsResponse>(this.url.generateUrl(`filter`), { check_in: check_in, check_out: check_out }, { headers: headers }).pipe(
+
+
+        map((response: RoomsResponse): RawRoomsPackage => {
+
+          const rooms = new Map<string, Room>();
+
+          response.data.forEach(room => {
+
+            rooms.set(room.id, { ...room.attributes, type: room.relationships.room_type.data.id});
+
+          });
+
+          return {
+
+            rooms: rooms,
+
+          };
+
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+
+  }
   getOneBooking(id: string): Observable<BookingPackage> {
 
     const token = localStorage.getItem('token');
@@ -134,7 +209,7 @@ export class BookingDatabaseService {
 
     }
 
-  }
+  };
 
   addNewBooking(booking: Booking) {
 
@@ -143,7 +218,7 @@ export class BookingDatabaseService {
 
     try {
       console.log(booking);
-      return this.http.post<BookingResponse>(this.url.generateUrl('bookings'), { ...booking, room_id: '1', user_id: '68' }, { headers: headers }).pipe(
+      return this.http.post<BookingResponse>(this.url.generateUrl('bookings'), { ...booking, room_id: booking.room_id, user_id: booking.user_id }, { headers: headers }).pipe(
 
         map(result => {
 

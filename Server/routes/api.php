@@ -64,6 +64,7 @@ Route::prefix('v1')->group(function () {
             Route::delete('/{user}', 'destroy');
         });
         Route::post('filter', [RoomController::class, 'filter']);;
+        Route::get('room_bookings', [RoomController::class, 'roomBookings']);;
 
         Route::prefix('foods')->controller(FoodController::class)->group(function () {
 
