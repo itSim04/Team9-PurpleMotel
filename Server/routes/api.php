@@ -8,6 +8,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\UserPermissions;
 use App\Http\Controllers\UserPermissionsController;
@@ -57,6 +58,7 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('facilities', FacilityController::class);
         Route::apiResource('activities', ActivityController::class);
         Route::apiResource('bookings', BookingController::class);
+        Route::apiResource('orders', OrderController::class);
         Route::apiResource('promocodes', PromoCodeController::class);
         
         Route::apiResource('foods', FoodController::class);
@@ -70,7 +72,6 @@ Route::prefix('v1')->group(function () {
             Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Foods');
 
         });
-
 
         Route::prefix('stocks')->controller(StocksController::class)->group(function () {
 

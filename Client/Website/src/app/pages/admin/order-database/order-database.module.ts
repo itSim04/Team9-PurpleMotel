@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderDatabaseComponent } from './order-database.component';
-import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module';
-
+import { DatabaseModule } from 'src/app/components/database/database.module';
 
 
 @NgModule({
-  declarations: [
-    OrderDatabaseComponent
-  ],
-  imports: [
-    CommonModule,
-    NavBarModule
-  ],
-  exports: [
-    OrderDatabaseComponent
-  ]
+    declarations: [
+        OrderDatabaseComponent
+    ],
+    exports: [
+        OrderDatabaseComponent,
+    ],
+    imports: [
+        CommonModule,
+        DatabaseModule
+    ]
 })
 export class OrderDatabaseModule { }
