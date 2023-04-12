@@ -10,12 +10,12 @@ import { NewsDatabaseComponent } from './pages/admin/news-database/news-database
 import { OrderDatabaseComponent } from './pages/admin/order-database/order-database.component';
 import { RegistrationDatabaseComponent } from './pages/admin/registration-database/registration-database.component';
 import { RoomDatabaseComponent } from './pages/admin/room-database/room-database.component';
-import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { StockDatabaseComponent } from './pages/admin/stock-database/stock-database.component';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
 import { BrowseServicesComponent } from './pages/guest/services/services.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
+import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 
 const routes: Routes = [
 
@@ -66,13 +66,8 @@ const routes: Routes = [
         component: RegistrationDatabaseComponent,
       },
       {
-        path: "rooms-database",
+        path: "room-database",
         component: RoomDatabaseComponent
-      },
-      {
-        path: "services-database",
-        component: ServiceDatabaseComponent,
-
       },
       {
         path: "stock-database",
@@ -82,7 +77,12 @@ const routes: Routes = [
       {
         path: "user-database",
         component: UserDatabaseComponent,
-      }
+      },
+      {
+        path: "service-database",
+        component: ServiceDatabaseComponent,
+      },
+
     ]
   },
   {

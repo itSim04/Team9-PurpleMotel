@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 
 function generateResponse(int $code, $collection = null, $included = [], bool $error = false)
 {
-
     $response = ['status' => $error ? 'error' : 'success'];
 
     if ($collection) {
@@ -20,6 +19,8 @@ function generateResponse(int $code, $collection = null, $included = [], bool $e
 
 function extractPermissions($id, $type)
 {
+
+    $permissions_final = [];
 
     foreach (Permission::where('is_singular', true)->where('concerned_party', $id)->get() as $permission) {
 
@@ -41,19 +42,39 @@ function extractPermissions($id, $type)
     }
 
 
-    
+
     return $permissions_final;
 }
 
-function indexTemplate(string $model, string $resource, string $extra_model = null, string $extra_resource = null, string $condition = null, $condition_value = null)
+function indexTemplate(string $model, string $resource, array $extra_model = [], string $condition = null, $condition_value = null)
 {
+
+    $included = [];
+
     if ($condition) {
 
-        return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()->where($condition, $condition_value)) : []);
+        foreach ($extra_model as $key => $extra) {
+
+            foreach ($extra::collection($key::all()->where($condition, $condition_value)) as $item) {
+
+                $included[] = $item;
+            }
+        }
+
     } else {
 
-        return generateResponse(200, $resource::collection($model::all()), $extra_resource ? $extra_resource::collection($extra_model::all()) : []);
+        foreach ($extra_model as $key => $extra) {
+
+            foreach ($extra::collection($key::all()) as $item) {
+
+                $included[] = $item;
+            }
+        }
     }
+
+    
+
+    return generateResponse(200, $resource::collection($model::all()), $included);
 }
 
 function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null, bool $singular = true)

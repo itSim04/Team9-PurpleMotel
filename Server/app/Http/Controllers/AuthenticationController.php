@@ -35,13 +35,17 @@ class AuthenticationController extends Controller
         }
 
         $user = Auth::user();
+
+        $permissions = extractPermissions($user->id, $user->type);
+
         return response()->json([
             'status' => 'success',
             'data' => new UserResource($user),
             'authorisation' => [
                 'token' => $token,
                 'type' => 'bearer',
-            ]
+            ],
+            'permissions' => $permissions
         ]);
     }
     public function register(Request $request)

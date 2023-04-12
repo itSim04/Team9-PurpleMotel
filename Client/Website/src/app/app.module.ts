@@ -12,14 +12,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthenticationModule } from './services/dialogs/authentication/authentication.module';
+import { FoodDatabaseModule } from './pages/admin/food-database/food-database.module';
+import { RoomDatabaseModule } from './pages/admin/room-database/room-database.module';
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
+import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/announcement-database.module';
+import { LanguageDatabaseModule } from './pages/admin/language-database/language-database.module';
+import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
+import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
+import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, 
   ],
   imports: [
     BrowserModule,
@@ -34,18 +43,28 @@ import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashbo
 
     AdminDashboardModule,
     UserDatabaseModule,
+    FoodDatabaseModule,
+
     BookingDatabaseModule,
+
     StarRatingModule.forRoot(),
     AuthenticationModule,
-
+    RoomDatabaseModule,
     StockDatabaseModule,
     ConfirmationDialogModule,
 
     BookingDatabaseModule
+    ServiceDatabaseModule,
+
+    AnnouncementDatabaseModule,
+    LanguageDatabaseModule,
+    NewsDatabaseModule,
+    OrderDatabaseModule,
+    RegistrationDatabaseModule
 
   ],
   providers: [
-    MatDialogModule,
+    MatDialogModule
   ],
   bootstrap: [AppComponent]
 })
