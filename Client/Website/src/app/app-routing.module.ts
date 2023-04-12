@@ -16,6 +16,7 @@ import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.co
 import { BrowseServicesComponent } from './pages/guest/services/services.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
+import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
 
 const routes: Routes = [
 
@@ -59,7 +60,7 @@ const routes: Routes = [
       },
       {
         path: "promo-database",
-        component: FoodDatabaseComponent,
+        component: PromoDatabaseComponent,
       },
       {
         path: "registration-database",

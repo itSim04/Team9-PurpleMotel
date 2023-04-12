@@ -19,6 +19,7 @@ import { BookingDatabaseModule } from './pages/admin/booking-database/booking-da
 import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/announcement-database.module';
 import { LanguageDatabaseModule } from './pages/admin/language-database/language-database.module';
 import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
@@ -46,7 +47,7 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
     FoodDatabaseModule,
 
     BookingDatabaseModule,
-
+    PromoDatabaseModule,
     StarRatingModule.forRoot(),
     AuthenticationModule,
     RoomDatabaseModule,

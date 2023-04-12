@@ -18,6 +18,7 @@ use App\Models\UserType;
 use App\Policies\UserPolicy;
 use App\Policies\UserTypePolicy;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PromoCodeController;
 use App\Models\Stocks;
 use App\Policies\StocksPolicy;
 use App\Models\Food;
@@ -27,6 +28,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
+
 
 
 Route::prefix('v1')->group(function () {
@@ -53,6 +55,7 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('facilities', FacilityController::class);
         Route::apiResource('activities', ActivityController::class);
         Route::apiResource('bookings', BookingController::class);
+        Route::apiResource('promocodes', PromoCodeController::class);
         
         Route::apiResource('foods', FoodController::class);
 
