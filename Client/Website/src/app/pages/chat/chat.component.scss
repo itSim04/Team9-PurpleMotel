@@ -1,28 +1,65 @@
 .unselectable {
 
     user-select: none;
-    
+
+}
+
+.main {
+
+    background-image: url('../../../assets/support-background.jpg');
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: 50%;
+    background-blend-mode: soft-light;
+    background-color: #00000045;
+
 }
 
 .header {
     height: 80px;
 }
 
+.send-area {
+
+    background-color: #D6B389CC;
+    width: 95%;
+    border: transparent;
+    padding: 16px;
+    border-radius: 20px;
+    font-family: 'Inter';
+    font-style: normal;
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.send-area::placeholder {
+
+    color: white;
+
+}
+
 .send {
 
-    font-size: 24px;
-    align-items: center;
-    text-align: center;
-    // padding-top: 13%;
+
+    padding: 8px;
     // padding-left: 13%;
 
 }
 
 .input {
 
-    background: var(--ion-color-light);
-    --padding-start: 10px;
-    border-radius: 50px;
+    // border: 0px;
+    height: 200%;
+    background: transparent;
+    font-family: 'Inter';
+    font-style: normal;
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
+    // --padding-start: 10px;
+    // border-radius: 50px;
 
 }
 
@@ -31,11 +68,11 @@
     transition: all 250ms ease-in-out;
     margin-bottom: 1%;
     overflow: hidden;
-    background: var(--ion-color-primary);
-    color: var(--ion-color-dark);
-    padding: 4%;
-    padding-top: 3%;
-    padding-bottom: 3%;
+    background: #636363C4;
+    font-family: 'Inter';
+    font-style: normal;
+    color: white;
+    padding: 8px;
     text-align: left;
     font-size: 14px;
 
@@ -47,11 +84,11 @@
     transition: all 250ms ease-in-out;
     margin-bottom: 1%;
     overflow: hidden;
-    background: var(--ion-color-tertiary);
-    color: var(--ion-color-light);
-    padding: 4%;
-    padding-top: 3%;
-    padding-bottom: 3%;
+    background: #D6B389CC;
+    font-family: 'Inter';
+    font-style: normal;
+    color: white;
+    padding: 8px;
     font-size: 14px;
 
 }
@@ -67,6 +104,7 @@
     transition: all 250ms ease-in-out;
     user-select: none;
     max-width: 80%;
+    margin: 2px;
     min-width: 10%;
     width: fit-content;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -79,8 +117,7 @@
 
 .date {
 
-
-    color: var(--ion-color-dark);
+    font-family: 'Inter';
     text-align: left;
     margin-bottom: 5%;
     display: inline-block;
@@ -92,9 +129,14 @@
 
 .title {
 
-    font-size: 15px;
-    color: gray;
-    width: 100%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+
+    
+    color: #FFFFFF;
 }
 
 .empty {

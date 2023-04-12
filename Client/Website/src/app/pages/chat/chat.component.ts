@@ -1,11 +1,24 @@
-import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { UserDatabaseService } from '../admin/user-database/user-database.service';
-import { formatDate, KeyValue } from "@angular/common";
+import { KeyValue } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Database, DatabaseReference, getDatabase, onChildAdded, onValue, push, ref, runTransaction, set, update } from '@angular/fire/database';
 import { extractSessionUser, User } from "src/app/models/User";
 import { Chat, Message } from "src/app/models/Chat";
+
+export function formatDate(date: Date): string {
+
+  let minutes: string = String(date.getMinutes());
+  let hours: number = date.getHours() % 12;
+  if(hours == 0) hours = 12;
+
+  if (minutes.length == 1) {
+      minutes = 0 + minutes;
+  }
+
+  return hours + ":" + minutes + (date.getHours() > 11 ? " PM" : " AM");
+
+}
 
 @Component({
   selector: 'app-chats',
@@ -17,6 +30,8 @@ export class ChatsPageComponent implements OnInit {
   // Holds a conversation
   loading: boolean = true; // Whether the page is still loading
   message: string = ""; // The current message
+
+  hovered_id = -1;
 
   session_user!: KeyValue<string, User>; // The logged in user
 
@@ -67,7 +82,7 @@ export class ChatsPageComponent implements OnInit {
         this.chat?.messages.push({
 
           content: data["message"],
-          date: data["timestamp"],
+          date: new Date(data["timestamp"]),
           owner_id: data["sender"]
 
 
@@ -156,7 +171,7 @@ export class ChatsPageComponent implements OnInit {
 
     // Formats the date in a readable format
 
-    return parseDate(date);
+    return formatDate(date);
 
   }
 

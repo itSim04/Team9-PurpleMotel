@@ -1,62 +1,76 @@
-<div>
+<div class="main">
 
-    <!-- Username -->
-    <div class="header unselectable">
-        <h2 class="title">{{chat?.user_2?.value?.first_name}}</h2>
+    <app-nav-bar [transparent]="true"></app-nav-bar>
 
-        <!-- Back -->
-        <div slot="start">
-            <button fill="clear" (click)="goBack()">
-                <!-- <ion-icon slot="icon-only" color="secondary" name="arrow-back"></ion-icon> -->
-            </button>
-        </div>
+    <table style="background: #00000045; position: fixed; bottom: 0px; height: 80%; width: 100%;">
+        <tr>
+            <td style="width: 30%;">
+            </td>
+            <td style="vertical-align: bottom; width: 70%">
+
+                <div style="height: 66%; overflow-y: scroll;">
+
+                    <!-- Title -->
+                    <div style="position: absolute; top: 0px; width: 100%; margin: 16px;">
+
+                        <p class="title">{{chat?.user_2?.value?.first_name}}</p>
+                        <mat-divider style="background-color: white;"></mat-divider>
+                    </div>
+
+                    <!-- Messages -->
+
+                    <table style="margin: 16px; width: 95%;">
+                        <ng-container *ngFor="let c of chat?.messages; let i = index">
+
+                            <tr>
+                                <td style="height: fit-content;" class="col unselectable">
+
+                                    <!-- Content -->
+                                    <div
+                                        [style.float]="c.owner_id == session_user.key ? 'right' : 'left'"
+                                        (mouseenter)="hovered_id = i" (mouseleave)="hovered_id = -1"
+                                        [style.border-bottom-left-radius]="bottomLeft(c, i)"
+                                        [style.border-top-left-radius]="topLeft(c, i)"
+                                        [style.border-bottom-right-radius]="bottomRight(c, i)"
+                                        [style.border-top-right-radius]="topRight(c, i)"
+                                        [style.float]="c.owner_id == session_user.key ? 'right' : 'left'"
+                                        [class]="c.owner_id == session_user.key ? 'multi sent-message' : 'multi received-message'">
+
+                                        <p style="margin: 0px;">
+                                            {{c.content}}</p>
 
 
-    </div>
-    <mat-progress-bar color="secondary" *ngIf="loading" type="indeterminate"></mat-progress-bar>
-</div>
+                                    </div>
 
-<div>
+                                </td>
+                            </tr>
+
+                            <!-- Date -->
+                            <tr>
+
+                                <td *ngIf="(i == chat?.messages!.length - 1 || formatDate(chat?.messages![i + 1].date) != formatDate(c.date) || chat?.messages![i + 1].owner_id != c.owner_id)" class="col"
+                                    [style.float]="c.owner_id == session_user.key ? 'right' : 'left'">
+                                    <p [style.color]="hovered_id == i ? 'white' : 'transparent'" style="margin: 0px;" class="date">
+                                        {{formatDate(c.date)}}
+                                    </p>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </table>
+                </div>
 
 
-    <!-- Messages -->
+                <!-- Input -->
+                <div
+                    style="width: 100%; position: relative; margin: 16px; right: 0px; bottom: 0px;">
+                    <input placeholder="Type your message..." class="send-area"
+                        [(ngModel)]="message">
+                    <img class="send" height="70%" style="position: absolute; top: 0; right: 24px;"
+                        src="../../../assets/send_icon.png" (click)="postMessage()">
+                </div>
 
-    <table>
-        <ng-container *ngFor="let c of chat?.messages; let i = index">
 
-            <tr>
-                <td class="col unselectable">
-
-                    <!-- Content -->
-                    <p style="background: #14274a; color: white" [style.border-bottom-left-radius]="bottomLeft(c, i)"
-                        [style.border-top-left-radius]="topLeft(c, i)"
-                        [style.border-bottom-right-radius]="bottomRight(c, i)"
-                        [style.border-top-right-radius]="topRight(c, i)"
-                        [class]="c.owner_id == session_user.key ? 'multi sent-message ion-float-right' : 'multi received-message ion-float-left'">
-                        {{c.content}}</p>
-
-                </td>
-            </tr>
-
-            <!-- Date -->
-            <tr
-                *ngIf="i == chat?.messages!.length - 1 || formatDate(chat?.messages![i + 1].date) != formatDate(c.date) || chat?.messages![i + 1].owner_id != c.owner_id">
-                <td class="col">
-                    <p
-                        [class]="c.owner_id == session_user.key ? 'multi date ion-float-right' : 'multi date ion-float-left'">
-                        {{formatDate(c.date)}}
-                    </p>
-                </td>
-            </tr>
-        </ng-container>
+            </td>
+        </tr>
     </table>
-</div>
-
-
-<div>
-
-    <!-- Input -->
-    <input class="input" [(ngModel)]="message">
-
-    <button (click)="postMessage()" class="send" name="send">Send Message</button>
 </div>

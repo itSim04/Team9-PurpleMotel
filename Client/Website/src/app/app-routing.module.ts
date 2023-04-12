@@ -29,10 +29,8 @@ const routes: Routes = [
     children: [
       
       {
-
         path: "chat/:id",
         component: ChatsPageComponent,
-
       },
       {
         path: "announcement-database",
