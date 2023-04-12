@@ -18,6 +18,17 @@ import { StockDatabaseModule } from './pages/admin/stock-database/stock-database
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { ActivityDatabaseModule } from './pages/admin/activity-database/activity-database.module';
 import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/announcement-database.module';
+import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
+import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
+import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
+import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
+import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/announcement-database.module';
+import { LanguageDatabaseModule } from './pages/admin/language-database/language-database.module';
+import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
+import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
+import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
 
 
 @NgModule({
@@ -35,11 +46,14 @@ import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/
     FooterModule,
     BrowserAnimationsModule,
 
+    AdminDashboardModule,
     UserDatabaseModule,
     FoodDatabaseModule,
 
     BookingDatabaseModule,
+    OrderDatabaseModule,
 
+    PromoDatabaseModule,
     StarRatingModule.forRoot(),
     AuthenticationModule,
     RoomDatabaseModule,
@@ -48,10 +62,22 @@ import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/
     ActivityDatabaseModule,
 
     AnnouncementDatabaseModule
+    ServiceDatabaseModule,
+
+    NewsDatabaseModule
+
+    BookingDatabaseModule
+    ServiceDatabaseModule,
+
+    AnnouncementDatabaseModule,
+    LanguageDatabaseModule,
+    NewsDatabaseModule,
+    OrderDatabaseModule,
+    RegistrationDatabaseModule
 
   ],
   providers: [
-    MatDialogModule,
+    MatDialogModule
   ],
   bootstrap: [AppComponent]
 })

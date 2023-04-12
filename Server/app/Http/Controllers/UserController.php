@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource, Permission::class, PermissionResource::class, 'is_singular', true);
+        return indexTemplate($this->model, $this->resource, [Permission::class => PermissionResource::class], 'is_singular', true);
     }
 
     /**
