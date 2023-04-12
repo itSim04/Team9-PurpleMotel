@@ -1,6 +1,62 @@
-<p *ngFor="let m of chat?.messages">
-    {{m.content}}
-</p>
+<div>
 
-<input [(ngModel)]="message">
-<button (click)="postMessage()">Send Message</button>
+    <!-- Username -->
+    <div class="header unselectable">
+        <h2 class="title">{{chat?.user_2?.value?.first_name}}</h2>
+
+        <!-- Back -->
+        <div slot="start">
+            <button fill="clear" (click)="goBack()">
+                <!-- <ion-icon slot="icon-only" color="secondary" name="arrow-back"></ion-icon> -->
+            </button>
+        </div>
+
+
+    </div>
+    <mat-progress-bar color="secondary" *ngIf="loading" type="indeterminate"></mat-progress-bar>
+</div>
+
+<div>
+
+
+    <!-- Messages -->
+
+    <table>
+        <ng-container *ngFor="let c of chat?.messages; let i = index">
+
+            <tr>
+                <td class="col unselectable">
+
+                    <!-- Content -->
+                    <p style="background: #14274a; color: white" [style.border-bottom-left-radius]="bottomLeft(c, i)"
+                        [style.border-top-left-radius]="topLeft(c, i)"
+                        [style.border-bottom-right-radius]="bottomRight(c, i)"
+                        [style.border-top-right-radius]="topRight(c, i)"
+                        [class]="c.owner_id == session_user.key ? 'multi sent-message ion-float-right' : 'multi received-message ion-float-left'">
+                        {{c.content}}</p>
+
+                </td>
+            </tr>
+
+            <!-- Date -->
+            <tr
+                *ngIf="i == chat?.messages!.length - 1 || formatDate(chat?.messages![i + 1].date) != formatDate(c.date) || chat?.messages![i + 1].owner_id != c.owner_id">
+                <td class="col">
+                    <p
+                        [class]="c.owner_id == session_user.key ? 'multi date ion-float-right' : 'multi date ion-float-left'">
+                        {{formatDate(c.date)}}
+                    </p>
+                </td>
+            </tr>
+        </ng-container>
+    </table>
+</div>
+
+
+<div>
+
+    <!-- Input -->
+    <input class="input" [(ngModel)]="message">
+
+    <button (click)="postMessage()" class="send" name="send">Send Message</button>
+</div>

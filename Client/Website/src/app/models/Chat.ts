@@ -7,7 +7,7 @@ export interface Message {
     // Holds a message
 
     date: Date; // The date of the message 
-    owner_id: number; // The owner id
+    owner_id: string; // The owner id
     content: string; // The content of the message
 
 

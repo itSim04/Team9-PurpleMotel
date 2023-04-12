@@ -1,3 +1,4 @@
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +11,8 @@ import { ChatsPageComponent } from './chat.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatProgressBarModule
   ]
 })
 export class ChatsPageModule {}

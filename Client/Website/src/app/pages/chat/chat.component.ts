@@ -5,7 +5,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Database, DatabaseReference, getDatabase, onChildAdded, onValue, push, ref, runTransaction, set, update } from '@angular/fire/database';
 import { extractSessionUser, User } from "src/app/models/User";
-import { Chat } from "src/app/models/Chat";
+import { Chat, Message } from "src/app/models/Chat";
 
 @Component({
   selector: 'app-chats',
@@ -48,7 +48,7 @@ export class ChatsPageComponent implements OnInit {
         last_message: {
 
           content: '',
-          owner_id: -1,
+          owner_id: '-1',
           date: new Date()
 
         },
@@ -169,74 +169,74 @@ export class ChatsPageComponent implements OnInit {
   }
 
   // Defines border logic for messages
-  // topLeft(c: Message, i: number) {
+  topLeft(c: Message, i: number) {
 
-  //   if (i == 0 || this.formatDate(this.chat?.messages![i - 1].date!) != this.formatDate(c.date) || c.owner_id == this.session_user.user_id) {
+    if (i == 0 || this.formatDate(this.chat?.messages![i - 1].date!) != this.formatDate(c.date) || c.owner_id == this.session_user.key) {
 
-  //     return '20px';
+      return '20px';
 
-  //   } else if (i > 0 && this.chat?.messages![i - 1].owner_id == c.owner_id) {
+    } else if (i > 0 && this.chat?.messages![i - 1].owner_id == c.owner_id) {
 
-  //     return '5px';
+      return '5px';
 
-  //   } else {
+    } else {
 
-  //     return '20px';
+      return '20px';
 
-  //   }
+    }
 
-  // }
+  }
 
-  // bottomRight(c: Message, i: number) {
+  bottomRight(c: Message, i: number) {
 
-  //   if (i == this.chat?.messages!.length! - 1 || this.formatDate(this.chat?.messages![i + 1].date!) != this.formatDate(c.date) || c.owner_id != this.session_user.user_id) {
+    if (i == this.chat?.messages!.length! - 1 || this.formatDate(this.chat?.messages![i + 1].date!) != this.formatDate(c.date) || c.owner_id != this.session_user.key) {
 
-  //     return '20px';
+      return '20px';
 
-  //   } else if (i < this.chat?.messages!.length! - 1 && this.chat?.messages![i + 1].owner_id == c.owner_id) {
+    } else if (i < this.chat?.messages!.length! - 1 && this.chat?.messages![i + 1].owner_id == c.owner_id) {
 
-  //     return '5px';
+      return '5px';
 
-  //   } else {
+    } else {
 
-  //     return '20px';
+      return '20px';
 
-  //   }
-  // }
+    }
+  }
 
-  // bottomLeft(c: Message, i: number) {
+  bottomLeft(c: Message, i: number) {
 
-  //   if (i == this.chat?.messages!.length! - 1 || this.formatDate(this.chat?.messages![i + 1].date!) != this.formatDate(c.date) || c.owner_id == this.session_user.user_id) {
+    if (i == this.chat?.messages!.length! - 1 || this.formatDate(this.chat?.messages![i + 1].date!) != this.formatDate(c.date) || c.owner_id == this.session_user.key) {
 
-  //     return '20px';
+      return '20px';
 
-  //   } else if (i < this.chat?.messages!.length! - 1 && this.chat?.messages![i + 1].owner_id == c.owner_id) {
+    } else if (i < this.chat?.messages!.length! - 1 && this.chat?.messages![i + 1].owner_id == c.owner_id) {
 
-  //     return '5px';
+      return '5px';
 
-  //   } else {
+    } else {
 
-  //     return '20px';
+      return '20px';
 
-  //   }
-  // }
+    }
+  }
 
-  // topRight(c: Message, i: number) {
+  topRight(c: Message, i: number) {
 
-  //   if (i == 0 || this.formatDate(this.chat?.messages![i - 1].date!) != this.formatDate(c.date) || c.owner_id != this.session_user.user_id) {
+    if (i == 0 || this.formatDate(this.chat?.messages![i - 1].date!) != this.formatDate(c.date) || c.owner_id != this.session_user.key) {
 
-  //     return '20px';
+      return '20px';
 
-  //   } else if (i > 0 && this.chat?.messages![i - 1].owner_id == c.owner_id) {
+    } else if (i > 0 && this.chat?.messages![i - 1].owner_id == c.owner_id) {
 
-  //     return '5px';
+      return '5px';
 
-  //   } else {
+    } else {
 
-  //     return '20px';
+      return '20px';
 
-  //   }
-  // }
+    }
+  }
 
 
 
