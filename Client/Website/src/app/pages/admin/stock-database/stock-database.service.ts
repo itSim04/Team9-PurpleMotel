@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { StocksResponse, Stock, StockResponse, StockPackage, StocksPackage } from "src/app/models/Stock";
@@ -14,9 +14,12 @@ export class StockDatabaseService {
 
   getAllStocks(): Observable<StocksPackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.get<StocksResponse>(this.url.generateUrl('stocks')).pipe(
+      return this.http.get<StocksResponse>(this.url.generateUrl('stocks'), {headers: headers}).pipe(
 
         map((response: StocksResponse): StocksPackage => {
 
@@ -44,11 +47,15 @@ export class StockDatabaseService {
 
 
   }
+
   getOneStock(id: string): Observable<StockPackage> {
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     try {
 
-      return this.http.get<StockResponse>(this.url.generateUrl(`stocks/${id}`)).pipe(
+      return this.http.get<StockResponse>(this.url.generateUrl(`stocks/${id}`), {headers: headers}).pipe(
         map((response: StockResponse): StockPackage => {
 
           return {
@@ -75,9 +82,12 @@ export class StockDatabaseService {
 
   addNewStock(stock: Stock) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.post<StockResponse>(this.url.generateUrl('stocks'), stock).pipe(
+      return this.http.post<StockResponse>(this.url.generateUrl('stocks'), stock, {headers: headers}).pipe(
 
         map(result => {
 
@@ -97,9 +107,12 @@ export class StockDatabaseService {
 
   modifyStock(stock_id: string, stock: Stock) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.put(this.url.generateUrl(`stocks/${stock_id}`), stock).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`stocks/${stock_id}`), stock, {headers: headers}).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -111,9 +124,12 @@ export class StockDatabaseService {
 
   deleteStock(key: string) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.delete(this.url.generateUrl(`stocks/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`stocks/${key}`), {headers: headers}).pipe(map(() => []));
 
     } catch (e: unknown) {
 

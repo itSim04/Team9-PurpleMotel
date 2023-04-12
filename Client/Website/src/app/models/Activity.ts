@@ -6,8 +6,8 @@ export interface Activity {
     description: string, //Information about it
     capacity: number, //Current available quantity of said stock item
     price: number,
-    start_date: Date,
-    end_date: Date
+    start_date: string,
+    end_date: string
   
   }
 

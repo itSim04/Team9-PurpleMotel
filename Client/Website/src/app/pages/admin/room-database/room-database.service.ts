@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { RoomsResponse, Room, RoomResponse, RoomPackage, RoomsPackage } from "src/app/models/Room";
@@ -16,9 +16,12 @@ export class RoomDatabaseService {
 
   getAllRooms(): Observable<RoomsPackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
     try {
 
-      return this.http.get<RoomsResponse>(this.url.generateUrl('rooms')).pipe(
+      return this.http.get<RoomsResponse>(this.url.generateUrl('rooms'), { headers: headers }).pipe(
 
         map((response: RoomsResponse): RoomsPackage => {
 
@@ -64,9 +67,12 @@ export class RoomDatabaseService {
 
   getOneRoom(id: string): Observable<RoomPackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.get<RoomResponse>(this.url.generateUrl(`rooms/${id}`)).pipe(
+      return this.http.get<RoomResponse>(this.url.generateUrl(`rooms/${id}`), { headers: headers }).pipe(
         map((response: RoomResponse): RoomPackage => {
 
           if (response.included) {
@@ -105,9 +111,12 @@ export class RoomDatabaseService {
 
   getAllRoomTypes(): Observable<RoomTypesPackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.get<RoomTypesResponse>(this.url.generateUrl('roomtypes')).pipe(
+      return this.http.get<RoomTypesResponse>(this.url.generateUrl('roomtypes'), { headers: headers }).pipe(
 
         map((response: RoomTypesResponse): RoomTypesPackage => {
 
@@ -137,9 +146,12 @@ export class RoomDatabaseService {
   }
   getOneRoomType(id: string): Observable<RoomTypePackage> {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.get<RoomTypeResponse>(this.url.generateUrl(`roomtypes/${id}`)).pipe(
+      return this.http.get<RoomTypeResponse>(this.url.generateUrl(`roomtypes/${id}`), { headers: headers }).pipe(
         map((response: RoomTypeResponse): RoomTypePackage => {
 
           return {
@@ -166,9 +178,12 @@ export class RoomDatabaseService {
 
   addNewRoom(room: Room) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.post<RoomResponse>(this.url.generateUrl('rooms'), room).pipe(
+      return this.http.post<RoomResponse>(this.url.generateUrl('rooms'), room, { headers: headers }).pipe(
 
         map(result => {
 
@@ -188,9 +203,12 @@ export class RoomDatabaseService {
 
   modifyRoom(room_id: string, room: Room) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.put(this.url.generateUrl(`rooms/${room_id}`), room).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`rooms/${room_id}`), room, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -202,9 +220,12 @@ export class RoomDatabaseService {
 
   deleteRoom(key: string) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.delete(this.url.generateUrl(`rooms/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`rooms/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 
@@ -216,9 +237,12 @@ export class RoomDatabaseService {
 
   addNewRoomType(roomType: RoomType) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.post<RoomTypeResponse>(this.url.generateUrl('roomtypes'), roomType).pipe(
+      return this.http.post<RoomTypeResponse>(this.url.generateUrl('roomtypes'), roomType,{headers: headers}).pipe(
 
         map(result => {
 
@@ -238,9 +262,12 @@ export class RoomDatabaseService {
 
   modifyRoomType(roomType_id: string, roomType: RoomType) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.put(this.url.generateUrl(`roomtypes/${roomType_id}`), roomType).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`roomtypes/${roomType_id}`), roomType, {headers: headers}).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -252,9 +279,12 @@ export class RoomDatabaseService {
 
   deleteRoomType(key: string) {
 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     try {
 
-      return this.http.delete(this.url.generateUrl(`roomtypes/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`roomtypes/${key}`),{headers: headers}).pipe(map(() => []));
 
     } catch (e: unknown) {
 

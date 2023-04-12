@@ -32,7 +32,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource, RoomType::class, RoomTypeResource::class);
+        return indexTemplate($this->model, $this->resource, [RoomType::class => RoomTypeResource::class]);
     }
 
     /**
@@ -59,7 +59,6 @@ class RoomController extends Controller
     {
 
         return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options);
-
     }
 
     /**
@@ -69,6 +68,5 @@ class RoomController extends Controller
     {
 
         return destroyTemplate($this->model, $id);
-
     }
 }
