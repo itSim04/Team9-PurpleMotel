@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MenuComponent } from './menu/menu.component';
 import { FooterModule } from 'src/app/components/general/footer/footer.module';
 import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module';
-import { BrowseServicesComponent } from './browse/browse-services.component';
 
 
 
 @NgModule({
   declarations: [
-    BrowseServicesComponent
+    MenuComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +16,7 @@ import { BrowseServicesComponent } from './browse/browse-services.component';
     FooterModule
   ],
   exports: [
-    BrowseServicesComponent
+    MenuComponent
   ]
 })
-export class ServicesModule { }
+export class RestaurantModule { }
