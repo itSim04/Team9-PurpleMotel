@@ -13,7 +13,7 @@ import { parseDate } from 'src/app/services/dialogs/authentication/authenticatio
 export class CalendarComponent implements OnInit {
 
   @ViewChild('picker') picker!: MatDatepicker<unknown>;
-  
+
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -24,6 +24,8 @@ export class CalendarComponent implements OnInit {
   @Output() result: EventEmitter<{ check_in: Date, check_out: Date }> = new EventEmitter();
 
   @Input() room_id?: string;
+
+  @Input() invisible_input = false;
 
   constructor(private room_service: BookingDatabaseService) { }
 

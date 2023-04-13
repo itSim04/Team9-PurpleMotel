@@ -1,4 +1,4 @@
-<mat-form-field appearance="fill">
+<mat-form-field [style.visibility]="invisible_input? 'hidden': 'visible'" appearance="fill">
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input (ngModelChange)="emit()" [dateFilter]="filter" [formGroup]="range" [rangePicker]="picker">
       <input matStartDate formControlName="start" placeholder="Start date">
@@ -17,5 +17,4 @@
     <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
     <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
   </mat-form-field>
-  <button mat-raised-button (click)="downloadConflicts()">Open</button>
   

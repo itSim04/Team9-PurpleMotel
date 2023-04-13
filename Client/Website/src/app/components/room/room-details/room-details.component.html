@@ -44,7 +44,8 @@
                             </p>
                         </td>
                         <td>
-                            <p class="cancel-btn">
+                            <app-calendar style="position: relative; top: 36px" [invisible_input]="true" #calendar [room_id]="room?.key"></app-calendar>
+                            <p (click)="calendar.downloadConflicts()" class="cancel-btn">
                                 Book
                             </p>
                         </td>
