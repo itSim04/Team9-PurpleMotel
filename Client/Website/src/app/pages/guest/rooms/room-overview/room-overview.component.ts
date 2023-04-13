@@ -1,5 +1,5 @@
 import { KeyValue } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
@@ -10,18 +10,21 @@ import { RoomDatabaseService } from 'src/app/pages/admin/room-database/room-data
   templateUrl: './room-overview.component.html',
   styleUrls: ['./room-overview.component.scss']
 })
-export class RoomOverviewComponent {
+export class RoomOverviewComponent implements OnInit {
 
   room?: KeyValue<string, Room>;
   room_type?: KeyValue<string, RoomType>;
-  constructor(private route: ActivatedRoute, private room_service: RoomDatabaseService) {
 
-    const key = route.snapshot.paramMap.getAll('id')[0];
-    room_service.getOneRoom(key).subscribe(room => {
+  constructor(private route: ActivatedRoute, private room_service: RoomDatabaseService) {}
+
+  ngOnInit() {
+
+    const key = this.route.snapshot.paramMap.getAll('id')[0];
+    this.room_service.getOneRoom(key).subscribe(room => {
 
       this.room = {
 
-        key: room.room.key,
+        key: key,
         value: room.room.value
 
       };

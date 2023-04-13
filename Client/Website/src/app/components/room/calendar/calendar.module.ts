@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarComponent } from './calendar.component';
+import { MatButtonModule } from '@angular/material/button';
+
 
 
 
@@ -18,7 +20,8 @@ import { CalendarComponent } from './calendar.component';
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule
     
   ],
   exports: [
