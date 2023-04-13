@@ -13,18 +13,19 @@ import { formatPrice } from '../../database/database.component';
 })
 export class RoomDetailsComponent {
 
-  @Input() room?: KeyValue<number, Room>
-  @Input() room_type?: KeyValue<number, RoomType>
+  @Input() room?: KeyValue<string, Room>
+  @Input() room_type?: KeyValue<string, RoomType>
+  @Input() overview = true;
 
   get formatOccupancy(): string {
 
-    return formatOccupancy([this.room_type?.value.adults_capacity, this.room_type?.value.adults_with_kids_capacity, this.room_type?.value.kids_capacity]);
+    return formatOccupancy([this.room_type?.value?.adults_capacity, this.room_type?.value?.adults_with_kids_capacity, this.room_type?.value?.kids_capacity]);
 
   }
 
 
   get formatPrice(): string {
-    return formatPrice(this.room_type?.value.price);
+    return formatPrice(this.room_type?.value?.price);
   }
 
 }

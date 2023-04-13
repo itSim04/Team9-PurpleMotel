@@ -33,14 +33,14 @@
                     {{formatOccupancy}}
                 </p>
                 <br><br>
-                <p class="content-1">
+                <p *ngIf="overview" class="content-1">
                     Total:
                 </p>
                 <table style="width: 100%; padding: 0px;">
                     <tr>
                         <td style="width: 50%;">
                             <p class="title-2">
-                                USD {{formatPrice}}
+                                {{formatPrice}}
                             </p>
                         </td>
                         <td>
