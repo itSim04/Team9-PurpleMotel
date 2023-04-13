@@ -50,7 +50,7 @@ class RoomController extends Controller
      */
     public function show(int $id)
     {
-        return showTemplate($this->model, $this->resource, $id);
+        return showTemplate($this->model, $this->resource, $id, RoomType::class, RoomTypeResource::class, 'id');
     }
 
     /**

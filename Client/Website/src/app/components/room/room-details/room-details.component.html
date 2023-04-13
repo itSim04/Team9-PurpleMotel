@@ -33,18 +33,19 @@
                     {{formatOccupancy}}
                 </p>
                 <br><br>
-                <p class="content-1">
+                <p *ngIf="overview" class="content-1">
                     Total:
                 </p>
                 <table style="width: 100%; padding: 0px;">
                     <tr>
                         <td style="width: 50%;">
                             <p class="title-2">
-                                USD {{formatPrice}}
+                                {{formatPrice}}
                             </p>
                         </td>
                         <td>
-                            <p class="cancel-btn">
+                            <app-calendar (result)="addBooking($event)" style="position: relative; top: 36px" [invisible_input]="true" #calendar [room_id]="room?.key"></app-calendar>
+                            <p (click)="calendar.downloadConflicts()" class="cancel-btn">
                                 Book
                             </p>
                         </td>

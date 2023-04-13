@@ -1,19 +1,37 @@
-import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MatDateRangeInput, MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatInput } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Booking } from 'src/app/models/Booking';
+import { BookingDatabaseService } from 'src/app/pages/admin/booking-database/booking-database.service';
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('picker') picker!: MatDatepicker<unknown>;
+  @ViewChild('picker_range') picker_range!: MatDateRangeInput<unknown>;
+  @ViewChild('input1') input!: MatInput;
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
 
+  conflicting_bookings: Map<string, Booking> = new Map();
+
   @Output() result: EventEmitter<{ check_in: Date, check_out: Date }> = new EventEmitter();
+
+  @Input() room_id?: string;
+
+  @Input() invisible_input = false;
+
+
+  constructor(private room_service: BookingDatabaseService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
 
@@ -25,23 +43,102 @@ export class CalendarComponent {
 
   }
 
+  ngAfterViewInit() {
+
+    
+    this.picker.close = () => {
+
+      let temp = 0
+      
+      for (let booking of this.conflicting_bookings) {
+
+        console.log(this.range.value.start)
+        console.log(new Date(booking[1].check_in))
+
+        if (!(this.range.value.start! < new Date(booking[1].check_in) || this.range.value.end! > new Date(booking[1].end_date))) {
+
+          temp += 1;
+
+        }
+      }
+
+      console.log(temp)
+
+
+      if (temp) {
+
+        this.snackBar.open('Conflicting bookings');
+        return false;
+
+      } else {
+
+        return true;
+      }
+
+
+    }
+
+  }
+
+  downloadConflicts() {
+
+
+    if (this.room_id) {
+
+      this.room_service.getAllRoomsBookings(this.room_id).subscribe(data => {
+
+        this.conflicting_bookings = data.bookings;
+
+        this.picker.open()
+
+      })
+
+    }
+
+
+  }
+
+  isDateInRange(date: string, startDate: string, endDate: string): boolean {
+
+    const d = new Date(date);
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    return d >= start && d <= end;
+  }
+
+
   filter = (d: Date | null): boolean => {
 
     // Prevent Saturday and Sunday from being selected.
+
+    if (!d) return false;
+
+    for (const booking of this.conflicting_bookings) {
+
+      if (this.isDateInRange(parseDate(d), booking[1].check_in, booking[1].end_date)) {
+
+        return false;
+
+      }
+
+    }
+
     return true;
+
 
   };
 
   emit() {
 
-    if (this.range.value.end && this.range.value.start) {
-      this.result.emit({
+    // if (this.range.value.end && this.range.value.start) {
+    //   this.result.emit({
 
-        check_in: this.range.value.start,
-        check_out: this.range.value.end
+    //     check_in: this.range.value.start,
+    //     check_out: this.range.value.end
 
-      });
-    }
+    //   });
+    // }
 
   }
 

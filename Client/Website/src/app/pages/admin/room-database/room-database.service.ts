@@ -75,7 +75,7 @@ export class RoomDatabaseService {
       return this.http.get<RoomResponse>(this.url.generateUrl(`rooms/${id}`), { headers: headers }).pipe(
         map((response: RoomResponse): RoomPackage => {
 
-          if (response.included) {
+          if (response.included?.length) {
 
             return {
 
