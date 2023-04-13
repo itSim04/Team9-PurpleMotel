@@ -11,7 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    position: relative;
 }
 
 
@@ -21,6 +21,7 @@
     color: #14274A;
     font-weight: 500;
     text-align: center;
+    padding-bottom: 10px;
 }
 
 .restaurant-title {
@@ -37,7 +38,7 @@
 .title {
     text-transform: uppercase;
     color: white;
-    margin:0;
+    margin: 0;
 }
 
 .title-1 {
@@ -69,20 +70,20 @@
 .title-container {
     margin-left: 128px;
     margin-top: 32px;
-   
+
 }
 
-.menu-button{
+.menu-button {
     background-color: #14274A;
     color: white;
     margin: 10px;
     padding: 20px;
-    width: 200px;
+    width: 250px;
     margin: 20px;
     font-size: 20px
-    
 }
-.feedback-button{
+
+.feedback-button {
     background-color: white;
     color: #14274A;
     border-color: white;
@@ -90,4 +91,15 @@
     width: 150px;
     margin: 20px;
     font-size: 14px
+}
+
+.chefs-button {
+    position: absolute;
+    bottom: 5%;
+    background-color: white;
+    color: #14274A;
+    padding: 20px;
+    width: 250px;
+    font-size: 20px
+
 }
