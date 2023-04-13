@@ -18,7 +18,7 @@ import { StockDatabaseModule } from './pages/admin/stock-database/stock-database
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { BrowseRoomsModule } from './pages/guest/rooms/browse/browse-rooms.module';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RoomOverviewModule } from './pages/guest/rooms/room-overview/room-overview.module';
 
 
 @NgModule({
@@ -40,6 +40,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FoodDatabaseModule,
 
     BookingDatabaseModule,
+    RoomOverviewModule,
 
     StarRatingModule.forRoot(),
     AuthenticationModule,

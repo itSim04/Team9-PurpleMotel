@@ -7,7 +7,7 @@ import { formatPrice } from '../../database/database.component';
 
 
 @Component({
-  selector: 'app-room-details-container',
+  selector: 'app-room-details',
   templateUrl: './room-details.component.html',
   styleUrls: ['./room-details.component.scss']
 })
