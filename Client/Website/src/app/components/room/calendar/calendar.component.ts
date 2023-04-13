@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Booking } from 'src/app/models/Booking';
 import { BookingDatabaseService } from 'src/app/pages/admin/booking-database/booking-database.service';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
@@ -27,6 +27,8 @@ export class CalendarComponent implements OnInit {
 
   @Input() invisible_input = false;
 
+  debug: any;
+
   constructor(private room_service: BookingDatabaseService) { }
 
   ngOnInit() {
@@ -37,8 +39,25 @@ export class CalendarComponent implements OnInit {
 
     });
 
+    setInterval(() => {
+      // Do something every second
+      console.log(this.events);
+    }, 1000);
+
 
   }
+
+  events: string[] = [];
+
+  addEvent(type: string, event: any) {
+    this.events.push(`${type}: ${event.value}`);
+  }
+
+  onDateSelected(event: any) {
+    console.log('Date selected:', event.value);
+    // Do something with the selected date
+  }
+
 
   downloadConflicts() {
 
