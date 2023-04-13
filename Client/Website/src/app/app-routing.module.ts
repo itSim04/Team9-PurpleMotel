@@ -1,4 +1,4 @@
-import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
+import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 import { HomeComponent } from './pages/guest/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -15,6 +15,7 @@ import { UserDatabaseComponent } from './pages/admin/user-database/user-database
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
+import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 
 const routes: Routes = [
 
@@ -112,12 +113,16 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "menu",
+        redirectTo: "browse",
         pathMatch: "full"
       },
       {
         component: MenuComponent,
         path: "menu"
+      },
+      {
+        component: RestaurantLandingComponent,
+        path: "browse"
       }
     ]
   },
