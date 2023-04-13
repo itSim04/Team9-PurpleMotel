@@ -12,7 +12,7 @@ import { parseDate } from 'src/app/services/dialogs/authentication/authenticatio
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit, AfterViewInit {
+export class CalendarComponent implements OnInit {
 
   @ViewChild('picker') picker!: MatDatepicker<unknown>;
   @ViewChild('picker_range') picker_range!: MatDateRangeInput<unknown>;
@@ -30,6 +30,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   @Input() invisible_input = false;
 
+  closer?: () => void;
+
 
   constructor(private room_service: BookingDatabaseService, private snackBar: MatSnackBar) { }
 
@@ -40,43 +42,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       this.emit();
 
     });
-
-  }
-
-  ngAfterViewInit() {
-
-    
-    this.picker.close = () => {
-
-      let temp = 0
-      
-      for (let booking of this.conflicting_bookings) {
-
-        console.log(this.range.value.start)
-        console.log(new Date(booking[1].check_in))
-
-        if (!(this.range.value.start! < new Date(booking[1].check_in) || this.range.value.end! > new Date(booking[1].end_date))) {
-
-          temp += 1;
-
-        }
-      }
-
-      console.log(temp)
-
-
-      if (temp) {
-
-        this.snackBar.open('Conflicting bookings');
-        return false;
-
-      } else {
-
-        return true;
-      }
-
-
-    }
 
   }
 
@@ -131,14 +96,16 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   emit() {
 
-    // if (this.range.value.end && this.range.value.start) {
-    //   this.result.emit({
+    
 
-    //     check_in: this.range.value.start,
-    //     check_out: this.range.value.end
+    if (this.range.value.end && this.range.value.start) {
+      this.result.emit({
 
-    //   });
-    // }
+        check_in: this.range.value.start,
+        check_out: this.range.value.end
+
+      });
+    }
 
   }
 

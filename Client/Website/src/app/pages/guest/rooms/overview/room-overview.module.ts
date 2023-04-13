@@ -1,3 +1,4 @@
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module';
@@ -17,7 +18,8 @@ import { CalendarModule } from 'src/app/components/room/calendar/calendar.module
     NavBarModule,
     FooterModule,
     RoomDetailsModule,
-    CalendarModule
+    CalendarModule,
+    MatProgressBarModule
   ]
 })
 export class RoomOverviewModule { }

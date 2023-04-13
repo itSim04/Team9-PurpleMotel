@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RoomDetailsComponent } from './room-details.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CalendarModule } from '../calendar/calendar.module';
 
 
@@ -15,7 +16,8 @@ import { CalendarModule } from '../calendar/calendar.module';
     CommonModule,
     StarRatingModule,
     MatDividerModule,
-    CalendarModule
+    CalendarModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     RoomDetailsComponent

@@ -28,6 +28,7 @@ export class RoomItemComponent {
     if(this.room) {
 
       localStorage.setItem('temp_room_item', JSON.stringify(this.room));
+      localStorage.setItem('temp_room_type_item', JSON.stringify(this.room_type));
 
       this.router.navigate([`/rooms/details/${this.room.key}`])
       
