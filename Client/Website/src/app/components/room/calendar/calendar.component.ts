@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDateRangeInput, MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatInput } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Booking } from 'src/app/models/Booking';
 import { BookingDatabaseService } from 'src/app/pages/admin/booking-database/booking-database.service';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
@@ -10,10 +12,11 @@ import { parseDate } from 'src/app/services/dialogs/authentication/authenticatio
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, AfterViewInit {
 
   @ViewChild('picker') picker!: MatDatepicker<unknown>;
-
+  @ViewChild('picker_range') picker_range!: MatDateRangeInput<unknown>;
+  @ViewChild('input1') input!: MatInput;
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -27,9 +30,8 @@ export class CalendarComponent implements OnInit {
 
   @Input() invisible_input = false;
 
-  debug: any;
 
-  constructor(private room_service: BookingDatabaseService) { }
+  constructor(private room_service: BookingDatabaseService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
 
@@ -39,38 +41,53 @@ export class CalendarComponent implements OnInit {
 
     });
 
-    setInterval(() => {
-      // Do something every second
-      console.log(this.events);
-    }, 1000);
-
-
   }
 
-  events: string[] = [];
+  ngAfterViewInit() {
 
-  addEvent(type: string, event: any) {
-    this.events.push(`${type}: ${event.value}`);
+    
+    this.picker.close = () => {
+
+      let temp = 0
+      
+      for (let booking of this.conflicting_bookings) {
+
+        console.log(this.range.value.start)
+        console.log(new Date(booking[1].check_in))
+
+        if (!(this.range.value.start! < new Date(booking[1].check_in) || this.range.value.end! > new Date(booking[1].end_date))) {
+
+          temp += 1;
+
+        }
+      }
+
+      console.log(temp)
+
+
+      if (temp) {
+
+        this.snackBar.open('Conflicting bookings');
+        return false;
+
+      } else {
+
+        return true;
+      }
+
+
+    }
+
   }
-
-  onDateSelected(event: any) {
-    console.log('Date selected:', event.value);
-    // Do something with the selected date
-  }
-
 
   downloadConflicts() {
 
-    console.log(this.room_id)
 
     if (this.room_id) {
 
       this.room_service.getAllRoomsBookings(this.room_id).subscribe(data => {
 
         this.conflicting_bookings = data.bookings;
-
-        console.log(new Date(this.conflicting_bookings.get('2')?.check_in!).getTime())
-        console.log(new Date(this.conflicting_bookings.get('2')?.end_date!).getTime())
 
         this.picker.open()
 
@@ -82,6 +99,7 @@ export class CalendarComponent implements OnInit {
   }
 
   isDateInRange(date: string, startDate: string, endDate: string): boolean {
+
     const d = new Date(date);
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -113,14 +131,14 @@ export class CalendarComponent implements OnInit {
 
   emit() {
 
-    if (this.range.value.end && this.range.value.start) {
-      this.result.emit({
+    // if (this.range.value.end && this.range.value.start) {
+    //   this.result.emit({
 
-        check_in: this.range.value.start,
-        check_out: this.range.value.end
+    //     check_in: this.range.value.start,
+    //     check_out: this.range.value.end
 
-      });
-    }
+    //   });
+    // }
 
   }
 
