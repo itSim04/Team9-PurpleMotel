@@ -1,3 +1,6 @@
+import { PaginatorModule } from './../../../../components/general/paginator/paginator.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowseRoomsComponent } from './browse-rooms.component';
@@ -6,6 +9,7 @@ import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module'
 import { MatDividerModule } from '@angular/material/divider';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { RoomItemModule } from 'src/app/components/room/room-item/room-item.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -19,7 +23,11 @@ import { RoomItemModule } from 'src/app/components/room/room-item/room-item.modu
     NavBarModule,
     MatDividerModule,
     MatGridListModule,
-    RoomItemModule
+    MatPaginatorModule,
+    RoomItemModule,
+    ReactiveFormsModule,
+    PaginatorModule
+    
   ],
   exports: [
     BrowseRoomsComponent
