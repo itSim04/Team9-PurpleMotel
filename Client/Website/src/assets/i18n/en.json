@@ -46,6 +46,16 @@
     "room_type": "Room Type",
     "language": "Language",
     "booking": "Booking",
-    "quick_actions": "Quick Actions"
+    "quick_actions": "Quick Actions",
+    "view_menu": "View Menu",
+    "feedback": "Feedback",
+    "menu": "Menu",
+    "chefs": "The Chefs",
+    "welcome_to": "Welcome To",
+    "purple": "Purple",
+    "motel": "Motel",
+    "restaurant_introduction": "Indulge in a culinary adventure at our hotel's website restaurant, where each bite is a thrilling explosion of flavors. Led by a team of skilled chefs, our dining destination will take you on a journey of taste, with dishes crafted from the freshest ingredients and innovative techniques.",
+    "hotel_introduction": "Book your stay and enjoy Luxury <br>redefined at the most affordable rates.",
+    "menu_introduction": "The menu changes seasonally to ensure that the ingredients are at the peak of their flavor, and the chefs are always experimenting with new techniques and recipes to keep things exciting."
 
 }
