@@ -13,7 +13,7 @@ export class ActivityListItemComponent {
   // @Input() title!: string;
   // @Input() description!: string;
   // @Input() capacity!: number;
-  // @Input() price!: number;
+   @Input() price!: number;
   @Input() seats: number=0;
   // @Input() start_date!: string;
   // @Input() end_date!: string;
@@ -28,15 +28,35 @@ export class ActivityListItemComponent {
   //   return numArr?.join(',')?.split('').reverse().join('') || numStr;
   // }
   
+  // get formatPrice(): string {
+
+  //   return formatPrice(this.activity?.value.price);
+
+  // }
   get formatPrice(): string {
-
-    return formatPrice(this.activity?.value.price);
-
+    const activity = this.activity;
+    if (activity && activity.value) {
+      return formatPrice(activity.value.price);
+    } else {
+      return '';
+    }
   }
+  
   changeQuantity(change: number) {
     if (this.seats + change >= 0) {
     this.seats += change;
     }
   }
+
+  get formatTotalPrice(): string {
+    const activity = this.activity;
+    if (activity && activity.value) {
+    const totalPrice = activity.value.price * this.seats;
+    return formatPrice(totalPrice);
+    }else {
+      return '';
+    }
+  }
+  
 
 }
