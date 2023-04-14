@@ -57,6 +57,56 @@ export class RegistrationDatabaseComponent {
     }))
 
   };
+  change_injection: ChangeInjection<Registration> = {
+    side_panel: 'empty',
+    default_state: {
+      start_date: parseDate(new Date()),
+      end_date: parseDate(new Date()),
+      activity_id: '0',
+      user_id: '0'
+    },
+    data_type: 'Registration',
+    fields: [
+      {
+        key: 'start_date',
+        condition: (data) => (data as number) > 0,
+        type: 'date'
+      },
+      {
+        key: 'end_date',
+        condition: (data) => (data as number) > 0,
+        type: 'date'
+      },
+      {
+        key: 'user_id',
+        type: 'outer_selection',
+        outer_choices: {
 
+          format: (choice) => (choice as User)?.first_name + ' ' + (choice as User)?.last_name,
+          index: 3
+
+
+        }
+      },
+      {
+        key: 'activity_id',
+        type: 'outer_selection',
+        outer_choices: {
+
+          format: (choice) => {
+
+            return (choice as Activity)?.title;
+          },
+          index: 1
+
+
+        }
+      }
+    ],
+    add_service: registration => this.registration_service.addNewRegistration(registration),
+    modify_service: (key, data) => this.registration_service.modifyRegistration(key, data),
+    delete_service: key => this.registration_service.deleteRegistration(key),
+    identifier: (data) => data.start_date + " " + data.end_date,
+  };
 
 }
