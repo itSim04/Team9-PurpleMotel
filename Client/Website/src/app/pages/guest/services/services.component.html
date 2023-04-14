@@ -14,10 +14,21 @@
     From kayaking in crystal clear waters to taking a scenic hike through lush forests,
     there's something for every thrill-seeker to enjoy. </p>
 
-    <div style="display: flex; flex-wrap: wrap;">
-        <div *ngFor="let activity of activities | keyvalue"  style="width: 50%;">
-            <app-activity-list-item class="item" [activity]="activity" ></app-activity-list-item>
-            <mat-divider
-                style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
-        </div>
+<div style="display: flex; flex-wrap: wrap;">
+    <div *ngFor="let activity of activities | keyvalue" style="width: 50%;">
+        <app-activity-list-item class="item" [activity]="activity"></app-activity-list-item>
+        <mat-divider
+            style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
     </div>
+</div>
+<app-carousel>
+    <ng-container *ngFor="let activity of activities | keyvalue; let i = index">
+        <ng-container *carouselItem>
+            <app-activity-list-item style="width: 100%;
+    display: flex;
+    position: relative;" [@fadeOut] [end_date]="activity.value.end_date" [start_date]="activity.value.start_date"
+                [activity]="activity"
+                ></app-activity-list-item>
+        </ng-container>
+    </ng-container>
+</app-carousel>

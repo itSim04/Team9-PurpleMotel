@@ -24,6 +24,7 @@ import { NewsDatabaseModule } from './pages/admin/news-database/news-database.mo
 import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
 import { BrowseServicesModule } from './pages/guest/services/services.module';
+import { CarouselModule } from './components/general/carousel/carousel.module';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { BrowseServicesModule } from './pages/guest/services/services.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    CarouselModule,
 
     ConfirmationDialogModule,
 
