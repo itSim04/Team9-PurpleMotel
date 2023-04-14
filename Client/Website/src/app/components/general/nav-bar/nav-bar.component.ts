@@ -8,6 +8,7 @@ import { AuthenticationDialogService } from 'src/app/services/dialogs/authentica
 })
 export class NavBarComponent {
   @Input() transparent = false;
+  @Input() hide_auth = false;
   constructor(private authentication_service: AuthenticationDialogService) { }
 
 

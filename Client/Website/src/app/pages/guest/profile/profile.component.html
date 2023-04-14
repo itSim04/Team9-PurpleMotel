@@ -1,60 +1,53 @@
-
 <div style="background-color: #14274A;">
 
-<div>
-    <app-nav-bar style="position: relative;"></app-nav-bar>
-    <button class="edit-button">Edit Profile</button>
-    <button class="change-pass-button">Change Password</button>
-</div>
+    <div>
+        <app-nav-bar [hide_auth]="true" style="position: relative;"></app-nav-bar>
+        <button class="edit-button">Edit Profile</button>
+        <button class="change-pass-button">Change Password</button>
+    </div>
 
 
-<div>
-    <h1 class="user">Charbel Gerges</h1>
-    <hr style="width: 30%;margin-top: 0px;">
-    <button class="promo-code-button">Apply Promo Code</button>
-</div>
+    <div>
+        <h1 class="user">Charbel Gerges</h1>
+        <hr class="main-divider">
+        <button class="promo-code-button">Apply Promo Code</button>
+    </div>
 
-<div class="profile-container">
-    <h1 class="page-titles">My Orders</h1>
-    <hr style="width: 16%;margin: 0px 0px 16px 16px">
-    <div class="orders-container">
-        <div style="position: relative;padding: 20px;">
-            <img class="order-img" src="../../../../assets/burger.png">
-            <h4 class="order-title">Wed 3 February</h4>
-        </div>
-        <div style="position: relative;padding: 20px;">
-            <img class="order-img" src="../../../../assets/burger.png">
-            <h4 class="order-title">Wed 3 February</h4>
-        </div>
-        <div style="position: relative;padding: 20px;">
-            <img class="order-img" src="../../../../assets/burger.png">
-            <h4 class="order-title">Wed 3 February</h4>
-        </div>
-        <div style="position: relative;padding: 20px;">
-            <img class="order-img" src="../../../../assets/burger.png">
-            <h4 class="order-title">Wed 3 February</h4>
-        </div>
-        <div style="position: relative;padding: 20px;">
-            <img class="order-img" src="../../../../assets/burger.png">
-            <h4 class="order-title">Wed 3 February</h4>
-        </div>
-        <div style="position: relative;padding: 20px;">
-            <img class="order-img" src="../../../../assets/burger.png">
-            <h4 class="order-title">Wed 3 February</h4>
+    <div class="profile-container">
+        <h1 class="page-titles">My Orders</h1>
+        <hr class="divider">
+        <div class="orders-container">
+            <div style="position: relative;padding: 32px;">
+                <div class="wrap">
+                    <img class="order-img" src="../../../../assets/burger.png">
+                </div>
+                <h4 class="order-title">Wed 3 February</h4>
+            </div>
+            <div style="position: relative;padding: 32px;">
+                <div class="wrap">
+                    <img class="order-img" src="../../../../assets/burger.png">
+                </div>
+                <h4 class="order-title">Wed 3 February</h4>
+            </div>
+            <div style="position: relative;padding: 32px;">
+                <div class="wrap">
+                    <img class="order-img" src="../../../../assets/burger.png">
+                </div>
+                <h4 class="order-title">Wed 3 February</h4>
+            </div>
         </div>
     </div>
-</div>
 
-<div >
-    <h1 class="page-titles">My Bookings</h1>
-    <hr style="width: 16%;margin: 0px 0px 16px 16px">
-    <app-booking-details></app-booking-details>
-</div>
-<div >
-    <h1 class="page-titles">My Activities</h1>
-    <hr style="width: 16%;margin: 0px 0px 16px 16px">
-    <app-activity-details></app-activity-details>
-</div>
+    <div>
+        <h1 class="page-titles">My Bookings</h1>
+        <hr class="divider">
+        <app-booking-details></app-booking-details>
+    </div>
+    <div>
+        <h1 class="page-titles">My Activities</h1>
+        <hr class="divider">
+        <app-activity-details></app-activity-details>
+    </div>
 
-<app-footer></app-footer>
+    <app-footer></app-footer>
 </div>

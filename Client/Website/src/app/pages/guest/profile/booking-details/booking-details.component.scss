@@ -18,6 +18,7 @@
 }
 
 .booking-info {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -25,7 +26,7 @@
 
 .properties {
     align-self: flex-start;
-    margin-left: 20px;
+    margin-left: 32px;
 }
 
 .booking-title {
@@ -34,34 +35,47 @@
     font-weight: 100;
     font-family: 'Robotto';
     font-size: 40px;
-
+    margin-left: 36px;
+    margin-bottom: 0px
+    
 }
 
 
 .properties-title {
     @extend .properties;
     color: white;
-    font-weight: 600;
-    font-family: 'Robotto';
-
+    margin-bottom: 0px;
+    font-weight: 700;
+    font-family: 'Montserrat';
+    
 }
 
 .properties-info {
     @extend .properties;
     font-family: 'Montserrat';
-    color: rgba(255, 255, 255, 0.785);
+    margin-bottom: 64px;
+    font-weight: 400;
+    color: white;
+
+}
+.properties-main {
+    @extend .properties;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
 
 }
 
-.properties-total{
+.properties-total {
     @extend .properties;
     color: white;
-    font-weight: 600;
-    font-family: 'Robotto';
+    font-weight: 700;
+    font-size: 20px;
+    font-family: 'Montserrat';
     margin-top: 100px;
 }
 
-.properties-price{
+.properties-price {
     @extend .properties;
     color: white;
     font-weight: 600;
@@ -71,7 +85,7 @@
 
 }
 
-.cancel-button{
+.cancel-button {
     color: #14274A;
     width: 200px;
     height: 50px;
