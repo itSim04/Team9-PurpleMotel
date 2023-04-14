@@ -15,7 +15,7 @@
                 </p>
             </td>
             <td style="text-align:end">
-                <button class="check-btn">
+                <button [routerLink]="['/admin']" class="check-btn">
                     {{ "admin_panel" | translate}}
                 </button>
                 <button class="check-btn">
@@ -30,10 +30,7 @@
         <tr>
 
             <td>
-                <a [routerLink]="['/admin/user-database']" class="title-3">{{"admin" | translate}}</a>
-            </td>
-            <td>
-                <a [routerLink]="['/home']" class="title-3">{{"home" | translate}}</a>
+                <a [routerLink]="['/admin/user-database']" class="title-3">{{"home" | translate}}</a>
             </td>
             <td>
                 <a [routerLink]="['/services']" class="title-3">{{"services" | translate}}</a>

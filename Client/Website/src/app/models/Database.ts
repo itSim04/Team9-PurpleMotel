@@ -28,10 +28,27 @@ export interface Column<Data> {
 
 }
 
+export interface Button<Data> {
+
+
+    label: string,
+
+    concerned_data: keyof Data,
+    format: (data: Data, result: unknown) => string,
+    title: string,
+    prompt: string,
+    action: 'input',
+    updater: (key: string, data: Data) => Observable<undefined>;
+
+
+}
+
 export interface DataInjection<Data> {
 
     title: string;
     permission: string;
+
+    buttons?: Button<Data>[];
     special_case?: {
 
         rule: (data: Data) => boolean,
@@ -66,6 +83,8 @@ export interface Choices {
 
 export interface Field<Data> {
     key: keyof Data, // Key of the field
+
+
     type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices';
     choices?: Choices; // Can only be used with selection and choices.
     outer_choices?: Choices; // Can only be used with outer selection.

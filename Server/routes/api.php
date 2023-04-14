@@ -5,9 +5,11 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\UserPermissions;
 use App\Http\Controllers\UserPermissionsController;
@@ -18,6 +20,8 @@ use App\Models\UserType;
 use App\Policies\UserPolicy;
 use App\Policies\UserTypePolicy;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PromoCodeController;
 use App\Models\Stocks;
 use App\Policies\StocksPolicy;
 use App\Models\Food;
@@ -27,6 +31,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
+
 
 
 Route::prefix('v1')->group(function () {
@@ -39,6 +44,9 @@ Route::prefix('v1')->group(function () {
         Route::get('forgot-password-1', 'forgotPassword1');
         Route::get('forgot-password-2', 'forgotPassword2');
     });
+    
+    Route::apiResource('announcements', AnnouncementsController::class);
+
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
     Gate::policy(Stocks::class, StocksPolicy::class);
@@ -53,6 +61,9 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('activities', ActivityController::class);
         Route::apiResource('bookings', BookingController::class);
 
+        Route::apiResource('orders', OrderController::class);
+        Route::apiResource('promocodes', PromoCodeController::class);
+        
         Route::apiResource('foods', FoodController::class);
 
         Route::prefix('rooms')->controller(RoomController::class)->group(function () {
@@ -74,7 +85,6 @@ Route::prefix('v1')->group(function () {
             Route::put('/{user}', 'update')->middleware('can:update,App\Foods');
             Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Foods');
         });
-
 
         Route::prefix('stocks')->controller(StocksController::class)->group(function () {
 
@@ -112,4 +122,5 @@ Route::prefix('v1')->group(function () {
             Route::delete('/{permission}', [PermissionController::class, 'destroy'])->middleware('can:delete,permission');
         });
     });
+    Route::apiResource('news', NewsController::class);
 });

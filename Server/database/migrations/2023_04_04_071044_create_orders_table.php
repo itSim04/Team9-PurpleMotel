@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('food_id');
             $table->string('user_id');
+            $table->string('order_id');
             $table->tinyInteger('status');
             $table->string('date');
             $table->timestamps();
