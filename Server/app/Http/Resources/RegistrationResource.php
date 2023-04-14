@@ -14,6 +14,27 @@ class RegistrationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => (string)$this->id,
+            'type' => 'Registration',
+            'attributes' => [
+                'start_date' => $this->start_date,
+                'end_date' => $this->end_date,
+            ],
+            'relationships' => [
+                'activity' => [
+                    'data' => [
+                        'id' => (string)$this->activity_id,
+                        "type" => "activity"
+                    ]
+                ],
+                'user' => [
+                    'data' => [
+                        'id' => (string)$this->user_id,
+                        "type" => "user"
+                    ]
+                ]
+            ]
+        ];
     }
 }
