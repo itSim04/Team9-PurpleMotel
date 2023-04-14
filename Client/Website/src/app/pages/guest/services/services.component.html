@@ -8,3 +8,16 @@
             rates.</p>
     </div>
 </div>
+<p class="header">Activities</p>
+<mat-divider style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
+<p class="sub-header">Discover endless excitement and adventure with our hotel's website activities.
+    From kayaking in crystal clear waters to taking a scenic hike through lush forests,
+    there's something for every thrill-seeker to enjoy. </p>
+
+    <div style="display: flex; flex-wrap: wrap;">
+        <div *ngFor="let activity of activities | keyvalue"  style="width: 50%;">
+            <app-activity-list-item class="item" [activity]="activity" ></app-activity-list-item>
+            <mat-divider
+                style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
+        </div>
+    </div>

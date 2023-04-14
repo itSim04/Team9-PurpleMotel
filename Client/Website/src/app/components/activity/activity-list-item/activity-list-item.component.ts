@@ -1,4 +1,6 @@
+import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Activity } from 'src/app/models/Activity';
 
 @Component({
   selector: 'app-activity-list-item',
@@ -6,6 +8,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./activity-list-item.component.scss']
 })
 export class ActivityListItemComponent {
+  @Input() activity?: KeyValue<string, Activity>;
   @Input() title!: string;
   @Input() description!: string;
   @Input() capacity!: number;
