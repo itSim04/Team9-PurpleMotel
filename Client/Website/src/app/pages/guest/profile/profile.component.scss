@@ -1,25 +1,28 @@
-.main-button{
+.main-button {
     color: #14274A;
     background-color: white;
     position: absolute;
     text-transform: uppercase;
 }
+
 .edit-button {
     @extend .main-button;
     top: 20%;
     height: 60px;
     width: 200px;
     left: 40px;
-    
+
 }
-.change-pass-button{
+
+.change-pass-button {
     @extend .main-button;
     top: 20%;
     height: 60px;
     width: 230px;
     right: 40px;
 }
-.promo-code-button{
+
+.promo-code-button {
     @extend .main-button;
     margin-top: 16px;
     height: 60px;
@@ -27,15 +30,47 @@
     right: 45%;
     left: 42%;
 }
-.title-container{
-    display: flex;
-    justify-content: center;
-}
-.user{
+
+.user {
     text-align: center;
     color: white;
     font-family: 'Robotto';
     font-weight: 400;
     font-size: 50px;
     margin-bottom: 4px;
+}
+
+.orders-title {
+    color: white;
+    font-family: 'Robotto';
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-left: 20px;
+}
+
+.order-img {
+    display: inline-block;
+    width: 100%;
+    height: 80%;
+}
+
+.profile-container {
+    margin-top: 100px;
+    align-content: start;
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+.orders-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.order-title{
+    
+    color: white;
+    font-weight: 400;
+    text-align: center;
+    
 }

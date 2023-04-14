@@ -7,6 +7,7 @@ import { LanguageModule } from 'src/app/services/language/language.module';
 
 
 
+
 @NgModule({
   declarations: [
     ProfileComponent
@@ -15,7 +16,8 @@ import { LanguageModule } from 'src/app/services/language/language.module';
     CommonModule,
     NavBarModule,
     FooterModule,
-    LanguageModule
+    LanguageModule,
+   
   ]
 })
 export class ProfileModule { }
