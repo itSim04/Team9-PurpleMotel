@@ -1,3 +1,7 @@
+import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
+import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
+import { ProfileModule } from './pages/guest/profile/profile.module';
+import { RoomOverviewModule } from './pages/guest/rooms/overview/room-overview.module';
 import { BrowseRoomsModule } from './pages/guest/rooms/browse/browse-rooms.module';
 import { BrowseServicesModule } from './pages/guest/services/services.module';
 import { MenuModule } from './pages/guest/restaurant/menu/menu.module';
@@ -49,12 +53,15 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
      FoodDatabaseModule,
      LanguageDatabaseModule,
      NewsDatabaseModule,
+     PromoDatabaseModule,
      OrderDatabaseModule,
      RegistrationDatabaseModule,
      RoomDatabaseModule,
      ServiceDatabaseModule,
      StockDatabaseModule,
      UserDatabaseModule,
+
+     AdminDashboardModule,
  
      // Guest
  
@@ -62,6 +69,10 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
      MenuModule,
      BrowseServicesModule,
      BrowseRoomsModule,
+
+     RoomOverviewModule,
+
+     ProfileModule,
  
      AuthenticationModule,
      ConfirmationDialogModule,

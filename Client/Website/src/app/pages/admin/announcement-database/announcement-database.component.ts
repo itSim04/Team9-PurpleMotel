@@ -11,13 +11,13 @@ import { map } from 'rxjs';
 })
 export class AnnouncementDatabaseComponent {
 
-  constructor (private announcement_service: AnnouncementDatabaseService){}
+  constructor (private announcement_service: AnnouncementDatabaseService) { }
 
   data_injection: DataInjection<Announcement> = {
 
     title: 'Announcements',
-
-    displayed_columns:[
+    permission: 'announcement',
+    displayed_columns: [
       {
         key: 'label',
         type: 'text'
@@ -28,11 +28,11 @@ export class AnnouncementDatabaseComponent {
       }
     ],
 
-    data_fetcher:()=>this.announcement_service.getAllAnnouncements().pipe(map(data => data.announcements)) 
-  }
+    data_fetcher: () => this.announcement_service.getAllAnnouncements().pipe(map(data => [data.announcements, undefined]))
+  };
 
   change_injection: ChangeInjection<Announcement> = {
-    
+
     data_type: 'announcement',
 
     default_state: {
@@ -57,5 +57,5 @@ export class AnnouncementDatabaseComponent {
     modify_service: (key, data) => this.announcement_service.modifyAnnouncement(key, data),
     delete_service: (key) => this.announcement_service.deleteAnnouncement(key),
     identifier: data => data.label
-  }
+  };
 }
