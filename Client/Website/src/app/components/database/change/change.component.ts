@@ -88,7 +88,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   readonly linked_data: Map<string, unknown>;
 
-  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar) {
+  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar) {
 
     this.linked_data = injected_data.link;
 
@@ -98,6 +98,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     this.identifier = injected_data.injection.identifier;
     this.permission = injected_data.permission;
     this.outer_data = injected_data.outer_data;
+
     this.permissions = injected_data.injection.permissions;
     this.modification_rule = injected_data.injection.modification_rule || (data => true);
     this.side_panel = injected_data.injection.side_panel;
@@ -110,6 +111,9 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     if (injected_data.injection.affected_data) {
 
       this.old_data = injected_data.injection.affected_data;
+
+      console.log(this.old_data);
+
       this.data = clone(injected_data.injection.affected_data.value);
       this.modification_mode = true;
 
@@ -269,6 +273,27 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
 
     }
+  }
+
+  formatOuterChoice(field: Field<Data>, type: KeyValue<string, unknown>) {
+
+    if (field.outer_choices && this.outer_data) {
+
+      let temp = field.outer_choices.format(type.value);
+
+      
+      if(field.outer_choices.pivot_index && field.outer_choices.pivot_format) {
+
+        temp = field.outer_choices.pivot_format(this.outer_data[field.outer_choices.pivot_index].get(temp))
+
+      }
+
+      return temp;
+
+    }
+
+    return undefined;
+
   }
 
   areEqual(a: any, b: any) {

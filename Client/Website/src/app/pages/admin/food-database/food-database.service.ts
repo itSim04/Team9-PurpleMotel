@@ -42,6 +42,7 @@ export class FoodDatabaseService {
 
             response.included.forEach(value => {
 
+              console.log(value.type);
               switch (value.type) {
 
 
@@ -53,7 +54,7 @@ export class FoodDatabaseService {
                 case 'Ingredient':
 
                   ingredients.set(value.id, { ...(value.attributes as IngredientAttributes), food_id: value.relationships.food.data.id, stock_id: value.relationships.stock.data.id });
-                  foods.get(value.relationships.food.data.id)?.ingredients.push(value.id);
+                  foods.get(value.relationships.food.data.id)?.ingredients.push(value.relationships.stock.data.id);
 
                   break;
 
@@ -66,6 +67,7 @@ export class FoodDatabaseService {
 
             });
 
+            console.log(food_categories, ingredients, stocks);
 
             return {
 

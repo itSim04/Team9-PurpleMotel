@@ -171,9 +171,7 @@
                                         class="input"
                                         *ngFor="let type of outer_data[field.outer_choices.index!] | keyvalue"
                                         [value]="field.outer_choices.key ? field.outer_choices.key([type.key, type.value]) : type.key">
-                                        {{field.outer_choices.format ?
-                                        field.outer_choices.format(type.value) :
-                                        type.value}}
+                                        {{formatOuterChoice(field, type)}}
                                     </mat-option> </mat-select>
                             </mat-form-field>
 

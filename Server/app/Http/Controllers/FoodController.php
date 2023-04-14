@@ -23,6 +23,7 @@ class FoodController extends Controller
 
         'label' => 'required|string|max:64',
         'description' => 'string|max:255',
+        'category' => 'numeric|min:1',
         'price' => 'required|numeric|min:0',
         'is_served' => 'required|boolean'
 
@@ -36,14 +37,12 @@ class FoodController extends Controller
 
         $foods = Food::all();
         $food_id = [];
-        $stock_id = [];
         $categories = [];
 
         foreach ($foods as $food) {
 
             $categories[] = $food->category;
             $food_id[] = $food->id;
-
         }
 
         $categories = collect($categories)->unique()->values()->all();
@@ -55,12 +54,18 @@ class FoodController extends Controller
         foreach ($ingredients as $id => $ingredient) {
 
             $stock_id[] = $ingredient->stock_id;
-
         }
 
-        $stock = StocksResource::collection(Stocks::all()->whereIn('id', $stock_id));
+        $stock_id = collect($stock_id)->unique()->values()->all();
 
-        $included = $food_categories->merge([IngredientResource::collection($ingredients), $stock]);
+        $stock = StocksResource::collection(Stocks::all());
+
+        $included = $food_categories->merge(IngredientResource::collection($ingredients));
+
+        foreach ($stock as $item) {
+
+            $included[] = $item;
+        }
 
         return generateResponse(200, FoodResource::collection($foods), $included);
     }
@@ -70,7 +75,35 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
-        return storeTemplate($request, $this->model, $this->resource, $this->options);
+
+        $response = storeTemplate($request, $this->model, $this->resource, $this->options);
+        $food_id = (string)json_encode($response->original['data']->id);
+
+        if (isset($request['ingredients'])) {
+
+            $stock_ids = [];
+            foreach (Ingredient::all()->where('food_id', $food_id) as $stock) {
+
+                $stock_ids[] = $stock->id;
+
+            }
+            Ingredient::destroy($stock_ids);
+
+            foreach ($request['ingredients'] as $stock_id) {
+
+                $ingredient = [
+
+                    'food_id' => $food_id,
+                    'stock_id' => $stock_id,
+                    'required' => true,
+                    'quantity' => 1
+
+                ];
+                Ingredient::create($ingredient);
+            }
+        }
+
+        return $response; 
     }
 
     /**
@@ -79,7 +112,28 @@ class FoodController extends Controller
     public function show(int $id)
     {
 
-        return showTemplate($this->model, $this->resource, $id);
+        $food = Food::find($id);
+        $stock_id = [];
+
+        $food_category = new FoodCategoryResource(FoodCategory::find($food->category));
+
+        $ingredients = Ingredient::all()->whereIn('food_id', $food->id);
+
+        foreach ($ingredients as $id => $ingredient) {
+
+            $stock_id[] = $ingredient->stock_id;
+        }
+
+        $stock_id = collect($stock_id)->unique()->values()->all();
+
+        $stock = StocksResource::collection(Stocks::all()->whereIn('id', $stock_id));
+
+        $included = $stock->merge(IngredientResource::collection($ingredients));
+
+        $included[] = $food_category;
+
+
+        return generateResponse(200, new FoodResource($food), $included);
     }
 
     /**
@@ -87,6 +141,29 @@ class FoodController extends Controller
      */
     public function update(Request $request, string $food_id)
     {
+        if (isset($request['ingredients'])) {
+
+            $stock_ids = [];
+            foreach (Ingredient::all()->where('food_id', $food_id) as $stock) {
+
+                $stock_ids[] = $stock->id;
+
+            }
+            Ingredient::destroy($stock_ids);
+
+            foreach ($request['ingredients'] as $stock_id) {
+
+                $ingredient = [
+
+                    'food_id' => $food_id,
+                    'stock_id' => $stock_id,
+                    'required' => true,
+                    'quantity' => 1
+
+                ];
+                Ingredient::create($ingredient);
+            }
+        }
 
         return updateTemplate($request, $this->model, $food_id, $this->resource, $this->options, $this->model_name);
     }

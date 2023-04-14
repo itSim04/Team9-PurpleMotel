@@ -356,6 +356,8 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
             this.all_data_outer = result[2];
 
+            console.log(this.all_data_outer);
+
             this.loading = false;
             this.extra_loading = false;
 

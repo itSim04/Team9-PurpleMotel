@@ -79,10 +79,11 @@ export class FoodDatabaseComponent {
         type: 'outer_choices',
         outer_choices: {
 
-          index: 0,
-          format: (choice) => (choice as Ingredient)?.stock_id,
-          pivot_index: 1,
-          pivot_format: (choice) => (choice as Stock)?.label
+          index: 1,
+          format: (choice) => (choice as Stock)?.label,
+          // key: (choice) => (choice[1] as Ingredient).stock_id,
+          // pivot_index: 1,
+          // pivot_format: (choice) => (choice as Stock)?.label
 
         }
       },
@@ -124,5 +125,5 @@ export class FoodDatabaseComponent {
 
   }
 
-  dual_fetcher: () => Observable<[Map<string, Food>, Map<string, FoodCategory>, Map<string, unknown>[]]> = () => this.food_service.getAllFoods().pipe(map(data => [data.foods, data.categories, [data.ingredients]]));
+  dual_fetcher: () => Observable<[Map<string, Food>, Map<string, FoodCategory>, Map<string, unknown>[]]> = () => this.food_service.getAllFoods().pipe(map(data => [data.foods, data.categories, [data.ingredients, data.stocks]]));
 }

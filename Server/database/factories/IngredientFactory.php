@@ -18,8 +18,8 @@ class IngredientFactory extends Factory
     {
         return [
 
-            'food_id' => random_int(0, 20),
-            'stock_id' => random_int(0, 20),
+            'food_id' => random_int(1, 20),
+            'stock_id' => random_int(1, 20),
             'required' => fake()->boolean(),
             'quantity' => random_int(1, 5)
 
