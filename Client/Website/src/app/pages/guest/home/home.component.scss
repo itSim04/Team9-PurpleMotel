@@ -44,7 +44,6 @@ $image-path: '../../../../assets/';
     }
 }
 
-
 .body_title {
     color: $color-primary;
     font-family: $font-primary;
@@ -58,65 +57,4 @@ hr.line {
     background-color: $color-primary;
     height: 2px;
     width: 80%;
-}
-
-.body_table_properties { //centers the table
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.body_left_col {
-    border-left: 3px solid $color-primary;
-    height: 30px;
-}
-
-.body_table_header {
-    color: $color-primary;
-    font-family: 'Abhaya Libre';
-    font-size: 40px;
-    margin-left: 30px;
-    margin-top: -10px;
-    width: 400px;
-}
-
-.body_table_content {
-    color: $color-primary;
-    font-family: $font-primary;
-    margin-left: 30px;
-    width: 336px;
-}
-
-.button {
-    background-color: $color-primary;
-    color: white;
-    display: inline;
-    height: 30px;
-    margin-left: 50px;
-    text-align: center;
-    width: 120px;
-}
-
-.likes {
-    display: inline;
-    color: $color-primary;
-    font-weight: 600;
-    margin-left: 23%;
-}
-
-.body_right_col {
-    background-size: cover;
-    height: 100%;
-    margin-left: 30px;
-    width: 450px;
-
-    &1 {
-        @extend .body_right_col;
-        background-image: url('#{$image-path}news-sample1.png');
-    }
-
-    &2 {
-        @extend .body_right_col;
-        background-image: url('#{$image-path}news-sample2.png');
-        height: 240px;
-    }
 }
