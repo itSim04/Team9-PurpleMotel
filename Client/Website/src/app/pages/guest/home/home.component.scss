@@ -1,72 +1,77 @@
-.nav{
+$color-primary: #14274a;
+$font-primary: 'Kulim Park';
+$image-path: '../../../../assets/';
+
+.nav {
     background-blend-mode: soft-light;
-    background-color: #14274a7e;
-    background-image: url('../../../../assets/hopepage-background.png');
+    background-color: #{$color-primary}7e;
+    background-image: url('#{$image-path}hopepage-background.png');
     background-size: cover;
     height: 100%;
 }
 
-.nav_title{
+.nav_title {
     color: white;
-    font-family: 'Kulim Park';
+    font-family: $font-primary;
     margin: 0px;
     margin-left: 100px;
+
+    &_1 {
+        @extend .nav_title;
+        font-size: 43px;
+        margin-top: 40px;
+        text-transform: uppercase;
+    }
+
+    &_2 {
+        @extend .nav_title;
+        font-weight: 400;
+        font-size: 130px;
+        text-transform: uppercase;
+    }
+
+    &_3 {
+        @extend .nav_title;
+        font-size: 85px;
+        font-weight: 200px;
+        margin-top: -30px;
+        text-transform: uppercase;
+    }
+
+    &_4 {
+        @extend .nav_title;
+        font-size: 30px;
+    }
 }
 
-.nav_title_1{
-    @extend .nav_title;
-    font-size: 43px;
-    margin-top: 40px;
-    text-transform: uppercase;
-}
 
-.nav_title_2{
-    @extend .nav_title;
-    font-weight: 400;
-    font-size: 130px;
-    text-transform: uppercase;
-}
-
-.nav_title_3{
-    @extend .nav_title;
-    text-transform: uppercase;
-    font-size: 85px;
-    font-weight: 200px;
-    margin-top: -30px;
-}
-
-.nav_title_4{
-    @extend .nav_title;
-    font-size: 30px;
-}
-
-.body_title{
-    color: #14274a;
-    font-family: 'Kulim Park';
+.body_title {
+    color: $color-primary;
+    font-family: $font-primary;
     font-size: 30px;
     font-weight: 500;
     margin-bottom: -6px;
     text-align: center;
 }
 
-hr.line{
-    background-color: #14274a;
+hr.line {
+    background-color: $color-primary;
     height: 2px;
     width: 80%;
 }
 
-.body_table_properties{
+.body_table_properties { //centers the table
     margin-left: auto;
     margin-right: auto;
 }
 
-.body_left_col{
-    border-left: 3px solid #14274a;
+.body_left_col {
+    border-left: 3px solid $color-primary;
     height: 30px;
 }
 
-.body_table_header{
-    color: #14274a;
+.body_table_header {
+    color: $color-primary;
     font-family: 'Abhaya Libre';
     font-size: 40px;
     margin-left: 30px;
@@ -74,16 +79,15 @@ hr.line{
     width: 400px;
 }
 
-.body_table_content{
-    color: #14274a;
-    font-family: 'Kulim Park';
+.body_table_content {
+    color: $color-primary;
+    font-family: $font-primary;
     margin-left: 30px;
     width: 336px;
 }
 
-
-.button{
-    background-color: #14274a;
+.button {
+    background-color: $color-primary;
     color: white;
     display: inline;
     height: 30px;
@@ -92,37 +96,27 @@ hr.line{
     width: 120px;
 }
 
-.likes{
+.likes {
     display: inline;
-    color: #14274a;
+    color: $color-primary;
     font-weight: 600;
-    margin-left: 100px;
+    margin-left: 23%;
 }
 
-
-
-.body_right_col{
-    background-size: 100% 100%;
+.body_right_col {
+    background-size: cover;
     height: 100%;
     margin-left: 30px;
     width: 450px;
-}
 
-.body_right_col1{
-    @extend .body_right_col;
-    background-image: url('../../../../assets/news-sample1.png');
-}
+    &1 {
+        @extend .body_right_col;
+        background-image: url('#{$image-path}news-sample1.png');
+    }
 
-.body_right_col2{
-    @extend .body_right_col;
-    background-image: url('../../../../assets/news-sample2.png');
-    height: 240px;
-}
-
-.col_spacer{
-    width: 30px;
-}
-
-.row_spacer{
-    height: 35px;
+    &2 {
+        @extend .body_right_col;
+        background-image: url('#{$image-path}news-sample2.png');
+        height: 240px;
+    }
 }
