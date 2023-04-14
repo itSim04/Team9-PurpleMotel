@@ -17,7 +17,10 @@ class RegistrationFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'activity_id' => random_int(0,40),
+            'user_id' => random_int(0,40),
+            'start_date' => fake()->date(),
+            'end_date' => fake()->date()
         ];
     }
 }
