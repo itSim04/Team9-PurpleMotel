@@ -1,8 +1,11 @@
+import { Ingredient, IngredientAttributes } from './../../../models/Ingredient';
+import { FoodCategory } from './../../../models/FoodCategory';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { FoodsResponse, Food, FoodResponse, FoodPackage, FoodsPackage } from "src/app/models/Food";
 import { UrlBuilderService } from "src/app/services/url-builder.service";
+import { Stock } from 'src/app/models/Stock';
 
 
 @Injectable({
@@ -24,19 +27,57 @@ export class FoodDatabaseService {
 
         map((response: FoodsResponse): FoodsPackage => {
 
-          const foods = new Map<string, Food>();
+          if (response.included) {
 
-          response.data.forEach(food => {
+            const foods = new Map<string, Food>();
+            const food_categories = new Map<string, FoodCategory>();
+            const ingredients = new Map<string, Ingredient>();
+            const stocks = new Map<string, Stock>();
 
-            foods.set(food.id, food.attributes);
+            response.data.forEach(food => {
 
-          });
+              foods.set(food.id, { ...food.attributes, ingredients: [], category: food.relationships.food_category.data.id });
 
-          return {
+            });
 
-            foods: foods
+            response.included.forEach(value => {
 
-          };
+              switch (value.type) {
+
+
+                case 'FoodCategory':
+
+                  food_categories.set(value.id, value.attributes as FoodCategory);
+                  break;
+
+                case 'Ingredient':
+
+                  ingredients.set(value.id, { ...(value.attributes as IngredientAttributes), food_id: value.relationships.food.data.id, stock_id: value.relationships.stock.data.id });
+                  foods.get(value.relationships.food.data.id)?.ingredients.push(value.id);
+
+                  break;
+
+                case 'Stocks':
+
+                  stocks.set(value.id, value.attributes as Stock);
+
+              }
+
+
+            });
+
+
+            return {
+
+              foods: foods,
+              categories: food_categories,
+              ingredients: ingredients,
+              stocks: stocks
+
+            };
+
+          }
+          throw new Error("Foreign key constraint error");
 
         }));
 

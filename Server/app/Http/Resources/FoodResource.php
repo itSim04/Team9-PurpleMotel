@@ -20,8 +20,8 @@ class FoodResource extends JsonResource
             'attributes' => [
                 'label' => $this->label,
                 'description' => $this->description,
-                'price' => $this-> price,
-                'is_served' => $this->  is_served
+                'price' => $this->price,
+                'is_served' => $this->is_served
             ],
             'relationships' => [
                 'food_category' => [
@@ -29,7 +29,7 @@ class FoodResource extends JsonResource
                         'id' => str($this->category),
                         "type" => "Food_Category"
                     ]
-                ]
+                ],
             ]
         ];
     }

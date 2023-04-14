@@ -8,8 +8,10 @@ use App\Http\Requests\UpdateFoodRequest;
 use App\Http\Resources\FoodCategoryResource;
 use App\Http\Resources\FoodResource;
 use App\Http\Resources\IngredientResource;
+use App\Http\Resources\StocksResource;
 use App\Models\FoodCategory;
 use App\Models\Ingredient;
+use App\Models\Stocks;
 use Illuminate\Http\Request;
 
 class FoodController extends Controller
@@ -34,6 +36,7 @@ class FoodController extends Controller
 
         $foods = Food::all();
         $food_id = [];
+        $stock_id = [];
         $categories = [];
 
         foreach ($foods as $food) {
@@ -47,9 +50,17 @@ class FoodController extends Controller
 
         $food_categories = FoodCategoryResource::collection(FoodCategory::all()->whereIn('id', $categories));
 
-        $ingredients = IngredientResource::collection(Ingredient::all()->whereIn('food_id', $food_id));
+        $ingredients = Ingredient::all()->whereIn('food_id', $food_id);
 
-        $included = $food_categories->merge($ingredients);
+        foreach ($ingredients as $id => $ingredient) {
+
+            $stock_id[] = $ingredient->stock_id;
+
+        }
+
+        $stock = StocksResource::collection(Stocks::all()->whereIn('id', $stock_id));
+
+        $included = $food_categories->merge([IngredientResource::collection($ingredients), $stock]);
 
         return generateResponse(200, FoodResource::collection($foods), $included);
     }

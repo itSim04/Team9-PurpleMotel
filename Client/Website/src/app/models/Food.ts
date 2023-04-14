@@ -1,10 +1,11 @@
+import { Stock } from './Stock';
 import { Ingredient, IngredientAttributes } from './Ingredient';
 import { FoodCategory } from './FoodCategory';
 import { KeyValue } from '@angular/common';
 export interface Food extends FoodAttributes {
 
   category: string,
-  ingredients: number[], //The ingredients constituting the food
+  ingredients: string[], //The ingredients constituting the food
 
 }
 
@@ -21,13 +22,13 @@ export interface FoodsResponse {
 
   status: string,
   data: {
-    id: 1,
+    id: string,
     type: 'Foods',
     attributes: FoodAttributes,
     relationships: {
       food_category: {
         data: {
-          id: number,
+          id: string,
           type: 'Food_Category';
         };
       };
@@ -38,8 +39,8 @@ export interface FoodsResponse {
 
 
     id: string,
-    type: 'FoodCategory' | 'Ingredient',
-    attributes: FoodCategory | IngredientAttributes,
+    type: 'FoodCategory' | 'Ingredient' | 'Stocks',
+    attributes: FoodCategory | IngredientAttributes | Stock,
     relationships: {
       food: {
         data: {
@@ -72,7 +73,8 @@ export interface FoodPackage {
 
 export interface FoodsPackage {
   foods: Map<string, Food>;
-  categories: Map<string, Ingredient>;
-  ingredients: Map<string, FoodCategory>;
+  stocks: Map<string, Stock>;
+  ingredients: Map<string, Ingredient>;
+  categories: Map<string, FoodCategory>;
 }
 

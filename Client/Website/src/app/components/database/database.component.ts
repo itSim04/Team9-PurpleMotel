@@ -167,7 +167,7 @@ export function parsePermission(permission: number | undefined): boolean[] {
 export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
   @Input() @Required data_injection!: DataInjection<Data>;
-  @Input() dual_fetcher: (() => Observable<[Map<string, Data>, Map<string, Data2>]>) | undefined;
+  @Input() dual_fetcher: (() => Observable<[Map<string, Data>, Map<string, Data2>, Map<string, unknown>[] | undefined]>) | undefined;
   @Input() extra_injection?: DataInjection<Data2>;
 
   all_data_map: Map<string, Data> = new Map();
@@ -346,8 +346,6 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
             }
 
-
-
             if (extractPermission('read', this.extra_injection.permission)) {
 
               this.all_extra = Array.from(result[1]);
@@ -355,6 +353,8 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
               this.extra_data.data = this.all_extra;
 
             }
+
+            this.all_data_outer = result[2];
 
             this.loading = false;
             this.extra_loading = false;

@@ -7,8 +7,8 @@ export interface IngredientAttributes {
 
 export interface Ingredient extends IngredientAttributes {
 
-    food_id: number,
-    stock_id: number
+    food_id: string,
+    stock_id: string
 
 
 }
