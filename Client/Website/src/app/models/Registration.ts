@@ -61,8 +61,8 @@ export interface RegistrationResponse {
   included?: {
 
     id: string;
-    type: 'Users' | 'UserTypes' ;
-    attributes:   UserTypeAttributes | UserAttributes;
+    type: 'Users' | 'UserTypes'| 'Activities' ;
+    attributes:  Activity | UserTypeAttributes | UserAttributes;
 
   }[];
 }
@@ -92,8 +92,8 @@ export interface RegistrationsResponse {
   included?: {
 
     id: string;
-    type: 'Users' | 'UserTypes';
-    attributes:  UserTypeAttributes | UserAttributes;
+    type: 'Users' | 'UserTypes' | 'Activities';
+    attributes:  Activity | UserTypeAttributes | UserAttributes;
     relationships: {
       user: {
         data: {
