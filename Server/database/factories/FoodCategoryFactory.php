@@ -17,7 +17,7 @@ class FoodCategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'label' => fake()->unique()->randomElement(['Starters', 'Salads', 'Burgers', 'Pizza', 'Pasta', 'Desserts', 'Drinks'])
         ];
     }
 }

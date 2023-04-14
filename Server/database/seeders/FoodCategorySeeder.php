@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\FoodCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class FoodCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        FoodCategory::factory(7)->create();
     }
 }

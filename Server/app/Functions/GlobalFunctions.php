@@ -52,7 +52,7 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
     $included = [];
 
     if ($condition) {
-
+        
         foreach ($extra_model as $key => $extra) {
 
             foreach ($extra::collection($key::all()->where($condition, $condition_value)) as $item) {

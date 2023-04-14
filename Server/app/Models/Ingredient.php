@@ -16,5 +16,5 @@ class Ingredient extends Model
         'required',
         'quantity'
 
-    ]
+    ];
 }

@@ -17,7 +17,12 @@ class IngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+
+            'food_id' => random_int(0, 20),
+            'stock_id' => random_int(0, 20),
+            'required' => fake()->boolean(),
+            'quantity' => random_int(1, 5)
+
         ];
     }
 }

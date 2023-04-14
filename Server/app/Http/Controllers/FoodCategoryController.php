@@ -3,64 +3,60 @@
 namespace App\Http\Controllers;
 
 use App\Models\FoodCategory;
-use App\Http\Requests\StoreFoodCategoryRequest;
-use App\Http\Requests\UpdateFoodCategoryRequest;
+use App\Http\Resources\FoodCategoryResource;
+use Illuminate\Http\Request;
 
 class FoodCategoryController extends Controller
 {
+    protected $resource = FoodCategoryResource::class;
+    protected $model = FoodCategory::class;
+    protected $model_name = 'FoodCategories';
+    protected $options = [
+
+        'label' => 'required|string|max:64',
+
+    ];
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return indexTemplate($this->model, $this->resource);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFoodCategoryRequest $request)
+    public function store(Request $request)
     {
-        //
+        return storeTemplate($request, $this->model, $this->resource, $this->options);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(FoodCategory $foodCategory)
+    public function show(int $id)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(FoodCategory $foodCategory)
-    {
-        //
+        return showTemplate($this->model, $this->resource, $id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFoodCategoryRequest $request, FoodCategory $foodCategory)
+    public function update(Request $request, string $food_id)
     {
-        //
+       
+        return updateTemplate($request, $this->model, $food_id, $this->resource, $this->options, $this->model_name);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FoodCategory $foodCategory)
+    public function destroy(int $id)
     {
-        //
+
+        return destroyTemplate($this->model, $id);
     }
 }
