@@ -1,4 +1,4 @@
-.bookings-container {
+.activities-container {
     display: flex;
 
 }
@@ -14,11 +14,13 @@
 .details-pic {
 
     height: 75vh;
-    width: 170vw;
+    width: 57vw;
     margin: 20px 20px 0px 80px;
+    position: relative;
 }
 
-.booking-info {
+
+.activity-info {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -29,7 +31,7 @@
     margin-left: 20px;
 }
 
-.booking-title {
+.activity-title {
     @extend .properties;
     color: white;
     font-weight: 100;
@@ -54,7 +56,7 @@
 
 }
 
-.properties-total{
+.properties-total {
     @extend .properties;
     color: white;
     font-weight: 600;
@@ -62,7 +64,7 @@
     margin-top: 100px;
 }
 
-.properties-price{
+.properties-price {
     @extend .properties;
     color: white;
     font-weight: 600;
@@ -72,11 +74,24 @@
 
 }
 
-.cancel-button{
+.cancel-button {
     color: #14274A;
     width: 200px;
     height: 50px;
     margin-left: 25px;
     font-size: 15px;
     text-transform: uppercase;
+}
+
+.pic-container {
+    position: relative;
+}
+
+.pic-label {
+    position: absolute;
+    color: #14274A;
+    background-color: white;
+    bottom: 2%;
+    left: 50%;
+
 }
