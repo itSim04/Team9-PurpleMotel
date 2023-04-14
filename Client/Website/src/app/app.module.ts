@@ -25,6 +25,7 @@ import { OrderDatabaseModule } from './pages/admin/order-database/order-database
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
 import { BrowseServicesModule } from './pages/guest/services/services.module';
 import { CarouselModule } from './components/general/carousel/carousel.module';
+import { ActivityOverviewModule } from './components/activity/activity-list-item/activity-overview/activity-overview.module';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { CarouselModule } from './components/general/carousel/carousel.module';
     FoodDatabaseModule,
 
     BookingDatabaseModule,
+    ActivityOverviewModule,
 
     StarRatingModule.forRoot(),
     AuthenticationModule,

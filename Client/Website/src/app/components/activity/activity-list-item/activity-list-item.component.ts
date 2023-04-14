@@ -1,6 +1,7 @@
 import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Activity } from 'src/app/models/Activity';
+import { formatPrice } from '../../database/database.component';
 
 @Component({
   selector: 'app-activity-list-item',
@@ -28,15 +29,10 @@ export class ActivityListItemComponent {
   }
 
   get formatPrice(): string {
-    const numStr = this.price.toString();
 
-    // split the number string into groups of three digits from right to left
-    const numArr = numStr.split('').reverse().join('').match(/(\d{1,3})/g);
+    return formatPrice(this.activity?.value.price);
 
-    // join the groups with commas and return the result from right to left
-    return numArr?.join(',')?.split('').reverse().join('') || numStr;
   }
-
  /* changeQuantity(change: number) {
 
     this.seats += change;

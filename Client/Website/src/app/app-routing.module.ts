@@ -15,6 +15,7 @@ import { UserDatabaseComponent } from './pages/admin/user-database/user-database
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
 import { BrowseServicesComponent } from './pages/guest/services/services.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
+import { ActivityOverviewComponent } from './components/activity/activity-list-item/activity-overview/activity-overview.component';
 
 const routes: Routes = [
 
@@ -104,7 +105,11 @@ const routes: Routes = [
       {
         component: BrowseServicesComponent,
         path: "browse"
-      }
+      },
+      {
+        component: ActivityOverviewComponent,
+        path: "details/:id"
+      },
     ]
   },
   {
