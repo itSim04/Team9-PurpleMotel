@@ -1,0 +1,41 @@
+.main-button{
+    color: #14274A;
+    background-color: white;
+    position: absolute;
+    text-transform: uppercase;
+}
+.edit-button {
+    @extend .main-button;
+    top: 20%;
+    height: 60px;
+    width: 200px;
+    left: 40px;
+    
+}
+.change-pass-button{
+    @extend .main-button;
+    top: 20%;
+    height: 60px;
+    width: 230px;
+    right: 40px;
+}
+.promo-code-button{
+    @extend .main-button;
+    margin-top: 16px;
+    height: 60px;
+    width: 230px;
+    right: 45%;
+    left: 42%;
+}
+.title-container{
+    display: flex;
+    justify-content: center;
+}
+.user{
+    text-align: center;
+    color: white;
+    font-family: 'Robotto';
+    font-weight: 400;
+    font-size: 50px;
+    margin-bottom: 4px;
+}
