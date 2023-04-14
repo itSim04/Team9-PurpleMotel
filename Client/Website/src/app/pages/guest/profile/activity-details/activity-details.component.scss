@@ -1,0 +1,82 @@
+.bookings-container {
+    display: flex;
+
+}
+
+.details-title {
+    color: white;
+    font-weight: 600;
+    font-family: 'Robotto';
+    font-size: 30px;
+    margin: 20px 20px 0px 80px;
+}
+
+.details-pic {
+
+    height: 75vh;
+    width: 170vw;
+    margin: 20px 20px 0px 80px;
+}
+
+.booking-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.properties {
+    align-self: flex-start;
+    margin-left: 20px;
+}
+
+.booking-title {
+    @extend .properties;
+    color: white;
+    font-weight: 100;
+    font-family: 'Robotto';
+    font-size: 40px;
+
+}
+
+
+.properties-title {
+    @extend .properties;
+    color: white;
+    font-weight: 600;
+    font-family: 'Robotto';
+
+}
+
+.properties-info {
+    @extend .properties;
+    font-family: 'Montserrat';
+    color: rgba(255, 255, 255, 0.785);
+
+}
+
+.properties-total{
+    @extend .properties;
+    color: white;
+    font-weight: 600;
+    font-family: 'Robotto';
+    margin-top: 100px;
+}
+
+.properties-price{
+    @extend .properties;
+    color: white;
+    font-weight: 600;
+    font-size: 40px;
+    font-family: 'Robotto';
+    margin-top: 0px;
+
+}
+
+.cancel-button{
+    color: #14274A;
+    width: 200px;
+    height: 50px;
+    margin-left: 25px;
+    font-size: 15px;
+    text-transform: uppercase;
+}
