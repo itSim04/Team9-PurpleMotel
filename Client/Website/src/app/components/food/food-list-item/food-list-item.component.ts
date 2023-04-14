@@ -23,7 +23,7 @@ export class FoodListItemComponent {
 
     // join the groups with commas and return the result from right to left
     return numArr?.join(',')?.split('').reverse().join('') || numStr;
-    
+
   }
 
   get formatPrice(): string {
@@ -34,6 +34,12 @@ export class FoodListItemComponent {
   changeQuantity(change: number) {
 
     this.quantity += change;
+
+  }
+
+  get image() {
+
+    return `../../../../assets/food-${Math.floor(Math.random() * 8) + 1}.jpg`
 
   }
 

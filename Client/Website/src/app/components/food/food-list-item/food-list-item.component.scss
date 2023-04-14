@@ -4,9 +4,18 @@
     width: fit-content;
     margin: 16px;
     padding: 16px;
-    // height: 50%;
-    background-color: white;
+    // // height: 50%;
+    // background-color: white;
 
+    background-color: #14274A;
+    color: white
+
+}
+
+.main:hover {
+
+    background-color: white;
+    color: #14274A
 
 }
 
@@ -14,13 +23,14 @@
 .label {
 
     font-family: 'Abhaya Libre';
+    font-family: 'Abhaya Libre';
     font-style: normal;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 36px;
     // line-height: 71px;
     padding-left: 16px;
     padding-top: 16px;
-    color: #14274A;
+    // color: white; //#14274A;
 }
 
 .title {
@@ -30,7 +40,7 @@
     font-size: 2vw;
     line-height: 3.5vh;
     letter-spacing: 0.02em;
-    color: #14274A;
+    // color: white; //#14274A;
 
 }
 
@@ -52,7 +62,7 @@
 
     display: inline-block;
     width: 10px;
-    background-color: white;
+    // background-color: white;
     border: 0px;
     padding: 8px;
 
@@ -62,9 +72,9 @@
 
     font-family: 'Montserrat';
     font-style: normal;
-    font-size: 12px;
+    font-size: 18px;
     line-height: 3vh;
-    color: #14274A;
+    // color: white;
     margin: 0px;
 }
 
@@ -77,9 +87,13 @@
 
 .content-2 {
 
+
+    font-family: 'Abhaya Libre';
+
     @extend .content;
     font-weight: 400;
-    max-width: 40vh;
+    font-size: 30px;
+    // max-width: 40vh;
 
 
 }
@@ -90,21 +104,4 @@
     font-weight: 400;
     font-size: 24px;
 
-}
-
-.cancel-btn {
-
-    font-family: 'Roboto';
-    font-style: normal;
-    background-color: #14274A;
-
-    font-weight: 400;
-    font-size: 16px;
-    padding: 8px;
-    line-height: 25px;
-    text-align: center;
-
-    text-transform: uppercase;
-    color: white;
-    border: 1px solid #14274A;
 }

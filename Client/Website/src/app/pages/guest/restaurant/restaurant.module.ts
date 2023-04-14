@@ -1,3 +1,4 @@
+import { FoodListItemModule } from './../../../components/food/food-list-item/food-list-item.module';
 import { RouterModule } from '@angular/router';
 import { LanguageModule } from './../../../services/language/language.module';
 import { NgModule } from '@angular/core';
@@ -19,7 +20,8 @@ import { MenuComponent } from './menu/menu.component';
     RouterModule,
     NavBarModule,
     FooterModule,
-    LanguageModule
+    LanguageModule,
+    FoodListItemModule
   ],
   exports: [
     MenuComponent,

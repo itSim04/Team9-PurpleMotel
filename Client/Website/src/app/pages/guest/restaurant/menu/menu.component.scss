@@ -28,11 +28,25 @@
 
 }
 
+.title-2 {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 100px;
+    margin: 0px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    color: #FFFFFF;
+
+}
+
 
 .wrap {
 
     width: fit-content;
-    border: 1px solid black;
     display: inline-block;
     position: relative;
     box-sizing: border-box;
