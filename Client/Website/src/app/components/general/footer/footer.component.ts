@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
+
+  @Input() main_color = '#FFFFFF';
+  @Input() alt_color = '#FFFFFF';
+
+  @Input() font_color = '#000000';
 
 }

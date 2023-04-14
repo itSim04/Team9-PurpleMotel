@@ -13,9 +13,9 @@ import { RoomDatabaseComponent } from './pages/admin/room-database/room-database
 import { StockDatabaseComponent } from './pages/admin/stock-database/stock-database.component';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
-import { BrowseServicesComponent } from './pages/guest/services/services.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { RoomOverviewComponent } from './pages/guest/rooms/overview/room-overview.component';
+import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 
 const routes: Routes = [
 
@@ -117,12 +117,12 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "browse",
+        redirectTo: "menu",
         pathMatch: "full"
       },
       {
         component: MenuComponent,
-        path: "browse"
+        path: "menu"
       }
     ]
   },
