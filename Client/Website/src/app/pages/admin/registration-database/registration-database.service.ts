@@ -52,8 +52,6 @@ export class RegistrationDatabaseService {
 
                 case 'Users':
 
-
-
                   users.set(value.id, { ...value.attributes as UserAttributes, type: value.relationships.user_type.data.id, permissions: new Map() });
 
                   break;
@@ -140,7 +138,7 @@ export class RegistrationDatabaseService {
         map(result => {
 
           return result.data.id;
-
+undefined
         })
 
       );

@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Resources\UserResource;
+use App\Http\Resources\ActivityResource;
+use App\Http\Resources\UserTypeResource;
+use App\Http\Resources\RegistrationResource;
 use App\Models\Registration;
 use App\Http\Requests\StoreRegistrationRequest;
 use App\Http\Requests\UpdateRegistrationRequest;

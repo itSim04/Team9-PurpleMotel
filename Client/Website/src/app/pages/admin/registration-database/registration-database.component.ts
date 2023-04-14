@@ -57,6 +57,7 @@ export class RegistrationDatabaseComponent {
     }))
 
   };
+  
   change_injection: ChangeInjection<Registration> = {
     side_panel: 'empty',
     default_state: {

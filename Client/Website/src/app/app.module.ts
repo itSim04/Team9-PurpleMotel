@@ -56,6 +56,7 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
     ServiceDatabaseModule,
     StockDatabaseModule,
     UserDatabaseModule,
+    RegistrationDatabaseModule,
 
     // Guest
 

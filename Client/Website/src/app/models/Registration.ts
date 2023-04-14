@@ -107,12 +107,6 @@ export interface RegistrationsResponse {
           type: string;
         };
       };
-      activity_type: {
-        data: {
-          id: string;
-          type: string;
-        };
-      };
       user_type: {
         data: {
           id: string;
