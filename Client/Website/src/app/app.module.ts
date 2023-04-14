@@ -19,11 +19,12 @@ import { BookingDatabaseModule } from './pages/admin/booking-database/booking-da
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { BrowseRoomsModule } from './pages/guest/rooms/browse/browse-rooms.module';
 import { RoomOverviewModule } from './pages/guest/rooms/overview/room-overview.module';
+import { ProfileModule } from './pages/guest/profile/profile.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +49,9 @@ import { RoomOverviewModule } from './pages/guest/rooms/overview/room-overview.m
     StockDatabaseModule,
     ConfirmationDialogModule,
     ServiceDatabaseModule,
-    BrowseRoomsModule
+    BrowseRoomsModule,
+    ProfileModule
+
 
   ],
   providers: [

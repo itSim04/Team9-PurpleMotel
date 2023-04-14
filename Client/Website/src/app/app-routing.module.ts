@@ -16,6 +16,7 @@ import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.co
 import { BrowseServicesComponent } from './pages/guest/services/services.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { RoomOverviewComponent } from './pages/guest/rooms/overview/room-overview.component';
+import { ProfileComponent } from './pages/guest/profile/profile.component';
 
 const routes: Routes = [
 
@@ -76,7 +77,7 @@ const routes: Routes = [
       {
         path: "service-database",
         component: ServiceDatabaseComponent,
-      },
+      }
 
     ]
   },
@@ -129,6 +130,10 @@ const routes: Routes = [
   {
     path: "home",
     component: HomeComponent
+  },
+  {
+    path: "profile",
+    component: ProfileComponent,
   }
 
 ];
