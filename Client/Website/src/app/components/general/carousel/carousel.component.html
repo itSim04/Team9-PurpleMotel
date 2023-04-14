@@ -1,1 +1,33 @@
-<p>carousel works!</p>
+<div style="display: flex; justify-content: center;">
+    <table style="width: fit-content;">
+        <tr>
+            <td>
+                <button [style.visibility]="currentSlide ? 'visible' : 'hidden'" (click)="prev()"
+                    class="quantity-btn">&lt;</button>
+            </td>
+            <td>
+                <div style="border-radius: 20px; background: white; width: fit-content; height: fit-content"
+                    (window:resize)="fixRatio()">
+                    <section class="carousel-wrapper" [ngStyle]="carouselWrapperStyle">
+                        <ul class="carousel-inner" #carousel>
+                            <li *ngFor="let item of items;" class="carousel-item">
+                                <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+                <p class="page-index">
+                    {{currentSlide + 1}} / {{items.length}}
+                    <button *ngIf="browsePopup" class="browse-btn" (click)="browsePopup()">
+                        Browse All
+                    </button>
+                </p>
+            </td>
+            <td>
+                <button
+                    [style.visibility]="currentSlide !== (items.length - 1) ? 'visible' : 'hidden'"
+                    (click)="next()" class="quantity-btn">&gt;</button>
+            </td>
+        </tr>
+    </table>
+</div>
