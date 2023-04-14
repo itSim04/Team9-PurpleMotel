@@ -1,3 +1,4 @@
+import { RoomOverviewComponent } from './overview/room-overview.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowseRoomsComponent } from './browse/browse-rooms.component';
@@ -8,7 +9,8 @@ import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module'
 
 @NgModule({
   declarations: [
-    BrowseRoomsComponent
+    BrowseRoomsComponent,
+    RoomOverviewComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module'
     FooterModule
   ],
   exports: [
-    BrowseRoomsComponent
+    BrowseRoomsComponent,
+    RoomOverviewComponent
   ]
 })
 export class RoomsModule { }
