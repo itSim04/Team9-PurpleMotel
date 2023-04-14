@@ -60,6 +60,14 @@ export interface DataInjection<Data> {
 
     data_fetcher: (() => Observable<[Map<string, Data>, Map<string, unknown>[] | undefined]>) | undefined; // Fetches data for ONE table. Will not be applied if a dual fetcher is provided manually.
 
+    hover_linker?: {
+
+        index: number,
+        key: keyof Data,
+        filter: (t1: unknown, t2: unknown) => boolean;
+        format: (data: [string, unknown]) => string;
+
+    };
     hover_fetcher?: {
 
         key: keyof Data, // The foreign key of the data to fetch

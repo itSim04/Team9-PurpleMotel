@@ -195,7 +195,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   mouseY = 0;
   mouseMoveSubject = new Subject<MouseEvent>();
   mouseMove$: Observable<MouseEvent>;
-  hover_list: [string, Data2][] = [];
+  hover_list: [string, unknown][] = [];
   extra_list: [string, Data][] = [];
 
 
@@ -232,6 +232,28 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
 
         }
+      } else if(this.data_injection.hover_linker) {
+
+
+        if (this.all_data_outer) {
+
+          this.hover_list = Array.from(this.all_data_outer[this.data_injection.hover_linker.index]).filter(t => {
+
+            if (this.data_injection.hover_linker && this.display_hover[1] && this.all_extra) {
+              
+              return this.data_injection.hover_linker.filter(t[0], this.display_hover[1][this.data_injection.hover_linker.key]);
+              
+            } else {
+              
+              return false;
+              
+            }
+            
+            
+          });        
+
+        }
+
       }
 
       if (this.extra_injection && this.extra_injection.hover_fetcher && this.extra_display_hover[1]) {
@@ -240,9 +262,12 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
       }
 
-      if (this.data_injection.hover_display || this.data_injection.hover_fetcher || this.extra_injection?.hover_display || this.extra_injection?.hover_fetcher)
+      if (this.data_injection.hover_display || this.data_injection.hover_fetcher || this.extra_injection?.hover_display || this.extra_injection?.hover_fetcher || this.data_injection.hover_linker || this.extra_injection?.hover_linker) {
+
         this.mouseX = event.clientX;
-      this.mouseY = event.clientY;
+        this.mouseY = event.clientY;
+
+      }
 
     });
   }

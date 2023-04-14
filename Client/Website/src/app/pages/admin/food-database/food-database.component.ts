@@ -29,7 +29,7 @@ export class FoodDatabaseComponent {
         type: 'price'
       },
       {
-        key: 'is_served', 
+        key: 'is_served',
         type: 'boolean'
       },
       {
@@ -43,7 +43,20 @@ export class FoodDatabaseComponent {
         }
       }
     ],
-    data_fetcher: undefined
+    data_fetcher: undefined,
+    hover_linker: {
+
+      index: 1,
+      key: 'ingredients',
+      filter: (t1, t2) => !!(t2 as string[]).find(t => t == (t1 as string)),
+
+      format: (data) => {
+
+        return (data[1] as Stock)?.label;
+
+      }
+
+    }
 
   };
 
@@ -81,9 +94,6 @@ export class FoodDatabaseComponent {
 
           index: 1,
           format: (choice) => (choice as Stock)?.label,
-          // key: (choice) => (choice[1] as Ingredient).stock_id,
-          // pivot_index: 1,
-          // pivot_format: (choice) => (choice as Stock)?.label
 
         }
       },
@@ -123,7 +133,7 @@ export class FoodDatabaseComponent {
     }],
     data_fetcher: undefined
 
-  }
+  };
 
   dual_fetcher: () => Observable<[Map<string, Food>, Map<string, FoodCategory>, Map<string, unknown>[]]> = () => this.food_service.getAllFoods().pipe(map(data => [data.foods, data.categories, [data.ingredients, data.stocks]]));
 }
