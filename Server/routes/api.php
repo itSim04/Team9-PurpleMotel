@@ -18,6 +18,7 @@ use App\Models\UserType;
 use App\Policies\UserPolicy;
 use App\Policies\UserTypePolicy;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\RegistrationController;
 use App\Models\Stocks;
 use App\Policies\StocksPolicy;
 use App\Models\Food;
@@ -53,6 +54,7 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('facilities', FacilityController::class);
         Route::apiResource('activities', ActivityController::class);
         Route::apiResource('bookings', BookingController::class);
+        Route::apiResource('registrations', RegistrationController::class);
         
         Route::apiResource('foods', FoodController::class);
 
