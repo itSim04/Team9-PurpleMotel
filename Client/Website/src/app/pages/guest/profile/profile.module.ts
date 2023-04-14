@@ -6,6 +6,8 @@ import { ProfileComponent } from './profile.component';
 import { LanguageModule } from 'src/app/services/language/language.module';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { BookingDetailsModule } from './booking-details/booking-details.module';
+import { ActivityDetailsComponent } from './activity-details/activity-details.component';
+import { ActivityDetailsModule } from './activity-details/activity-details.module';
 
 
 
@@ -14,14 +16,16 @@ import { BookingDetailsModule } from './booking-details/booking-details.module';
 @NgModule({
   declarations: [
     ProfileComponent,
-    BookingDetailsComponent
+    BookingDetailsComponent,
+    ActivityDetailsComponent
   ],
   imports: [
     CommonModule,
     NavBarModule,
     FooterModule,
     LanguageModule,
-    BookingDetailsModule
+    BookingDetailsModule,
+    ActivityDetailsModule
    
   ]
 })
