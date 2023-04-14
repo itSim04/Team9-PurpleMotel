@@ -15,8 +15,8 @@ export class ActivityListItemComponent {
   // @Input() capacity!: number;
    @Input() price!: number;
   @Input() seats: number=0;
-  // @Input() start_date!: string;
-  // @Input() end_date!: string;
+  @Input() start_date!: string;
+   @Input() end_date!: string;
 
   // get formatTotalPrice(): string {
   //   const numStr = (this.price).toString();
@@ -57,6 +57,7 @@ export class ActivityListItemComponent {
       return '';
     }
   }
+
   
 
 }

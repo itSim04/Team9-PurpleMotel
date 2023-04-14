@@ -1,21 +1,32 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/Activity';
 import { ServiceDatabaseService } from '../../admin/service-database/service-database.service';
+import { CarouselComponent } from 'src/app/components/general/carousel/carousel.component';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-services',
   templateUrl: './services.component.html',
-  styleUrls: ['./services.component.scss']
+  styleUrls: ['./services.component.scss'],
+  animations: [
+    trigger('fadeOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms', style({ opacity: 1 })),
+      ])])]
 })
 export class BrowseServicesComponent implements OnInit, OnDestroy{
-
+  @ViewChild('carousel') carousel !: CarouselComponent;
   activities: Map<string, Activity> = new Map();
 
   subscription?: Subscription;
+  activity_index=0;
+  isViewInitialized = false;
   constructor (private service_service: ServiceDatabaseService) {
 
   }
+
   ngOnInit(): void {
     this.subscription = this.service_service.getAllActivities().subscribe(data=>{
       this.activities = data.activities;
@@ -25,5 +36,27 @@ export class BrowseServicesComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
+
+  moveIndex(target: string, change: number) {
+
+
+    switch (target) {
+
+      case 'activity':
+
+        this.activity_index += change;
+        break;
+
+
+    }
+
+    
+
+  }
+
+
+
+
+
 
 }

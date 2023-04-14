@@ -32,3 +32,13 @@
         </ng-container>
     </ng-container>
 </app-carousel> -->
+
+<app-carousel #carousel>
+    <ng-container *ngFor="let activity of activities | keyvalue; let i = index">
+        <ng-container *carouselItem>
+            <app-activity-list-item style="width: 100%; display: flex; position: relative;" 
+            [@fadeOut] [end_date]="activity.value.end_date" [start_date]="activity.value.start_date"
+            [activity]="activity" ></app-activity-list-item>
+        </ng-container>
+    </ng-container>
+</app-carousel>
