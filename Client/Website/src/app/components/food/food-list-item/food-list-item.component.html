@@ -1,4 +1,4 @@
-<table class="main">
+<table (click)="openPopup()"  class="main">
     <tr>
         <td style="padding: 16px; width: 20%;" rowspan="2">
 
@@ -8,18 +8,18 @@
         </td>
         <td>
 
-            <div class="label">{{name}}</div>
+            <div class="label">{{food.value.label}}</div>
+            <mat-divider style="border-top-color: white; margin: 16px;"></mat-divider>
         </td>
     </tr>
     <tr>
         <td style="padding: 16px; width: 80%; resize: none;">
             <div style="vertical-align: middle;  margin: 0px;">
-                <mat-divider style="border-top-color: white"></mat-divider>
                 <p class="content-1">
-                    {{description}}
+                    {{food.value.description}}
                 </p><br>
                 <p class="content-2">
-                    {{formatPrice}}
+                    {{formatPrice}} <span *ngIf="quantity">({{quantity}} in cart)</span>
                 </p>
             </div>
         </td>

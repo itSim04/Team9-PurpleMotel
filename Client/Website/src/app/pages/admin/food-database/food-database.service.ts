@@ -42,7 +42,7 @@ export class FoodDatabaseService {
 
             response.included.forEach(value => {
 
-              console.log(value.type);
+    
               switch (value.type) {
 
 
@@ -67,7 +67,7 @@ export class FoodDatabaseService {
 
             });
 
-            console.log(food_categories, ingredients, stocks);
+
 
             return {
 

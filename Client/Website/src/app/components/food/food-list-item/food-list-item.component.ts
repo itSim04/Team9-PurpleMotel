@@ -1,46 +1,51 @@
-import { Component, Input } from '@angular/core';
+import { FoodListPopupService } from './../food-list-popup/food-list-popup.service';
+import { Order } from './../../../models/Order';
+import { Component, Input, OnInit } from '@angular/core';
 import { formatPrice } from '../../database/database.component';
+import { KeyValue } from '@angular/common';
+import { Food } from 'src/app/models/Food';
 
 @Component({
   selector: 'app-food-list-item',
   templateUrl: './food-list-item.component.html',
   styleUrls: ['./food-list-item.component.scss']
 })
-export class FoodListItemComponent {
+export class FoodListItemComponent implements OnInit {
 
-  @Input() name!: string;
-  @Input() description!: string;
-  @Input() price!: number;
-  @Input() quantity!: number;
+  @Input() food!: KeyValue<string, Food>;
+
+  quantity = 0;
+
+  image = `../../../../assets/food-${Math.floor(Math.random() * 8) + 1}.jpg`;
+
+  constructor (private food_dialog: FoodListPopupService) { }
+
+  ngOnInit() {
+
+    const cart = localStorage.getItem('cart');
+
+    if (cart) {
+
+      this.quantity = (JSON.parse(cart) as Order).food.find(t => t.id == this.food.key)?.quantity || 0;
+
+    }
 
 
-  get formatTotalPrice(): string {
-    
-    const numStr = (this.price * this.quantity).toString();
-
-    // split the number string into groups of three digits from right to left
-    const numArr = numStr.split('').reverse().join('').match(/(\d{1,3})/g);
-
-    // join the groups with commas and return the result from right to left
-    return numArr?.join(',')?.split('').reverse().join('') || numStr;
 
   }
 
+  openPopup() {
+
+    const dialogRef = this.food_dialog.openDialog(this.food.value.label, this.food.value.description, this.food.value.price, this.food.key, this.quantity);
+    dialogRef.afterClosed().subscribe(result => this.quantity = (result as number));
+
+  }
   get formatPrice(): string {
-    
-    return formatPrice(this.price);
+
+    return formatPrice(this.food.value.price);
   }
 
-  changeQuantity(change: number) {
 
-    this.quantity += change;
 
-  }
-
-  get image() {
-
-    return `../../../../assets/food-${Math.floor(Math.random() * 8) + 1}.jpg`
-
-  }
 
 }

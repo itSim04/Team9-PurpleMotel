@@ -42,7 +42,7 @@
         <ng-container *ngFor="let food of foods | keyvalue">
             
             <div *ngIf="food.value.category == category.key">
-                <app-food-list-item [description]="food.value.description" [name]="food.value.label" [price]="food.value.price"></app-food-list-item>
+                <app-food-list-item [food]="food"></app-food-list-item>
             </div>
         </ng-container>
         

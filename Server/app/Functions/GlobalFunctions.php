@@ -178,7 +178,6 @@ function storeTemplate(Request $request, string $model, string $resource, array 
 
     $credentials = $request->only(array_keys($options));
 
-
     try {
 
         $data = $model::create($credentials);
@@ -191,6 +190,7 @@ function storeTemplate(Request $request, string $model, string $resource, array 
         }
 
         return generateResponse(201, new $resource($data));
+
     } catch (Exception $e) {
 
         return generateResponse(500, $e->getMessage(), true);
