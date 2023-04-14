@@ -13,7 +13,7 @@ import { HomeComponent } from './home.component';
   imports: [
     CommonModule,
     NavBarModule,
-    FooterModule
+    FooterModule,
   ]
 })
 export class HomeModule { }

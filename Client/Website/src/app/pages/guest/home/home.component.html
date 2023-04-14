@@ -1,3 +1,69 @@
-<app-nav-bar></app-nav-bar>
-<p>home works!</p>
-<app-footer></app-footer>
+<div class="nav">
+    <app-nav-bar [transparent]="true"></app-nav-bar>
+    <div class="nav_title">
+        <p class="nav_title_1">Welcome To</p>
+        <p class="nav_title_2">Purple</p>
+        <p class="nav_title_3">Motel</p>
+        <p class="nav_title_4">Book your stay and enjoy Luxury<br>
+            redefined at the most affordable rates</p>
+    </div>
+</div>
+
+<div>
+    <div>
+        <p class="body_title">News Feed</p>
+        <hr class="line">
+    </div>
+    <div>
+        <table class="body_table_properties">
+            <tr class="row_spacer">
+            </tr>
+            <tr>
+                <td class="body_left_col">
+                    <p class="body_table_header">It all starts at 10:35PM</p>
+                    <p class="body_table_content">We’ve collaborated with global superstars Tiësto and Tate McRae to
+                        create the track and music video “10:35”, which is inspired by the essence, energy and
+                        electricity of Purple Motel.</p>
+                    <div>
+                        <button class="button">
+                            Learn More
+                        </button>
+                        <p class="likes">
+                            xx Likes
+                        </p>
+                    </div>
+                </td>
+                <td class="col_spacer">
+                </td>
+                <td class="body_right_col2">
+                </td>
+            </tr>
+
+            <tr class="row_spacer">
+            </tr>
+            <tr>
+                <td class="body_left_col">
+                    <p class="body_table_header">Leave your worries in the sand</p>
+                    <p class="body_table_content">We love life at the beach. Being close
+                        to the ocean with access to endless sandy
+                        beach ensures a relaxed state of mind. It
+                        seems like time stands still watching the
+                        ocean. </p>
+                    <div>
+                        <button class="button">
+                            Learn More
+                        </button>
+                        <p class="likes">
+                            xx Likes
+                        </p>
+                    </div>
+                </td>
+                <td class="col_spacer">
+                </td>
+                <td class="body_right_col1">
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<app-footer main_color="#14274a" alt_color="white" font_color="white"></app-footer>
