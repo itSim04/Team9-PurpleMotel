@@ -1,6 +1,7 @@
 import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { News } from 'src/app/models/News';
+import { NewsListPopupService } from '../news-list-popup/news-list-popup.service';
 
 @Component({
   selector: 'app-news-list-item',
@@ -9,6 +10,13 @@ import { News } from 'src/app/models/News';
 })
 export class NewsListItemComponent {
 
-  @Input() news?: KeyValue<string, News>
+  @Input() news!: KeyValue<string, News>
 
+  constructor(private news_dialog: NewsListPopupService){ }
+
+  openPopup() {
+
+    const dialogRef = this.news_dialog.openDialog(this.news?.key, this.news?.value.title, this.news?.value.body, this.news?.value.date, this.news?.value.likes)
+
+  }
 }

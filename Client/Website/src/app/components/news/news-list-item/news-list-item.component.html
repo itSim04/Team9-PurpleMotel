@@ -6,7 +6,7 @@
             <p class="body_table_header">{{news?.value?.title}}</p>
             <p class="body_table_content">{{news?.value?.body}}</p>
             <div>
-                <button class="button">
+                <button class="button" (click)="openPopup()">
                     Learn More
                 </button>
                 <p class="likes">{{news?.value?.likes}} Likes</p>
