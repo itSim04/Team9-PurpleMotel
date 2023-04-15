@@ -74,7 +74,34 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        return storeTemplate($request, $this->model, $this->resource, $this->options);
+        $response = storeTemplate($request, $this->model, $this->resource, $this->options);
+        $order_id = (string)json_encode($response->original['data']->id);
+
+        if (isset($request['food'])) {
+
+            $stock_ids = [];
+            foreach (OrderContains::all()->where('order_id', $order_id) as $stock) {
+
+                $stock_ids[] = $stock->id;
+            }
+            OrderContains::destroy($stock_ids);
+
+            foreach ($request['food'] as $stock) {
+
+                $order_contains = [
+
+                    'order_id' => $order_id,
+                    'food_id' => $stock['id'],
+                    'quantity' => $stock['quantity']
+
+                ];
+                OrderContains::create($order_contains);
+            }
+        }
+
+        return $response;
+
+
     }
 
     /**

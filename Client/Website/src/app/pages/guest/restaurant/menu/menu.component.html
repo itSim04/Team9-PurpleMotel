@@ -1,8 +1,13 @@
 <div class="main">
 
     <app-nav-bar></app-nav-bar>
-    <p class="title">Menu</p>
-    <hr style="margin-left: 10%; margin-right: 10%; border-color: white;">
+    <div>
+
+        <button (click)="invokeCart()" class="cart-btn">View Cart</button>
+        <p class="title">Menu</p>
+        <hr style="margin-left: 10%; margin-right: 10%; border-color: white;">
+    </div>
+
 
     <div class="section">
 
@@ -40,12 +45,12 @@
         <p class="title-2">{{category.value.label}}</p>
 
         <ng-container *ngFor="let food of foods | keyvalue">
-            
+
             <div *ngIf="food.value.category == category.key">
-                <app-food-list-item [food]="food"></app-food-list-item>
+                <app-food-list-item [quantity]="getQuantity(food.key)" [food]="food"></app-food-list-item>
             </div>
         </ng-container>
-        
+
     </div>
     <app-footer [alt_color]="'1#14274A'"></app-footer>
 </div>

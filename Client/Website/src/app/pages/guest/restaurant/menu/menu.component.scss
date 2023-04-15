@@ -67,6 +67,23 @@
     z-index: 1;
 }
 
+.cart-btn {
+
+    padding: 16px 64px 16px 64px;
+    font-size: 20px;
+    background-color: white;
+    font-family: 'Montserrat';
+    position: absolute;
+    right: 32px;
+
+}
+
+.cart-btn:hover {
+
+    background-color: lightgray;
+
+}
+
 .wrap:hover::before {
     
     background-color: rgba(120, 120, 120, 0.3);
@@ -98,4 +115,28 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: #14274A;
+}
+
+
+.add-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    background-color: #14274A;
+
+    font-weight: 400;
+    font-size: 16px;
+    padding: 8px;
+    line-height: 25px;
+    text-align: center;
+
+    text-transform: uppercase;
+    color: white;
+    border: 1px solid #14274A;
+}
+
+.add-btn:hover {
+
+    background-color: lightgray;
+
 }

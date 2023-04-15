@@ -10,29 +10,15 @@ import { Food } from 'src/app/models/Food';
   templateUrl: './food-list-item.component.html',
   styleUrls: ['./food-list-item.component.scss']
 })
-export class FoodListItemComponent implements OnInit {
+export class FoodListItemComponent {
 
   @Input() food!: KeyValue<string, Food>;
 
-  quantity = 0;
+  @Input() quantity = 0;
 
   image = `../../../../assets/food-${Math.floor(Math.random() * 8) + 1}.jpg`;
 
   constructor (private food_dialog: FoodListPopupService) { }
-
-  ngOnInit() {
-
-    const cart = localStorage.getItem('cart');
-
-    if (cart) {
-
-      this.quantity = (JSON.parse(cart) as Order).food.find(t => t.id == this.food.key)?.quantity || 0;
-
-    }
-
-
-
-  }
 
   openPopup() {
 

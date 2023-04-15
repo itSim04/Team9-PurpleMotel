@@ -1,6 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Order } from 'src/app/models/Order';
+import { User } from 'src/app/models/User';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 
 export interface FoodPopup {
@@ -75,7 +76,7 @@ export class FoodListPopupComponent {
 
       item = {
 
-        user_id: '0',
+        user_id: JSON.parse(localStorage.getItem('id') || '-1'),
         date: parseDate(new Date()),
         status: '0',
         food: []

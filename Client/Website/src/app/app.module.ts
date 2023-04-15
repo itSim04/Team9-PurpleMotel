@@ -1,3 +1,4 @@
+import { CartDialogModule } from './services/dialogs/cart/cart.module';
 import { ChefListDialogModule } from './services/dialogs/chef-list/chef-list.module';
 import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
 import { RoomsModule } from './pages/guest/rooms/rooms.module';
@@ -44,6 +45,7 @@ import { ServiceDatabaseModule } from './pages/admin/service-database/service-da
 
     ConfirmationDialogModule,
     ChefListDialogModule,
+    CartDialogModule,
 
     // Potential
     BrowserAnimationsModule,

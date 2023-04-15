@@ -100,7 +100,7 @@
     max-height: 500v;
 }
 
-.cancel-btn {
+.add-btn {
 
     font-family: 'Roboto';
     font-style: normal;
@@ -115,4 +115,10 @@
     text-transform: uppercase;
     color: white;
     border: 1px solid #14274A;
+}
+
+.add-btn:hover {
+
+    background-color: lightgray;
+
 }
