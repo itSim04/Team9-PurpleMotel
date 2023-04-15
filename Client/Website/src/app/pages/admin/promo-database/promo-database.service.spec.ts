@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-
 import { PromoDatabaseService } from './promo-database.service';
+
 
 describe('PromoDatabaseService', () => {
   let service: PromoDatabaseService;

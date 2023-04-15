@@ -66,7 +66,7 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
 
     NewsDatabaseModule
 
-    BookingDatabaseModule
+    BookingDatabaseModule,
     ServiceDatabaseModule,
 
     AnnouncementDatabaseModule,
