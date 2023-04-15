@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/Activity';
-import { ServiceDatabaseService } from '../../admin/service-database/service-database.service';
 import { CarouselComponent } from 'src/app/components/general/carousel/carousel.component';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { ServiceDatabaseService } from 'src/app/pages/admin/service-database/service-database.service';
 
 @Component({
   selector: 'app-services',
