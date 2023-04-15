@@ -18,7 +18,10 @@ class AnnouncementsFactory extends Factory
     {
         return [
             'label' => fake()->firstName(),
-            'body' => fake()->sentence()
+            'body' => fake()->sentence(),
+            'concerned_tier' => random_int(0, 2),
+            'author_id' => random_int(1, 40)
+            
         ];
     }
 }

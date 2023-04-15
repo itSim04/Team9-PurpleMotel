@@ -58,6 +58,113 @@ hr.line {
     width: 80%;
 }
 
-// table, tr, td{
-//     border: 1px solid black;
-// }
+.main {
+    // padding: 16px;
+    border-radius: 20px;
+    width: fit-content;
+    margin: 16px;
+    padding: 16px;
+    // height: 50%;
+    background-color: white;
+
+
+}
+
+
+.label {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    // line-height: 71px;
+    padding-left: 16px;
+    padding-top: 16px;
+    color: #14274A;
+}
+
+.title {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-size: 2vw;
+    line-height: 3.5vh;
+    letter-spacing: 0.02em;
+    color: #14274A;
+
+}
+
+.title-1 {
+
+    @extend .title;
+    font-weight: 400;
+
+}
+
+.title-2 {
+
+    @extend .title;
+    font-weight: 700;
+
+}
+
+.quantity_btn {
+
+    display: inline-block;
+    width: 10px;
+    background-color: white;
+    border: 0px;
+    padding: 8px;
+
+}
+
+.content {
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 12px;
+    line-height: 3vh;
+    color: #14274A;
+    margin: 0px;
+}
+
+.content-1 {
+
+    @extend .content;
+    font-weight: 700;
+
+}
+
+.content-2 {
+
+    @extend .content;
+    font-weight: 400;
+    max-width: 40vh;
+
+
+}
+
+.content-3 {
+
+    @extend .content;
+    font-weight: 400;
+    font-size: 24px;
+
+}
+
+.cancel-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    background-color: #14274A;
+
+    font-weight: 400;
+    font-size: 16px;
+    padding: 8px;
+    line-height: 25px;
+    text-align: center;
+
+    text-transform: uppercase;
+    color: white;
+    border: 1px solid #14274A;
+}

@@ -26,6 +26,8 @@ import { LanguageDatabaseModule } from './pages/admin/language-database/language
 import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
 import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
+import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
+import { NewsListPopupModule } from './components/news/news-list-popup/news-list-popup.module';
 
 
 @NgModule({
@@ -56,6 +58,7 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
     ServiceDatabaseModule,
     StockDatabaseModule,
     UserDatabaseModule,
+    PromoDatabaseModule,
 
     // Guest
 
@@ -66,7 +69,7 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
 
     AuthenticationModule,
     ConfirmationDialogModule,
-
+    NewsListPopupModule
 
   ],
   providers: [
