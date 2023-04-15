@@ -54,7 +54,7 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
     StockDatabaseModule,
     ConfirmationDialogModule,
 
-    BookingDatabaseModule
+    BookingDatabaseModule,
     ServiceDatabaseModule,
 
     AnnouncementDatabaseModule,
