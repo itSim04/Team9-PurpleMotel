@@ -41,7 +41,19 @@
     <div>
         <h1 class="page-titles">My Bookings</h1>
         <hr class="divider">
-        <app-booking-details></app-booking-details>
+        <!-- <app-carousel [browsePopup]="browseBookingHistory" #carousel>
+            <ng-container *ngFor="let booking of bookings | keyvalue; let i = index">
+                <ng-container *carouselItem>
+                    <app-booking-details style="width: 100%; display: flex; position: relative;" 
+                    [@fadeOut] [check_in]="booking.value.check_in" [end_date]="booking.value.end_date" [exhausted]="booking.value.exhausted" ></app-booking-details>
+                </ng-container>
+            </ng-container>
+        </app-carousel> -->
+    <ng-container *ngFor="let booking of bookings | keyvalue; let i = index">
+        <app-booking-details style="width: 100%; display: flex; position: relative;" 
+        [check_in]="booking.value.check_in" [end_date]="booking.value.end_date" [exhausted]="booking.value.exhausted"></app-booking-details>
+    </ng-container>
+    
     </div>
     <div>
         <h1 class="page-titles">My Activities</h1>

@@ -14,8 +14,8 @@ import { DatabaseModule } from 'src/app/components/database/database.module';
     ],
     imports: [
         CommonModule,
-        DatabaseModule,
-        NavBarModule
+        NavBarModule,
+        DatabaseModule
     ]
 })
 export class OrderDatabaseModule { }

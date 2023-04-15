@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-services',
-  templateUrl: './services.component.html',
-  styleUrls: ['./services.component.scss']
+  templateUrl: './browse-services.component.html',
+  styleUrls: ['./browse-services.component.scss']
 })
 export class BrowseServicesComponent {
 

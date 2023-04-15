@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PermissionResource;
 use App\Http\Resources\UserResource;
+use App\Models\Booking;
+use App\Models\Order;
 use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -70,4 +72,11 @@ class UserController extends Controller
 
         return destroyTemplate($this->model, $id);
     }
+
+    public function fetchProfile(int $id){
+
+        $orders = Order::all()->where("user_id",$id);
+        $registrations = Registration::all()->where("user_id",$id);
+        $bookings = Booking::all()->where("user_id",$id);
+    }   
 }

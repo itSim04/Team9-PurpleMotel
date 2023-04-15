@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { ProfileDialogService } from './profile.service';
+import { CarouselModule } from 'src/app/components/general/carousel/carousel.module';
 
 
 
@@ -45,11 +46,13 @@ import { ProfileDialogService } from './profile.service';
     MatProgressBarModule,
     MatDatepickerModule,
     MatNativeDateModule, 
-    MatSelectModule
+    MatSelectModule,
+    CarouselModule
    
   ],
   providers: [
     ProfileDialogService
   ]
+  
 })
 export class ProfileModule { }

@@ -16,8 +16,10 @@ export class AnnouncementDatabaseComponent {
   data_injection: DataInjection<Announcement> = {
 
     title: 'Announcements',
+
     permission: 'announcement',
-    displayed_columns: [
+
+    displayed_columns:[
       {
         key: 'label',
         type: 'text'
@@ -28,8 +30,8 @@ export class AnnouncementDatabaseComponent {
       }
     ],
 
-    data_fetcher: () => this.announcement_service.getAllAnnouncements().pipe(map(data => [data.announcements, undefined]))
-  };
+    data_fetcher:()=>this.announcement_service.getAllAnnouncements().pipe(map(data => [data.announcements, undefined])) 
+  }
 
   change_injection: ChangeInjection<Announcement> = {
 

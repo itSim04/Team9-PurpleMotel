@@ -1,0 +1,32 @@
+<div class="restaurant-header">
+    <app-nav-bar [transparent]="true"></app-nav-bar>
+    <div class="title-container">
+        <p class="title-1">{{"welcome_to" | translate}}</p>
+        <p class="title-2">{{"purple" | translate}}</p>
+        <p class="title-3">{{"motel" | translate}}</p>
+        <p class="title-4">{{"hotel_introduction" | translate}}</p>
+    </div>
+</div>
+<h1 class="restaurant-title">{{"restaurant" | translate}}</h1>
+<hr style="color: #14274A;width: 90%;">
+<div style="display: flex;justify-content: center;">
+    <p class="restaurant-parag">
+        {{"restaurant_introduction" | translate}}
+    </p>
+</div>
+
+<div class="restaurant-container">
+    <img src="../../../../../assets/chefs-background.jpg" width="100%">
+    <button (click)="chef_dialog.openDialog()" class="chefs-button">{{"chefs" | translate}}</button>
+</div>
+
+<h1 class="restaurant-title">{{"menu" | translate}}</h1>
+<hr style="color: #14274A;width: 90%;">
+<div style="display: flex;justify-content: center;">
+    <p class="restaurant-parag">{{"menu_introduction" | translate}}</p>
+</div>
+
+<div style="display: flex;justify-content: center;">
+    <button [routerLink]="['/restaurant/menu']" class="menu-button">{{"view_menu" | translate}}</button>
+    <button class="feedback-button">{{"feedback" | translate}}</button>
+</div>

@@ -1,13 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDividerModule } from '@angular/material/divider';
+import { BookingDetailsComponent } from './booking-details.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    BookingDetailsComponent
+  ],
   imports: [
     CommonModule
+  ],
+  exports:[
+    BookingDetailsComponent
   ]
 })
-export class BookingDetailsModule { }
+export class BookingDetailsModule {
+  
+ }
