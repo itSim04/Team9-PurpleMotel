@@ -8,6 +8,7 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
 import { BookingDetailsModule } from './booking-details/booking-details.module';
 import { ActivityDetailsComponent } from './activity-details/activity-details.component';
 import { ActivityDetailsModule } from './activity-details/activity-details.module';
+import { CarouselModule } from 'src/app/components/general/carousel/carousel.module';
 
 
 
@@ -16,8 +17,6 @@ import { ActivityDetailsModule } from './activity-details/activity-details.modul
 @NgModule({
   declarations: [
     ProfileComponent,
-    BookingDetailsComponent,
-    ActivityDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -25,8 +24,10 @@ import { ActivityDetailsModule } from './activity-details/activity-details.modul
     FooterModule,
     LanguageModule,
     BookingDetailsModule,
-    ActivityDetailsModule
+    ActivityDetailsModule,
+    CarouselModule
    
   ]
+  
 })
 export class ProfileModule { }

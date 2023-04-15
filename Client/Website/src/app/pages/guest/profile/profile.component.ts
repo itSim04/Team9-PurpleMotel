@@ -1,5 +1,6 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, Input } from '@angular/core';
+import { Booking } from 'src/app/models/Booking';
 
 @Component({
   selector: 'app-profile',
@@ -14,5 +15,5 @@ import { Component, Input } from '@angular/core';
 
 })
 export class ProfileComponent {
-
+  bookings!: Map<number, Booking>;
 }
