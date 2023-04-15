@@ -56,18 +56,18 @@
                 <p *ngIf="seats!=0" class="content-1">
                     Total:
                 </p>
-                <p class="content-2">
+                <!-- <p class="content-2">
                     {{formatTotalPrice}}
-                </p><br>
+                </p><br> -->
                 <table style="padding: 0px; width: 100%;">
                     <tr>
                         <td style="width: 50%;">
                             <p class="title-2">
-                                <!-- {{formatTotalPrice}} -->
+                                {{formatTotalPrice}}
                             </p>
                         </td>
                         <td>
-                            <p class="cancel-btn">
+                            <p class="cancel-btn" (click)="register()">
                                 Register
                             </p>
                         </td>

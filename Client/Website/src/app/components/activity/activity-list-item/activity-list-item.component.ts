@@ -2,6 +2,7 @@ import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Activity } from 'src/app/models/Activity';
 import { formatPrice } from '../../database/database.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity-list-item',
@@ -57,7 +58,6 @@ export class ActivityListItemComponent {
       return '';
     }
   }
-
-  
+register(){}
 
 }

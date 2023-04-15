@@ -7,8 +7,8 @@ import { ServiceDatabaseService } from 'src/app/pages/admin/service-database/ser
 
 @Component({
   selector: 'app-services',
-  templateUrl: './services.component.html',
-  styleUrls: ['./services.component.scss'],
+  templateUrl: './browse-services.component.html',
+  styleUrls: ['./browse-services.component.scss'],
   animations: [
     trigger('fadeOut', [
       transition(':enter', [
@@ -16,19 +16,19 @@ import { ServiceDatabaseService } from 'src/app/pages/admin/service-database/ser
         animate('300ms', style({ opacity: 1 })),
       ])])]
 })
-export class BrowseServicesComponent implements OnInit, OnDestroy{
+export class BrowseServicesComponent implements OnInit, OnDestroy {
   @ViewChild('carousel') carousel !: CarouselComponent;
   activities: Map<string, Activity> = new Map();
 
   subscription?: Subscription;
-  activity_index=0;
+  activity_index = 0;
   isViewInitialized = false;
-  constructor (private service_service: ServiceDatabaseService) {
+  constructor(private service_service: ServiceDatabaseService) {
 
   }
 
   ngOnInit(): void {
-    this.subscription = this.service_service.getAllActivities().subscribe(data=>{
+    this.subscription = this.service_service.getAllActivities().subscribe(data => {
       this.activities = data.activities;
     })
 
@@ -50,13 +50,6 @@ export class BrowseServicesComponent implements OnInit, OnDestroy{
 
     }
 
-    
-
   }
-
-
-
-
-
 
 }
