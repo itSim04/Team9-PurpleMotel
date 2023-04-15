@@ -19,8 +19,9 @@ import { FoodDatabaseModule } from './pages/admin/food-database/food-database.mo
 import { RoomDatabaseModule } from './pages/admin/room-database/room-database.module';
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { BookingDatabaseModule } from './pages/admin/booking-database/booking-database.module';
-import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/announcement-database.module';
+import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
+import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { LanguageDatabaseModule } from './pages/admin/language-database/language-database.module';
 import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
 import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';

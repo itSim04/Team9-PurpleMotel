@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Policies;
-
 use App\Models\User;
 
 class UserPolicy
@@ -49,11 +48,12 @@ class UserPolicy
      */
     public function view(User $user, string $model): bool
     {
-        if($user->tier == 2 || $user->id == $model) {
+         if($user->tier == 2 || $user->id == $model) {
 
-            return true;
+             return true;
 
-        }
+         
+         }
 
         $permissions = extractPermissions($user->id, $user->type);
         if (!array_key_exists('user', $permissions)) {
