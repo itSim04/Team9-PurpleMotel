@@ -119,12 +119,12 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "browse",
+        redirectTo: "menu",
         pathMatch: "full"
       },
       {
         component: MenuComponent,
-        path: "browse"
+        path: "menu"
       }
     ]
   },
