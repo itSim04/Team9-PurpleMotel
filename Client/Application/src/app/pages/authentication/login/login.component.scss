@@ -1,0 +1,115 @@
+.center {
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+.header-1 {
+
+    position: fixed;
+    top: 3%;
+    width: 8%;
+
+}
+
+.header-2 {
+
+    position: fixed;
+    width: 65%;
+    top: 10%
+}
+
+.title {
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    width: 60%;
+    margin-bottom: 16px;
+
+    color: #000000;
+}
+
+.input {
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    --padding-start: 16px;
+    border-radius: 8px;
+    width: 80%;
+    background-color: rgba(217, 217, 217, 0.4);
+    margin-bottom: 16px;
+
+}
+
+.labels {
+
+    position: relative;
+    top: 47%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.password {
+
+    margin-left: auto;
+    margin-right: 10%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 16px;
+    line-height: 19px;
+    color: #930000;
+
+
+}
+
+.login {
+
+    --padding: 16px 40px;
+    text-transform: capitalize;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+    width: 80%;
+
+    --background: #930000;
+    --border-radius: 100px;
+
+}
+
+.register {
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    margin-top: 16px;
+    line-height: 23px;
+
+    color: #000000;
+
+}
+
+.register-button {
+
+    color: #930000;
+    font-weight: 700;
+}

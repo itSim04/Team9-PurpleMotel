@@ -1,3 +1,5 @@
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { AuthenticationService } from './authentication.service';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
@@ -7,14 +9,15 @@ import { RegisterComponent } from "./register/register.component";
 @NgModule({
   
   imports: [
-    CommonModule,
+    FormsModule,
+    IonicModule.forRoot()
   ],
   providers: [
     AuthenticationService,
   ],
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ]
 })
 export class AuthenticationModule { }

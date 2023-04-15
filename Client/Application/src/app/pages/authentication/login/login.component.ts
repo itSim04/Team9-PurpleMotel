@@ -1,6 +1,7 @@
 import { AuthenticationService } from './../authentication.service';
 import { Component } from '@angular/core';
 import { validateEmail } from '../authentication.utility';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login-dialog',
@@ -15,11 +16,11 @@ export class LoginComponent {
   validated_credentials = true;
   connection_error = false;
   loading = false;
-  constructor(private authentication_service: AuthenticationService) { }
+  constructor (private toastController: ToastController, private authentication_service: AuthenticationService) { }
 
 
 
-  login() {
+  async login() {
 
     this.connection_error = false;
     this.validated_credentials = true;
@@ -34,7 +35,7 @@ export class LoginComponent {
 
         next: result => {
 
-          // Incomplete
+          console.log(result);
 
         }, error: error => {
 
@@ -52,7 +53,17 @@ export class LoginComponent {
 
           }
         }
-      })
+      });
+    } else {
+
+      const toast = await this.toastController.create({
+        message: 'Hello World!',
+        duration: 1500,
+        position: 'bottom'
+      });
+
+      await toast.present();
+
     }
   }
 
