@@ -3,22 +3,19 @@
     </tr>
     <tr>
         <td class="body_left_col">
-            <p class="body_table_header">It all starts at 10:35PM</p>
-            <p class="body_table_content">We’ve collaborated with global superstars Tiësto and Tate McRae to
-                create the track and music video “10:35”, which is inspired by the essence, energy and
-                electricity of Purple Motel.</p>
+            <p class="body_table_header">{{news?.value?.title}}</p>
+            <p class="body_table_content">{{news?.value?.body}}</p>
             <div>
                 <button class="button">
                     Learn More
                 </button>
-                <p class="likes">
-                    xx Like
-                </p>
+                <p class="likes">{{news?.value?.likes}} Likes</p>
             </div>
         </td>
+
         <td style="width: 30px;">
             <!-- for spacing -->
-        </td>
+        </td>   
         <td class="body_right_col">
         </td>
     </tr>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { KeyValue } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { News } from 'src/app/models/News';
 
 @Component({
   selector: 'app-news-list-item',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./news-list-item.component.scss']
 })
 export class NewsListItemComponent {
+
+  @Input() news?: KeyValue<string, News>
 
 }
