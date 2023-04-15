@@ -26,7 +26,7 @@ export class RegistrationDatabaseComponent {
         outer_link: {
 
           key: 'user_id',
-          index: 3,
+          index: 2,
           format: (value) => (value as User)?.first_name + ' ' + (value as User)?.last_name
         },
       },
@@ -36,7 +36,7 @@ export class RegistrationDatabaseComponent {
         outer_link: {
 
           key: 'activity_id',
-          index: 1,
+          index: 0,
           format: (value) => (value as Activity)?.title
 
         },
