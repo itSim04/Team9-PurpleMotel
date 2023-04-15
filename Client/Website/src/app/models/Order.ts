@@ -1,7 +1,8 @@
-import { UserType, UserTypeAttributes } from './UserType';
+import { UserType } from 'src/app/models/UserType';
+import { User, UserAttributes } from 'src/app/models/User';
+import { UserTypeAttributes } from './UserType';
 import { KeyValue } from "@angular/common";
 import { Food, FoodAttributes } from "./Food";
-import { User, UserAttributes } from './User';
 
 export interface OrderAttributes {
 

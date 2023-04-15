@@ -1,14 +1,13 @@
-import { PromoCodesPackage } from 'src/app/models/PromoCode';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { UrlBuilderService } from 'src/app/services/url-builder.service';
-
+import { PromoCodesPackage, PromoCodesResponse, PromoCode, PromoCodePackage, PromoCodeResponse } from "src/app/models/PromoCode";
+import { UrlBuilderService } from "src/app/services/url-builder.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PromoCodeDatabaseService {
+export class PromoDatabaseService {
 
   constructor (private http: HttpClient, private url: UrlBuilderService) { }
 
