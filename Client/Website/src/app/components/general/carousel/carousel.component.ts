@@ -42,7 +42,6 @@ export class CarouselComponent implements AfterViewInit {
 
   next() {
 
-    console.log(this.itemsElements.first.nativeElement.getBoundingClientRect().width);
 
     if (this.currentSlide + 1 === this.items.length) return;
     this.currentSlide = (this.currentSlide + 1) % this.items.length;
@@ -76,14 +75,14 @@ export class CarouselComponent implements AfterViewInit {
 
   ngAfterViewInit() {
 
-    console.log(this.itemsElements.first.nativeElement.getBoundingClientRect().width);
     // For some reason only here I need to add setTimeout, in my local env it's working without this.
     setTimeout(() => {
+      this.fixRatio();
       this.itemWidth = this.itemsElements.first.nativeElement.getBoundingClientRect().width;
       this.carouselWrapperStyle = {
         width: `${this.itemWidth}px`
       };
-    });
+    }, 1000);
 
   }
 
