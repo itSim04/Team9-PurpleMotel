@@ -49,9 +49,34 @@ import { ServiceDatabaseModule } from './pages/admin/service-database/service-da
 
     // Potential
     BrowserAnimationsModule,
-    AdminDashboardModule,
 
-    // Admin  
+<<<<<<<<< Temporary merge branch 1
+    AdminDashboardModule,
+    UserDatabaseModule,
+    FoodDatabaseModule,
+
+    BookingDatabaseModule,
+    OrderDatabaseModule,
+
+    PromoDatabaseModule,
+    StarRatingModule.forRoot(),
+    AuthenticationModule,
+    RoomDatabaseModule,
+    StockDatabaseModule,
+    ConfirmationDialogModule,
+    ActivityDatabaseModule,
+
+    AnnouncementDatabaseModule
+    ServiceDatabaseModule,
+
+    NewsDatabaseModule
+
+    BookingDatabaseModule
+    ServiceDatabaseModule,
+
+=========
+    // Admin
+>>>>>>>>> Temporary merge branch 2
     AnnouncementDatabaseModule,
     BookingDatabaseModule,
     FoodDatabaseModule,
@@ -64,6 +89,7 @@ import { ServiceDatabaseModule } from './pages/admin/service-database/service-da
     ServiceDatabaseModule,
     StockDatabaseModule,
     UserDatabaseModule,
+    RegistrationDatabaseModule,
 
     // Guest
     HomeModule,
