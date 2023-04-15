@@ -12,11 +12,11 @@ import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module'
   ],
   imports: [
     CommonModule,
+    NavBarModule,
     DatabaseModule
   ],
   exports: [
     PromoDatabaseComponent
-    NavBarModule
   ]
 })
 export class PromoDatabaseModule { }

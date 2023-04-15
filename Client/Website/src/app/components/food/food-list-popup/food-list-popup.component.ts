@@ -75,8 +75,9 @@ export class FoodListPopupComponent {
 
       item = {
 
+        user_id: '0',
         date: parseDate(new Date()),
-        status: false,
+        status: '0',
         food: []
 
       };

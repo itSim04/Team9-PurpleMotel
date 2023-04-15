@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OrderContains>
  */
-class OrderFactory extends Factory
+class OrderContainsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,48 +17,9 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => random_int(1,20),
-            'date' => fake()->date(),
-            'status' => random_int(1, 4)
+            'food_id' => random_int(1,20),
+            'order_id' => random_int(1,20),
+            'quantity' => random_int(1, 8)
         ];
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,3 +1,4 @@
+import { OrderContains, OrderContainsAttributes } from './OrderContains';
 import { UserType } from 'src/app/models/UserType';
 import { User, UserAttributes } from 'src/app/models/User';
 import { UserTypeAttributes } from './UserType';
@@ -13,8 +14,11 @@ export interface OrderAttributes {
 
 export interface Order extends OrderAttributes {
 
-  food_id: string,
   user_id: string,
+  food: {
+    id: string,
+    quantity: number;
+  }[];
 
 }
 
@@ -26,10 +30,10 @@ export interface OrderPackage {
 }
 export interface OrdersPackage {
 
-  orders: Map<string, Order>;
+  order_contains: Map<string, OrderContains>;
   foods: Map<string, Food>;
   users: Map<string, User>;
-  user_types: Map<string, UserType>;
+  orders: Map<string, Order>;
 
 }
 
@@ -65,47 +69,47 @@ export interface OrderResponse {
 
 
 export interface OrdersResponse {
+
   status: string,
   data: {
-    id: string;
-    type: string;
-    attributes: OrderAttributes;
+    id: string,
+    type: string,
+    attributes: Order,
     relationships: {
       user: {
         data: {
-          id: string;
-          type: string;
-        };
-      };
-      food: {
-        data: {
-          id: string;
-          type: string;
+          id: string,
+          type: 'User';
         };
       };
     };
   }[];
-  included?: {
-
-    id: string;
-    type: 'Users' | 'UserTypes' | 'Foods' ;
-    attributes: FoodAttributes | UserTypeAttributes | UserAttributes;
+  included: {
+    id: string,
+    type: 'OrderContains' | 'Foods' | 'Users',
+    attributes: OrderContainsAttributes | FoodAttributes | UserAttributes,
     relationships: {
-      user: {
-        data: {
-          id: string;
-          type: string;
-        };
-      };
-      food: {
-        data: {
-          id: string;
-          type: string;
-        };
-      };
       user_type: {
         data: {
-          id: string;
+          id: string,
+          type: string;
+        };
+      },
+      food: {
+        data: {
+          id: string,
+          type: string;
+        };
+      },
+      order: {
+        data: {
+          id: string,
+          type: string;
+        };
+      };
+      food_category: {
+        data: {
+          id: string,
           type: string;
         };
       };

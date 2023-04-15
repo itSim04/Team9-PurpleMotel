@@ -28,6 +28,32 @@ export interface Column<Data> {
 
 }
 
+export interface ExtraColumn {
+
+
+    key: string,
+    type?: 'text' | 'selection';
+    custom?: (data: Data) => string; // Exclusively used with Custom
+
+    header_alt?: string; // An alternative name for a header
+    link?: {
+
+        key: keyof Data,
+        format: (value: unknown, org?: Data) => string; // 'Unknown' represents the Linked data (aka the other Table's data)
+
+    }; // Exclusively used with Link
+
+    outer_link?: {
+
+        key: keyof Data,
+        index: number,
+        format: (value: unknown, org?: Data) => string; // 'Unknown' represents the Linked data (aka the other Table's data)
+
+    }; // Exclusively used with Outer Link
+
+
+}
+
 export interface Button<Data> {
 
 
@@ -84,6 +110,8 @@ export interface Choices {
     choices?: [string, unknown][], // The list of choices. Will not be registered if link is True.
     link?: boolean, // Dictates whether the choices are hardcoded or will be taken from the other table
     index?: number;
+
+
     key?: (choice: [string, unknown]) => string, // The way every choice is identified (the key)
     format?: (choice: unknown) => string, // The way every choice is displayed
 }
@@ -99,7 +127,7 @@ export interface OuterChoices {
 
 export interface Field<Data> {
     key: keyof Data, // Key of the field
-
+    readonly?: boolean,
 
     type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices';
     choices?: Choices; // Can only be used with selection and choices.
@@ -142,6 +170,7 @@ export interface ChangeInjection<Data> {
     affected_data?: KeyValue<string, Data>; // Old Data
 
 
+
     modification_rule?: (data: Data) => boolean;
     permissions?: {
 
@@ -153,7 +182,14 @@ export interface ChangeInjection<Data> {
         key: keyof Data;
 
     };
-    side_panel: 'images' | 'permissions' | 'empty';
+
+    table?: {
+
+        columns: ExtraColumn[];
+        key: keyof Data;
+
+    }
+    side_panel: 'images' | 'permissions' | 'empty' | 'table';
     data_type: string; // Type of Data
     standalone_field?: Field<Data>; // The Field that appears alone
     toggle?: Toggle<Data>; // A button that appears in the lower area

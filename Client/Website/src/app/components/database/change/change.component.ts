@@ -1,14 +1,15 @@
+import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserType } from 'src/app/models/UserType';
 import { KeyValue } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { Field, Toggle, StaticField, ChangeInjection } from 'src/app/models/Database';
+import { Field, Toggle, StaticField, ChangeInjection, Column, ExtraColumn } from 'src/app/models/Database';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { ConfirmationDialogService } from 'src/app/services/dialogs/confirmation/confirmation.service';
 import { WarningDialogService } from 'src/app/services/dialogs/warning/warning.service';
-import { extractPermission, isNum } from '../database.component';
+import { extractPermission, formatWord, isNum } from '../database.component';
 import { User } from 'src/app/models/User';
 
 
@@ -41,11 +42,64 @@ export function clone(obj: any) {
   templateUrl: './change.component.html',
   styleUrls: ['./change.component.scss']
 })
-export class ChangeComponent<Data extends { [key: string]: string | boolean | number; }> {
-  debug2($event: any) {
-    console.log($event);
+export class ChangeComponent<Data extends { [key: string]: string | boolean | number | unknown[]; }> {
+  deleteData(id: number) {
+
+    (this.data[this.table!.key] as unknown[]).splice(id, 1);
+    this.table!.data.data = this.data[this.table!.key] as unknown[];
+
   }
 
+  pushData() {
+
+    (this.data[this.table!.key] as unknown[]).push({id: '1', quantity: 1});
+    
+    this.table!.data.data = this.data[this.table!.key] as unknown[];
+
+  }
+  updateData(col: string, element: any, result: number) {
+
+    element[col] = result;
+
+  }
+  formatTableData(element: any, col: string) {
+
+    return element[col];
+
+  }
+
+  getOuter(id: string, index: number) {
+
+    const temp = this.outer_data?.at(index)?.get(id);
+
+    if (temp) {
+
+      return temp;
+
+    } else {
+
+      return undefined;
+
+    }
+
+
+  }
+
+  // getOuterTableData(col: ExtraColumn, element: any) {
+
+  //   if (col.outer_link) {
+
+  //     const temp = this.getOuter(element[col.outer_link.key], col.outer_link.index);
+  //     return col.outer_link.format(temp, element);
+  //     console.log(element);
+
+  //   } else {
+
+  //     throw new Error("Type Link requires Format and Index");
+
+  //   }
+
+  // }
 
   debug(id: number, row: string, result: boolean) {
 
@@ -58,8 +112,9 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   }
 
 
+
   modification_mode = false;
-  side_panel: 'images' | 'permissions' | 'empty';
+  side_panel: 'images' | 'permissions' | 'empty' | 'table';
   data: Data;
   data_type: string;
   standalone_field?: Field<Data>;
@@ -73,6 +128,14 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     format: (result: boolean[]) => string;
     update: (data: Data, label: string, result: number) => void;
     retrieve: (result: Data, id: string) => boolean[];
+    key: keyof Data;
+
+  };
+
+  table?: {
+
+    data: MatTableDataSource<unknown>;
+    columns: ExtraColumn[];
     key: keyof Data;
 
   };
@@ -96,6 +159,8 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     this.modify_service = injected_data.injection.modify_service;
     this.delete_service = injected_data.injection.delete_service;
     this.identifier = injected_data.injection.identifier;
+
+
     this.permission = injected_data.permission;
     this.outer_data = injected_data.outer_data;
 
@@ -124,6 +189,14 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
       this.modification_mode = false;
 
     }
+    if (injected_data.injection.table) {
+      this.table = {
+
+        ...injected_data.injection.table,
+        data: new MatTableDataSource(this.data[injected_data.injection.table.key] as unknown[])
+
+      };
+    }
     console.log((this.data as unknown as User).gender);
 
   }
@@ -148,6 +221,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   modify() {
 
+    console.log(this.old_data);
 
     if (extractPermission('write', this.permission)) {
 
@@ -208,6 +282,11 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
       this.snackbar.open('You do not have deletion permissions');
 
     }
+  }
+
+  formatWord(data: string) {
+
+    return formatWord(data);
   }
 
   triggerToggle() {
@@ -281,10 +360,10 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
       let temp = field.outer_choices.format(type.value);
 
-      
-      if(field.outer_choices.pivot_index && field.outer_choices.pivot_format) {
 
-        temp = field.outer_choices.pivot_format(this.outer_data[field.outer_choices.pivot_index].get(temp))
+      if (field.outer_choices.pivot_index && field.outer_choices.pivot_format) {
+
+        temp = field.outer_choices.pivot_format(this.outer_data[field.outer_choices.pivot_index].get(temp));
 
       }
 
@@ -380,6 +459,25 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   parseDate(date: string): any {
 
     return parseDate(new Date(date));
+
+  }
+
+  get getDisplayedColumnsKey() {
+
+
+    if(this.table) {
+
+      const keys = this.table!.columns.map(t => t.key as string);
+      keys.push('buttons');
+      return keys;
+      
+    } else {
+
+      throw new Error('Table missing information');
+
+    }
+
+
 
   }
 }

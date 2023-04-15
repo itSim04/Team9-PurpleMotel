@@ -58,6 +58,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('food-categories', FoodCategoryController::class);
     Route::apiResource('ingredients', IngredientController::class);
     Route::apiResource('foods', FoodController::class);
+    Route::apiResource('orders', OrderController::class);
 
     Route::middleware('auth:api')->group(function () {
 
@@ -68,7 +69,6 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('facilities', FacilityController::class);
         Route::apiResource('activities', ActivityController::class);
         Route::apiResource('bookings', BookingController::class);
-        Route::apiResource('orders', OrderController::class);
         Route::apiResource('promocodes', PromoCodeController::class);
         
 

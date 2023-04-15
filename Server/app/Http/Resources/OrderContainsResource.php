@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderResource extends JsonResource
+class OrderContainsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,15 +16,20 @@ class OrderResource extends JsonResource
     {
         return [
             'id' => (string)$this->id,
-            'type' => 'Orders',
+            'type' => 'OrderContains',
             'attributes' => [
-                'date' => $this->date,
-                'status' => $this->status
+                'quantity' => $this->quantity,
             ],
             'relationships' => [
-                'user' => [
+                'food' => [
                     'data' => [
-                        'id' => (string)$this->user_id,
+                        'id' => (string)$this->food_id,
+                        "type" => "user"
+                    ]
+                ],
+                'order' => [
+                    'data' => [
+                        'id' => (string)$this->order_id,
                         "type" => "user"
                     ]
                 ]
