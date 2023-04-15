@@ -3,6 +3,9 @@ import { Component, Input } from '@angular/core';
 import { Activity } from 'src/app/models/Activity';
 import { formatPrice } from '../../database/database.component';
 import { Router } from '@angular/router';
+import { RegistrationDatabaseService } from 'src/app/pages/admin/registration-database/registration-database.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-activity-list-item',
@@ -11,29 +14,13 @@ import { Router } from '@angular/router';
 })
 export class ActivityListItemComponent {
   @Input() activity?: KeyValue<string, Activity>;
-  // @Input() title!: string;
-  // @Input() description!: string;
-  // @Input() capacity!: number;
-   @Input() price!: number;
-  @Input() seats: number=0;
+  @Input() price!: number;
+  @Input() seats: number = 0;
   @Input() start_date!: string;
-   @Input() end_date!: string;
+  @Input() end_date!: string;
 
-  // get formatTotalPrice(): string {
-  //   const numStr = (this.price).toString();
+  constructor(private registration_service: RegistrationDatabaseService, private snackBar: MatSnackBar) { }
 
-  //   // split the number string into groups of three digits from right to left
-  //   const numArr = numStr.split('').reverse().join('').match(/(\d{1,3})/g);
-
-  //   // join the groups with commas and return the result from right to left
-  //   return numArr?.join(',')?.split('').reverse().join('') || numStr;
-  // }
-  
-  // get formatPrice(): string {
-
-  //   return formatPrice(this.activity?.value.price);
-
-  // }
   get formatPrice(): string {
     const activity = this.activity;
     if (activity && activity.value) {
@@ -42,22 +29,46 @@ export class ActivityListItemComponent {
       return '';
     }
   }
-  
+
   changeQuantity(change: number) {
     if (this.seats + change >= 0) {
-    this.seats += change;
+      this.seats += change;
     }
   }
 
   get formatTotalPrice(): string {
     const activity = this.activity;
     if (activity && activity.value) {
-    const totalPrice = activity.value.price * this.seats;
-    return formatPrice(totalPrice);
-    }else {
+      const totalPrice = activity.value.price * this.seats;
+      return formatPrice(totalPrice);
+    } else {
       return '';
     }
   }
-register(){}
+  register() {
 
+    const user_id = localStorage.getItem('id');
+
+
+    if (user_id && this.activity?.key) {
+      this.registration_service.getAllRegistrations()
+
+
+        this.registration_service.addNewRegistration({
+
+          start_date: this.activity.value.start_date,
+          end_date: this.activity.value.end_date,
+          activity_id: this.activity!.key,
+          user_id: user_id
+
+
+
+      });
+
+    } else {
+
+      console.error('Invalid id or activity key')
+
+    }
+  }
 }

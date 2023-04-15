@@ -14,10 +14,9 @@ export class AnnouncementDatabaseComponent {
   constructor (private announcement_service: AnnouncementDatabaseService){}
 
   data_injection: DataInjection<Announcement> = {
-
     title: 'Announcements',
 
-    displayed_columns:[
+    displayed_columns: [
       {
         key: 'label',
         type: 'text'
@@ -28,7 +27,8 @@ export class AnnouncementDatabaseComponent {
       }
     ],
 
-    data_fetcher:()=>this.announcement_service.getAllAnnouncements().pipe(map(data => data.announcements)) 
+    data_fetcher: () => this.announcement_service.getAllAnnouncements().pipe(map(data => [data.announcements, undefined])),
+    permission: ''
   }
 
   change_injection: ChangeInjection<Announcement> = {

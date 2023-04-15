@@ -28,6 +28,7 @@ import { OrderDatabaseModule } from './pages/admin/order-database/order-database
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
 import { CarouselModule } from './components/general/carousel/carousel.module';
 import { ActivityOverviewModule } from './components/activity/activity-list-item/activity-overview/activity-overview.module';
+import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 
 
 @NgModule({
@@ -47,7 +48,7 @@ import { ActivityOverviewModule } from './components/activity/activity-list-item
     // Potential
     ConfirmationDialogModule,
     BrowserAnimationsModule,
-
+    PromoDatabaseModule,
     AnnouncementDatabaseModule,
     BookingDatabaseModule,
     FoodDatabaseModule,
@@ -67,7 +68,6 @@ import { ActivityOverviewModule } from './components/activity/activity-list-item
     RestaurantModule,
     ServicesModule,
     RoomsModule,
-
     AuthenticationModule,
     ConfirmationDialogModule,
 

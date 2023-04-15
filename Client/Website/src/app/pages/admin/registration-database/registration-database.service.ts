@@ -138,7 +138,6 @@ export class RegistrationDatabaseService {
         map(result => {
 
           return result.data.id;
-undefined
         })
 
       );
