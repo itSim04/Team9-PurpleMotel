@@ -8,6 +8,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { CarouselModule } from 'src/app/components/general/carousel/carousel.module';
 import { FooterModule } from 'src/app/components/general/footer/footer.module';
 import { BrowseServicesComponent } from './browse/browse-services.component';
+import { FacilityModule } from 'src/app/components/facility/facility.module';
 
 
 
@@ -21,6 +22,7 @@ import { BrowseServicesComponent } from './browse/browse-services.component';
     MatDividerModule,
     MatGridListModule,
     ActivityListItemModule,
+    FacilityModule,
     CarouselModule,
     FooterModule
   ],

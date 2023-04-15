@@ -4,6 +4,7 @@ import { Activity } from 'src/app/models/Activity';
 import { CarouselComponent } from 'src/app/components/general/carousel/carousel.component';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ServiceDatabaseService } from 'src/app/pages/admin/service-database/service-database.service';
+import { Facility } from 'src/app/models/Facility';
 
 @Component({
   selector: 'app-services',
@@ -19,6 +20,7 @@ import { ServiceDatabaseService } from 'src/app/pages/admin/service-database/ser
 export class BrowseServicesComponent implements OnInit, OnDestroy {
   @ViewChild('carousel') carousel !: CarouselComponent;
   activities: Map<string, Activity> = new Map();
+  facilities: Map<string, Facility> = new Map();
 
   subscription?: Subscription;
   activity_index = 0;
@@ -30,6 +32,9 @@ export class BrowseServicesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.service_service.getAllActivities().subscribe(data => {
       this.activities = data.activities;
+    })
+    this.subscription = this.service_service.getAllFacilities().subscribe(data => {
+      this.facilities = data.facilities;
     })
 
   }
