@@ -59,6 +59,7 @@ import { ActivityOverviewModule } from './components/activity/activity-list-item
     ServiceDatabaseModule,
     StockDatabaseModule,
     UserDatabaseModule,
+    RegistrationDatabaseModule,
 
     // Guest
 

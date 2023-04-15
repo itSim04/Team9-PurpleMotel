@@ -13,9 +13,11 @@ import { RoomDatabaseComponent } from './pages/admin/room-database/room-database
 import { StockDatabaseComponent } from './pages/admin/stock-database/stock-database.component';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
+import { BrowseServicesComponent } from './pages/guest/services/services.component';
+import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { ActivityOverviewComponent } from './components/activity/activity-list-item/activity-overview/activity-overview.component';
-import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
+import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
 
 const routes: Routes = [
 
@@ -27,7 +29,12 @@ const routes: Routes = [
   {
     path: 'admin',
     children: [
-      
+      {
+
+        path: "",
+        component: AdminDashboardComponent,
+
+      },
       {
         path: "announcement-database",
         component: AnnouncementDatabaseComponent,
@@ -54,7 +61,7 @@ const routes: Routes = [
       },
       {
         path: "promo-database",
-        component: FoodDatabaseComponent,
+        component: PromoDatabaseComponent,
       },
       {
         path: "registration-database",
@@ -105,7 +112,6 @@ const routes: Routes = [
       {
         component: BrowseServicesComponent,
         path: "browse"
-      },
       {
         component: ActivityOverviewComponent,
         path: "details/:id"
