@@ -60,14 +60,13 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('facilities', FacilityController::class);
         Route::apiResource('activities', ActivityController::class);
         Route::apiResource('bookings', BookingController::class);
-
         Route::apiResource('orders', OrderController::class);
         Route::apiResource('promocodes', PromoCodeController::class);
         
         Route::apiResource('foods', FoodController::class);
-
+        
         Route::prefix('rooms')->controller(RoomController::class)->group(function () {
-
+            
             Route::get('', 'index');
             Route::post('', 'store');
             Route::get('/{user}', 'show');
@@ -76,7 +75,8 @@ Route::prefix('v1')->group(function () {
         });
         Route::post('filter', [RoomController::class, 'filter']);;
         Route::get('room_bookings', [RoomController::class, 'roomBookings']);;
-
+        Route::get('fetch-profile', [UserController::class, 'fetchProfile']);
+        
         Route::prefix('foods')->controller(FoodController::class)->group(function () {
 
             Route::get('', 'index')->middleware('can:viewAny,App\Foods');
