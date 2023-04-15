@@ -39,13 +39,23 @@
 </div>
 
 <div style="width:100%">
-
     <app-carousel #carousel>
         <ng-container *ngFor="let activity of activities | keyvalue; let i = index">
             <ng-container *carouselItem>
-            <app-activity-list-item style="width: 100%; display: flex; position: relative;" 
-            [@fadeOut] [activity]="activity" ></app-activity-list-item>
+                <app-activity-list-item style="width: 100%; display: flex; position: relative;" [@fadeOut]
+                    [activity]="activity"></app-activity-list-item>
+            </ng-container>
         </ng-container>
-    </ng-container>
-</app-carousel>
-        </div>
+    </app-carousel>
+</div>
+
+<div style="width:100%">
+    <app-carousel #carousel>
+        <ng-container *ngFor="let facility of facilities | keyvalue; let i = index">
+            <ng-container *carouselItem>
+                <app-facility style="width: 100%; display: flex; position: relative;" [@fadeOut]
+                    [facility]="facility"></app-facility>
+            </ng-container>
+        </ng-container>
+    </app-carousel>
+</div>

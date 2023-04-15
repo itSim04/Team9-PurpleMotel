@@ -24,6 +24,7 @@ export class BrowseServicesComponent implements OnInit, OnDestroy {
 
   subscription?: Subscription;
   activity_index = 0;
+  facility_index = 0;
   isViewInitialized = false;
   constructor(private service_service: ServiceDatabaseService) {
 
@@ -50,6 +51,10 @@ export class BrowseServicesComponent implements OnInit, OnDestroy {
       case 'activity':
 
         this.activity_index += change;
+        break;
+        case 'facility':
+
+        this.facility_index += change;
         break;
 
 
