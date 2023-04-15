@@ -11,6 +11,8 @@
 }
 
 
+
+
 .label {
 
     font-family: 'Abhaya Libre';
@@ -56,6 +58,10 @@
     border: 0px;
     padding: 8px;
 
+}
+.quantity_btn:hover {
+
+    background-color: lightgray
 }
 
 .content {
@@ -107,4 +113,9 @@
     text-transform: uppercase;
     color: white;
     border: 1px solid #14274A;
+}
+
+.cancel-btn:hover {
+
+    background-color: #14274ad0
 }
