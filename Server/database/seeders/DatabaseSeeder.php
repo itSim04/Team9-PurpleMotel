@@ -23,8 +23,11 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTypeSeeder::class);
         $this->call(BookingSeeder::class);
         $this->call(RegistrationSeeder::class);
+        $this->call(FoodCategorySeeder::class);
+        $this->call(IngredientSeeder::class);
         $this->call(AnnouncementsSeeder::class);
         $this->call(OrderSeeder::class);
+        $this->call(OrderContainsSeeder::class);
         $this->call(NewsSeeder::class);
         $this->call(PromoCodeSeeder::class);
     }

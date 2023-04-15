@@ -1,0 +1,28 @@
+<table (click)="openPopup()"  class="main">
+    <tr>
+        <td style="padding: 16px; width: 20%;" rowspan="2">
+
+            <img style="vertical-align: middle; object-fit: cover;" width="256vh" height="256vh"
+                [src]="image">
+
+        </td>
+        <td>
+
+            <div class="label">{{food.value.label}}</div>
+            <mat-divider style="border-top-color: white; margin: 16px;"></mat-divider>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 16px; width: 80%; resize: none;">
+            <div style="vertical-align: middle;  margin: 0px;">
+                <p class="content-1">
+                    {{food.value.description}}
+                </p><br>
+                <p class="content-2">
+                    {{formatPrice}} <span *ngIf="quantity">({{quantity}} in cart)</span>
+                </p>
+            </div>
+        </td>
+    </tr>
+</table>
+<hr style="border-color: white; margin-left: 10%; margin-right: 10%;">
