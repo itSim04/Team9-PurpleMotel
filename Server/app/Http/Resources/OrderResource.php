@@ -20,6 +20,14 @@ class OrderResource extends JsonResource
             'attributes' => [
                 'date' => $this->date,
                 'status' => $this->status
+            ],
+            'relationships' => [
+                'user' => [
+                    'data' => [
+                        'id' => (string)$this->user_id,
+                        "type" => "user"
+                    ]
+                ]
             ]
         ];
     }

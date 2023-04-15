@@ -1,1 +1,56 @@
-<p>restaurant works!</p>
+<div class="main">
+
+    <app-nav-bar></app-nav-bar>
+    <div>
+
+        <button (click)="invokeCart()" class="cart-btn">View Cart</button>
+        <p class="title">Menu</p>
+        <hr style="margin-left: 10%; margin-right: 10%; border-color: white;">
+    </div>
+
+
+    <div class="section">
+
+        <div class="wrap">
+            <img width="100%" src="../../../../../assets/starters-main.png" />
+            <div class="content">
+                Starters
+            </div>
+        </div>
+
+        <div class="wrap">
+            <img width="100%" src="../../../../../assets/platters-main.png" />
+            <div class="content">
+                Platters
+            </div>
+        </div>
+
+        <div class="wrap">
+            <img width="100%" src="../../../../../assets/salads-main.png" />
+            <div class="content">
+                Salads
+            </div>
+        </div>
+
+        <div class="wrap">
+            <img width="100%" src="../../../../../assets/desserts-main.png" />
+            <div class="content">
+                Desserts
+            </div>
+        </div>
+    </div>
+
+    <div *ngFor="let category of food_categories | keyvalue">
+
+        <p class="title-2">{{category.value.label}}</p>
+
+        <ng-container *ngFor="let food of foods | keyvalue">
+
+            <div *ngIf="food.value.category == category.key">
+                <app-food-list-item [quantity]="getQuantity(food.key)" [food]="food"></app-food-list-item>
+            </div>
+        </ng-container>
+
+    </div>
+    <app-footer [alt_color]="'1#14274A'"></app-footer>
+</div>

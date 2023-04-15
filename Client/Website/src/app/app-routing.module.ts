@@ -1,4 +1,4 @@
-import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
+import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 import { HomeComponent } from './pages/guest/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,12 +13,13 @@ import { RoomDatabaseComponent } from './pages/admin/room-database/room-database
 import { StockDatabaseComponent } from './pages/admin/stock-database/stock-database.component';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
-import { BrowseServicesComponent } from './pages/guest/services/services.component';
+import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { RoomOverviewComponent } from './pages/guest/rooms/overview/room-overview.component';
 import { ProfileComponent } from './pages/guest/profile/profile.component';
 import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
+import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 
 const routes: Routes = [
 
@@ -130,6 +131,10 @@ const routes: Routes = [
       },
       {
         component: MenuComponent,
+        path: "menu"
+      },
+      {
+        component: RestaurantLandingComponent,
         path: "browse"
       }
     ]

@@ -1,3 +1,4 @@
+import { OrderContains } from './../../../models/OrderContains';
 import { Food } from 'src/app/models/Food';
 import { User } from 'src/app/models/User';
 import { Component } from '@angular/core';
@@ -5,6 +6,8 @@ import { Order } from 'src/app/models/Order';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { OrderDatabaseService } from './order-database.service';
 import { map } from 'rxjs';
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'app-order-database',
@@ -25,21 +28,9 @@ export class OrderDatabaseComponent {
         outer_link: {
 
           key: 'user_id',
-          index: 3,
+          index: 1,
           format: (value) => (value as User)?.first_name + ' ' + (value as User)?.last_name
         },
-      },
-      {
-        key: 'food_id',
-        type: 'outer_link',
-        outer_link: {
-
-          key: 'food_id',
-          index: 1,
-          format: (value) => (value as Food)?.label
-
-        },
-
       },
       {
         key: 'date'
@@ -51,46 +42,95 @@ export class OrderDatabaseComponent {
     data_fetcher: () => this.order_service.getAllOrders().pipe(map(data => {
 
 
-      return [data.orders, [data.foods, data.user_types, data.users]];
+      return [data.orders, [data.foods, data.users, data.order_contains]];
 
-    }))
+    })),
+
+    hover_linker: {
+
+      key: 'food',
+      index: 0,
+      filter: (t1, t2) => !!(t2 as { id: string, quantity: number; }[]).find(t => t.id == (t1 as string)),
+      format: (data) => (data[1] as Food)?.label
+
+    }
 
   };
 
   change_injection: ChangeInjection<Order> = {
-    side_panel: 'empty',
+    side_panel: 'table',
+    table: {
+
+      columns: [{
+
+        key: 'id',
+        type: 'selection',
+        outer_link: {
+
+          key: 'id',
+          index: 0,
+          format: (value) => {
+           
+            
+            return (value as KeyValue<string, Food>)?.value.label
+
+          }
+
+        }
+
+      },
+      {
+
+        type: 'text',
+        key: 'quantity'
+      
+    }],
+      key: 'food'
+
+    },
     default_state: {
-      date: new Date(),
+      user_id: '0',
+      date: parseDate(new Date()),
       status: "",
-      food_id: '0',
-      user_id: '0'
+      food: []
     },
     data_type: 'Order',
     fields: [
       {
         key: 'date',
-        type: 'date'
+        type: 'date',
+        readonly: true
       },
       {
         key: 'user_id',
         type: 'outer_selection',
+        readonly: true,
         outer_choices: {
 
           format: (choice) => (choice as User)?.first_name + ' ' + (choice as User)?.last_name,
-          index: 3
-        }
-      },
-      {
-        key: 'food_id',
-        type: 'outer_selection',
-        outer_choices: {
-
-          format: (choice) => {
-
-            return (choice as Food)?.label;
-          },
           index: 1
         }
+      },
+      // {
+      //   key: 'food',
+      //   readonly: false,
+      //   type: 'outer_choices',
+      //   outer_choices: {
+      //     retriever: (choice) => {
+      //       return (choice as {id: string, quantity: number}[]).map(t => t.id);
+
+      //     },
+
+      //     format: (choice) => {
+
+      //       return (choice as Food)?.label;
+      //     },
+      //     index: 0
+      //   }
+      // },
+      {
+        key: 'status',
+        type: 'number'
       }
     ],
     add_service: order => this.order_service.addNewOrder(order),

@@ -17,8 +17,8 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         return [
-            'room_id' => random_int(0,40),
-            'user_id' => random_int(0,40),
+            'room_id' => random_int(1,20),
+            'user_id' => random_int(1,20),
             'check_in' => fake()->date(),
             'end_date' => fake()->date(),
             'exhausted' => fake()->boolean()    

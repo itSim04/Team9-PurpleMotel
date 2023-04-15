@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PromoCodeDatabaseService } from './promo-database.service';
+import { PromoDatabaseService } from './promo-database.service';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { map } from 'rxjs';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
@@ -10,7 +10,7 @@ import { ChangeInjection, DataInjection } from 'src/app/models/Database';
   styleUrls: ['./promo-database.component.scss']
 })
 export class PromoDatabaseComponent {
-  constructor (private promo_code_service: PromoCodeDatabaseService) { }
+  constructor (private promo_code_service: PromoDatabaseService) { }
 
   data_injection: DataInjection<PromoCode> = {
 

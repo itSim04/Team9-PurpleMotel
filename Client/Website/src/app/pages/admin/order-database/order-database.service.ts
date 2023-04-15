@@ -1,3 +1,4 @@
+import { OrderContains, OrderContainsAttributes } from './../../../models/OrderContains';
 import { UserType } from 'src/app/models/UserType';
 import { FoodAttributes } from './../../../models/Food';
 import { User, UserAttributes } from 'src/app/models/User';
@@ -27,58 +28,61 @@ export class OrderDatabaseService {
 
         map((response: OrdersResponse): OrdersPackage => {
 
-          const orders = new Map<string, Order>();
-          const foods = new Map<string, Food>();
-          const users = new Map<string, User>();
-          const user_types = new Map<string, UserType>();
-
-          response.data.forEach(order => {
-
-            orders.set(order.id, { ...order.attributes, food_id: order.relationships.food.data.id, user_id: order.relationships.user.data.id });
-
-          });
-
           if (response.included) {
+
+            const foods = new Map<string, Food>();
+            const order_contains = new Map<string, OrderContains>();
+            const orders = new Map<string, Order>();
+            const users = new Map<string, User>();
+
+            response.data.forEach(order => {
+
+              orders.set(order.id, { ...order.attributes, user_id: order.relationships.user.data.id, food: [] });
+
+            });
 
             response.included.forEach(value => {
 
               switch (value.type) {
 
+
                 case 'Foods':
 
-                  foods.set(value.id, { ...value.attributes } as Food);
+                  foods.set(value.id, { ...value.attributes as FoodAttributes, category: value.relationships.food_category.data.id, ingredients: [] });
+                  break;
+
+                case 'OrderContains':
+
+                  order_contains.set(value.id, { ...(value.attributes as OrderContainsAttributes), food_id: value.relationships.food.data.id, order_id: value.relationships.order.data.id });
+                  orders.get(value.relationships.order.data.id)?.food.push({
+
+                    id: value.relationships.food.data.id,
+                    quantity: (value.attributes as OrderContainsAttributes).quantity
+
+                  });
 
                   break;
 
                 case 'Users':
 
-                  users.set(value.id, { ...value.attributes as UserAttributes, type: value.relationships.user_type.data.id, permissions: new Map() });
-
-                  break;
-
-                case 'UserTypes':
-
-                  user_types.set(value.id, value.attributes as UserType);
-
-                  break;
-
+                  users.set(value.id, { ...(value.attributes as UserAttributes), type: value.relationships.user_type.data.id, permissions: new Map() });
 
               }
 
 
-
             });
 
+            return {
+
+              foods: foods,
+              order_contains: order_contains,
+              orders: orders,
+              users: users,
+
+            };
           }
-          
-          return {
 
-            orders: orders,
-            foods: foods,
-            user_types: user_types,
-            users: users
-
-          };
+          throw new Error("Foreign key constraint error");
 
         }));
 
@@ -105,7 +109,7 @@ export class OrderDatabaseService {
             order: {
 
               key: response.data.id,
-              value: { ...response.data.attributes, food_id: response.data.relationships.food.data.id, user_id: response.data.relationships.user.data.id }
+              value: { ...response.data.attributes, food: [], user_id: response.data.relationships.user.data.id }
 
             },
 
@@ -130,7 +134,7 @@ export class OrderDatabaseService {
 
     try {
       console.log(order);
-      return this.http.post<OrderResponse>(this.url.generateUrl('orders'), { ...order, food_id: '1', user_id: '68' }, { headers: headers }).pipe(
+      return this.http.post<OrderResponse>(this.url.generateUrl('orders'), order, { headers: headers }).pipe(
 
         map(result => {
 
@@ -153,6 +157,7 @@ export class OrderDatabaseService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
+    console.log(order);
     try {
 
       return this.http.put(this.url.generateUrl(`orders/${order_id}`), order, { headers: headers }).pipe(map(() => undefined));
