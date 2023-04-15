@@ -9,7 +9,6 @@ import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module'
 import { MatDividerModule } from '@angular/material/divider';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { RoomItemModule } from 'src/app/components/room/room-item/room-item.module';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
