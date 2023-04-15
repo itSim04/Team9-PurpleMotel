@@ -90,60 +90,59 @@ class UserController extends Controller
         // Fetches the id of the logged in user extracted from a token. This needs
         // more validation as the lack of a token in the request will cause this
         // code to crash.
-        $id = Auth::user()->id;
+        $id = Auth::user()->id; // :)
 
 
-        // // Area 1: Orders and Foods
-        // //      Model 1: Orders - It has a field user-id which is the id of the user that ordered
-        // //      Model 2: Food
-        // //      Model 3: Pivot (OrderContains) - It has 2 foreign keys that reference Model 1 and 2
+        // Area 1: Orders and Foods
+        //      Model 1: Orders - It has a field user-id which is the id of the user that ordered
+        //      Model 2: Food
+        //      Model 3: Pivot (OrderContains) - It has 2 foreign keys that reference Model 1 and 2
 
-        // // We will store ALL orders in one array
+        // We will store ALL orders in one array
 
-        // // The all() function returns all entries of a model
-        // $orders = Order::all()
-        //     // The where function filters a collector. Param 1 is the filter column and Param 2 is the 
-        //     // filter value itself. Since the Orders have the user_id field that will reference the user,
-        //     // we can query based on that
-        //     ->where('user_id', $id);
+        // The all() function returns all entries of a model
+        $orders = Order::all()
+            // The where function filters a collector. Param 1 is the filter column and Param 2 is the 
+            // filter value itself. Since the Orders have the user_id field that will reference the user,
+            // we can query based on that
+            ->where('user_id', $id);
 
-        // // We now want to store the ids of all the orders for future use
-        // $order_ids = [];
+        // We now want to store the ids of all the orders for future use
+        $order_ids = [];
 
-        // // We will loop through the orders we retrieved earlier to extract the ids
-        // foreach ($orders as $order) {
+        // We will loop through the orders we retrieved earlier to extract the ids
+        foreach ($orders as $order) {
 
-        //     // This syntax appends an element to an array. Since $order is built by the Order model
-        //     // it has a field id which is what we want to fetch
-        //     $order_ids[] = $order->id;
-        // }
+            // This syntax appends an element to an array. Since $order is built by the Order model
+            // it has a field id which is what we want to fetch
+            $order_ids[] = $order->id;
+        }
 
-        // // The next step would be to retrieve all foods, but that is not directly possible as the
-        // // order itself is not looked to foods, instead, a pivot table takes care of that. We will
-        // // have to retrieve said pivot entries
-        // $order_food_pivot = OrderContains::all()
-        //     // since our pivot has a foreign key order_id that references orders, and since we already
-        //     // have order ids, we can query based on that. whereIn takes an array of values instead of one
-        //     ->whereIn('order_id', $order_ids);
+        // The next step would be to retrieve all foods, but that is not directly possible as the
+        // order itself is not looked to foods, instead, a pivot table takes care of that. We will
+        // have to retrieve said pivot entries
+        $order_food_pivot = OrderContains::all()
+            // since our pivot has a foreign key order_id that references orders, and since we already
+            // have order ids, we can query based on that. whereIn takes an array of values instead of one
+            ->whereIn('order_id', $order_ids);
 
 
-        // // Now that we have the pivots we can retrieve the food id from every pivot item.
-        // $food_ids = [];
-        // foreach ($order_food_pivot as $pivot) {
+        // Now that we have the pivots we can retrieve the food id from every pivot item.
+        $food_ids = [];
+        foreach ($order_food_pivot as $pivot) {
 
-        //     // As mentioned previously the pivot has a foreign key named food_id
-        //     $food_ids[] = $pivot->food_id;
-        // }
+            // As mentioned previously the pivot has a foreign key named food_id
+            $food_ids[] = $pivot->food_id;
+        }
 
-        // // Now that we have the id we can retrieve all the foods with said idea. We can directly englobe
-        // // our result in a resource since we will not be operating on Foods.
-        // $foods = FoodResource::collection(Food::all()->whereIn('id', $food_ids));
+        // Now that we have the id we can retrieve all the foods with said idea. We can directly englobe
+        // our result in a resource since we will not be operating on Foods.
+        $foods = FoodResource::collection(Food::all()->whereIn('id', $food_ids));
 
-        // // Now we just have to merge our results through the merge function. Notice how we did
-        // // not invoke the OrderResource previously as we were still operating on orders which is
-        // // why we'll do it here
-        // $result = OrderResource::collection($orders);
-        // $result[] = $foods;
+        // Now we just have to merge our results through the merge function. Notice how we did
+        // not invoke the OrderResource previously as we were still operating on orders which is
+        // why we'll do it here
+        $orders = OrderResource::collection($orders);
 
 
         // Start Here
@@ -170,8 +169,8 @@ class UserController extends Controller
         $rooms = Room::all()
             ->whereIn('id', $room_ids);
 
-        $result = RoomResource::collection($rooms);
-        $result[] = BookingResource::collection($bookings);
+        $rooms = RoomResource::collection($rooms);
+        $bookings = BookingResource::collection($bookings);
 
 
 
@@ -183,10 +182,14 @@ class UserController extends Controller
         }
 
         $room_types = RoomType::all()
-            ->whereIn('id', $room_types_ids); 
+            ->whereIn('id', $room_types_ids);
 
-        $result[] = RoomTypeResource::collection($room_types);
+        $room_types = RoomTypeResource::collection($room_types);
 
+        $result  = $foods->merge($orders)
+            ->merge($rooms)
+            ->merge($bookings)
+            ->merge($room_types);
 
         return generateResponse(200, $result);
     }

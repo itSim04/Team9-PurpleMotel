@@ -1,4 +1,9 @@
 import { KeyValue } from '@angular/common';
+import { FoodAttributes } from './Food';
+import { OrderAttributes } from './Order';
+import { RoomAttributes } from './Room';
+import { BookingAttributes } from './Booking';
+import { RoomType } from './RoomType';
 
 
 
@@ -136,5 +141,46 @@ export interface UsersResponse {
         };
 
     }[];
+
+}
+
+export interface ProfileResponse {
+
+
+    status: string,
+    data: {
+        id: number,
+        type: 'Foods' | 'Orders' | 'Rooms' | 'RoomTypes' | 'Booking',
+        attributes: FoodAttributes | OrderAttributes | RoomAttributes | BookingAttributes | RoomType,
+        relationships: {
+            food_category: {
+                data: {
+                    id: number,
+                    type: string
+                }
+            },
+            user: {
+                data: {
+                    id: number,
+                    type: string
+                }
+            },
+            room_type: {
+                data: {
+                    id: number,
+                    type: string
+                }
+            },
+            room: {
+                data: {
+                    id: number,
+                    type: string
+                }
+            }
+        }
+    }[]
+
+
+
 
 }
