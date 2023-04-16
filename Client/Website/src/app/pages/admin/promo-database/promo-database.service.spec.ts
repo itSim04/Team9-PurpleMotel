@@ -1,5 +1,5 @@
-import { PromoCodeDatabaseService } from './promo-database.service';
 import { TestBed } from '@angular/core/testing';
+import { PromoDatabaseService } from './promo-database.service';
 
 
 describe('PromoDatabaseService', () => {
@@ -7,7 +7,7 @@ describe('PromoDatabaseService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PromoCodeDatabaseService);
+    service = TestBed.inject(PromoDatabaseService);
   });
 
   it('should be created', () => {

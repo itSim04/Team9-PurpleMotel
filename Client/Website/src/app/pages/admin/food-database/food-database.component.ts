@@ -1,8 +1,11 @@
+import { Stock } from './../../../models/Stock';
+import { Ingredient } from './../../../models/Ingredient';
 import { Component } from '@angular/core';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { FoodDatabaseService } from './food-database.service';
 import { Food } from 'src/app/models/Food';
+import { FoodCategory } from 'src/app/models/FoodCategory';
 
 @Component({
   selector: 'app-food-database',
@@ -22,18 +25,38 @@ export class FoodDatabaseComponent {
         key: 'label'
       },
       {
-        key: 'description'
-      },
-      {
         key: 'price',
         type: 'price'
       },
       {
-        key: 'is_served', 
+        key: 'is_served',
         type: 'boolean'
+      },
+      {
+        key: 'category',
+        type: 'link',
+        link: {
+
+          key: 'category',
+          format: (value) => (value as FoodCategory)?.label
+
+        }
       }
     ],
-    data_fetcher: () => this.food_service.getAllFoods().pipe(map(data => [data.foods, undefined]))
+    data_fetcher: undefined,
+    hover_linker: {
+
+      index: 1,
+      key: 'ingredients',
+      filter: (t1, t2) => !!(t2 as string[]).find(t => t == (t1 as string)),
+
+      format: (data) => {
+
+        return (data[1] as Stock)?.label;
+
+      }
+
+    }
 
   };
 
@@ -45,11 +68,9 @@ export class FoodDatabaseComponent {
       description: '',
       price: 0,
       is_served: true,
-      image_path: '',
+      category: '-1',
       ingredients: []
     },
-
-    //side_panel: 'empty',
 
     data_type: 'food',
 
@@ -68,7 +89,23 @@ export class FoodDatabaseComponent {
       },
       {
         key: 'ingredients',
-        type: 'number'
+        type: 'outer_choices',
+        outer_choices: {
+
+          index: 1,
+          format: (choice) => (choice as Stock)?.label,
+
+        }
+      },
+      {
+        key: 'category',
+        type: 'selection',
+        choices: {
+
+          link: true,
+          format: (choice) => (choice as FoodCategory)?.label
+
+        }
       }
     ],
 
@@ -84,4 +121,19 @@ export class FoodDatabaseComponent {
     delete_service: key => this.food_service.deleteFood(key),
     identifier: (data) => '' + data.label,
   };
+
+  extra_injection: DataInjection<FoodCategory> = {
+
+    title: 'Food Category',
+    permission: 'food_category',
+    displayed_columns: [{
+
+      key: 'label'
+
+    }],
+    data_fetcher: undefined
+
+  };
+
+  dual_fetcher: () => Observable<[Map<string, Food>, Map<string, FoodCategory>, Map<string, unknown>[]]> = () => this.food_service.getAllFoods().pipe(map(data => [data.foods, data.categories, [data.ingredients, data.stocks]]));
 }

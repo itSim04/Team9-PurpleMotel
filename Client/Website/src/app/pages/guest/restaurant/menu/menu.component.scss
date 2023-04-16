@@ -1,0 +1,142 @@
+.main {
+
+    background-color: #14274A;
+
+}
+
+.section {
+
+    width: fit-content;
+    display: flex;
+    padding: 16px;
+    justify-items: center;
+
+}
+
+.title {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 80px;
+    line-height: 100px;
+    margin: 0px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    color: #FFFFFF;
+
+}
+
+.title-2 {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 100px;
+    margin: 0px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    color: #FFFFFF;
+
+}
+
+
+.wrap {
+
+    width: fit-content;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    padding: 32px;
+
+}
+
+.wrap::before {
+
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 32px;
+    bottom: 0;
+    background-color: rgba(217, 217, 217, 0.4);
+    z-index: 1;
+}
+
+.cart-btn {
+
+    padding: 16px 64px 16px 64px;
+    font-size: 20px;
+    background-color: white;
+    font-family: 'Montserrat';
+    position: absolute;
+    right: 32px;
+
+}
+
+.cart-btn:hover {
+
+    background-color: lightgray;
+
+}
+
+.wrap:hover::before {
+    
+    background-color: rgba(120, 120, 120, 0.3);
+    
+
+}
+
+.wrap img+.content {
+    
+    z-index: 2;
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.content {
+
+    vertical-align: bottom;
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 45px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #14274A;
+}
+
+
+.add-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    background-color: #14274A;
+
+    font-weight: 400;
+    font-size: 16px;
+    padding: 8px;
+    line-height: 25px;
+    text-align: center;
+
+    text-transform: uppercase;
+    color: white;
+    border: 1px solid #14274A;
+}
+
+.add-btn:hover {
+
+    background-color: lightgray;
+
+}

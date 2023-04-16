@@ -20,8 +20,7 @@ class AnnouncementsFactory extends Factory
             'label' => fake()->firstName(),
             'body' => fake()->sentence(),
             'concerned_tier' => random_int(0, 2),
-            'author_id' => random_int(1, 40)
-            
+            'author_id' => random_int(1, 20)
         ];
     }
 }

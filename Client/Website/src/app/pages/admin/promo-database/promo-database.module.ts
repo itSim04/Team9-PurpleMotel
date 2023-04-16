@@ -12,8 +12,8 @@ import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module'
   ],
   imports: [
     CommonModule,
-    DatabaseModule,
-    NavBarModule
+    NavBarModule,
+    DatabaseModule
   ],
   exports: [
     PromoDatabaseComponent

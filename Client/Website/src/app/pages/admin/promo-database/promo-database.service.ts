@@ -4,11 +4,10 @@ import { Observable, map } from "rxjs";
 import { PromoCodesPackage, PromoCodesResponse, PromoCode, PromoCodePackage, PromoCodeResponse } from "src/app/models/PromoCode";
 import { UrlBuilderService } from "src/app/services/url-builder.service";
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class PromoCodeDatabaseService {
+export class PromoDatabaseService {
 
   constructor (private http: HttpClient, private url: UrlBuilderService) { }
 
