@@ -51,8 +51,6 @@ export class ActivityListItemComponent {
 
 
     if (user_id && this.activity?.key) {
-      this.registration_service.getAllRegistrations()
-
 
         this.registration_service.addNewRegistration({
 
@@ -63,7 +61,7 @@ export class ActivityListItemComponent {
 
 
 
-      });
+      }).subscribe();
 
     } else {
 
