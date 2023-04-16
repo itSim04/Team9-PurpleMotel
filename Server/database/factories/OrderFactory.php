@@ -20,7 +20,8 @@ class OrderFactory extends Factory
             'food_id' => random_int(0,40),
             'user_id' => random_int(0,40),
             'date' => fake()->date(),
-            'status' => random_int(1, 4)
+            'status' => random_int(1, 4),
+            'order_id' => random_int(1, 20)
         ];
     }
 }
