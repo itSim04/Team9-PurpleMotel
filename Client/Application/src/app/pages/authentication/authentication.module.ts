@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AuthenticationService } from './authentication.service';
@@ -9,8 +10,10 @@ import { RegisterComponent } from "./register/register.component";
 @NgModule({
   
   imports: [
+    CommonModule,
     FormsModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    RouterModule
   ],
   providers: [
     AuthenticationService,

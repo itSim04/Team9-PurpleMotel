@@ -47,8 +47,11 @@ export class LoginComponent {
             localStorage.removeItem('user');
             this.validated_credentials = false;
 
+            this.display_toast('Incorrect Credentials')
+            
           } else {
-
+            
+            this.display_toast('Connection Error')
             this.connection_error = true;
 
           }
@@ -56,15 +59,21 @@ export class LoginComponent {
       });
     } else {
 
-      const toast = await this.toastController.create({
-        message: 'Hello World!',
-        duration: 1500,
-        position: 'bottom'
-      });
-
-      await toast.present();
-
+      this.display_toast('Invalid Email')
+      
     }
+  }
+  
+  async display_toast(body: string) {
+    
+    const toast = await this.toastController.create({
+      message: body,
+      duration: 1500,
+      position: 'bottom'
+    });
+  
+    await toast.present();
+
   }
 
 }

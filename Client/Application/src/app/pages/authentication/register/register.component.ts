@@ -1,3 +1,4 @@
+import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from './../authentication.service';
 import { Component } from '@angular/core';
 import { genders, parseDate, validateEmail, validatePassword } from '../authentication.utility';
@@ -9,12 +10,12 @@ import { genders, parseDate, validateEmail, validatePassword } from '../authenti
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  first_name = "charbel";
-  last_name = "gerges";
-  email = "charfbe@ex.com";
-  password = "chacA$4ds";
-  confirm_password = "chacA$4ds";
-  phone_number = "12213";
+  first_name = "";
+  last_name = "";
+  email = "";
+  password = "";
+  confirm_password = "";
+  phone_number = "";
   date_of_birth = new Date();
   validated_email = true;
   validated_password = true;
@@ -23,16 +24,18 @@ export class RegisterComponent {
   gender = "2";
   password_match = true;
 
-  constructor(private authentication_service: AuthenticationService){}
+  final_page = false;
 
-  
+  constructor (private authentication_service: AuthenticationService, private toast_controller: ToastController) { }
+
+
   register() {
 
     this.connection_error = false;
     this.validated_email = validateEmail(this.email);
     this.validated_password = validatePassword(this.password);
     this.password_match = this.password === this.confirm_password;
-    console.log(parseDate(this.date_of_birth))
+    
     if (this.validated_email && this.password_match && this.validated_password) {
       this.loading = true;
       this.authentication_service.register({
@@ -48,12 +51,12 @@ export class RegisterComponent {
 
         next: result => {
 
-          // Incomplete
-        
+          console.log(result);
+
         }, error: error => {
 
           this.loading = false;
-          console.error(error)
+          console.error(error);
           if (error.status == 401) {
 
             localStorage.removeItem('token');
@@ -61,17 +64,33 @@ export class RegisterComponent {
 
           } else {
 
-            this.connection_error = true;
+            this.display_toast('Connection Error');
 
           }
         }
-      })
+      });
+    } else {
+
+      this.display_toast('Invalid Information')
+
     }
   }
 
-  get genders(){
+  get genders() {
     return genders;
   }
 
+  async display_toast(body: string) {
+    
+    const toast = await this.toast_controller.create({
+      message: body,
+      duration: 1500,
+      position: 'bottom'
+    });
   
+    await toast.present();
+
+  }
+
+
 }
