@@ -130,7 +130,7 @@ export class OrderDatabaseService {
 
     try {
       console.log(order);
-      return this.http.post<OrderResponse>(this.url.generateUrl('orders'), { ...order, food_id: '1', user_id: '68' }, { headers: headers }).pipe(
+      return this.http.post<OrderResponse>(this.url.generateUrl('orders'), { ...order, food_id: order.food_id, user_id: order.user_id }, { headers: headers }).pipe(
 
         map(result => {
 
