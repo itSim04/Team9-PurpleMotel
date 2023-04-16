@@ -75,7 +75,7 @@
 
 </div>
 <div mat-dialog-actions>
-    <button style="width: 30%;" class="back-btn" (click)="confirm_changes()"
+    <button style="width: 30%;" class="back-btn" (click)="confirm_changes(email, first_name, last_name, date_of_birth.toString(), phone_number, gender)"
         [disabled]="!email || !first_name || !last_name || !date_of_birth || !phone_number || !gender"
         [style.background]="(!email || !first_name || !last_name || !date_of_birth || !phone_number || !gender) ? 'gray' : '#14274A'"
         mat-button color="primary">

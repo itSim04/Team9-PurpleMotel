@@ -19,6 +19,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { ProfileDialogService } from './profile.service';
 import { CarouselModule } from 'src/app/components/general/carousel/carousel.module';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 
@@ -27,7 +28,8 @@ import { CarouselModule } from 'src/app/components/general/carousel/carousel.mod
 @NgModule({
   declarations: [
     ProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

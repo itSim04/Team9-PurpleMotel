@@ -24,6 +24,9 @@ import { UserDatabaseModule } from "./pages/admin/user-database/user-database.mo
 import { AuthenticationModule } from "./services/dialogs/authentication/authentication.module";
 import { ConfirmationDialogModule } from "./services/dialogs/confirmation/confirmation.module";
 import { ProfileModule } from './pages/guest/profile/profile.module';
+import { RestaurantModule } from './pages/guest/restaurant/restaurant.module';
+import { HomeModule } from './pages/guest/home/home.module';
+import { RoomsModule } from './pages/guest/rooms/rooms.module';
 
 
 @NgModule({
@@ -68,7 +71,10 @@ import { ProfileModule } from './pages/guest/profile/profile.module';
     LanguageDatabaseModule,
     NewsDatabaseModule,
     OrderDatabaseModule,
-    RegistrationDatabaseModule
+    RegistrationDatabaseModule,
+    RestaurantModule,
+    HomeModule,
+    RoomsModule
 
   ],
   providers: [
