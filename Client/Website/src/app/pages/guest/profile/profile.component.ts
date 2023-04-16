@@ -7,6 +7,8 @@ import { BrowsingDialogService } from 'src/app/services/dialogs/browsing/browsin
 import { BookingDatabaseService } from '../../admin/booking-database/booking-database.service';
 import { RoomType } from 'src/app/models/RoomType';
 import { filter } from 'rxjs';
+import { ProfileService } from './profile.service';
+import { Order } from 'src/app/models/Order';
 
 @Component({
   selector: 'app-profile',
@@ -17,28 +19,34 @@ import { filter } from 'rxjs';
       transition(':enter', [
         style({ opacity: 0 }),
         animate('300ms', style({ opacity: 1 })),
-      ])])]
+      ])])]
 
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
 
   bookings!: Map<string, Booking>;
-  
+  orders!: Map<string, Order>;
+  rooms!: Map<string, Room>;
+  room_types!: Map<string, RoomType>;
+  // la tabaa l order. why are u doing this? how can u feed it lal html bala hek??
 
   @ViewChild('carousel') carousel !: CarouselComponent;
 
-  constructor(private browsing_service: BrowsingDialogService, private booking_service: BookingDatabaseService){}
+  constructor(private browsing_service: BrowsingDialogService, private profile_service: ProfileService) { }
 
   async ngOnInit() {
 
-    this.booking_service.getAllBookings()?.subscribe((result => {
-     
-      this.bookings = result.bookings;
+    this.profile_service.getAllData().subscribe(data =>{
 
-    }));
-    console.log(this.bookings);
+      this.bookings = data.bookings;
+      this.orders = data.orders; // lae? u did not use this bl html
+      this.rooms = data.rooms;
+      this.room_types = data.room_types;
+
+    })
+
   }
-  
+
   browseBookingHistory = () => this.browseBookingHistoryHelper();
 
 

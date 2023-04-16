@@ -1,9 +1,13 @@
 import { KeyValue } from '@angular/common';
-import { FoodAttributes } from './Food';
-import { OrderAttributes } from './Order';
-import { RoomAttributes } from './Room';
-import { BookingAttributes } from './Booking';
+import { Food, FoodAttributes } from './Food';
+import { Order, OrderAttributes } from './Order';
+import { Room, RoomAttributes } from './Room';
+import { Booking, BookingAttributes } from './Booking';
 import { RoomType } from './RoomType';
+import { Activity } from './Activity';
+import { OrderContainsAttributes } from './OrderContains';
+import { Stock } from './Stock';
+import { IngredientAttributes } from './Ingredient';
 
 
 
@@ -149,38 +153,66 @@ export interface ProfileResponse {
 
     status: string,
     data: {
-        id: number,
-        type: 'Foods' | 'Orders' | 'Rooms' | 'RoomTypes' | 'Booking',
-        attributes: FoodAttributes | OrderAttributes | RoomAttributes | BookingAttributes | RoomType,
+        id: string,
+        type: 'Foods' | 'Orders' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient',
+        attributes: FoodAttributes | OrderAttributes | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes,
         relationships: {
             food_category: {
                 data: {
-                    id: number,
+                    id: string,
                     type: string
                 }
             },
             user: {
                 data: {
-                    id: number,
+                    id: string,
                     type: string
                 }
             },
             room_type: {
                 data: {
-                    id: number,
+                    id: string,
                     type: string
                 }
             },
             room: {
                 data: {
-                    id: number,
+                    id: string,
                     type: string
                 }
-            }
+            },
+            order: {
+                data: {
+                    id: string,
+                    type: string
+                }
+            },
+            food: {
+                data: {
+                    id: string,
+                    type: string
+                }
+            },
+            stock: {
+                data: {
+                    id: string,
+                    type: string
+                }
+            },
         }
     }[]
 
 
 
+
+}
+
+export interface ProfilePackage {
+    orders: Map<string, Order>;
+    bookings: Map<string, Booking>;
+    rooms: Map<string, Room>;
+    room_types: Map<string, RoomType>;
+    stocks: Map<string, Stock>;
+    foods: Map<string, Food>;
 
 }

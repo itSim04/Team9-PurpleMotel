@@ -5,14 +5,14 @@
 
             <td>
 
-                <h2 class="details-title">Imperial King Room</h2>
+                <h2 class="details-title">{{room.label}}</h2>
             </td>
         </tr>
         <tr>
             <td>
 
                 <img class="details-pic" src="../../../../../assets/room.png">
-            </td>
+            </td> 
         </tr>
     </table>
 
@@ -24,10 +24,11 @@
         <h4 class="properties-title">Date:</h4>
         <p class="properties-info">{{check_in}}-{{end_date}}</p>
         <h4 class="properties-title">Occupancy:</h4>
-        <p class="properties-info"> 2 adults + 1 child or 3 adults</p>
+        <p class="properties-info">{{formatOccupancy(room_type.adults_capacity, room_type.adults_with_kids_capacity, room_type.kids_capacity)}}</p>
+        
         <h4 class="properties-total">Total:</h4>
         <div style="display: flex;">
-            <h3 class="properties-price">USD 3450</h3>
+            <h3 class="properties-price">{{formatPrice(room_type.price)}}</h3>
             <button class="cancel-button">Cancel</button>
         </div>
     </div>

@@ -2,21 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ActivityResource;
 use App\Http\Resources\BookingResource;
 use App\Http\Resources\FoodResource;
+use App\Http\Resources\IngredientResource;
 use App\Http\Resources\OrderContainsResource;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\PermissionResource;
+use App\Http\Resources\RegistrationResource;
 use App\Http\Resources\RoomResource;
 use App\Http\Resources\RoomTypeResource;
+use App\Http\Resources\StocksResource;
 use App\Http\Resources\UserResource;
+use App\Models\Activity;
 use App\Models\Booking;
 use App\Models\Food;
+use App\Models\Ingredient;
 use App\Models\Order;
 use App\Models\OrderContains;
 use App\Models\Permission;
+use App\Models\Registration;
 use App\Models\Room;
 use App\Models\RoomType;
+use App\Models\Stocks;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -139,6 +147,20 @@ class UserController extends Controller
         // our result in a resource since we will not be operating on Foods.
         $foods = FoodResource::collection(Food::all()->whereIn('id', $food_ids));
 
+        // this is where this needs to happen. the pivot is called Ingredients. lets see.
+
+        $ingredients = Ingredient::all()->whereIn('food_id', $food_ids);
+
+        $stocks_ids = [];
+        foreach ($ingredients as $ingredient) {
+
+            $stocks_ids[] = $ingredient->stock_id;
+        }
+
+        $stock = StocksResource::collection(Stocks::all()->whereIn('id', $stocks_ids));
+
+
+
         // Now we just have to merge our results through the merge function. Notice how we did
         // not invoke the OrderResource previously as we were still operating on orders which is
         // why we'll do it here
@@ -154,7 +176,7 @@ class UserController extends Controller
         //      Model 2: Room - It has a foreign key type which will lead us to the room types
         //      Model 3: Room Types
 
-        // Good luck :) 
+       
 
         $bookings = Booking::all()
             ->where("user_id", $id);
@@ -186,10 +208,37 @@ class UserController extends Controller
 
         $room_types = RoomTypeResource::collection($room_types);
 
-        $result  = $foods->merge($orders)
+
+
+        $registrations = Registration::all()->where('user_id', $id);
+        $registrations_id = [];
+        foreach ($registrations as $registration) {
+
+            $registrations_id[] = $registration->activity_id;
+        }
+
+        $activities = ActivityResource::collection(Activity::all()->whereIn('id', $registrations_id));
+
+        
+        // 1. Validation that the user is authenticated.
+        // 2. Duplicated values remover. If the user booked the same room twice it will be downloaded twice.
+        
+
+        $result  = FoodResource::collection($foods)->merge($orders)
             ->merge($rooms)
             ->merge($bookings)
-            ->merge($room_types);
+            ->merge($room_types)
+            ->merge(OrderContainsResource::collection($order_food_pivot))
+            ->merge($stock)
+            ->merge(IngredientResource::collection($ingredients))
+            ->merge($activities)
+            ->merge(RegistrationResource::collection($registrations));
+
+        // im also gonna supply with Ingredients. in case we need the pivot later (we will eventually)
+
+    
+
+
 
         return generateResponse(200, $result);
     }
