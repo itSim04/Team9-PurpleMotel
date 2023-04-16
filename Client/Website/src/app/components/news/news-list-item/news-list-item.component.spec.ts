@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminDashboardComponent } from './admin-dashboard.component';
 
+import { NewsListItemComponent } from './news-list-item.component';
 
-describe('AdminDashboardComponent', () => {
-  let component: AdminDashboardComponent;
-  let fixture: ComponentFixture<AdminDashboardComponent>;
+describe('NewsListItemComponent', () => {
+  let component: NewsListItemComponent;
+  let fixture: ComponentFixture<NewsListItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminDashboardComponent ]
+      declarations: [ NewsListItemComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminDashboardComponent);
+    fixture = TestBed.createComponent(NewsListItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

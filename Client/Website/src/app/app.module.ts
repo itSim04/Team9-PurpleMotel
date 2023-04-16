@@ -28,6 +28,7 @@ import { NewsDatabaseModule } from './pages/admin/news-database/news-database.mo
 import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
 import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
+import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 
 
@@ -43,6 +44,7 @@ import { ServiceDatabaseModule } from './pages/admin/service-database/service-da
     StarRatingModule.forRoot(),
     RouterModule,
 
+    // Potential
     ConfirmationDialogModule,
     ChefListDialogModule,
     CartDialogModule,
@@ -57,6 +59,7 @@ import { ServiceDatabaseModule } from './pages/admin/service-database/service-da
     LanguageDatabaseModule,
     NewsDatabaseModule,
     OrderDatabaseModule,
+
     PromoDatabaseModule,
     RegistrationDatabaseModule,
     RoomDatabaseModule,
@@ -74,7 +77,6 @@ import { ServiceDatabaseModule } from './pages/admin/service-database/service-da
     RoomsModule,
 
     AuthenticationModule
-
 
   ],
   providers: [

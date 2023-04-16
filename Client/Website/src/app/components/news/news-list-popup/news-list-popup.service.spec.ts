@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { NewsDatabaseService } from './news-database.service';
 
+import { NewsListPopupService } from './news-list-popup.service';
 
-describe('NewsDatabaseService', () => {
-  let service: NewsDatabaseService;
+describe('NewsListPopupService', () => {
+  let service: NewsListPopupService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(NewsDatabaseService);
+    service = TestBed.inject(NewsListPopupService);
   });
 
   it('should be created', () => {

@@ -1,0 +1,22 @@
+<table class="body_table_properties">
+    <tr style="height: 35px;">
+    </tr>
+    <tr>
+        <td class="body_left_col">
+            <p class="body_table_header">{{news?.value?.title}}</p>
+            <p class="body_table_content">{{news?.value?.body}}</p>
+            <div>
+                <button class="button" (click)="openPopup()">
+                    Learn More
+                </button>
+                <p class="likes">{{news?.value?.likes}} Likes</p>
+            </div>
+        </td>
+
+        <td style="width: 30px;">
+            <!-- for spacing -->
+        </td>   
+        <td class="body_right_col">
+        </td>
+    </tr>
+</table>

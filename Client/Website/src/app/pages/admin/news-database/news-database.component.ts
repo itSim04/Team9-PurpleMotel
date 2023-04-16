@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { News } from 'src/app/models/News';
-import { NewsDatabaseService } from './news-database.service';
 import { map } from 'rxjs';
+import { NewsDatabaseService } from './news-database.service';
 
 @Component({
   selector: 'app-news-database',
