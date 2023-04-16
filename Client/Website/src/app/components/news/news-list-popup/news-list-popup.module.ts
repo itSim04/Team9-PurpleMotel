@@ -17,6 +17,7 @@ import { NewsListPopupComponent } from './news-list-popup.component';
     MatButtonModule
   ],
   exports: [
+    NewsListPopupComponent
   ]
 })
 export class NewsListPopupModule { }

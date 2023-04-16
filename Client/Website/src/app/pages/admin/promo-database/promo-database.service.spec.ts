@@ -3,7 +3,7 @@ import { PromoDatabaseService } from './promo-database.service';
 
 
 describe('PromoDatabaseService', () => {
-  let service: PromoCodeDatabaseService;
+  let service: PromoDatabaseService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

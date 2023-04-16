@@ -8,9 +8,11 @@ import { NewsListPopupService } from '../news-list-popup/news-list-popup.service
   templateUrl: './news-list-item.component.html',
   styleUrls: ['./news-list-item.component.scss']
 })
-export class NewsListItemComponent {
 
+export class NewsListItemComponent {
   @Input() news!: KeyValue<string, News>
+
+  image = Math.random() > 0.5 ? "../../../../assets/news-sample1.png" : "../../../../assets/news-sample2.png"
 
   constructor(private news_dialog: NewsListPopupService){ }
 

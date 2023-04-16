@@ -15,7 +15,7 @@ $image-path: '../../../../assets/';
 
 .body_table_header {
     color: $color-primary;
-    font-family: 'Abhaya Libre';
+    font-family: 'Abhaya Light';
     font-size: 40px;
     margin-left: 30px;
     margin-top: -10px;
@@ -31,17 +31,27 @@ $image-path: '../../../../assets/';
 
 .button {
     background-color: $color-primary;
+    border-color: transparent;
+    font-family: 'Roboto';
+    padding: 16px 64px;
     color: white;
     display: inline;
-    height: 30px;
-    margin-left: 50px;
+    // height: 30px;
+    margin-left: 32px;
     text-align: center;
-    width: 120px;
+    width: fit-content;
+}
+
+.button:hover {
+
+    background-color: lightgray;
+    color: #14274a
 }
 
 .likes {
     display: inline;
     color: $color-primary;
+    font-family: 'Inter';
     font-weight: 600;
     margin-left: 23%;
 }
@@ -51,6 +61,6 @@ $image-path: '../../../../assets/';
     height: 100%;
     margin-left: 30px;
     width: 450px;
-    background-image: url('#{$image-path}news-sample1.png');
+    // background-image: url('#{$image-path}news-sample1.png');
     height: 240px;
 }

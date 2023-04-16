@@ -28,7 +28,6 @@ import { NewsDatabaseModule } from './pages/admin/news-database/news-database.mo
 import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
 import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
-import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 
 
