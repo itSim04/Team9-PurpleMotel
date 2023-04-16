@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { User } from 'src/app/models/User';
+import { UserDatabaseService } from 'src/app/pages/admin/user-database/user-database.service';
 import { genders } from 'src/app/services/dialogs/authentication/authentication.utility';
 
 @Component({
@@ -17,9 +19,46 @@ export class EditProfileComponent {
   loading = false;
   gender = "2";
 
-  confirm_changes(){}
+  constructor(private userDatabaseService: UserDatabaseService) { }
 
-  get genders(){
+
+  confirm_changes(
+    email: string,
+    first_name: string,
+    last_name: string,
+    date_of_birth: string,
+    phone: string,
+    gender: string,
+  ) {
+    const user_id = localStorage.getItem('id');
+    const tier = (JSON.parse(localStorage.getItem('user') || '{}') as User).tier;
+    const type = (JSON.parse(localStorage.getItem('user') || '{}') as User).type;
+    const language = (JSON.parse(localStorage.getItem('user') || '{}') as User).language;
+
+
+    if (!user_id) {
+      throw new Error('User ID not found');
+    }
+
+    const updatedUser: User = {
+      tier,
+      language,
+      type,
+      email,
+      first_name,
+      last_name,
+      date_of_birth,
+      phone,
+      gender,
+      permissions: new Map<string, number>()
+
+    };
+
+    return this.userDatabaseService.modifyUser(user_id, updatedUser);
+  }
+
+
+  get genders() {
     return genders;
   }
 }

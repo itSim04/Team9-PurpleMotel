@@ -23,6 +23,7 @@ import { StockDatabaseModule } from "./pages/admin/stock-database/stock-database
 import { UserDatabaseModule } from "./pages/admin/user-database/user-database.module";
 import { AuthenticationModule } from "./services/dialogs/authentication/authentication.module";
 import { ConfirmationDialogModule } from "./services/dialogs/confirmation/confirmation.module";
+import { ProfileModule } from './pages/guest/profile/profile.module';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { ConfirmationDialogModule } from "./services/dialogs/confirmation/confir
     BookingDatabaseModule,
     OrderDatabaseModule,
 
+    ProfileModule,
     PromoDatabaseModule,
     StarRatingModule.forRoot(),
     AuthenticationModule,

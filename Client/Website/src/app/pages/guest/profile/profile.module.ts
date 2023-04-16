@@ -27,8 +27,6 @@ import { CarouselModule } from 'src/app/components/general/carousel/carousel.mod
 @NgModule({
   declarations: [
     ProfileComponent,
-    BookingDetailsComponent,
-    ActivityDetailsComponent,
     EditProfileComponent
   ],
   imports: [
@@ -49,6 +47,10 @@ import { CarouselModule } from 'src/app/components/general/carousel/carousel.mod
     MatSelectModule,
     CarouselModule
    
+  ],
+  exports: [
+    EditProfileComponent,
+    ProfileComponent
   ],
   providers: [
     ProfileDialogService
