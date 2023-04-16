@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ProfileDialogService } from './profile.service';
 import { CarouselModule } from 'src/app/components/general/carousel/carousel.module';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AuthenticationModule } from 'src/app/services/dialogs/authentication/authentication.module';
 
 
 
@@ -47,11 +48,13 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     MatDatepickerModule,
     MatNativeDateModule, 
     MatSelectModule,
-    CarouselModule
+    CarouselModule,
+    AuthenticationModule
    
   ],
   exports: [
     EditProfileComponent,
+    ChangePasswordComponent,
     ProfileComponent
   ],
   providers: [
