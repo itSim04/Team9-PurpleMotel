@@ -9,6 +9,8 @@ import { RoomType } from 'src/app/models/RoomType';
 import { filter } from 'rxjs';
 import { ProfileService } from './profile.service';
 import { Order } from 'src/app/models/Order';
+import { Activity } from 'src/app/models/Activity';
+import { Registration } from 'src/app/models/Registration';
 
 @Component({
   selector: 'app-profile',
@@ -28,7 +30,9 @@ export class ProfileComponent implements OnInit {
   orders!: Map<string, Order>;
   rooms!: Map<string, Room>;
   room_types!: Map<string, RoomType>;
-  // la tabaa l order. why are u doing this? how can u feed it lal html bala hek??
+  activities!: Map<string, Activity>;
+  registrations!: Map<string, Registration>;
+  
 
   @ViewChild('carousel') carousel !: CarouselComponent;
 
@@ -39,9 +43,11 @@ export class ProfileComponent implements OnInit {
     this.profile_service.getAllData().subscribe(data =>{
 
       this.bookings = data.bookings;
-      this.orders = data.orders; // lae? u did not use this bl html
+      this.orders = data.orders; 
       this.rooms = data.rooms;
       this.room_types = data.room_types;
+      this.activities = data.activities;
+      this.registrations = data.registrations;
 
     })
 

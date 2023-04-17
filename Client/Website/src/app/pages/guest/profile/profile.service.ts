@@ -7,6 +7,7 @@ import { Booking, BookingAttributes } from 'src/app/models/Booking';
 import { Food, FoodAttributes } from 'src/app/models/Food';
 import { Order, OrderAttributes } from 'src/app/models/Order';
 import { OrderContains, OrderContainsAttributes } from 'src/app/models/OrderContains';
+import { Registration, RegistrationAttributes } from 'src/app/models/Registration';
 import { Room, RoomAttributes } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { Stock } from 'src/app/models/Stock';
@@ -44,7 +45,8 @@ export class ProfileService {
             const user_room_types = new Map<string, RoomType>();
             const user_foods = new Map<string, Food>();
             const user_stocks = new Map<string, Stock>();
-
+            const user_activities = new Map<string, Activity>();
+            const user_registrations = new Map<string, Registration>();
 
             response.data.forEach(value => {
 
@@ -117,8 +119,15 @@ export class ProfileService {
                   }
                   break;
 
-                // clear?
+                case 'Activities':
 
+                  user_activities.set(value.id, value.attributes as Activity);
+                  break;
+
+                case 'Registration':
+
+                  user_registrations.set(value.id, { ...(value.attributes as RegistrationAttributes), activity_id: value.relationships.activity.data.id, user_id: value.relationships.user.data.id })
+                  break;
 
 
 
@@ -138,8 +147,10 @@ export class ProfileService {
               rooms: user_rooms,
               room_types: user_room_types,
               foods: user_foods,
-              stocks: user_stocks
-    
+              stocks: user_stocks,
+              activities: user_activities,
+              registrations: user_registrations
+
 
 
             };

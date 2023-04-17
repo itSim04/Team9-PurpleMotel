@@ -48,7 +48,24 @@
     <div>
         <h1 class="page-titles">My Activities</h1>
         <hr class="divider">
-        <app-activity-details></app-activity-details>
+        <app-carousel [browsePopup]="browseBookingHistory" #carousel>
+            <ng-container *ngFor="let registration of registrations | keyvalue; let i = index">
+                <ng-container *carouselItem>
+
+                    <app-activity-details
+                        style="width: 100%; display: flex; position: relative;left: 50%; transform: translateX(-50%); "
+                        [@fadeOut] [activity]="activities.get(registration.value.activity_id)!" 
+                        [registration]="registrations.get(registration.key)!" 
+                        [title]="activities.get(registration.value.activity_id)?.title!"
+                        [description]="activities.get(registration.value.activity_id)?.description!" 
+                        [capacity]="activities.get(registration.value.activity_id)?.capacity!" 
+                        [start_date]="registrations.get(registration.value.activity_id)?.start_date!" 
+                        [end_date]="registrations.get(registration.value.activity_id)?.end_date!" 
+                        [price]="activities.get(registration.value.activity_id)?.price!"  
+                        ></app-activity-details>
+                </ng-container>
+            </ng-container>
+        </app-carousel>
     </div>
 
     <app-footer></app-footer>

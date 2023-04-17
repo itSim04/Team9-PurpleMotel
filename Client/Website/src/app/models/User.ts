@@ -8,6 +8,7 @@ import { Activity } from './Activity';
 import { OrderContainsAttributes } from './OrderContains';
 import { Stock } from './Stock';
 import { IngredientAttributes } from './Ingredient';
+import { Registration, RegistrationAttributes } from './Registration';
 
 
 
@@ -154,8 +155,8 @@ export interface ProfileResponse {
     status: string,
     data: {
         id: string,
-        type: 'Foods' | 'Orders' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient',
-        attributes: FoodAttributes | OrderAttributes | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes,
+        type: 'Foods' | 'Orders' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient'| 'Registration' | 'Activities',
+        attributes: FoodAttributes | OrderAttributes | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes | Activity | RegistrationAttributes,
         relationships: {
             food_category: {
                 data: {
@@ -199,6 +200,12 @@ export interface ProfileResponse {
                     type: string
                 }
             },
+            activity: {
+                data: {
+                    id: string,
+                    type: string
+                }
+            }
         }
     }[]
 
@@ -214,5 +221,7 @@ export interface ProfilePackage {
     room_types: Map<string, RoomType>;
     stocks: Map<string, Stock>;
     foods: Map<string, Food>;
+    activities: Map<string, Activity>;
+    registrations: Map<string, Registration>;
 
 }
