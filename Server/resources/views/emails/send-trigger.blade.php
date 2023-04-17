@@ -3,7 +3,9 @@
 <p>The transaction happened on the model <b>{{ $model_name }}</b></p>
 
 @component('mail::panel')
-{{ $data }}
+@foreach ($changes as $item)
+    <p>{{ $item[0] }}: <del>{{ $item[1] }}</del> {{ $item[2] }}</p>
+@endforeach
 @endcomponent
 
 <p>The transaction was commited by <b>{{ $email }}</b></p>

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-use App\Events\CustomEvent;
+use App\Events\CustomCreateEvent;
+use App\Events\CustomDeleteEvent;
+use App\Events\CustomUpdateEvent;
 use App\Mail\SendTriggerEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +18,9 @@ class Room extends Model
     use HasFactory;
 
     protected $dispatchesEvents = [
-        'saved' => CustomEvent::class
+        'updated' => CustomUpdateEvent::class,
+        'created' => CustomCreateEvent::class,
+        'deleted'=> CustomDeleteEvent::class
     ];
     protected $fillable=[
         

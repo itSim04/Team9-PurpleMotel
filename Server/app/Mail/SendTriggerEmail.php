@@ -18,11 +18,41 @@ class SendTriggerEmail extends Mailable
      */
     public $data;
     public $email;
+    public $changes;
 
     public function __construct($data, $email)
     {
         $this->data = $data;
+        switch ($data->type) {
+
+            case 0:
+
+                break;
+
+            case 1:
+
+                $this->changes = $this->buildUpdateMessage($data->getOriginal(), $data->getChanges());
+                break;
+
+            case 2:
+
+                break;
+        }
         $this->email = $email;
+    }
+
+    public function buildUpdateMessage($old_values, $new_values)
+    {
+
+        $changes = [];
+        foreach ($old_values as $key => $value) {
+
+            if ($key != 'updated_at' && array_key_exists($key, $new_values)) {
+
+                $changes[] = [ucwords($key), $value, $new_values[$key]];
+            }
+        }
+        return $changes;
     }
 
     /**
@@ -32,6 +62,6 @@ class SendTriggerEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.send-trigger', ['code' => $this->data, 'email' => $this->email, 'model_name' => class_basename($this->data)]);
+        return $this->markdown('emails.send-trigger', ['model_name' => class_basename($this->data)]);
     }
 }

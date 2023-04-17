@@ -12,20 +12,15 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
 
-class CustomEvent
+class CustomDeleteEvent extends CustomEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $data;
-    public $user;
-    public $type;
     /**
      * Create a new event instance.
      */
-    public function __construct($data, $type)
+    public function __construct($data)
     {
-        $this->data = $data;
-        $this->type = $type;
-        $this->user = Auth::user();
+        parent::__construct($data, 2);
     }
 }
