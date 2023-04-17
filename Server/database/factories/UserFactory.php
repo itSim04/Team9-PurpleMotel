@@ -25,7 +25,7 @@ class UserFactory extends Factory
             'tier' => random_int(0, 2),
             'phone' => fake()->unique()->phoneNumber(),
             'language' => random_int(1, 10),
-            'type' => random_int(1, 40),
+            'type' => random_int(1, 20),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

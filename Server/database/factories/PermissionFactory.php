@@ -21,7 +21,7 @@ class PermissionFactory extends Factory
             $permissions = ['room', 'user', 'booking', 'language', 'stock', 'room_type', 'user_type'];
 
             return [
-                'concerned_party' => random_int(1, 30),
+                'concerned_party' => random_int(1, 20),
                 'is_singular' => fake()->boolean(),
                 'label' => $permissions[random_int(0, 6)],
                 'read' => fake()->boolean(),

@@ -10,6 +10,7 @@ class Food extends BaseModel
     protected $fillable = [
         'label',
         'description',
+        'category',
         'price',
         'is_served',
     ];
