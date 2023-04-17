@@ -3,7 +3,7 @@ import { PromoDatabaseService } from './promo-database.service';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { map } from 'rxjs';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { PromoCodeDatabaseService } from './promo-database.service';
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 
 @Component({
   selector: 'app-promo-database',
@@ -38,8 +38,8 @@ export class PromoDatabaseComponent {
     side_panel: 'empty',
     default_state: {
       change: '',
-      start_date: new Date(),
-      end_date: new Date(),
+      start_date: parseDate(new Date()),
+      end_date: parseDate(new Date()),
     },  
     data_type: 'Promo Code',
 

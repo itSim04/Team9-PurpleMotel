@@ -3,8 +3,8 @@ import { KeyValue } from "@angular/common";
 export interface PromoCode {
 
     change: string,
-    start_date: Date,
-    end_date: Date
+    start_date: string,
+    end_date: string
   
   }
 

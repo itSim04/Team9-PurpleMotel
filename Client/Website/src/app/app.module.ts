@@ -26,7 +26,6 @@ import { AnnouncementDatabaseModule } from './pages/admin/announcement-database/
 import { LanguageDatabaseModule } from './pages/admin/language-database/language-database.module';
 import { NewsDatabaseModule } from './pages/admin/news-database/news-database.module';
 import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
-import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
 import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';

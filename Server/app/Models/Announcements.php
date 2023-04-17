@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Announcements extends Model
+class Announcements extends BaseModel
 {
     use HasFactory;
     protected $fillable = [
         'label',
-        'body'
+        'body',
+        'concerned_tier',
+        'author_id'
     ];
 }

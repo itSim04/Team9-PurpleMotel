@@ -3,7 +3,7 @@
 namespace App\Policies;
 use App\Models\User;
 
-class UserTypePolicy
+class StocksPolicy
 {
 
     private $permission_name = 'stock';

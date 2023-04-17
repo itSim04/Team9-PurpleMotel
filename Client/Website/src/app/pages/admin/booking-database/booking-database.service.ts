@@ -143,7 +143,7 @@ export class BookingDatabaseService {
 
     try {
       console.log(booking);
-      return this.http.post<BookingResponse>(this.url.generateUrl('bookings'), { ...booking, room_id: '1', user_id: '68' }, { headers: headers }).pipe(
+      return this.http.post<BookingResponse>(this.url.generateUrl('bookings'), { ...booking, room_id: booking.room_id, user_id: booking.user_id }, { headers: headers }).pipe(
 
         map(result => {
 

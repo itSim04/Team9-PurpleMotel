@@ -70,12 +70,12 @@ export class RegistrationDatabaseComponent {
     fields: [
       {
         key: 'start_date',
-        condition: (data) => (data as number) > 0,
+        condition: (data) => (data as string) != '0',
         type: 'date'
       },
       {
         key: 'end_date',
-        condition: (data) => (data as number) > 0,
+        condition: (data) => (data as string) != '0',
         type: 'date'
       },
       {
@@ -84,7 +84,7 @@ export class RegistrationDatabaseComponent {
         outer_choices: {
 
           format: (choice) => (choice as User)?.first_name + ' ' + (choice as User)?.last_name,
-          index: 3
+          index: 2
 
 
         }
@@ -98,7 +98,7 @@ export class RegistrationDatabaseComponent {
 
             return (choice as Activity)?.title;
           },
-          index: 1
+          index: 0
 
 
         }

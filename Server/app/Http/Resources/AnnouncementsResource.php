@@ -19,7 +19,16 @@ class AnnouncementsResource extends JsonResource
             'type' => 'Announcements',
             'attributes' => [
                 'label' => $this->label,
-                'body' => $this->body
+                'body' => $this->body,
+                'concerned_tier' => $this->concerned_tier
+            ],
+            'relationships' => [
+                'user' => [
+                    "data" => [
+                        'id' => str($this->author_id),
+                        "type" => "Users"
+                    ]
+                ],
             ]
         ];
     }

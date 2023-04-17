@@ -64,7 +64,9 @@ export class NewsDatabaseComponent {
       },
       {
         key: 'likes',
-        type: 'number'
+        type: 'number',
+        readonly: true,
+        condition: () => true
       }
     ],
 

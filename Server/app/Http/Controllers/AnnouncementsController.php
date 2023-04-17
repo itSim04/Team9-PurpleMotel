@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\AnnouncementsResource;
+use App\Http\Resources\UserResource;
 use App\Models\Announcements;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AnnouncementsController extends Controller
@@ -13,7 +15,9 @@ class AnnouncementsController extends Controller
     protected $options = [
 
         'label' => 'required|string|max:64',
-        'body' => 'string|max:255',
+        'body' => 'required|string|max:255',
+        'concerned_tier' => 'required|numeric',
+        'author_id' => 'required|numeric'
 
     ];
 
@@ -22,7 +26,7 @@ class AnnouncementsController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource);
+        return indexTemplate($this->model, $this->resource, [User::class => UserResource::class]);
     }
 
     /**
@@ -39,7 +43,7 @@ class AnnouncementsController extends Controller
     public function show(int $id)
     {
 
-        return showTemplate($this->model, $this->resource, $id);
+        return showTemplate($this->model, $this->resource, $id, User::class, UserResource::class);
     }
 
     /**
