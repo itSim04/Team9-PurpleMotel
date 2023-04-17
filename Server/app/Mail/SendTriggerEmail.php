@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -17,31 +18,60 @@ class SendTriggerEmail extends Mailable
      * @return void
      */
     public $data;
+
+    public $type;
     public $email;
     public $changes;
 
-    public function __construct($data, $email)
+    public $extra;
+    public $model_name;
+
+    public function __construct($data, $email, $type)
     {
         $this->data = $data;
-        switch ($data->type) {
-
-            case 0:
-
-                break;
-
-            case 1:
-
-                $this->changes = $this->buildUpdateMessage($data->getOriginal(), $data->getChanges());
-                break;
-
-            case 2:
-
-                break;
-        }
+        $this->type = $type;
         $this->email = $email;
+        $this->model_name = class_basename($data);
     }
 
     public function buildUpdateMessage($old_values, $new_values)
+    {
+
+        $changes = [];
+        foreach ($old_values as $key => $value) {
+
+            if ($key != 'updated_at' && array_key_exists($key, $new_values)) {
+
+                $changes[] = [ucwords($key), $value, $new_values[$key]];
+            }
+        }
+        return $changes;
+    }
+    public function buildDeleteMessage($data)
+    {
+
+        $changes = [];
+        foreach ($data as $key => $value) {
+
+            if ($key != 'updated_at' && $key != 'created_at') {
+
+                $changes[] = [ucwords($key), $value];
+            }
+        }
+        return $changes;
+    }
+
+    public function buildAddMessage($data)
+    {
+
+        $changes = [];
+        foreach ($data as $value) {
+
+            $changes[] = [ucwords($value), $this->data->$value];
+        }
+        return $changes;
+    }
+    public function buildCustomMessage($old_values, $new_values)
     {
 
         $changes = [];
@@ -62,6 +92,28 @@ class SendTriggerEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.send-trigger', ['model_name' => class_basename($this->data)]);
+        switch ($this->type) {
+
+            case 0:
+
+                $this->changes = $this->buildAddMessage($this->data->getFillable());
+                return $this->markdown('emails.send-create-trigger');
+
+            case 1:
+
+                $this->changes = $this->buildUpdateMessage($this->data->getOriginal(), $this->data->getChanges());
+                return $this->markdown('emails.send-update-trigger', ['id' => $this->data->id]);
+
+
+            case 2:
+
+                $this->changes = $this->buildDeleteMessage($this->data->getOriginal());
+                return $this->markdown('emails.send-delete-trigger');
+
+
+            default:
+
+                throw new Exception("Invalid type");
+        }
     }
 }

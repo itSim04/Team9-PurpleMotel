@@ -197,6 +197,7 @@ export class UserDatabaseComponent {
           key: (choice) => choice[0].toString()
         }
       },
+      
       {
         key: 'type',
         type: 'selection',

@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
-use App\Events\CustomEvent;
+use App\Events\CustomCreateEvent;
+use App\Events\CustomDeleteEvent;
+use App\Events\CustomCustomEvent;
+use App\Events\CustomUpdateEvent;
+use App\Listeners\SendCustomNotifications;
 use App\Listeners\SendNotifications;
+use App\Mail\SendCustomTriggerEmail;
 use App\Mail\SendTriggerEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -21,8 +26,17 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        CustomEvent::class => [
+        CustomUpdateEvent::class => [
             SendNotifications::class,
+        ],
+        CustomCreateEvent::class => [
+            SendNotifications::class,
+        ],
+        CustomDeleteEvent::class => [
+            SendNotifications::class,
+        ],
+        CustomCustomEvent::class => [
+            SendCustomNotifications::class,
         ]
         
     ];

@@ -102,14 +102,26 @@ export class UserDatabaseService {
 
   }
 
-  addNewUser(user: UserAttributes) {
+  addNewUser(user: User) {
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
+    const permissions: any = {};
+    user.permissions.forEach((permission, label) => {
+
+      permissions[label] = permission;
+
+    });
+
+    const user_request = clone(user);
+    user_request.permissions = permissions;
+    user_request.password = 'password';
+    console.log(user_request.permissions);
+
     try {
 
-      return this.http.post<UserResponse>(this.url.generateUrl('users'), { ...user, password: 'password', date_of_birth: '1970-01-01', language: '0' }, { headers: headers }).pipe(
+      return this.http.post<UserResponse>(this.url.generateUrl('users'), user_request, { headers: headers }).pipe(
 
         map(result => {
 

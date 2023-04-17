@@ -12,15 +12,27 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
 
-class CustomUpdateEvent extends CustomEvent
+class CustomCustomEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $old_data;
+    public $new_data;
+    public $user;
+    public $type;
+    public $extra;
+    public $model_name;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($data)
+    public function __construct($old_data, $new_data, $extra, $model_name, $type)
     {
-        parent::__construct($data, 1);
+        $this->old_data = $old_data;
+        $this->new_data = $new_data;
+        $this->extra = $extra;
+        $this->model_name = $model_name;
+        $this->type = $type;
+        $this->user = Auth::user();
     }
 }

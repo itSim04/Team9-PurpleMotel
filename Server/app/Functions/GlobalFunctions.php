@@ -1,5 +1,8 @@
 <?php
 
+use App\Events\CustomCustomEvent;
+use App\Events\CustomEvent;
+use App\Events\CustomUpdateEvent;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +63,6 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
                 $included[] = $item;
             }
         }
-
     } else {
 
         foreach ($extra_model as $key => $extra) {
@@ -72,7 +74,7 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
         }
     }
 
-    
+
 
     return generateResponse(200, $resource::collection($model::all()), $included);
 }
@@ -117,13 +119,6 @@ function updateTemplate(Request $request, string $model, string $id, string $res
 
     try {
 
-        if (isset($request->permissions)) {
-            foreach ($request->permissions as $key => $permission) {
-
-                addPermissions($key, $id, $permission, $singular);
-            }
-        }
-
         if (!empty($updateData)) {
 
             $data = $old->update($updateData);
@@ -131,13 +126,13 @@ function updateTemplate(Request $request, string $model, string $id, string $res
 
             if ($data) {
 
-
                 return generateResponse(201, new $resource($old));
             } else {
 
                 return generateResponse(500, "An error occured", true);
             }
         } else {
+
             return generateResponse(200);
         }
     } catch (Exception $e) {
@@ -162,13 +157,32 @@ function addPermissions($label, string $concerned, $permission, bool $singular)
     ];
 
     if (!$old) {
-
-        $new = Permission::create($new);
         return $new;
     } else {
 
-        $old->update($new);
-        return $old;
+        return null;
+    }
+}
+function updatePermissions($label, string $concerned, $permission, bool $singular)
+{
+    $old = Permission::where('concerned_party', $concerned)->where('label', $label)->first();
+    $permissions = sprintf("%03d", decbin(intval($permission)));
+    $new = [
+
+        'label' => $label,
+        'concerned_party' => $concerned,
+        'read' => $permissions[2],
+        'write' => $permissions[1],
+        'delete' => $permissions[0],
+        'is_singular' => $singular
+
+    ];
+
+    if (!$old) {
+        return null;
+    } else {
+
+        return [$old->id, $new];
     }
 }
 function storeTemplate(Request $request, string $model, string $resource, array $options, bool $singular = true)
@@ -182,13 +196,6 @@ function storeTemplate(Request $request, string $model, string $resource, array 
     try {
 
         $data = $model::create($credentials);
-
-        if (isset($request->permissions)) {
-            foreach ($request->permissions as $key => $permission) {
-
-                addPermissions($key, $data->id, $permission, $singular);
-            }
-        }
 
         return generateResponse(201, new $resource($data));
     } catch (Exception $e) {
@@ -209,23 +216,22 @@ function showTemplate(string $model, string $resource, int $id, string $extra_mo
 
         return generateResponse(404, $id . " not in Database", true);
     }
-}
+} {
+    function destroyTemplate(string $model, int $id, string $safety_check = null, string $foreign_key = null, string $primary_key = null, string $safety_resource = null)
+    {
+        if ($safety_check) {
 
-function destroyTemplate(string $model, int $id, string $safety_check = null, string $foreign_key = null, string $primary_key = null, string $safety_resource = null)
-{
+            $data = $model::find($id);
 
-    if ($safety_check) {
+            return generateResponse(200, $safety_resource::collection($safety_check::where($foreign_key, $data->$primary_key)->get()), [], true);
+        }
 
-        $data = $model::find($id);
+        if ($model::destroy($id)) {
 
-        return generateResponse(200, $safety_resource::collection($safety_check::where($foreign_key, $data->$primary_key)->get()), [], true);
-    }
+            return generateResponse(200, null);
+        } else {
 
-    if ($model::destroy($id)) {
-
-        return generateResponse(200, null);
-    } else {
-
-        return generateResponse(404, $id . ' not in database', true);
+            return generateResponse(404, $id . ' not in database', true);
+        }
     }
 }
