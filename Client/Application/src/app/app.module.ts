@@ -1,3 +1,4 @@
+import { TabsPage } from './tabs/tabs.page';
 import { AuthenticationModule } from './pages/authentication/authentication.module';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,7 +13,8 @@ import { routes } from './app.routes';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TabsPage
   ],
   imports: [
     CommonModule,

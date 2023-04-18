@@ -1,0 +1,107 @@
+.container {
+
+    transition: all 250ms ease-in-out;
+    padding: 6px 12px;
+    border-radius: 40px;
+    // margin: 24px;
+    width: 80%;
+    position: relative;
+    bottom: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+.block-container {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+    // padding: 8px 16px;
+    // padding: 12px;
+    border-radius: 40px;
+
+}
+
+.block-container-active {
+
+    padding: 8px 12px;
+    background-color: white;
+    width: 100%;
+    // height: 100%;
+
+
+}
+.block-container-active2 {
+
+    transition: all 250ms ease-in-out;
+    padding: 8px 2px 8px 8px;
+    background-color: white;
+    width: 100%;
+    // height: 100%;
+
+
+}
+
+.block-container-inactive {
+
+    transition: all 250ms ease-in-out;
+    // padding: 6px 0px;
+    background-color: transparent;
+
+}
+
+.tab {
+    
+    background-color: transparent;
+    display: inline-block;
+    
+    
+}
+
+.cell {
+    
+    padding: 8px 16px;
+    // border: white solid 1px;
+    // justify-content: center;
+
+}
+
+
+.active-text {
+    
+    visibility: visible;
+    
+}
+
+.inactive-text {
+    
+    visibility: hidden;
+    
+}
+
+.text-active {
+    
+    transition: all 2500ms ease-in-out;
+    margin: 4px;
+    font-family: 'Asap';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    /* identical to box height */
+    display: inline-block;
+
+
+    color: #14274A;
+
+}
+
+.image {
+
+    display: inline;
+    width: 8vw;
+
+}

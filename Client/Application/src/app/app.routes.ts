@@ -1,3 +1,5 @@
+import { HomePage } from './home/home.page';
+import { TabsPage } from './tabs/tabs.page';
 import { BrowseRoomsPage } from './pages/guest/rooms/browse-rooms/browse-rooms.page';
 
 import { Routes } from '@angular/router';
@@ -7,13 +9,7 @@ import { RegisterComponent } from './pages/authentication/register/register.comp
 
 export const routes: Routes = [
 
-  {
 
-    path: '',
-    redirectTo: 'auth',
-    pathMatch: 'full',
-
-  },
   {
 
     path: 'auth',
@@ -37,21 +33,42 @@ export const routes: Routes = [
 
     ]
   },
+
+
   {
-    path: 'rooms',
+
+    path: '',
+    component: TabsPage,
     children: [
       {
-        path: 'browse',
-        component: BrowseRoomsPage
+        path: 'rooms',
+        children: [
+          {
+            path: 'browse',
+            component: BrowseRoomsPage
+          },
+          {
+            path: '',
+            redirectTo: 'browse',
+            pathMatch: 'full'
+          }
+        ]
       },
       {
-        path: '',
-        redirectTo: 'browse',
-        pathMatch: 'full'
+        path: 'home',
+        component: HomePage
+      },
+      {
+        path: 'services',
+        component: HomePage
+      },
+      {
+        path: 'restaurant',
+        component: HomePage
       }
-
     ]
-  }
+  },
+
 
   //   {
   //     path: "",
