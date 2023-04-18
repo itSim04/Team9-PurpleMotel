@@ -22,7 +22,7 @@ export class ProfileService {
   orders = new Map<string, Order>();
   activities = new Map<string, Activity>();
   bookings = new Map<string, Booking>();
-
+  
 
   constructor(private http: HttpClient, private url: UrlBuilderService) { }
 

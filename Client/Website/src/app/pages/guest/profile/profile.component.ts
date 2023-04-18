@@ -32,7 +32,9 @@ export class ProfileComponent implements OnInit {
   room_types!: Map<string, RoomType>;
   activities!: Map<string, Activity>;
   registrations!: Map<string, Registration>;
-  
+  user = JSON.parse(localStorage.getItem!('user')!);
+  first_name = this.user.first_name;
+  last_name = this.user.last_name;
 
   @ViewChild('carousel') carousel !: CarouselComponent;
 
