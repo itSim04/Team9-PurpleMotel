@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('effect_promo_rooms', function (Blueprint $table) {
             $table->id();
             $table->integer('promo_id');
-            $table->integer('room_id');
+            $table->integer('effect_id');
+            $table->tinyInteger('type');
             $table->timestamps();
         });
     }
