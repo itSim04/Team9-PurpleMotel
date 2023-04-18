@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\EffectPromoCodes;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class EffectPromoCodesSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        EffectPromoCodes::factory(20)->create();
     }
 }

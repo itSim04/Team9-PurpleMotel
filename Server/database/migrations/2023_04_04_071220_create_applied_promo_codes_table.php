@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('effect_promo_rooms', function (Blueprint $table) {
+        Schema::create('applied_promo_codes', function (Blueprint $table) {
             $table->id();
             $table->integer('promo_id');
-            $table->integer('effect_id');
-            $table->tinyInteger('type');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('effect_promo_rooms');
+        Schema::dropIfExists('applied_promo_users');
     }
 };
