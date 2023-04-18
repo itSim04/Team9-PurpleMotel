@@ -19,7 +19,7 @@ class EligibilityPromoCodesFactory extends Factory
         return [
             'promo_id' => random_int(1, 20),
             'effect_id' => random_int(1, 20),
-            'type' => random_int(0, 1)
+            'type' => random_int(0, 2)
         ];
     }
 }

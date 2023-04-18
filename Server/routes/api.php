@@ -60,6 +60,9 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('ingredients', IngredientController::class);
     Route::apiResource('foods', FoodController::class);
     Route::apiResource('orders', OrderController::class);
+    Route::apiResource('promocodes', PromoCodeController::class);
+    Route::get('applyPromo/{id}', [PromoCodeController::class, 'applyPromo']);
+    Route::get('appliedCodes/{id}', [PromoCodeController::class, 'isAlreadyApplied']);
 
     Route::middleware('auth:api')->group(function () {
 
@@ -92,7 +95,6 @@ Route::prefix('v1')->group(function () {
         //     Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Foods');
         // });
         Route::apiResource('registrations', RegistrationController::class);
-        Route::apiResource('promocodes', PromoCodeController::class);
 
         Route::prefix('stocks')->controller(StocksController::class)->group(function () {
 
