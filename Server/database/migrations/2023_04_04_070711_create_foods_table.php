@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('label');
             $table->string('description');
             $table->integer('price'); 
+            $table->integer('category'); 
             $table->boolean('is_served');
             $table->timestamps();
         });

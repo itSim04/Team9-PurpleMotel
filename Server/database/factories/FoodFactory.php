@@ -20,6 +20,7 @@ class FoodFactory extends Factory
             'label' => fake()->firstName(),
             'description'  => fake()->sentence(),
             'price' => fake()->randomFloat(2, 0, 5000),
+            'category' => random_int(0, 6),
             'is_served' => fake()->boolean(),
         ];
     }

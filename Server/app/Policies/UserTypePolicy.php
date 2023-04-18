@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Policies;
-
-use App\Models\UserType;
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
 
 class UserTypePolicy
 {
+
+    private $permission_name = 'user_type';
+
     /**
      * Create a new policy instance.
      */
@@ -19,7 +20,6 @@ class UserTypePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
      * @return mixed
      */
     public function viewAny(User $user)
@@ -28,13 +28,13 @@ class UserTypePolicy
             return true;
         }
         $permissions = extractPermissions($user->id, $user->type);
-        if (!array_key_exists('user_type', $permissions)) {
+        if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
 
         } else {
 
-            return $permissions['user_type'][0];
+            return $permissions[$this->permission_name][0];
 
         }
     }
@@ -43,23 +43,22 @@ class UserTypePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user_type
-     * @param  string  $model
      * @return bool
      */
-    public function view(User $user, string $model): bool
+    public function view(User $user): bool
     {
 
         if($user->tier == 2) {
             return true;
         }
         $permissions = extractPermissions($user->id, $user->type);
-        if (!array_key_exists('user_type', $permissions)) {
+        if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
 
         } else {
 
-            return $permissions['user_type'][0];
+            return $permissions[$this->permission_name][0];
             
         }
     }
@@ -70,13 +69,13 @@ class UserTypePolicy
             return true;
         }
         $permissions = extractPermissions($user->id, $user->type);
-        if (!array_key_exists('user_type', $permissions)) {
+        if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
 
         } else {
 
-            return $permissions['user_type'][1];
+            return $permissions[$this->permission_name][1];
             
         }
 
@@ -88,13 +87,13 @@ class UserTypePolicy
             return true;
         }
         $permissions = extractPermissions($user->id, $user->type);
-        if (!array_key_exists('user_type', $permissions)) {
+        if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
 
         } else {
 
-            return $permissions['user_type'][2];
+            return $permissions[$this->permission_name][2];
             
         }
 
