@@ -1,0 +1,168 @@
+.title {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-size: 24px;
+    letter-spacing: 0.02em;
+    color: #14274A;
+
+}
+
+table {
+
+    width: 100%;
+
+}
+
+th {
+
+    font-family: 'Roboto' !important;
+    text-align: center;
+    background-color: #14274A !important;
+    color: white;
+
+}
+
+.cell {
+
+    color: #14274A;
+    font-family: 'Roboto' !important;
+
+
+}
+
+.rating {
+
+    width: fit-content !important
+
+}
+
+.title-1 {
+
+    @extend .title;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.title-2 {
+
+    @extend .title;
+    font-weight: 700;
+
+}
+
+.follow-mouse {
+    
+    position: fixed;
+    padding: 10px;
+    background-color: #14274A;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+
+}
+
+mat-form-field {
+
+    margin: 6px;
+
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    background-color: lightgray;
+}
+
+
+.add-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    color: white;
+
+    font-weight: 400;
+    font-size: 16px;
+    padding: 16px;
+    padding-left: 32px;
+    padding-right: 32px;
+    line-height: 25px;
+    text-align: center;
+
+    text-transform: uppercase;
+
+    background: #14274A;
+    border: 1px solid #14274A;
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+
+}
+
+.add-btn2 {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    color: white;
+
+    font-weight: 400;
+    font-size: 16px;
+    padding: 16px;
+    padding-left: 32px;
+    padding-right: 32px;
+    line-height: 25px;
+    text-align: center;
+
+    text-transform: uppercase;
+
+    background: #14274A;
+    border: 1px solid #14274A;
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+
+}
+
+.reset-btn {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    color: white !important;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    text-align: center;
+
+    text-transform: uppercase;
+
+    background: #14274A;
+    border-radius: 0px;
+    padding-top: auto;
+
+}
+
+.divider {
+
+    margin-left: 20%;
+    width: 60%;
+    border-top-color: #14274A;
+    margin-top: 8px;
+
+}
+
+.label {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-size: 16px;
+    color: #14274A;
+
+}

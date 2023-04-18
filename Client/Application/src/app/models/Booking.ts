@@ -36,6 +36,11 @@ export interface BookingsPackage {
   room_types: Map<string, RoomType>;
 
 }
+export interface RawBookingsPackage {
+
+  bookings: Map<string, Booking>;
+
+}
 
 export interface BookingResponse {
   status: string,

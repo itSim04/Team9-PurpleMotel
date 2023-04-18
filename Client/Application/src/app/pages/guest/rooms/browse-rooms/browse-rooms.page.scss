@@ -1,0 +1,26 @@
+.main {
+
+
+    background-image: url('../../../../../assets/rooms/rooms-bgd-1.png');
+    background-size: cover;
+    background-color: #14274A55;
+    background-blend-mode: soft-light;
+    height: 70%;
+    position: relative;
+}
+
+.title {
+
+    font-family: 'Asap';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 39px;
+    text-transform: uppercase;
+    color: white;
+    width: fit-content;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translateX(-50%) translateY(-50%);
+}

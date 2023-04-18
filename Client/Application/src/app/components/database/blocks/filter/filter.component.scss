@@ -1,0 +1,34 @@
+.label {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-size: 16px;
+    color: #14274A;
+
+}
+
+.reset-btn {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    color: white !important;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    text-align: center;
+
+    text-transform: uppercase;
+
+    background: #14274A;
+    border-radius: 0px;
+    padding-top: auto;
+
+}
+
+
+.reset-btn:hover {
+    
+    border: 1px solid #4668a6;
+    background: #4668a6;
+}

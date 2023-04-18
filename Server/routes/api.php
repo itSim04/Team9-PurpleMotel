@@ -50,16 +50,17 @@ Route::prefix('v1')->group(function () {
         Route::get('forgot-password-2', 'forgotPassword2');
     });
     
-    Route::apiResource('announcements', AnnouncementsController::class);
-
+    
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
     Gate::policy(Stocks::class, StocksPolicy::class);
     Gate::policy(Food::class, FoodPolicy::class);
+    Route::apiResource('announcements', AnnouncementsController::class);
     Route::apiResource('food-categories', FoodCategoryController::class);
     Route::apiResource('ingredients', IngredientController::class);
     Route::apiResource('foods', FoodController::class);
     Route::apiResource('orders', OrderController::class);
+    Route::apiResource('registrations', RegistrationController::class);
 
     Route::middleware('auth:api')->group(function () {
 
@@ -70,7 +71,6 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('facilities', FacilityController::class);
         Route::apiResource('activities', ActivityController::class);
         Route::apiResource('bookings', BookingController::class);
-        Route::apiResource('registrations', RegistrationController::class);
         Route::apiResource('promocodes', PromoCodeController::class);
         
 
@@ -88,9 +88,9 @@ Route::prefix('v1')->group(function () {
 
             Route::get('', 'index')->middleware('can:viewAny,App\Stocks');
             Route::post('', 'store')->middleware('can:update,App\Stocks');
-            Route::get('/{user}', 'show')->middleware('can:view,App\Stocks,stocks');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Stocks');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Stocks');
+            Route::get('/{stock}', 'show')->middleware('can:view,App\Stocks,stocks');
+            Route::put('/{stock}', 'update')->middleware('can:update,App\Stocks');
+            Route::delete('/{stock}', 'destroy')->middleware('can:delete,App\Stocks');
 
         });
 

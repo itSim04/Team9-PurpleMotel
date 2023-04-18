@@ -1,0 +1,56 @@
+<table>
+  <tr>
+
+      <td style="text-align: right;">
+
+
+          <mat-form-field
+              *ngIf="filter_by && (!filter_by.type || filter_by.type === 'text' || filter_by.type === 'price' || filter_by.type === 'custom')">
+              <mat-label class="label">
+                  {{formatWord(filter_by.key.toString())}}</mat-label>
+
+              <input matInput (ngModelChange)="updateFilterValue($event)" [ngModel]="filter"
+                  (keyup)="applyFilter(!!$event)">
+
+          </mat-form-field>
+
+          <ng-container *ngIf="filter_by && filter_by.type === 'boolean'">
+              <mat-checkbox (ngModelChange)="updateFilterValue($event)" [ngModel]="filter"
+                  (input)="applyFilter(!!$event)"></mat-checkbox>
+          </ng-container>
+
+          <ng-container *ngIf="filter_by && filter_by.type === 'rating'">
+              <star-rating size="large" style="display: inline;" staticColor="ok"
+                  (ratingChange)="updateFilterValue($event.rating); applyFilter(true)"
+                  [rating]="parseInt(filter)"></star-rating>
+          </ng-container>
+
+
+      </td>
+      <td style="text-align: center;">
+          <mat-form-field appearance="fill">
+              <mat-label class="label">{{'filter_by' | translate}}</mat-label>
+              <mat-select class="label" (ngModelChange)="updateFilter($event)"
+                  [ngModel]="filter_by">
+
+                  <mat-option class="label"
+                      *ngFor="let current_filter of data_injection.displayed_columns"
+                      [value]="current_filter">
+                      <p class="label">
+                          {{formatWord(current_filter.key)}}
+                      </p>
+                  </mat-option>
+
+              </mat-select>
+          </mat-form-field>
+
+      </td>
+      <td style="text-align: left;">
+
+
+          <button class="reset-btn" mat-button
+              (click)="applyFilter(undefined)">{{'reset_filter' |
+              translate}}</button>
+      </td>
+  </tr>
+</table>

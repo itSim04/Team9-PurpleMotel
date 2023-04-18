@@ -1,3 +1,4 @@
+import { BrowseRoomsPage } from './pages/guest/rooms/browse-rooms/browse-rooms.page';
 
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/authentication/login/login.component';
@@ -35,7 +36,23 @@ export const routes: Routes = [
 
 
     ]
+  },
+  {
+    path: 'rooms',
+    children: [
+      {
+        path: 'browse',
+        component: BrowseRoomsPage
+      },
+      {
+        path: '',
+        redirectTo: 'browse',
+        pathMatch: 'full'
+      }
+
+    ]
   }
+
   //   {
   //     path: "",
   //     redirectTo: "home",
