@@ -40,8 +40,8 @@
                     {{col.header_alt || formatWord(col.key.toString())}} </th>
                 <td [style.background]="mark(element[1])" class="cell" mat-cell
                     *matCellDef="let element" style="padding-left: 0px;">
-                    <star-rating staticColor="ok" [readOnly]="true" [rating]="element[1][col.key]"
-                        [showHalfStars]="true"></star-rating>
+                    <!-- <star-rating staticColor="ok" [readOnly]="true" [rating]="element[1][col.key]"
+                        [showHalfStars]="true"></star-rating> -->
                 </td>
             </ng-container>
         </ng-container>

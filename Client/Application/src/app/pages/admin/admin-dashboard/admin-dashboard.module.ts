@@ -1,3 +1,4 @@
+import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminDashboardComponent } from './admin-dashboard.component';
@@ -13,7 +14,8 @@ import { LanguageModule } from 'src/app/services/language/language.module';
   imports: [
     CommonModule,
     LanguageModule,
-    RouterModule
+    RouterModule,
+    IonicModule.forRoot()
   ],
   exports:
   [

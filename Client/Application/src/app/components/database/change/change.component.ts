@@ -5,6 +5,12 @@ import { Observable } from 'rxjs';
 import { Field, Toggle, StaticField, ChangeInjection, Column, ExtraColumn } from 'src/app/models/Database';
 import { extractPermission, formatWord, isNum } from '../database.component';
 import { User } from 'src/app/models/User';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { parseDate } from 'src/app/pages/authentication/authentication.utility';
+import { ConfirmationDialogService } from 'src/app/services/dialogs/confirmation/confirmation.service';
+import { WarningDialogService } from 'src/app/services/dialogs/warning/warning.service';
 
 
 export function clone(obj: any) {
@@ -37,441 +43,441 @@ export function clone(obj: any) {
   styleUrls: ['./change.component.scss']
 })
 export class ChangeComponent<Data extends { [key: string]: string | boolean | number | unknown[]; }> {
-  // deleteData(id: number) {
+  deleteData(id: number) {
 
-  //   (this.data[this.table!.key] as unknown[]).splice(id, 1);
-  //   this.table!.data.data = this.data[this.table!.key] as unknown[];
+    (this.data[this.table!.key] as unknown[]).splice(id, 1);
+    this.table!.data.data = this.data[this.table!.key] as unknown[];
 
-  // }
+  }
 
-  // pushData() {
+  pushData() {
 
-  //   (this.data[this.table!.key] as unknown[]).push({id: '1', quantity: 1});
+    (this.data[this.table!.key] as unknown[]).push({id: '1', quantity: 1});
     
-  //   this.table!.data.data = this.data[this.table!.key] as unknown[];
+    this.table!.data.data = this.data[this.table!.key] as unknown[];
 
-  // }
-  // updateData(col: string, element: any, result: number) {
+  }
+  updateData(col: string, element: any, result: number) {
 
-  //   element[col] = result;
+    element[col] = result;
 
-  // }
-  // formatTableData(element: any, col: string) {
+  }
+  formatTableData(element: any, col: string) {
 
-  //   return element[col];
+    return element[col];
 
-  // }
+  }
 
-  // getOuter(id: string, index: number) {
+  getOuter(id: string, index: number) {
 
-  //   const temp = this.outer_data?.at(index)?.get(id);
+    const temp = this.outer_data?.at(index)?.get(id);
 
-  //   if (temp) {
+    if (temp) {
 
-  //     return temp;
+      return temp;
 
-  //   } else {
+    } else {
 
-  //     return undefined;
+      return undefined;
 
-  //   }
-
-
-  // }
-
-  // // getOuterTableData(col: ExtraColumn, element: any) {
-
-  // //   if (col.outer_link) {
-
-  // //     const temp = this.getOuter(element[col.outer_link.key], col.outer_link.index);
-  // //     return col.outer_link.format(temp, element);
-  // //     console.log(element);
-
-  // //   } else {
-
-  // //     throw new Error("Type Link requires Format and Index");
-
-  // //   }
-
-  // // }
-
-  // debug(id: number, row: string, result: boolean) {
-
-  //   const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
-
-  //   old_permissions[id] = result;
-
-  //   this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
-
-  // }
+    }
 
 
+  }
 
-  // modification_mode = false;
-  // side_panel: 'images' | 'permissions' | 'empty' | 'table';
-  // data: Data;
-  // data_type: string;
-  // standalone_field?: Field<Data>;
-  // fields: Field<Data>[];
-  // toggle?: Toggle<Data>;
-  // static_fields?: StaticField<Data>[];
-  // permissions?: {
+  // getOuterTableData(col: ExtraColumn, element: any) {
 
-  //   rows: string[];
-  //   columns: string[];
-  //   format: (result: boolean[]) => string;
-  //   update: (data: Data, label: string, result: number) => void;
-  //   retrieve: (result: Data, id: string) => boolean[];
-  //   key: keyof Data;
+  //   if (col.outer_link) {
 
-  // };
-
-  // table?: {
-
-  //   data: MatTableDataSource<unknown>;
-  //   columns: ExtraColumn[];
-  //   key: keyof Data;
-
-  // };
-  // readonly old_data?: KeyValue<string, Data>;
-  // readonly add_service: (data: Data) => Observable<string>;
-  // readonly modify_service: (key: string, data: Data) => Observable<undefined>;
-  // readonly delete_service: (key: string) => Observable<string[]>;
-  // readonly identifier: (data: Data) => string;
-  // readonly modification_rule;
-  // readonly permission;
-
-  // readonly outer_data: Map<string, unknown>[] | undefined;
-
-  // readonly linked_data: Map<string, unknown>;
-
-  // constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar) {
-
-  //   this.linked_data = injected_data.link;
-
-  //   this.add_service = injected_data.injection?.add_service;
-  //   this.modify_service = injected_data.injection.modify_service;
-  //   this.delete_service = injected_data.injection.delete_service;
-  //   this.identifier = injected_data.injection.identifier;
-
-
-  //   this.permission = injected_data.permission;
-  //   this.outer_data = injected_data.outer_data;
-
-  //   this.permissions = injected_data.injection.permissions;
-  //   this.modification_rule = injected_data.injection.modification_rule || (data => true);
-  //   this.side_panel = injected_data.injection.side_panel;
-  //   this.toggle = injected_data.injection.toggle;
-  //   this.data_type = injected_data.injection.data_type;
-  //   this.fields = injected_data.injection.fields;
-  //   this.standalone_field = injected_data.injection.standalone_field;
-  //   this.static_fields = injected_data.injection.static_fields;
-
-  //   if (injected_data.injection.affected_data) {
-
-  //     this.old_data = injected_data.injection.affected_data;
-
-  //     console.log(this.old_data);
-
-  //     this.data = clone(injected_data.injection.affected_data.value);
-  //     this.modification_mode = true;
+  //     const temp = this.getOuter(element[col.outer_link.key], col.outer_link.index);
+  //     return col.outer_link.format(temp, element);
+  //     console.log(element);
 
   //   } else {
 
-  //     this.old_data = undefined;
-  //     this.data = clone(injected_data.injection.default_state);
-  //     this.modification_mode = false;
-
-  //   }
-  //   if (injected_data.injection.table) {
-  //     this.table = {
-
-  //       ...injected_data.injection.table,
-  //       data: new MatTableDataSource(this.data[injected_data.injection.table.key] as unknown[])
-
-  //     };
-  //   }
-  //   console.log((this.data as unknown as User).gender);
-
-  // }
-
-  // add() {
-
-  //   const dialogRef = this.confirmation_controller.openDialog(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add", "Cancel");
-  //   dialogRef.afterClosed().subscribe(confirmation => {
-
-  //     if (confirmation) {
-
-  //       this.add_service(this.data).subscribe(result => {
-
-  //         this.dialogRef.close({ key: result, value: this.data });
-
-  //       });
-
-  //     }
-  //   });
-
-  // }
-
-  // modify() {
-
-  //   console.log(this.old_data);
-
-  //   if (extractPermission('write', this.permission)) {
-
-  //     if (this.old_data) {
-
-
-  //       const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
-  //       dialogRef.afterClosed().subscribe(confirmation => {
-
-  //         if (confirmation && this.old_data) {
-
-  //           this.modify_service(this.old_data.key, this.data).subscribe(() => {
-  //             if (this.old_data) {
-
-  //               this.dialogRef.close({ key: this.old_data.key, value: this.data });
-  //             }
-  //           });
-  //         }
-  //       });
-  //     }
-  //   } else {
-
-  //     this.snackbar.open('You do not have writing permissions');
+  //     throw new Error("Type Link requires Format and Index");
 
   //   }
 
   // }
 
-  // delete() {
+  debug(id: number, row: string, result: boolean) {
 
-  //   if (extractPermission('delete', this.permission)) {
+    const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
 
-  //     if (this.old_data) {
+    old_permissions[id] = result;
 
-  //       const dialogRef = this.confirmation_controller.openDialog(`Delete ${this.data_type}`, `Would you like to delete the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Delete", "Cancel");
-  //       dialogRef.afterClosed().subscribe(confirmation => {
+    this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
 
-  //         if (confirmation && this.old_data) {
+  }
 
-  //           this.delete_service(this.old_data.key).subscribe(result => {
 
-  //             if (result.length) {
 
-  //               this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
+  modification_mode = false;
+  side_panel: 'images' | 'permissions' | 'empty' | 'table';
+  data: Data;
+  data_type: string;
+  standalone_field?: Field<Data>;
+  fields: Field<Data>[];
+  toggle?: Toggle<Data>;
+  static_fields?: StaticField<Data>[];
+  permissions?: {
 
-  //             } else if (this.old_data) {
+    rows: string[];
+    columns: string[];
+    format: (result: boolean[]) => string;
+    update: (data: Data, label: string, result: number) => void;
+    retrieve: (result: Data, id: string) => boolean[];
+    key: keyof Data;
 
-  //               this.dialogRef.close({ key: this.old_data.key, value: undefined });
+  };
 
-  //             }
+  table?: {
 
-  //           });
-  //         }
-  //       });
-  //     }
-  //   } else {
+    data: MatTableDataSource<unknown>;
+    columns: ExtraColumn[];
+    key: keyof Data;
 
-  //     this.snackbar.open('You do not have deletion permissions');
+  };
+  readonly old_data?: KeyValue<string, Data>;
+  readonly add_service: (data: Data) => Observable<string>;
+  readonly modify_service: (key: string, data: Data) => Observable<undefined>;
+  readonly delete_service: (key: string) => Observable<string[]>;
+  readonly identifier: (data: Data) => string;
+  readonly modification_rule;
+  readonly permission;
 
-  //   }
-  // }
+  readonly outer_data: Map<string, unknown>[] | undefined;
 
-  // formatWord(data: string) {
+  readonly linked_data: Map<string, unknown>;
 
-  //   return formatWord(data);
-  // }
+  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar) {
 
-  // triggerToggle() {
+    this.linked_data = injected_data.link;
 
-  //   if (this.toggle && this.modification_rule(this.data)) {
+    this.add_service = injected_data.injection?.add_service;
+    this.modify_service = injected_data.injection.modify_service;
+    this.delete_service = injected_data.injection.delete_service;
+    this.identifier = injected_data.injection.identifier;
 
-  //     if (this.modification_mode) {
 
-  //       let prompt;
+    this.permission = injected_data.permission;
+    this.outer_data = injected_data.outer_data;
 
-  //       if (this.data[this.toggle.key] as boolean) {
+    this.permissions = injected_data.injection.permissions;
+    this.modification_rule = injected_data.injection.modification_rule || (data => true);
+    this.side_panel = injected_data.injection.side_panel;
+    this.toggle = injected_data.injection.toggle;
+    this.data_type = injected_data.injection.data_type;
+    this.fields = injected_data.injection.fields;
+    this.standalone_field = injected_data.injection.standalone_field;
+    this.static_fields = injected_data.injection.static_fields;
 
-  //         if (this.toggle.on_prompt) {
+    if (injected_data.injection.affected_data) {
 
-  //           prompt = this.toggle.on_prompt;
-  //           prompt = prompt.replace('$name', this.identifier(this.data));
+      this.old_data = injected_data.injection.affected_data;
 
-  //         } else {
+      console.log(this.old_data);
 
-  //           prompt = `Would you like to ${this.toggle.on_value} the ${this.data_type} ${this.identifier(this.data)}`;
+      this.data = clone(injected_data.injection.affected_data.value);
+      this.modification_mode = true;
 
-  //         }
+    } else {
 
+      this.old_data = undefined;
+      this.data = clone(injected_data.injection.default_state);
+      this.modification_mode = false;
 
+    }
+    if (injected_data.injection.table) {
+      this.table = {
 
-  //       } else {
+        ...injected_data.injection.table,
+        data: new MatTableDataSource(this.data[injected_data.injection.table.key] as unknown[])
 
+      };
+    }
+    console.log((this.data as unknown as User).gender);
 
-  //         if (this.toggle.off_prompt) {
+  }
 
-  //           prompt = this.toggle.off_prompt;
-  //           prompt = prompt.replace('$name', this.identifier(this.data));
+  add() {
 
-  //         } else {
+    const dialogRef = this.confirmation_controller.openDialog(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add", "Cancel");
+    dialogRef.afterClosed().subscribe(confirmation => {
 
-  //           prompt = `Would you like to ${this.toggle.off_value} the ${this.data_type} ${this.identifier(this.data)}`;
+      if (confirmation) {
 
-  //         }
+        this.add_service(this.data).subscribe(result => {
 
+          this.dialogRef.close({ key: result, value: this.data });
 
-  //       }
+        });
 
-  //       const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? (this.toggle.off_title || this.toggle.off_value + ' ' + this.data_type) : (this.toggle.on_title || this.toggle.on_value + ' ' + this.data_type)), prompt, !(this.data[this.toggle.key] as boolean) ? (this.toggle.off_confirm || this.toggle.off_value) : (this.toggle.on_confirm || this.toggle.on_value), 'Cancel');
+      }
+    });
 
-  //       dialogRef.afterClosed().subscribe(result => {
+  }
 
-  //         if (result && this.toggle) {
+  modify() {
 
-  //           (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
+    console.log(this.old_data);
 
-  //         }
+    if (extractPermission('write', this.permission)) {
 
-  //       });
+      if (this.old_data) {
 
-  //     } else {
 
-  //       (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
+        const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
+        dialogRef.afterClosed().subscribe(confirmation => {
 
-  //     }
+          if (confirmation && this.old_data) {
 
+            this.modify_service(this.old_data.key, this.data).subscribe(() => {
+              if (this.old_data) {
 
+                this.dialogRef.close({ key: this.old_data.key, value: this.data });
+              }
+            });
+          }
+        });
+      }
+    } else {
 
+      this.snackbar.open('You do not have writing permissions');
 
+    }
 
-  //   }
-  // }
+  }
 
-  // formatOuterChoice(field: Field<Data>, type: KeyValue<string, unknown>) {
+  delete() {
 
-  //   if (field.outer_choices && this.outer_data) {
+    if (extractPermission('delete', this.permission)) {
 
-  //     let temp = field.outer_choices.format(type.value);
+      if (this.old_data) {
 
+        const dialogRef = this.confirmation_controller.openDialog(`Delete ${this.data_type}`, `Would you like to delete the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Delete", "Cancel");
+        dialogRef.afterClosed().subscribe(confirmation => {
 
-  //     if (field.outer_choices.pivot_index && field.outer_choices.pivot_format) {
+          if (confirmation && this.old_data) {
 
-  //       temp = field.outer_choices.pivot_format(this.outer_data[field.outer_choices.pivot_index].get(temp));
+            this.delete_service(this.old_data.key).subscribe(result => {
 
-  //     }
+              if (result.length) {
 
-  //     return temp;
+                this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
 
-  //   }
+              } else if (this.old_data) {
 
-  //   return undefined;
+                this.dialogRef.close({ key: this.old_data.key, value: undefined });
 
-  // }
+              }
 
-  // areEqual(a: any, b: any) {
-  //   if (a === b) {
-  //     return true;
-  //   }
+            });
+          }
+        });
+      }
+    } else {
 
-  //   if (a instanceof Map && b instanceof Map) {
-  //     if (a.size !== b.size) {
-  //       return false;
-  //     }
+      this.snackbar.open('You do not have deletion permissions');
 
-  //     for (const [key, value] of a.entries()) {
-  //       if (!b.has(key) || !this.areEqual(value, b.get(key))) {
-  //         return false;
-  //       }
-  //     }
+    }
+  }
 
-  //     return true;
-  //   }
+  formatWord(data: string) {
 
-  //   if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
-  //     return a === b;
-  //   }
+    return formatWord(data);
+  }
 
-  //   const keysA = Object.keys(a);
-  //   const keysB = Object.keys(b);
+  triggerToggle() {
 
-  //   if (keysA.length !== keysB.length) {
-  //     return false;
-  //   }
+    if (this.toggle && this.modification_rule(this.data)) {
 
-  //   for (const key of keysA) {
-  //     if (!keysB.includes(key) || !this.areEqual(a[key], b[key])) {
-  //       return false;
-  //     }
-  //   }
+      if (this.modification_mode) {
 
-  //   return true;
-  // }
+        let prompt;
 
-  // get differenceCheck() {
-  //   return !this.modification_mode || !this.areEqual(this.old_data?.value, this.data);
-  // }
+        if (this.data[this.toggle.key] as boolean) {
 
+          if (this.toggle.on_prompt) {
 
-  // get fieldsCompleteness() {
+            prompt = this.toggle.on_prompt;
+            prompt = prompt.replace('$name', this.identifier(this.data));
 
-  //   for (const field of this.fields) {
+          } else {
 
-  //     if (field.condition ? !field.condition(this.data[field.key]) : !this.data[field.key]) {
+            prompt = `Would you like to ${this.toggle.on_value} the ${this.data_type} ${this.identifier(this.data)}`;
 
-  //       return false;
+          }
 
-  //     }
 
-  //   }
-  //   return true;
 
-  // }
+        } else {
 
-  // isNum(val: string) {
 
-  //   return isNum(val);
+          if (this.toggle.off_prompt) {
 
-  // }
+            prompt = this.toggle.off_prompt;
+            prompt = prompt.replace('$name', this.identifier(this.data));
 
-  // formatLabel(word: string | number | symbol) {
+          } else {
 
-  //   if (!word) return word;
+            prompt = `Would you like to ${this.toggle.off_value} the ${this.data_type} ${this.identifier(this.data)}`;
 
-  //   const splits = word.toString().replace("_", " ").split(" ");
+          }
 
-  //   for (let i = 0; i < splits.length; i++) {
 
-  //     splits[i] = splits[i][0].toUpperCase() + splits[i].slice(1).toLowerCase();
+        }
 
-  //   }
+        const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? (this.toggle.off_title || this.toggle.off_value + ' ' + this.data_type) : (this.toggle.on_title || this.toggle.on_value + ' ' + this.data_type)), prompt, !(this.data[this.toggle.key] as boolean) ? (this.toggle.off_confirm || this.toggle.off_value) : (this.toggle.on_confirm || this.toggle.on_value), 'Cancel');
 
+        dialogRef.afterClosed().subscribe(result => {
 
-  //   return splits.join(" ");
-  // }
+          if (result && this.toggle) {
 
-  // parseDate(date: string): any {
+            (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
 
-  //   return parseDate(new Date(date));
+          }
 
-  // }
+        });
 
-  // get getDisplayedColumnsKey() {
+      } else {
 
+        (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
 
-  //   if(this.table) {
+      }
 
-  //     const keys = this.table!.columns.map(t => t.key as string);
-  //     keys.push('buttons');
-  //     return keys;
+
+
+
+
+    }
+  }
+
+  formatOuterChoice(field: Field<Data>, type: KeyValue<string, unknown>) {
+
+    if (field.outer_choices && this.outer_data) {
+
+      let temp = field.outer_choices.format(type.value);
+
+
+      if (field.outer_choices.pivot_index && field.outer_choices.pivot_format) {
+
+        temp = field.outer_choices.pivot_format(this.outer_data[field.outer_choices.pivot_index].get(temp));
+
+      }
+
+      return temp;
+
+    }
+
+    return undefined;
+
+  }
+
+  areEqual(a: any, b: any) {
+    if (a === b) {
+      return true;
+    }
+
+    if (a instanceof Map && b instanceof Map) {
+      if (a.size !== b.size) {
+        return false;
+      }
+
+      for (const [key, value] of a.entries()) {
+        if (!b.has(key) || !this.areEqual(value, b.get(key))) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
+      return a === b;
+    }
+
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+
+    if (keysA.length !== keysB.length) {
+      return false;
+    }
+
+    for (const key of keysA) {
+      if (!keysB.includes(key) || !this.areEqual(a[key], b[key])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  get differenceCheck() {
+    return !this.modification_mode || !this.areEqual(this.old_data?.value, this.data);
+  }
+
+
+  get fieldsCompleteness() {
+
+    for (const field of this.fields) {
+
+      if (field.condition ? !field.condition(this.data[field.key]) : !this.data[field.key]) {
+
+        return false;
+
+      }
+
+    }
+    return true;
+
+  }
+
+  isNum(val: string) {
+
+    return isNum(val);
+
+  }
+
+  formatLabel(word: string | number | symbol) {
+
+    if (!word) return word;
+
+    const splits = word.toString().replace("_", " ").split(" ");
+
+    for (let i = 0; i < splits.length; i++) {
+
+      splits[i] = splits[i][0].toUpperCase() + splits[i].slice(1).toLowerCase();
+
+    }
+
+
+    return splits.join(" ");
+  }
+
+  parseDate(date: string): any {
+
+    return parseDate(new Date(date));
+
+  }
+
+  get getDisplayedColumnsKey() {
+
+
+    if(this.table) {
+
+      const keys = this.table!.columns.map(t => t.key as string);
+      keys.push('buttons');
+      return keys;
       
-  //   } else {
+    } else {
 
-  //     throw new Error('Table missing information');
+      throw new Error('Table missing information');
 
-  //   }
+    }
 
 
 
-  // }
+  }
 }

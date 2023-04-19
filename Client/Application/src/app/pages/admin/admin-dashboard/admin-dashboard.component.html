@@ -1,20 +1,78 @@
-<table class="footer">
+<ion-content>
 
-  <div class="row">
-    <div class="col-md-3">
-        <button [routerLink]="['/admin/user-database']" class="check-btn">{{"User Database" | translate}}</button>
-    </div>
-    <div class="col-md-3">
-        <button [routerLink]="['/admin/rooms-database']" class="check-btn">{{"Room Database" | translate}}</button>
-    </div>
-    <div class="col-md-3">
-        <button [routerLink]="['/admin/booking-database']" class="check-btn">{{"Booking Database" | translate}}</button>
-    </div>
-    <div class="col-md-3">
-        <button [routerLink]="['/admin/food-database']" class="check-btn">{{"Food Database" | translate}}</button>
-    </div>
-</div>
-<div class="row">
+    <ion-list>
+
+        <ion-item>
+
+            <ion-card>
+                <img alt="Silhouette of mountains"
+                    src="https://ionicframework.com/docs/img/demos/card-media.png" />
+                <ion-card-header>
+                    <ion-card-title>User Database</ion-card-title>
+                    <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+                </ion-card-header>
+
+                <ion-card-content>
+                    A section to manage the Users currently in the app, including demotion,
+                    promotion and permissions.
+                </ion-card-content>
+                <ion-button fill="clear" [routerLink]="['/admin/user-database']">Access</ion-button>
+            </ion-card>
+        </ion-item>
+        <ion-item>
+
+            <ion-card>
+                <img alt="Silhouette of mountains"
+                    src="https://ionicframework.com/docs/img/demos/card-media.png" />
+                <ion-card-header>
+                    <ion-card-title>Rooms Database</ion-card-title>
+                    <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+                </ion-card-header>
+
+                <ion-card-content>
+                    A section to manage the Users currently in the app, including demotion,
+                    promotion and permissions.
+                </ion-card-content>
+                <ion-button fill="clear"
+                    [routerLink]="['/admin/rooms-database']">Access</ion-button>
+            </ion-card>
+        </ion-item>
+        <ion-item>
+
+            <ion-card>
+                <img alt="Silhouette of mountains"
+                    src="https://ionicframework.com/docs/img/demos/card-media.png" />
+                <ion-card-header>
+                    <ion-card-title>Bookings Database</ion-card-title>
+                    <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+                </ion-card-header>
+
+                <ion-card-content>
+                    A section to manage the Users currently in the app, including demotion,
+                    promotion and permissions.
+                </ion-card-content>
+                <ion-button fill="clear"
+                    [routerLink]="['/admin/booking-database']">Access</ion-button>
+            </ion-card>
+        </ion-item>
+        <ion-item>
+
+            <ion-card>
+                <img alt="Silhouette of mountains"
+                    src="https://ionicframework.com/docs/img/demos/card-media.png" />
+                <ion-card-header>
+                    <ion-card-title>Food Database</ion-card-title>
+                    <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+                </ion-card-header>
+
+                <ion-card-content>
+                    A section to manage the Users currently in the app, including demotion,
+                    promotion and permissions.
+                </ion-card-content>
+                <ion-button fill="clear" [routerLink]="['/admin/food-database']">Access</ion-button>
+            </ion-card>
+        </ion-item>
+        <!-- <div class="row">
     <div class="col-md-3">
         <button [routerLink]="['/admin/announcement-database']" class="check-btn">{{"Announcement Database" | translate}}</button>
     </div>
@@ -41,7 +99,10 @@
     <div class="col-md-3">
         <button [routerLink]="['/admin/stock-database']" class="check-btn">{{"Stock Database" | translate}}</button>
     </div>
-</div>
+</div> -->
 
-      
-</table>
+
+        <!-- </table> -->
+
+    </ion-list>
+</ion-content>

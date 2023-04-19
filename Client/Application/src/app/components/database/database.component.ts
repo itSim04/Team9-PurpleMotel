@@ -4,6 +4,8 @@ import { Component, Input, OnInit, AfterViewInit, ChangeDetectorRef, HostListene
 // import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, Observable, Subject } from 'rxjs';
 import { DataInjection, Column, ChangeInjection } from 'src/app/models/Database';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 export function extractUser() {
@@ -164,373 +166,373 @@ export function parsePermission(permission: number | undefined): boolean[] {
   templateUrl: './database.component.html',
   styleUrls: ['./database.component.scss'],
 })
-export class DatabaseComponent<Data, Data2>/* implements AfterViewInit, OnInit*/ {
+export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
-//   @Input() @Required data_injection!: DataInjection<Data>;
-//   @Input() dual_fetcher: (() => Observable<[Map<string, Data>, Map<string, Data2>, Map<string, unknown>[] | undefined]>) | undefined;
-//   @Input() extra_injection?: DataInjection<Data2>;
+  @Input() @Required data_injection!: DataInjection<Data>;
+  @Input() dual_fetcher: (() => Observable<[Map<string, Data>, Map<string, Data2>, Map<string, unknown>[] | undefined]>) | undefined;
+  @Input() extra_injection?: DataInjection<Data2>;
 
-//   all_data_map: Map<string, Data> = new Map();
-//   all_data: [string, Data][] = [];
-//   all_extra_map: Map<string, Data2> = new Map();
-//   all_extra: [string, Data2][] = [];
-//   all_data_outer: (Map<string, unknown>)[] | undefined;
-//   filter_by!: Column<Data>;
-//   extra_filter_by?: Column<Data2>;
-//   filtered_data: MatTableDataSource<[string, Data], MatPaginator> = new MatTableDataSource();
-//   extra_data: MatTableDataSource<[string, Data2], MatPaginator> = new MatTableDataSource();
-//   filter: string | number = "";
-//   extra_filter: string | number = "";
-//   display_hover: [string, Data | undefined] = ["-1", undefined];
-//   extra_display_hover: [string, Data2 | undefined] = ["-1", undefined];
-//   loading: boolean = false;
-//   extra_loading: boolean = false;
+  all_data_map: Map<string, Data> = new Map();
+  all_data: [string, Data][] = [];
+  all_extra_map: Map<string, Data2> = new Map();
+  all_extra: [string, Data2][] = [];
+  all_data_outer: (Map<string, unknown>)[] | undefined;
+  filter_by!: Column<Data>;
+  extra_filter_by?: Column<Data2>;
+  filtered_data: MatTableDataSource<[string, Data], MatPaginator> = new MatTableDataSource();
+  extra_data: MatTableDataSource<[string, Data2], MatPaginator> = new MatTableDataSource();
+  filter: string | number = "";
+  extra_filter: string | number = "";
+  display_hover: [string, Data | undefined] = ["-1", undefined];
+  extra_display_hover: [string, Data2 | undefined] = ["-1", undefined];
+  loading: boolean = false;
+  extra_loading: boolean = false;
 
-//   @Input() change_injection?: ChangeInjection<Data>;
-//   @Input() extra_change_injection?: ChangeInjection<Data2>;
+  @Input() change_injection?: ChangeInjection<Data>;
+  @Input() extra_change_injection?: ChangeInjection<Data2>;
 
-//   // These fields are used by the hovering display only
+  // These fields are used by the hovering display only
 
-//   mouseX = 0;
-//   mouseY = 0;
-//   mouseMoveSubject = new Subject<MouseEvent>();
-//   mouseMove$: Observable<MouseEvent>;
-//   hover_list: [string, unknown][] = [];
-//   extra_list: [string, Data][] = [];
-
-
-//   constructor (private cdr: ChangeDetectorRef) {
-
-//     this.mouseMove$ = this.mouseMoveSubject.asObservable().pipe(
-
-//       debounceTime(1) // debounce time in milliseconds
-
-//     );
-
-//   }
-
-//   ngOnInit() {
-//     this.mouseMove$.subscribe((event: MouseEvent) => {
-
-//       if (this.data_injection.hover_fetcher) {
-
-//         if (this.all_extra) {
-
-//           this.hover_list = this.all_extra.filter(t => {
-
-//             if (this.data_injection && this.data_injection.hover_fetcher && this.display_hover[1] && this.all_extra) {
-
-//               return t[0] == this.display_hover[1][this.data_injection.hover_fetcher.key];
-
-//             } else {
-
-//               return false;
-
-//             }
-
-//           });
+  mouseX = 0;
+  mouseY = 0;
+  mouseMoveSubject = new Subject<MouseEvent>();
+  mouseMove$: Observable<MouseEvent>;
+  hover_list: [string, unknown][] = [];
+  extra_list: [string, Data][] = [];
 
 
-//         }
-//       } else if(this.data_injection.hover_linker) {
+  constructor (private cdr: ChangeDetectorRef) {
+
+    this.mouseMove$ = this.mouseMoveSubject.asObservable().pipe(
+
+      debounceTime(1) // debounce time in milliseconds
+
+    );
+
+  }
+
+  ngOnInit() {
+    this.mouseMove$.subscribe((event: MouseEvent) => {
+
+      if (this.data_injection.hover_fetcher) {
+
+        if (this.all_extra) {
+
+          this.hover_list = this.all_extra.filter(t => {
+
+            if (this.data_injection && this.data_injection.hover_fetcher && this.display_hover[1] && this.all_extra) {
+
+              return t[0] == this.display_hover[1][this.data_injection.hover_fetcher.key];
+
+            } else {
+
+              return false;
+
+            }
+
+          });
 
 
-//         if (this.all_data_outer) {
+        }
+      } else if(this.data_injection.hover_linker) {
 
-//           this.hover_list = Array.from(this.all_data_outer[this.data_injection.hover_linker.index]).filter(t => {
 
-//             if (this.data_injection.hover_linker && this.display_hover[1] && this.all_extra) {
+        if (this.all_data_outer) {
+
+          this.hover_list = Array.from(this.all_data_outer[this.data_injection.hover_linker.index]).filter(t => {
+
+            if (this.data_injection.hover_linker && this.display_hover[1] && this.all_extra) {
               
-//               return this.data_injection.hover_linker.filter(t[0], this.display_hover[1][this.data_injection.hover_linker.key]);
+              return this.data_injection.hover_linker.filter(t[0], this.display_hover[1][this.data_injection.hover_linker.key]);
               
-//             } else {
+            } else {
               
-//               return false;
+              return false;
               
-//             }
+            }
             
             
-//           });        
+          });        
 
-//         }
+        }
 
-//       }
+      }
 
-//       if (this.extra_injection && this.extra_injection.hover_fetcher && this.extra_display_hover[1]) {
+      if (this.extra_injection && this.extra_injection.hover_fetcher && this.extra_display_hover[1]) {
 
-//         this.extra_list = this.all_data.filter(t => t[0] == this.extra_injection?.hover_fetcher?.key);
+        this.extra_list = this.all_data.filter(t => t[0] == this.extra_injection?.hover_fetcher?.key);
 
-//       }
+      }
 
-//       if (this.data_injection.hover_display || this.data_injection.hover_fetcher || this.extra_injection?.hover_display || this.extra_injection?.hover_fetcher || this.data_injection.hover_linker || this.extra_injection?.hover_linker) {
+      if (this.data_injection.hover_display || this.data_injection.hover_fetcher || this.extra_injection?.hover_display || this.extra_injection?.hover_fetcher || this.data_injection.hover_linker || this.extra_injection?.hover_linker) {
 
-//         this.mouseX = event.clientX;
-//         this.mouseY = event.clientY;
+        this.mouseX = event.clientX;
+        this.mouseY = event.clientY;
 
-//       }
+      }
 
-//     });
-//   }
+    });
+  }
 
 
 
-//   ngAfterViewInit() {
+  ngAfterViewInit() {
 
-//     this.loading = true;
-//     if (this.extra_injection) {
+    this.loading = true;
+    if (this.extra_injection) {
 
-//       this.extra_loading = true;
+      this.extra_loading = true;
 
-//     }
+    }
 
-//     // The initial filter will default to the first column
-//     this.filter_by = this.data_injection.displayed_columns[0];
+    // The initial filter will default to the first column
+    this.filter_by = this.data_injection.displayed_columns[0];
 
-//     // Fixed sorting
-//     this.filtered_data.sortingDataAccessor = (data, id: string) => {
+    // Fixed sorting
+    this.filtered_data.sortingDataAccessor = (data, id: string) => {
 
-//       const column = this.data_injection.displayed_columns.find((data: Column<Data>) => data.key == id);
-//       switch (column?.type) {
+      const column = this.data_injection.displayed_columns.find((data: Column<Data>) => data.key == id);
+      switch (column?.type) {
 
-//         case "link":
+        case "link":
 
-//           // This will sort based on the linked value
-//           return column.link?.format(this.getExtra(data[1][id as keyof Data] as number)) as string | number;
+          // This will sort based on the linked value
+          return column.link?.format(this.getExtra(data[1][id as keyof Data] as number)) as string | number;
 
-//       }
-//       return data[1][id as keyof Data] as string | number;
+      }
+      return data[1][id as keyof Data] as string | number;
 
-//     };
+    };
 
-//     // This reflects the first table logic on the second if it exists
-//     if (this.extra_injection) {
+    // This reflects the first table logic on the second if it exists
+    if (this.extra_injection) {
 
-//       this.extra_filter_by = this.extra_injection?.displayed_columns[0];
+      this.extra_filter_by = this.extra_injection?.displayed_columns[0];
 
-//       this.extra_data.sortingDataAccessor = (data, id: string) => {
+      this.extra_data.sortingDataAccessor = (data, id: string) => {
 
-//         return data[1][id as keyof Data2] as string | number;
+        return data[1][id as keyof Data2] as string | number;
 
-//       };
+      };
 
 
-//     }
+    }
 
-//     // Fetches both tables at the same time
-//     if (this.dual_fetcher) {
+    // Fetches both tables at the same time
+    if (this.dual_fetcher) {
 
-//       this.loadBothData();
+      this.loadBothData();
 
 
-//     } else if (this.data_injection.data_fetcher) {
+    } else if (this.data_injection.data_fetcher) {
 
-//       this.loadPrimaryData();
+      this.loadPrimaryData();
 
-//       if (this.extra_injection) {
+      if (this.extra_injection) {
 
-//         this.loadSecondaryData();
+        this.loadSecondaryData();
 
-//       }
+      }
 
 
-//     }
+    }
 
-//     this.cdr.detectChanges();
-//   }
+    this.cdr.detectChanges();
+  }
 
-//   @HostListener('mousemove', ['$event'])
-//   onMouseMove(event: MouseEvent) {
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
 
 
-//     if (this.display_hover || this.extra_display_hover) {
+    if (this.display_hover || this.extra_display_hover) {
 
-//       this.mouseMoveSubject.next(event);
+      this.mouseMoveSubject.next(event);
 
-//     }
+    }
 
-//   }
+  }
 
 
-//   loadBothData() {
+  loadBothData() {
 
-//     this.loading = true;
-//     this.extra_loading = true;
-//     if (extractPermission('read', this.data_injection.permission) || extractPermission('read', this.extra_injection!.permission)) {
+    this.loading = true;
+    this.extra_loading = true;
+    if (extractPermission('read', this.data_injection.permission) || extractPermission('read', this.extra_injection!.permission)) {
 
-//       this.dual_fetcher!().subscribe({
+      this.dual_fetcher!().subscribe({
 
-//         next: result => {
+        next: result => {
 
-//           if (this.extra_injection && this.extra_data) {
+          if (this.extra_injection && this.extra_data) {
 
-//             if (extractPermission('read', this.data_injection.permission)) {
+            if (extractPermission('read', this.data_injection.permission)) {
 
-//               this.all_data = Array.from(result[0]);
-//               this.all_data_map = result[0];
-//               this.filtered_data.data = this.all_data;
+              this.all_data = Array.from(result[0]);
+              this.all_data_map = result[0];
+              this.filtered_data.data = this.all_data;
 
-//             }
+            }
 
-//             if (extractPermission('read', this.extra_injection.permission)) {
+            if (extractPermission('read', this.extra_injection.permission)) {
 
-//               this.all_extra = Array.from(result[1]);
-//               this.all_extra_map = result[1];
-//               this.extra_data.data = this.all_extra;
+              this.all_extra = Array.from(result[1]);
+              this.all_extra_map = result[1];
+              this.extra_data.data = this.all_extra;
 
-//             }
+            }
 
-//             this.all_data_outer = result[2];
+            this.all_data_outer = result[2];
 
-//             console.log(this.all_data_outer);
+            console.log(this.all_data_outer);
 
-//             this.loading = false;
-//             this.extra_loading = false;
+            this.loading = false;
+            this.extra_loading = false;
 
 
 
-//           }
-//         },
-//         error: error => {
+          }
+        },
+        error: error => {
 
 
-//           if (error.status == 401) {
+          if (error.status == 401) {
 
-//             this.loading = false;
-//             this.extra_loading = false;
+            this.loading = false;
+            this.extra_loading = false;
 
-//           } else {
-//             this.loading = true;
-//             this.extra_loading = true;
-//             setTimeout(() => {
-//               this.loadPrimaryData();
-//             }, 5000);
+          } else {
+            this.loading = true;
+            this.extra_loading = true;
+            setTimeout(() => {
+              this.loadPrimaryData();
+            }, 5000);
 
-//           }
-//         }
-//       });
-//     }
+          }
+        }
+      });
+    }
 
-//   }
-//   loadPrimaryData() {
+  }
+  loadPrimaryData() {
 
-//     this.loading = true;
+    this.loading = true;
 
-//     if (!extractPermission('read', this.data_injection.permission)) {
+    if (!extractPermission('read', this.data_injection.permission)) {
 
-//       this.loading = false;
+      this.loading = false;
 
-//     } else if (this.data_injection.data_fetcher) {
+    } else if (this.data_injection.data_fetcher) {
 
-//       this.data_injection.data_fetcher().subscribe(({
+      this.data_injection.data_fetcher().subscribe(({
 
-//         next: result => {
+        next: result => {
 
-//           this.all_data_map = result[0];
-//           this.all_data = Array.from(result[0]);
-//           this.all_data_outer = result[1];
-//           this.filtered_data.data = this.all_data;
-//           this.loading = false;
+          this.all_data_map = result[0];
+          this.all_data = Array.from(result[0]);
+          this.all_data_outer = result[1];
+          this.filtered_data.data = this.all_data;
+          this.loading = false;
 
 
-//         }, error: error => {
+        }, error: error => {
 
-//           if (error.status == 401) {
+          if (error.status == 401) {
 
-//             this.loading = false;
+            this.loading = false;
 
-//           } else {
+          } else {
 
-//             this.loading = true;
-//             setTimeout(() => {
-//               this.loadPrimaryData();
-//             }, 5000);
+            this.loading = true;
+            setTimeout(() => {
+              this.loadPrimaryData();
+            }, 5000);
 
-//           }
+          }
 
 
 
-//         }
-//       }));
-//     }
+        }
+      }));
+    }
 
-//   }
+  }
 
-//   loadSecondaryData() {
+  loadSecondaryData() {
 
-//     this.extra_loading = true;
+    this.extra_loading = true;
 
-//     if (!extractPermission('read', this.extra_injection!.permission)) {
+    if (!extractPermission('read', this.extra_injection!.permission)) {
 
-//       this.extra_loading = false;
+      this.extra_loading = false;
 
-//     } else if (this.extra_injection?.data_fetcher) {
+    } else if (this.extra_injection?.data_fetcher) {
 
-//       this.extra_injection.data_fetcher()?.subscribe(({
+      this.extra_injection.data_fetcher()?.subscribe(({
 
-//         next: result => {
+        next: result => {
 
-//           if (this.extra_data) {
+          if (this.extra_data) {
 
-//             this.all_extra_map = result[0];
-//             this.all_extra = Array.from(result[0]);
-//             this.all_data_outer = result[1];
-//             this.extra_data.data = this.all_extra;
-//             this.extra_loading = false;
+            this.all_extra_map = result[0];
+            this.all_extra = Array.from(result[0]);
+            this.all_data_outer = result[1];
+            this.extra_data.data = this.all_extra;
+            this.extra_loading = false;
 
-//           }
+          }
 
-//         }, error: error => {
+        }, error: error => {
 
 
-//           if (error.status == 401) {
+          if (error.status == 401) {
 
-//             this.extra_loading = false;
+            this.extra_loading = false;
 
-//           } else {
+          } else {
 
-//             this.extra_loading = true;
-//             setTimeout(() => {
-//               this.loadSecondaryData();
-//             }, 5000);
+            this.extra_loading = true;
+            setTimeout(() => {
+              this.loadSecondaryData();
+            }, 5000);
 
-//           }
-//         }
+          }
+        }
 
-//       }));
+      }));
 
 
 
-//     }
+    }
 
-//   }
+  }
 
-//   getExtra(id: unknown) {
+  getExtra(id: unknown) {
 
-//     const temp = this.all_extra?.find(value => value[0] == id)?.[1];
+    const temp = this.all_extra?.find(value => value[0] == id)?.[1];
 
-//     if (temp) {
+    if (temp) {
 
-//       return temp;
+      return temp;
 
-//     } else {
+    } else {
 
-//       return undefined;
+      return undefined;
 
-//     }
+    }
 
-//   }
+  }
 
-//   parseInt(num: string | number) {
+  parseInt(num: string | number) {
 
-//     return parseInt(num);
+    return parseInt(num);
 
-//   }
+  }
 
-//   formatWord(word: string | number | symbol | undefined) {
+  formatWord(word: string | number | symbol | undefined) {
 
-//     return formatWord(word);
+    return formatWord(word);
 
-//   }
+  }
 
 
 
