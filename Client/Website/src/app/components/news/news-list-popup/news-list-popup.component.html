@@ -1,0 +1,60 @@
+<!-- <table style="padding: 30px;">
+    <tr>
+        <td class="left_col">
+        </td>
+
+        <td style="width: 10px;">
+        </td>
+
+        <td class="right_col">
+            <div class="header">
+                {{title}}
+            </div>
+            <div class="date">
+                {{date}}
+            </div>
+            <hr class="line">
+            <div class="body">
+                {{body}}
+            </div>
+            <P class="likes">
+                {{likes}} Likes
+            </P>
+        </td>
+    </tr>
+</table> -->
+
+
+<table class="main">
+    <tr>
+        <td colspan="2">
+            <div class="title-1">{{title}}</div>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 16px; height:80vh;">
+            <img style="vertical-align: middle; object-fit: cover;" width="100%" height="100%"
+                src="../../../assets/news-1.jpg">
+        </td>
+        <td style="padding: 16px; height: 80vh;  width: 40%; resize: none;">
+            <div style="vertical-align: middle;  margin: 0px;">
+                <p class="title-1">Article</p>
+                <mat-divider style="border-top-color: #14274A"></mat-divider>
+                <br>
+                <br>
+                <p class="content-2">
+                    {{body}}
+                </p><br>
+                <p class="content-1">
+                    Published:
+                </p>
+                <p class="content-2">
+                    {{date}}
+                </p><br>
+                <p class="title-2">
+                    {{likes}} Likes
+                </p><br>
+            </div>
+        </td>
+    </tr>
+</table>

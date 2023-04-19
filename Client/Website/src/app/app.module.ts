@@ -29,7 +29,6 @@ import { OrderDatabaseModule } from './pages/admin/order-database/order-database
 import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
-import { ProfileModule } from './pages/guest/profile/profile.module';
 
 
 @NgModule({
@@ -44,6 +43,7 @@ import { ProfileModule } from './pages/guest/profile/profile.module';
     StarRatingModule.forRoot(),
     RouterModule,
 
+    // Potential
     ConfirmationDialogModule,
     ChefListDialogModule,
     CartDialogModule,
@@ -58,6 +58,7 @@ import { ProfileModule } from './pages/guest/profile/profile.module';
     LanguageDatabaseModule,
     NewsDatabaseModule,
     OrderDatabaseModule,
+
     PromoDatabaseModule,
     RegistrationDatabaseModule,
     RoomDatabaseModule,
@@ -78,6 +79,7 @@ import { ProfileModule } from './pages/guest/profile/profile.module';
 
     ProfileModule
 
+>>>>>>>>> Temporary merge branch 2
 
   ],
   providers: [

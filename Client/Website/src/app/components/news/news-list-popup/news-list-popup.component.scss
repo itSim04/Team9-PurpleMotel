@@ -1,0 +1,170 @@
+$color-primary: #14274a;
+$font-primary: 'Kulim Park';
+$image-path: '../../../../assets/';
+
+.left_col {
+    background-size: cover;
+    background-image: url('#{$image-path}news-sample1.png');
+    margin-left: 30px;
+    width: 450px;
+    height: 240px;
+}
+
+.right_col {
+    border-left: 3px solid $color-primary;
+    height: 130px;
+}
+
+.parent{
+    font-family: $font-primary;
+    color: $color-primary;
+}
+
+.header {
+    font-family: 'Abhaya Libre';
+    color: $color-primary;
+    font-size: 70px;
+    margin-top: -100px;
+}
+
+.date {
+    @extend .parent;
+    font-size: 20px;
+    margin-top: -15px;
+    margin-left: 15px;
+}
+
+.body {
+    @extend .parent;
+    font-size: 25px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.likes {
+    @extend .parent;
+    color: $color-primary;
+    font-weight: 600;
+    margin-left: 23%;
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    font-weight: 600;
+}
+
+hr.line {
+    background-color: $color-primary;
+    height: 2px;
+    width: 80%;
+}
+
+.main {
+    // padding: 16px;
+    border-radius: 20px;
+    width: fit-content;
+    margin: 16px;
+    padding: 16px;
+    // height: 50%;
+    background-color: white;
+
+
+}
+
+
+.label {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    // line-height: 71px;
+    padding-left: 16px;
+    padding-top: 16px;
+    color: #14274A;
+}
+
+.title {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-size: 2vw;
+    line-height: 3.5vh;
+    letter-spacing: 0.02em;
+    color: #14274A;
+
+}
+
+.title-1 {
+
+    @extend .title;
+    font-weight: 400;
+
+}
+
+.title-2 {
+
+    @extend .title;
+    font-weight: 700;
+
+}
+
+.quantity_btn {
+
+    display: inline-block;
+    width: 10px;
+    background-color: white;
+    border: 0px;
+    padding: 8px;
+
+}
+
+.content {
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 12px;
+    line-height: 3vh;
+    color: #14274A;
+    margin: 0px;
+}
+
+.content-1 {
+
+    @extend .content;
+    font-weight: 700;
+
+}
+
+.content-2 {
+
+    @extend .content;
+    font-weight: 400;
+    max-width: 40vh;
+
+
+}
+
+.content-3 {
+
+    @extend .content;
+    font-weight: 400;
+    font-size: 24px;
+
+}
+
+.cancel-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    background-color: #14274A;
+
+    font-weight: 400;
+    font-size: 16px;
+    padding: 8px;
+    line-height: 25px;
+    text-align: center;
+
+    text-transform: uppercase;
+    color: white;
+    border: 1px solid #14274A;
+}

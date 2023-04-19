@@ -1,3 +1,24 @@
-<app-nav-bar></app-nav-bar>
-<p>home works!</p>
-<app-footer></app-footer>
+<div class="nav">
+    <app-nav-bar [transparent]="true"></app-nav-bar>
+    <div class="nav_title">
+        <p class="nav_title_1">Welcome To</p>
+        <p class="nav_title_2">Purple</p>
+        <p class="nav_title_3">Motel</p>
+        <p class="nav_title_4">Book your stay and enjoy Luxury<br>
+            redefined at the most affordable rates</p>
+    </div>
+</div>
+
+<div>
+    <div>
+        <p class="body_title">News Feed</p>
+        <hr class="line">
+    </div>
+    <div *ngFor="let news of filtered_news">
+        <app-news-list-item [news]="{key: news[0], value: news[1]}"></app-news-list-item>
+    </div>
+</div>
+
+<div style="margin-top: 20px;">
+    <app-footer main_color="#14274a" alt_color="white" font_color="white"></app-footer>
+</div>

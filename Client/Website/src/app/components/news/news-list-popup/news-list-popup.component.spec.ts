@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminDashboardComponent } from './admin-dashboard.component';
 
+import { NewsListPopupComponent } from './news-list-popup.component';
 
-describe('AdminDashboardComponent', () => {
-  let component: AdminDashboardComponent;
-  let fixture: ComponentFixture<AdminDashboardComponent>;
+describe('NewsListPopupComponent', () => {
+  let component: NewsListPopupComponent;
+  let fixture: ComponentFixture<NewsListPopupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminDashboardComponent ]
+      declarations: [ NewsListPopupComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminDashboardComponent);
+    fixture = TestBed.createComponent(NewsListPopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

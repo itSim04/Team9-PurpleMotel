@@ -84,15 +84,6 @@ Route::prefix('v1')->group(function () {
         });
         Route::post('filter', [RoomController::class, 'filter']);;
         Route::get('room_bookings', [RoomController::class, 'roomBookings']);;
-        
-        // Route::prefix('foods')->controller(FoodController::class)->group(function () {
-            
-        //     Route::get('', 'index')->middleware('can:viewAny,App\Foods');
-        //     Route::post('', 'store')->middleware('can:update,App\Foods');
-        //     Route::get('/{user}', 'show')->middleware('can:view,App\Foods,foods');
-        //     Route::put('/{user}', 'update')->middleware('can:update,App\Foods');
-        //     Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Foods');
-        // });
 
         // Route::prefix('foods')->controller(FoodController::class)->group(function () {
 
@@ -101,9 +92,8 @@ Route::prefix('v1')->group(function () {
         //     Route::get('/{user}', 'show')->middleware('can:view,App\Foods,foods');
         //     Route::put('/{user}', 'update')->middleware('can:update,App\Foods');
         //     Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Foods');
-
         // });
-        
+
         Route::prefix('stocks')->controller(StocksController::class)->group(function () {
             
             Route::get('', 'index')->middleware('can:viewAny,App\Stocks');

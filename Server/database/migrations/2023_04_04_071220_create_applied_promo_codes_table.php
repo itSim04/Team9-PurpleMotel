@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('eligibility_promo_users', function (Blueprint $table) {
+        Schema::create('applied_promo_codes', function (Blueprint $table) {
             $table->id();
             $table->integer('promo_id');
             $table->integer('user_id');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('eligibility_promo_users');
+        Schema::dropIfExists('applied_promo_users');
     }
 };
