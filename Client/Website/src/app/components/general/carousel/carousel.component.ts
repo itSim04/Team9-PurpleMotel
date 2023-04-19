@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, Directive, ElementRef, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, Directive, ElementRef, Input, OnChanges, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 // import { CarouselItemDirective } from './carousel-item.directive';
 import { animate, AnimationBuilder, AnimationFactory, AnimationPlayer, style } from '@angular/animations';
 
@@ -38,6 +38,8 @@ export class CarouselComponent implements AfterViewInit {
   private player !: AnimationPlayer;
   private itemWidth = 0;
   public currentSlide = 0;
+
+  load = false;
   carouselWrapperStyle = {};
 
   next() {
@@ -56,7 +58,7 @@ export class CarouselComponent implements AfterViewInit {
     return this.builder.build([
       animate(this.timing, style({ transform: `translateX(-${offset}px)` }))
     ]);
-    
+
   }
 
   prev() {
@@ -75,23 +77,37 @@ export class CarouselComponent implements AfterViewInit {
 
   ngAfterViewInit() {
 
-    // For some reason only here I need to add setTimeout, in my local env it's working without this.
-    setTimeout(() => {
-      this.fixRatio();
-      this.itemWidth = this.itemsElements.first.nativeElement.getBoundingClientRect().width;
-      this.carouselWrapperStyle = {
-        width: `${this.itemWidth}px`
-      };
-    }, 1000);
+    this.initiateCarousel();
 
   }
 
+
+
+  initiateCarousel() {
+
+    setTimeout(() => {
+
+
+      if (this.itemsElements?.first?.nativeElement) {
+        this.fixRatio();
+        this.load = true;
+        this.itemWidth = this.itemsElements.first.nativeElement.getBoundingClientRect().width;
+        this.carouselWrapperStyle = {
+          width: `${this.itemWidth}px`
+        };
+      } else {
+
+        this.initiateCarousel();
+
+
+      }
+    }, 500);
+
+
+  }
   fixRatio() {
 
-    this.itemWidth = this.itemsElements.first.nativeElement.getBoundingClientRect().width;
-    this.carouselWrapperStyle = {
-      width: `${this.itemWidth}px`
-    };
+    this.initiateCarousel();
 
     const offset = this.currentSlide * this.itemWidth;
 

@@ -14,30 +14,13 @@
     From kayaking in crystal clear waters to taking a scenic hike through lush forests,
     there's something for every thrill-seeker to enjoy. </p>
 
-<div style="display: flex; flex-wrap: wrap;">
+<!-- <div style="display: flex; flex-wrap: wrap;">
     <div *ngFor="let activity of activities | keyvalue" style="width: 50%;">
         <app-activity-list-item class="item" [activity]="activity"></app-activity-list-item>
         <mat-divider
             style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
-    </div>
-</div>
-
-<p class="header">Facilities</p>
-<mat-divider style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
-<p class="sub-header">We want your stay at our lush hotel to be truly unforgettable. That is why we give special
-    attention to all of your needs so
-    that we can ensure an experience quite unique. Luxury hotels offers the perfect setting with stunning views for
-    leisure
-    and our modern luxury resort facilities will help you enjoy the best of all. </p>
-
-<div style="display: flex; flex-wrap: wrap;">
-    <div *ngFor="let facility of facilities | keyvalue" style="width: 50%;">
-        <app-facility class="item" [facility]="facility"></app-facility>
-        <mat-divider
-            style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
-    </div>
-</div>
-
+    </div> -->
+<!-- </div> -->
 <div style="width:100%">
     <app-carousel #carousel>
         <ng-container *ngFor="let activity of activities | keyvalue; let i = index">
@@ -48,6 +31,14 @@
         </ng-container>
     </app-carousel>
 </div>
+
+<p class="header">Facilities</p>
+<mat-divider style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
+<p class="sub-header">We want your stay at our lush hotel to be truly unforgettable. That is why we give special
+    attention to all of your needs so
+    that we can ensure an experience quite unique. Luxury hotels offers the perfect setting with stunning views for
+    leisure
+    and our modern luxury resort facilities will help you enjoy the best of all. </p>
 
 <div style="width:100%">
     <app-carousel #carousel>
