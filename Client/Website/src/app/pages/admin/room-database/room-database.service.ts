@@ -1,9 +1,12 @@
+import { EffectPromoCodes, PromoCodeAttributes } from './../../../models/PromoCode';
+import { PromoCode } from 'src/app/models/PromoCode';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { RoomsResponse, Room, RoomResponse, RoomPackage, RoomsPackage } from "src/app/models/Room";
 import { RoomTypeResponse, RoomType, RoomTypesResponse, RoomTypePackage, RoomTypesPackage } from "src/app/models/RoomType";
 import { UrlBuilderService } from "src/app/services/url-builder.service";
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 
 
 
@@ -18,7 +21,8 @@ export class RoomDatabaseService {
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+
+
     try {
 
       return this.http.get<RoomsResponse>(this.url.generateUrl('rooms'), { headers: headers }).pipe(
@@ -27,7 +31,8 @@ export class RoomDatabaseService {
 
           const rooms = new Map<string, Room>();
           const room_types = new Map<string, RoomType>();
-
+          const promo_codes = new Map<string, PromoCode>();
+          const effect_codes: EffectPromoCodes[] = [];
 
           response.data.forEach(room => {
 
@@ -38,9 +43,71 @@ export class RoomDatabaseService {
 
           if (response.included) {
 
-            response.included.forEach(room_type => {
+            response.included.forEach(data => {
 
-              room_types.set(room_type.id, room_type.attributes);
+              switch (data.type) {
+
+                case 'RoomTypes':
+
+                  room_types.set(data.id, data.attributes as RoomType);
+                  break;
+
+                case 'PromoCodes':
+
+                  promo_codes.set(data.id, {
+                    ...data.attributes as PromoCodeAttributes, concerned_everyone: false,
+                    concerned_everything: false,
+                    concerned_room_types: [],
+                    concerned_rooms: [],
+                    applied_users: [],
+                    concerned_user_tiers: [],
+                    concerned_user_types: [],
+                    concerned_users: [],
+                  });
+                  break;
+
+                case 'EffectPromoCodes':
+
+                  effect_codes.push(data.attributes as EffectPromoCodes);
+
+
+
+              }
+
+            });
+
+            effect_codes.forEach(code => {
+
+              const temp = promo_codes.get(code.promo_id);
+              if (temp) {
+
+                switch (code.type) {
+
+                  case 0:
+
+                    temp.concerned_rooms.push(code.effect_id);
+                    break;
+
+                  case 1:
+
+                    temp.concerned_room_types.push(code.effect_id);
+                    break;
+
+                  case 2:
+
+                    temp.concerned_everything = true;
+                    break;
+
+                  default:
+
+                    throw new Error('Invalid type');
+
+
+
+
+                }
+
+              }
 
             });
 
@@ -49,7 +116,8 @@ export class RoomDatabaseService {
           return {
 
             rooms: rooms,
-            room_types: room_types
+            room_types: room_types,
+            promo_codes: promo_codes
 
           };
 
@@ -90,6 +158,26 @@ export class RoomDatabaseService {
 
                 key: response.data.relationships.room_type.data.id,
                 value: response.included[0].attributes
+
+              },
+
+              promo_code: {
+
+                key: '0',
+                value: {
+                  change: 0,
+                  concerned_everyone: false,
+                  concerned_everything: false,
+                  concerned_room_types: [],
+                  applied_users: [],
+                  concerned_rooms: [],
+                  concerned_user_tiers: [],
+                  concerned_user_types: [],
+                  concerned_users: [],
+                  end_date: parseDate(new Date()),
+                  start_date: parseDate(new Date()),
+
+                }
 
               }
 
@@ -242,7 +330,7 @@ export class RoomDatabaseService {
 
     try {
 
-      return this.http.post<RoomTypeResponse>(this.url.generateUrl('roomtypes'), roomType,{headers: headers}).pipe(
+      return this.http.post<RoomTypeResponse>(this.url.generateUrl('roomtypes'), roomType, { headers: headers }).pipe(
 
         map(result => {
 
@@ -267,7 +355,7 @@ export class RoomDatabaseService {
 
     try {
 
-      return this.http.put(this.url.generateUrl(`roomtypes/${roomType_id}`), roomType, {headers: headers}).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`roomtypes/${roomType_id}`), roomType, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -284,7 +372,7 @@ export class RoomDatabaseService {
 
     try {
 
-      return this.http.delete(this.url.generateUrl(`roomtypes/${key}`),{headers: headers}).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`roomtypes/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 

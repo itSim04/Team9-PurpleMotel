@@ -1,9 +1,13 @@
-<h1 mat-dialog-title>{{content.title}}</h1>
+<div class="title" mat-dialog-title>Apply Promo</div>
 <div mat-dialog-content>
-  {{content.body}}
-  <input matInput type="number" [(ngModel)]="promo">
+  <p class="text">
+    Ente a promo code
+  </p>
+  <input class="input" matInput [(ngModel)]="promo">
+  <p class="error text">{{message}}</p>
+
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false">{{content.button_false}}</button>
-  <button mat-button [mat-dialog-close]="result" cdkFocusInitial>{{content.button_true}}</button>
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button mat-button (click)="apply()" cdkFocusInitial>Apply</button>
 </div>

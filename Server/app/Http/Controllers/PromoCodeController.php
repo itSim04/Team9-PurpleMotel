@@ -10,6 +10,14 @@ use App\Http\Resources\PromoCodeResource;
 use App\Models\AppliedPromoCodes;
 use App\Models\EffectPromoCodes;
 use App\Models\EligibilityPromoCodes;
+use App\Models\RoomType;
+use App\Models\User;
+use App\Models\UserType;
+use App\Models\Room;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\RoomResource;
+use App\Http\Resources\RoomTypeResource;
+use App\Http\Resources\UserTypeResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\Logging\Exception;
@@ -35,6 +43,19 @@ class PromoCodeController extends Controller
             EligibilityPromoCodes::class => EligibilityPromoCodesResource::class,
             AppliedPromoCodes::class => AppliedPromoCodesResource::class,
             EffectPromoCodes::class => EffectPromoCodesResource::class
+        ]);
+    }
+
+    public function full_index()
+    {
+        return indexTemplate($this->model, $this->resource, [
+            EligibilityPromoCodes::class => EligibilityPromoCodesResource::class,
+            AppliedPromoCodes::class => AppliedPromoCodesResource::class,
+            EffectPromoCodes::class => EffectPromoCodesResource::class,
+            User::class => UserResource::class,
+            Room::class => RoomResource::class,
+            RoomType::class => RoomTypeResource::class,
+            UserType::class => UserTypeResource::class
         ]);
     }
 
@@ -99,7 +120,6 @@ class PromoCodeController extends Controller
             if ($existing_application) {
 
                 return generateResponse(200, 200);
-
             } else {
 
                 $eligibility_array = EligibilityPromoCodes::all()
@@ -158,10 +178,8 @@ class PromoCodeController extends Controller
 
                     return generateResponse(201, 201, $data);
                 } else {
-                    
-                    return generateResponse(200, 403);
-                
 
+                    return generateResponse(200, 403);
                 }
             }
         } else {

@@ -5,6 +5,7 @@ import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { RoomDatabaseService } from 'src/app/pages/admin/room-database/room-database.service';
 import { PageEvent } from '@angular/material/paginator';
+import { PromoCode } from 'src/app/models/PromoCode';
 
 @Component({
   selector: 'app-browse-rooms',
@@ -15,6 +16,7 @@ export class BrowseRoomsComponent implements OnInit, OnDestroy {
 
   rooms: Map<string, Room> = new Map();
   room_types: Map<string, RoomType> = new Map();
+  promo_codes: Map<string, PromoCode> = new Map();
 
   filtered_rooms: [string, Room][] = [];
   subscription?: Subscription;
@@ -35,6 +37,8 @@ export class BrowseRoomsComponent implements OnInit, OnDestroy {
     this.subscription = this.room_service.getAllRooms().subscribe(data => {
       this.rooms = data.rooms;
       this.room_types = data.room_types;
+      this.promo_codes = data.promo_codes;
+      console.log(this.promo_codes);
       this.filtered_rooms = Array.from(this.rooms);
     });
 
@@ -49,6 +53,24 @@ export class BrowseRoomsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
 
     this.subscription?.unsubscribe();
+
+  }
+
+  getEffect(room_id: string, type: string) {
+
+
+    for (let code of this.promo_codes.values()) {
+
+
+      if (code.concerned_everything || code.concerned_rooms.includes(room_id) || code.concerned_room_types.includes(type))
+        return code.change;
+
+
+
+    }
+    return 0;
+
+
 
   }
 

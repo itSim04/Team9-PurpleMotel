@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Http\Resources\BookingResource;
+use App\Http\Resources\EffectPromoCodesResource;
 use App\Http\Resources\PromoCodeResource;
 use App\Http\Resources\RoomTypeResource;
 use App\Models\AppliedPromoCodes;
@@ -49,54 +50,74 @@ class RoomController extends Controller
             $ids[] = $value->id;
         }
 
+        $included = RoomTypeResource::collection(RoomType::all()->whereIn('id', $types));
 
-        $room_types = RoomTypeResource::collection(RoomType::all()->whereIn('id', $types));
+        $user = Auth::user();
 
-        $applied_code = AppliedPromoCodes::all()
-            ->where('user_id', Auth::user()->id);
-
-
-        $promo_code_ids = [];
-        foreach ($applied_code as $key => $value) {
-
-            $promo_code_ids[] = $value->promo_id;
-        }
-        $effect_code = EffectPromoCodes::all()
-            ->whereIn('id', $promo_code_ids);
-
-        $effective_ids = [];
+        if ($user) {
 
 
-        foreach ($effect_code as $key => $value) {
 
-            switch ($value->type) {
 
-                case 0:
 
-                    if (in_array($value->effect_id, $ids)) {
 
-                        $effective_ids[] = $value->promo_id;
-                    }
-                    break;
+            $applied_code = AppliedPromoCodes::all()
+                ->where('user_id', $user->id);
 
-                case 1:
 
-                    if (in_array($value->effect_id, $types)) {
+            $promo_code_ids = [];
+            foreach ($applied_code as $key => $value) {
 
-                        $effective_ids[] = $value->promo_id;
-                    }
-                    break;
-
-                case 2:
-
-                    $effective_ids[] = $value->promo_id;
+                $promo_code_ids[] = $value->promo_id;
             }
+            $effect_code = EffectPromoCodes::all()
+                ->whereIn('id', $promo_code_ids);
+
+            $effective_ids = [];
+            $actual_effect = [];
+
+
+            foreach ($effect_code as $key => $value) {
+
+                switch ($value->type) {
+
+                    case 0:
+
+                        if (in_array($value->effect_id, $ids)) {
+
+                            $effective_ids[] = $value->promo_id;
+                            $actual_effect[] = $value;
+                        }
+                        break;
+
+                    case 1:
+
+                        if (in_array($value->effect_id, $types)) {
+
+                            $effective_ids[] = $value->promo_id;
+                            $actual_effect[] = $value;
+                        }
+                        break;
+
+                    case 2:
+
+                        $effective_ids[] = $value->promo_id;
+                        $actual_effect[] = $value;
+                }
+            }
+
+            $promo_code = PromoCodeResource::collection(PromoCode::all()->whereIn('id', $effective_ids));
+
+            $included = $included
+                ->concat($promo_code)
+                ->concat(EffectPromoCodesResource::collection($actual_effect));
+                
         }
 
-        $promo_code = PromoCodeResource::collection(PromoCode::all()->whereIn('id', $effective_ids));
 
+        $included = array_values($included->all());
 
-        return generateResponse(200, RoomResource::collection($room), $room_types->merge($promo_code));
+        return generateResponse(200, RoomResource::collection($room), $included);
     }
 
     /**

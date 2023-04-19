@@ -49,7 +49,7 @@ Route::prefix('v1')->group(function () {
         Route::get('forgot-password-1', 'forgotPassword1');
         Route::get('forgot-password-2', 'forgotPassword2');
     });
-    
+
     Route::apiResource('announcements', AnnouncementsController::class);
 
     Gate::policy(User::class, UserPolicy::class);
@@ -62,26 +62,29 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('languages', LanguageController::class);
     Route::apiResource('language-list', LanguageListController::class);
-    Route::apiResource('rooms', RoomController::class);
     Route::apiResource('roomtypes', RoomTypeController::class);
     Route::apiResource('facilities', FacilityController::class);
     Route::apiResource('activities', ActivityController::class);
     Route::apiResource('bookings', BookingController::class);
     Route::apiResource('registrations', RegistrationController::class);
     Route::apiResource('promocodes', PromoCodeController::class);
+    Route::get('full-promocodes', [PromoCodeController::class, 'full_index']);
     Route::get('applyPromo/{id}', [PromoCodeController::class, 'applyPromo']);
     Route::get('appliedCodes/{id}', [PromoCodeController::class, 'isAlreadyApplied']);
 
+    Route::prefix('rooms')->controller(RoomController::class)->group(function () {
+        Route::get('', 'index');
+        Route::get('/{room}', 'show');
+    });
+
     Route::middleware('auth:api')->group(function () {
 
-        
+
         Route::apiResource('foods', FoodController::class);
-        
+
         Route::prefix('rooms')->controller(RoomController::class)->group(function () {
-            
-            Route::get('', 'index');
+
             Route::post('', 'store');
-            Route::get('/{user}', 'show');
             Route::put('/{user}', 'update');
             Route::delete('/{user}', 'destroy');
         });
@@ -98,34 +101,34 @@ Route::prefix('v1')->group(function () {
         // });
 
         Route::prefix('stocks')->controller(StocksController::class)->group(function () {
-            
+
             Route::get('', 'index')->middleware('can:viewAny,App\Stocks');
             Route::post('', 'store')->middleware('can:update,App\Stocks');
             Route::get('/{user}', 'show')->middleware('can:view,App\Stocks,stocks');
             Route::put('/{user}', 'update')->middleware('can:update,App\Stocks');
             Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Stocks');
         });
-        
+
         Route::prefix('users')->controller(UserController::class)->group(function () {
-            
+
             Route::get('', 'index')->middleware('can:viewAny,App\User');
             Route::post('', 'store')->middleware('can:update,App\User');
             Route::get('/{user}', 'show')->middleware('can:view,App\User,user');
             Route::put('/{user}', 'update')->middleware('can:update,App\User');
             Route::delete('/{user}', 'destroy')->middleware('can:delete,App\User');
         });
-        
+
         Route::prefix('user-types')->controller(UserTypeController::class)->group(function () {
-            
+
             Route::get('', 'index')->middleware('can:viewAny,App\UserType');
             Route::post('', 'store')->middleware('can:update,App\UserType');
             Route::get('/{user_type}', 'show')->middleware('can:view,App\UserType,user_type');
             Route::put('/{user_type}', 'update')->middleware('can:update,App\UserType');
             Route::delete('/{user_type}', 'destroy')->middleware('can:delete,App\UserType');
         });
-        
+
         Route::prefix('permissions')->group(function () {
-            
+
             Route::get('', [PermissionController::class, 'index'])->middleware('can:viewAny,' . PermissionController::class);
             Route::post('', [PermissionController::class, 'store'])->middleware('can:update,' . PermissionController::class);
             Route::get('/{permission}', [PermissionController::class, 'show'])->middleware('can:view,permission');

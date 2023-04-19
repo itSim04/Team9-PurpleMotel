@@ -4,15 +4,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PromoComponent} from './promo.component';
-import { PromoService } from './promo.service';
+import { PromoDialogComponent} from './promo.component';
+import { PromoDialogService } from './promo.service';
 
 
 
 
 @NgModule({
   declarations: [
-    PromoComponent,
+    PromoDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -22,13 +22,13 @@ import { PromoService } from './promo.service';
     FormsModule
   ],
   exports: [
-    PromoComponent
+    PromoDialogComponent
   ],
   entryComponents: [
-    PromoComponent
+    PromoDialogComponent
   ],
   providers: [
-    PromoService
+    PromoDialogService
   ]
 })
-export class QuickDialogModule { }
+export class PromoDialogModule { }

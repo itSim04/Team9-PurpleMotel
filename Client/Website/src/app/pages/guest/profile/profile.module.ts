@@ -1,3 +1,4 @@
+import { PromoDialogModule } from './../../../services/dialogs/promo/promo.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module';
@@ -25,7 +26,8 @@ import { ProfileComponent } from './profile.component';
     LanguageModule,
     BookingDetailsModule,
     ActivityDetailsModule,
-    CarouselModule
+    CarouselModule,
+    PromoDialogModule
    
   ]
   

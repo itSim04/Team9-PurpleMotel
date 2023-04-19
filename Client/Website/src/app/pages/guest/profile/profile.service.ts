@@ -48,7 +48,6 @@ export class ProfileService {
             const user_stocks = new Map<string, Stock>();
             const user_activities = new Map<string, Activity>();
             const user_registrations = new Map<string, Registration>();
-
             response.data.forEach(value => {
 
 

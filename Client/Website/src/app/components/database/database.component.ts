@@ -104,7 +104,7 @@ export function Required(target: object, propertyKey: string) {
   });
 }
 
-export function formatPrice(price: number | undefined, reversed = false): string {
+export function formatPrice(price: number | undefined, reversed = false, visible = true): string {
 
   if (price) {
 
@@ -116,13 +116,20 @@ export function formatPrice(price: number | undefined, reversed = false): string
     // join the groups with commas and return the result from right to left
     const temp = numArr?.join(',')?.split('').reverse().join('') || numStr;
 
-    if (reversed) {
+    if (visible) {
 
-      return temp + " USD";
+      if (reversed) {
 
+        return temp + " USD";
+
+      } else {
+
+        return "USD " + temp;
+
+      }
     } else {
 
-      return "USD " + temp;
+      return temp;
 
     }
 
@@ -232,7 +239,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
 
         }
-      } else if(this.data_injection.hover_linker) {
+      } else if (this.data_injection.hover_linker) {
 
 
         if (this.all_data_outer) {
@@ -240,17 +247,17 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
           this.hover_list = Array.from(this.all_data_outer[this.data_injection.hover_linker.index]).filter(t => {
 
             if (this.data_injection.hover_linker && this.display_hover[1] && this.all_extra) {
-              
+
               return this.data_injection.hover_linker.filter(t[0], this.display_hover[1][this.data_injection.hover_linker.key]);
-              
+
             } else {
-              
+
               return false;
-              
+
             }
-            
-            
-          });        
+
+
+          });
 
         }
 

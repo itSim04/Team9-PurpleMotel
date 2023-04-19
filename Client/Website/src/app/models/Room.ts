@@ -1,3 +1,5 @@
+import { EffectPromoCodes, PromoCodeAttributes } from './PromoCode';
+import { PromoCode } from 'src/app/models/PromoCode';
 import { KeyValue } from '@angular/common';
 import { RoomType } from "./RoomType";
 
@@ -79,8 +81,8 @@ export interface RoomsResponse {
   included?: {
 
     id: string;
-    type: string;
-    attributes: RoomType;
+    type: 'PromoCodes' | 'RoomTypes' | 'EffectPromoCodes';
+    attributes: RoomType | PromoCodeAttributes | EffectPromoCodes;
 
   }[];
 }
@@ -88,11 +90,13 @@ export interface RoomsResponse {
 export interface RoomPackage {
   room: KeyValue<string, Room>;
   room_type: KeyValue<string, RoomType>;
+  promo_code: KeyValue<string, PromoCode>;
 }
 
 export interface RoomsPackage {
   rooms: Map<string, Room>;
   room_types: Map<string, RoomType>;
+  promo_codes: Map<string, PromoCode>;
 }
 export interface RawRoomsPackage {
   rooms: Map<string, Room>;
