@@ -19,6 +19,7 @@ class RegistrationFactory extends Factory
         return [
             'activity_id' => random_int(1,20),
             'user_id' => random_int(1,20),
+            'seats' => random_int(1, 8),
             'start_date' => fake()->date(),
             'end_date' => fake()->date()
         ];

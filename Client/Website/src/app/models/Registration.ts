@@ -10,6 +10,7 @@ export interface RegistrationAttributes {
   
   start_date: string,
   end_date: string,
+  seats: number,
 
 
 }
@@ -18,6 +19,7 @@ export interface Registration extends RegistrationAttributes {
 
   activity_id: string,
   user_id: string,
+
 
 }
 
