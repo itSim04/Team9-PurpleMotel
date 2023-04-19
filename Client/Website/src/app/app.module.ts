@@ -6,7 +6,6 @@ import { RoomsModule } from './pages/guest/rooms/rooms.module';
 import { ServicesModule } from './pages/guest/services/services.module';
 import { RestaurantModule } from './pages/guest/restaurant/restaurant.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HomeModule } from './pages/guest/home/home.module';
 import { UserDatabaseModule } from './pages/admin/user-database/user-database.module';
@@ -29,7 +28,6 @@ import { OrderDatabaseModule } from './pages/admin/order-database/order-database
 import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
 import { CarouselModule } from './components/general/carousel/carousel.module';
-import { ActivityOverviewModule } from './components/activity/activity-list-item/activity-overview/activity-overview.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { ProfileModule } from './pages/guest/profile/profile.module';
 
@@ -55,15 +53,15 @@ import { ProfileModule } from './pages/guest/profile/profile.module';
 
     // Potential
     BrowserAnimationsModule,
-    PromoDatabaseModule,
     AnnouncementDatabaseModule,
     BookingDatabaseModule,
     FoodDatabaseModule,
     LanguageDatabaseModule,
     NewsDatabaseModule,
+    PromoDatabaseModule,
     OrderDatabaseModule,
 
-    PromoDatabaseModule,
+    
     RegistrationDatabaseModule,
     RoomDatabaseModule,
     ServiceDatabaseModule,

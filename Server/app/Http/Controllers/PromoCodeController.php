@@ -99,10 +99,8 @@ class PromoCodeController extends Controller
             if ($existing_application) {
 
                 return generateResponse(200, 'The Code is already applied');
+
             } else {
-
-
-                echo $promo_id;
 
                 $eligibility_array = EligibilityPromoCodes::all()
                     ->where('promo_id', $promo_id);
@@ -159,6 +157,11 @@ class PromoCodeController extends Controller
                     ]);
 
                     return generateResponse(201, $data);
+                } else {
+                    
+                    return generateResponse(403, 'You are not Eligible');
+                
+
                 }
             }
         } else {
