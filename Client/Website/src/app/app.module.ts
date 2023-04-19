@@ -29,6 +29,7 @@ import { OrderDatabaseModule } from './pages/admin/order-database/order-database
 import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
+import { ProfileModule } from './pages/guest/profile/profile.module';
 
 
 @NgModule({
@@ -78,8 +79,6 @@ import { ServiceDatabaseModule } from './pages/admin/service-database/service-da
     AuthenticationModule,
 
     ProfileModule
-
->>>>>>>>> Temporary merge branch 2
 
   ],
   providers: [

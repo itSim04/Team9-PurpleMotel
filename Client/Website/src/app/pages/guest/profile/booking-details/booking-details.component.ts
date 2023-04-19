@@ -27,4 +27,10 @@ export class BookingDetailsComponent {
     return formatOccupancy([size1, size2, size3])
 
   }
+
+  get past() {
+
+    return (new Date() >= new Date(this.check_in));
+
+  }
 }

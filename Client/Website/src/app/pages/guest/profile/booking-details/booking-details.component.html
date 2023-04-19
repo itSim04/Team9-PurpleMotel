@@ -29,7 +29,7 @@
         <h4 class="properties-total">Total:</h4>
         <div style="display: flex;">
             <h3 class="properties-price">{{formatPrice(room_type.price)}}</h3>
-            <button class="cancel-button">Cancel</button>
+            <button [style.visibility]="exhausted || past ? 'hidden' : 'visible'" class="cancel-button">Cancel</button>
         </div>
     </div>
 </div>

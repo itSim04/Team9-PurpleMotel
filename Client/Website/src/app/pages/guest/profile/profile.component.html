@@ -30,7 +30,7 @@
         <h1 class="page-titles">My Bookings</h1>
         <hr class="divider">
         <app-carousel [browsePopup]="browseBookingHistory" #carousel>
-            <ng-container *ngFor="let booking of bookings | keyvalue; let i = index">
+            <ng-container *ngFor="let booking of bookings | keyvalue: keyDescOrder; let i = index">
                 <ng-container *carouselItem>
 
                     <app-booking-details

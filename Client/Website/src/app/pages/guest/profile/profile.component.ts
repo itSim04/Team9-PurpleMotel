@@ -11,6 +11,7 @@ import { ProfileService } from './profile.service';
 import { Order } from 'src/app/models/Order';
 import { Activity } from 'src/app/models/Activity';
 import { Registration } from 'src/app/models/Registration';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -36,22 +37,26 @@ export class ProfileComponent implements OnInit {
   first_name = this.user.first_name;
   last_name = this.user.last_name;
 
+  keyDescOrder = (a: KeyValue<string, Booking>, b: KeyValue<string, Booking>): number => {
+    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+  };
+
   @ViewChild('carousel') carousel !: CarouselComponent;
 
-  constructor(private browsing_service: BrowsingDialogService, private profile_service: ProfileService) { }
+  constructor (private browsing_service: BrowsingDialogService, private profile_service: ProfileService) { }
 
   async ngOnInit() {
 
-    this.profile_service.getAllData().subscribe(data =>{
+    this.profile_service.getAllData().subscribe(data => {
 
       this.bookings = data.bookings;
-      this.orders = data.orders; 
+      this.orders = data.orders;
       this.rooms = data.rooms;
       this.room_types = data.room_types;
       this.activities = data.activities;
       this.registrations = data.registrations;
 
-    })
+    });
 
   }
 
