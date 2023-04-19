@@ -9,7 +9,7 @@ class Registration extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'activity_id', 
+        'activity_id',
         'user_id',
         'start_date',
         'end_date',

@@ -14,13 +14,12 @@ export class AnnouncementDatabaseComponent {
   constructor (private announcement_service: AnnouncementDatabaseService) { }
 
   data_injection: DataInjection<Announcement> = {
-
     title: 'Announcements',
 
     permission: 'announcement',
 
     displayed_columns:[
-      {
+    {
         key: 'label',
         type: 'text'
       },
