@@ -104,6 +104,7 @@ export class ServiceDatabaseComponent {
       description: '',
       price: 0,
       capacity: 0,
+      registrations: [],
       start_date: '1970-01-01',
       end_date: '1970-01-01'
     },

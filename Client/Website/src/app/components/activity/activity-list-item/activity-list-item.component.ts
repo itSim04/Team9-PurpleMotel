@@ -19,7 +19,7 @@ export class ActivityListItemComponent {
   @Input() start_date!: string;
   @Input() end_date!: string;
 
-  constructor(private registration_service: RegistrationDatabaseService, private snackBar: MatSnackBar) { }
+  constructor (private registration_service: RegistrationDatabaseService, private snackBar: MatSnackBar) { }
 
   get formatPrice(): string {
     const activity = this.activity;
@@ -52,12 +52,13 @@ export class ActivityListItemComponent {
 
     if (user_id && this.activity?.key) {
 
-        this.registration_service.addNewRegistration({
+      this.registration_service.addNewRegistration({
 
-          start_date: this.activity.value.start_date,
-          end_date: this.activity.value.end_date,
-          activity_id: this.activity!.key,
-          user_id: user_id
+        start_date: this.activity.value.start_date,
+        end_date: this.activity.value.end_date,
+        activity_id: this.activity!.key,
+        user_id: user_id,
+        seats: this.seats
 
 
 
@@ -65,7 +66,7 @@ export class ActivityListItemComponent {
 
     } else {
 
-      console.error('Invalid id or activity key')
+      console.error('Invalid id or activity key');
 
     }
   }

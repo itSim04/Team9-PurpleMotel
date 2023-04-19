@@ -1,8 +1,10 @@
+import { KeyValue } from "@angular/common";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { ActivitiesResponse, Activity, ActivityResponse, ActivityPackage, ActivitiesPackage } from "src/app/models/Activity";
 import { FacilitiesPackage, FacilitiesResponse, Facility, FacilityPackage, FacilityResponse } from "src/app/models/Facility";
+import { Registration } from "src/app/models/Registration";
 import { UrlBuilderService } from "src/app/services/url-builder.service";
 
 
@@ -26,16 +28,32 @@ export class ServiceDatabaseService {
         map((response: ActivitiesResponse): ActivitiesPackage => {
 
           const activities = new Map<string, Activity>();
+          const registrations = new Map<string, Registration>();
 
           response.data.forEach(activity => {
 
-            activities.set(activity.id, activity.attributes);
+            activities.set(activity.id, { ...activity.attributes, registrations: [] });
 
           });
 
+          if (response.included) {
+
+            response.included.forEach(registration => {
+
+              const registration_keyvalue: KeyValue<string, Registration> = {
+                key: registration.id, value: { ...registration.attributes, user_id: registration.relationships.user.data.id, activity_id: registration.relationships.activity.data.id }
+              };
+              registrations.set(registration_keyvalue.key, registration_keyvalue.value);
+              activities.get(registration.relationships.activity.data.id)?.registrations.push(registration_keyvalue.value);
+
+            });
+
+          }
+
           return {
 
-            activities: activities
+            activities: activities,
+            registrations: registrations
 
           };
 
@@ -60,12 +78,23 @@ export class ServiceDatabaseService {
       return this.http.get<ActivityResponse>(this.url.generateUrl(`activities/${id}`), { headers: headers }).pipe(
         map((response: ActivityResponse): ActivityPackage => {
 
+          const activity: Activity = { ...response.data.attributes, registrations: [] };
+          if (response.included) {
+
+
+            response.included.forEach(registration => {
+
+              activity.registrations.push({ ...registration.attributes, activity_id: registration.relationships.activity.data.id, user_id: registration.relationships.user.data.id });
+
+            });
+
+          }
           return {
 
             activity: {
 
               key: response.data.id,
-              value: response.data.attributes
+              value: activity
 
             },
           };

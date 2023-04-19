@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { PromoDatabaseService } from './promo-database.service';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { map } from 'rxjs';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { PromoCodeDatabaseService } from './promo-database.service';
+import { PromoDatabaseService } from './promo-database.service';
 
 @Component({
   selector: 'app-promo-database',

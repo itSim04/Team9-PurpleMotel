@@ -60,18 +60,18 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('ingredients', IngredientController::class);
     Route::apiResource('foods', FoodController::class);
     Route::apiResource('orders', OrderController::class);
+    Route::apiResource('languages', LanguageController::class);
+    Route::apiResource('language-list', LanguageListController::class);
+    Route::apiResource('rooms', RoomController::class);
+    Route::apiResource('roomtypes', RoomTypeController::class);
+    Route::apiResource('facilities', FacilityController::class);
+    Route::apiResource('activities', ActivityController::class);
+    Route::apiResource('bookings', BookingController::class);
+    Route::apiResource('registrations', RegistrationController::class);
+    Route::apiResource('promocodes', PromoCodeController::class);
 
     Route::middleware('auth:api')->group(function () {
 
-        Route::apiResource('languages', LanguageController::class);
-        Route::apiResource('language-list', LanguageListController::class);
-        Route::apiResource('rooms', RoomController::class);
-        Route::apiResource('roomtypes', RoomTypeController::class);
-        Route::apiResource('facilities', FacilityController::class);
-        Route::apiResource('activities', ActivityController::class);
-        Route::apiResource('bookings', BookingController::class);
-        Route::apiResource('registrations', RegistrationController::class);
-        Route::apiResource('promocodes', PromoCodeController::class);
         
 
         // Route::prefix('foods')->controller(FoodController::class)->group(function () {
