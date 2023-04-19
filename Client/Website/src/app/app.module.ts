@@ -5,7 +5,7 @@ import { ConfirmationDialogModule } from './services/dialogs/confirmation/confir
 import { RoomsModule } from './pages/guest/rooms/rooms.module';
 import { ServicesModule } from './pages/guest/services/services.module';
 import { RestaurantModule } from './pages/guest/restaurant/restaurant.module';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HomeModule } from './pages/guest/home/home.module';
@@ -28,7 +28,8 @@ import { NewsDatabaseModule } from './pages/admin/news-database/news-database.mo
 import { OrderDatabaseModule } from './pages/admin/order-database/order-database.module';
 import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 import { RegistrationDatabaseModule } from './pages/admin/registration-database/registration-database.module';
-import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
+import { CarouselModule } from './components/general/carousel/carousel.module';
+import { ActivityOverviewModule } from './components/activity/activity-list-item/activity-overview/activity-overview.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 
 
@@ -41,6 +42,8 @@ import { ServiceDatabaseModule } from './pages/admin/service-database/service-da
     // Utilities
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    CarouselModule,
     StarRatingModule.forRoot(),
     RouterModule,
 
@@ -51,8 +54,7 @@ import { ServiceDatabaseModule } from './pages/admin/service-database/service-da
 
     // Potential
     BrowserAnimationsModule,
-
-    // Admin
+    PromoDatabaseModule,
     AnnouncementDatabaseModule,
     BookingDatabaseModule,
     FoodDatabaseModule,

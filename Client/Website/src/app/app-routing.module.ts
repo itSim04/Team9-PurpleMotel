@@ -16,6 +16,7 @@ import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.co
 import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
+import { ActivityOverviewComponent } from './components/activity/activity-list-item/activity-overview/activity-overview.component';
 import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 
@@ -112,7 +113,11 @@ const routes: Routes = [
       {
         component: BrowseServicesComponent,
         path: "browse"
-      }
+      },
+      {
+        component: ActivityOverviewComponent,
+        path: "details/:id"
+      },
     ]
   },
   {
