@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { AnnouncementsResponse, Announcement, AnnouncementResponse, AnnouncementPackage, AnnouncementsPackage } from "src/app/models/Announcement";
+import { AnnouncementsPackage, AnnouncementsResponse, Announcement, AnnouncementPackage, AnnouncementResponse } from "src/app/models/Announcement";
 import { UrlBuilderService } from "src/app/services/url-builder.service";
 
 

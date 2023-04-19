@@ -111,12 +111,12 @@ export class RoomDatabaseComponent {
     data_fetcher: undefined
   };
 
-  @Input() dual_fetcher: () => Observable<[Map<string, Room>, Map<string, RoomType>]> = () => {
+  dual_fetcher: () => Observable<[Map<string, Room>, Map<string, RoomType>, Map<string, unknown>[] | undefined]> = () => {
 
     return this.room_service.getAllRooms().pipe(
       map(result => {
 
-        return [result.rooms, result.room_types];
+        return [result.rooms, result.room_types, undefined];
 
       })
     );

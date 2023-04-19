@@ -1,4 +1,4 @@
-import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
+import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 import { HomeComponent } from './pages/guest/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,7 +13,7 @@ import { RoomDatabaseComponent } from './pages/admin/room-database/room-database
 import { StockDatabaseComponent } from './pages/admin/stock-database/stock-database.component';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.component';
-
+import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { ActivityOverviewComponent } from './components/activity/activity-list-item/activity-overview/activity-overview.component';
@@ -125,12 +125,16 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "menu",
+        redirectTo: "browse",
         pathMatch: "full"
       },
       {
         component: MenuComponent,
         path: "menu"
+      },
+      {
+        component: RestaurantLandingComponent,
+        path: "browse"
       }
     ]
   },

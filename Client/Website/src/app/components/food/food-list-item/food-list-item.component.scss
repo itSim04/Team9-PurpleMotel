@@ -1,0 +1,109 @@
+.main {
+    // padding: 16px;
+    border-radius: 20px;
+    width: fit-content;
+    margin: 16px;
+    padding: 16px;
+    // // height: 50%;
+    // background-color: white;
+
+    transition: background-color 0.2s, color 0.2s;
+
+    background-color: #14274A;
+    color: white
+
+}
+
+.main:hover {
+
+    background-color: white;
+    color: #14274a
+
+}
+
+
+.label {
+
+    font-family: 'Abhaya Libre';
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    // line-height: 71px;
+    padding-left: 16px;
+    padding-top: 16px;
+    // color: white; //#14274A;
+}
+
+.title {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-size: 2vw;
+    line-height: 3.5vh;
+    letter-spacing: 0.02em;
+    // color: white; //#14274A;
+
+}
+
+.title-1 {
+
+    @extend .title;
+    font-weight: 400;
+
+}
+
+.title-2 {
+
+    @extend .title;
+    font-weight: 700;
+
+}
+
+.quantity_btn {
+
+    display: inline-block;
+    width: 10px;
+    // background-color: white;
+    border: 0px;
+    padding: 8px;
+
+}
+
+.content {
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 18px;
+    line-height: 3vh;
+    // color: white;
+    margin: 0px;
+}
+
+.content-1 {
+
+    @extend .content;
+    font-weight: 700;
+
+}
+
+.content-2 {
+
+
+    font-family: 'Abhaya Libre';
+
+    @extend .content;
+    font-weight: 400;
+    font-size: 30px;
+    // max-width: 40vh;
+
+
+}
+
+.content-3 {
+
+    @extend .content;
+    font-weight: 400;
+    font-size: 24px;
+
+}
