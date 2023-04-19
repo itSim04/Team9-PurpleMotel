@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
@@ -7,6 +7,7 @@ import { Booking, BookingAttributes } from 'src/app/models/Booking';
 import { Food, FoodAttributes } from 'src/app/models/Food';
 import { Order, OrderAttributes } from 'src/app/models/Order';
 import { OrderContains, OrderContainsAttributes } from 'src/app/models/OrderContains';
+import { PromoCodeApplicationResponse, PromoCodeResponse } from 'src/app/models/PromoCode';
 import { Registration, RegistrationAttributes } from 'src/app/models/Registration';
 import { Room, RoomAttributes } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
@@ -22,7 +23,7 @@ export class ProfileService {
   orders = new Map<string, Order>();
   activities = new Map<string, Activity>();
   bookings = new Map<string, Booking>();
-  
+
 
   constructor(private http: HttpClient, private url: UrlBuilderService) { }
 
@@ -166,6 +167,8 @@ export class ProfileService {
 
     }
 
-
   }
+  
+
+
 }

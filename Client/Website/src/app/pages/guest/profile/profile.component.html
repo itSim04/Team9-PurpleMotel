@@ -11,10 +11,10 @@
     <div>
         <h1 class="user">{{first_name}} {{last_name}}</h1>
         <hr class="main-divider">
-        <button class="promo-code-button">Apply Promo Code</button>
+        <button (click)="applyCode()" class="promo-code-button">Apply Promo Code</button>
     </div>
 
-    <div *ngIf="orders.size" class="profile-container">
+    <div *ngIf="orders && orders.size" class="profile-container">
         <h1 class="page-titles">My Orders</h1>
         <hr class="divider">
         <div class="orders-container">
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div *ngIf="bookings.size" style="width: 98%;">
+    <div *ngIf="bookings && bookings.size" style="width: 98%;">
         <h1 class="page-titles">My Bookings</h1>
         <hr class="divider">
         <app-carousel #carousel>
@@ -46,7 +46,7 @@
 
 
     </div>
-    <div *ngIf="registrations.size">
+    <div *ngIf="registrations && registrations.size">
         <h1 class="page-titles">My Activities</h1>
         <hr class="divider">
         <app-carousel #carousel>
@@ -63,5 +63,5 @@
         </app-carousel>
     </div>
 
-    <app-footer></app-footer>
+    <app-footer alt_color="#14274A"></app-footer>
 </div>

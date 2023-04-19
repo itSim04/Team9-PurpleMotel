@@ -98,7 +98,7 @@ class PromoCodeController extends Controller
 
             if ($existing_application) {
 
-                return generateResponse(200, 'The Code is already applied');
+                return generateResponse(200, 200);
 
             } else {
 
@@ -156,17 +156,17 @@ class PromoCodeController extends Controller
 
                     ]);
 
-                    return generateResponse(201, $data);
+                    return generateResponse(201, 201, $data);
                 } else {
                     
-                    return generateResponse(403, 'You are not Eligible');
+                    return generateResponse(200, 403);
                 
 
                 }
             }
         } else {
 
-            return generateResponse(404, 'The Promo code is invalid');
+            return generateResponse(200, 404);
         }
     }
 

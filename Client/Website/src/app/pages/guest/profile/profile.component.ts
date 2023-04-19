@@ -11,6 +11,7 @@ import { RoomType } from 'src/app/models/RoomType';
 import { BrowsingDialogService } from 'src/app/services/dialogs/browsing/browsing.service';
 import { ProfileService } from './profile.service';
 import { Router } from '@angular/router';
+import { PromoService } from 'src/app/services/dialogs/promo/promo.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -43,7 +44,7 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('carousel') carousel !: CarouselComponent;
 
-  constructor(private browsing_service: BrowsingDialogService, private profile_service: ProfileService, private router: Router) { }
+  constructor(private browsing_service: BrowsingDialogService, private profile_service: ProfileService, private router: Router, private promo_service: PromoService) { }
 
   async ngOnInit() {
 
@@ -58,6 +59,10 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  applyCode(){
+    // this.promo_service.applyPromoCode();
+  }
+ 
   logout() {
 
     localStorage.removeItem('token');
