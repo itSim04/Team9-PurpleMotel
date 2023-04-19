@@ -8,8 +8,9 @@ use App\Http\Resources\RoomResource;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Http\Resources\BookingResource;
 use App\Http\Resources\RoomTypeResource;
-
+use App\Models\Booking;
 
 class RoomController extends Controller
 {
@@ -49,7 +50,7 @@ class RoomController extends Controller
      */
     public function show(int $id)
     {
-        return showTemplate($this->model, $this->resource, $id);
+        return showTemplate($this->model, $this->resource, $id, RoomType::class, RoomTypeResource::class, 'id');
     }
 
     /**
@@ -68,5 +69,40 @@ class RoomController extends Controller
     {
 
         return destroyTemplate($this->model, $id);
+    }
+
+    public function filter(Request $request)
+    {
+
+        $start_date = strtotime($request->check_in);
+        $end_date = strtotime($request->check_out);
+
+        $bookings = Booking::all();
+        $conflictingBooking = [];
+        foreach ($bookings as $booking) {
+
+            $current_check_in = strtotime($booking->check_in);
+            $current_end_date = strtotime($booking->end_date);
+
+
+            if (!($end_date < $current_check_in || $start_date > $current_end_date)) {
+
+                $conflictingBooking[] = $booking->room_id;
+            }
+        }
+
+        return RoomResource::collection(Room::all()->whereNotIn('id', $conflictingBooking));
+    }
+
+    public function roomBookings(Request $request)
+    {
+
+        $request->validate([
+
+            'room_id' => 'required|numeric'
+
+        ]);
+
+        return BookingResource::collection(Booking::all()->where('room_id', $request->room_id));
     }
 }

@@ -133,12 +133,11 @@ export class RegistrationDatabaseService {
 
     try {
       console.log(registration);
-      return this.http.post<RegistrationResponse>(this.url.generateUrl('registrations'), { ...registration, activity_id: '1', user_id: '68' }, { headers: headers }).pipe(
+      return this.http.post<RegistrationResponse>(this.url.generateUrl('registrations'), { ...registration, activity_id: registration.activity_id, user_id: registration.activity_id }, { headers: headers }).pipe(
 
         map(result => {
 
           return result.data.id;
-undefined
         })
 
       );

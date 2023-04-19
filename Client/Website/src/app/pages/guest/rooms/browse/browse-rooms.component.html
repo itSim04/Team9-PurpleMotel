@@ -1,3 +1,58 @@
-<app-nav-bar></app-nav-bar>
-<p>rooms works!</p>
-<app-footer></app-footer>
+<div class="nav">
+    <app-nav-bar [transparent]="true"></app-nav-bar>
+    <div class="title-container">
+        <p class="title-1">Welcome to</p>
+        <p class="title-2">Purple</p>
+        <p class="title-3">Motel</p>
+        <p class="title-4">Book your stay and enjoy Luxury<br>redefined at the most affordable
+            rates.</p>
+    </div>
+    <app-quick-availability (result)="filterRooms($event)"
+        class="quick-container"></app-quick-availability>
+</div>
+
+<div style="width: 100%;">
+    <ng-container *ngIf="!filtered">
+
+        <p class="header">Rooms and Rates</p>
+        <mat-divider
+            style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
+        <p class="sub-header">Each of our bright, light-flooded rooms come with everything you could
+            possibly need for a comfortable stay. And yes,
+            comfort isn't our only objective, we also value good design, sleek contemporary
+            furnishing
+            complemented
+            by the rich tones of nature's palette as visible from our rooms' sea-view windows and
+            terraces. </p>
+    </ng-container>
+
+    <ng-container *ngIf="filtered">
+
+        <p class="header">{{filtered_rooms.length}} Found</p>
+        <mat-divider
+            style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
+    </ng-container>
+
+    <!-- <div style="display: flex; flex-wrap: wrap;">
+        <div *ngFor="let room of filtered_rooms | keyvalue" style="width: 50%;">
+            <app-room-item class="item" [room]="room" [room_type]="room_types.getPair(room.value.type)"></app-room-item>
+            <mat-divider
+                style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
+        </div>
+    </div> -->
+
+    <!-- <mat-paginator [length]="filtered_rooms.size" [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+    <div style="display: flex; flex-wrap: wrap;">
+        <div *ngFor="let room of filtered_rooms| slice: (pagination.currentPage - 1) * pagination.pageSize : pagination.currentPage * pagination.pageSize"
+            style="width: 50%;">
+            <app-room-item class="item" [room]="{key: room[0], value: room[1]}"
+                [room_type]="room_types.getPair(room[1].type)"></app-room-item>
+            <mat-divider
+                style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
+        </div>
+        <app-paginator #pagination [pageSize]="10" [collectionSize]="1000" [firstLastButtons]="true" [maxSize]="2" [nextPreviousButtons]="true"></app-paginator>
+    </div>
+
+
+</div>

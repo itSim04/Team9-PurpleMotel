@@ -204,7 +204,7 @@ function showTemplate(string $model, string $resource, int $id, string $extra_mo
 
     if ($data) {
 
-        return generateResponse(200, new $resource($data), $extra_resource && $extra_model && $concerned_key ? [$extra_resource::collection($extra_model::where($concerned_key, $data->id)->get())] : []);
+        return generateResponse(200, new $resource($data), $extra_resource && $extra_model && $concerned_key ? $extra_resource::collection($extra_model::where($concerned_key, $data->id)->get()) : []);
     } else {
 
         return generateResponse(404, $id . " not in Database", true);

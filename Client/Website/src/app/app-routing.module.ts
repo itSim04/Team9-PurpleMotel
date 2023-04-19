@@ -16,6 +16,9 @@ import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.co
 import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
+import { RoomOverviewComponent } from './pages/guest/rooms/overview/room-overview.component';
+import { ProfileComponent } from './pages/guest/profile/profile.component';
+import { ActivityOverviewComponent } from './components/activity/activity-list-item/activity-overview/activity-overview.component';
 import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 
@@ -83,7 +86,7 @@ const routes: Routes = [
       {
         path: "service-database",
         component: ServiceDatabaseComponent,
-      },
+      }
 
     ]
   },
@@ -99,6 +102,10 @@ const routes: Routes = [
         component: BrowseRoomsComponent,
         path: "browse"
       },
+      {
+        component: RoomOverviewComponent,
+        path: "details/:id"
+      },
     ]
   },
   {
@@ -112,7 +119,11 @@ const routes: Routes = [
       {
         component: BrowseServicesComponent,
         path: "browse"
-      }
+      },
+      {
+        component: ActivityOverviewComponent,
+        path: "details/:id"
+      },
     ]
   },
   {
@@ -136,6 +147,10 @@ const routes: Routes = [
   {
     path: "home",
     component: HomeComponent
+  },
+  {
+    path: "profile",
+    component: ProfileComponent,
   }
 
 ];

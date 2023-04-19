@@ -74,12 +74,12 @@ export class BookingDatabaseComponent {
     fields: [
       {
         key: 'check_in',
-        condition: (data) => (data as number) > 0,
+        // condition: (data) => (data as number) > 0,
         type: 'date'
       },
       {
         key: 'end_date',
-        condition: (data) => (data as number) > 0,
+        // condition: (data) => (data as number) > 0,
         type: 'date'
       },
       {

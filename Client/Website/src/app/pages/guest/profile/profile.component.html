@@ -1,0 +1,72 @@
+<div style="background-color: #14274A;">
+
+    <div>
+        <app-nav-bar [hide_auth]="true" style="position: relative;"></app-nav-bar>
+        <button class="edit-button">Edit Profile</button>
+        <button class="change-pass-button">Change Password</button>
+    </div>
+
+
+    <div>
+        <h1 class="user">{{first_name}} {{last_name}}</h1>
+        <hr class="main-divider">
+        <button class="promo-code-button">Apply Promo Code</button>
+    </div>
+
+    <div class="profile-container">
+        <h1 class="page-titles">My Orders</h1>
+        <hr class="divider">
+        <div class="orders-container">
+            <div *ngFor="let order of orders |keyvalue" style="position: relative;padding: 32px;">
+                <div class="wrap">
+                    <img class="order-img" src="../../../../assets/burger.png">
+                </div>
+                <h4 class="order-title">{{order.value.date}}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 98%;">
+        <h1 class="page-titles">My Bookings</h1>
+        <hr class="divider">
+        <app-carousel [browsePopup]="browseBookingHistory" #carousel>
+            <ng-container *ngFor="let booking of bookings | keyvalue: keyDescOrder; let i = index">
+                <ng-container *carouselItem>
+
+                    <app-booking-details
+                        style="width: 100%; display: flex; position: relative;left: 50%; transform: translateX(-50%); "
+                        [@fadeOut] [room]="rooms.get(booking.value.room_id)!"
+                        [room_type]="room_types.get(rooms.get(booking.value.room_id)!.type)!"
+                        [check_in]="booking.value.check_in" [end_date]="booking.value.end_date"
+                        [exhausted]="booking.value.exhausted"></app-booking-details>
+                </ng-container>
+            </ng-container>
+        </app-carousel>
+
+
+    </div>
+    <div>
+        <h1 class="page-titles">My Activities</h1>
+        <hr class="divider">
+        <app-carousel [browsePopup]="browseBookingHistory" #carousel>
+            <ng-container *ngFor="let registration of registrations | keyvalue; let i = index">
+                <ng-container *carouselItem>
+
+                    <app-activity-details
+                        style="width: 100%; display: flex; position: relative;left: 50%; transform: translateX(-50%); "
+                        [@fadeOut] [activity]="activities.get(registration.value.activity_id)!" 
+                        [registration]="registrations.get(registration.key)!" 
+                        [title]="activities.get(registration.value.activity_id)?.title!"
+                        [description]="activities.get(registration.value.activity_id)?.description!" 
+                        [capacity]="activities.get(registration.value.activity_id)?.capacity!" 
+                        [start_date]="registrations.get(registration.value.activity_id)?.start_date!" 
+                        [end_date]="registrations.get(registration.value.activity_id)?.end_date!" 
+                        [price]="activities.get(registration.value.activity_id)?.price!"  
+                        ></app-activity-details>
+                </ng-container>
+            </ng-container>
+        </app-carousel>
+    </div>
+
+    <app-footer></app-footer>
+</div>
