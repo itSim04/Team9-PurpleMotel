@@ -50,6 +50,8 @@ export class ServiceDatabaseService {
 
           }
 
+          console.log(activities, registrations);
+
           return {
 
             activities: activities,

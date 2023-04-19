@@ -67,9 +67,9 @@
                             </p>
                         </td>
                         <td>
-                            <p class="cancel-btn" (click)="register()">
+                            <button [disabled]="seats == 0 || free < 0" class="cancel-btn" (click)="register()">
                                 Register
-                            </p>
+                            </button>
                         </td>
                     </tr>
                 </table>

@@ -30,6 +30,17 @@ export class ActivityListItemComponent {
     }
   }
 
+  get free() {
+
+    let taken = 0;
+    this.activity?.value.registrations.forEach(registration => {
+
+      taken += registration.seats;
+
+    });
+    return (this.activity!.value.capacity - taken) - this.seats;
+
+  }
   changeQuantity(change: number) {
     if (this.seats + change >= 0) {
       this.seats += change;
