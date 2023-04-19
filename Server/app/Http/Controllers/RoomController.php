@@ -9,8 +9,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Http\Resources\BookingResource;
+use App\Http\Resources\PromoCodeResource;
 use App\Http\Resources\RoomTypeResource;
+use App\Models\AppliedPromoCodes;
 use App\Models\Booking;
+use App\Models\EffectPromoCodes;
+use App\Models\PromoCode;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
@@ -33,7 +38,65 @@ class RoomController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource, [RoomType::class => RoomTypeResource::class]);
+        $room = Room::all();
+
+        $types = [];
+        $ids = [];
+
+        foreach ($room as $key => $value) {
+
+            $types[] = $value->type;
+            $ids[] = $value->id;
+        }
+
+
+        $room_types = RoomTypeResource::collection(RoomType::all()->whereIn('id', $types));
+
+        $applied_code = AppliedPromoCodes::all()
+            ->where('user_id', Auth::user()->id);
+
+
+        $promo_code_ids = [];
+        foreach ($applied_code as $key => $value) {
+
+            $promo_code_ids[] = $value->promo_id;
+        }
+        $effect_code = EffectPromoCodes::all()
+            ->whereIn('id', $promo_code_ids);
+
+        $effective_ids = [];
+
+
+        foreach ($effect_code as $key => $value) {
+
+            switch ($value->type) {
+
+                case 0:
+
+                    if (in_array($value->effect_id, $ids)) {
+
+                        $effective_ids[] = $value->promo_id;
+                    }
+                    break;
+
+                case 1:
+
+                    if (in_array($value->effect_id, $types)) {
+
+                        $effective_ids[] = $value->promo_id;
+                    }
+                    break;
+
+                case 2:
+
+                    $effective_ids[] = $value->promo_id;
+            }
+        }
+
+        $promo_code = PromoCodeResource::collection(PromoCode::all()->whereIn('id', $effective_ids));
+
+
+        return generateResponse(200, RoomResource::collection($room), $room_types->merge($promo_code));
     }
 
     /**
@@ -50,7 +113,70 @@ class RoomController extends Controller
      */
     public function show(int $id)
     {
-        return showTemplate($this->model, $this->resource, $id, RoomType::class, RoomTypeResource::class, 'id');
+
+        $room = Room::find($id);
+
+
+        if ($room) {
+
+
+            $included = [new RoomTypeResource(RoomType::all()->where('id', $room->type)->first())];
+            $applied_code = AppliedPromoCodes::all()
+                ->where('user_id', Auth::user()->id);
+
+            $promo_code_ids = [];
+            foreach ($applied_code as $key => $value) {
+
+                $promo_code_ids[] = $value->promo_id;
+            }
+            $effect_code = EffectPromoCodes::all()
+                ->whereIn('id', $promo_code_ids);
+
+            $effective_ids = [];
+
+
+            foreach ($effect_code as $key => $value) {
+
+                switch ($value->type) {
+
+                    case 0:
+
+                        if ($value->effect_id == $room->id) {
+
+                            $effective_ids[] = $value->promo_id;
+                        }
+                        break;
+
+                    case 1:
+
+                        if ($value->effect_id == $room->type) {
+
+                            $effective_ids[] = $value->promo_id;
+                        }
+                        break;
+
+                    case 2:
+
+                        $effective_ids[] = $value->promo_id;
+                }
+            }
+
+            $promo_code = PromoCode::all()->whereIn('id', $effective_ids)->first();
+
+
+            if ($promo_code) {
+
+
+                $promo_code = new PromoCodeResource($promo_code);
+                $included[] = $promo_code;
+            }
+
+
+            return generateResponse(200, new RoomResource($room), $included);
+        } else {
+
+            return generateResponse(404, $id . " not in Database", true);
+        }
     }
 
     /**

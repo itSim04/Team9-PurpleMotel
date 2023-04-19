@@ -138,6 +138,11 @@ class PromoCodeController extends Controller
                             }
                             break;
 
+                        case 3:
+
+                            $eligibility = true;
+                            break;
+
                         default:
 
                             throw new Exception('Invalid Type');
