@@ -79,6 +79,8 @@ export class CalendarComponent implements OnInit {
 
     if (!d) return false;
 
+    if(d < new Date()) return false;
+
     for (const booking of this.conflicting_bookings) {
 
       if (this.isDateInRange(parseDate(d), booking[1].check_in, booking[1].end_date)) {

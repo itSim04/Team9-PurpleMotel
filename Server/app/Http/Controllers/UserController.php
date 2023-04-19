@@ -178,6 +178,7 @@ class UserController extends Controller
 
        
 
+
         $bookings = Booking::all()
             ->where("user_id", $id);
 
@@ -219,24 +220,27 @@ class UserController extends Controller
 
         $activities = ActivityResource::collection(Activity::all()->whereIn('id', $registrations_id));
 
-        
+
         // 1. Validation that the user is authenticated.
         // 2. Duplicated values remover. If the user booked the same room twice it will be downloaded twice.
-        
 
-        $result  = FoodResource::collection($foods)->merge($orders)
-            ->merge($rooms)
-            ->merge($bookings)
-            ->merge($room_types)
-            ->merge(OrderContainsResource::collection($order_food_pivot))
-            ->merge($stock)
-            ->merge(IngredientResource::collection($ingredients))
-            ->merge($activities)
-            ->merge(RegistrationResource::collection($registrations));
+        // echo json_encode($rooms);
+        // echo json_encode($bookings);
+
+        $result  = FoodResource::collection($foods)
+            ->concat($orders)
+            ->concat($rooms)
+            ->concat($bookings)
+            ->concat($room_types)
+            ->concat(OrderContainsResource::collection($order_food_pivot))
+            ->concat($stock)
+            ->concat(IngredientResource::collection($ingredients))
+            ->concat($activities)
+            ->concat(RegistrationResource::collection($registrations));
 
         // im also gonna supply with Ingredients. in case we need the pivot later (we will eventually)
 
-    
+
 
 
 

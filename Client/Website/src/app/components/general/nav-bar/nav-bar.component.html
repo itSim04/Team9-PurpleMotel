@@ -47,8 +47,14 @@
 
 
     </table>
-    <div *ngIf="!hide_auth" style="margin: -30px; float: right;">
-        <p (click)="login()" style="padding-right: 16px;" class="title-4">{{"login" | translate}}</p>
-        <p (click)="signUp()" style="padding-left: 16px;" class="title-4">{{"sign_up" | translate}}</p>
-    </div>
+    <ng-container *ngIf="!hide_auth">
+
+        <div *ngIf="!active" style="margin: -30px; float: right;">
+            <p (click)="login()" style="padding-right: 16px;" class="title-4">{{"login" | translate}}</p>
+            <p (click)="signUp()" style="padding-left: 16px;" class="title-4">{{"sign_up" | translate}}</p>
+        </div>
+        <div *ngIf="active" style="margin: -30px; float: right;">
+            <p [routerLink]="'/profile'" style="padding-right: 32px;" class="title-4">{{active}}</p>
+        </div>
+    </ng-container>
 </div>

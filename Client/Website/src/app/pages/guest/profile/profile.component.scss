@@ -30,6 +30,14 @@
     width: 230px;
     right: 40px;
 }
+.logout-button {
+    @extend .main-button;
+    font-size: 18px;
+    top: 30%;
+    height: 60px;
+    width: 230px;
+    right: 40px;
+}
 
 .promo-code-button {
     @extend .main-button;

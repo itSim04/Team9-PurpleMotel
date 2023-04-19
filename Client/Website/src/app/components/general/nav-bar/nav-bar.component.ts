@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AuthenticationDialogService } from 'src/app/services/dialogs/authentication/authentication.service';
+import { extractUser } from '../../database/database.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -21,4 +22,18 @@ export class NavBarComponent {
   signUp() {
     this.authentication_service.openDialog("register")
   }
+
+  get active() {
+
+    if (!extractUser()) {
+
+      return undefined
+    } else {
+
+      return (extractUser()?.first_name + " " + extractUser()?.last_name);
+
+    }
+
+  }
+
 }
