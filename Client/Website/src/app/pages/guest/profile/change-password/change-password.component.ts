@@ -43,38 +43,38 @@ export class ChangePasswordComponent {
       const phone = (JSON.parse(localStorage.getItem('user') || '{}') as User).phone;
       const gender = (JSON.parse(localStorage.getItem('user') || '{}') as User).gender;
 
-      if (!user_id) {
-        throw new Error('User ID not found');
-      }
+      // if (!user_id) {
+      //   throw new Error('User ID not found');
+      // }
       
-      const updatedUser: User = {
-        tier,
-        language,
-        type,
-        email,
-        first_name,
-        last_name,
-        date_of_birth,
-        phone,
-        gender,
-        password: this.new_password,
-        permissions: new Map<string, number>()
+      // const updatedUser: User = {
+      //   tier,
+      //   language,
+      //   type,
+      //   email,
+      //   first_name,
+      //   last_name,
+      //   date_of_birth,
+      //   phone,
+      //   gender,
+      //   password: this.new_password,
+      //   permissions: new Map<string, number>()
   
-      };
+      // };
 
-      return this.userDatabaseService.modifyUser(user_id, updatedUser).subscribe({
+      // return this.userDatabaseService.modifyUser(user_id, updatedUser).subscribe({
 
-        next: result => {
+      //   next: result => {
 
-          this.dialogRef.close();
+      //     this.dialogRef.close();
         
-        }, error: error => {
+      //   }, error: error => {
 
-          this.loading = false;
-          console.error(error)
+      //     this.loading = false;
+      //     console.error(error)
 
-        }
-      })
+      //   }
+      // })
     }
   
   }
