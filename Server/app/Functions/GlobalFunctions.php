@@ -46,7 +46,7 @@ function extractPermissions($id, $type)
     return $permissions_final;
 }
 
-function indexTemplate(string $model, string $resource, array $extra_model = [], string $condition = null, $condition_value = null)
+function indexTemplate(string $model, string $resource, array $extra_model = [], string $condition = null, $condition_value = null, $pagination_index = null, $page_size = null)
 {
 
     $included = [];
@@ -73,8 +73,17 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
     }
 
     
+    if($pagination_index && $page_size) {
 
-    return generateResponse(200, $resource::collection($model::all()), $included);
+        $result = $resource::collection($model::all()->skip($pagination_index)->take($page_size));
+ 
+    } else  {
+
+        $result = $resource::collection($model::all());
+
+    }
+
+    return generateResponse(200, $result, $included);
 }
 
 function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null, bool $singular = true)

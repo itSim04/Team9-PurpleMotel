@@ -52,9 +52,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return indexTemplate($this->model, $this->resource, [Permission::class => PermissionResource::class], 'is_singular', true);
+        return indexTemplate($this->model, $this->resource, [Permission::class => PermissionResource::class], 'is_singular', true, $request->index, $request->size);
     }
 
     /**

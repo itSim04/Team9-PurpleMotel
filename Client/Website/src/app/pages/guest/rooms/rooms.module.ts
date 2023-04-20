@@ -1,3 +1,4 @@
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { MatDividerModule } from "@angular/material/divider";
@@ -26,7 +27,8 @@ import { RoomOverviewComponent } from "./overview/room-overview.component";
     QuickAvailabilityModule,
     PaginatorModule,
     RoomItemModule,
-    RoomDetailsModule
+    RoomDetailsModule,
+    InfiniteScrollModule
   ],
   exports: [
     BrowseRoomsComponent,

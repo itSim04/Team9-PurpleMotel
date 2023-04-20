@@ -129,6 +129,119 @@ export class RoomDatabaseService {
 
 
   }
+  getPaginatedRooms(index: number, size: number): Observable<RoomsPackage> {
+
+    const headers = this.url.generateHeader()
+
+
+    try {
+
+      return this.http.get<RoomsResponse>(this.url.generateUrl(`rooms?size=${size}&index=${index}`), { headers: headers }).pipe(
+
+        map((response: RoomsResponse): RoomsPackage => {
+
+          const rooms = new Map<string, Room>();
+          const room_types = new Map<string, RoomType>();
+          const promo_codes = new Map<string, PromoCode>();
+          const effect_codes: EffectPromoCodes[] = [];
+
+          response.data.forEach(room => {
+
+            const roomType = room.relationships?.room_type?.data?.id;
+            rooms.set(room.id, { ...room.attributes, type: roomType });
+
+          });
+
+          if (response.included) {
+
+            response.included.forEach(data => {
+
+              switch (data.type) {
+
+                case 'RoomTypes':
+
+                  room_types.set(data.id, data.attributes as RoomType);
+                  break;
+
+                case 'PromoCodes':
+
+                  promo_codes.set(data.id, {
+                    ...data.attributes as PromoCodeAttributes, concerned_everyone: false,
+                    concerned_everything: false,
+                    concerned_room_types: [],
+                    concerned_rooms: [],
+                    applied_users: [],
+                    concerned_user_tiers: [],
+                    concerned_user_types: [],
+                    concerned_users: [],
+                  });
+                  break;
+
+                case 'EffectPromoCodes':
+
+                  effect_codes.push(data.attributes as EffectPromoCodes);
+
+
+
+              }
+
+            });
+
+            effect_codes.forEach(code => {
+
+              const temp = promo_codes.get(code.promo_id);
+              if (temp) {
+
+                switch (code.type) {
+
+                  case 0:
+
+                    temp.concerned_rooms.push(code.effect_id);
+                    break;
+
+                  case 1:
+
+                    temp.concerned_room_types.push(code.effect_id);
+                    break;
+
+                  case 2:
+
+                    temp.concerned_everything = true;
+                    break;
+
+                  default:
+
+                    throw new Error('Invalid type');
+
+
+
+
+                }
+
+              }
+
+            });
+
+          }
+
+          return {
+
+            rooms: rooms,
+            room_types: room_types,
+            promo_codes: promo_codes
+
+          };
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+
+  }
 
 
   getOneRoom(id: string): Observable<RoomPackage> {

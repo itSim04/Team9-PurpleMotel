@@ -37,9 +37,16 @@ class RoomController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $room = Room::all();
+
+        if (isset($request->index) && isset($request->size)) {
+
+            $room = Room::all()->skip($request->index)->take($request->size);
+        } else {
+
+            $room = Room::all();
+        }
 
         $types = [];
         $ids = [];
@@ -111,7 +118,6 @@ class RoomController extends Controller
             $included = $included
                 ->concat($promo_code)
                 ->concat(EffectPromoCodesResource::collection($actual_effect));
-                
         }
 
 
@@ -237,6 +243,7 @@ class RoomController extends Controller
                 $conflictingBooking[] = $booking->room_id;
             }
         }
+
 
         return RoomResource::collection(Room::all()->whereNotIn('id', $conflictingBooking));
     }

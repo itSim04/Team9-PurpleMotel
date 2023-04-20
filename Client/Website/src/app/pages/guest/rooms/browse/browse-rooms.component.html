@@ -43,16 +43,21 @@
 
     <!-- <mat-paginator [length]="filtered_rooms.size" [pageSize]="5"
         [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
-    <div style="display: flex; flex-wrap: wrap;">
-        <div *ngFor="let room of filtered_rooms| slice: (pagination.currentPage - 1) * pagination.pageSize : pagination.currentPage * pagination.pageSize"
-            style="width: 50%;">
-            <app-room-item [change]="getEffect(room[0], room[1].type)" class="item" [room]="{key: room[0], value: room[1]}"
-                [room_type]="room_types.getPair(room[1].type)"></app-room-item>
-            <mat-divider
-                style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
+
+        <div #scroll style="overflow-y: auto; height: 100%; display: flex; flex-wrap: wrap;"
+            infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000"
+            [scrollWindow]="true" (scrolled)="ngOnInit()">
+
+            <div *ngFor="let room of filtered_rooms" style="width: 50%;">
+                <app-room-item [change]="getEffect(room[0], room[1].type)" class="item"
+                    [room]="{key: room[0], value: room[1]}"
+                    [room_type]="room_types.getPair(room[1].type)"></app-room-item>
+                <mat-divider
+                    style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
+            </div>
         </div>
-        <app-paginator #pagination [pageSize]="10" [collectionSize]="1000" [firstLastButtons]="true" [maxSize]="2" [nextPreviousButtons]="true"></app-paginator>
-    </div>
+
+    <!-- <app-paginator #pagination [pageSize]="10" [collectionSize]="1000" [firstLastButtons]="true" [maxSize]="2" [nextPreviousButtons]="true"></app-paginator> -->
 
 
 </div>

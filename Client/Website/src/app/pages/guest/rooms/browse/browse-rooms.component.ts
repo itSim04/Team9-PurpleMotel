@@ -22,6 +22,9 @@ export class BrowseRoomsComponent implements OnInit, OnDestroy {
   subscription?: Subscription;
   filtered = false;
 
+  current_page: number = 0;
+  page_size: number = 10;
+
   page = 0;
 
   constructor (private room_service: RoomDatabaseService) { }
@@ -34,12 +37,13 @@ export class BrowseRoomsComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
 
-    this.subscription = this.room_service.getAllRooms().subscribe(data => {
-      this.rooms = data.rooms;
-      this.room_types = data.room_types;
-      this.promo_codes = data.promo_codes;
-      console.log(this.promo_codes);
-      this.filtered_rooms = Array.from(this.rooms);
+    this.subscription = this.room_service.getPaginatedRooms(this.current_page, this.page_size).subscribe(data => {
+      data.rooms.forEach((value, key) => this.rooms.set(key, value));
+      data.room_types.forEach((value, key) => this.room_types.set(key, value));
+      data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
+
+      Array.from(data.rooms).forEach((value) => this.filtered_rooms.push(value));
+      this.current_page += this.page_size;
     });
 
   }
