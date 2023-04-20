@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LikesNews;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Http\Resources\RoomResource;
@@ -10,6 +11,7 @@ use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Http\Resources\BookingResource;
 use App\Http\Resources\EffectPromoCodesResource;
+use App\Http\Resources\LikesNewsResource;
 use App\Http\Resources\PromoCodeResource;
 use App\Http\Resources\RoomTypeResource;
 use App\Models\AppliedPromoCodes;
@@ -264,5 +266,83 @@ class RoomController extends Controller
         ]);
 
         return BookingResource::collection(Booking::all()->where('room_id', $request->room_id));
+    }
+
+    public function like(Request $request)
+    {
+
+        // A function that takes a room_id and a user_id and creates a new Like with those attributes
+
+        $request->validate([
+
+            'news_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+
+        ]);
+
+        if (LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first()) {
+
+            return generateResponse(200, "Already Liked", true);
+        } else {
+
+            $like = LikesNews::create([
+
+                'news_id' => $request->news_id,
+                'user_id' => $request->user_id
+
+            ]);
+        }
+
+        return generateResponse(201, new LikesNewsResource($like), true);
+    }
+
+    public function unlike(Request $request)
+    {
+
+        // A function that does the opposite of the like function
+
+        $request->validate([
+
+            'news_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+
+        ]);
+
+        $like = LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first();
+        if ($like) {
+
+
+            $like->delete();
+
+
+            return generateResponse(201, new LikesNewsResource($like), true);
+        } else {
+
+
+            return generateResponse(200, "Not Liked", true);
+        }
+    }
+
+    public function isLiked(Request $request)
+    {
+
+        // A function that takes a room_id and a user_id and creates a new Like with those attributes
+
+        $request->validate([
+
+            'news_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+
+        ]);
+
+        if (LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first()) {
+
+            return generateResponse(200, true, true);
+        } else {
+
+            
+            return generateResponse(201, false, true);
+
+        }
     }
 }

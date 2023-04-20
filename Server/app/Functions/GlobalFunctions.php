@@ -4,15 +4,15 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-function generateResponse(int $code, $collection = null, $included = [], bool $error = false)
+function generateResponse(int $code, $collection = [], $included = [], bool $error = false)
 {
     $response = ['status' => $error ? 'error' : 'success'];
 
-    if ($collection) {
+    // if ($collection) {
 
         $response[$error ? 'message' : 'data'] = $collection;
         $response['included'] = $included;
-    }
+    // }
 
     return response()->json($response, $code);
 }
