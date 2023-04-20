@@ -1,10 +1,7 @@
-import { PromoDialogService } from './promo.service';
-import { PromoDatabaseService } from './../../../pages/admin/promo-database/promo-database.service';
-import { RoomDatabaseService } from './../../../pages/admin/room-database/room-database.service';
-import { Component, Inject, Input } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from "@angular/router";
-import { ProfileService } from "src/app/pages/guest/profile/profile.service";
+import { Component } from "@angular/core";
+import { MatDialogRef } from "@angular/material/dialog";
+import { PromoDialogService } from "../../utility/promo.service";
+
 
 @Component({
     selector: 'app-confirmation-dialog',

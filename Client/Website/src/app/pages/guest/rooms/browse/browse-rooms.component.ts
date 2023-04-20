@@ -3,9 +3,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
-import { RoomDatabaseService } from 'src/app/pages/admin/room-database/room-database.service';
 import { PageEvent } from '@angular/material/paginator';
 import { PromoCode } from 'src/app/models/PromoCode';
+import { RoomDatabaseService } from 'src/app/services/providers/room-database.service';
 
 @Component({
   selector: 'app-browse-rooms',

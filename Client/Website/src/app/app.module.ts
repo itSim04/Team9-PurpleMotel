@@ -1,10 +1,5 @@
+import { QuickDialogModule } from './services/dialogs/quick/quick.module';
 import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
-import { CartDialogModule } from './services/dialogs/cart/cart.module';
-import { ChefListDialogModule } from './services/dialogs/chef-list/chef-list.module';
-import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
-import { RoomsModule } from './pages/guest/rooms/rooms.module';
-import { ServicesModule } from './pages/guest/services/services.module';
-import { RestaurantModule } from './pages/guest/restaurant/restaurant.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { HomeModule } from './pages/guest/home/home.module';
@@ -30,6 +25,12 @@ import { RegistrationDatabaseModule } from './pages/admin/registration-database/
 import { CarouselModule } from './components/general/carousel/carousel.module';
 import { ServiceDatabaseModule } from './pages/admin/service-database/service-database.module';
 import { ProfileModule } from './pages/guest/profile/profile.module';
+import { RestaurantModule } from './pages/guest/restaurant/restaurant.module';
+import { RoomsModule } from './pages/guest/rooms/rooms.module';
+import { ServicesModule } from './pages/guest/services/services.module';
+import { CartDialogModule } from './services/dialogs/cart/cart.module';
+import { ChefListDialogModule } from './services/dialogs/chef-list/chef-list.module';
+import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
 
 
 @NgModule({
@@ -48,8 +49,6 @@ import { ProfileModule } from './pages/guest/profile/profile.module';
 
     // Potential
     ConfirmationDialogModule,
-    ChefListDialogModule,
-    CartDialogModule,
 
     // Potential
     BrowserAnimationsModule,

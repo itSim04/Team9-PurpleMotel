@@ -9,11 +9,12 @@ import { CarouselComponent } from 'src/app/components/general/carousel/carousel.
 import { Booking } from 'src/app/models/Booking';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
-import { BrowsingDialogService } from 'src/app/services/dialogs/browsing/browsing.service';
-import { ProfileService } from './profile.service';
-import { Router } from '@angular/router';
-import { PromoDialogService } from 'src/app/services/dialogs/promo/promo.service';
 import { extractUser } from 'src/app/components/database/database.component';
+import { Router } from '@angular/router';
+import { BrowsingDialogService } from 'src/app/services/utility/browsing.service';
+import { ProfileService } from 'src/app/services/utility/profile.service';
+import { PromoDialogService } from 'src/app/services/utility/promo.service';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -89,6 +90,7 @@ export class ProfileComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('id');
+    localStorage.removeItem('token_time');
     this.router.navigate(['/home']);
 
 

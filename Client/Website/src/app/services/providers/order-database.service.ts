@@ -1,13 +1,12 @@
-import { OrderContains, OrderContainsAttributes } from './../../../models/OrderContains';
-import { UserType } from 'src/app/models/UserType';
-import { FoodAttributes } from './../../../models/Food';
-import { User, UserAttributes } from 'src/app/models/User';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { OrdersPackage, OrdersResponse, Order, OrderPackage, OrderResponse, OrderAttributes } from 'src/app/models/Order';
-import { Food } from 'src/app/models/Food';
-import { UrlBuilderService } from 'src/app/services/url-builder.service';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, map } from "rxjs";
+import { Food, FoodAttributes } from "src/app/models/Food";
+import { OrdersPackage, OrdersResponse, Order, OrderPackage, OrderResponse } from "src/app/models/Order";
+import { OrderContains, OrderContainsAttributes } from "src/app/models/OrderContains";
+import { User, UserAttributes } from "src/app/models/User";
+import { UrlBuilderService } from "../utility/url-builder.service";
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,7 @@ export class OrderDatabaseService {
 
   getAllOrders(): Observable<OrdersPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -96,8 +94,7 @@ export class OrderDatabaseService {
   }
   getOneOrder(id: string): Observable<OrderPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -129,8 +126,7 @@ export class OrderDatabaseService {
 
   addNewOrder(order: Order) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
       console.log(order);
@@ -154,8 +150,7 @@ export class OrderDatabaseService {
 
   modifyOrder(order_id: string, order: Order) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     console.log(order);
     try {
@@ -172,8 +167,7 @@ export class OrderDatabaseService {
 
   deleteOrder(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 

@@ -1,13 +1,12 @@
-import { UserType, UserTypePackage, UserTypeResponse } from './../../../models/UserType';
-import { UrlBuilderService } from './../../../services/url-builder.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserAttributes, UserCredentials, UserResponse, UserPackage, UsersResponse, UsersPackage, User } from './../../../models/User';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { RoomsPackage, RoomsResponse, Room, RoomPackage, RoomResponse } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
-import { UserTypesPackage, UserTypesResponse } from 'src/app/models/UserType';
+import { UserType, UserTypeResponse, UserTypesPackage, UserTypesResponse } from 'src/app/models/UserType';
 import { clone } from 'src/app/components/database/change/change.component';
+import { HttpClient } from '@angular/common/http';
+import { UsersPackage, UsersResponse, User, UserPackage, UserResponse, UserAttributes } from 'src/app/models/User';
+import { UrlBuilderService } from '../utility/url-builder.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +19,7 @@ export class UserDatabaseService {
 
   getAllUsers(): Observable<UsersPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -72,8 +70,7 @@ export class UserDatabaseService {
 
   }
   getOneUser(id: string): Observable<UserPackage> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -104,8 +101,7 @@ export class UserDatabaseService {
 
   addNewUser(user: UserAttributes) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -129,8 +125,7 @@ export class UserDatabaseService {
 
   modifyUser(user_id: string, user: User) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     const permissions: any = {};
     user.permissions.forEach((permission, label) => {
@@ -156,8 +151,7 @@ export class UserDatabaseService {
 
   deleteUser(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -176,8 +170,7 @@ export class UserDatabaseService {
 
   getAllUserTypes(): Observable<UserTypesPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -284,8 +277,7 @@ export class UserDatabaseService {
 
   modifyUserType(user_id: string, user: UserType) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     const permissions: any = {};
     user.permissions.forEach((permission, label) => {

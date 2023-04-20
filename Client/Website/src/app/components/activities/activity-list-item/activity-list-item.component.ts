@@ -1,10 +1,11 @@
+import { extractUser, extractUserId } from 'src/app/components/database/database.component';
 import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Activity } from 'src/app/models/Activity';
 import { formatPrice } from '../../database/database.component';
 import { Router } from '@angular/router';
-import { RegistrationDatabaseService } from 'src/app/pages/admin/registration-database/registration-database.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RegistrationDatabaseService } from 'src/app/services/providers/registration-database.service';
 
 
 @Component({
@@ -58,8 +59,7 @@ export class ActivityListItemComponent {
   }
   register() {
 
-    const user_id = localStorage.getItem('id');
-
+    const user_id = extractUserId();
 
     if (user_id && this.activity?.key) {
 

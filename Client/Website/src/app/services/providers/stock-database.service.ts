@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { StocksResponse, Stock, StockResponse, StockPackage, StocksPackage } from "src/app/models/Stock";
-import { UrlBuilderService } from "src/app/services/url-builder.service";
+import { UrlBuilderService } from "../utility/url-builder.service";
 
 
 @Injectable({
@@ -14,8 +14,7 @@ export class StockDatabaseService {
 
   getAllStocks(): Observable<StocksPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -50,8 +49,7 @@ export class StockDatabaseService {
 
   getOneStock(id: string): Observable<StockPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -82,8 +80,7 @@ export class StockDatabaseService {
 
   addNewStock(stock: Stock) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -107,8 +104,7 @@ export class StockDatabaseService {
 
   modifyStock(stock_id: string, stock: Stock) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -124,8 +120,7 @@ export class StockDatabaseService {
 
   deleteStock(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 

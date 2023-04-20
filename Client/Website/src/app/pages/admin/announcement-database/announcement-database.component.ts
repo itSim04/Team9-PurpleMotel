@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AnnouncementDatabaseService } from './announcement-database.service';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Announcement } from 'src/app/models/Announcement';
 import { map } from 'rxjs';
+import { AnnouncementDatabaseService } from 'src/app/services/providers/announcement-database.service';
 
 @Component({
   selector: 'app-announcement-database',

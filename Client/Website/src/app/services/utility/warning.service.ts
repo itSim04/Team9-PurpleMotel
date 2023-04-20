@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { WarningDialogComponent } from './warning.component';
+import { WarningDialogComponent } from '../dialogs/warning/warning.component';
 
 @Injectable({
   providedIn: 'root'

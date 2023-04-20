@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DatabaseModule } from '../../../components/database/database.module';
-import { ServiceDatabaseComponent } from './service-database.component';
-import { NavBarComponent } from 'src/app/components/general/nav-bar/nav-bar.component';
 import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module';
+import { DatabaseModule } from 'src/app/components/database/database.module';
+import { ServiceDatabaseComponent } from 'src/app/pages/admin/service-database/service-database.component';
+import { CommonModule } from '@angular/common';
 
 
 

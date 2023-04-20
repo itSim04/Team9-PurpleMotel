@@ -1,7 +1,7 @@
 import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { News } from 'src/app/models/News';
-import { NewsListPopupService } from '../news-list-popup/news-list-popup.service';
+import { NewsListPopupService } from 'src/app/services/utility/news-list-popup.service';
 
 @Component({
   selector: 'app-news-list-item',

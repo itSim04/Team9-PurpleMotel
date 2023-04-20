@@ -1,13 +1,14 @@
 import { UserType } from 'src/app/models/UserType';
-import { RawRoomsPackage, RoomAttributes, RoomsResponse } from './../../../models/Room';
+
 import { User, UserAttributes } from 'src/app/models/User';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { BookingsPackage, BookingsResponse, Booking, BookingPackage, BookingResponse, BookingAttributes, RawBookingsPackage } from 'src/app/models/Booking';
-import { Room } from 'src/app/models/Room';
+import { RawRoomsPackage, Room, RoomAttributes, RoomsResponse } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
-import { UrlBuilderService } from 'src/app/services/url-builder.service';
+import { extractUserId } from 'src/app/components/database/database.component';
+import { UrlBuilderService } from '../utility/url-builder.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class BookingDatabaseService {
 
   getAllBookings(): Observable<BookingsPackage> {
 
-    const token = localStorage.getItem('token');
+    const token = extractUserId();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     try {
@@ -105,8 +106,7 @@ export class BookingDatabaseService {
   }
   getAllRoomsBookings(room_id: string): Observable<RawBookingsPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -143,8 +143,7 @@ export class BookingDatabaseService {
 
   filterBookings(check_in: string, check_out: string): Observable<RawRoomsPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -180,8 +179,7 @@ export class BookingDatabaseService {
   }
   getOneBooking(id: string): Observable<BookingPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -213,8 +211,7 @@ export class BookingDatabaseService {
 
   addNewBooking(booking: Booking) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
       console.log(booking);
@@ -238,8 +235,7 @@ export class BookingDatabaseService {
 
   modifyBooking(booking_id: string, booking: Booking) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -255,8 +251,7 @@ export class BookingDatabaseService {
 
   deleteBooking(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 

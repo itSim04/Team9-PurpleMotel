@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AuthenticationDialogService } from 'src/app/services/dialogs/authentication/authentication.service';
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { extractUser } from '../../database/database.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { extractUser } from '../../database/database.component';
 export class NavBarComponent {
   @Input() transparent = false;
   @Input() hide_auth = false;
-  constructor(private authentication_service: AuthenticationDialogService) { }
+  constructor (private authentication_service: AuthenticationDialogService) { }
 
 
   login() {
@@ -20,17 +20,19 @@ export class NavBarComponent {
   }
 
   signUp() {
-    this.authentication_service.openDialog("register")
+    this.authentication_service.openDialog("register");
   }
 
   get active() {
 
-    if (!extractUser()) {
+    const user = extractUser(false);
+    if (!user) {
 
-      return undefined
+      return undefined;
+
     } else {
 
-      return (extractUser()?.first_name + " " + extractUser()?.last_name);
+      return (user.first_name + " " + user.last_name);
 
     }
 

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WarningDialogService } from './warning.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { WarningDialogComponent } from './warning.component';
+import { WarningDialogService } from '../../utility/warning.service';
 
 
 

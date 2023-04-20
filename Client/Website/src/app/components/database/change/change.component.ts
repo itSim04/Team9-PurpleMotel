@@ -7,10 +7,10 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { Observable } from 'rxjs';
 import { Field, Toggle, StaticField, ChangeInjection, Column, ExtraColumn } from 'src/app/models/Database';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
-import { ConfirmationDialogService } from 'src/app/services/dialogs/confirmation/confirmation.service';
-import { WarningDialogService } from 'src/app/services/dialogs/warning/warning.service';
 import { extractPermission, formatWord, isNum } from '../database.component';
 import { User } from 'src/app/models/User';
+import { ConfirmationDialogService } from 'src/app/services/utility/confirmation.service';
+import { WarningDialogService } from 'src/app/services/utility/warning.service';
 
 
 export function clone(obj: any) {

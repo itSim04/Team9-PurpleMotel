@@ -1,11 +1,10 @@
-import { EffectPromoCodes, PromoCodeAttributes } from './../../../models/PromoCode';
-import { PromoCode } from 'src/app/models/PromoCode';
+import { EffectPromoCodes, PromoCode, PromoCodeAttributes } from 'src/app/models/PromoCode';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { RoomsResponse, Room, RoomResponse, RoomPackage, RoomsPackage } from "src/app/models/Room";
 import { RoomTypeResponse, RoomType, RoomTypesResponse, RoomTypePackage, RoomTypesPackage } from "src/app/models/RoomType";
-import { UrlBuilderService } from "src/app/services/url-builder.service";
+import { UrlBuilderService } from "../utility/url-builder.service";
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 
 
@@ -19,8 +18,7 @@ export class RoomDatabaseService {
 
   getAllRooms(): Observable<RoomsPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
 
     try {
@@ -135,8 +133,7 @@ export class RoomDatabaseService {
 
   getOneRoom(id: string): Observable<RoomPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -199,8 +196,7 @@ export class RoomDatabaseService {
 
   getAllRoomTypes(): Observable<RoomTypesPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -234,8 +230,7 @@ export class RoomDatabaseService {
   }
   getOneRoomType(id: string): Observable<RoomTypePackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -266,8 +261,7 @@ export class RoomDatabaseService {
 
   addNewRoom(room: Room) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -291,8 +285,7 @@ export class RoomDatabaseService {
 
   modifyRoom(room_id: string, room: Room) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -308,8 +301,7 @@ export class RoomDatabaseService {
 
   deleteRoom(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -325,8 +317,7 @@ export class RoomDatabaseService {
 
   addNewRoomType(roomType: RoomType) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -350,8 +341,7 @@ export class RoomDatabaseService {
 
   modifyRoomType(roomType_id: string, roomType: RoomType) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -367,8 +357,7 @@ export class RoomDatabaseService {
 
   deleteRoomType(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 

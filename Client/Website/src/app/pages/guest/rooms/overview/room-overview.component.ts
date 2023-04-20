@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
-import { RoomDatabaseService } from 'src/app/pages/admin/room-database/room-database.service';
+import { RoomDatabaseService } from 'src/app/services/providers/room-database.service';
 
 @Component({
   selector: 'app-room-overview',
@@ -24,6 +24,9 @@ export class RoomOverviewComponent implements OnInit {
 
     const room = localStorage.getItem('temp_room_item');
     const room_type = localStorage.getItem('temp_room_type_item');
+
+    localStorage.removeItem('temp_room_item');
+    localStorage.removeItem('temp_room_type_item');
 
     if (room && room_type) {
 

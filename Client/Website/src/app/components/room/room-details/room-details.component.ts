@@ -1,12 +1,13 @@
+import { extractUserId } from 'src/app/components/database/database.component';
 import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { formatOccupancy } from 'src/app/pages/admin/room-database/room-database.component';
 import { formatPrice } from '../../database/database.component';
-import { BookingDatabaseService } from 'src/app/pages/admin/booking-database/booking-database.service';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class RoomDetailsComponent {
 
   addBooking(range: { check_in: Date, check_out: Date }) {
 
-    const user_id = localStorage.getItem('id');
+    const user_id = extractUserId();
 
 
     if (user_id && this.room?.key) {

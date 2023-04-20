@@ -2,10 +2,10 @@ import { parseDate } from 'src/app/services/dialogs/authentication/authenticatio
 import { Component } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Activity } from 'src/app/models/Activity';
-import { ServiceDatabaseService } from './service-database.service';
 import { map } from 'rxjs';
 import { Data } from '@angular/router';
 import { Facility } from 'src/app/models/Facility';
+import { ServiceDatabaseService } from 'src/app/services/providers/service-database.service';
 
 @Component({
   selector: 'app-service-database',

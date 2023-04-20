@@ -1,12 +1,11 @@
-import { CartDialogService } from './../../../../services/dialogs/cart/cart.service';
-import { FoodListPopupService } from './../../../../components/food/food-list-popup/food-list-popup.service';
-import { FoodListPopupModule } from './../../../../components/food/food-list-popup/food-list-popup.module';
-import { FoodDatabaseService } from './../../../admin/food-database/food-database.service';
 import { FoodCategory } from './../../../../models/FoodCategory';
 import { Food } from 'src/app/models/Food';
 import { Component } from '@angular/core';
 import { KeyValue } from '@angular/common';
 import { Order } from 'src/app/models/Order';
+import { FoodListPopupService } from 'src/app/components/food/food-list-popup/food-list-popup.service';
+import { FoodDatabaseService } from 'src/app/services/providers/food-database.service';
+import { CartDialogService } from 'src/app/services/utility/cart.service';
 
 @Component({
   selector: 'app-menu',

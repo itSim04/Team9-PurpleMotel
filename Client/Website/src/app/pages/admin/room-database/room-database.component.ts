@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Room } from 'src/app/models/Room';
-import { RoomDatabaseService } from './room-database.service';
 import { map, Observable } from 'rxjs';
 import { RoomType } from 'src/app/models/RoomType';
+import { RoomDatabaseService } from 'src/app/services/providers/room-database.service';
 
 export function formatOccupancy(capacity: [number?, number?, number?]): string {
   const adults = capacity[0];

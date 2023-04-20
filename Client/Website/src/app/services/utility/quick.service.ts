@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from './confirmation.component';
+import { QuickDialogComponent } from '../dialogs/quick/quick.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConfirmationDialogService {
+export class QuickDialogService {
 
 
   constructor (public dialog: MatDialog) { }
 
-  openDialog(title: string, body: string, button_true:string, button_false:string) {
-    return this.dialog.open(ConfirmationDialogComponent, {
+  openDialog(title: string, body: string, button_true: string, button_false: string) {
+    return this.dialog.open(QuickDialogComponent, {
       data: {
         title: title,
         body: body,

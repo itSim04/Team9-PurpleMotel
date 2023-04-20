@@ -5,7 +5,7 @@ import { Observable, map } from "rxjs";
 import { ActivitiesResponse, Activity, ActivityResponse, ActivityPackage, ActivitiesPackage } from "src/app/models/Activity";
 import { FacilitiesPackage, FacilitiesResponse, Facility, FacilityPackage, FacilityResponse } from "src/app/models/Facility";
 import { Registration } from "src/app/models/Registration";
-import { UrlBuilderService } from "src/app/services/url-builder.service";
+import { UrlBuilderService } from "../utility/url-builder.service";
 
 
 @Injectable({
@@ -18,8 +18,7 @@ export class ServiceDatabaseService {
   getAllActivities(): Observable<ActivitiesPackage> {
 
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -72,8 +71,7 @@ export class ServiceDatabaseService {
   getOneActivity(id: string): Observable<ActivityPackage> {
 
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -116,8 +114,7 @@ export class ServiceDatabaseService {
   addNewActivity(activity: Activity) {
 
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -142,8 +139,7 @@ export class ServiceDatabaseService {
   modifyActivity(activity_id: string, activity: Activity) {
 
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -159,8 +155,7 @@ export class ServiceDatabaseService {
 
   deleteActivity(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -175,8 +170,7 @@ export class ServiceDatabaseService {
   }
   getAllFacilities(): Observable<FacilitiesPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -210,8 +204,7 @@ export class ServiceDatabaseService {
   }
   getOneFacility(id: string): Observable<FacilityPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -242,8 +235,7 @@ export class ServiceDatabaseService {
 
   addNewFacility(facility: Facility) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -267,8 +259,7 @@ export class ServiceDatabaseService {
 
   modifyFacility(facility_id: string, facility: Facility) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -284,8 +275,7 @@ export class ServiceDatabaseService {
 
   deleteFacility(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 

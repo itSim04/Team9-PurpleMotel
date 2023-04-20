@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Stock } from 'src/app/models/Stock';
-import { StockDatabaseService } from './stock-database.service';
 import { map } from 'rxjs';
-import { Data } from '@angular/router';
+import { StockDatabaseService } from 'src/app/services/providers/stock-database.service';
 
 @Component({
   selector: 'app-stock-database',

@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PromoDialogComponent} from './promo.component';
-import { PromoDialogService } from './promo.service';
-
+import { PromoDialogService } from '../../utility/promo.service';
 
 
 

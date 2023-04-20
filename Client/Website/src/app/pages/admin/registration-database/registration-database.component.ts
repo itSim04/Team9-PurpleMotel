@@ -5,7 +5,7 @@ import { DataInjection, ChangeInjection } from 'src/app/models/Database';
 import { Registration } from 'src/app/models/Registration';
 import { User } from 'src/app/models/User';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
-import { RegistrationDatabaseService } from './registration-database.service';
+import { RegistrationDatabaseService } from 'src/app/services/providers/registration-database.service';
 
 @Component({
   selector: 'app-registration-database',

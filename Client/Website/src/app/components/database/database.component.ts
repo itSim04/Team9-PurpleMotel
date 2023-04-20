@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { Route } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { Component, Input, OnInit, AfterViewInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,12 +8,42 @@ import { debounceTime, Observable, Subject } from 'rxjs';
 import { DataInjection, Column, ChangeInjection } from 'src/app/models/Database';
 
 
-export function extractUser() {
+export function extractUser(validity_check: boolean = true) {
 
   const user = localStorage.getItem('user');
   if (user) {
 
     return JSON.parse(user) as User;
+
+  } else {
+
+    return undefined;
+
+  }
+
+
+}
+
+export function extractUserId() {
+
+  const user_id = localStorage.getItem('id');
+  if (user_id) {
+
+    return user_id;
+
+  } else {
+
+    return undefined;
+
+  }
+
+}
+export function extractUserToken() {
+
+  const user_id = localStorage.getItem('token');
+  if (user_id) {
+
+    return user_id;
 
   } else {
 
@@ -206,7 +238,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   extra_list: [string, Data][] = [];
 
 
-  constructor (private cdr: ChangeDetectorRef) {
+  constructor (private cdr: ChangeDetectorRef, public router: Router) {
 
     this.mouseMove$ = this.mouseMoveSubject.asObservable().pipe(
 

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NewsListPopupService } from './news-list-popup.service';
+import { NewsListPopupService } from '../utility/news-list-popup.service';
 
 describe('NewsListPopupService', () => {
   let service: NewsListPopupService;

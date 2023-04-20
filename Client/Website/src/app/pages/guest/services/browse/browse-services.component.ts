@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/Activity';
 import { CarouselComponent } from 'src/app/components/general/carousel/carousel.component';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { ServiceDatabaseService } from 'src/app/pages/admin/service-database/service-database.service';
 import { Facility } from 'src/app/models/Facility';
+import { ServiceDatabaseService } from 'src/app/services/providers/service-database.service';
 
 @Component({
   selector: 'app-services',

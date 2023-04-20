@@ -4,8 +4,8 @@ import { MatDateRangeInput, MatDatepicker, MatDatepickerInputEvent } from '@angu
 import { MatInput } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Booking } from 'src/app/models/Booking';
-import { BookingDatabaseService } from 'src/app/pages/admin/booking-database/booking-database.service';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
+import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
 
 @Component({
   selector: 'app-calendar',

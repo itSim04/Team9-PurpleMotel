@@ -4,8 +4,8 @@ import { User } from 'src/app/models/User';
 import { Component } from '@angular/core';
 import { Booking } from 'src/app/models/Booking';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { BookingDatabaseService } from './booking-database.service';
 import { map } from 'rxjs';
+import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
 
 @Component({
   selector: 'app-booking-database',

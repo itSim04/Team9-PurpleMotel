@@ -1,11 +1,11 @@
-import { Ingredient, IngredientAttributes } from './../../../models/Ingredient';
-import { FoodCategory } from './../../../models/FoodCategory';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { FoodsResponse, Food, FoodResponse, FoodPackage, FoodsPackage } from "src/app/models/Food";
-import { UrlBuilderService } from "src/app/services/url-builder.service";
+import { UrlBuilderService } from "../utility/url-builder.service";
 import { Stock } from 'src/app/models/Stock';
+import { FoodCategory } from "src/app/models/FoodCategory";
+import { Ingredient, IngredientAttributes } from "src/app/models/Ingredient";
 
 
 @Injectable({
@@ -18,8 +18,7 @@ export class FoodDatabaseService {
 
   getAllFoods(): Observable<FoodsPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -93,8 +92,7 @@ export class FoodDatabaseService {
   }
   getOneFood(id: string): Observable<FoodPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -125,8 +123,7 @@ export class FoodDatabaseService {
 
   addNewFood(food: Food) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -150,8 +147,7 @@ export class FoodDatabaseService {
 
   modifyFood(food_id: string, food: Food) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -167,8 +163,7 @@ export class FoodDatabaseService {
 
   deleteFood(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 

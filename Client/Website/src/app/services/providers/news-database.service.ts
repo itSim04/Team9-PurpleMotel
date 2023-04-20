@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { NewsesPackage, NewsesResponse, News, NewsPackage, NewsResponse } from "src/app/models/News";
-import { UrlBuilderService } from "src/app/services/url-builder.service";
+import { UrlBuilderService } from "../utility/url-builder.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,7 @@ export class NewsDatabaseService {
 
   getAllNewses(): Observable<NewsesPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -49,8 +48,7 @@ export class NewsDatabaseService {
 
   getOneNews(id: string): Observable<NewsPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -81,8 +79,7 @@ export class NewsDatabaseService {
 
   addNewNews(news: News) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -106,8 +103,7 @@ export class NewsDatabaseService {
 
   modifyNews(news_id: string, news: News) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -123,8 +119,7 @@ export class NewsDatabaseService {
 
   deleteNews(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 

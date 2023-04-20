@@ -13,7 +13,7 @@ import { Room, RoomAttributes } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { Stock } from 'src/app/models/Stock';
 import { ProfilePackage, ProfileResponse } from 'src/app/models/User';
-import { UrlBuilderService } from 'src/app/services/url-builder.service';
+import { UrlBuilderService } from './url-builder.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +29,7 @@ export class ProfileService {
 
   getAllData(): Observable<ProfilePackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Food } from 'src/app/models/Food';
-import { CartDialogComponent } from './cart.component';
+import { CartDialogComponent } from '../dialogs/cart/cart.component';
 
 @Injectable({
   providedIn: 'root'

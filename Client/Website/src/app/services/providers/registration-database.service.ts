@@ -5,7 +5,7 @@ import { Activity } from 'src/app/models/Activity';
 import { RegistrationsPackage, RegistrationsResponse, Registration, RegistrationPackage, RegistrationResponse } from 'src/app/models/Registration';
 import { User, UserAttributes } from 'src/app/models/User';
 import { UserType } from 'src/app/models/UserType';
-import { UrlBuilderService } from 'src/app/services/url-builder.service';
+import { UrlBuilderService } from '../utility/url-builder.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,7 @@ export class RegistrationDatabaseService {
 
   getAllRegistrations(): Observable<RegistrationsPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -95,8 +94,7 @@ export class RegistrationDatabaseService {
   
   getOneRegistration(id: string): Observable<RegistrationPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -128,8 +126,7 @@ export class RegistrationDatabaseService {
 
   addNewRegistration(registration: Registration) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
       console.log(registration);
@@ -152,8 +149,7 @@ export class RegistrationDatabaseService {
 
   modifyRegistration(registration_id: string, registration: Registration) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -169,8 +165,7 @@ export class RegistrationDatabaseService {
 
   deleteRegistration(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 

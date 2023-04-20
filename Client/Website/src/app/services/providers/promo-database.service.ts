@@ -1,13 +1,11 @@
-import { UserAttributes } from './../../../models/User';
-import { AppliedPromoCodes, EligiblityPromoCodes, EffectPromoCodes, FullPromoCodesResponse, FullPromoCodesPackage } from './../../../models/PromoCode';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { PromoCodesPackage, PromoCodesResponse, PromoCode, PromoCodePackage, PromoCodeResponse } from "src/app/models/PromoCode";
-import { UrlBuilderService } from "src/app/services/url-builder.service";
+import { PromoCodesPackage, PromoCodesResponse, PromoCode, PromoCodePackage, PromoCodeResponse, AppliedPromoCodes, EffectPromoCodes, EligiblityPromoCodes, FullPromoCodesPackage, FullPromoCodesResponse } from "src/app/models/PromoCode";
+import { UrlBuilderService } from "../utility/url-builder.service";
 import { Room, RoomAttributes } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
-import { User } from 'src/app/models/User';
+import { User, UserAttributes } from 'src/app/models/User';
 import { UserType, UserTypeAttributes } from 'src/app/models/UserType';
 
 @Injectable({
@@ -20,8 +18,7 @@ export class PromoDatabaseService {
 
   getAllPromoCodes(): Observable<PromoCodesPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -145,8 +142,7 @@ export class PromoDatabaseService {
   }
   getAllFullPromoCodes(): Observable<FullPromoCodesPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -303,8 +299,7 @@ export class PromoDatabaseService {
   }
   getOnePromoCode(id: string): Observable<PromoCodePackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -335,8 +330,7 @@ export class PromoDatabaseService {
 
   addNewPromoCode(promo_code: PromoCode) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -360,8 +354,7 @@ export class PromoDatabaseService {
 
   modifyPromoCode(promo_code_id: string, promo_code: PromoCode) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -377,8 +370,7 @@ export class PromoDatabaseService {
 
   deletePromoCode(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 

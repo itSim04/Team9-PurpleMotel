@@ -1,11 +1,11 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { RegisterComponent } from './register/register.component';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from './login/login.component';
-import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 import { UserCredentials, UserResponse, UserInformation } from 'src/app/models/User';
+import { LoginComponent } from '../dialogs/authentication/login/login.component';
+import { RegisterComponent } from '../dialogs/authentication/register/register.component';
 
 
 
@@ -49,25 +49,27 @@ export class AuthenticationDialogService {
           localStorage.setItem('token', result.authorisation.token);
           localStorage.setItem('user', JSON.stringify(result.data.attributes));
           localStorage.setItem('id', result.data.id);
+          localStorage.setItem('token_time', JSON.stringify(new Date()));
           if (result.permissions) localStorage.setItem('permissions', JSON.stringify(result.permissions));
         }
-        
+
         return;
-        
+
       })
-      
-      
-      );
-    }
-    register(user: UserInformation) {
-      
-      
-      return this.request.post<UserResponse>("http://127.0.0.1:8000/api/v1/auth/register", user).pipe(
-        
-        map(result => {
+
+
+    );
+  }
+  register(user: UserInformation) {
+
+
+    return this.request.post<UserResponse>("http://127.0.0.1:8000/api/v1/auth/register", user).pipe(
+
+      map(result => {
 
         if (result.authorisation) {
-          
+
+          localStorage.setItem('token_time', JSON.stringify(new Date()));
           localStorage.setItem('token', result.authorisation.token);
           localStorage.setItem('user', JSON.stringify(result.data.attributes));
           localStorage.setItem('id', result.data.id);

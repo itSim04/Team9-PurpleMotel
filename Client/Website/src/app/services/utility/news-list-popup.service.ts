@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NewsListPopupComponent } from './news-list-popup.component';
+import { NewsListPopupComponent } from 'src/app/components/news/news-list-popup/news-list-popup.component';
 
 @Injectable({
   providedIn: 'root'

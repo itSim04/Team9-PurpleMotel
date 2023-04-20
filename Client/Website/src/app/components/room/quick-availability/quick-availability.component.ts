@@ -1,7 +1,7 @@
 import { RawRoomsPackage } from './../../../models/Room';
-import { BookingDatabaseService } from './../../../pages/admin/booking-database/booking-database.service';
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
+import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
 
 @Component({
   selector: 'app-quick-availability',

@@ -1,9 +1,9 @@
-import { OrderDatabaseService } from './../../../pages/admin/order-database/order-database.service';
 import { Food } from 'src/app/models/Food';
 import { Order } from 'src/app/models/Order';
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { formatPrice } from 'src/app/components/database/database.component';
+import { OrderDatabaseService } from '../../providers/order-database.service';
 
 
 @Component({

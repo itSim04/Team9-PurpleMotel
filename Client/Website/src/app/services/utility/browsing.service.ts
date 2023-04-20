@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BrowsingDialogComponent } from './browsing.component';
+import { BrowsingDialogComponent } from '../dialogs/browsing/browsing.component';
 
 @Injectable({
   providedIn: 'root'

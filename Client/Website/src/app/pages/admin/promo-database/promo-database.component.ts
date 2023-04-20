@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { map } from 'rxjs';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { PromoDatabaseService } from './promo-database.service';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { User } from 'src/app/models/User';
 import { UserType } from 'src/app/models/UserType';
 import { Room } from 'src/app/models/Room';
+import { PromoDatabaseService } from 'src/app/services/providers/promo-database.service';
 
 @Component({
   selector: 'app-promo-database',

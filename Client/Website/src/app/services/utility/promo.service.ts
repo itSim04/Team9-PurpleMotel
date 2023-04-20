@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { PromoCodeApplicationResponse } from 'src/app/models/PromoCode';
-import { UrlBuilderService } from '../../url-builder.service';
-import { PromoDialogComponent } from './promo.component';
+import { PromoDialogComponent } from '../dialogs/promo/promo.component';
+import { UrlBuilderService } from './url-builder.service';
 
 
 @Injectable({
@@ -22,8 +22,7 @@ export class PromoDialogService {
 
   applyPromoCode(code: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
