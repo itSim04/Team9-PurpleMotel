@@ -1,3 +1,9 @@
+import { Food } from './../../../models/Food';
+import { OrderOverviewDialogService } from './../../../services/utility/order-overview.service';
+import { RegistrationDatabaseService } from './../../../services/providers/registration-database.service';
+import { ConfirmationDialogService } from './../../../services/utility/confirmation.service';
+import { BookingDatabaseService } from './../../../services/providers/booking-database.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from './../../../models/User';
 import { Order } from 'src/app/models/Order';
 import { Activity } from 'src/app/models/Activity';
@@ -28,9 +34,11 @@ import { PromoDialogService } from 'src/app/services/utility/promo.service';
 })
 export class ProfileComponent implements OnInit {
 
+
   bookings!: Map<string, Booking>;
   orders!: Map<string, Order>;
   rooms!: Map<string, Room>;
+  foods!: Map<string, Food>;
   room_types!: Map<string, RoomType>;
   activities!: Map<string, Activity>;
   registrations!: Map<string, Registration>;
@@ -48,11 +56,17 @@ export class ProfileComponent implements OnInit {
   };
 
   @ViewChild('carousel') carousel !: CarouselComponent;
+  // food from 1 to 8
 
-  constructor (private browsing_service: BrowsingDialogService, private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService) {
+  image(index: number) {
+
+    return '../../../../assets/food-' + ((index % 8) + 1) + '.jpg';
+
+  }
+  constructor (private browsing_service: BrowsingDialogService, private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService) {
 
     const user = extractUser();
-    if(user) {
+    if (user) {
 
       this.user = user;
       this.first_name = this.user.first_name;
@@ -65,7 +79,9 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  async ngOnInit() {
+
+
+  ngOnInit() {
 
     this.profile_service.getAllData().subscribe(data => {
       this.bookings = data.bookings;
@@ -74,10 +90,57 @@ export class ProfileComponent implements OnInit {
       this.room_types = data.room_types;
       this.activities = data.activities;
       this.registrations = data.registrations;
+      this.foods = data.foods;
       console.log(data);
     });
 
 
+
+  }
+
+  openOrder(order: Order) {
+
+    this.order.openDialog({
+
+      food: this.foods,
+      order: order
+
+    })
+
+  }
+
+  deleteBooking($event: string) {
+
+    const dialogRef = this.confirmation.openDialog('Booking Cancellation', 'Are you sure you want to cancel this booking?', 'Delete', 'Cancel');
+
+    dialogRef.afterClosed().subscribe(result => {
+
+
+      if (result) {
+        this.registration_service.deleteRegistration($event).subscribe(() => {
+
+          this.snackBar.open('Booking deleted', 'Dismiss', { duration: 2000 });
+          this.bookings.delete($event);
+        });
+      }
+    });
+
+  }
+  deleteRegistration($event: string) {
+
+    const dialogRef = this.confirmation.openDialog('Registration Cancellation', 'Are you sure you want to cancel this registration?', 'Delete', 'Cancel');
+
+    dialogRef.afterClosed().subscribe(result => {
+
+
+      if (result) {
+        this.registration_service.deleteRegistration($event).subscribe(() => {
+
+          this.snackBar.open('Registration deleted', 'Dismiss', { duration: 2000 });
+          this.registrations.delete($event);
+        });
+      }
+    });
 
   }
 

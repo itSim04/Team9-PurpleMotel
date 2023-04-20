@@ -1,3 +1,4 @@
+import { OrderOverviewDialogModule } from './../../../services/dialogs/order-overview/order-overview.module';
 import { PromoDialogModule } from './../../../services/dialogs/promo/promo.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -27,7 +28,8 @@ import { ProfileComponent } from './profile.component';
     BookingDetailsModule,
     ActivityDetailsModule,
     CarouselModule,
-    PromoDialogModule
+    PromoDialogModule,
+    OrderOverviewDialogModule
    
   ]
   

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { formatPrice } from 'src/app/components/database/database.component';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { formatPrice, Required } from 'src/app/components/database/database.component';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { formatOccupancy } from 'src/app/pages/admin/room-database/room-database.component';
@@ -16,6 +16,11 @@ export class BookingDetailsComponent {
   @Input() room?: Room;
   @Input() room_type?: RoomType;
 
+  @Input() @Required booking_id!: string;
+  
+  @Output() delete = new EventEmitter<string>();
+  path = '../../../../assets/room-' + (Math.floor(Math.random() * 6) + 1) + '.png';
+
   formatPrice(price: number | undefined) {
 
     return formatPrice(price);
@@ -24,7 +29,7 @@ export class BookingDetailsComponent {
 
   formatOccupancy(size1?: number, size2?: number, size3?: number) {
 
-    return formatOccupancy([size1, size2, size3])
+    return formatOccupancy([size1, size2, size3]);
 
   }
 

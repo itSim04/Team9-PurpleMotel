@@ -11,7 +11,7 @@
         <tr>
             <td>
 
-                <img class="details-pic" src="../../../../../assets/room.png">
+                <img class="details-pic" [src]="path">
             </td> 
         </tr>
     </table>
@@ -29,7 +29,7 @@
         <h4 class="properties-total">Total:</h4>
         <div style="display: flex;">
             <h3 class="properties-price">{{formatPrice(room_type?.price)}}</h3>
-            <button [style.visibility]="exhausted || past ? 'hidden' : 'visible'" class="cancel-button">Cancel</button>
+            <button (click)="delete.emit(booking_id)" [style.visibility]="exhausted || past ? 'hidden' : 'visible'" class="cancel-button">Cancel</button>
         </div>
     </div>
 </div>

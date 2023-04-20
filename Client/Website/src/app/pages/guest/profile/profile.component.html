@@ -18,9 +18,10 @@
         <h1 class="page-titles">My Orders</h1>
         <hr class="divider">
         <div class="orders-container">
-            <div *ngFor="let order of orders |keyvalue" style="position: relative;padding: 32px;">
-                <div class="wrap">
-                    <img class="order-img" src="../../../../assets/burger.png">
+            <div *ngFor="let order of orders |keyvalue; let i = index"
+                style="position: relative;padding: 32px;">
+                <div (click)="openOrder(order.value)" class="wrap">
+                    <img height="40vw" width="40vw" class="order-img" [src]="image(i)">
                 </div>
                 <h4 class="order-title">{{order.value.date}}</h4>
             </div>
@@ -34,9 +35,8 @@
             <ng-container *ngFor="let booking of bookings | keyvalue: keyDescOrder; let i = index">
                 <ng-container *carouselItem>
 
-                    <app-booking-details
-                        style="width: 100%"
-                        [@fadeOut] [room]="rooms.get(booking.value.room_id)"
+                    <app-booking-details [booking_id]="booking.key" (delete)="deleteBooking($event)"
+                        style="width: 100%" [@fadeOut] [room]="rooms.get(booking.value.room_id)"
                         [room_type]="room_types.get(rooms.get(booking.value.room_id)?.type || '0')"
                         [check_in]="booking.value.check_in" [end_date]="booking.value.end_date"
                         [exhausted]="booking.value.exhausted"></app-booking-details>
@@ -50,14 +50,15 @@
         <h1 class="page-titles">My Activities</h1>
         <hr class="divider">
         <app-carousel #carousel>
-            <ng-container *ngFor="let registration of registrations | keyvalue: activity_key; let i = index">
+            <ng-container
+                *ngFor="let registration of registrations | keyvalue: activity_key; let i = index">
                 <ng-container *carouselItem>
 
-                    <app-activity-details
+                    <app-activity-details [registration_id]="registration.key"
+                        (delete)="deleteRegistration($event)"
                         style="width: 100%; display: flex; position: relative;left: 50%; transform: translateX(-50%); "
-                        [@fadeOut] [activity]="activities.get(registration.value.activity_id)" 
-                        [registration]="registrations.get(registration.key)"   
-                        ></app-activity-details>
+                        [@fadeOut] [activity]="activities.get(registration.value.activity_id)"
+                        [registration]="registrations.get(registration.key)"></app-activity-details>
                 </ng-container>
             </ng-container>
         </app-carousel>

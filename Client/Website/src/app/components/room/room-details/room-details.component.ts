@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { extractUserId } from 'src/app/components/database/database.component';
 import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
@@ -17,11 +18,11 @@ import { BookingDatabaseService } from 'src/app/services/providers/booking-datab
 })
 export class RoomDetailsComponent {
 
-  @Input() room?: KeyValue<string, Room>
-  @Input() room_type?: KeyValue<string, RoomType>
+  @Input() room?: KeyValue<string, Room>;
+  @Input() room_type?: KeyValue<string, RoomType>;
   @Input() overview = true;
 
-  constructor(private booking_service: BookingDatabaseService, private snackBar: MatSnackBar) { }
+  constructor (private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private router: Router) { }
 
   get formatOccupancy(): string {
 
@@ -34,7 +35,7 @@ export class RoomDetailsComponent {
     return formatPrice(this.room_type?.value?.price);
   }
 
-  addBooking(range: { check_in: Date, check_out: Date }) {
+  addBooking(range: { check_in: Date, check_out: Date; }) {
 
     const user_id = extractUserId();
 
@@ -43,7 +44,7 @@ export class RoomDetailsComponent {
       this.booking_service.getAllRoomsBookings(this.room.key).subscribe(conflicts => {
 
 
-        const conflicting_bookings = []
+        const conflicting_bookings = [];
 
         for (let booking of conflicts.bookings) {
 
@@ -57,7 +58,7 @@ export class RoomDetailsComponent {
 
         if (conflicting_bookings.length) {
 
-          this.snackBar.open('Conflicting bookings')
+          this.snackBar.open('Conflicting bookings');
 
         } else {
 
@@ -69,15 +70,18 @@ export class RoomDetailsComponent {
             room_id: this.room!.key,
             user_id: user_id
 
+          }).subscribe(data => {
 
-          }).subscribe();
+            this.router.navigate(['profile']);
+
+          });
 
         }
       });
 
     } else {
 
-      console.error('Invalid id or room key')
+      console.error('Invalid id or room key');
 
     }
   }

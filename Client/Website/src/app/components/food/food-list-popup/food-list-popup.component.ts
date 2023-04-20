@@ -18,7 +18,7 @@ export interface FoodPopup {
 }
 
 @Component({
-  selector: 'app-food-list-item',
+  selector: 'app-food-list-popup',
   templateUrl: './food-list-popup.component.html',
   styleUrls: ['./food-list-popup.component.scss']
 })

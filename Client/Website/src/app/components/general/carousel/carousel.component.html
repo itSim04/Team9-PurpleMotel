@@ -7,7 +7,7 @@
             </td>
             <td>
                 <div style="border-radius: 20px; background: white; width: fit-content; height: fit-content"
-                    (window:resize)="fixRatio()">
+                    (window:resize)="initiateCarousel()">
                     <section class="carousel-wrapper" [ngStyle]="carouselWrapperStyle">
                         <ul class="carousel-inner" #carousel>
                             <li *ngFor="let item of items;" class="carousel-item">

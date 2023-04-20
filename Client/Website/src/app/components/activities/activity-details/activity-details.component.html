@@ -16,7 +16,7 @@
         <h4 class="properties-total">Fee:</h4>
         <div style="display: flex;">
             <h3 class="properties-price">{{formatPrice(activity?.price)}}</h3>
-            <button [style.visibility]="past ? 'hidden' : 'visible'" class="cancel-button">Cancel</button>
+            <button (click)="delete.emit(registration_id)" [style.visibility]="past ? 'hidden' : 'visible'" class="cancel-button">Cancel</button>
         </div>
     </div>
     
