@@ -1,0 +1,36 @@
+.main {
+
+
+    background-image: url('../../../assets/services-pics/hotel.png');
+    background-size: cover;
+    background-color: #14274A55;
+    background-blend-mode: soft-light;
+    height: 70%;
+    position: relative;
+
+}
+
+.title {
+
+    font-family: 'Asap';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 39px;
+    text-transform: uppercase;
+    color: white;
+    width: fit-content;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.activities-header{
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Roboto';
+    font-weight: 500;
+    color: black;
+    margin-top: 68vh;
+}

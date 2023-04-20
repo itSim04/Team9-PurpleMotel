@@ -18,6 +18,7 @@ import { RoomDatabaseComponent } from './pages/admin/room-database/room-database
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { StockDatabaseComponent } from './pages/admin/stock-database/stock-database.component';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
+import { BrowseServicesComponent } from './services/browse/browse-services.component';
 
 
 export const routes: Routes = [
@@ -73,7 +74,7 @@ export const routes: Routes = [
       },
       {
         path: 'services',
-        component: HomePage
+        component: BrowseServicesComponent
       },
       {
         path: 'restaurant',
@@ -143,6 +144,7 @@ export const routes: Routes = [
 
     ]
   },
+ 
 
 
   //   {
@@ -226,19 +228,7 @@ export const routes: Routes = [
   //     ]
   //   },
   //   {
-  //     path: "services",
-  //     children: [
-  //       {
-  //         path: "",
-  //         redirectTo: "browse",
-  //         pathMatch: "full"
-  //       },
-  //       {
-  //          component: BrowseServicesComponent,
-  //         path: "browse"
-  //       }
-  //     ]
-  //   },
+      
   //   {
   //     path: "restaurant",
   //     children: [
