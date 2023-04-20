@@ -1,26 +1,33 @@
-<table class="main">
-    <tr>
-        <td colspan="2">
-            <div class="label">{{facility?.value?.title}}</div>
-        </td>
-    </tr>
-    <tr>
-        <td style="padding: 16px; height:80vh;">
-            <img style="vertical-align: middle; object-fit: cover;" height="500vh" src="../../../assets/facility-1.png">
-        </td>
-        <td style="padding: 16px; height: 80vh;  width: 40%; resize: none;">
-            <div style="vertical-align: middle;  margin: 0px;">
-                <p class="title-1">Description</p>
-                <mat-divider style="border-top-color: #14274A"></mat-divider>
-                <br>
-                <br>
-                <p class="content-1">
-                    Description:
-                </p>
-                <p class="content-2">
-                    {{facility?.value?.description}}
-                </p>
-            </div>
-        </td>
-    </tr>
-</table>
+<div class="main">
+    <table style="width: 30%;">
+
+        <tr>
+
+            <td>
+
+                <h2 class="details-title">{{facility?.value?.title}}</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <img class="details-pic" src="../../../../assets/facility-1.png">
+            </td>
+        </tr>
+    </table>
+
+    <div class="facility-info">
+
+        <p class="title-1">Description</p>
+        <mat-divider style="border-top-color: #14274A"></mat-divider>
+        <br>
+        <br>
+        <p class="content-1">
+            Description:
+        </p>
+        <p class="content-2">
+            {{facility?.value?.description}}
+        </p>
+
+    </div>
+</div>

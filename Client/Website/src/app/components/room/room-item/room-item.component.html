@@ -14,7 +14,7 @@
                 <div class="price">
                     USD
                 <div style="display: inline;" [style.textDecoration]="change ? 'line-through' : 
-                    'none'">{{formatPrice}}</div> {{formatNewPrice}}
+                    'none'">{{formatPrice}}</div> <div *ngIf="change" style="display: inline;">{{formatNewPrice}}</div>
                 </div>
             </td>
             <td>

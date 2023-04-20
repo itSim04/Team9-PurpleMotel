@@ -141,13 +141,13 @@ export class BookingDatabaseService {
 
   }
 
-  filterBookings(check_in: string, check_out: string): Observable<RawRoomsPackage> {
+  filterBookings(check_in: string, check_out: string, adults_capacity: number, kids_capacity: number): Observable<RawRoomsPackage> {
 
     const headers = this.url.generateHeader()
 
     try {
 
-      return this.http.post<RoomsResponse>(this.url.generateUrl(`filter`), { check_in: check_in, check_out: check_out }, { headers: headers }).pipe(
+      return this.http.post<RoomsResponse>(this.url.generateUrl(`filter`), { check_in: check_in, check_out: check_out, adults_capacity: adults_capacity, kids_capacity: kids_capacity }, { headers: headers }).pipe(
 
 
         map((response: RoomsResponse): RawRoomsPackage => {

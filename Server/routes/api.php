@@ -68,6 +68,8 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('bookings', BookingController::class);
     Route::apiResource('registrations', RegistrationController::class);
     Route::apiResource('promocodes', PromoCodeController::class);
+    Route::post('filter', [RoomController::class, 'filter']);;
+    Route::get('room_bookings', [RoomController::class, 'roomBookings']);;
     Route::get('full-promocodes', [PromoCodeController::class, 'full_index']);
     Route::get('applyPromo/{id}', [PromoCodeController::class, 'applyPromo']);
     Route::get('appliedCodes/{id}', [PromoCodeController::class, 'isAlreadyApplied']);
@@ -88,8 +90,6 @@ Route::prefix('v1')->group(function () {
             Route::put('/{user}', 'update');
             Route::delete('/{user}', 'destroy');
         });
-        Route::post('filter', [RoomController::class, 'filter']);;
-        Route::get('room_bookings', [RoomController::class, 'roomBookings']);;
 
         // Route::prefix('foods')->controller(FoodController::class)->group(function () {
 

@@ -50,15 +50,24 @@
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label class="selectors">Input Number</mat-label>
-                        <input type="number" [(ngModel)]="adults_value" matInput>
-                        <mat-icon color="primary" matIconSuffix>keyboard_arrow_down</mat-icon>
+                        <mat-select [(ngModel)]="adults_value" matInput>
+
+                            <mat-option *ngFor="let capacity of adult_capacity">
+                                {{capacity}}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-icon color="primary" matIconSuffix>keyboard_arrow_down</mat-icon> -->
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label class="selectors">Input Number</mat-label>
-                        <input type="number" [(ngModel)]="kids_value" matInput>
-                        <mat-icon color="primary" matIconSuffix>keyboard_arrow_down</mat-icon>
+                        <mat-select [(ngModel)]="adults_value" matInput>
+
+                            <mat-option *ngFor="let capacity of kids_capacity">
+                                {{capacity}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </td>
 
