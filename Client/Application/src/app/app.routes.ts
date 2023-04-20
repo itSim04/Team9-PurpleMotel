@@ -18,7 +18,7 @@ import { RoomDatabaseComponent } from './pages/admin/room-database/room-database
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { StockDatabaseComponent } from './pages/admin/stock-database/stock-database.component';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
-import { BrowseServicesComponent } from './services/browse/browse-services.component';
+import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 
 
 export const routes: Routes = [
@@ -49,11 +49,11 @@ export const routes: Routes = [
   },
 
 
-  {
+  //{
 
-    path: '',
-    component: TabsPage,
-    children: [
+    //path: '',
+    //component: TabsPage,
+    //children: [
       {
         path: 'rooms',
         children: [
@@ -79,9 +79,9 @@ export const routes: Routes = [
       {
         path: 'restaurant',
         component: HomePage
-      }
-    ]
-  },
+      },
+//    ]
+  //},
 
   {
     path: 'admin',

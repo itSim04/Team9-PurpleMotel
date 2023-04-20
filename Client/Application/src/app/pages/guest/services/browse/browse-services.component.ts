@@ -60,6 +60,7 @@ export class BrowseServicesComponent implements OnInit, OnDestroy {
     }
 
   }
+ 
 
 }
 

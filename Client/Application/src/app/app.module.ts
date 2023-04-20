@@ -23,6 +23,8 @@ import { ServiceDatabaseModule } from './pages/admin/service-database/service-da
 import { StockDatabaseModule } from './pages/admin/stock-database/stock-database.module';
 import { UserDatabaseModule } from './pages/admin/user-database/user-database.module';
 import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
+import { ActivitiesModule } from './components/activities/activities.module';
+import { ServicesModule } from './pages/guest/services/services.module';
 
 
 
@@ -57,7 +59,8 @@ import { ConfirmationDialogModule } from './services/dialogs/confirmation/confir
     StockDatabaseModule,
     UserDatabaseModule,
     RegistrationDatabaseModule,
-
+    ActivitiesModule,
+    ServicesModule,
     AdminDashboardModule,
 
   ],

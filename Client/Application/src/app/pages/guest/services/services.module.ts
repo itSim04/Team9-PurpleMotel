@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BrowseServicesComponent } from './browse/browse-services.component';
+import { ActivitiesModule } from '../../../components/activities/activities.module';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -10,7 +12,9 @@ import { BrowseServicesComponent } from './browse/browse-services.component';
     BrowseServicesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ActivitiesModule,
+    IonicModule.forRoot()
   ],
   exports: [
     BrowseServicesComponent

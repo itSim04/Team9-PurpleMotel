@@ -1,12 +1,10 @@
-.main {
-
-
-    background-image: url('../../../assets/services-pics/hotel.png');
+.header {
+    
+    background-image: url('../../../../../assets/services-pics/hotel.png');
     background-size: cover;
     background-color: #14274A55;
     background-blend-mode: soft-light;
     height: 70%;
-    position: relative;
 
 }
 
@@ -32,5 +30,6 @@
     font-family: 'Roboto';
     font-weight: 500;
     color: black;
-    margin-top: 68vh;
+    //margin-top: 68vh;
 }
+

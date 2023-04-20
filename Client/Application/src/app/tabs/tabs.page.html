@@ -1,55 +1,59 @@
-<ion-tabs>
+<ion-toolbar>
+  
   <ion-router-outlet></ion-router-outlet>
-
-  <table [style.backgroundColor]="color" class="container" slot="bottom">
-    <tr>
-
-      <td class="cell">
-
-        <ion-tab-button class="tab" tab="home">
-          <div [ngClass]="isActive('/home') ? 'block-container-active' : 'block-container-inactive'"
+  <ion-tabs>
+  
+    
+    <table [style.backgroundColor]="color" class="container" slot="bottom">
+      <tr>
+        
+        <td class="cell">
+          
+          <ion-tab-button class="tab" tab="home">
+            <div [ngClass]="isActive('/home') ? 'block-container-active' : 'block-container-inactive'"
             class="block-container">
             <ion-img class="image" [src]="isActive('/home') ? '../../assets/tabs/home-active.png' :
-              '../../assets/tabs/home.png'"></ion-img>
-
+            '../../assets/tabs/home.png'"></ion-img>
+            
             <ion-text class="text-active" *ngIf="isActive('/home')">Home</ion-text>
           </div>
         </ion-tab-button>
       </td>
       <td class="cell">
-
+        
         <ion-tab-button class="tab" tab="rooms">
           <div
-            [ngClass]="isActive('/rooms') ? 'block-container-active' : 'block-container-inactive' "
-            class="block-container">
-            <ion-img class="image"
-              [src]="isActive('/rooms') ? '../../assets/tabs/rooms-active.png' : '../../assets/tabs/rooms.png'"></ion-img>
-            <ion-text class="text-active" *ngIf="isActive('/rooms')">Rooms</ion-text>
-          </div>
-        </ion-tab-button>
-      </td>
-      <td class="cell">
-
-        <ion-tab-button class="tab" tab="services">
-          <div
-            [ngClass]="isActive('/services') ? 'block-container-active' : 'block-container-inactive'"
-            class="block-container">
-            <ion-img class="image" [src]="isActive('/services') ? '../../assets/tabs/services-active.png' : '../../assets/tabs/services.png'"></ion-img>
-            <ion-text style="color: #D6B389" class="text-active" *ngIf="isActive('/services')">Services</ion-text>
-          </div>
-        </ion-tab-button>
-      </td>
-      <td class="cell">
-
-        <ion-tab-button class="tab" tab="restaurant">
-          <div
-            [ngClass]="isActive('/restaurant') ? 'block-container-active2' : 'block-container-inactive'"
-            class="block-container">
-            <ion-img class="image" [src]="isActive('/restaurant') ? '../../assets/tabs/restaurant-active.png' : '../../assets/tabs/restaurant.png'"></ion-img>
-            <ion-text style="color: #930000" class="text-active" *ngIf="isActive('/restaurant')">Restaurant</ion-text>
-          </div>
-        </ion-tab-button>
-      </td>
-    </tr>
-  </table>
+          [ngClass]="isActive('/rooms') ? 'block-container-active' : 'block-container-inactive' "
+          class="block-container">
+          <ion-img class="image"
+          [src]="isActive('/rooms') ? '../../assets/tabs/rooms-active.png' : '../../assets/tabs/rooms.png'"></ion-img>
+          <ion-text class="text-active" *ngIf="isActive('/rooms')">Rooms</ion-text>
+        </div>
+      </ion-tab-button>
+    </td>
+    <td class="cell">
+      
+      <ion-tab-button class="tab" tab="services">
+        <div
+        [ngClass]="isActive('/services') ? 'block-container-active' : 'block-container-inactive'"
+        class="block-container">
+        <ion-img class="image" [src]="isActive('/services') ? '../../assets/tabs/services-active.png' : '../../assets/tabs/services.png'"></ion-img>
+        <ion-text style="color: #D6B389" class="text-active" *ngIf="isActive('/services')">Services</ion-text>
+      </div>
+    </ion-tab-button>
+  </td>
+  <td class="cell">
+    
+    <ion-tab-button class="tab" tab="restaurant">
+      <div
+      [ngClass]="isActive('/restaurant') ? 'block-container-active2' : 'block-container-inactive'"
+      class="block-container">
+      <ion-img class="image" [src]="isActive('/restaurant') ? '../../assets/tabs/restaurant-active.png' : '../../assets/tabs/restaurant.png'"></ion-img>
+      <ion-text style="color: #930000" class="text-active" *ngIf="isActive('/restaurant')">Restaurant</ion-text>
+    </div>
+  </ion-tab-button>
+</td>
+</tr>
+</table>
 </ion-tabs>
+</ion-toolbar>
