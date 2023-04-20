@@ -1,0 +1,54 @@
+$primary-color: #14274A;
+
+.header {
+
+  background-blend-mode: soft-light;
+  background-color: #{$primary-color}55;
+  background-image: url('../../assets/home-pics/hotel.png');
+  background-size: cover;
+  height: 58%;
+  margin-left: -20%;
+
+}
+
+.title-parent {
+
+  font-family: 'Asap';
+  font-style: normal;
+  text-transform: uppercase;
+
+}
+
+.title {
+
+  @extend .title-parent;
+  color: white;
+  font-size: 34px;
+  font-weight: 500;
+  left: 50%;
+  line-height: 39px;
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  top: 30%;
+  width: fit-content;
+
+}
+
+.body-title {
+
+  @extend .title-parent;
+  border: 50;
+  border-bottom: 1px solid $primary-color;
+  color: $primary-color;
+  font-size: 23px;
+  font-weight: 500;
+  left: 50%;
+  line-height: 39px;
+  margin-bottom: 1rem;
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+  top: 63%;
+  width: 80%;
+
+}

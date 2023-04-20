@@ -1,4 +1,4 @@
-import { HomePage } from './home/home.page';
+import { HomePage } from './pages/guest/home/home.page';
 import { TabsPage } from './tabs/tabs.page';
 import { BrowseRoomsPage } from './pages/guest/rooms/browse-rooms/browse-rooms.page';
 
