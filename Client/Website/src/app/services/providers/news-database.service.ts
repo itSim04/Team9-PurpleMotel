@@ -1,7 +1,9 @@
+import { extractUser, extractUserId } from 'src/app/components/database/database.component';
+import { KeyValue } from '@angular/common';
+import { SingleNewsResponse, SingleNewsPackage, News, NewsAttributes, NewsPackage, NewsResponse } from './../../models/News';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { NewsesPackage, NewsesResponse, News, NewsPackage, NewsResponse } from "src/app/models/News";
 import { UrlBuilderService } from "../utility/url-builder.service";
 
 @Injectable({
@@ -11,27 +13,49 @@ export class NewsDatabaseService {
 
   constructor (private http: HttpClient, private url: UrlBuilderService) { }
 
-  getAllNewses(): Observable<NewsesPackage> {
+  getAllNews(): Observable<NewsPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.get<NewsesResponse>(this.url.generateUrl('news'), {headers: headers}).pipe(
+      return this.http.get<NewsResponse>(this.url.generateUrl('news'), { headers: headers }).pipe(
 
-        map((response: NewsesResponse): NewsesPackage => {
+        map((response: NewsResponse): NewsPackage => {
 
-          const newses = new Map<string, News>();
+          console.log(response);
 
-          response.data.forEach(news => {
+          const news = new Map<string, News>();
 
-            newses.set(news.id, news.attributes);
+          response.data.forEach(data => {
+
+    
+            news.set(data.id, { ...data.attributes, is_liked: false, likes: [] });
 
           });
 
+          console.log(news);
+          response.included.forEach(like => {
+
+            const temp = news.get(like.attributes.news_id);
+            console.log(like.attributes.news_id, temp);
+
+            if (temp) {
+
+              console.log(like.attributes.user_id, extractUserId())
+              if (extractUserId() == like.attributes.user_id) temp.is_liked = true;
+
+              temp.likes.push(like.attributes);
+
+            }
+
+          });
+
+    
+
           return {
 
-            newses: newses
+            news: news
 
           };
 
@@ -46,28 +70,37 @@ export class NewsDatabaseService {
 
   }
 
-  getOneNews(id: string): Observable<NewsPackage> {
+  getOneNews(id: string): Observable<SingleNewsPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.get<NewsResponse>(this.url.generateUrl(`news/${id}`), {headers: headers}).pipe(
-        map((response: NewsResponse): NewsPackage => {
+      return this.http.get<SingleNewsResponse>(this.url.generateUrl(`news/${id}`), { headers: headers }).pipe(
+        map((response: SingleNewsResponse): SingleNewsPackage => {
 
-          return {
+          const news: KeyValue<string, News> = {
 
-            news: {
+            key: response.data.id,
+            value: { ...response.data.attributes, likes: [], is_liked: false }
 
-              key: response.data.id,
-              value: response.data.attributes
-
-            },
           };
 
+          response.included.forEach(like => {
 
-        })
-      );
+            if (extractUserId() == like.attributes.user_id) news.value.is_liked = true;
+
+            news.value.likes.push(like.attributes);
+
+
+          });
+          return {
+
+            news: news
+
+
+          };
+        }));
 
     } catch (e: unknown) {
 
@@ -77,13 +110,13 @@ export class NewsDatabaseService {
 
   }
 
-  addNewNews(news: News) {
+  addNewNews(news: NewsAttributes) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.post<NewsResponse>(this.url.generateUrl('news'), news, {headers: headers}).pipe(
+      return this.http.post<SingleNewsResponse>(this.url.generateUrl('news'), news, { headers: headers }).pipe(
 
         map(result => {
 
@@ -101,13 +134,42 @@ export class NewsDatabaseService {
 
   }
 
-  modifyNews(news_id: string, news: News) {
+  like(news_id: string, user_id: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.put(this.url.generateUrl(`news/${news_id}`), news, {headers: headers}).pipe(map(() => undefined));
+      return this.http.get<any>(this.url.generateUrl(`like?news_id=${news_id}&user_id=${user_id}`), { headers: headers });
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+  unlike(news_id: string, user_id: string) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.get<any>(this.url.generateUrl(`unlike?news_id=${news_id}&user_id=${user_id}`), { headers: headers });
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  modifyNews(news_id: string, news: NewsAttributes) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.put(this.url.generateUrl(`news/${news_id}`), news, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -119,11 +181,11 @@ export class NewsDatabaseService {
 
   deleteNews(key: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.delete(this.url.generateUrl(`news/${key}`), {headers: headers}).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`news/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 

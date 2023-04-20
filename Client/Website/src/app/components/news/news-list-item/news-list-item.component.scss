@@ -22,6 +22,10 @@ $image-path: '../../../../assets/';
     width: 400px;
 }
 
+.like-button {
+    transition: all 1s ease-out;
+}
+
 .body_table_content {
     color: $color-primary;
     font-family: $font-primary;

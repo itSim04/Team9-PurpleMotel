@@ -20,9 +20,8 @@ class LikesNewsResource extends JsonResource
             'type' => 'likes_news',
             'attributes' => [
 
-                'user_id' => $this->user_id,
-                'news_id' => $this->news_id,
-                'likes' => $this->likes
+                'user_id' => (string)$this->user_id,
+                'news_id' => (string)$this->news_id
 
             ]
 

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
 import { News } from 'src/app/models/News';
+import { Component } from '@angular/core';
+import { NewsAttributes } from 'src/app/models/News';
 import { Subscription } from 'rxjs';
 import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
 
@@ -10,11 +11,11 @@ import { NewsDatabaseService } from 'src/app/services/providers/news-database.se
 })
 export class HomeComponent {
 
-  news: Map<string, News> = new Map()
-  filtered_news: [string, News][] = []
+  news: Map<string, News> = new Map();
+  filtered_news: [string, News][] = [];
   subscription?: Subscription;
 
-  constructor(private news_service: NewsDatabaseService) { }
+  constructor (private news_service: NewsDatabaseService) { }
 
   get data() {
 
@@ -22,10 +23,11 @@ export class HomeComponent {
 
   }
 
-  ngOnInit(){
-    this.subscription = this.news_service.getAllNewses().subscribe(data => {
-      this.news = data.newses
-      this.filtered_news = Array.from(this.news)
-    })
+  ngOnInit() {
+    this.subscription = this.news_service.getAllNews().subscribe(data => {
+      this.news = data.news;
+      console.log(this.news);
+      this.filtered_news = Array.from(this.news);
+    });
   }
 }

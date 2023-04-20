@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsListItemComponent } from './news-list-item.component';
@@ -9,7 +10,8 @@ import { NewsListItemComponent } from './news-list-item.component';
     NewsListItemComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatIconModule,
   ],
   exports: [
     NewsListItemComponent
