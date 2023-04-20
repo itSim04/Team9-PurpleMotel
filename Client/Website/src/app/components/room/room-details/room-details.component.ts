@@ -1,3 +1,4 @@
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { Router } from '@angular/router';
 import { extractUserId } from 'src/app/components/database/database.component';
 import { KeyValue } from '@angular/common';
@@ -22,7 +23,7 @@ export class RoomDetailsComponent {
   @Input() room_type?: KeyValue<string, RoomType>;
   @Input() overview = true;
 
-  constructor (private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private router: Router) { }
+  constructor (private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService) { }
 
   get formatOccupancy(): string {
 
@@ -40,48 +41,56 @@ export class RoomDetailsComponent {
     const user_id = extractUserId();
 
 
-    if (user_id && this.room?.key) {
-      this.booking_service.getAllRoomsBookings(this.room.key).subscribe(conflicts => {
+    if (user_id) {
 
 
-        const conflicting_bookings = [];
+      if (this.room?.key) {
+        this.booking_service.getAllRoomsBookings(this.room.key).subscribe(conflicts => {
 
-        for (let booking of conflicts.bookings) {
 
-          if (!(range.check_out < new Date(booking[1].check_in) || range.check_in > new Date(booking[1].end_date))) {
+          const conflicting_bookings = [];
 
-            conflicting_bookings.push(booking[0]);
+          for (let booking of conflicts.bookings) {
+
+            if (!(range.check_out < new Date(booking[1].check_in) || range.check_in > new Date(booking[1].end_date))) {
+
+              conflicting_bookings.push(booking[0]);
+            }
           }
-        }
 
 
 
-        if (conflicting_bookings.length) {
+          if (conflicting_bookings.length) {
 
-          this.snackBar.open('Conflicting bookings');
+            this.snackBar.open('Conflicting bookings');
 
-        } else {
+          } else {
 
-          this.booking_service.addNewBooking({
+            this.booking_service.addNewBooking({
 
-            check_in: parseDate(range.check_in),
-            end_date: parseDate(range.check_out),
-            exhausted: false,
-            room_id: this.room!.key,
-            user_id: user_id
+              check_in: parseDate(range.check_in),
+              end_date: parseDate(range.check_out),
+              exhausted: false,
+              room_id: this.room!.key,
+              user_id: user_id
 
-          }).subscribe(data => {
+            }).subscribe(data => {
 
-            this.router.navigate(['profile']);
+              this.router.navigate(['profile']);
 
-          });
+            });
 
-        }
-      });
+          }
+        });
 
+      } else {
+
+        console.error('Invalid id or room key');
+
+      }
     } else {
 
-      console.error('Invalid id or room key');
+      this.authentication.openDialog('login');
 
     }
   }

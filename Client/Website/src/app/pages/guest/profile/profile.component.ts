@@ -54,6 +54,9 @@ export class ProfileComponent implements OnInit {
   activity_key = (a: KeyValue<string, Registration>, b: KeyValue<string, Registration>): number => {
     return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
   };
+  order_key = (a: KeyValue<string, Order>, b: KeyValue<string, Order>): number => {
+    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+  };
 
   @ViewChild('carousel') carousel !: CarouselComponent;
   // food from 1 to 8
@@ -65,17 +68,14 @@ export class ProfileComponent implements OnInit {
   }
   constructor (private browsing_service: BrowsingDialogService, private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService) {
 
-    const user = extractUser();
-    if (user) {
+    const user = extractUser()!;
 
-      this.user = user;
-      this.first_name = this.user.first_name;
-      this.last_name = this.user.last_name;
-    } else {
 
-      throw new Error('Unauthenticated user');
+    this.user = user;
+    this.first_name = this.user.first_name;
+    this.last_name = this.user.last_name;
 
-    }
+
 
   }
 
@@ -105,7 +105,7 @@ export class ProfileComponent implements OnInit {
       food: this.foods,
       order: order
 
-    })
+    });
 
   }
 

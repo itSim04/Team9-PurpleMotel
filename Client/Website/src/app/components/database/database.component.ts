@@ -91,6 +91,27 @@ export function extractPermission(operation: 'read' | 'write' | 'delete', permis
   }
 
 }
+export function extractAnyPermission(): boolean {
+
+  if (extractUser()?.tier == '2') {
+
+    return true;
+
+  }
+
+  try {
+
+    const permissions = JSON.parse(localStorage.getItem('permissions') || '[]');
+
+    return !!permissions.length;
+
+  } catch (e: unknown) {
+
+    return false;
+
+  }
+
+}
 
 
 export function formatWord(word: string | number | symbol | undefined) {
@@ -434,8 +455,15 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
           if (error.status == 401) {
 
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('id');
+            localStorage.removeItem('token_time');
+            this.router.navigate(['/home']);
             this.loading = false;
             this.extra_loading = false;
+
+
 
           } else {
             this.loading = true;
@@ -475,6 +503,11 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
           if (error.status == 401) {
 
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('id');
+            localStorage.removeItem('token_time');
+            this.router.navigate(['/home']);
             this.loading = false;
 
           } else {
@@ -523,6 +556,11 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
           if (error.status == 401) {
 
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('id');
+            localStorage.removeItem('token_time');
+            this.router.navigate(['/home']);
             this.extra_loading = false;
 
           } else {

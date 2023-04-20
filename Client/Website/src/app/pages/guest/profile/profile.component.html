@@ -18,7 +18,7 @@
         <h1 class="page-titles">My Orders</h1>
         <hr class="divider">
         <div class="orders-container">
-            <div *ngFor="let order of orders |keyvalue; let i = index"
+            <div *ngFor="let order of orders | keyvalue: order_key; let i = index"
                 style="position: relative;padding: 32px;">
                 <div (click)="openOrder(order.value)" class="wrap">
                     <img height="40vw" width="40vw" class="order-img" [src]="image(i)">

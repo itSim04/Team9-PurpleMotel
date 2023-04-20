@@ -1,3 +1,4 @@
+import { AuthenticationDialogService } from './../../../services/utility/authentication.service';
 import { extractUserId } from 'src/app/components/database/database.component';
 import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -32,7 +33,7 @@ export class FoodListPopupComponent {
 
   image = `../../../../assets/food-${Math.floor(Math.random() * 8) + 1}.jpg`;
 
-  constructor (@Inject(MAT_DIALOG_DATA) public data: FoodPopup, private dialog: MatDialogRef<FoodListPopupComponent>) {
+  constructor (@Inject(MAT_DIALOG_DATA) public data: FoodPopup, private dialog: MatDialogRef<FoodListPopupComponent>, private authentication: AuthenticationDialogService) {
     this.name = data.title;
     this.description = data.description;
     this.price = data.price;
@@ -112,6 +113,11 @@ export class FoodListPopupComponent {
       localStorage.setItem('cart', JSON.stringify(item));
 
       this.dialog.close(this.quantity);
+    } else {
+
+      this.dialog.close(0);
+      this.authentication.openDialog('login');
+
     }
   }
 

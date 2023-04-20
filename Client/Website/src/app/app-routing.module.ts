@@ -1,7 +1,9 @@
+import { GuestGuard } from './guards/guest.guard';
+import { AdminGuard } from './guards/admin.guard';
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 import { HomeComponent } from './pages/guest/home/home.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { AnnouncementDatabaseComponent } from './pages/admin/announcement-database/announcement-database.component';
 import { BookingDatabaseComponent } from './pages/admin/booking-database/booking-database.component';
 import { FoodDatabaseComponent } from './pages/admin/food-database/food-database.component';
@@ -31,6 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    canActivate: [AdminGuard],
     children: [
       {
 
@@ -150,6 +153,7 @@ const routes: Routes = [
   },
   {
     path: "profile",
+    canActivate: [GuestGuard],
     component: ProfileComponent,
   }
 

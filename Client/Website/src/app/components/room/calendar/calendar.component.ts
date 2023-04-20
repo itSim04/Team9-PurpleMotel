@@ -1,3 +1,5 @@
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
+import { extractUser } from 'src/app/components/database/database.component';
 import { Component, Output, EventEmitter, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDateRangeInput, MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -33,7 +35,7 @@ export class CalendarComponent implements OnInit {
   closer?: () => void;
 
 
-  constructor(private room_service: BookingDatabaseService, private snackBar: MatSnackBar) { }
+  constructor(private room_service: BookingDatabaseService, private snackBar: MatSnackBar, private authentication: AuthenticationDialogService) { }
 
   ngOnInit() {
 
@@ -48,17 +50,24 @@ export class CalendarComponent implements OnInit {
   downloadConflicts() {
 
 
-    if (this.room_id) {
+    if(extractUser()) {
 
-      this.room_service.getAllRoomsBookings(this.room_id).subscribe(data => {
 
-        this.conflicting_bookings = data.bookings;
+      if (this.room_id) {
+        
+        this.room_service.getAllRoomsBookings(this.room_id).subscribe(data => {
+
+          this.conflicting_bookings = data.bookings;
 
         this.picker.open()
-
+        
       })
-
+      
     }
+  } else {
+
+    this.authentication.openDialog('login');
+  }
 
 
   }

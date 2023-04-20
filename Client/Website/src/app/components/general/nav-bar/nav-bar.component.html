@@ -15,7 +15,7 @@
                 </p>
             </td>
             <td style="text-align:end">
-                <button [routerLink]="['/admin']" class="check-btn">
+                <button *ngIf="extractAnyPermission()" [routerLink]="['/admin']" class="check-btn">
                     {{ "admin_panel" | translate}}
                 </button>
                 <button class="check-btn">

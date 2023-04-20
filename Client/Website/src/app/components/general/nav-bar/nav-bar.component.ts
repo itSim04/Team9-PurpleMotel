@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
-import { extractUser } from '../../database/database.component';
+import { extractAnyPermission, extractUser } from '../../database/database.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,6 +13,11 @@ export class NavBarComponent {
   constructor (private authentication_service: AuthenticationDialogService) { }
 
 
+  extractAnyPermission() {
+
+    return extractAnyPermission();
+    
+  }
   login() {
 
     this.authentication_service.openDialog("login");
@@ -39,3 +44,4 @@ export class NavBarComponent {
   }
 
 }
+
