@@ -26,6 +26,7 @@ import { ConfirmationDialogModule } from './services/dialogs/confirmation/confir
 import { ActivitiesModule } from './components/activities/activities.module';
 import { ServicesModule } from './pages/guest/services/services.module';
 import { HomeModule } from './pages/guest/home/home.module';
+import { NewsListItemModule } from './components/news/news-list-item/news-list-item.module';
 
 
 
@@ -66,6 +67,7 @@ import { HomeModule } from './pages/guest/home/home.module';
 
 
     HomeModule,
+    NewsListItemModule
 
   ],
   providers: [

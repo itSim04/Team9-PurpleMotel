@@ -1,3 +1,51 @@
-<p>
-  news-list-item works!
-</p>
+<!-- This is the feed post -->
+<div>
+  <ion-text class="header">
+    {{news.value.title}}
+  </ion-text>
+</div>
+
+<div class="image-bg">
+  <img src="../../../../assets/news-pics/news-sample-pic.png">
+</div>
+
+<div class="body">
+  {{news.value.body}}
+</div>
+
+<div>
+  <!-- <ion-button (click)="news_dialog.openDialog()" class="button" fill="outline" color="#14274A">
+    Explore
+  </ion-button> -->
+  <ion-button id="open-custom-dialog" expand="block" fill="outline" color="#14274A">Explore</ion-button>
+</div>
+
+
+
+<!-- This it the pop up -->
+<ion-modal id="example-modal" #modal trigger="open-custom-dialog">
+  <ng-template>
+    <div class="wrapper">
+      <h1 class="title">{{news.value.title}}</h1>
+      <ion-list lines="none">
+
+        <img src="../../../../assets/news-pics/news-sample-pic.png">
+
+        <div class="date">
+          published at {{news.value.date}}
+        </div>
+
+        <hr>
+        
+        <div class="description">
+          {{news.value.body}}
+        </div>
+
+        <div class="likes">
+          {{news.value.likes}} likes
+        </div>
+
+      </ion-list>
+    </div>
+  </ng-template>
+</ion-modal>

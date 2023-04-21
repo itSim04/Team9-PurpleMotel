@@ -13,6 +13,9 @@
   
   <div>
     <!-- the news component will go here -->
+    <div *ngFor="let news of filtered_news">
+      <app-news-list-item [news]="{key: news[0], value: news[1]}"></app-news-list-item>
+  </div>
   </div>
 
 </ion-content>
