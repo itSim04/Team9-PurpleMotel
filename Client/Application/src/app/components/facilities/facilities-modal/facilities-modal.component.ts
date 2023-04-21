@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { Facility } from 'src/app/models/Facility';
 
 @Component({
@@ -13,10 +13,14 @@ export class FacilitiesModalComponent  implements OnInit {
   @Input() description!: string;
 
 
-  constructor(private modal_params: NavParams) {
+  constructor(private modal_params: NavParams, private modal_ctrl: ModalController) {
     
     this.facility = modal_params.get('data');
     this.description = modal_params.get('data').description;  
+  }
+
+  closeModal(){
+    this.modal_ctrl.dismiss()
   }
 
   ngOnInit() {}

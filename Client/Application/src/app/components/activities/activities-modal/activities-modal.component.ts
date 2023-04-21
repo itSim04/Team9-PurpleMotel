@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { Activity } from 'src/app/models/Activity';
 
 
@@ -15,7 +15,7 @@ export class ActivitiesModalComponent {
   @Input() start_date!: Date;
   @Input() end_date!: Date;
 
-  constructor(private modal_params: NavParams) {
+  constructor(private modal_params: NavParams, private modal_ctrl: ModalController) {
 
     
     this.activity = modal_params.get('data');
@@ -25,7 +25,10 @@ export class ActivitiesModalComponent {
   
   }
  
-
+  closeModal(){
+    this.modal_ctrl.dismiss()
+  }
+  
   get formatPrice(): string {
     const numStr = this.activity.price.toString();
 

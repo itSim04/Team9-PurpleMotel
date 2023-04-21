@@ -30,8 +30,6 @@ export class FacilitiesComponent{
   
     await modal.present();
   }
-
-  
   
   
 }

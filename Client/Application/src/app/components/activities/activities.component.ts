@@ -35,6 +35,11 @@ export class ActivitiesComponent implements OnInit {
     await modal.present();
   }
 
+  
+  closeModal() {
+    this.modal_ctrl.dismiss();
+  }
+
   formatPrice(price?: number) {
 
     return formatPrice(price);
