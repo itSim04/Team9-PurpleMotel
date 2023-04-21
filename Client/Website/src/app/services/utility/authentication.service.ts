@@ -1,3 +1,4 @@
+import { ForgotPasswordComponent } from './../dialogs/authentication/forgot-password/forgot-password.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -17,7 +18,7 @@ export class AuthenticationDialogService {
 
   constructor (public dialog: MatDialog, private request: HttpClient) { }
 
-  openDialog(type: 'login' | 'register' | 'verify') {
+  openDialog(type: 'login' | 'register' | 'verify' | 'forgot-password') {
 
     let component: ComponentType<unknown>;
 
@@ -36,6 +37,11 @@ export class AuthenticationDialogService {
       case 'verify':
 
         component = VerifyComponent;
+        break;
+
+      case 'forgot-password':
+
+        component = ForgotPasswordComponent;
         break;
 
     }
@@ -121,6 +127,19 @@ export class AuthenticationDialogService {
     try {
 
       return this.request.get<any>(`http://127.0.0.1:8000/api/v1/auth/verify-email?token=${token}`);
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+  resetPassword(token: string, password: string, confirm_password: string) {
+
+    try {
+
+      return this.request.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-2?password_confirmation=${confirm_password}&password=${password}&token=${token}`);
 
     } catch (e: unknown) {
 

@@ -21,7 +21,7 @@
         <div class="number-error" *ngIf="connection_error">
             {{'connection_error'|translate}} </div>
     </mat-form-field>
-    <a class="forgot-pass">
+    <a class="forgot-pass" (click)="forgotPassword()">
         {{'forgot_password'|translate}}?
     </a>
     <br>

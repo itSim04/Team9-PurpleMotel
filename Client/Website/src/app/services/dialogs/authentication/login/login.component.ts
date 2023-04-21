@@ -61,5 +61,12 @@ export class LoginComponent {
     this.authentication_service.openDialog('register');
   }
 
+  forgotPassword() {
+
+    this.dialogRef.close();
+    this.authentication_service.openDialog('forgot-password');
+
+  }
+
 }
 

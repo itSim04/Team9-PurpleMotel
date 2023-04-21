@@ -1,3 +1,4 @@
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyComponent } from './verify/verify.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -37,7 +38,8 @@ import { AuthenticationDialogService } from '../../utility/authentication.servic
   declarations: [
     LoginComponent,
     RegisterComponent,
-    VerifyComponent
+    VerifyComponent,
+    ForgotPasswordComponent
   ]
 })
 export class AuthenticationModule { }
