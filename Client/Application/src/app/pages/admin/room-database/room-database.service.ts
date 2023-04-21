@@ -1,9 +1,14 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { KeyValue } from "@angular/common";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { RoomsResponse, Room, RoomResponse, RoomPackage, RoomsPackage } from "src/app/models/Room";
-import { RoomTypeResponse, RoomType, RoomTypesResponse, RoomTypePackage, RoomTypesPackage } from "src/app/models/RoomType";
+import { PromoCode, EffectPromoCodes, PromoCodeAttributes } from "src/app/models/PromoCode";
+import { RoomsPackage, RoomsResponse, Room, Review, RoomPackage, RoomResponse } from "src/app/models/Room";
+import { RoomType, RoomTypesPackage, RoomTypesResponse, RoomTypePackage, RoomTypeResponse } from "src/app/models/RoomType";
 import { UrlBuilderService } from "src/app/services/url-builder.service";
+import { parseDate } from "../../authentication/authentication.utility";
+import { extractUserId } from "src/app/components/database/database.component";
+
 
 
 
@@ -16,9 +21,9 @@ export class RoomDatabaseService {
 
   getAllRooms(): Observable<RoomsPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+    const headers = this.url.generateHeader();
+
+
     try {
 
       return this.http.get<RoomsResponse>(this.url.generateUrl('rooms'), { headers: headers }).pipe(
@@ -27,20 +32,94 @@ export class RoomDatabaseService {
 
           const rooms = new Map<string, Room>();
           const room_types = new Map<string, RoomType>();
-
+          const promo_codes = new Map<string, PromoCode>();
+          const effect_codes: EffectPromoCodes[] = [];
 
           response.data.forEach(room => {
 
             const roomType = room.relationships?.room_type?.data?.id;
-            rooms.set(room.id, { ...room.attributes, type: roomType });
+            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false });
 
           });
 
           if (response.included) {
 
-            response.included.forEach(room_type => {
+            response.included.forEach(data => {
 
-              room_types.set(room_type.id, room_type.attributes);
+              switch (data.type) {
+
+                case 'RoomTypes':
+
+                  room_types.set(data.id, data.attributes as RoomType);
+                  break;
+
+                case 'PromoCodes':
+
+                  promo_codes.set(data.id, {
+                    ...data.attributes as PromoCodeAttributes, concerned_everyone: false,
+                    concerned_everything: false,
+                    concerned_room_types: [],
+                    concerned_rooms: [],
+                    applied_users: [],
+                    concerned_user_tiers: [],
+                    concerned_user_types: [],
+                    concerned_users: [],
+                  });
+                  break;
+
+                case 'EffectPromoCodes':
+
+                  effect_codes.push(data.attributes as EffectPromoCodes);
+                  break;
+
+                case 'Review':
+
+                  const room = rooms.get((data.attributes as Review).room_id);
+                  if (room) {
+
+                    if ((data.attributes as Review).user_id == extractUserId()) room.is_reviewed = true;
+                    room.reviews.push(data.attributes as Review);
+
+                  }
+
+
+
+              }
+
+            });
+
+            effect_codes.forEach(code => {
+
+              const temp = promo_codes.get(code.promo_id);
+              if (temp) {
+
+                switch (code.type) {
+
+                  case 0:
+
+                    temp.concerned_rooms.push(code.effect_id);
+                    break;
+
+                  case 1:
+
+                    temp.concerned_room_types.push(code.effect_id);
+                    break;
+
+                  case 2:
+
+                    temp.concerned_everything = true;
+                    break;
+
+                  default:
+
+                    throw new Error('Invalid type');
+
+
+
+
+                }
+
+              }
 
             });
 
@@ -49,7 +128,136 @@ export class RoomDatabaseService {
           return {
 
             rooms: rooms,
-            room_types: room_types
+            room_types: room_types,
+            promo_codes: promo_codes
+
+          };
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+
+  }
+  getPaginatedRooms(index: number, size: number): Observable<RoomsPackage> {
+
+    const headers = this.url.generateHeader();
+
+
+    try {
+
+      return this.http.get<RoomsResponse>(this.url.generateUrl(`rooms?size=${size}&index=${index}`), { headers: headers }).pipe(
+
+        map((response: RoomsResponse): RoomsPackage => {
+
+          const rooms = new Map<string, Room>();
+          const room_types = new Map<string, RoomType>();
+          const promo_codes = new Map<string, PromoCode>();
+          const effect_codes: EffectPromoCodes[] = [];
+
+          response.data.forEach(room => {
+
+            const roomType = room.relationships?.room_type?.data?.id;
+            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false });
+
+          });
+
+          if (response.included) {
+
+            response.included.forEach(data => {
+
+              switch (data.type) {
+
+                case 'RoomTypes':
+
+                  room_types.set(data.id, data.attributes as RoomType);
+                  break;
+
+                case 'PromoCodes':
+
+                  promo_codes.set(data.id, {
+                    ...data.attributes as PromoCodeAttributes, concerned_everyone: false,
+                    concerned_everything: false,
+                    concerned_room_types: [],
+                    concerned_rooms: [],
+                    applied_users: [],
+                    concerned_user_tiers: [],
+                    concerned_user_types: [],
+                    concerned_users: [],
+                  });
+                  break;
+
+                case 'EffectPromoCodes':
+
+                  effect_codes.push(data.attributes as EffectPromoCodes);
+                  break;
+
+                case 'Review':
+
+                  const room = rooms.get((data.attributes as Review).room_id);
+
+                  if (room) {
+
+                    if ((data.attributes as Review).user_id == extractUserId()) room.is_reviewed = true;
+                    room.reviews.push(data.attributes as Review);
+
+                  }
+
+
+
+
+              }
+
+            });
+
+            effect_codes.forEach(code => {
+
+              const temp = promo_codes.get(code.promo_id);
+              if (temp) {
+
+                switch (code.type) {
+
+                  case 0:
+
+                    temp.concerned_rooms.push(code.effect_id);
+                    break;
+
+                  case 1:
+
+                    temp.concerned_room_types.push(code.effect_id);
+                    break;
+
+                  case 2:
+
+                    temp.concerned_everything = true;
+                    break;
+
+                  default:
+
+                    throw new Error('Invalid type');
+
+
+
+
+                }
+
+              }
+
+            });
+
+          }
+
+          console.log(rooms);
+
+          return {
+
+            rooms: rooms,
+            room_types: room_types,
+            promo_codes: promo_codes
 
           };
 
@@ -67,39 +275,71 @@ export class RoomDatabaseService {
 
   getOneRoom(id: string): Observable<RoomPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
       return this.http.get<RoomResponse>(this.url.generateUrl(`rooms/${id}`), { headers: headers }).pipe(
         map((response: RoomResponse): RoomPackage => {
 
-          if (response.included) {
+          const room: KeyValue<string, Room> = {
 
+            key: id,
+            value: { ...response.data.attributes, type: response.data.relationships.room_type.data.id, reviews: [], is_reviewed: false }
+
+          };
+
+          let room_type: KeyValue<string, RoomType> | undefined = undefined;
+
+
+          response.included?.forEach(data => {
+
+            switch (data.type) {
+
+              case 'RoomTypes':
+
+                room_type = { key: data.id, value: data.attributes as RoomType };
+                break;
+
+              case 'Review':
+
+                if ((data.attributes as Review).user_id == extractUserId()) room.value.is_reviewed = true;
+                room.value.reviews.push(data.attributes as Review);
+
+            }
+
+          });
+          if (room_type)
             return {
 
-              room: {
+              room: room,
 
-                key: id,
-                value: { ...response.data.attributes, type: response.data.relationships.room_type.data.id }
+              room_type: room_type,
 
-              },
+              promo_code: {
 
-              room_type: {
+                key: '0',
+                value: {
+                  change: 0,
+                  concerned_everyone: false,
+                  concerned_everything: false,
+                  concerned_room_types: [],
+                  applied_users: [],
+                  concerned_rooms: [],
+                  concerned_user_tiers: [],
+                  concerned_user_types: [],
+                  concerned_users: [],
+                  end_date: parseDate(new Date()),
+                  start_date: parseDate(new Date()),
 
-                key: response.data.relationships.room_type.data.id,
-                value: response.included[0].attributes
+                }
 
               }
 
             };
+          throw new Error('Integrity constraint error');
 
-          }
-          throw new Error(`Foreign key Constraint failure: Room ${id}`);
-
-        })
-      );
+        }));
 
     } catch (e: unknown) {
 
@@ -111,8 +351,7 @@ export class RoomDatabaseService {
 
   getAllRoomTypes(): Observable<RoomTypesPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -143,11 +382,10 @@ export class RoomDatabaseService {
     }
 
 
-  }
+  };
   getOneRoomType(id: string): Observable<RoomTypePackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -174,12 +412,11 @@ export class RoomDatabaseService {
 
     }
 
-  }
+  };
 
   addNewRoom(room: Room) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -200,11 +437,33 @@ export class RoomDatabaseService {
     }
 
   }
+  addReview(review: Review) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.post<RoomResponse>(this.url.generateUrl('postReview'), review, { headers: headers }).pipe(
+
+        map(result => {
+
+          return result.data.id;
+
+        })
+
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
 
   modifyRoom(room_id: string, room: Room) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -220,8 +479,7 @@ export class RoomDatabaseService {
 
   deleteRoom(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -237,12 +495,11 @@ export class RoomDatabaseService {
 
   addNewRoomType(roomType: RoomType) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.post<RoomTypeResponse>(this.url.generateUrl('roomtypes'), roomType,{headers: headers}).pipe(
+      return this.http.post<RoomTypeResponse>(this.url.generateUrl('roomtypes'), roomType, { headers: headers }).pipe(
 
         map(result => {
 
@@ -262,12 +519,11 @@ export class RoomDatabaseService {
 
   modifyRoomType(roomType_id: string, roomType: RoomType) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.put(this.url.generateUrl(`roomtypes/${roomType_id}`), roomType, {headers: headers}).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`roomtypes/${roomType_id}`), roomType, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -279,12 +535,11 @@ export class RoomDatabaseService {
 
   deleteRoomType(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.delete(this.url.generateUrl(`roomtypes/${key}`),{headers: headers}).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`roomtypes/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 

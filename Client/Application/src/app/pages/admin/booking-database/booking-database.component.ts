@@ -1,11 +1,12 @@
-import { Room } from 'src/app/models/Room';
-import { User } from 'src/app/models/User';
-import { Component } from '@angular/core';
-import { Booking } from 'src/app/models/Booking';
-import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { BookingDatabaseService } from './booking-database.service';
-import { map } from 'rxjs';
-import { parseDate } from '../../authentication/authentication.utility';
+import { Component } from "@angular/core";
+import { map } from "rxjs";
+import { Booking } from "src/app/models/Booking";
+import { DataInjection, ChangeInjection } from "src/app/models/Database";
+import { Room } from "src/app/models/Room";
+import { User } from "src/app/models/User";
+import { parseDate } from "../../authentication/authentication.utility";
+import { BookingDatabaseService } from "./booking-database.service";
+
 
 @Component({
   selector: 'app-booking-database',
@@ -74,12 +75,12 @@ export class BookingDatabaseComponent {
     fields: [
       {
         key: 'check_in',
-        condition: (data) => (data as number) > 0,
+        // condition: (data) => (data as number) > 0,
         type: 'date'
       },
       {
         key: 'end_date',
-        condition: (data) => (data as number) > 0,
+        // condition: (data) => (data as number) > 0,
         type: 'date'
       },
       {

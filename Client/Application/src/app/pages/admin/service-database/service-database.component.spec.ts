@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ServiceDatabaseComponent } from './service-database.component';
+import { ServiceDatabaseComponent } from 'src/app/pages/admin/service-database/service-database.component';
 
 describe('ServiceDatabaseComponent', () => {
   let component: ServiceDatabaseComponent;

@@ -1,7 +1,12 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { PromoCodesPackage, PromoCodesResponse, PromoCode, PromoCodePackage, PromoCodeResponse } from "src/app/models/PromoCode";
+import { PromoCodesPackage, PromoCodesResponse, PromoCode, PromoCodePackage, PromoCodeResponse, AppliedPromoCodes, EffectPromoCodes, EligiblityPromoCodes, FullPromoCodesPackage, FullPromoCodesResponse } from "src/app/models/PromoCode";
+
+import { Room, RoomAttributes } from 'src/app/models/Room';
+import { RoomType } from 'src/app/models/RoomType';
+import { User, UserAttributes } from 'src/app/models/User';
+import { UserType, UserTypeAttributes } from 'src/app/models/UserType';
 import { UrlBuilderService } from "src/app/services/url-builder.service";
 
 @Injectable({
@@ -14,8 +19,7 @@ export class PromoDatabaseService {
 
   getAllPromoCodes(): Observable<PromoCodesPackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -27,9 +31,99 @@ export class PromoDatabaseService {
 
           response.data.forEach(promo_code => {
 
-            promo_codes.set(promo_code.id, promo_code.attributes);
+            promo_codes.set(promo_code.id, {
+              ...promo_code.attributes,
+              concerned_everyone: false,
+              concerned_everything: false,
+              concerned_room_types: [],
+              concerned_rooms: [],
+              concerned_user_tiers: [],
+              concerned_user_types: [],
+              applied_users: [],
+              concerned_users: []
+            });
+
+
 
           });
+
+          if (response.included) {
+
+            response.included.forEach(data => {
+
+              switch (data.type) {
+
+                case 'AppliedPromoCodes':
+
+                  promo_codes.get(data.attributes.promo_id)?.applied_users.push((data.attributes as AppliedPromoCodes).user_id);
+
+                  break;
+
+                case 'EligibilityPromoCodes':
+
+                  const eligiblity_temp = promo_codes.get(data.attributes.promo_id);
+
+                  if (eligiblity_temp) {
+
+                    switch ((data.attributes as EligiblityPromoCodes).type) {
+
+                      case 0:
+
+                        eligiblity_temp.concerned_users.push((data.attributes as EligiblityPromoCodes).effect_id);
+                        break;
+
+                      case 1:
+
+                        eligiblity_temp.concerned_user_types.push((data.attributes as EligiblityPromoCodes).effect_id);
+                        break;
+
+                      case 2:
+
+                        eligiblity_temp.concerned_user_tiers.push((data.attributes as EligiblityPromoCodes).effect_id);
+                        break;
+
+                      case 3:
+
+                        eligiblity_temp.concerned_everyone = true;
+                        break;
+
+                    }
+
+                  }
+
+                  break;
+
+                case 'EffectPromoCodes':
+
+                  const effect_temp = promo_codes.get(data.attributes.promo_id);
+
+                  if (effect_temp) {
+
+                    switch ((data.attributes as EffectPromoCodes).type) {
+
+                      case 0:
+
+                        effect_temp.concerned_rooms.push((data.attributes as EffectPromoCodes).effect_id);
+                        break;
+
+                      case 1:
+
+                        effect_temp.concerned_room_types.push((data.attributes as EffectPromoCodes).effect_id);
+                        break;
+
+                      case 2:
+
+                        effect_temp.concerned_everything = true;
+                        break;
+
+                    }
+
+                  }
+              }
+            });
+          }
+
+          console.log(promo_codes);
 
           return {
 
@@ -47,10 +141,166 @@ export class PromoDatabaseService {
 
 
   }
+  getAllFullPromoCodes(): Observable<FullPromoCodesPackage> {
+
+    const headers = this.url.generateHeader()
+
+    try {
+
+      return this.http.get<FullPromoCodesResponse>(this.url.generateUrl('full-promocodes'), { headers: headers }).pipe(
+
+        map((response: FullPromoCodesResponse): FullPromoCodesPackage => {
+
+          const promo_codes = new Map<string, PromoCode>();
+          const users = new Map<string, User>();
+          const user_types = new Map<string, UserType>();
+          const rooms = new Map<string, Room>();
+          const room_types = new Map<string, RoomType>();
+
+          response.data.forEach(promo_code => {
+
+            promo_codes.set(promo_code.id, {
+              ...promo_code.attributes,
+              concerned_everyone: false,
+              concerned_everything: false,
+              concerned_room_types: [],
+              concerned_rooms: [],
+              concerned_user_tiers: [],
+              concerned_user_types: [],
+              applied_users: [],
+              concerned_users: []
+            });
+
+
+
+          });
+
+          if (response.included) {
+
+            response.included.forEach(data => {
+
+              switch (data.type) {
+
+                case 'AppliedPromoCodes':
+
+                  promo_codes.get((data.attributes as AppliedPromoCodes).promo_id)?.applied_users.push((data.attributes as AppliedPromoCodes).user_id);
+
+                  break;
+
+                case 'EligibilityPromoCodes':
+
+                  const eligiblity_temp = promo_codes.get((data.attributes as EligiblityPromoCodes).promo_id);
+
+                  if (eligiblity_temp) {
+
+                    switch ((data.attributes as EligiblityPromoCodes).type) {
+
+                      case 0:
+
+                        eligiblity_temp.concerned_users.push((data.attributes as EligiblityPromoCodes).effect_id);
+                        break;
+
+                      case 1:
+
+                        eligiblity_temp.concerned_user_types.push((data.attributes as EligiblityPromoCodes).effect_id);
+                        break;
+
+                      case 2:
+
+                        eligiblity_temp.concerned_user_tiers.push((data.attributes as EligiblityPromoCodes).effect_id);
+                        break;
+
+                      case 3:
+
+                        eligiblity_temp.concerned_everyone = true;
+                        break;
+
+                    }
+
+                  }
+
+                  break;
+
+                case 'EffectPromoCodes':
+
+                  const effect_temp = promo_codes.get((data.attributes as EffectPromoCodes).promo_id);
+
+                  if (effect_temp) {
+
+                    switch ((data.attributes as EffectPromoCodes).type) {
+
+                      case 0:
+
+                        effect_temp.concerned_rooms.push((data.attributes as EffectPromoCodes).effect_id);
+                        break;
+
+                      case 1:
+
+                        effect_temp.concerned_room_types.push((data.attributes as EffectPromoCodes).effect_id);
+                        break;
+
+                      case 2:
+
+                        effect_temp.concerned_everything = true;
+                        break;
+
+                    }
+
+                  }
+                  break;
+
+                case 'Users':
+
+                  users.set(data.id, { ...(data.attributes as UserAttributes), type: data.relationships.user_type.data.id, permissions: new Map() });
+                  break;
+
+                case 'UserTypes':
+
+                  user_types.set(data.id, { ...data.attributes as UserTypeAttributes, permissions: new Map() });
+                  break;
+
+                case 'Rooms':
+
+                  rooms.set(data.id, { ...data.attributes as RoomAttributes, type: data.relationships.room_type.data.id, reviews: [], is_reviewed: false });
+                  break;
+
+                case 'RoomTypes':
+
+                  room_types.set(data.id, data.attributes as RoomType);
+                  break;
+
+
+
+
+              }
+            });
+          }
+
+          console.log(users);
+
+          return {
+
+            promo_codes: promo_codes,
+            users: users,
+            user_types: user_types,
+            rooms: rooms,
+            room_types: room_types
+
+          };
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+
+  }
   getOnePromoCode(id: string): Observable<PromoCodePackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -81,8 +331,7 @@ export class PromoDatabaseService {
 
   addNewPromoCode(promo_code: PromoCode) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -106,8 +355,7 @@ export class PromoDatabaseService {
 
   modifyPromoCode(promo_code_id: string, promo_code: PromoCode) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
@@ -123,8 +371,7 @@ export class PromoDatabaseService {
 
   deletePromoCode(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader()
 
     try {
 
