@@ -3,8 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { LanguagesResponse, LanguagesPackage, Language, LanguagePackage, LanguageResponse } from "src/app/models/Language";
 import { LanguageListsResponse, LanguageListsPackage, LanguageList, LanguageListResponse, LanguageListPackage } from "src/app/models/LanguageList";
-import { UrlBuilderService } from "src/app/services/url-builder.service";
-
+import { UrlBuilderService } from "src/app/services/utility/url-builder.service";
 
 
 @Injectable({
@@ -40,6 +39,30 @@ export class LanguageDatabaseService {
             languages: languages
 
           };
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+
+  }
+
+  getTerms(language_id: string): Observable<any> {
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    try {
+
+      return this.http.get<any>(this.url.generateUrl(`terms?language=${language_id}`),  { headers: headers }).pipe(
+
+        map((response: any): any => {
+
+          return response.data;
 
         }));
 
@@ -157,12 +180,11 @@ export class LanguageDatabaseService {
 
   addNewLanguage(room: Language) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.post<LanguageResponse>(this.url.generateUrl('language-list'), room, { headers: headers }).pipe(
+      return this.http.post<LanguageResponse>(this.url.generateUrl('languages'), room, { headers: headers }).pipe(
 
         map(result => {
 
@@ -182,12 +204,11 @@ export class LanguageDatabaseService {
 
   modifyLanguage(language_id: string, language: Language) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.put(this.url.generateUrl(`language-list/${language_id}`), language, { headers: headers }).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`languages/${language_id}`), language, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -199,12 +220,11 @@ export class LanguageDatabaseService {
 
   deleteLanguage(key: string) {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
-      return this.http.delete(this.url.generateUrl(`language-list/${key}`), { headers: headers }).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`languages/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 

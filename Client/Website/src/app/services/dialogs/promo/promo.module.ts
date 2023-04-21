@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgModule } from '@angular/core';
@@ -18,7 +19,8 @@ import { PromoDialogService } from '../../utility/promo.service';
     MatDialogModule,
     MatButtonModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    LanguageModule
   ],
   exports: [
     PromoDialogComponent

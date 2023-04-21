@@ -3,11 +3,21 @@
     <table style="table-layout: fixed; width: 100%">
         <tr>
             <td style="text-align:start">
-                <p class="title-2">
-                    EN
-                </p>
+
+                <!-- <p class="title-2"> -->
+
+                <!-- <mat-form-field appearance="outline"> -->
+                    <select (ngModelChange)="updateLanguage($event)"
+                        [ngModel]="chosen_language">
+                        <option class="title-2" *ngFor="let list of languages | keyvalue" [value]="list.key">
+                            {{list.value.code_name}}
+                        </option>
+                    </select>
+        
+                <!-- </mat-form-field> -->
                 <img style="padding-left: 40px;" src="../../../assets/phone-icon.png" width="20vw">
-                <img style="padding-left: 48px;" src="../../../assets/message-icon.png" width="20vw">
+                <img style="padding-left: 48px;" src="../../../assets/message-icon.png"
+                    width="20vw">
             </td>
             <td style="text-align:center">
                 <p class="title-1">
@@ -50,8 +60,10 @@
     <ng-container *ngIf="!hide_auth">
 
         <div *ngIf="!active" style="margin: -30px; float: right;">
-            <p (click)="login()" style="padding-right: 16px;" class="title-4">{{"login" | translate}}</p>
-            <p (click)="signUp()" style="padding-left: 16px;" class="title-4">{{"sign_up" | translate}}</p>
+            <p (click)="login()" style="padding-right: 16px;" class="title-4">{{"login" |
+                translate}}</p>
+            <p (click)="signUp()" style="padding-left: 16px;" class="title-4">{{"sign_up" |
+                translate}}</p>
         </div>
         <div *ngIf="active" style="margin: -30px; float: right;">
             <p [routerLink]="'/profile'" style="padding-right: 32px;" class="title-4">{{active}}</p>

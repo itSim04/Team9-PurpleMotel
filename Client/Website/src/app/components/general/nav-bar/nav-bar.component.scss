@@ -54,6 +54,32 @@ td {
     color: white;
 
 }
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 24px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: white;
+    padding: 10px;
+  }
+  
+  option {
+    background-color: black;
+    color: white;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 24px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    padding: 10px;
+  }
+  
 
 .title-1 {
 
@@ -66,6 +92,7 @@ td {
 
     @extend .title;
     font-weight: 700;
+    width: 20vw;
     display: inline;
 
 }

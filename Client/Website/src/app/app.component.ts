@@ -1,5 +1,7 @@
+import { LanguageDatabaseService } from './pages/admin/language-database/language-database.service';
 import { KeyValue } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 declare global {
   interface Map<K, V> {
@@ -29,4 +31,5 @@ if (!Map.prototype.getPair) {
 })
 export class AppComponent {
   title = 'Application';
+
 }

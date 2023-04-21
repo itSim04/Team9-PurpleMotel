@@ -73,7 +73,10 @@ export class MenuComponent {
 
 
       const dialogRef = this.cart_dialog.openDialog({ food: this.foods });
-      dialogRef.afterClosed().subscribe(data => this.route.navigate(['/profile']));
+      dialogRef.afterClosed().subscribe(data => {
+
+        if (data) this.route.navigate(['/profile']);
+      });
 
     } else {
 

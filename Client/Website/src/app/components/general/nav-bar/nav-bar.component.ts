@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { LanguageList } from './../../../models/LanguageList';
+import { LanguageDatabaseService } from './../../../pages/admin/language-database/language-database.service';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { extractAnyPermission, extractUser } from '../../database/database.component';
 
@@ -10,13 +12,42 @@ import { extractAnyPermission, extractUser } from '../../database/database.compo
 export class NavBarComponent {
   @Input() transparent = false;
   @Input() hide_auth = false;
-  constructor (private authentication_service: AuthenticationDialogService) { }
+  languages: Map<string, LanguageList> = new Map();
+  constructor (private authentication_service: AuthenticationDialogService, private language_service: LanguageDatabaseService) { }
 
 
+  ngOnInit() {
+
+    this.language_service.getAllLanguageLists().subscribe(data => {
+      
+      this.languages = data.language_lists
+      console.log(this.languages); 
+    });
+
+  }
+  updateLanguage(arg0: any): any {
+    
+    
+    const user = extractUser();
+    if(user) {
+
+      user.language = arg0;
+      localStorage.setItem("user", JSON.stringify(user));
+      window.location.reload();
+
+    }
+
+  }
   extractAnyPermission() {
 
     return extractAnyPermission();
-    
+
+  }
+
+  get chosen_language() {
+
+    return extractUser()?.language;
+
   }
   login() {
 

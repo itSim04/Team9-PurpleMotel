@@ -8,7 +8,7 @@
             <tr>
 
                 <td>
-                    <p class="content">Stay</p>
+                    <p class="content">{{'stay'| translate }}</p>
                 </td>
 
                 <!-- <td>
@@ -16,17 +16,17 @@
                 </td> -->
 
                 <td>
-                    <p class="content">Adults</p>
+                    <p class="content">{{ 'adults' | translate }}</p>
                 </td>
 
                 <td>
-                    <p class="content">Kids</p>
+                    <p class="content">{{ 'kids' | translate }}</p>
                 </td>
 
                 <td rowspan="2">
                     <button [disabled]="!start_date_value || !end_date_value"
                         (click)="checkAvailability()" class="check-btn">
-                        Check Availability
+                        {{ 'check_availability' | translate }}
                     </button>
                 </td>
 
@@ -49,7 +49,7 @@
                 </td> -->
                 <td>
                     <mat-form-field appearance="fill">
-                        <mat-label class="selectors">Input Number</mat-label>
+                        <mat-label class="selectors">{{ 'number_input' | translate }}</mat-label>
                         <mat-select [(ngModel)]="adults_value" matInput>
 
                             <mat-option *ngFor="let capacity of adult_capacity">
@@ -61,7 +61,7 @@
                 </td>
                 <td>
                     <mat-form-field appearance="fill">
-                        <mat-label class="selectors">Input Number</mat-label>
+                        <mat-label class="selectors">{{ 'number_input' | translate }}</mat-label>
                         <mat-select [(ngModel)]="adults_value" matInput>
 
                             <mat-option *ngFor="let capacity of kids_capacity">

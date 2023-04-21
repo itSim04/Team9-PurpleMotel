@@ -61,4 +61,22 @@ class LanguageController extends Controller
 
         return destroyTemplate($this->model, $id);
     }
+
+    public function getTerms(Request $request) {
+
+        $request->validate([
+            'language' => 'required|numeric'
+        ]);
+        $languages = Language::all()->where('language', $request->language);
+
+        $terms = [];
+
+        foreach($languages as $language) {
+            $terms[$language->term] = $language->value;
+        }
+
+        return generateResponse(200, $terms);
+
+
+    }
 }

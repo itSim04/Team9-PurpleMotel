@@ -9,11 +9,11 @@
         <h2 class="activity-title">{{activity?.title}}</h2>
         <hr style="width: 90%; margin-left: 32px; margin-right: 32px;">
 
-        <h4 class="properties-title">Description:</h4>
+        <h4 class="properties-title">{{ 'description' | translate }}:</h4>
         <p class="properties-info"> {{activity?.description}}</p>
-        <h4 class="properties-title">Date:</h4>  
+        <h4 class="properties-title">{{ 'date' | translate }}:</h4>  
         <p class="properties-info">{{registration?.start_date}} / {{registration?.end_date}}</p>
-        <h4 class="properties-total">Fee:</h4>
+        <h4 class="properties-total">{{ 'fee' | translate }}:</h4>
         <div style="display: flex;">
             <h3 class="properties-price">{{formatPrice(activity?.price)}}</h3>
             <button (click)="delete.emit(registration_id)" [style.visibility]="past ? 'hidden' : 'visible'" class="cancel-button">Cancel</button>

@@ -23,6 +23,8 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LanguageListController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PromoCodeController;
 use App\Models\Stocks;
@@ -57,8 +59,7 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('food-categories', FoodCategoryController::class);
     Route::apiResource('ingredients', IngredientController::class);
-        Route::apiResource('languages', LanguageController::class);
-        Route::apiResource('language-list', LanguageListController::class);
+    Route::get('terms', [LanguageController::class, 'getTerms']);
     Route::apiResource('foods', FoodController::class);
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('languages', LanguageController::class);
@@ -70,27 +71,28 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('registrations', RegistrationController::class);
     Route::apiResource('promocodes', PromoCodeController::class);
 
-    Route::post('filter', [RoomController::class, 'filter']);;
-    Route::get('room_bookings', [RoomController::class, 'roomBookings']);
-
+    
+    Route::controller(PromoCodeController::class)->group(function () {
+        
+        Route::get('full-promocodes', 'full_index');
+        Route::get('applyPromo/{id}', 'applyPromo');
+        Route::get('appliedCodes/{id}', 'isAlreadyApplied');
+    });
+    
     Route::controller(NewsController::class)->group(function () {
-
+        
         Route::get('like', 'like');
         Route::get('unlike',  'unlike');
         Route::get('isLiked', 'isLiked');
-        
     });
-
+    
+    
     Route::controller(RoomController::class)->group(function () {
-
+        
+        Route::post('filter', [RoomController::class, 'filter']);;
+        Route::get('room_bookings', [RoomController::class, 'roomBookings']);
         Route::post('postReview', 'postReview');
-
     });
-
-
-    Route::get('full-promocodes', [PromoCodeController::class, 'full_index']);
-    Route::get('applyPromo/{id}', [PromoCodeController::class, 'applyPromo']);
-    Route::get('appliedCodes/{id}', [PromoCodeController::class, 'isAlreadyApplied']);
 
     Route::prefix('foods')->controller(FoodController::class)->group(function () {
 

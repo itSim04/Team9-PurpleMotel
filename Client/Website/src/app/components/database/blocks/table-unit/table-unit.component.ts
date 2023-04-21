@@ -27,6 +27,8 @@ export class TableUnitComponent<Data, Data2> {
   @Input() @Required extra_data_map: Map<string, Data2> | undefined = new Map();
   @Input() @Required loading = false;
 
+  @Input() @Required error = false;
+
   @Input() outer_data: Map<unknown, unknown>[] | undefined;
 
   @Output() download: EventEmitter<void> = new EventEmitter();

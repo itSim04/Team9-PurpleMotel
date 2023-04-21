@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { StarRatingModule } from 'angular-star-rating';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -20,7 +21,8 @@ import { ReviewDialogService } from '../../utility/review.service';
     MatButtonModule,
     MatInputModule,
     FormsModule,
-    StarRatingModule
+    StarRatingModule,
+    LanguageModule
   ],
   exports: [
     ReviewDialogComponent

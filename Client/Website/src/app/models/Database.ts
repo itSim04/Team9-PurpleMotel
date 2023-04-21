@@ -129,6 +129,7 @@ export interface Field<Data> {
     key: keyof Data, // Key of the field
     readonly?: boolean,
 
+    raw?: boolean;
     type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices';
     choices?: Choices; // Can only be used with selection and choices.
     outer_choices?: OuterChoices; // Can only be used with outer selection.
@@ -188,12 +189,13 @@ export interface ChangeInjection<Data> {
         columns: ExtraColumn[];
         key: keyof Data;
 
-    }
+    };
     side_panel: 'images' | 'permissions' | 'empty' | 'table';
     data_type: string; // Type of Data
     standalone_field?: Field<Data>; // The Field that appears alone
     toggle?: Toggle<Data>; // A button that appears in the lower area
     fields: Field<Data>[]; // The normal Fields
+
     static_fields?: StaticField<Data>[]; // Fields that do not change
     readonly default_state: Data; // The initial state of the Data
     add_service: (data: Data) => Observable<string>;

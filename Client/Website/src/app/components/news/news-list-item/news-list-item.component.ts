@@ -1,3 +1,4 @@
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { extractUserId } from 'src/app/components/database/database.component';
 import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
 import { KeyValue } from '@angular/common';
@@ -17,7 +18,7 @@ export class NewsListItemComponent {
 
   image = Math.random() > 0.5 ? "../../../../assets/news-sample1.png" : "../../../../assets/news-sample2.png";
 
-  constructor (private news_dialog: NewsListPopupService, private news_service: NewsDatabaseService) { }
+  constructor (private authentication: AuthenticationDialogService, private news_dialog: NewsListPopupService, private news_service: NewsDatabaseService) { }
 
   openPopup() {
 
@@ -55,6 +56,10 @@ export class NewsListItemComponent {
         });
       }
 
+
+    } else {
+
+      this.authentication.openDialog('login');
 
     }
 

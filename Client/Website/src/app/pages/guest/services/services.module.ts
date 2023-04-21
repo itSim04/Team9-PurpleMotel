@@ -10,6 +10,7 @@ import { FooterModule } from 'src/app/components/general/footer/footer.module';
 import { BrowseServicesComponent } from './browse/browse-services.component';
 import { FacilityModule } from 'src/app/components/facility/facility.module';
 import { ActivityOverviewModule } from 'src/app/components/activities/activity-overview/activity-overview.module';
+import { LanguageModule } from 'src/app/services/language/language.module';
 
 
 
@@ -26,6 +27,7 @@ import { ActivityOverviewModule } from 'src/app/components/activities/activity-o
     ActivityOverviewModule,
     FacilityModule,
     CarouselModule,
+    LanguageModule,
     FooterModule
   ],
   exports: [

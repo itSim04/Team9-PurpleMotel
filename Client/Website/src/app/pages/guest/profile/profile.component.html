@@ -2,20 +2,20 @@
 
     <div>
         <app-nav-bar [hide_auth]="true" style="position: relative;"></app-nav-bar>
-        <button (click)="edit_profile()" class="edit-button">Edit Profile</button>
-        <button (click)="change_password()" class="change-pass-button">Change Password</button>
-        <button (click)="logout()" class="logout-button">Logout</button>
+        <button (click)="edit_profile()" class="edit-button">{{ 'edit_profile' | translate}}</button>
+        <button (click)="change_password()" class="change-pass-button">{{ 'change_password' | translate }}</button>
+        <button (click)="logout()" class="logout-button">{{ 'logout' | translate }}</button>
     </div>
 
 
     <div>
         <h1 class="user">{{first_name}} {{last_name}}</h1>
         <hr class="main-divider">
-        <button (click)="applyCode()" class="promo-code-button">Apply Promo Code</button>
+        <button (click)="applyCode()" class="promo-code-button">{{'apply_promo' | translate}}</button>
     </div>
 
     <div *ngIf="orders && orders.size" class="profile-container">
-        <h1 class="page-titles">My Orders</h1>
+        <h1 class="page-titles">{{ 'my_orders' | translate }}</h1>
         <hr class="divider">
         <div class="orders-container">
             <div *ngFor="let order of orders | keyvalue: order_key; let i = index"
@@ -29,7 +29,7 @@
     </div>
 
     <div *ngIf="bookings && bookings.size" style="width: 98%;">
-        <h1 class="page-titles">My Bookings</h1>
+        <h1 class="page-titles">{{ 'my_bookings' | translate }}</h1>
         <hr class="divider">
         <app-carousel #carousel>
             <ng-container *ngFor="let booking of bookings | keyvalue: keyDescOrder; let i = index">
@@ -47,7 +47,7 @@
 
     </div>
     <div *ngIf="registrations && registrations.size">
-        <h1 class="page-titles">My Activities</h1>
+        <h1 class="page-titles">{{ 'my_activities' | translate }}</h1>
         <hr class="divider">
         <app-carousel #carousel>
             <ng-container

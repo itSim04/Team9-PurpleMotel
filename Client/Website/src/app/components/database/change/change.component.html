@@ -28,19 +28,17 @@
                         </tr>
                         <tr>
                             <td style="padding-right: 0px; width: 50%;"> <button
-                                    class="image-btn">Add
-                                    Picture</button> </td>
+                                    class="image-btn">{{ 'add_picture' | translate }}</button> </td>
                             <td style="padding-left: 0px; width: 50%;"> <button
-                                    class="image-btn">Remove
-                                    Picture</button>
+                                    class="image-btn">{{'remove_picture' | translate}}</button>
                             </td>
                         </tr>
                     </ng-container>
                     <ng-container *ngIf="side_panel == 'table' && table">
 
-                        
 
-                        <table mat-table [dataSource]="table.data" style="width: 10%; margin: 32px;">
+                        <table mat-table [dataSource]="table.data"
+                            style="width: 10%; margin: 32px;">
 
                             <ng-container *ngFor="let col of table.columns">
 
@@ -52,14 +50,14 @@
 
                                     <td class="cell" mat-cell *matCellDef="let element">
                                         <!-- <mat-form-field class="full-width input"> -->
-                                            <input [disabled]="!modification_rule(this.data)"
-                                                class="input" type="number"
-                                                [ngModel]="formatTableData(element, col.key)"
-                                                (ngModelChange)="updateData(col.key, element, $event)"
-                                                matInput>
-                                            <div class="number-error"
-                                                *ngIf="!formatTableData(element, col.key)">
-                                                Please enter a valid number </div>
+                                        <input [disabled]="!modification_rule(this.data)"
+                                            class="input" type="number"
+                                            [ngModel]="formatTableData(element, col.key)"
+                                            (ngModelChange)="updateData(col.key, element, $event)"
+                                            matInput>
+                                        <div class="number-error"
+                                            *ngIf="!formatTableData(element, col.key)">
+                                            {{'valid_number' | translate}} </div>
                                         <!-- </mat-form-field> -->
 
                                     </td>
@@ -80,18 +78,17 @@
 
                                         <!-- <mat-form-field class="full-width input"> -->
 
-                                            <mat-select class="input"
-                                                [ngModel]="formatTableData(element, col.key)"
-                                                (ngModelChange)="updateData(col.key, element, $event)">
-                                                <mat-option
-                                                    [disabled]="!modification_rule(this.data)"
-                                                    class="input"
-                                                    *ngFor="let type of outer_data[col.outer_link.index]| keyvalue"
-                                                    [value]="type.key">
-                                                    {{col.outer_link.format(type)}}
-                                                </mat-option>
+                                        <mat-select class="input"
+                                            [ngModel]="formatTableData(element, col.key)"
+                                            (ngModelChange)="updateData(col.key, element, $event)">
+                                            <mat-option [disabled]="!modification_rule(this.data)"
+                                                class="input"
+                                                *ngFor="let type of outer_data[col.outer_link.index]| keyvalue"
+                                                [value]="type.key">
+                                                {{col.outer_link.format(type)}}
+                                            </mat-option>
 
-                                            </mat-select>
+                                        </mat-select>
                                         <!-- </mat-form-field> -->
                                     </td>
 
@@ -121,9 +118,8 @@
 
                         </table>
 
-                        <button class="back-btn" (click)="pushData()" mat-button>Add Entry</button>
-
-                        
+                        <button class="back-btn" (click)="pushData()" mat-button>{{'add_entry' |
+                            translate}}</button>
 
 
                     </ng-container>
@@ -199,7 +195,7 @@
                                     matInput>
                                 <div class="number-error"
                                     *ngIf="field.condition && data[field.key] ? !field.condition(data[field.key]) : false">
-                                    Please enter a valid number </div>
+                                    {{ 'valid_number' | translate }}</div>
                             </mat-form-field>
 
                             <!-- Constraint Text -->
@@ -213,7 +209,7 @@
                                     class="input" [(ngModel)]="data[field.key]" matInput>
                                 <div class="number-error"
                                     *ngIf="!isNum(data[field.key].toString()) && data[field.key]">
-                                    Please enter a number </div>
+                                    {{ 'valid_number" | translate }}</div>
                             </mat-form-field>
 
                             <!-- Selection -->
@@ -228,9 +224,8 @@
                                         [disabled]="field.readonly || !modification_rule(this.data)"
                                         class="input" *ngFor="let type of field.choices.choices"
                                         [value]="field.choices.key ? field.choices.key(type) : type[0]">
-                                        {{field.choices.format ? (field.choices.format(type[1]) |
-                                        translate) :
-                                        type[1] + "" | translate}}
+                                        {{field.choices.format ? (field.choices.format(type[1])) : (
+                                        field.raw ? type[1] : (type[1] + "" | translate) )}}
                                     </mat-option> </mat-select>
                             </mat-form-field>
 
@@ -275,7 +270,7 @@
                             <!-- Date -->
                             <mat-form-field *ngIf="field.type === 'date'" class="full-width input"
                                 appearance="fill">
-                                <mat-label class="label">Choose a date</mat-label>
+                                <mat-label class="label">{{ 'choose_date' | translate }}</mat-label>
                                 <input [ngModel]="data[field.key]"
                                     (ngModelChange)="data[field.key]=parseDate($event)" matInput
                                     [matDatepicker]="picker" readonly>

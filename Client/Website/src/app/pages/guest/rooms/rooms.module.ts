@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { ReviewDialogModule } from './../../../services/dialogs/review/review.module';
 import { StarRatingModule } from 'angular-star-rating';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -31,6 +32,7 @@ import { RoomOverviewComponent } from "./overview/room-overview.component";
     RoomItemModule,
     StarRatingModule,
     RoomDetailsModule,
+    LanguageModule,
     ReviewDialogModule,
     InfiniteScrollModule
   ],

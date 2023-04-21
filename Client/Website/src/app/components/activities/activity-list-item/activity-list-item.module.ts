@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivityListItemComponent } from './activity-list-item.component';
@@ -13,7 +14,8 @@ import { MatDividerModule } from '@angular/material/divider';
   imports: [
     CommonModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    LanguageModule
   ],
   exports: [
     ActivityListItemComponent

@@ -261,6 +261,8 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   mouseMove$: Observable<MouseEvent>;
   hover_list: [string, unknown][] = [];
   extra_list: [string, Data][] = [];
+  extra_error: boolean = false;
+  error: boolean = false;
 
 
   constructor (private cdr: ChangeDetectorRef, public router: Router) {
@@ -419,6 +421,8 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
     this.loading = true;
     this.extra_loading = true;
+    this.error = false;
+    this.extra_error = false;
     if (extractPermission('read', this.data_injection.permission) || extractPermission('read', this.extra_injection!.permission)) {
 
       this.dual_fetcher!().subscribe({
@@ -433,6 +437,10 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
               this.all_data_map = result[0];
               this.filtered_data.data = this.all_data;
 
+            } else {
+
+              this.error = true;
+
             }
 
             if (extractPermission('read', this.extra_injection.permission)) {
@@ -440,6 +448,10 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
               this.all_extra = Array.from(result[1]);
               this.all_extra_map = result[1];
               this.extra_data.data = this.all_extra;
+
+            } else {
+
+              this.extra_error = true;
 
             }
 
@@ -489,6 +501,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
     if (!extractPermission('read', this.data_injection.permission)) {
 
       this.loading = false;
+      this.error = true;
 
     } else if (this.data_injection.data_fetcher) {
 
@@ -538,6 +551,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
     if (!extractPermission('read', this.extra_injection!.permission)) {
 
       this.extra_loading = false;
+      this.extra_error = true;
 
     } else if (this.extra_injection?.data_fetcher) {
 

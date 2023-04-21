@@ -1,4 +1,4 @@
-<h1 mat-dialog-title class="title">Review</h1>
+<h1 mat-dialog-title class="title">{{ 'review' | translate }}</h1>
 <div mat-dialog-content>
   <mat-form-field appearance="outline" class="example-full-width">
     <input matInput [(ngModel)]="result.title" placeholder="Title">
@@ -9,7 +9,7 @@
   
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false">Cancel</button>
-  <button mat-button [mat-dialog-close]="result" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="false">{{ 'cancel' | translate }}</button>
+  <button mat-button [mat-dialog-close]="result" cdkFocusInitial>{{ 'ok' | translate }}</button>
   <star-rating style="position: absolute; left: 50%; transform: translateX(-50%);" (ratingChange)="result.stars = $event.rating" [rating]="result.stars" [staticColor]="'ok'"></star-rating>
 </div>
