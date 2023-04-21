@@ -1,8 +1,10 @@
 import { trigger, transition, style, animate } from "@angular/animations";
-import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { KeyValue } from "@angular/common";
+import { Component, OnInit, OnDestroy, ViewChild, Input } from "@angular/core";
 import { Subscription } from "rxjs";
 import { Activity } from "src/app/models/Activity";
 import { Facility } from "src/app/models/Facility";
+import { Registration } from "src/app/models/Registration";
 import { ServiceDatabaseService } from "src/app/pages/admin/service-database/service-database.service";
 
 @Component({
@@ -16,51 +18,36 @@ import { ServiceDatabaseService } from "src/app/pages/admin/service-database/ser
         animate('300ms', style({ opacity: 1 })),
       ])])]
 })
-export class BrowseServicesComponent implements OnInit, OnDestroy {
+export class BrowseServicesComponent implements OnInit{
 
   activities: Map<string, Activity> = new Map();
   facilities: Map<string, Facility> = new Map();
+  registrations: Map<string, Registration> = new Map();
+  
+  constructor(private services_service: ServiceDatabaseService) { }
 
-  subscription?: Subscription;
-  activity_index = 0;
-  facility_index = 0;
-  isViewInitialized = false;
-  constructor(private service_service: ServiceDatabaseService) {
-
-  }
-
-  ngOnInit(): void {
-    this.subscription = this.service_service.getAllActivities().subscribe(data => {
-      this.activities = data.activities;
-    })
-    this.subscription = this.service_service.getAllFacilities().subscribe(data => {
-      this.facilities = data.facilities;
-    })
-
-  }
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
-
-  moveIndex(target: string, change: number) {
-
-
-    switch (target) {
-
-      case 'activity':
-
-        this.activity_index += change;
-        break;
-        case 'facility':
-
-        this.facility_index += change;
-        break;
-
-
-    }
-
-  }
  
+  @Input() facility?: KeyValue<string, Facility>;
+
+
+  ngOnInit() {
+
+    this.services_service.getAllActivities().subscribe(data => {
+
+      this.activities = data.activities;
+      this.registrations = data.registrations;
+
+    });
+    this.services_service.getAllFacilities().subscribe(data => {
+
+      this.facilities = data.facilities
+
+    });
+    console.log(this.activities);
+    console.log(this.facilities);
+    console.log(this.registrations);
+
+  }
 
 }
 
