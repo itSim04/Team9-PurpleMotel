@@ -1,5 +1,5 @@
 import { TabsPage } from './tabs/tabs.page';
-import { BrowseRoomsPage } from './pages/guest/rooms/browse-rooms/browse-rooms.page';
+import { BrowseRoomsPage } from './pages/guest/rooms/browse-rooms/browse-rooms.component';
 
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/authentication/login/login.component';

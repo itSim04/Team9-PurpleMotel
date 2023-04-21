@@ -22,3 +22,5 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 Client/Website/src/environments/environment.ts
+Client/Application/package-lock.json
+*.json
