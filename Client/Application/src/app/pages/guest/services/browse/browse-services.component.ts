@@ -26,9 +26,14 @@ export class BrowseServicesComponent implements OnInit{
   
   constructor(private services_service: ServiceDatabaseService) { }
 
- 
-  @Input() facility?: KeyValue<string, Facility>;
 
+
+  activity_key = (a: KeyValue<string, Activity>, b: KeyValue<string, Activity>): number => {
+    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+  };
+  facility_key = (a: KeyValue<string, Facility>, b: KeyValue<string, Facility>): number => {
+    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+  };
 
   ngOnInit() {
 
@@ -43,9 +48,11 @@ export class BrowseServicesComponent implements OnInit{
       this.facilities = data.facilities
 
     });
-    console.log(this.activities);
-    console.log(this.facilities);
-    console.log(this.registrations);
+
+    console.log(this.facilities.values)
+    console.log(this.activities.values)
+    
+
 
   }
 

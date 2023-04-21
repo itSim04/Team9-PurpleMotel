@@ -1,14 +1,22 @@
 <ion-content>
-  
+
     <div class="header">
         <ion-text class="title">
             This is it.
         </ion-text>
     </div>
-    
+
     <h1 class="activities-header">Activities</h1>
-    <app-activities></app-activities>
+
+    <div *ngFor="let activity of activities | keyvalue: activity_key; let i = index">
+        <app-activities [activity]="activity.value" [title]="activity.value.title" ></app-activities>
+
+    </div>
+
     <h1 class="activities-header">Facilities</h1>
-    <app-facilities></app-facilities>
-  
+    <div *ngFor="let facility of facilities | keyvalue: facility_key; let i = index">
+        <app-facilities [facility]="facility.value"[title]="facility.value.title"></app-facilities>
+
+    </div>
+
 </ion-content>
