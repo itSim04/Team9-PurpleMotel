@@ -27,11 +27,6 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PromoCodeController;
 use App\Models\Stocks;
 use App\Policies\StocksPolicy;
-use App\Models\Food;
-use App\Models\FoodCategory;
-use App\Models\Ingredient;
-use App\Models\Permission;
-use App\Policies\FoodPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +57,8 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('food-categories', FoodCategoryController::class);
     Route::apiResource('ingredients', IngredientController::class);
+        Route::apiResource('languages', LanguageController::class);
+        Route::apiResource('language-list', LanguageListController::class);
     Route::apiResource('foods', FoodController::class);
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('languages', LanguageController::class);

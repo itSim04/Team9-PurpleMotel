@@ -22,33 +22,16 @@ export interface RoomTypeResponse {
     id: string;
     type: string;
     attributes: RoomType;
-    relationships: {
-      room_type: {
-        data: {
-          id: string;
-          type: string;
-        };
-      };
-    };
   };
 }
 
 export interface RoomTypesResponse {
   status: string,
   data: {
-    forEach(arg0: (room_type: any) => void): unknown;
     id: string;
     type: string;
     attributes: RoomType;
-    relationships: {
-      room_type: {
-        data: {
-          id: string;
-          type: string;
-        };
-      };
-    };
-  };
+  }[];
 }
 
 export interface RoomTypePackage{

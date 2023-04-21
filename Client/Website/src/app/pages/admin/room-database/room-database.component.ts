@@ -126,7 +126,6 @@ export class RoomDatabaseComponent {
 
   change_injection: ChangeInjection<Room> = {
 
-    side_panel: 'images',
 
     default_state: {
       is_reviewed: false,
@@ -141,7 +140,7 @@ export class RoomDatabaseComponent {
       open: true
     },
 
-    //side_panel: 'empty',
+    side_panel: 'images',
 
     data_type: 'Room',
 
@@ -232,7 +231,6 @@ export class RoomDatabaseComponent {
       adults_capacity: 0,
       adults_with_kids_capacity: 0,
     },
-
     data_type: 'Room Type',
 
     fields: [
