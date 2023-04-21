@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { genders, parseDate, validateEmail, validatePassword } from '../authentication.utility';
-import { AuthenticationDialogService } from '../authentication.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 
 
 @Component({

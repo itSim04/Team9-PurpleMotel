@@ -43,6 +43,9 @@ export class RegistrationDatabaseComponent {
 
       },
       {
+        key: 'seats'
+      },
+      {
         key: 'start_date'
       },
       {
@@ -57,14 +60,15 @@ export class RegistrationDatabaseComponent {
     }))
 
   };
-  
+
   change_injection: ChangeInjection<Registration> = {
     side_panel: 'empty',
     default_state: {
       start_date: parseDate(new Date()),
       end_date: parseDate(new Date()),
       activity_id: '0',
-      user_id: '0'
+      user_id: '0',
+      seats: 0
     },
     data_type: 'Registration',
     fields: [

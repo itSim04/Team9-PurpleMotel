@@ -5,7 +5,7 @@ import { DataInjection, ChangeInjection } from 'src/app/models/Database';
 import { Registration } from 'src/app/models/Registration';
 import { User } from 'src/app/models/User';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
-import { RegistrationDatabaseService } from './registration-database.service';
+import { RegistrationDatabaseService } from 'src/app/services/providers/registration-database.service';
 
 @Component({
   selector: 'app-registration-database',
@@ -43,6 +43,9 @@ export class RegistrationDatabaseComponent {
 
       },
       {
+        key: 'seats'
+      },
+      {
         key: 'start_date'
       },
       {
@@ -57,14 +60,15 @@ export class RegistrationDatabaseComponent {
     }))
 
   };
-  
+
   change_injection: ChangeInjection<Registration> = {
     side_panel: 'empty',
     default_state: {
       start_date: parseDate(new Date()),
       end_date: parseDate(new Date()),
       activity_id: '0',
-      user_id: '0'
+      user_id: '0',
+      seats: 0
     },
     data_type: 'Registration',
     fields: [

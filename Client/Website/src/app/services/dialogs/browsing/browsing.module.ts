@@ -1,7 +1,7 @@
 import { BrowsingDialogComponent } from './browsing.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowsingDialogService } from './browsing.service';
+import { BrowsingDialogService } from '../../utility/browsing.service';
 
 @NgModule({
   declarations: [

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LikesNewsResource;
 use App\Http\Resources\NewsResource;
+use App\Models\LikesNews;
 use App\Models\News;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -22,9 +25,25 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return indexTemplate($this->model, $this->resource);
+
+        if (isset($request->index) && isset($request->size)) {
+
+            $news = News::all()->skip($request->index)->take($request->size);
+        } else {
+
+            $news = News::all();
+        }
+
+        foreach ($news as $key => $value) {
+
+            $news_ids[] = $value->id;
+        }
+
+        $included = LikesNewsResource::collection(LikesNews::all()->whereIn('news_id', $news_ids));
+
+        return generateResponse(200, NewsResource::collection($news), $included);
     }
 
     /**
@@ -41,7 +60,7 @@ class NewsController extends Controller
     public function show(int $id)
     {
 
-        return showTemplate($this->model, $this->resource, $id);
+        return showTemplate($this->model, $this->resource, $id, LikesNews::class, LikesNewsResource::class, 'news_id');
     }
 
     /**
@@ -49,7 +68,7 @@ class NewsController extends Controller
      */
     public function update(Request $request, string $news_id)
     {
-       
+
         return updateTemplate($request, $this->model, $news_id, $this->resource, $this->options);
     }
 
@@ -60,5 +79,83 @@ class NewsController extends Controller
     {
 
         return destroyTemplate($this->model, $id);
+    }
+
+    public function like(Request $request)
+    {
+
+        // A function that takes a room_id and a user_id and creates a new Like with those attributes
+
+        $request->validate([
+
+            'news_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+
+        ]);
+
+        if (LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first()) {
+
+            return generateResponse(200, "Already Liked", true);
+        } else {
+
+            $like = LikesNews::create([
+
+                'news_id' => $request->news_id,
+                'user_id' => $request->user_id
+
+            ]);
+        }
+
+        return generateResponse(201, new LikesNewsResource($like), true);
+    }
+
+    public function unlike(Request $request)
+    {
+
+        // A function that does the opposite of the like function
+
+        $request->validate([
+
+            'news_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+
+        ]);
+
+        $like = LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first();
+        if ($like) {
+
+
+            $like->delete();
+
+
+            return generateResponse(201, new LikesNewsResource($like), true);
+        } else {
+
+
+            return generateResponse(200, "Not Liked", true);
+        }
+    }
+
+    public function isLiked(Request $request)
+    {
+
+        // A function that takes a room_id and a user_id and creates a new Like with those attributes
+
+        $request->validate([
+
+            'news_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+
+        ]);
+
+        if (LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first()) {
+
+            return generateResponse(200, true, true);
+        } else {
+
+            
+            return generateResponse(201, false, true);
+
+        }
     }
 }

@@ -49,49 +49,82 @@ Route::prefix('v1')->group(function () {
         Route::get('forgot-password-1', 'forgotPassword1');
         Route::get('forgot-password-2', 'forgotPassword2');
     });
-    
-    
+
+    Route::apiResource('announcements', AnnouncementsController::class);
+
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
     Gate::policy(Stocks::class, StocksPolicy::class);
     Gate::policy(Food::class, FoodPolicy::class);
-    Route::apiResource('announcements', AnnouncementsController::class);
     Route::apiResource('food-categories', FoodCategoryController::class);
     Route::apiResource('ingredients', IngredientController::class);
     Route::apiResource('foods', FoodController::class);
     Route::apiResource('orders', OrderController::class);
+    Route::apiResource('languages', LanguageController::class);
+    Route::apiResource('language-list', LanguageListController::class);
+    Route::apiResource('roomtypes', RoomTypeController::class);
+    Route::apiResource('facilities', FacilityController::class);
+    Route::apiResource('activities', ActivityController::class);
+    Route::apiResource('bookings', BookingController::class);
     Route::apiResource('registrations', RegistrationController::class);
+    Route::apiResource('promocodes', PromoCodeController::class);
+
+    Route::post('filter', [RoomController::class, 'filter']);;
+    Route::get('room_bookings', [RoomController::class, 'roomBookings']);
+
+    Route::controller(NewsController::class)->group(function () {
+
+        Route::get('like', 'like');
+        Route::get('unlike',  'unlike');
+        Route::get('isLiked', 'isLiked');
+        
+    });
+
+    Route::controller(RoomController::class)->group(function () {
+
+        Route::post('postReview', 'postReview');
+
+    });
+
+
+    Route::get('full-promocodes', [PromoCodeController::class, 'full_index']);
+    Route::get('applyPromo/{id}', [PromoCodeController::class, 'applyPromo']);
+    Route::get('appliedCodes/{id}', [PromoCodeController::class, 'isAlreadyApplied']);
+
+    Route::prefix('foods')->controller(FoodController::class)->group(function () {
+
+        Route::get('', 'index');
+        Route::get('/{user}', 'show');
+    });
+
+    Route::prefix('rooms')->controller(RoomController::class)->group(function () {
+        Route::get('', 'index');
+        Route::get('/{room}', 'show');
+    });
 
     Route::middleware('auth:api')->group(function () {
 
-        Route::apiResource('languages', LanguageController::class);
-        Route::apiResource('language-list', LanguageListController::class);
-        Route::apiResource('rooms', RoomController::class);
-        Route::apiResource('roomtypes', RoomTypeController::class);
-        Route::apiResource('facilities', FacilityController::class);
-        Route::apiResource('activities', ActivityController::class);
-        Route::apiResource('bookings', BookingController::class);
-        Route::apiResource('promocodes', PromoCodeController::class);
-        
+        Route::prefix('rooms')->controller(RoomController::class)->group(function () {
 
-        // Route::prefix('foods')->controller(FoodController::class)->group(function () {
+            Route::post('', 'store');
+            Route::put('/{user}', 'update');
+            Route::delete('/{user}', 'destroy');
+        });
 
-        //     Route::get('', 'index')->middleware('can:viewAny,App\Foods');
-        //     Route::post('', 'store')->middleware('can:update,App\Foods');
-        //     Route::get('/{user}', 'show')->middleware('can:view,App\Foods,foods');
-        //     Route::put('/{user}', 'update')->middleware('can:update,App\Foods');
-        //     Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Foods');
+        Route::prefix('foods')->controller(FoodController::class)->group(function () {
 
-        // });
+            Route::get('/{user}', 'show')->middleware('can:view,App\Foods,foods');
+            Route::put('/{user}', 'update')->middleware('can:update,App\Foods');
+            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Foods');
+        });
 
         Route::prefix('stocks')->controller(StocksController::class)->group(function () {
 
             Route::get('', 'index')->middleware('can:viewAny,App\Stocks');
             Route::post('', 'store')->middleware('can:update,App\Stocks');
-            Route::get('/{stock}', 'show')->middleware('can:view,App\Stocks,stocks');
-            Route::put('/{stock}', 'update')->middleware('can:update,App\Stocks');
-            Route::delete('/{stock}', 'destroy')->middleware('can:delete,App\Stocks');
-
+            Route::get('/{user}', 'show')->middleware('can:view,App\Stocks,stocks');
+            Route::put('/{user}', 'update')->middleware('can:update,App\Stocks');
+            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Stocks');
         });
 
         Route::prefix('users')->controller(UserController::class)->group(function () {
@@ -101,7 +134,6 @@ Route::prefix('v1')->group(function () {
             Route::get('/{user}', 'show')->middleware('can:view,App\User,user');
             Route::put('/{user}', 'update')->middleware('can:update,App\User');
             Route::delete('/{user}', 'destroy')->middleware('can:delete,App\User');
-
         });
 
         Route::prefix('user-types')->controller(UserTypeController::class)->group(function () {
@@ -111,7 +143,6 @@ Route::prefix('v1')->group(function () {
             Route::get('/{user_type}', 'show')->middleware('can:view,App\UserType,user_type');
             Route::put('/{user_type}', 'update')->middleware('can:update,App\UserType');
             Route::delete('/{user_type}', 'destroy')->middleware('can:delete,App\UserType');
-
         });
 
         Route::prefix('permissions')->group(function () {
@@ -124,4 +155,5 @@ Route::prefix('v1')->group(function () {
         });
     });
     Route::apiResource('news', NewsController::class);
+    Route::get('fetch-profile', [UserController::class, 'fetchProfile']);
 });

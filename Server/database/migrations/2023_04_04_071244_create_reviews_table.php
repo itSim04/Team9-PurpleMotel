@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('stars');
             $table->string('date');
             $table->string('title');
-            $table->string('content');
+            $table->text('content');
             $table->timestamps();
         });
     }

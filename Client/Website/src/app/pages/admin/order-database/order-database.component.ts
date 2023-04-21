@@ -4,10 +4,10 @@ import { User } from 'src/app/models/User';
 import { Component } from '@angular/core';
 import { Order } from 'src/app/models/Order';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { OrderDatabaseService } from './order-database.service';
 import { map } from 'rxjs';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { KeyValue } from '@angular/common';
+import { OrderDatabaseService } from 'src/app/services/providers/order-database.service';
 
 @Component({
   selector: 'app-order-database',

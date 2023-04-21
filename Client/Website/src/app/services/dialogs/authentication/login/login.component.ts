@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { AuthenticationDialogService } from '../authentication.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { validateEmail } from '../authentication.utility';
 
 @Component({

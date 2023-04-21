@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { AuthenticationDialogService } from 'src/app/services/dialogs/authentication/authentication.service';
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
+import { extractAnyPermission, extractUser } from '../../database/database.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,9 +9,15 @@ import { AuthenticationDialogService } from 'src/app/services/dialogs/authentica
 })
 export class NavBarComponent {
   @Input() transparent = false;
-  constructor(private authentication_service: AuthenticationDialogService) { }
+  @Input() hide_auth = false;
+  constructor (private authentication_service: AuthenticationDialogService) { }
 
 
+  extractAnyPermission() {
+
+    return extractAnyPermission();
+    
+  }
   login() {
 
     this.authentication_service.openDialog("login");
@@ -18,6 +25,23 @@ export class NavBarComponent {
   }
 
   signUp() {
-    this.authentication_service.openDialog("register")
+    this.authentication_service.openDialog("register");
   }
+
+  get active() {
+
+    const user = extractUser(false);
+    if (!user) {
+
+      return undefined;
+
+    } else {
+
+      return (user.first_name + " " + user.last_name);
+
+    }
+
+  }
+
 }
+

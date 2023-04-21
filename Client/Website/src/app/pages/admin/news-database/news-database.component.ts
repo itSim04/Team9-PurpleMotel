@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { News } from 'src/app/models/News';
-import { NewsDatabaseService } from './news-database.service';
+import { News, NewsAttributes } from 'src/app/models/News';
 import { map } from 'rxjs';
+import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
 
 @Component({
   selector: 'app-news-database',
@@ -30,19 +30,21 @@ export class NewsDatabaseComponent {
         key: 'date'
       },
       {
-        key: 'likes'
+        key: 'likes_number'
       }
     ],
 
-    data_fetcher: () => this.news_service.getAllNewses().pipe(map(data => [data.newses, undefined])),
+    data_fetcher: () => this.news_service.getAllNews().pipe(map(data => [data.news, undefined])),
   }
 
   change_injection: ChangeInjection<News> = {
     default_state:{
       title: '',
+      is_liked: false,
+      likes: [],
       body: '',
       date: '',
-      likes: 0
+      likes_number: 0
     },
 
     side_panel: 'empty',
@@ -63,7 +65,7 @@ export class NewsDatabaseComponent {
         type: 'date'
       },
       {
-        key: 'likes',
+        key: 'likes_number',
         type: 'number'
       }
     ],

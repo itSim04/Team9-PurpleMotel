@@ -21,7 +21,7 @@ class NewsResource extends JsonResource
                 'title' => $this->title,
                 'body' => $this->body,
                 'date' => $this->date,
-                'likes' => $this->likes
+                'likes_number' => $this->likes
             ]
         ];
     }

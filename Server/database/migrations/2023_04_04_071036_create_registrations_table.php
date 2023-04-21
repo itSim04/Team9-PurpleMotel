@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('start_date');
             $table->string('end_date');
             $table->integer('activity_id');
+            $table->integer('seats');
             $table->integer('user_id');
             $table->timestamps();
         });

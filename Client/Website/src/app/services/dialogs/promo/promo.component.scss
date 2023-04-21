@@ -1,0 +1,38 @@
+.title {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+
+    margin: 24px;
+    text-align: center;
+    letter-spacing: 0.05em;
+
+    color: #14274A;
+
+}
+
+
+.text {
+
+    width: 100%;
+    text-align: center;
+
+}
+.input {
+
+    width: 70%;
+    margin: auto;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+
+}
+
+.error {
+
+    font-size: smaller;
+    color: red;
+
+}

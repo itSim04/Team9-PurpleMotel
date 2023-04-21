@@ -1,0 +1,13 @@
+<div class="title" mat-dialog-title>Apply Promo</div>
+<div mat-dialog-content>
+  <p class="text">
+    Ente a promo code
+  </p>
+  <input class="input" matInput [(ngModel)]="promo">
+  <p class="error text">{{message}}</p>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button mat-button (click)="apply()" cdkFocusInitial>Apply</button>
+</div>

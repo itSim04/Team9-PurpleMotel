@@ -1,3 +1,52 @@
-<app-nav-bar></app-nav-bar>
-<p>services works!</p>
-<app-footer></app-footer>
+<div class="nav">
+    <app-nav-bar [transparent]="true"></app-nav-bar>
+    <div class="title-container">
+        <p class="title-1">Welcome to</p>
+        <p class="title-2">Purple</p>
+        <p class="title-3">Motel</p>
+        <p class="title-4">Book your stay and enjoy Luxury<br>redefined at the most affordable
+            rates.</p>
+    </div>
+</div>
+<p class="header">Activities</p>
+<mat-divider style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
+<p class="sub-header">Discover endless excitement and adventure with our hotel's website activities.
+    From kayaking in crystal clear waters to taking a scenic hike through lush forests,
+    there's something for every thrill-seeker to enjoy. </p>
+
+<!-- <div style="display: flex; flex-wrap: wrap;">
+    <div *ngFor="let activity of activities | keyvalue" style="width: 50%;">
+        <app-activity-list-item class="item" [activity]="activity"></app-activity-list-item>
+        <mat-divider
+            style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
+    </div> -->
+<!-- </div> -->
+<div style="width:100%">
+    <app-carousel #carousel>
+        <ng-container *ngFor="let activity of activities | keyvalue; let i = index">
+            <ng-container *carouselItem>
+                <app-activity-list-item style="width: 100%; display: flex; position: relative;" [@fadeOut]
+                    [activity]="activity"></app-activity-list-item>
+            </ng-container>
+        </ng-container>
+    </app-carousel>
+</div>
+
+<p class="header">Facilities</p>
+<mat-divider style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
+<p class="sub-header">We want your stay at our lush hotel to be truly unforgettable. That is why we give special
+    attention to all of your needs so
+    that we can ensure an experience quite unique. Luxury hotels offers the perfect setting with stunning views for
+    leisure
+    and our modern luxury resort facilities will help you enjoy the best of all. </p>
+
+<div style="width:100%">
+    <app-carousel #carousel>
+        <ng-container *ngFor="let facility of facilities | keyvalue; let i = index">
+            <ng-container *carouselItem>
+                <app-facility style="width: 100%; display: flex; position: relative;" [@fadeOut]
+                    [facility]="facility"></app-facility>
+            </ng-container>
+        </ng-container>
+    </app-carousel>
+</div>

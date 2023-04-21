@@ -1,11 +1,9 @@
-import { QuickDialogService } from './../../../../services/dialogs/quick/quick.service';
-import { QuickDialogModule } from './../../../../services/dialogs/quick/quick.module';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Data } from '@angular/router';
 import { Button, Column, DataInjection } from 'src/app/models/Database';
+import { QuickDialogService } from 'src/app/services/utility/quick.service';
 import { formatPrice, formatWord, Required } from '../../database.component';
 
 @Component({

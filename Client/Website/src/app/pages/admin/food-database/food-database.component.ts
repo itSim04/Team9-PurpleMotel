@@ -3,9 +3,9 @@ import { Ingredient } from './../../../models/Ingredient';
 import { Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { FoodDatabaseService } from './food-database.service';
 import { Food } from 'src/app/models/Food';
 import { FoodCategory } from 'src/app/models/FoodCategory';
+import { FoodDatabaseService } from 'src/app/services/providers/food-database.service';
 
 @Component({
   selector: 'app-food-database',

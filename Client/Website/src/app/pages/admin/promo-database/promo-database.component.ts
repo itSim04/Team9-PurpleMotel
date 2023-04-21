@@ -1,8 +1,13 @@
+import { RoomType } from './../../../models/RoomType';
 import { Component } from '@angular/core';
-import { PromoDatabaseService } from './promo-database.service';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { map } from 'rxjs';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
+import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
+import { User } from 'src/app/models/User';
+import { UserType } from 'src/app/models/UserType';
+import { Room } from 'src/app/models/Room';
+import { PromoDatabaseService } from 'src/app/services/providers/promo-database.service';
 
 @Component({
   selector: 'app-promo-database',
@@ -25,21 +30,28 @@ export class PromoDatabaseComponent {
       },
       {
         key: 'end_date',
-
       }
     ],
-    data_fetcher: () => this.promo_code_service.getAllPromoCodes().pipe(map(data => [data.promo_codes, undefined]))
-    
+    data_fetcher: () => this.promo_code_service.getAllFullPromoCodes().pipe(map(data => [data.promo_codes, [data.users, data.user_types, data.rooms, data.room_types]])),
+
   };
 
   change_injection: ChangeInjection<PromoCode> = {
 
     side_panel: 'empty',
     default_state: {
-      change: '',
-      start_date: new Date(),
-      end_date: new Date(),
-    },  
+      concerned_everyone: false,
+      concerned_everything: false,
+      concerned_room_types: [],
+      concerned_rooms: [],
+      concerned_user_tiers: [],
+      concerned_user_types: [],
+      concerned_users: [],
+      applied_users: [],
+      change: 0,
+      start_date: parseDate(new Date()),
+      end_date: parseDate(new Date()),
+    },
     data_type: 'Promo Code',
 
     fields: [
@@ -54,6 +66,46 @@ export class PromoDatabaseComponent {
       {
         key: 'end_date',
         type: 'date'
+      },
+      {
+        key: 'concerned_users',
+        type: 'outer_choices',
+        outer_choices: {
+
+          index: 0,
+          format: (data) => (data as User).first_name + ' ' + (data as User).last_name,
+
+        }
+      },
+      {
+        key: 'concerned_user_types',
+        type: 'outer_choices',
+        outer_choices: {
+
+          index: 1,
+          format: (data) => (data as UserType).label
+
+        }
+      },
+      {
+        key: 'concerned_rooms',
+        type: 'outer_choices',
+        outer_choices: {
+
+          index: 2,
+          format: (data) => (data as Room).label
+
+        }
+      },
+      {
+        key: 'concerned_room_types',
+        type: 'outer_choices',
+        outer_choices: {
+
+          index: 3,
+          format: (data) => (data as RoomType).label
+
+        }
       }
     ],
     add_service: promo_code => this.promo_code_service.addNewPromoCode(promo_code),
