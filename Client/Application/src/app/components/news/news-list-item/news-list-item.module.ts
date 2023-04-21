@@ -11,7 +11,8 @@ import { IonicModule } from '@ionic/angular';
   ],
   imports: [
     CommonModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    
   ],
   exports: [
     NewsListItemComponent

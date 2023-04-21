@@ -31,5 +31,5 @@ export class NewsListPopupComponent  implements OnInit {
   }
 
   ngOnInit() {}
-
+  
 }

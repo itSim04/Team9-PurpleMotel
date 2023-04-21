@@ -12,6 +12,14 @@
   {{news.value.body}}
 </div>
 
+<ion-button (click)="like()"> Perss
+  <!-- <ion-icon name="heart-dislike-outline" [color]="news.value.is_liked ? '#A4274A' : '#14274A'"></ion-icon> -->
+</ion-button>
+
+<div class="likes-number">
+  {{news.value.likes_number}} Likes
+</div>
+
 <div>
   <ion-button (click)="openPopup()" expand="block" fill="outline" color="#14274A">Explore</ion-button>
 </div>
