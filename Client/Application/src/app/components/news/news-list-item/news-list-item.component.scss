@@ -56,4 +56,94 @@ img {
     position: relative;
     text-align: center;
     text-transform: uppercase;
+
+    width: fit-content;
+    //background-color: $primary-color;
+    //shape: 'round';
+}
+
+
+ion-modal#example-modal {
+    --width: fit-content;
+    --min-width: 250px;
+    --height: fit-content;
+    --border-radius: 6px;
+    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+}
+
+ion-modal#example-modal h1 {
+    margin: 20px 20px 10px 20px;
+}
+
+ion-modal#example-modal ion-icon {
+    margin-right: 6px;
+
+    width: 48px;
+    height: 48px;
+
+    padding: 4px 0;
+
+    color: #aaaaaa;
+}
+
+ion-modal#example-modal .wrapper {
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+.parent {
+
+    color: $primary-color;
+    display: block;
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    position: relative;
+    margin-right: 2%;
+
+}
+
+.title {
+
+    @extend .parent;
+    font-size: 22px;
+    margin-left: 2%;
+    text-align: center;
+
+}
+
+.date {
+
+    @extend .parent;
+    font-size: 14px;
+    margin-left: 2%;
+    margin-top: -6%;
+    text-align: center;
+}
+
+.description {
+
+    @extend .parent;
+    font-size: 16px;
+    margin-left: 2%;
+    text-align: center;
+
+}
+
+.likes {
+
+    @extend .parent;
+    font-size: 16px;
+    text-align: right;
+}
+
+hr {
+
+    background-color: black;
+    width: 60%;
+
 }

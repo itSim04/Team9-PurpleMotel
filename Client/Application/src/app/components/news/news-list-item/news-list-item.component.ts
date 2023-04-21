@@ -6,8 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./news-list-item.component.scss'],
 })
 export class NewsListItemComponent  implements OnInit {
-
+  
   constructor() { }
+  
+  // openPopup() {
+
+  //   const dialogRef = this.news_dialog.openDialog()
+
+  // }
+
 
   ngOnInit() {}
 

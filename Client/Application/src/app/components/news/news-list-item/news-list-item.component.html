@@ -14,7 +14,39 @@
 </div>
 
 <div>
-  <button class="button">
+  <!-- <ion-button (click)="news_dialog.openDialog()" class="button" fill="outline" color="#14274A">
     Explore
-  </button>
+  </ion-button> -->
+  <ion-button id="open-custom-dialog" expand="block" fill="outline" color="#14274A">Explore</ion-button>
 </div>
+
+
+
+<ion-modal id="example-modal" #modal trigger="open-custom-dialog">
+  <ng-template>
+    <div class="wrapper">
+      <h1 class="title">It all starts at 10:35PM</h1>
+      <ion-list lines="none">
+
+        <img src="../../../../assets/news-pics/news-sample-pic.png">
+
+        <div class="date">
+          published at 04/30/2022
+        </div>
+
+        <hr>
+        
+        <div class="description">
+          We’ve collaborated with global superstars Tiësto and Tate McRae to create the track and music video “10:35”,
+          which is
+          inspired by the essence, energy and electricity of Purple Motel.
+        </div>
+
+        <div class="likes">
+          4 likes
+        </div>
+
+      </ion-list>
+    </div>
+  </ng-template>
+</ion-modal>
