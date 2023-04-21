@@ -41,6 +41,8 @@ export interface UserAttributes {
     language: string,
     date_of_birth: string,
     tier: string,
+
+    email_verified_at?: string;
 }
 
 export interface User extends UserAttributes {
@@ -101,15 +103,15 @@ export interface UserResponse {
     };
     permissions?: {
 
-        room?: number[]
-        user?: number[]
-        stock?: number[]
-        user_type?: number[]
-        room_type?: number[]
-        language?: number[]
-        booking?: number[]
+        room?: number[];
+        user?: number[];
+        stock?: number[];
+        user_type?: number[];
+        room_type?: number[];
+        language?: number[];
+        booking?: number[];
 
-    }
+    };
 
 }
 export interface UsersResponse {
@@ -155,59 +157,59 @@ export interface ProfileResponse {
     status: string,
     data: {
         id: string,
-        type: 'Foods' | 'Orders' | 'Review' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient'| 'Registration' | 'Activities',
+        type: 'Foods' | 'Orders' | 'Review' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient' | 'Registration' | 'Activities',
         attributes: FoodAttributes | OrderAttributes | Review | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes | Activity | RegistrationAttributes,
         relationships: {
             food_category: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             user: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             room_type: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             room: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             order: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             food: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             stock: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             activity: {
                 data: {
                     id: string,
-                    type: string
-                }
-            }
-        }
-    }[]
+                    type: string;
+                };
+            };
+        };
+    }[];
 
 
 

@@ -1,3 +1,4 @@
+import { VerifyComponent } from './verify/verify.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -35,7 +36,8 @@ import { AuthenticationDialogService } from '../../utility/authentication.servic
   ],
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    VerifyComponent
   ]
 })
 export class AuthenticationModule { }

@@ -47,7 +47,9 @@ Route::prefix('v1')->group(function () {
         Route::post('logout', 'logout');
         Route::post('refresh', 'refresh');
         Route::get('forgot-password-1', 'forgotPassword1');
+        Route::get('send-verify-email', 'sendVerifyEmail');
         Route::get('forgot-password-2', 'forgotPassword2');
+        Route::get('verify-email', 'verifyEmail');
     });
 
     Route::apiResource('announcements', AnnouncementsController::class);

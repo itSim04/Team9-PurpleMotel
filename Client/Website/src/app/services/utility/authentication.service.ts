@@ -6,6 +6,7 @@ import { map } from 'rxjs';
 import { UserCredentials, UserResponse, UserInformation } from 'src/app/models/User';
 import { LoginComponent } from '../dialogs/authentication/login/login.component';
 import { RegisterComponent } from '../dialogs/authentication/register/register.component';
+import { VerifyComponent } from '../dialogs/authentication/verify/verify.component';
 
 
 
@@ -16,7 +17,7 @@ export class AuthenticationDialogService {
 
   constructor (public dialog: MatDialog, private request: HttpClient) { }
 
-  openDialog(type: 'login' | 'register') {
+  openDialog(type: 'login' | 'register' | 'verify') {
 
     let component: ComponentType<unknown>;
 
@@ -30,6 +31,11 @@ export class AuthenticationDialogService {
       case 'register':
 
         component = RegisterComponent;
+        break;
+
+      case 'verify':
+
+        component = VerifyComponent;
         break;
 
     }
@@ -81,5 +87,46 @@ export class AuthenticationDialogService {
 
 
     );
+  }
+
+  savePasswordVerificationCode(email: string) {
+
+    try {
+
+      return this.request.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-1?email=${email}`);
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+  saveEmailVerificationCode(email: string) {
+
+    try {
+
+      return this.request.get<any>(`http://127.0.0.1:8000/api/v1/auth/send-verify-email?email=${email}`);
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  verifyEmail(token: string) {
+
+    try {
+
+      return this.request.get<any>(`http://127.0.0.1:8000/api/v1/auth/verify-email?token=${token}`);
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
   }
 }
