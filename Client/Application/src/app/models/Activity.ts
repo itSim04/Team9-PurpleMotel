@@ -3,9 +3,9 @@ import { KeyValue } from "@angular/common";
 
 export interface ActivityAttributes {
 
-  title: string, //Label of a certain stock item
-  description: string, //Information about it
-  capacity: number, //Current available quantity of said stock item
+  title: string, 
+  description: string, 
+  capacity: number, 
   price: number,
   start_date: string,
   end_date: string;

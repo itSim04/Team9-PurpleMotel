@@ -18,12 +18,12 @@ import { ServiceDatabaseService } from "src/app/pages/admin/service-database/ser
         animate('300ms', style({ opacity: 1 })),
       ])])]
 })
-export class BrowseServicesComponent implements OnInit{
+export class BrowseServicesComponent implements OnInit {
 
   activities: Map<string, Activity> = new Map();
   facilities: Map<string, Facility> = new Map();
   registrations: Map<string, Registration> = new Map();
-  
+
   constructor(private services_service: ServiceDatabaseService) { }
 
 
@@ -48,10 +48,6 @@ export class BrowseServicesComponent implements OnInit{
       this.facilities = data.facilities
 
     });
-
-    console.log(this.facilities.values)
-    console.log(this.activities.values)
-    
 
 
   }

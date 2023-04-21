@@ -4,6 +4,8 @@ import { Facility } from 'src/app/models/Facility';
 import { ServiceDatabaseService } from './facilities.service';
 import { Activity } from 'src/app/models/Activity';
 import { Registration } from 'src/app/models/Registration';
+import { ModalController } from '@ionic/angular';
+import { FacilitiesModalComponent } from './facilities-modal/facilities-modal.component';
 
 @Component({
   selector: 'app-facilities',
@@ -14,4 +16,15 @@ export class FacilitiesComponent{
 
   @Input() facility?: Facility;
 
+  constructor(private modal_ctrl: ModalController){}
+  async openModal() {
+
+    const modal = await this.modal_ctrl.create({
+      component: FacilitiesModalComponent
+    });
+  
+    await modal.present();
+  }
+  
+  
 }
