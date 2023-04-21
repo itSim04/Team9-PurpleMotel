@@ -110,6 +110,11 @@
     margin: 20px;
 }
 
+.disabled-btn{
+    @extend .cancel-btn;
+    background-color: grey;
+}
+
 .divider{
     border: solid rgba(0, 0, 0, 0.578) 0.02em;
     height: 0.01em;

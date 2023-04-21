@@ -4,6 +4,7 @@ import { Registration } from 'src/app/models/Registration';
 import { formatPrice } from '../database/database.component';
 import { ModalController } from '@ionic/angular';
 import { ActivitiesModalComponent } from './activities-modal/activities-modal.component';
+import { KeyValue } from '@angular/common';
 
 
 
@@ -17,7 +18,7 @@ export class ActivitiesComponent implements OnInit {
 
   ngOnInit() { }
 
-  @Input() activity?: Activity;
+  @Input() activity?: KeyValue<string, Activity>;
 
   constructor(private modal_ctrl: ModalController) { }
   async openModal() {
@@ -25,8 +26,8 @@ export class ActivitiesComponent implements OnInit {
     const modal = await this.modal_ctrl.create({
       component: ActivitiesModalComponent,
       componentProps: {
-
-        data: this.activity,
+        key: this.activity?.key,
+        data: this.activity?.value,
 
       }
 
@@ -49,7 +50,7 @@ export class ActivitiesComponent implements OnInit {
   get past() {
 
     if (this.activity)
-      return (new Date() >= new Date(this.activity.start_date));
+      return (new Date() >= new Date(this.activity.value.start_date));
     else
       return false;
   }
