@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NavParams } from '@ionic/angular';
+import { Facility } from 'src/app/models/Facility';
 
 @Component({
   selector: 'app-facilities-modal',
@@ -7,7 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FacilitiesModalComponent  implements OnInit {
 
-  constructor() { }
+  @Input() facility!: Facility;
+  @Input() description!: string;
+
+
+  constructor(private modal_params: NavParams) {
+    
+    this.facility = modal_params.get('data');
+    this.description = modal_params.get('data').description;  
+  }
 
   ngOnInit() {}
 

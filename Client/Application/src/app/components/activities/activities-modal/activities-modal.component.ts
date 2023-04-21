@@ -11,9 +11,9 @@ import { Activity } from 'src/app/models/Activity';
 export class ActivitiesModalComponent {
 
   @Input() activity!: Activity;
-  @Input() price!: Activity;
-  @Input() start_date!: Activity;
-  @Input() end_date!: Activity;
+  @Input() price!: number;
+  @Input() start_date!: Date;
+  @Input() end_date!: Date;
 
   constructor(private modal_params: NavParams) {
 
