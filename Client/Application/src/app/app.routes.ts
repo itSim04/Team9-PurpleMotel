@@ -1,4 +1,3 @@
-import { HomePage } from './pages/guest/home/home.page';
 import { TabsPage } from './tabs/tabs.page';
 import { BrowseRoomsPage } from './pages/guest/rooms/browse-rooms/browse-rooms.page';
 
@@ -19,6 +18,8 @@ import { ServiceDatabaseComponent } from './pages/admin/service-database/service
 import { StockDatabaseComponent } from './pages/admin/stock-database/stock-database.component';
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
+import { HomeComponent } from './pages/guest/home/home.component';
+
 
 
 export const routes: Routes = [
@@ -70,7 +71,7 @@ export const routes: Routes = [
       },
       {
         path: 'home',
-        component: HomePage
+        component: HomeComponent
       },
       {
         path: 'services',
@@ -78,7 +79,7 @@ export const routes: Routes = [
       },
       {
         path: 'restaurant',
-        component: HomePage
+        component: HomeComponent
       },
 //    ]
   //},

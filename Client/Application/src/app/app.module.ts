@@ -25,6 +25,7 @@ import { UserDatabaseModule } from './pages/admin/user-database/user-database.mo
 import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
 import { ActivitiesModule } from './components/activities/activities.module';
 import { ServicesModule } from './pages/guest/services/services.module';
+import { HomeModule } from './pages/guest/home/home.module';
 
 
 
@@ -62,6 +63,9 @@ import { ServicesModule } from './pages/guest/services/services.module';
     ActivitiesModule,
     ServicesModule,
     AdminDashboardModule,
+
+
+    HomeModule,
 
   ],
   providers: [
