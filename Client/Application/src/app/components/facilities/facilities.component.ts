@@ -20,7 +20,12 @@ export class FacilitiesComponent{
   async openModal() {
 
     const modal = await this.modal_ctrl.create({
-      component: FacilitiesModalComponent
+      component: FacilitiesModalComponent,
+      componentProps: {
+
+        data: this.facility,
+
+      }
     });
   
     await modal.present();

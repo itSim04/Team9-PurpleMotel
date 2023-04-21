@@ -2,21 +2,20 @@
     <tr>
         <td style="padding: 16px; height:60vh;">
 
-            <img style="vertical-align: middle; object-fit: cover;" width="100%" height="100%"
-                src="../../../../assets/services-pics/movie-night.png">
+            <img style="object-fit: cover; height: 90%;" src="../../../../assets/services-pics/movie-night.png">
 
         </td>
-        <td style="padding: 16px; height: 60vh; width: 40%; ">
+        <td style="padding: 16px; height: 50vh; width: 40%; ">
             <div style="vertical-align: middle; margin: 0px;">
-                <p class="title-1">{{activity.title}}</p>
-              
+                <p class="title-1">{{activity?.value?.title}}</p>
+                <hr class="divider">
                 <br>
                 <br>
                 <p class="content-1">
                     Description:
                 </p>
                 <p class="content-2">
-                    {{activity.description}}
+                    {{activity?.value?.description}}
                 </p><br>
                 <p class="content-1">
                     Date:
@@ -45,5 +44,14 @@
             </div>
         </td>
     </tr>
+    <tr style="text-align: center;">
+        <br>
+        <td>
+            <button class="book-btn" [disabled]="seats == 0 || free < 0" class="disabled-btn"
+            (click)="register()">
+            Register
+            </button>
+        </td>
+    </tr>
 </table>
-
+<button class="back-btn" (click)="closeModal()">Back</button>

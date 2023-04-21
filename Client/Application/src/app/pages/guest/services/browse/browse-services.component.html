@@ -9,7 +9,8 @@
     <h1 class="activities-header">Activities</h1>
 
     <div *ngFor="let activity of activities | keyvalue: activity_key; let i = index">
-        <app-activities [activity]="activity.value" [title]="activity.value.title" ></app-activities>
+        <app-activities [activity]="{ key: activity.key, value: activity.value }" 
+        [title]="activity.value.title" ></app-activities>
 
     </div>
 
