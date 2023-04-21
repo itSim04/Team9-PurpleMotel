@@ -1,3 +1,6 @@
+import { extractUserId } from 'src/app/components/database/database.component';
+import { KeyValue } from '@angular/common';
+import { Review } from './../../models/Room';
 import { EffectPromoCodes, PromoCode, PromoCodeAttributes } from 'src/app/models/PromoCode';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -18,7 +21,7 @@ export class RoomDatabaseService {
 
   getAllRooms(): Observable<RoomsPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
 
     try {
@@ -35,7 +38,7 @@ export class RoomDatabaseService {
           response.data.forEach(room => {
 
             const roomType = room.relationships?.room_type?.data?.id;
-            rooms.set(room.id, { ...room.attributes, type: roomType });
+            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false });
 
           });
 
@@ -67,6 +70,17 @@ export class RoomDatabaseService {
                 case 'EffectPromoCodes':
 
                   effect_codes.push(data.attributes as EffectPromoCodes);
+                  break;
+
+                case 'Review':
+
+                  const room = rooms.get((data.attributes as Review).room_id);
+                  if (room) {
+
+                    if ((data.attributes as Review).user_id == extractUserId()) room.is_reviewed = true;
+                    room.reviews.push(data.attributes as Review);
+
+                  }
 
 
 
@@ -131,7 +145,7 @@ export class RoomDatabaseService {
   }
   getPaginatedRooms(index: number, size: number): Observable<RoomsPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
 
     try {
@@ -148,7 +162,7 @@ export class RoomDatabaseService {
           response.data.forEach(room => {
 
             const roomType = room.relationships?.room_type?.data?.id;
-            rooms.set(room.id, { ...room.attributes, type: roomType });
+            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false });
 
           });
 
@@ -180,6 +194,19 @@ export class RoomDatabaseService {
                 case 'EffectPromoCodes':
 
                   effect_codes.push(data.attributes as EffectPromoCodes);
+                  break;
+
+                case 'Review':
+
+                  const room = rooms.get((data.attributes as Review).room_id);
+
+                  if (room) {
+
+                    if ((data.attributes as Review).user_id == extractUserId()) room.is_reviewed = true;
+                    room.reviews.push(data.attributes as Review);
+
+                  }
+
 
 
 
@@ -224,6 +251,8 @@ export class RoomDatabaseService {
 
           }
 
+          console.log(rooms);
+
           return {
 
             rooms: rooms,
@@ -246,30 +275,46 @@ export class RoomDatabaseService {
 
   getOneRoom(id: string): Observable<RoomPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
       return this.http.get<RoomResponse>(this.url.generateUrl(`rooms/${id}`), { headers: headers }).pipe(
         map((response: RoomResponse): RoomPackage => {
 
-          if (response.included?.length) {
+          const room: KeyValue<string, Room> = {
 
+            key: id,
+            value: { ...response.data.attributes, type: response.data.relationships.room_type.data.id, reviews: [], is_reviewed: false }
+
+          };
+
+          let room_type: KeyValue<string, RoomType> | undefined = undefined;
+
+
+          response.included?.forEach(data => {
+
+            switch (data.type) {
+
+              case 'RoomTypes':
+
+                room_type = { key: data.id, value: data.attributes as RoomType };
+                break;
+
+              case 'Review':
+
+                if ((data.attributes as Review).user_id == extractUserId()) room.value.is_reviewed = true;
+                room.value.reviews.push(data.attributes as Review);
+
+            }
+
+          });
+          if (room_type)
             return {
 
-              room: {
+              room: room,
 
-                key: id,
-                value: { ...response.data.attributes, type: response.data.relationships.room_type.data.id }
-
-              },
-
-              room_type: {
-
-                key: response.data.relationships.room_type.data.id,
-                value: response.included[0].attributes
-
-              },
+              room_type: room_type,
 
               promo_code: {
 
@@ -292,12 +337,9 @@ export class RoomDatabaseService {
               }
 
             };
+          throw new Error('Integrity constraint error');
 
-          }
-          throw new Error(`Foreign key Constraint failure: Room ${id}`);
-
-        })
-      );
+        }));
 
     } catch (e: unknown) {
 
@@ -309,7 +351,7 @@ export class RoomDatabaseService {
 
   getAllRoomTypes(): Observable<RoomTypesPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -340,10 +382,10 @@ export class RoomDatabaseService {
     }
 
 
-  }
+  };
   getOneRoomType(id: string): Observable<RoomTypePackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -370,11 +412,11 @@ export class RoomDatabaseService {
 
     }
 
-  }
+  };
 
   addNewRoom(room: Room) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -395,10 +437,33 @@ export class RoomDatabaseService {
     }
 
   }
+  addReview(review: Review) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.post<RoomResponse>(this.url.generateUrl('postReview'), review, { headers: headers }).pipe(
+
+        map(result => {
+
+          return result.data.id;
+
+        })
+
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
 
   modifyRoom(room_id: string, room: Room) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -414,7 +479,7 @@ export class RoomDatabaseService {
 
   deleteRoom(key: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -430,7 +495,7 @@ export class RoomDatabaseService {
 
   addNewRoomType(roomType: RoomType) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -454,7 +519,7 @@ export class RoomDatabaseService {
 
   modifyRoomType(roomType_id: string, roomType: RoomType) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -470,7 +535,7 @@ export class RoomDatabaseService {
 
   deleteRoomType(key: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 

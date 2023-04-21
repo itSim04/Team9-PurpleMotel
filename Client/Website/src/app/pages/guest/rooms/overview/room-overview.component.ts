@@ -15,6 +15,7 @@ export class RoomOverviewComponent implements OnInit {
   loading = false;
   room?: KeyValue<string, Room>;
   room_type?: KeyValue<string, RoomType>;
+  current_page = 0;
 
   constructor (private route: ActivatedRoute, private room_service: RoomDatabaseService) { }
 
@@ -62,5 +63,18 @@ export class RoomOverviewComponent implements OnInit {
       });
     }
   }
+
+  prev() {
+
+    this.current_page--;
+
+  }
+
+  next() {
+
+    this.current_page++;
+
+  }
+  
 
 }

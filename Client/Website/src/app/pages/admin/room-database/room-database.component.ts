@@ -129,6 +129,8 @@ export class RoomDatabaseComponent {
     side_panel: 'images',
 
     default_state: {
+      is_reviewed: false,
+      reviews: [],
       label: '',
       description: '',
       number: '',
@@ -164,21 +166,22 @@ export class RoomDatabaseComponent {
         type: 'digits_string'
       },
       {
-        key: 'rating',
-        type: 'number'
-      },
-      {
         key: 'type',
         type: 'selection',
         choices: {
           link: true,
           format: (choice) => (choice as RoomType).label
         }
-      }
-
+      },      
+      {
+        key: 'rating',
+        type: 'number',
+        readonly: true,
+        condition: () => true
+      },
+      
     ],
     static_fields: [
-
       {
         key: 'price',
         link: {

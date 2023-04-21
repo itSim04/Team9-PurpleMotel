@@ -1,3 +1,5 @@
+import { AuthenticationDialogService } from './../../../services/utility/authentication.service';
+import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserType } from 'src/app/models/UserType';
@@ -52,8 +54,8 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   pushData() {
 
-    (this.data[this.table!.key] as unknown[]).push({id: '1', quantity: 1});
-    
+    (this.data[this.table!.key] as unknown[]).push({ id: '1', quantity: 1 });
+
     this.table!.data.data = this.data[this.table!.key] as unknown[];
 
   }
@@ -151,7 +153,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   readonly linked_data: Map<string, unknown>;
 
-  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar) {
+  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService) {
 
     this.linked_data = injected_data.link;
 
@@ -208,11 +210,29 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
       if (confirmation) {
 
-        this.add_service(this.data).subscribe(result => {
+        this.add_service(this.data).subscribe(
 
-          this.dialogRef.close({ key: result, value: this.data });
+          {
+            next: result => {
 
-        });
+              this.dialogRef.close({ key: result, value: this.data });
+
+            },
+            error: error => {
+
+              if (error.status == 401) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                localStorage.removeItem('id');
+                localStorage.removeItem('token_time');
+                this.router.navigate(['/home']);
+                this.dialogRef.close();
+                this.authentication.openDialog('login');
+              }
+
+
+            }
+          });
 
       }
     });
@@ -229,16 +249,31 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
 
         const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
-        dialogRef.afterClosed().subscribe(confirmation => {
+        dialogRef.afterClosed().subscribe({
+          next: confirmation => {
 
-          if (confirmation && this.old_data) {
+            if (confirmation && this.old_data) {
 
-            this.modify_service(this.old_data.key, this.data).subscribe(() => {
-              if (this.old_data) {
+              this.modify_service(this.old_data.key, this.data).subscribe(() => {
+                if (this.old_data) {
 
-                this.dialogRef.close({ key: this.old_data.key, value: this.data });
-              }
-            });
+                  this.dialogRef.close({ key: this.old_data.key, value: this.data });
+                }
+              });
+            }
+          },
+          error: error => {
+
+            if (error.status == 401) {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              localStorage.removeItem('id');
+              localStorage.removeItem('token_time');
+              this.dialogRef.close();
+              this.router.navigate(['/home']);
+              this.authentication.openDialog('login');
+            }
+
           }
         });
       }
@@ -261,18 +296,33 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
           if (confirmation && this.old_data) {
 
-            this.delete_service(this.old_data.key).subscribe(result => {
+            this.delete_service(this.old_data.key).subscribe({
+              next: result => {
 
-              if (result.length) {
+                if (result.length) {
 
-                this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
+                  this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
 
-              } else if (this.old_data) {
+                } else if (this.old_data) {
 
-                this.dialogRef.close({ key: this.old_data.key, value: undefined });
+                  this.dialogRef.close({ key: this.old_data.key, value: undefined });
 
+                }
+
+              },
+              error: error => {
+
+
+                if (error.status == 401) {
+                  localStorage.removeItem('token');
+                  localStorage.removeItem('user');
+                  localStorage.removeItem('id');
+                  localStorage.removeItem('token_time');
+                  this.dialogRef.close();
+                  this.router.navigate(['/home']);
+                  this.authentication.openDialog('login');
+                }
               }
-
             });
           }
         });
@@ -465,12 +515,12 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   get getDisplayedColumnsKey() {
 
 
-    if(this.table) {
+    if (this.table) {
 
       const keys = this.table!.columns.map(t => t.key as string);
       keys.push('buttons');
       return keys;
-      
+
     } else {
 
       throw new Error('Table missing information');

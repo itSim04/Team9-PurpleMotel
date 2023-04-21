@@ -10,6 +10,7 @@ use App\Http\Resources\OrderContainsResource;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\PermissionResource;
 use App\Http\Resources\RegistrationResource;
+use App\Http\Resources\ReviewResource;
 use App\Http\Resources\RoomResource;
 use App\Http\Resources\RoomTypeResource;
 use App\Http\Resources\StocksResource;
@@ -22,6 +23,7 @@ use App\Models\Order;
 use App\Models\OrderContains;
 use App\Models\Permission;
 use App\Models\Registration;
+use App\Models\Review;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Models\Stocks;
@@ -189,10 +191,13 @@ class UserController extends Controller
 
             $room_ids = [];
 
+            
             foreach ($bookings as $booking) {
-
+                
                 $room_ids[] = $booking->room_id;
             }
+            
+            $reviews = ReviewResource::collection(Review::all()->whereIn('room_id', $room_ids));
 
             $rooms = Room::all()
                 ->whereIn('id', $room_ids);
@@ -242,6 +247,7 @@ class UserController extends Controller
                 ->concat(IngredientResource::collection($ingredients))
                 ->concat($activities)
                 ->concat(RegistrationResource::collection($registrations))
+                ->concat($reviews)
                 ->all());
 
             // im also gonna supply with Ingredients. in case we need the pivot later (we will eventually)

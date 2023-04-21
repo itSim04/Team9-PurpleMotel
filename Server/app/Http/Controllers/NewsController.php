@@ -80,4 +80,82 @@ class NewsController extends Controller
 
         return destroyTemplate($this->model, $id);
     }
+
+    public function like(Request $request)
+    {
+
+        // A function that takes a room_id and a user_id and creates a new Like with those attributes
+
+        $request->validate([
+
+            'news_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+
+        ]);
+
+        if (LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first()) {
+
+            return generateResponse(200, "Already Liked", true);
+        } else {
+
+            $like = LikesNews::create([
+
+                'news_id' => $request->news_id,
+                'user_id' => $request->user_id
+
+            ]);
+        }
+
+        return generateResponse(201, new LikesNewsResource($like), true);
+    }
+
+    public function unlike(Request $request)
+    {
+
+        // A function that does the opposite of the like function
+
+        $request->validate([
+
+            'news_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+
+        ]);
+
+        $like = LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first();
+        if ($like) {
+
+
+            $like->delete();
+
+
+            return generateResponse(201, new LikesNewsResource($like), true);
+        } else {
+
+
+            return generateResponse(200, "Not Liked", true);
+        }
+    }
+
+    public function isLiked(Request $request)
+    {
+
+        // A function that takes a room_id and a user_id and creates a new Like with those attributes
+
+        $request->validate([
+
+            'news_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+
+        ]);
+
+        if (LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first()) {
+
+            return generateResponse(200, true, true);
+        } else {
+
+            
+            return generateResponse(201, false, true);
+
+        }
+    }
 }

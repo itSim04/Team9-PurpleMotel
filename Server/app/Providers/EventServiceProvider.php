@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Events\LikesNewsCreated;
 use App\Events\LikesNewsDeleted;
+use App\Events\ReviewCreated;
 use App\Listeners\LikesTrigger;
+use App\Listeners\ReviewTrigger;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -26,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         LikesNewsDeleted::class => [
             LikesTrigger::class
+        ],
+        ReviewCreated::class => [
+            ReviewTrigger::class
         ]
 
     ];

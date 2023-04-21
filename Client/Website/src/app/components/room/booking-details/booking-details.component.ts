@@ -17,8 +17,9 @@ export class BookingDetailsComponent {
   @Input() room_type?: RoomType;
 
   @Input() @Required booking_id!: string;
-  
+
   @Output() delete = new EventEmitter<string>();
+  @Output() review = new EventEmitter<string>();
   path = '../../../../assets/room-' + (Math.floor(Math.random() * 6) + 1) + '.png';
 
   formatPrice(price: number | undefined) {
@@ -31,6 +32,17 @@ export class BookingDetailsComponent {
 
     return formatOccupancy([size1, size2, size3]);
 
+  }
+
+  formatTotalPrice(price: number | undefined) {
+
+    const oneDayMs = 1000 * 60 * 60 * 24; // Number of milliseconds in a day
+    const totalDays = Math.round((new Date(this.end_date).getTime() - new Date(this.check_in).getTime()) / oneDayMs); // Round to the nearest whole day
+    if (price) {
+      const totalPrice = price * totalDays;
+      return formatPrice(totalPrice);
+    }
+    return '';
   }
 
   get past() {

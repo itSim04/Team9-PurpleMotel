@@ -1,3 +1,4 @@
+import { Review } from './../../models/Room';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
@@ -14,6 +15,7 @@ import { RoomType } from 'src/app/models/RoomType';
 import { Stock } from 'src/app/models/Stock';
 import { ProfilePackage, ProfileResponse } from 'src/app/models/User';
 import { UrlBuilderService } from './url-builder.service';
+import { extractUserId } from 'src/app/components/database/database.component';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +27,11 @@ export class ProfileService {
   bookings = new Map<string, Booking>();
 
 
-  constructor(private http: HttpClient, private url: UrlBuilderService) { }
+  constructor (private http: HttpClient, private url: UrlBuilderService) { }
 
   getAllData(): Observable<ProfilePackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -37,6 +39,7 @@ export class ProfileService {
 
         map((response: ProfileResponse): ProfilePackage => {
 
+          console.log(response);
           if (response.data) {
 
             const user_orders = new Map<string, Order>();
@@ -47,6 +50,7 @@ export class ProfileService {
             const user_stocks = new Map<string, Stock>();
             const user_activities = new Map<string, Activity>();
             const user_registrations = new Map<string, Registration>();
+            const user_reviews = new Map<string, Review>();
             response.data.forEach(value => {
 
 
@@ -66,7 +70,7 @@ export class ProfileService {
 
                 case 'Rooms':
 
-                  user_rooms.set(value.id, { ...(value.attributes as RoomAttributes), type: value.relationships.room_type.data.id.toString() });
+                  user_rooms.set(value.id, { ...(value.attributes as RoomAttributes), type: value.relationships.room_type.data.id.toString(), reviews: [], is_reviewed: false });
 
                   break;
 
@@ -125,9 +129,18 @@ export class ProfileService {
 
                 case 'Registration':
 
-                  user_registrations.set(value.id, { ...(value.attributes as RegistrationAttributes), activity_id: value.relationships.activity.data.id, user_id: value.relationships.user.data.id })
+                  user_registrations.set(value.id, { ...(value.attributes as RegistrationAttributes), activity_id: value.relationships.activity.data.id, user_id: value.relationships.user.data.id });
                   break;
 
+                case 'Review':
+
+                  const room = user_rooms.get((value.attributes as Review).room_id);
+                  if (room) {
+
+                    if ((value.attributes as Review).user_id == extractUserId()) room.is_reviewed = true;
+                    room.reviews.push(value.attributes as Review);
+
+                  }
 
 
 
@@ -148,7 +161,8 @@ export class ProfileService {
               foods: user_foods,
               stocks: user_stocks,
               activities: user_activities,
-              registrations: user_registrations
+              registrations: user_registrations,
+              reviews: user_reviews
 
 
 
@@ -166,7 +180,7 @@ export class ProfileService {
     }
 
   }
-  
+
 
 
 }

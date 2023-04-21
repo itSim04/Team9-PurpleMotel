@@ -1,3 +1,4 @@
+import { StarRatingModule } from 'angular-star-rating';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
@@ -27,6 +28,7 @@ import { RoomOverviewComponent } from "./overview/room-overview.component";
     QuickAvailabilityModule,
     PaginatorModule,
     RoomItemModule,
+    StarRatingModule,
     RoomDetailsModule,
     InfiniteScrollModule
   ],

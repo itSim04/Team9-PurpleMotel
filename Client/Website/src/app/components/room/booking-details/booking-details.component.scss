@@ -55,7 +55,7 @@
 .properties-info {
     @extend .properties;
     font-family: 'Montserrat';
-    margin-bottom: 64px;
+    margin-bottom: 32px;
     font-weight: 400;
     color: white;
 
@@ -74,14 +74,14 @@
     font-weight: 700;
     font-size: 20px;
     font-family: 'Montserrat';
-    margin-top: 100px;
+    // margin-top: 100px;
 }
 
 .properties-price {
     @extend .properties;
     color: white;
     font-weight: 600;
-    font-size: 40px;
+    font-size: 30px;
     font-family: 'Robotto';
     margin-top: 0px;
 
@@ -93,5 +93,17 @@
     height: 50px;
     margin-left: 25px;
     font-size: 15px;
+    display: inline;
+    text-transform: uppercase;
+}
+
+.review-button {
+    width: 50px;
+    background-color: #14274A;
+    height: 50px;
+    margin-left: 25px;
+    font-size: 15px;
+    display: inline;
+    border: 0px;
     text-transform: uppercase;
 }

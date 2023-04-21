@@ -13,11 +13,13 @@ use App\Http\Resources\BookingResource;
 use App\Http\Resources\EffectPromoCodesResource;
 use App\Http\Resources\LikesNewsResource;
 use App\Http\Resources\PromoCodeResource;
+use App\Http\Resources\ReviewResource;
 use App\Http\Resources\RoomTypeResource;
 use App\Models\AppliedPromoCodes;
 use App\Models\Booking;
 use App\Models\EffectPromoCodes;
 use App\Models\PromoCode;
+use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
@@ -28,7 +30,7 @@ class RoomController extends Controller
         'number' => 'required|numeric|between:0,1000',
         'type' => 'required|numeric|integer|between:1,1000',
         'open' => 'boolean',
-        'rating' => 'numeric|integer:between:0,50',
+        'rating' => 'numeric|decimal:0,2|between:0,5',
         'label' => 'required|string',
         'description' => 'string'
 
@@ -60,6 +62,8 @@ class RoomController extends Controller
         }
 
         $included = RoomTypeResource::collection(RoomType::all()->whereIn('id', $types));
+
+        $review = ReviewResource::collection(Review::all()->whereIn('room_id', $ids));
 
         $user = Auth::user();
 
@@ -120,11 +124,15 @@ class RoomController extends Controller
             $included = array_values($included
                 ->concat($promo_code)
                 ->concat(EffectPromoCodesResource::collection($actual_effect))
+                ->concat($review)
+                ->all());
+        } else {
+
+            $included = array_values($included
+                ->concat($review)
                 ->all());
         }
 
-
-        $included = array_values($included->all());
 
         return generateResponse(200, RoomResource::collection($room), $included);
     }
@@ -146,12 +154,12 @@ class RoomController extends Controller
 
         $room = Room::find($id);
 
-
+        $included = ReviewResource::collection(Review::all()->where('room_id', $id));
 
         if ($room) {
 
             $user = Auth::user();
-            $included = [new RoomTypeResource(RoomType::all()->where('id', $room->type)->first())];
+            $included[] = new RoomTypeResource(RoomType::all()->where('id', $room->type)->first());
 
             if ($user) {
 
@@ -268,81 +276,39 @@ class RoomController extends Controller
         return BookingResource::collection(Booking::all()->where('room_id', $request->room_id));
     }
 
-    public function like(Request $request)
+    public function postReview(Request $request)
     {
 
-        // A function that takes a room_id and a user_id and creates a new Like with those attributes
+        // This function posts a Review to the database
 
         $request->validate([
 
-            'news_id' => 'required|numeric',
-            'user_id' => 'required|numeric'
-
+            'room_id' => 'required|numeric',
+            'stars' => 'required|numeric|between:0,5',
+            'user_id' => 'required|numeric',
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'date' => 'required|date'
         ]);
 
-        if (LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first()) {
 
-            return generateResponse(200, "Already Liked", true);
+        $review = Review::all()->where('room_id', $request->room_id)->where('user_id', $request->user_id)->first();
+
+        if ($review) {
+
+            return generateResponse(400, "You have already posted a review for this room", true);
         } else {
 
-            $like = LikesNews::create([
-
-                'news_id' => $request->news_id,
-                'user_id' => $request->user_id
-
+            $review = Review::create([
+                'room_id' => $request->room_id,
+                'stars' => $request->stars,
+                'user_id' => $request->user_id,
+                'title' => $request->title,
+                'content' => $request->content,
+                'date' => $request->date
             ]);
-        }
 
-        return generateResponse(201, new LikesNewsResource($like), true);
-    }
-
-    public function unlike(Request $request)
-    {
-
-        // A function that does the opposite of the like function
-
-        $request->validate([
-
-            'news_id' => 'required|numeric',
-            'user_id' => 'required|numeric'
-
-        ]);
-
-        $like = LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first();
-        if ($like) {
-
-
-            $like->delete();
-
-
-            return generateResponse(201, new LikesNewsResource($like), true);
-        } else {
-
-
-            return generateResponse(200, "Not Liked", true);
-        }
-    }
-
-    public function isLiked(Request $request)
-    {
-
-        // A function that takes a room_id and a user_id and creates a new Like with those attributes
-
-        $request->validate([
-
-            'news_id' => 'required|numeric',
-            'user_id' => 'required|numeric'
-
-        ]);
-
-        if (LikesNews::all()->where('news_id', $request->news_id)->where('user_id', $request->user_id)->first()) {
-
-            return generateResponse(200, true, true);
-        } else {
-
-            
-            return generateResponse(201, false, true);
-
+            return generateResponse(200, $review, true);
         }
     }
 }

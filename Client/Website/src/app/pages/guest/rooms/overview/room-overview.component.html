@@ -1,6 +1,41 @@
 <div class="main">
     <app-nav-bar></app-nav-bar>
-    <app-room-details [overview]="false" [room]="room" [room_type]="room_type" style="margin-bottom: 64px;"></app-room-details>
-    <app-footer></app-footer>
+    <app-room-details [overview]="false" [room]="room" [room_type]="room_type"
+        style="margin-bottom: 64px;"></app-room-details>
 
+    <mat-divider
+        style="margin-left: 3%; margin-right: 3%; background-color: #14274A; border-color: lightgray;"></mat-divider>
+    <br>
+
+    <div style="background-color: #14274A;">
+
+        <p class="testimonial-title">Testimonials</p>
+        <mat-divider
+            style="margin-left: 30%; margin-right: 30%; background-color: #14274A; border-color: lightgray;"></mat-divider>
+
+        <ng-container *ngIf="room && room.value && room.value.reviews">
+
+            <ng-container *ngFor="let review of room?.value?.reviews; let i = index">
+
+                <ng-container *ngIf="i == current_page">
+
+
+                    <p class="testimonial-content">"{{review.title}}"</p>
+                    <!-- <p class="testimonial-author">"{{review.user_id}}"</p> -->
+                    <star-rating [staticColor]="'positive'" [readOnly]="true" [rating]="review.stars"></star-rating>
+                    <div class="quantity-container">
+
+                        <button [style.visibility]="current_page ? 'visible' : 'hidden'"
+                        (click)="prev()" class="quantity-btn">&lt;</button>
+                        <button
+                        [style.visibility]="current_page !== (room.value.reviews.length - 1) ? 'visible' : 'hidden'"
+                        (click)="next()" class="quantity-btn">&gt;</button>
+                    </div>
+                </ng-container>
+
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <app-footer alt_color="#14274A"></app-footer>
 </div>

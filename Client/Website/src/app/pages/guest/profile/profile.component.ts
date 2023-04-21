@@ -1,3 +1,5 @@
+import { ReviewDialogService } from './../../../services/utility/review.service';
+import { RoomDatabaseService } from 'src/app/services/providers/room-database.service';
 import { Food } from './../../../models/Food';
 import { OrderOverviewDialogService } from './../../../services/utility/order-overview.service';
 import { RegistrationDatabaseService } from './../../../services/providers/registration-database.service';
@@ -20,6 +22,7 @@ import { Router } from '@angular/router';
 import { BrowsingDialogService } from 'src/app/services/utility/browsing.service';
 import { ProfileService } from 'src/app/services/utility/profile.service';
 import { PromoDialogService } from 'src/app/services/utility/promo.service';
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -66,7 +69,7 @@ export class ProfileComponent implements OnInit {
     return '../../../../assets/food-' + ((index % 8) + 1) + '.jpg';
 
   }
-  constructor (private browsing_service: BrowsingDialogService, private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService) {
+  constructor (private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService, private review_service: ReviewDialogService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService) {
 
     const user = extractUser()!;
 
@@ -83,21 +86,62 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    this.profile_service.getAllData().subscribe(data => {
-      this.bookings = data.bookings;
-      this.orders = data.orders;
-      this.rooms = data.rooms;
-      this.room_types = data.room_types;
-      this.activities = data.activities;
-      this.registrations = data.registrations;
-      this.foods = data.foods;
-      console.log(data);
+    this.profile_service.getAllData().subscribe({
+
+      next: data => {
+        this.bookings = data.bookings;
+        this.orders = data.orders;
+        this.rooms = data.rooms;
+        this.room_types = data.room_types;
+        this.activities = data.activities;
+        this.registrations = data.registrations;
+        this.foods = data.foods;
+
+        console.log(this.rooms);
+      },
+      error: error => {
+
+        if (error.status) {
+
+
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('id');
+          localStorage.removeItem('token_time');
+          this.router.navigate(['/home']);
+          this.authentication.openDialog('login');
+
+        }
+
+      }
+
     });
 
 
 
   }
 
+  reviewRoom(room_id: string) {
+
+    console.log(room_id);
+
+    const dialog = this.review_service.openDialog(room_id);
+
+    dialog.afterClosed().subscribe(result => {
+
+      if (result) {
+
+        this.room_service.addReview(result).subscribe(() => {
+
+          this.snackBar.open('Review added', 'Dismiss', { duration: 2000 });
+
+        });
+
+      }
+
+    });
+
+  }
   openOrder(order: Order) {
 
     this.order.openDialog({
@@ -117,10 +161,15 @@ export class ProfileComponent implements OnInit {
 
 
       if (result) {
-        this.registration_service.deleteRegistration($event).subscribe(() => {
+        this.booking_service.deleteBooking($event).subscribe(() => {
 
           this.snackBar.open('Booking deleted', 'Dismiss', { duration: 2000 });
           this.bookings.delete($event);
+          if (this.carousel.currentSlide >= this.bookings.size) {
+
+            this.carousel.currentSlide = this.bookings.size - 1;
+            this.carousel.initiateCarousel();
+          }
         });
       }
     });

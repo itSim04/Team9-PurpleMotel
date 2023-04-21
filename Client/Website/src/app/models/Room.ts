@@ -3,8 +3,21 @@ import { PromoCode } from 'src/app/models/PromoCode';
 import { KeyValue } from '@angular/common';
 import { RoomType } from "./RoomType";
 
+export interface Review {
+
+  room_id: string,
+  user_id: string,
+  stars: number,
+  date: string,
+  title: string,
+  content: string;
+
+}
+
 export interface Room extends RoomAttributes {
   type: string, //A room can be many types; Single, Double, King...
+  reviews: Review[];
+  is_reviewed: boolean;
 
 }
 
@@ -52,8 +65,8 @@ export interface RoomResponse {
   included?: {
 
     id: string;
-    type: string;
-    attributes: RoomType;
+    type: 'RoomTypes' | 'Review';
+    attributes: RoomType | Review;
 
   }[];
 }
@@ -81,8 +94,8 @@ export interface RoomsResponse {
   included?: {
 
     id: string;
-    type: 'PromoCodes' | 'RoomTypes' | 'EffectPromoCodes';
-    attributes: RoomType | PromoCodeAttributes | EffectPromoCodes;
+    type: 'PromoCodes' | 'RoomTypes' | 'EffectPromoCodes' | 'Review';
+    attributes: RoomType | PromoCodeAttributes | EffectPromoCodes | Review;
 
   }[];
 }

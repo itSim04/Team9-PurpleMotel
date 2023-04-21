@@ -35,7 +35,7 @@
             <ng-container *ngFor="let booking of bookings | keyvalue: keyDescOrder; let i = index">
                 <ng-container *carouselItem>
 
-                    <app-booking-details [booking_id]="booking.key" (delete)="deleteBooking($event)"
+                    <app-booking-details [booking_id]="booking.key" (review)="reviewRoom(booking.value.room_id)" (delete)="deleteBooking($event)"
                         style="width: 100%" [@fadeOut] [room]="rooms.get(booking.value.room_id)"
                         [room_type]="room_types.get(rooms.get(booking.value.room_id)?.type || '0')"
                         [check_in]="booking.value.check_in" [end_date]="booking.value.end_date"

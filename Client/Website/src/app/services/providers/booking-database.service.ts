@@ -49,7 +49,7 @@ export class BookingDatabaseService {
 
                 case 'Rooms':
 
-                  rooms.set(value.id, { ...value.attributes as RoomAttributes, type: value.relationships.room_type.data.id });
+                  rooms.set(value.id, { ...value.attributes as RoomAttributes, type: value.relationships.room_type.data.id, reviews: [], is_reviewed: false });
 
                   break;
 
@@ -106,7 +106,7 @@ export class BookingDatabaseService {
   }
   getAllRoomsBookings(room_id: string): Observable<RawBookingsPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -143,7 +143,7 @@ export class BookingDatabaseService {
 
   filterBookings(check_in: string, check_out: string, adults_capacity: number, kids_capacity: number): Observable<RawRoomsPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -156,7 +156,7 @@ export class BookingDatabaseService {
 
           response.data.forEach(room => {
 
-            rooms.set(room.id, { ...room.attributes, type: room.relationships.room_type.data.id});
+            rooms.set(room.id, { ...room.attributes, type: room.relationships.room_type.data.id, reviews: [], is_reviewed: false });
 
           });
 
@@ -179,7 +179,7 @@ export class BookingDatabaseService {
   }
   getOneBooking(id: string): Observable<BookingPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -211,7 +211,7 @@ export class BookingDatabaseService {
 
   addNewBooking(booking: Booking) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
       console.log(booking);
@@ -235,7 +235,7 @@ export class BookingDatabaseService {
 
   modifyBooking(booking_id: string, booking: Booking) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -251,7 +251,7 @@ export class BookingDatabaseService {
 
   deleteBooking(key: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 

@@ -72,9 +72,22 @@ Route::prefix('v1')->group(function () {
 
     Route::post('filter', [RoomController::class, 'filter']);;
     Route::get('room_bookings', [RoomController::class, 'roomBookings']);
-    Route::get('like', [RoomController::class, 'like']);
-    Route::get('unlike', [RoomController::class, 'unlike']);
-    Route::get('isLiked', [RoomController::class, 'isLiked']);
+
+    Route::controller(NewsController::class)->group(function () {
+
+        Route::get('like', 'like');
+        Route::get('unlike',  'unlike');
+        Route::get('isLiked', 'isLiked');
+        
+    });
+
+    Route::controller(RoomController::class)->group(function () {
+
+        Route::post('postReview', 'postReview');
+
+    });
+
+
     Route::get('full-promocodes', [PromoCodeController::class, 'full_index']);
     Route::get('applyPromo/{id}', [PromoCodeController::class, 'applyPromo']);
     Route::get('appliedCodes/{id}', [PromoCodeController::class, 'isAlreadyApplied']);

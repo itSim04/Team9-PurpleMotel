@@ -161,13 +161,17 @@ export function formatPrice(price: number | undefined, reversed = false, visible
 
   if (price) {
 
-    const numStr = price.toString();
+    const temp = Math.ceil(price).toLocaleString();
 
-    // split the number string into groups of three digits from right to left
-    const numArr = numStr.split('').reverse().join('').match(/(\d{1,3})/g);
+    // var str = price.toString().split('.');
+    // if (str[0].length >= 5) {
+    //   str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+    // }
+    // if (str[1] && str[1].length >= 5) {
+    //   str[1] = str[1].replace(/(\d{3})/g, '$1 ');
+    // }
 
-    // join the groups with commas and return the result from right to left
-    const temp = numArr?.join(',')?.split('').reverse().join('') || numStr;
+    // const temp = str.join('.');
 
     if (visible) {
 

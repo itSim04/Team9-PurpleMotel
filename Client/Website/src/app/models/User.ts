@@ -1,7 +1,7 @@
 import { KeyValue } from '@angular/common';
 import { Food, FoodAttributes } from './Food';
 import { Order, OrderAttributes } from './Order';
-import { Room, RoomAttributes } from './Room';
+import { Room, RoomAttributes, Review } from './Room';
 import { Booking, BookingAttributes } from './Booking';
 import { RoomType } from './RoomType';
 import { Activity } from './Activity';
@@ -155,8 +155,8 @@ export interface ProfileResponse {
     status: string,
     data: {
         id: string,
-        type: 'Foods' | 'Orders' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient'| 'Registration' | 'Activities',
-        attributes: FoodAttributes | OrderAttributes | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes | Activity | RegistrationAttributes,
+        type: 'Foods' | 'Orders' | 'Review' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient'| 'Registration' | 'Activities',
+        attributes: FoodAttributes | OrderAttributes | Review | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes | Activity | RegistrationAttributes,
         relationships: {
             food_category: {
                 data: {
@@ -223,5 +223,6 @@ export interface ProfilePackage {
     foods: Map<string, Food>;
     activities: Map<string, Activity>;
     registrations: Map<string, Registration>;
+    reviews: Map<string, Review>;
 
 }

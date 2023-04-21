@@ -1,3 +1,4 @@
+import { ReviewDialogModule } from './../../../services/dialogs/review/review.module';
 import { OrderOverviewDialogModule } from './../../../services/dialogs/order-overview/order-overview.module';
 import { PromoDialogModule } from './../../../services/dialogs/promo/promo.module';
 import { NgModule } from '@angular/core';
@@ -29,6 +30,7 @@ import { ProfileComponent } from './profile.component';
     ActivityDetailsModule,
     CarouselModule,
     PromoDialogModule,
+    ReviewDialogModule,
     OrderOverviewDialogModule
    
   ]
