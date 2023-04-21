@@ -1,3 +1,4 @@
+import { ReviewDialogModule } from './../../../services/dialogs/review/review.module';
 import { StarRatingModule } from 'angular-star-rating';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommonModule } from "@angular/common";
@@ -30,6 +31,7 @@ import { RoomOverviewComponent } from "./overview/room-overview.component";
     RoomItemModule,
     StarRatingModule,
     RoomDetailsModule,
+    ReviewDialogModule,
     InfiniteScrollModule
   ],
   exports: [

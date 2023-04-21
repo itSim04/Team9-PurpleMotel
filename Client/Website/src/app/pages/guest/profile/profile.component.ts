@@ -17,7 +17,6 @@ import { BookingDatabaseService } from "src/app/services/providers/booking-datab
 import { RegistrationDatabaseService } from "src/app/services/providers/registration-database.service";
 import { RoomDatabaseService } from "src/app/services/providers/room-database.service";
 import { AuthenticationDialogService } from "src/app/services/utility/authentication.service";
-import { BrowsingDialogService } from "src/app/services/utility/browsing.service";
 import { ConfirmationDialogService } from "src/app/services/utility/confirmation.service";
 import { OrderOverviewDialogService } from "src/app/services/utility/order-overview.service";
 import { ProfileService } from "src/app/services/utility/profile.service";
@@ -62,13 +61,14 @@ export class ProfileComponent implements OnInit {
   };
 
   @ViewChild('carousel') carousel !: CarouselComponent;
+  // food from 1 to 8
 
   image(index: number) {
 
     return '../../../../assets/food-' + ((index % 8) + 1) + '.jpg';
-
   }
-  constructor (private browsing_service: BrowsingDialogService, private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService, private review_service: ReviewDialogService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService) {
+
+  constructor (private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService, private review_service: ReviewDialogService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService) {
 
     const user = extractUser()!;
 
@@ -80,11 +80,22 @@ export class ProfileComponent implements OnInit {
 
 
   }
+  edit_profile() {
+
+    this.profile_service.openDialog("edit_profile");
+
+  }
+
+  change_password() {
+
+    this.profile_service.openDialog("change_password");
+
+  }
 
 
-  
 
-  async ngOnInit() {
+
+  ngOnInit() {
 
     this.profile_service.getAllData().subscribe({
 

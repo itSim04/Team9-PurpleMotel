@@ -11,16 +11,16 @@
                 <!-- First Name -->
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'first_name'|translate}}</mat-label>
-                    <input [(ngModel)]="first_name" matInput>
-                    
+                    <input [(ngModel)]="user.first_name" matInput>
+
                 </mat-form-field>
             </td>
             <td>
                 <!-- Last Name -->
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'last_name'|translate}}</mat-label>
-                    <input [(ngModel)]="last_name" matInput>
-        
+                    <input [(ngModel)]="user.last_name" matInput>
+
                 </mat-form-field>
             </td>
         </tr>
@@ -29,7 +29,7 @@
                 <!-- Email -->
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'email'|translate}}</mat-label>
-                    <input [(ngModel)]="email" matInput>
+                    <input [(ngModel)]="user.email" matInput>
                     <div class="number-error" *ngIf="!validated_email">
                         {{'invalid_email'|translate}} </div>
                 </mat-form-field>
@@ -38,11 +38,12 @@
                 <!-- Date of Birth -->
                 <mat-form-field class="full-width input" appearance="fill">
                     <mat-label class="label">Choose a date</mat-label>
-                    <input [(ngModel)]="date_of_birth" matInput [matDatepicker]="picker" readonly>
+                    <input (ngModelChange)="user.date_of_birth = parseDate($event)"
+                        [ngModel]="user.date_of_birth" matInput [matDatepicker]="picker" readonly>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                
+
             </td>
         </tr>
         <tr>
@@ -50,34 +51,36 @@
                 <!-- Phone Number -->
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'phone_number'|translate}}</mat-label>
-                    <input [(ngModel)]="phone_number" matInput>
+                    <input [(ngModel)]="user.phone" matInput>
 
                 </mat-form-field>
             </td>
             <td>
                 <!-- Gender -->
                 <mat-form-field class="full-width input">
-                    <mat-label class="label">{{'gender'|translate}}</mat-label>          
-                        <mat-select>
-                          <mat-option *ngFor="let gender of genders;let i = index" [value]="i">
-                            {{gender|translate}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                    <mat-label class="label">{{'gender'|translate}}</mat-label>
+                    <mat-select [(ngModel)]="user.gender">
+                        <mat-option *ngFor="let gender of genders; let i = index" [value]="i">
+                            {{gender |translate}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </td>
         </tr>
     </table>
 
-  
+
     <div class="number-error-2" *ngIf="connection_error">
-        {{'connection_error'|translate}} 
+        {{'connection_error'|translate}}
+    </div>
+    <div class="number-error-2" *ngIf="taken_information">
+        {{'used_credentials'|translate}}
     </div>
 
 </div>
 <div mat-dialog-actions>
-    <button style="width: 30%;" class="back-btn" (click)="confirm_changes(email, first_name, last_name, date_of_birth.toString(), phone_number, gender)"
-        [disabled]="!email || !first_name || !last_name || !date_of_birth || !phone_number || !gender"
-        [style.background]="(!email || !first_name || !last_name || !date_of_birth || !phone_number || !gender) ? 'gray' : '#14274A'"
+    <button style="width: 30%;" class="back-btn" (click)="confirmChanges(user)"
+        [disabled]="identical || !user.email || !user.first_name || !user.last_name || !user.date_of_birth || !user.phone || !user.gender"
         mat-button color="primary">
         {{'confirm changes'|translate}}
     </button>

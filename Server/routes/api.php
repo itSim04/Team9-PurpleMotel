@@ -50,6 +50,7 @@ Route::prefix('v1')->group(function () {
         Route::get('send-verify-email', 'sendVerifyEmail');
         Route::get('forgot-password-2', 'forgotPassword2');
         Route::get('verify-email', 'verifyEmail');
+        Route::post('reset-password', 'resetPassword');
     });
 
     Route::apiResource('announcements', AnnouncementsController::class);
@@ -135,7 +136,7 @@ Route::prefix('v1')->group(function () {
             Route::get('', 'index')->middleware('can:viewAny,App\User');
             Route::post('', 'store')->middleware('can:update,App\User');
             Route::get('/{user}', 'show')->middleware('can:view,App\User,user');
-            Route::put('/{user}', 'update')->middleware('can:update,App\User');
+            Route::put('/{user}', 'update')->middleware('can:update,App\User,user');
             Route::delete('/{user}', 'destroy')->middleware('can:delete,App\User');
         });
 

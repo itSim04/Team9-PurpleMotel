@@ -1,3 +1,10 @@
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { PromoDialogModule } from './../../../services/dialogs/promo/promo.module';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ActivityDetailsModule } from "src/app/components/activities/activity-details/activity-details.module";
@@ -29,7 +36,15 @@ import { ProfileComponent } from "./profile.component";
     LanguageModule,
     BookingDetailsModule,
     ActivityDetailsModule,
-    CarouselModule
+    CarouselModule,
+    PromoDialogModule,
+    MatProgressBarModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    MatDatepickerModule
+    
    
   ],
   exports: [

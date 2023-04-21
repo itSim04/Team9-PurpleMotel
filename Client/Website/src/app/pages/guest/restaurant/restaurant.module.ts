@@ -1,3 +1,4 @@
+import { OrderOverviewDialogModule } from './../../../services/dialogs/order-overview/order-overview.module';
 import { FoodListPopupModule } from './../../../components/food/food-list-popup/food-list-popup.module';
 import { CartDialogModule } from './../../../services/dialogs/cart/cart.module';
 import { ChefListDialogModule } from './../../../services/dialogs/chef-list/chef-list.module';
@@ -27,7 +28,8 @@ import { MenuComponent } from './menu/menu.component';
     FoodListItemModule,
     FoodListPopupModule,
     ChefListDialogModule,
-    CartDialogModule
+    CartDialogModule,
+    OrderOverviewDialogModule
   ],
   exports: [
     MenuComponent,

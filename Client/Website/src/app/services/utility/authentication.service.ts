@@ -1,3 +1,4 @@
+import { UrlBuilderService } from './url-builder.service';
 import { ForgotPasswordComponent } from './../dialogs/authentication/forgot-password/forgot-password.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +17,7 @@ import { VerifyComponent } from '../dialogs/authentication/verify/verify.compone
 })
 export class AuthenticationDialogService {
 
-  constructor (public dialog: MatDialog, private request: HttpClient) { }
+  constructor (public dialog: MatDialog, private http: HttpClient, private url: UrlBuilderService) { }
 
   openDialog(type: 'login' | 'register' | 'verify' | 'forgot-password') {
 
@@ -49,10 +50,25 @@ export class AuthenticationDialogService {
     return this.dialog.open(component, {});
   }
 
+  resetPassword(old_password: string, new_password: string, confirm_password: string) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.post(this.url.generateUrl(`auth/reset-password`), { old_password: old_password, new_password: new_password, new_password_confirmation: confirm_password }, { headers: headers });
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+  }
+
   login(user: UserCredentials) {
 
 
-    return this.request.post<UserResponse>("http://127.0.0.1:8000/api/v1/auth/login", user).pipe(
+    return this.http.post<UserResponse>("http://127.0.0.1:8000/api/v1/auth/login", user).pipe(
 
       map(result => {
 
@@ -75,7 +91,7 @@ export class AuthenticationDialogService {
   register(user: UserInformation) {
 
 
-    return this.request.post<UserResponse>("http://127.0.0.1:8000/api/v1/auth/register", user).pipe(
+    return this.http.post<UserResponse>("http://127.0.0.1:8000/api/v1/auth/register", user).pipe(
 
       map(result => {
 
@@ -99,7 +115,7 @@ export class AuthenticationDialogService {
 
     try {
 
-      return this.request.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-1?email=${email}`);
+      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-1?email=${email}`);
 
     } catch (e: unknown) {
 
@@ -112,7 +128,7 @@ export class AuthenticationDialogService {
 
     try {
 
-      return this.request.get<any>(`http://127.0.0.1:8000/api/v1/auth/send-verify-email?email=${email}`);
+      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/send-verify-email?email=${email}`);
 
     } catch (e: unknown) {
 
@@ -126,7 +142,7 @@ export class AuthenticationDialogService {
 
     try {
 
-      return this.request.get<any>(`http://127.0.0.1:8000/api/v1/auth/verify-email?token=${token}`);
+      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/verify-email?token=${token}`);
 
     } catch (e: unknown) {
 
@@ -135,11 +151,11 @@ export class AuthenticationDialogService {
     }
 
   }
-  resetPassword(token: string, password: string, confirm_password: string) {
+  forgotPassword(token: string, password: string, confirm_password: string) {
 
     try {
 
-      return this.request.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-2?password_confirmation=${confirm_password}&password=${password}&token=${token}`);
+      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-2?password_confirmation=${confirm_password}&password=${password}&token=${token}`);
 
     } catch (e: unknown) {
 

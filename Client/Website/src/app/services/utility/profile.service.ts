@@ -1,18 +1,23 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
-import { Activity } from 'src/app/models/Activity';
-import { Booking, BookingAttributes } from 'src/app/models/Booking';
-import { Food, FoodAttributes } from 'src/app/models/Food';
-import { Order, OrderAttributes } from 'src/app/models/Order';
-import { OrderContains, OrderContainsAttributes } from 'src/app/models/OrderContains';
-import { Registration, RegistrationAttributes } from 'src/app/models/Registration';
-import { Room, RoomAttributes } from 'src/app/models/Room';
-import { RoomType } from 'src/app/models/RoomType';
-import { Stock } from 'src/app/models/Stock';
-import { ProfilePackage, ProfileResponse } from 'src/app/models/User';
-import { UrlBuilderService } from './url-builder.service';
+import { ComponentType } from "@angular/cdk/portal";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { Observable, map, catchError, throwError } from "rxjs";
+import { extractUserId } from "src/app/components/database/database.component";
+import { Activity } from "src/app/models/Activity";
+import { Booking, BookingAttributes } from "src/app/models/Booking";
+import { Food, FoodAttributes } from "src/app/models/Food";
+import { Order, OrderAttributes } from "src/app/models/Order";
+import { OrderContainsAttributes } from "src/app/models/OrderContains";
+import { Registration, RegistrationAttributes } from "src/app/models/Registration";
+import { Room, Review, RoomAttributes } from "src/app/models/Room";
+import { RoomType } from "src/app/models/RoomType";
+import { Stock } from "src/app/models/Stock";
+import { ProfilePackage, ProfileResponse } from "src/app/models/User";
+import { ChangePasswordComponent } from "src/app/pages/guest/profile/change-password/change-password.component";
+import { EditProfileComponent } from "src/app/pages/guest/profile/edit-profile/edit-profile.component";
+import { UserDatabaseService } from "../providers/user-database.service";
+import { UrlBuilderService } from "./url-builder.service";
 
 @Injectable({
   providedIn: 'root'
@@ -22,14 +27,13 @@ export class ProfileService {
   orders = new Map<string, Order>();
   activities = new Map<string, Activity>();
   bookings = new Map<string, Booking>();
-  
 
-  constructor(private http: HttpClient, private url: UrlBuilderService) { }
+
+  constructor (private url: UrlBuilderService, public dialog: MatDialog, private http: HttpClient, private userDatabaseService: UserDatabaseService) { }
 
   getAllData(): Observable<ProfilePackage> {
 
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -37,6 +41,7 @@ export class ProfileService {
 
         map((response: ProfileResponse): ProfilePackage => {
 
+          console.log(response);
           if (response.data) {
 
             const user_orders = new Map<string, Order>();
@@ -47,7 +52,7 @@ export class ProfileService {
             const user_stocks = new Map<string, Stock>();
             const user_activities = new Map<string, Activity>();
             const user_registrations = new Map<string, Registration>();
-
+            const user_reviews = new Map<string, Review>();
             response.data.forEach(value => {
 
 
@@ -67,7 +72,7 @@ export class ProfileService {
 
                 case 'Rooms':
 
-                  user_rooms.set(value.id, { ...(value.attributes as RoomAttributes), type: value.relationships.room_type.data.id.toString() });
+                  user_rooms.set(value.id, { ...(value.attributes as RoomAttributes), type: value.relationships.room_type.data.id.toString(), reviews: [], is_reviewed: false });
 
                   break;
 
@@ -126,9 +131,18 @@ export class ProfileService {
 
                 case 'Registration':
 
-                  user_registrations.set(value.id, { ...(value.attributes as RegistrationAttributes), activity_id: value.relationships.activity.data.id, user_id: value.relationships.user.data.id })
+                  user_registrations.set(value.id, { ...(value.attributes as RegistrationAttributes), activity_id: value.relationships.activity.data.id, user_id: value.relationships.user.data.id });
                   break;
 
+                case 'Review':
+
+                  const room = user_rooms.get((value.attributes as Review).room_id);
+                  if (room) {
+
+                    if ((value.attributes as Review).user_id == extractUserId()) room.is_reviewed = true;
+                    room.reviews.push(value.attributes as Review);
+
+                  }
 
 
 
@@ -149,7 +163,8 @@ export class ProfileService {
               foods: user_foods,
               stocks: user_stocks,
               activities: user_activities,
-              registrations: user_registrations
+              registrations: user_registrations,
+              reviews: user_reviews
 
 
 
@@ -166,6 +181,63 @@ export class ProfileService {
 
     }
 
-
   }
+
+
+
+
+  openDialog(type: 'edit_profile' | 'change_password') {
+
+    let component: ComponentType<unknown>;
+
+    switch (type) {
+
+      case 'edit_profile':
+
+        component = EditProfileComponent;
+        break;
+
+      case 'change_password':
+
+        component = ChangePasswordComponent;
+        break;
+
+    }
+
+    return this.dialog.open(component, {});
+  }
+
+  resetPassword(email: string): Observable<void> {
+
+    return this.http.post<void>("http://127.0.0.1:8000/api/v1/auth/reset-password", { email }).pipe(
+
+      map(result => {
+
+        // handle successful reset password response (if any)
+
+      }), catchError(error => {
+
+        // handle error response
+
+        return throwError(error);
+
+      })
+
+    );
+  }
+
+
+
+  // resetPassword(email: string, token: string, newPassword: string): Observable<void> {
+  //   const resetRequest = {
+  //     email: email,
+  //     token: token,
+  //     password: newPassword
+  //   };
+
+  //   return this.http.post<void>('http://example.com/api/reset-password', resetRequest);
+  // }
+
+
+
 }

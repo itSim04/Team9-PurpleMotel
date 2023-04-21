@@ -211,4 +211,28 @@ class AuthenticationController extends Controller
 
         return response(['message' => 'email has been successfully verified'], 200);
     }
+
+    public function resetPassword(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        // Retrieve the authenticated user
+        $user = User::find(Auth::user()->id);
+
+        // Validate the old password
+        if (!Hash::check($request->old_password, $user->password)) {
+            return response(['message' => trans('passwords.old_password_incorrect')], 422);
+        }
+
+        // Update the user's password
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return response(['message' => trans('passwords.password_updated')], 200);
+    }
 }

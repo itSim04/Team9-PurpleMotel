@@ -1,3 +1,4 @@
+import { UserChange } from './../../models/User';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, switchMap, throwError } from 'rxjs';
 import { RoomsPackage, RoomsResponse, Room, RoomPackage, RoomResponse } from 'src/app/models/Room';
@@ -19,7 +20,7 @@ export class UserDatabaseService {
 
   getAllUsers(): Observable<UsersPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -70,7 +71,7 @@ export class UserDatabaseService {
 
   }
   getOneUser(id: string): Observable<UserPackage> {
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -101,7 +102,7 @@ export class UserDatabaseService {
 
   addNewUser(user: UserAttributes) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -125,7 +126,7 @@ export class UserDatabaseService {
 
   modifyUser(user_id: string, user: User) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     const permissions: any = {};
     user.permissions.forEach((permission, label) => {
@@ -148,10 +149,28 @@ export class UserDatabaseService {
     }
 
   }
+  editProfile(user_id: string, user: UserChange) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.put<UserResponse>(this.url.generateUrl(`users/${user_id}`), user, { headers: headers }).pipe(map((data) => {
+
+        return data.data.attributes;
+      }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
 
   deleteUser(key: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -165,40 +184,12 @@ export class UserDatabaseService {
 
   }
 
-  
-  resetPassword(old_password: string, new_password: string, user: UserCredentials): Observable<void> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  
-    // Check if old password matches user's current password
-    if (old_password !== user.password) {
-      return throwError('Old password does not match current password');
-    }
-  
-    // Update user's password
-    const updatedUserCredentials = { ...user, password: new_password };
-    localStorage.setItem('userCredentials', JSON.stringify(updatedUserCredentials));
-  
-    // Send PUT request to update user on server
-    const userId = localStorage.getItem('id');
-    const updateUserUrl = this.url.generateUrl(`users/${userId}`);
-    return this.http.put(updateUserUrl, updatedUserCredentials, { headers })
-      .pipe(
-        map(() => undefined),
-        catchError(error => {
-          // Revert local storage changes if the server request fails
-          localStorage.setItem('userCredentials', JSON.stringify(user));
-          return throwError(error);
-        })
-      );
-  }
-  
-  ///////////////////////////////////////////////////////////////////////////////////////////
 
+  
 
   getAllUserTypes(): Observable<UserTypesPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -305,7 +296,7 @@ export class UserDatabaseService {
 
   modifyUserType(user_id: string, user: UserType) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     const permissions: any = {};
     user.permissions.forEach((permission, label) => {

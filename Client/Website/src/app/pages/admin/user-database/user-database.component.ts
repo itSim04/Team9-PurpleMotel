@@ -144,7 +144,7 @@ export class UserDatabaseComponent {
       date_of_birth: '1970-01-01',
       email: '',
       first_name: '',
-      gender: '0',
+      gender: 0,
       language: '0',
       last_name: '',
       phone: '',

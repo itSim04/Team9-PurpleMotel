@@ -15,6 +15,45 @@ import { ConfirmationDialogService } from 'src/app/services/utility/confirmation
 import { WarningDialogService } from 'src/app/services/utility/warning.service';
 
 
+export function areEqual(a: any, b: any) {
+  if (a === b) {
+    return true;
+  }
+
+  if (a instanceof Map && b instanceof Map) {
+    if (a.size !== b.size) {
+      return false;
+    }
+
+    for (const [key, value] of a.entries()) {
+      if (!b.has(key) || !areEqual(value, b.get(key))) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
+    return a === b;
+  }
+
+  const keysA = Object.keys(a);
+  const keysB = Object.keys(b);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  for (const key of keysA) {
+    if (!keysB.includes(key) || !areEqual(a[key], b[key])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export function clone(obj: any) {
 
   if (obj == null || typeof obj !== 'object') {
@@ -426,42 +465,9 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   }
 
   areEqual(a: any, b: any) {
-    if (a === b) {
-      return true;
-    }
 
-    if (a instanceof Map && b instanceof Map) {
-      if (a.size !== b.size) {
-        return false;
-      }
-
-      for (const [key, value] of a.entries()) {
-        if (!b.has(key) || !this.areEqual(value, b.get(key))) {
-          return false;
-        }
-      }
-
-      return true;
-    }
-
-    if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
-      return a === b;
-    }
-
-    const keysA = Object.keys(a);
-    const keysB = Object.keys(b);
-
-    if (keysA.length !== keysB.length) {
-      return false;
-    }
-
-    for (const key of keysA) {
-      if (!keysB.includes(key) || !this.areEqual(a[key], b[key])) {
-        return false;
-      }
-    }
-
-    return true;
+    return areEqual(a, b);
+    
   }
 
   get differenceCheck() {

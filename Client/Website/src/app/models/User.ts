@@ -19,14 +19,19 @@ export interface UserCredentials {
 
 
 }
-export interface UserInformation {
+
+export interface UserChange {
+
     first_name: string,
     last_name: string,
     email: string,
-    password: string,
     gender: number,
     phone: string,
     date_of_birth: string;
+
+}
+export interface UserInformation extends UserChange {
+    password: string,
 }
 export interface UserInjection extends UserInformation {
     tier: string,
@@ -36,7 +41,7 @@ export interface UserAttributes {
     first_name: string,
     last_name: string,
     email: string;
-    gender: string,
+    gender: number,
     phone: string,
     language: string,
     date_of_birth: string,

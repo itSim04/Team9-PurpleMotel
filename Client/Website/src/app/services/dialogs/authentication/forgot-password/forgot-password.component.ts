@@ -76,7 +76,7 @@ export class ForgotPasswordComponent {
     this.connection_error = false;
     this.loading = true;
 
-    this.authentication_service.resetPassword(this.verification, this.password, this.confirm_password).subscribe({
+    this.authentication_service.forgotPassword(this.verification, this.password, this.confirm_password).subscribe({
 
       next: result => {
 

@@ -79,10 +79,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $room_id)
+    public function update(Request $request, string $user_id)
     {
 
-        return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options, $this->model_name, true);
+        return updateTemplate($request, $this->model, $user_id, $this->resource, $this->options, $this->model_name, true);
     }
 
     /**
