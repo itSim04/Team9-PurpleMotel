@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('promo_codes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('code');
             $table->string('change');
             $table->string('start_date');
             $table->string('end_date');

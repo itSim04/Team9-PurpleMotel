@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-
 import { NewsDatabaseService } from './news-database.service';
+
 
 describe('NewsDatabaseService', () => {
   let service: NewsDatabaseService;

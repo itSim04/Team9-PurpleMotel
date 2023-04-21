@@ -18,6 +18,7 @@ import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-das
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
 import { RoomOverviewComponent } from './pages/guest/rooms/overview/room-overview.component';
 import { ProfileComponent } from './pages/guest/profile/profile.component';
+import { ActivityOverviewComponent } from './components/activity/activity-list-item/activity-overview/activity-overview.component';
 import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 
@@ -118,7 +119,11 @@ const routes: Routes = [
       {
         component: BrowseServicesComponent,
         path: "browse"
-      }
+      },
+      {
+        component: ActivityOverviewComponent,
+        path: "details/:id"
+      },
     ]
   },
   {

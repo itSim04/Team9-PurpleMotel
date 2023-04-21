@@ -9,9 +9,10 @@ class Registration extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'room_id',
+        'activity_id',
         'user_id',
         'start_date',
         'end_date',
+        'seats'
     ];
 }
