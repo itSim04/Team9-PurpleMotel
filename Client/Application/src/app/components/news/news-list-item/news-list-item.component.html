@@ -1,6 +1,7 @@
+<!-- This is the feed post -->
 <div>
   <ion-text class="header">
-    It all starts at 10:35PM
+    {{news.value.title}}
   </ion-text>
 </div>
 
@@ -9,8 +10,7 @@
 </div>
 
 <div class="body">
-  We’ve collaborated with global superstars Tiësto and Tate McRae to create the track and music video “10:35”, which is
-  inspired by the essence, energy and electricity of Purple Motel.
+  {{news.value.body}}
 </div>
 
 <div>
@@ -22,28 +22,27 @@
 
 
 
+<!-- This it the pop up -->
 <ion-modal id="example-modal" #modal trigger="open-custom-dialog">
   <ng-template>
     <div class="wrapper">
-      <h1 class="title">It all starts at 10:35PM</h1>
+      <h1 class="title">{{news.value.title}}</h1>
       <ion-list lines="none">
 
         <img src="../../../../assets/news-pics/news-sample-pic.png">
 
         <div class="date">
-          published at 04/30/2022
+          published at {{news.value.date}}
         </div>
 
         <hr>
         
         <div class="description">
-          We’ve collaborated with global superstars Tiësto and Tate McRae to create the track and music video “10:35”,
-          which is
-          inspired by the essence, energy and electricity of Purple Motel.
+          {{news.value.body}}
         </div>
 
         <div class="likes">
-          4 likes
+          {{news.value.likes}} likes
         </div>
 
       </ion-list>

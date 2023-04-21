@@ -1,9 +1,9 @@
 <ion-content>
-  <!-- <div class="header">
+  <div class="header">
     <ion-text class="title">
       This is it.
     </ion-text>
-  </div> -->
+  </div>
   
   <div>
     <ion-text class="body-title">
@@ -13,7 +13,9 @@
   
   <div>
     <!-- the news component will go here -->
-    <app-news-list-item></app-news-list-item>
+    <div *ngFor="let news of filtered_news">
+      <app-news-list-item [news]="{key: news[0], value: news[1]}"></app-news-list-item>
+  </div>
   </div>
 
 </ion-content>
