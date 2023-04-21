@@ -5,7 +5,6 @@ import { CarouselComponent } from 'src/app/components/general/carousel/carousel.
 import { Booking } from 'src/app/models/Booking';
 import { BrowsingDialogService } from 'src/app/services/dialogs/browsing/browsing.service';
 import { BookingDatabaseService } from '../../admin/booking-database/booking-database.service';
-import { ProfileDialogService } from './profile.service';
 import { RoomType } from 'src/app/models/RoomType';
 import { filter } from 'rxjs';
 import { ProfileService } from './profile.service';
@@ -45,7 +44,7 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('carousel') carousel !: CarouselComponent;
 
-  constructor(private browsing_service: BrowsingDialogService, private booking_service: BookingDatabaseService, private profile_service: ProfileDialogService){}
+  constructor(private browsing_service: BrowsingDialogService, private booking_service: BookingDatabaseService, private profile_service: ProfileService){}
 
   edit_profile() {
 

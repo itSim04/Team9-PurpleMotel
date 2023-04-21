@@ -27,9 +27,9 @@ export class ProfileService {
   orders = new Map<string, Order>();
   activities = new Map<string, Activity>();
   bookings = new Map<string, Booking>();
-  
 
-  constructor(private url: UrlBuilderService, public dialog: MatDialog, private request: HttpClient, private userDatabaseService: UserDatabaseService) { }
+
+  constructor(private url: UrlBuilderService, public dialog: MatDialog, private http: HttpClient, private userDatabaseService: UserDatabaseService) { }
 
   getAllData(): Observable<ProfilePackage> {
 
@@ -173,7 +173,7 @@ export class ProfileService {
 
 
   }
-}
+
 
 
 
@@ -200,20 +200,20 @@ export class ProfileService {
 
   resetPassword(email: string): Observable<void> {
 
-    return this.request.post<void>("http://127.0.0.1:8000/api/v1/auth/reset-password", { email }).pipe(
-  
+    return this.http.post<void>("http://127.0.0.1:8000/api/v1/auth/reset-password", { email }).pipe(
+
       map(result => {
-        
+
         // handle successful reset password response (if any)
-  
+
       }), catchError(error => {
-  
+
         // handle error response
-  
+
         return throwError(error);
-  
+
       })
-      
+
     );
   }
 
@@ -225,10 +225,10 @@ export class ProfileService {
   //     token: token,
   //     password: newPassword
   //   };
-  
+
   //   return this.http.post<void>('http://example.com/api/reset-password', resetRequest);
   // }
-  
-  
+
+
 
 }
