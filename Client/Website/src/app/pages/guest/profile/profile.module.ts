@@ -1,17 +1,16 @@
-import { ReviewDialogModule } from './../../../services/dialogs/review/review.module';
-import { OrderOverviewDialogModule } from './../../../services/dialogs/order-overview/order-overview.module';
-import { PromoDialogModule } from './../../../services/dialogs/promo/promo.module';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavBarModule } from 'src/app/components/general/nav-bar/nav-bar.module';
-import { FooterModule } from 'src/app/components/general/footer/footer.module';
-import { LanguageModule } from 'src/app/services/language/language.module';
-import { BookingDetailsComponent } from '../../../components/room/booking-details/booking-details.component';
-import { BookingDetailsModule } from '../../../components/room/booking-details/booking-details.module';
-import { ActivityDetailsComponent } from '../../../components/activities/activity-details/activity-details.component';
-import { ActivityDetailsModule } from '../../../components/activities/activity-details/activity-details.module';
-import { CarouselModule } from 'src/app/components/general/carousel/carousel.module';
-import { ProfileComponent } from './profile.component';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { ActivityDetailsModule } from "src/app/components/activities/activity-details/activity-details.module";
+import { CarouselModule } from "src/app/components/general/carousel/carousel.module";
+import { FooterModule } from "src/app/components/general/footer/footer.module";
+import { NavBarModule } from "src/app/components/general/nav-bar/nav-bar.module";
+import { BookingDetailsModule } from "src/app/components/room/booking-details/booking-details.module";
+import { LanguageModule } from "src/app/services/language/language.module";
+import { ProfileService } from "src/app/services/utility/profile.service";
+import { ChangePasswordComponent } from "./change-password/change-password.component";
+import { EditProfileComponent } from "./edit-profile/edit-profile.component";
+import { ProfileComponent } from "./profile.component";
+
 
 
 
@@ -20,6 +19,8 @@ import { ProfileComponent } from './profile.component';
 @NgModule({
   declarations: [
     ProfileComponent,
+    EditProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
@@ -28,11 +29,16 @@ import { ProfileComponent } from './profile.component';
     LanguageModule,
     BookingDetailsModule,
     ActivityDetailsModule,
-    CarouselModule,
-    PromoDialogModule,
-    ReviewDialogModule,
-    OrderOverviewDialogModule
+    CarouselModule
    
+  ],
+  exports: [
+    EditProfileComponent,
+    ChangePasswordComponent,
+    ProfileComponent
+  ],
+  providers: [
+    ProfileService
   ]
   
 })

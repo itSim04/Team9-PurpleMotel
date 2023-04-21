@@ -2,8 +2,8 @@
 
     <div>
         <app-nav-bar [hide_auth]="true" style="position: relative;"></app-nav-bar>
-        <button class="edit-button">Edit Profile</button>
-        <button class="change-pass-button">Change Password</button>
+        <button (click)="edit_profile()" class="edit-button">Edit Profile</button>
+        <button (click)="change_password()" class="change-pass-button">Change Password</button>
         <button (click)="logout()" class="logout-button">Logout</button>
     </div>
 

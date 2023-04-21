@@ -1,28 +1,28 @@
-import { ReviewDialogService } from './../../../services/utility/review.service';
-import { RoomDatabaseService } from 'src/app/services/providers/room-database.service';
-import { Food } from './../../../models/Food';
-import { OrderOverviewDialogService } from './../../../services/utility/order-overview.service';
-import { RegistrationDatabaseService } from './../../../services/providers/registration-database.service';
-import { ConfirmationDialogService } from './../../../services/utility/confirmation.service';
-import { BookingDatabaseService } from './../../../services/providers/booking-database.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { User } from './../../../models/User';
-import { Order } from 'src/app/models/Order';
-import { Activity } from 'src/app/models/Activity';
-import { Registration } from 'src/app/models/Registration';
-import { KeyValue } from '@angular/common';
-import { trigger, transition, style, animate } from '@angular/animations';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CarouselComponent } from 'src/app/components/general/carousel/carousel.component';
-import { Booking } from 'src/app/models/Booking';
-import { Room } from 'src/app/models/Room';
-import { RoomType } from 'src/app/models/RoomType';
-import { extractUser } from 'src/app/components/database/database.component';
-import { Router } from '@angular/router';
-import { BrowsingDialogService } from 'src/app/services/utility/browsing.service';
-import { ProfileService } from 'src/app/services/utility/profile.service';
-import { PromoDialogService } from 'src/app/services/utility/promo.service';
-import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
+import { trigger, transition, style, animate } from "@angular/animations";
+import { KeyValue } from "@angular/common";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router } from "@angular/router";
+import { extractUser } from "src/app/components/database/database.component";
+import { CarouselComponent } from "src/app/components/general/carousel/carousel.component";
+import { Activity } from "src/app/models/Activity";
+import { Booking } from "src/app/models/Booking";
+import { Food } from "src/app/models/Food";
+import { Order } from "src/app/models/Order";
+import { Registration } from "src/app/models/Registration";
+import { Room } from "src/app/models/Room";
+import { RoomType } from "src/app/models/RoomType";
+import { User } from "src/app/models/User";
+import { BookingDatabaseService } from "src/app/services/providers/booking-database.service";
+import { RegistrationDatabaseService } from "src/app/services/providers/registration-database.service";
+import { RoomDatabaseService } from "src/app/services/providers/room-database.service";
+import { AuthenticationDialogService } from "src/app/services/utility/authentication.service";
+import { BrowsingDialogService } from "src/app/services/utility/browsing.service";
+import { ConfirmationDialogService } from "src/app/services/utility/confirmation.service";
+import { OrderOverviewDialogService } from "src/app/services/utility/order-overview.service";
+import { ProfileService } from "src/app/services/utility/profile.service";
+import { PromoDialogService } from "src/app/services/utility/promo.service";
+import { ReviewDialogService } from "src/app/services/utility/review.service";
 
 @Component({
   selector: 'app-profile',
@@ -62,14 +62,13 @@ export class ProfileComponent implements OnInit {
   };
 
   @ViewChild('carousel') carousel !: CarouselComponent;
-  // food from 1 to 8
 
   image(index: number) {
 
     return '../../../../assets/food-' + ((index % 8) + 1) + '.jpg';
 
   }
-  constructor (private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService, private review_service: ReviewDialogService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService) {
+  constructor (private browsing_service: BrowsingDialogService, private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService, private review_service: ReviewDialogService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService) {
 
     const user = extractUser()!;
 
@@ -83,8 +82,9 @@ export class ProfileComponent implements OnInit {
   }
 
 
+  
 
-  ngOnInit() {
+  async ngOnInit() {
 
     this.profile_service.getAllData().subscribe({
 
