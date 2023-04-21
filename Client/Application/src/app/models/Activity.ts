@@ -1,6 +1,7 @@
 import { KeyValue } from "@angular/common";
+import { Registration, RegistrationAttributes } from "./Registration";
 
-export interface Activity {
+export interface ActivityAttributes {
 
     title: string, //Label of a certain stock item
     description: string, //Information about it
@@ -11,14 +12,39 @@ export interface Activity {
   
   }
 
+  export interface Activity extends ActivityAttributes {
+
+    registrations: Registration[]
+  
+  }
   export interface ActivitiesResponse {
     status: string,
     data: {
       id: string;
       type: string;
-      attributes: Activity;
+      attributes: ActivityAttributes;
     }[];
-    
+  
+    included: {
+      id: string,
+      type: string,
+      attributes: RegistrationAttributes,
+      relationships: {
+        activity: {
+          data: {
+            id: string,
+            type: string;
+          };
+        },
+        user: {
+          data: {
+            id: string,
+            type: string;
+          };
+        };
+      };
+    }[];
+  
   }
 
   export interface ActivityResponse {
@@ -26,8 +52,27 @@ export interface Activity {
     data: {
       id: string;
       type: string;
-      attributes: Activity;
+      attributes: ActivityAttributes;
     };
+    included: {
+      id: string,
+      type: string,
+      attributes: RegistrationAttributes,
+      relationships: {
+        activity: {
+          data: {
+            id: string,
+            type: string;
+          };
+        },
+        user: {
+          data: {
+            id: string,
+            type: string;
+          };
+        };
+      };
+    }[];
   }
 
   export interface ActivityPackage{
@@ -36,4 +81,5 @@ export interface Activity {
   
   export interface ActivitiesPackage{
     activities: Map<string,Activity>
+    registrations: Map<string, Registration>;
   }

@@ -158,7 +158,20 @@ export function parsePermission(permission: number | undefined): boolean[] {
   return [binary.charAt(0) == '1', binary.charAt(1) == '1', binary.charAt(2) == '1'];
 
 }
+export function extractUserToken() {
 
+  const user_id = localStorage.getItem('token');
+  if (user_id) {
+
+    return user_id;
+
+  } else {
+
+    return undefined;
+
+  }
+
+}
 
 
 @Component({

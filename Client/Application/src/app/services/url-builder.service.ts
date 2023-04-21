@@ -1,4 +1,6 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { extractUserToken } from '../components/database/database.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +14,10 @@ export class UrlBuilderService {
 
     return `${this.master_url}/${this.version}/${path}`
 
+  }
+  generateHeader() {
+
+    const token = extractUserToken();
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 }
