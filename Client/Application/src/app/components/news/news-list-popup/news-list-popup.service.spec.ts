@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NwesListPopupService } from './nwes-list-popup.service';
+import { NewsListPopupService } from './news-list-popup.service';
 
-describe('NwesListPopupService', () => {
-  let service: NwesListPopupService;
+describe('NewsListPopupService', () => {
+  let service: NewsListPopupService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(NwesListPopupService);
+    service = TestBed.inject(NewsListPopupService);
   });
 
   it('should be created', () => {

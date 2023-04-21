@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { NwesListPopupComponent } from './nwes-list-popup.component';
+import { NewsListPopupComponent } from './news-list-popup.component';
 
-describe('NwesListPopupComponent', () => {
-  let component: NwesListPopupComponent;
-  let fixture: ComponentFixture<NwesListPopupComponent>;
+describe('NewsListPopupComponent', () => {
+  let component: NewsListPopupComponent;
+  let fixture: ComponentFixture<NewsListPopupComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NwesListPopupComponent ],
+      declarations: [ NewsListPopupComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NwesListPopupComponent);
+    fixture = TestBed.createComponent(NewsListPopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

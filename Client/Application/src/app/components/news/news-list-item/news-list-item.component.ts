@@ -1,6 +1,7 @@
 import { KeyValue } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { News } from 'src/app/models/News';
+import { NewsListPopupService } from '../news-list-popup/news-list-popup.service';
 
 @Component({
   selector: 'app-news-list-item',
@@ -11,13 +12,13 @@ export class NewsListItemComponent  implements OnInit {
 
   @Input() news!: KeyValue<string, News>;
   
-  constructor() { }
+  constructor(private news_dialog: NewsListPopupService) { }
   
-  // openPopup() {
+  openPopup() {
+    
+    const dialogRef = this.news_dialog.openDialog(this.news?.key, this.news?.value.title, this.news?.value.body, this.news?.value.date, this.news?.value.likes_number);
 
-  //   const dialogRef = this.news_dialog.openDialog()
-
-  // }
+  }
 
 
   ngOnInit() {}
