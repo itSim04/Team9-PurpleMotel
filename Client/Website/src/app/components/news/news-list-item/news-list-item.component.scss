@@ -1,0 +1,70 @@
+$color-primary: #14274a;
+$font-primary: 'Kulim Park';
+$image-path: '../../../../assets/';
+
+.body_table_properties {
+    //centers the table
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.body_left_col {
+    border-left: 1px solid $color-primary;
+    height: 30px;
+}
+
+.body_table_header {
+    color: $color-primary;
+    font-family: 'Abhaya Light';
+    font-size: 40px;
+    margin-left: 30px;
+    margin-top: -10px;
+    width: 400px;
+}
+
+.like-button {
+    transition: all 1s ease-out;
+}
+
+.body_table_content {
+    color: $color-primary;
+    font-family: $font-primary;
+    margin-left: 30px;
+    width: 336px;
+}
+
+.button {
+    background-color: $color-primary;
+    border-color: transparent;
+    font-family: 'Roboto';
+    padding: 16px 64px;
+    color: white;
+    display: inline;
+    // height: 30px;
+    margin-left: 32px;
+    text-align: center;
+    width: fit-content;
+}
+
+.button:hover {
+
+    background-color: lightgray;
+    color: #14274a
+}
+
+.likes {
+    display: inline;
+    color: $color-primary;
+    font-family: 'Inter';
+    font-weight: 600;
+    margin-left: 23%;
+}
+
+.body_right_col {
+    background-size: cover;
+    height: 100%;
+    margin-left: 30px;
+    width: 450px;
+    // background-image: url('#{$image-path}news-sample1.png');
+    height: 240px;
+}

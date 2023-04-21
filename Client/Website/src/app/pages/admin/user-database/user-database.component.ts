@@ -1,12 +1,12 @@
 import { User, UserInformation, UserInjection } from './../../../models/User';
 import { genders } from './../../../services/dialogs/authentication/authentication.utility';
-import { UserDatabaseService } from './user-database.service';
 import { DataInjection, ChangeInjection } from 'src/app/models/Database';
 import { Component } from '@angular/core';
 import { UserAttributes } from 'src/app/models/User';
 import { map } from 'rxjs';
 import { UserType } from 'src/app/models/UserType';
-import { formatWord, parsePermission } from 'src/app/components/database/database.component';
+import { formatWord, parsePermission, extractUser } from 'src/app/components/database/database.component';
+import { UserDatabaseService } from 'src/app/services/providers/user-database.service';
 
 @Component({
   selector: 'app-user-database',
@@ -24,7 +24,7 @@ export class UserDatabaseComponent {
 
     special_case: {
 
-      rule: (data) => data.email == JSON.parse(localStorage.getItem('user') || '{}')?.email,
+      rule: (data) => data.email == extractUser()?.email,
       color: '14274A33',
       alt_color: '14274A66'
 

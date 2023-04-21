@@ -1,0 +1,80 @@
+<div class="main">
+
+    <div class="flex">
+
+
+        <table style="width: 90%">
+
+            <tr>
+
+                <td>
+                    <p class="content">Stay</p>
+                </td>
+
+                <!-- <td>
+                    <p class="content">Check-out</p>
+                </td> -->
+
+                <td>
+                    <p class="content">Adults</p>
+                </td>
+
+                <td>
+                    <p class="content">Kids</p>
+                </td>
+
+                <td rowspan="2">
+                    <button [disabled]="!start_date_value || !end_date_value"
+                        (click)="checkAvailability()" class="check-btn">
+                        Check Availability
+                    </button>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    <app-calendar
+                        (result)="start_date_value = $event.check_in; end_date_value = $event.check_out"></app-calendar>
+                </td>
+                <!-- <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label class="selectors">Choose a date</mat-label>
+                        <input [(ngModel)]="start_date_value" matInput [matDatepicker]="checkin">
+                        <mat-datepicker-toggle matIconSuffix [for]="checkin">
+                            <mat-icon color="primary" matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #checkin></mat-datepicker>
+                    </mat-form-field>
+                </td> -->
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label class="selectors">Input Number</mat-label>
+                        <mat-select [(ngModel)]="adults_value" matInput>
+
+                            <mat-option *ngFor="let capacity of adult_capacity">
+                                {{capacity}}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-icon color="primary" matIconSuffix>keyboard_arrow_down</mat-icon> -->
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label class="selectors">Input Number</mat-label>
+                        <mat-select [(ngModel)]="adults_value" matInput>
+
+                            <mat-option *ngFor="let capacity of kids_capacity">
+                                {{capacity}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+
+            </tr>
+
+        </table>
+    </div>
+    <div>
+        <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    </div>

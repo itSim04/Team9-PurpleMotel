@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AnnouncementDatabaseService } from './announcement-database.service';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Announcement } from 'src/app/models/Announcement';
 import { map } from 'rxjs';
+import { AnnouncementDatabaseService } from 'src/app/services/providers/announcement-database.service';
 
 @Component({
   selector: 'app-announcement-database',
@@ -11,16 +11,15 @@ import { map } from 'rxjs';
 })
 export class AnnouncementDatabaseComponent {
 
-  constructor (private announcement_service: AnnouncementDatabaseService){}
+  constructor (private announcement_service: AnnouncementDatabaseService) { }
 
   data_injection: DataInjection<Announcement> = {
-
     title: 'Announcements',
 
     permission: 'announcement',
 
     displayed_columns:[
-      {
+    {
         key: 'label',
         type: 'text'
       },
@@ -34,7 +33,7 @@ export class AnnouncementDatabaseComponent {
   }
 
   change_injection: ChangeInjection<Announcement> = {
-    
+
     data_type: 'announcement',
 
     default_state: {
@@ -59,5 +58,5 @@ export class AnnouncementDatabaseComponent {
     modify_service: (key, data) => this.announcement_service.modifyAnnouncement(key, data),
     delete_service: (key) => this.announcement_service.deleteAnnouncement(key),
     identifier: data => data.label
-  }
+  };
 }

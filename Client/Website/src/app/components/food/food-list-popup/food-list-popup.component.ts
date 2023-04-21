@@ -1,3 +1,5 @@
+import { AuthenticationDialogService } from './../../../services/utility/authentication.service';
+import { extractUserId } from 'src/app/components/database/database.component';
 import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Order } from 'src/app/models/Order';
@@ -17,7 +19,7 @@ export interface FoodPopup {
 }
 
 @Component({
-  selector: 'app-food-list-item',
+  selector: 'app-food-list-popup',
   templateUrl: './food-list-popup.component.html',
   styleUrls: ['./food-list-popup.component.scss']
 })
@@ -31,12 +33,12 @@ export class FoodListPopupComponent {
 
   image = `../../../../assets/food-${Math.floor(Math.random() * 8) + 1}.jpg`;
 
-  constructor (@Inject(MAT_DIALOG_DATA) public data: FoodPopup, private dialog: MatDialogRef<FoodListPopupComponent>) {
+  constructor (@Inject(MAT_DIALOG_DATA) public data: FoodPopup, private dialog: MatDialogRef<FoodListPopupComponent>, private authentication: AuthenticationDialogService) {
     this.name = data.title;
     this.description = data.description;
     this.price = data.price;
     this.id = data.id;
-    this.quantity = data.quantity
+    this.quantity = data.quantity;
 
   }
 
@@ -69,47 +71,54 @@ export class FoodListPopupComponent {
 
   addToCart() {
 
-    const cart = localStorage.getItem('cart');
-    let item: Order;
+    const user_id = extractUserId();
+    if (user_id) {
+      const cart = localStorage.getItem('cart');
+      let item: Order;
 
-    if (!cart) {
+      if (!cart) {
 
-      item = {
+        item = {
 
-        user_id: JSON.parse(localStorage.getItem('id') || '-1'),
-        date: parseDate(new Date()),
-        status: '0',
-        food: []
+          user_id: user_id,
+          date: parseDate(new Date()),
+          status: '0',
+          food: []
 
-      };
+        };
 
+      } else {
+
+        item = JSON.parse(cart) as Order;
+
+      }
+
+      const temp = item.food.find(t => t.id == this.id);
+
+      if (temp) {
+
+        temp.quantity = this.quantity;
+
+      } else {
+
+        item.food.push({
+
+          id: this.id,
+          quantity: this.quantity
+
+        });
+
+      }
+
+      localStorage.setItem('cart', JSON.stringify(item));
+
+      this.dialog.close(this.quantity);
     } else {
 
-      item = JSON.parse(cart) as Order;
+      this.dialog.close(0);
+      this.authentication.openDialog('login');
 
     }
-
-    const temp = item.food.find(t => t.id == this.id);
-
-    if (temp) {
-
-      temp.quantity = this.quantity;
-
-    } else {
-
-      item.food.push({
-
-        id: this.id,
-        quantity: this.quantity
-
-      });
-
-    }
-
-    localStorage.setItem('cart', JSON.stringify(item));
-
-    this.dialog.close(this.quantity);
-
   }
 
 }

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChefListDialogService } from './chef-list.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChefListDialogComponent } from './chef-list.component';
+import { ChefListDialogService } from '../../utility/chef-list.service';
 
 
 

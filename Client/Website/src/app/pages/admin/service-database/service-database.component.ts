@@ -2,10 +2,10 @@ import { parseDate } from 'src/app/services/dialogs/authentication/authenticatio
 import { Component } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Activity } from 'src/app/models/Activity';
-import { ServiceDatabaseService } from './service-database.service';
 import { map } from 'rxjs';
 import { Data } from '@angular/router';
 import { Facility } from 'src/app/models/Facility';
+import { ServiceDatabaseService } from 'src/app/services/providers/service-database.service';
 
 @Component({
   selector: 'app-service-database',
@@ -72,6 +72,22 @@ export class ServiceDatabaseComponent {
         key: 'capacity'
       },
       {
+        key: 'description',
+        type: 'custom',
+        header_alt: 'Remaining',
+        custom: (data) => {
+
+          let taken = 0;
+          data.registrations.forEach(registration => {
+
+            taken += registration.seats;
+
+          });
+          return (data.capacity - taken).toString();
+
+        }
+      },
+      {
         key: 'start_date',
         type: 'custom',
         custom: (data) => {
@@ -104,6 +120,7 @@ export class ServiceDatabaseComponent {
       description: '',
       price: 0,
       capacity: 0,
+      registrations: [],
       start_date: '1970-01-01',
       end_date: '1970-01-01'
     },

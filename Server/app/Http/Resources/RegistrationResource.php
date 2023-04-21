@@ -20,6 +20,7 @@ class RegistrationResource extends JsonResource
             'attributes' => [
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
+                'seats' => $this->seats
             ],
             'relationships' => [
                 'activity' => [

@@ -1,5 +1,5 @@
-import { ChefListDialogService } from './../../../../services/dialogs/chef-list/chef-list.service';
 import { Component } from '@angular/core';
+import { ChefListDialogService } from 'src/app/services/utility/chef-list.service';
 
 @Component({
   selector: 'app-menu',

@@ -2,14 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LikesNews;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Http\Resources\RoomResource;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Http\Resources\BookingResource;
+use App\Http\Resources\EffectPromoCodesResource;
+use App\Http\Resources\LikesNewsResource;
+use App\Http\Resources\PromoCodeResource;
+use App\Http\Resources\ReviewResource;
 use App\Http\Resources\RoomTypeResource;
-
+use App\Models\AppliedPromoCodes;
+use App\Models\Booking;
+use App\Models\EffectPromoCodes;
+use App\Models\PromoCode;
+use App\Models\Review;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
@@ -19,7 +30,7 @@ class RoomController extends Controller
         'number' => 'required|numeric|between:0,1000',
         'type' => 'required|numeric|integer|between:1,1000',
         'open' => 'boolean',
-        'rating' => 'numeric|integer:between:0,50',
+        'rating' => 'numeric|decimal:0,2|between:0,5',
         'label' => 'required|string',
         'description' => 'string'
 
@@ -30,9 +41,100 @@ class RoomController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return indexTemplate($this->model, $this->resource, [RoomType::class => RoomTypeResource::class]);
+
+        if (isset($request->index) && isset($request->size)) {
+
+            $room = Room::all()->skip($request->index)->take($request->size);
+        } else {
+
+            $room = Room::all();
+        }
+
+        $types = [];
+        $ids = [];
+
+        foreach ($room as $key => $value) {
+
+            $types[] = $value->type;
+            $ids[] = $value->id;
+        }
+
+        $included = RoomTypeResource::collection(RoomType::all()->whereIn('id', $types));
+
+        $review = ReviewResource::collection(Review::all()->whereIn('room_id', $ids));
+
+        $user = Auth::user();
+
+        if ($user) {
+
+
+
+
+
+
+            $applied_code = AppliedPromoCodes::all()
+                ->where('user_id', $user->id);
+
+
+            $promo_code_ids = [];
+            foreach ($applied_code as $key => $value) {
+
+                $promo_code_ids[] = $value->promo_id;
+            }
+            $effect_code = EffectPromoCodes::all()
+                ->whereIn('id', $promo_code_ids);
+
+            $effective_ids = [];
+            $actual_effect = [];
+
+
+            foreach ($effect_code as $key => $value) {
+
+                switch ($value->type) {
+
+                    case 0:
+
+                        if (in_array($value->effect_id, $ids)) {
+
+                            $effective_ids[] = $value->promo_id;
+                            $actual_effect[] = $value;
+                        }
+                        break;
+
+                    case 1:
+
+                        if (in_array($value->effect_id, $types)) {
+
+                            $effective_ids[] = $value->promo_id;
+                            $actual_effect[] = $value;
+                        }
+                        break;
+
+                    case 2:
+
+                        $effective_ids[] = $value->promo_id;
+                        $actual_effect[] = $value;
+                }
+            }
+
+            $promo_code = PromoCodeResource::collection(PromoCode::all()->whereIn('id', $effective_ids));
+
+            $included = array_values($included
+                ->concat($promo_code)
+                ->concat(EffectPromoCodesResource::collection($actual_effect))
+                ->concat($review)
+                ->all());
+        } else {
+
+            $included = array_values($included
+                ->concat($review)
+                ->all());
+        }
+
+
+        return generateResponse(200, RoomResource::collection($room), $included);
     }
 
     /**
@@ -49,7 +151,75 @@ class RoomController extends Controller
      */
     public function show(int $id)
     {
-        return showTemplate($this->model, $this->resource, $id);
+
+        $room = Room::find($id);
+
+        $included = ReviewResource::collection(Review::all()->where('room_id', $id));
+
+        if ($room) {
+
+            $user = Auth::user();
+            $included[] = new RoomTypeResource(RoomType::all()->where('id', $room->type)->first());
+
+            if ($user) {
+
+
+
+                $applied_code = AppliedPromoCodes::all()
+                    ->where('user_id', Auth::user()->id);
+
+                $promo_code_ids = [];
+                foreach ($applied_code as $key => $value) {
+
+                    $promo_code_ids[] = $value->promo_id;
+                }
+                $effect_code = EffectPromoCodes::all()
+                    ->whereIn('id', $promo_code_ids);
+
+                $effective_ids = [];
+
+
+                foreach ($effect_code as $key => $value) {
+
+                    switch ($value->type) {
+
+                        case 0:
+
+                            if ($value->effect_id == $room->id) {
+
+                                $effective_ids[] = $value->promo_id;
+                            }
+                            break;
+
+                        case 1:
+
+                            if ($value->effect_id == $room->type) {
+
+                                $effective_ids[] = $value->promo_id;
+                            }
+                            break;
+
+                        case 2:
+
+                            $effective_ids[] = $value->promo_id;
+                    }
+                }
+
+                $promo_code = PromoCode::all()->whereIn('id', $effective_ids)->first();
+
+
+                if ($promo_code) {
+
+
+                    $promo_code = new PromoCodeResource($promo_code);
+                    $included[] = $promo_code;
+                }
+            }
+            return generateResponse(200, new RoomResource($room), $included);
+        } else {
+
+            return generateResponse(404, $id . " not in Database", true);
+        }
     }
 
     /**
@@ -68,5 +238,77 @@ class RoomController extends Controller
     {
 
         return destroyTemplate($this->model, $id);
+    }
+
+    public function filter(Request $request)
+    {
+
+        $start_date = strtotime($request->check_in);
+        $end_date = strtotime($request->check_out);
+
+        $bookings = Booking::all();
+        $conflictingBooking = [];
+        foreach ($bookings as $booking) {
+
+            $current_check_in = strtotime($booking->check_in);
+            $current_end_date = strtotime($booking->end_date);
+
+
+            if (!($end_date < $current_check_in || $start_date > $current_end_date)) {
+
+                $conflictingBooking[] = $booking->room_id;
+            }
+        }
+
+
+        return RoomResource::collection(Room::all()->whereNotIn('id', $conflictingBooking));
+    }
+
+    public function roomBookings(Request $request)
+    {
+
+        $request->validate([
+
+            'room_id' => 'required|numeric'
+
+        ]);
+
+        return BookingResource::collection(Booking::all()->where('room_id', $request->room_id));
+    }
+
+    public function postReview(Request $request)
+    {
+
+        // This function posts a Review to the database
+
+        $request->validate([
+
+            'room_id' => 'required|numeric',
+            'stars' => 'required|numeric|between:0,5',
+            'user_id' => 'required|numeric',
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'date' => 'required|date'
+        ]);
+
+
+        $review = Review::all()->where('room_id', $request->room_id)->where('user_id', $request->user_id)->first();
+
+        if ($review) {
+
+            return generateResponse(400, "You have already posted a review for this room", true);
+        } else {
+
+            $review = Review::create([
+                'room_id' => $request->room_id,
+                'stars' => $request->stars,
+                'user_id' => $request->user_id,
+                'title' => $request->title,
+                'content' => $request->content,
+                'date' => $request->date
+            ]);
+
+            return generateResponse(200, $review, true);
+        }
     }
 }

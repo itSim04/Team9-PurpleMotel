@@ -1,12 +1,14 @@
-import { CartDialogService } from './../../../../services/dialogs/cart/cart.service';
-import { FoodListPopupService } from './../../../../components/food/food-list-popup/food-list-popup.service';
-import { FoodListPopupModule } from './../../../../components/food/food-list-popup/food-list-popup.module';
-import { FoodDatabaseService } from './../../../admin/food-database/food-database.service';
+import { Route, Router } from '@angular/router';
+import { AuthenticationDialogService } from './../../../../services/utility/authentication.service';
+import { extractUser } from 'src/app/components/database/database.component';
 import { FoodCategory } from './../../../../models/FoodCategory';
 import { Food } from 'src/app/models/Food';
 import { Component } from '@angular/core';
 import { KeyValue } from '@angular/common';
 import { Order } from 'src/app/models/Order';
+import { FoodListPopupService } from 'src/app/components/food/food-list-popup/food-list-popup.service';
+import { FoodDatabaseService } from 'src/app/services/providers/food-database.service';
+import { CartDialogService } from 'src/app/services/utility/cart.service';
 
 @Component({
   selector: 'app-menu',
@@ -14,19 +16,25 @@ import { Order } from 'src/app/models/Order';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  getQuantity(arg0: string): number {
-
-    return this.order?.food.find(t => t.id == arg0)?.quantity || 0;
-
-  }
 
   foods: Map<string, Food> = new Map();
   food_categories: Map<string, FoodCategory> = new Map();
   order?: Order;
 
-  constructor (private food_service: FoodDatabaseService, private food_dialog: FoodListPopupService, private cart_dialog: CartDialogService) {
+  constructor (private food_service: FoodDatabaseService, private food_dialog: FoodListPopupService, private cart_dialog: CartDialogService, private authentication: AuthenticationDialogService, private route: Router) {
 
     this.downloadCart();
+
+  }
+
+  getQuantity(arg0: string): number {
+
+    if (this.order) {
+      return this.order?.food.find(t => t.id == arg0)?.quantity || 0;
+    } else {
+      return 0;
+
+    }
 
   }
 
@@ -61,9 +69,17 @@ export class MenuComponent {
 
   invokeCart() {
 
-    const dialogRef = this.cart_dialog.openDialog({ food: this.foods });
-    dialogRef.afterClosed().subscribe(data => this.downloadCart());
+    if (extractUser()) {
 
+
+      const dialogRef = this.cart_dialog.openDialog({ food: this.foods });
+      dialogRef.afterClosed().subscribe(data => this.route.navigate(['/profile']));
+
+    } else {
+
+      this.authentication.openDialog('login');
+
+    }
   }
 
 }

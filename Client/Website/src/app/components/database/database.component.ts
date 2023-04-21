@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { Route } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { Component, Input, OnInit, AfterViewInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,12 +8,42 @@ import { debounceTime, Observable, Subject } from 'rxjs';
 import { DataInjection, Column, ChangeInjection } from 'src/app/models/Database';
 
 
-export function extractUser() {
+export function extractUser(validity_check: boolean = true) {
 
   const user = localStorage.getItem('user');
   if (user) {
 
     return JSON.parse(user) as User;
+
+  } else {
+
+    return undefined;
+
+  }
+
+
+}
+
+export function extractUserId() {
+
+  const user_id = localStorage.getItem('id');
+  if (user_id) {
+
+    return user_id;
+
+  } else {
+
+    return undefined;
+
+  }
+
+}
+export function extractUserToken() {
+
+  const user_id = localStorage.getItem('token');
+  if (user_id) {
+
+    return user_id;
 
   } else {
 
@@ -51,6 +83,27 @@ export function extractPermission(operation: 'read' | 'write' | 'delete', permis
 
     };
     return permissions[permission][target];
+
+  } catch (e: unknown) {
+
+    return false;
+
+  }
+
+}
+export function extractAnyPermission(): boolean {
+
+  if (extractUser()?.tier == '2') {
+
+    return true;
+
+  }
+
+  try {
+
+    const permissions = JSON.parse(localStorage.getItem('permissions') || '[]');
+
+    return !!permissions.length;
 
   } catch (e: unknown) {
 
@@ -104,25 +157,36 @@ export function Required(target: object, propertyKey: string) {
   });
 }
 
-export function formatPrice(price: number | undefined, reversed = false): string {
+export function formatPrice(price: number | undefined, reversed = false, visible = true): string {
 
   if (price) {
 
-    const numStr = price.toString();
+    const temp = Math.ceil(price).toLocaleString();
 
-    // split the number string into groups of three digits from right to left
-    const numArr = numStr.split('').reverse().join('').match(/(\d{1,3})/g);
+    // var str = price.toString().split('.');
+    // if (str[0].length >= 5) {
+    //   str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+    // }
+    // if (str[1] && str[1].length >= 5) {
+    //   str[1] = str[1].replace(/(\d{3})/g, '$1 ');
+    // }
 
-    // join the groups with commas and return the result from right to left
-    const temp = numArr?.join(',')?.split('').reverse().join('') || numStr;
+    // const temp = str.join('.');
 
-    if (reversed) {
+    if (visible) {
 
-      return temp + " USD";
+      if (reversed) {
 
+        return temp + " USD";
+
+      } else {
+
+        return "USD " + temp;
+
+      }
     } else {
 
-      return "USD " + temp;
+      return temp;
 
     }
 
@@ -199,7 +263,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   extra_list: [string, Data][] = [];
 
 
-  constructor (private cdr: ChangeDetectorRef) {
+  constructor (private cdr: ChangeDetectorRef, public router: Router) {
 
     this.mouseMove$ = this.mouseMoveSubject.asObservable().pipe(
 
@@ -232,7 +296,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
 
         }
-      } else if(this.data_injection.hover_linker) {
+      } else if (this.data_injection.hover_linker) {
 
 
         if (this.all_data_outer) {
@@ -240,17 +304,17 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
           this.hover_list = Array.from(this.all_data_outer[this.data_injection.hover_linker.index]).filter(t => {
 
             if (this.data_injection.hover_linker && this.display_hover[1] && this.all_extra) {
-              
+
               return this.data_injection.hover_linker.filter(t[0], this.display_hover[1][this.data_injection.hover_linker.key]);
-              
+
             } else {
-              
+
               return false;
-              
+
             }
-            
-            
-          });        
+
+
+          });
 
         }
 
@@ -395,8 +459,15 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
           if (error.status == 401) {
 
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('id');
+            localStorage.removeItem('token_time');
+            this.router.navigate(['/home']);
             this.loading = false;
             this.extra_loading = false;
+
+
 
           } else {
             this.loading = true;
@@ -436,6 +507,11 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
           if (error.status == 401) {
 
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('id');
+            localStorage.removeItem('token_time');
+            this.router.navigate(['/home']);
             this.loading = false;
 
           } else {
@@ -484,6 +560,11 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
           if (error.status == 401) {
 
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('id');
+            localStorage.removeItem('token_time');
+            this.router.navigate(['/home']);
             this.extra_loading = false;
 
           } else {

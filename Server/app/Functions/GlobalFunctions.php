@@ -4,15 +4,15 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-function generateResponse(int $code, $collection = null, $included = [], bool $error = false)
+function generateResponse(int $code, $collection = [], $included = [], bool $error = false)
 {
     $response = ['status' => $error ? 'error' : 'success'];
 
-    if ($collection) {
+    // if ($collection) {
 
         $response[$error ? 'message' : 'data'] = $collection;
         $response['included'] = $included;
-    }
+    // }
 
     return response()->json($response, $code);
 }
@@ -46,7 +46,7 @@ function extractPermissions($id, $type)
     return $permissions_final;
 }
 
-function indexTemplate(string $model, string $resource, array $extra_model = [], string $condition = null, $condition_value = null)
+function indexTemplate(string $model, string $resource, array $extra_model = [], string $condition = null, $condition_value = null, $pagination_index = null, $page_size = null)
 {
 
     $included = [];
@@ -73,8 +73,17 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
     }
 
     
+    if($pagination_index && $page_size) {
 
-    return generateResponse(200, $resource::collection($model::all()), $included);
+        $result = $resource::collection($model::all()->skip($pagination_index)->take($page_size));
+ 
+    } else  {
+
+        $result = $resource::collection($model::all());
+
+    }
+
+    return generateResponse(200, $result, $included);
 }
 
 function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null, bool $singular = true)
@@ -204,7 +213,7 @@ function showTemplate(string $model, string $resource, int $id, string $extra_mo
 
     if ($data) {
 
-        return generateResponse(200, new $resource($data), $extra_resource && $extra_model && $concerned_key ? [$extra_resource::collection($extra_model::where($concerned_key, $data->id)->get())] : []);
+        return generateResponse(200, new $resource($data), $extra_resource && $extra_model && $concerned_key ? $extra_resource::collection($extra_model::where($concerned_key, $data->id)->get()) : []);
     } else {
 
         return generateResponse(404, $id . " not in Database", true);

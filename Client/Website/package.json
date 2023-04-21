@@ -27,6 +27,7 @@
     "eslint": "^8.37.0",
     "ng-let": "^15.0.2",
     "ngx-autosize": "^2.0.4",
+    "ngx-infinite-scroll": "^15.0.0",
     "ngx-translate": "^0.0.1-security",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

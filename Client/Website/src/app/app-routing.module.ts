@@ -1,7 +1,9 @@
+import { GuestGuard } from './guards/guest.guard';
+import { AdminGuard } from './guards/admin.guard';
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 import { HomeComponent } from './pages/guest/home/home.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { AnnouncementDatabaseComponent } from './pages/admin/announcement-database/announcement-database.component';
 import { BookingDatabaseComponent } from './pages/admin/booking-database/booking-database.component';
 import { FoodDatabaseComponent } from './pages/admin/food-database/food-database.component';
@@ -16,6 +18,9 @@ import { BrowseRoomsComponent } from './pages/guest/rooms/browse/browse-rooms.co
 import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
+import { RoomOverviewComponent } from './pages/guest/rooms/overview/room-overview.component';
+import { ProfileComponent } from './pages/guest/profile/profile.component';
+import { ActivityOverviewComponent } from './components/activities/activity-overview/activity-overview.component';
 import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 
@@ -28,6 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    canActivate: [AdminGuard],
     children: [
       {
 
@@ -83,7 +89,7 @@ const routes: Routes = [
       {
         path: "service-database",
         component: ServiceDatabaseComponent,
-      },
+      }
 
     ]
   },
@@ -99,6 +105,10 @@ const routes: Routes = [
         component: BrowseRoomsComponent,
         path: "browse"
       },
+      {
+        component: RoomOverviewComponent,
+        path: "details/:id"
+      },
     ]
   },
   {
@@ -112,7 +122,11 @@ const routes: Routes = [
       {
         component: BrowseServicesComponent,
         path: "browse"
-      }
+      },
+      {
+        component: ActivityOverviewComponent,
+        path: "details/:id"
+      },
     ]
   },
   {
@@ -136,6 +150,11 @@ const routes: Routes = [
   {
     path: "home",
     component: HomeComponent
+  },
+  {
+    path: "profile",
+    canActivate: [GuestGuard],
+    component: ProfileComponent,
   }
 
 ];
