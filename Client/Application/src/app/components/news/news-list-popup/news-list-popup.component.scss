@@ -9,6 +9,12 @@ $primary-color: #14274A;
     margin-right: 2%;
 }
 
+.image {
+    padding-left: 5%;
+    padding-right: 5%;
+
+}
+
 .title {
     @extend .parent;
     font-size: 22px;
