@@ -2,19 +2,38 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Activity } from 'src/app/models/Activity';
 import { Registration } from 'src/app/models/Registration';
 import { formatPrice } from '../database/database.component';
+import { ModalController } from '@ionic/angular';
+import { ActivitiesModalComponent } from './activities-modal/activities-modal.component';
+
+
 
 @Component({
   selector: 'app-activities',
   templateUrl: './activities.component.html',
   styleUrls: ['./activities.component.scss'],
 })
-export class ActivitiesComponent  implements OnInit {
+export class ActivitiesComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {}
-  
+  ngOnInit() { }
+
   @Input() activity?: Activity;
+
+  constructor(private modal_ctrl: ModalController) { }
+  async openModal() {
+
+    const modal = await this.modal_ctrl.create({
+      component: ActivitiesModalComponent,
+      componentProps: {
+
+        data: this.activity,
+
+      }
+
+    });
+
+    await modal.present();
+  }
 
   formatPrice(price?: number) {
 
