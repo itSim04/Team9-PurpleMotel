@@ -1,0 +1,59 @@
+$primary-color: #14274A;
+
+.header {
+    color: $primary-color;
+    display: block;
+    font-family: 'Abhaya Libre';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    margin: 0 auto;
+    margin-bottom: 2%;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+img {
+    box-sizing: border-box;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+    transform: translateY(-20%);
+}
+
+.image-bg {
+    background-color: $primary-color;
+    block-size: fit-content;
+    height: fit-content;
+    margin-top: 12%;
+}
+
+.body {
+    color: $primary-color;
+    display: block;
+    font-family: 'Abhaya Light';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    margin: 0 auto;
+    margin-top: 2%;
+    position: relative;
+    text-align: center;
+    width: 65%;
+}
+
+.button {
+    color: $primary-color;
+    display: block;
+    font-family: 'Abhaya Light';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    margin: 0 auto;
+    margin-top: 2%;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+}
