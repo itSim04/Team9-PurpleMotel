@@ -15,7 +15,6 @@ export class ActivitiesComponent  implements OnInit {
   ngOnInit() {}
   
   @Input() activity?: Activity;
-  @Input() registration?: Registration;
 
   formatPrice(price?: number) {
 
