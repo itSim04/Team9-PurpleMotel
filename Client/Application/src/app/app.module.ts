@@ -29,6 +29,8 @@ import { HomeModule } from './pages/guest/home/home.module';
 import { NewsListItemModule } from './components/news/news-list-item/news-list-item.module';
 import { NewsListPopupModule } from './components/news/news-list-popup/news-list-popup.module';
 import { RoomsModule } from './pages/guest/rooms/rooms.module';
+import { App } from '@capacitor/app';
+import { CalendarModule } from './components/room/calendar/calendar.module';
 
 
 
@@ -66,6 +68,7 @@ import { RoomsModule } from './pages/guest/rooms/rooms.module';
     ActivitiesModule,
     ServicesModule,
     AdminDashboardModule,
+    CalendarModule,
 
     RoomsModule,
     HomeModule,

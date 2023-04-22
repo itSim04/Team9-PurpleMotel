@@ -7,6 +7,7 @@ import { Booking } from 'src/app/models/Booking';
 import { BookingDatabaseService } from 'src/app/pages/admin/booking-database/booking-database.service';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',

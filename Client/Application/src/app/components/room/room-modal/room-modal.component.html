@@ -1,4 +1,4 @@
-<table class="main">
+<!-- <table class="main">
     <tr>
         <td colspan="2">
 
@@ -8,19 +8,19 @@
     <tr>
         <td style="padding: 16px; width: 60%;">
 
-            <img [src]="room?.value?.image_path ? room!.value.image_path : '../../../assets/room-1.png'"
-                width="100%" src="../../../assets/room-1.png">
+            <img [src]="room?.value?.image_path ? room!.value.image_path : '../../../assets/rooms/room-sample.jpg'"
+                width="100%" src="../../../assets/rooms/room-sample.jpg">
 
         </td>
         <td style="padding: 16px; width: 40%;" *ngIf="room && room_type">
             <div style="display: flex;">
-                <!-- <star-rating [showHalfStars]="true" [rating]="room.value.rating || 0"
-                    [readOnly]="true" staticColor="positive"></star-rating> -->
+                <star-rating [showHalfStars]="true" [rating]="room.value.rating || 0"
+                    [readOnly]="true" staticColor="positive"></star-rating>
             </div>
             <br>
             <div style="vertical-align: middle;">
                 <p class="title-1">Description</p>
-                <!-- <mat-divider style="border-top-color: white"></mat-divider> -->
+                <mat-divider style="border-top-color: white"></mat-divider>
                 <br>
                 <p class="content-2">
                     {{room?.value?.description}}
@@ -44,12 +44,12 @@
                             </p>
                         </td>
                         <td>
-                            <!-- <app-calendar (result)="addBooking($event)"
+                            <app-calendar (result)="addBooking($event)"
                                 style="position: relative; top: 36px" [invisible_input]="true"
                                 #calendar [room_id]="room.key"></app-calendar>
                             <p (click)="calendar.downloadConflicts()" class="cancel-btn">
                                 Book
-                            </p> -->
+                            </p>
                         </td>
                     </tr>
                 </table>
@@ -57,7 +57,72 @@
         </td>
         <td *ngIf="!room || !room_type">
 
-            <!-- <mat-progress-spinner mode="indeterminate"></mat-progress-spinner> -->
+            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </td>
+    </tr>
+</table> -->
+
+<table class="main">
+    <tr>
+        <td style="padding: 16px; height:60vh;">
+
+            <img style="object-fit: cover; height: 90%;" [src]="room?.value?.image_path ? room!.value.image_path : '../../../assets/rooms/room-sample.jpg'" width="100%">
+
+        </td>
+        <td style="padding: 16px; height: 50vh; width: 40%; ">
+            <div style="vertical-align: middle; margin: 0px;">
+                <div class="title-1">{{room?.value?.label}}</div>
+                <hr class="divider">
+                <br>
+                <br>
+                <p class="content-1">
+                    Description:
+                </p>
+                <p class="content-2">
+                    {{room?.value?.description}}
+                </p><br>
+                <p class="content-1">
+                    Occupancy:
+                </p>
+                <p class="content-2">
+                    {{formatOccupancy}}
+                </p>
+                <br><br>
+                <p class="content-1">
+                    Total:
+                </p>
+                <table style="padding: 0px; width: 100%;">
+                    <tr>
+                        <td style="width: 50%;">
+                            <p class="title-2">
+                                USD{{formatPrice}}
+                            </p>
+                        </td>
+                        <td>
+
+                              
+
+                              <app-calendar (result)="addBooking($event)"
+                              style="position: relative; top: 36px" [invisible_input]="true"
+                              #calendar [room_id]="room?.key"></app-calendar>
+
+                            <p (click)="calendar.downloadConflicts()" class="cancel-btn">
+                                Book
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr style="text-align: center;">
+        <br>
+        <td>
+            <!-- <button class="book-btn" [disabled]="seats == 0 || free < 0" class="disabled-btn"
+            (click)="register()">
+            Register
+            </button> -->
         </td>
     </tr>
 </table>
+<button class="back-btn" (click)="closeModal()">Back</button>

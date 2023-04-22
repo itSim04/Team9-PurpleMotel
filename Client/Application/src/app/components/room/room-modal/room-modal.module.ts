@@ -1,8 +1,8 @@
-import { IonicModule } from '@ionic/angular';
+import { IonContent, IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoomModalComponent } from './room-modal.component';
-// import { CalendarModule } from '../calendar/calendar.module';
+import { CalendarModule } from '../calendar/calendar.module';
 
 
 
@@ -13,10 +13,11 @@ import { RoomModalComponent } from './room-modal.component';
   imports: [
     CommonModule,
     IonicModule.forRoot(),
-    // CalendarModule
+    CalendarModule,
+
   ],
   exports: [
     RoomModalComponent
   ]
 })
-export class RoomDetailsModule { }
+export class RoomModalModule { }
