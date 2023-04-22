@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RoomItemComponent } from './room-item.component';
 // import { StarRatingModule } from 'angular-star-rating';
 import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -13,6 +14,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     // StarRatingModule,
+    IonicModule.forRoot(),
     RouterModule
   ],
   exports: [
