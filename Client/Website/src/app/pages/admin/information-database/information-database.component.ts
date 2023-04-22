@@ -82,4 +82,32 @@ export class InformationDatabaseComponent {
     data_fetcher: () => this.information_service.getAllImages().pipe(map(data => [data.images, undefined]))
   };
 
+  extra_change_injection: ChangeInjection<Image> = {
+
+    data_type: 'image',
+
+    default_state: {
+      model_name: '',
+      url: ''
+    },
+
+    side_panel: 'empty',
+
+    fields: [
+      {
+        key: 'model_name',
+        type: 'text'
+      },
+      {
+        key: 'url',
+        type: 'text'
+      }
+    ],
+
+    add_service: image => this.information_service.addNewImage(image),
+    modify_service: (key, data) => this.information_service.modifyImage(key, data),
+    delete_service: (key) => this.information_service.deleteImage(key),
+    identifier: data => data.model_name
+  };
+
 }
