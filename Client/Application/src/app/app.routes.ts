@@ -19,6 +19,8 @@ import { StockDatabaseComponent } from './pages/admin/stock-database/stock-datab
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 import { HomeComponent } from './pages/guest/home/home.component';
+import { AdminGuard } from './guards/admin.guard';
+import { GuestGuard } from './guards/guest.guard';
 
 
 
@@ -81,12 +83,16 @@ export const routes: Routes = [
         path: 'restaurant',
         component: HomeComponent
       },
-//    ]
-  //},
+      // {
+      //   path: "profile",
+      //   canActivate: [GuestGuard],
+      //   component: ProfileComponent,
+      // },
 
-  {
-    path: 'admin',
-    children: [
+     {
+      path: 'admin',
+      canActivate:[AdminGuard],
+      children: [
       {
 
         path: "",
