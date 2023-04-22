@@ -1,3 +1,5 @@
+import { information } from './../../services/language/language.module';
+import { InformationDatabaseService } from '../../services/providers/information-database.service';
 import { Router } from '@angular/router';
 import { Route } from '@angular/router';
 import { User } from 'src/app/models/User';
@@ -7,7 +9,22 @@ import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, Observable, Subject } from 'rxjs';
 import { DataInjection, Column, ChangeInjection } from 'src/app/models/Database';
 
+export function getInformation(term: string) {
 
+  const information = localStorage.getItem('information');
+
+  if (information) {
+
+    const info = JSON.stringify(information);
+
+  } else {
+
+    
+
+  }
+
+
+}
 export function extractUser(validity_check: boolean = true) {
 
   const user = localStorage.getItem('user');
@@ -265,7 +282,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   error: boolean = false;
 
 
-  constructor (private cdr: ChangeDetectorRef, public router: Router) {
+  constructor (private cdr: ChangeDetectorRef, public router: Router, private information_service: InformationDatabaseService) {
 
     this.mouseMove$ = this.mouseMoveSubject.asObservable().pipe(
 

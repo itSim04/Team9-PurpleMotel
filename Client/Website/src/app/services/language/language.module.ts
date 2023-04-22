@@ -220,3 +220,10 @@ export const terms: [string, string][] = [
   ["130", "website_name"],
   ["131", "welcome_to"]
 ];
+
+export const information = [
+
+  ["1", "name1"],
+  ["2", "name2"],
+
+];

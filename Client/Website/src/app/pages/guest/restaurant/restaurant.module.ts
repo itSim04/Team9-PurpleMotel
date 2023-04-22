@@ -1,7 +1,7 @@
 import { OrderOverviewDialogModule } from './../../../services/dialogs/order-overview/order-overview.module';
 import { FoodListPopupModule } from './../../../components/food/food-list-popup/food-list-popup.module';
 import { CartDialogModule } from './../../../services/dialogs/cart/cart.module';
-import { ChefListDialogModule } from './../../../services/dialogs/chef-list/chef-list.module';
+import { DisplayDialogModule } from '../../../services/dialogs/display/display.module';
 import { FoodListItemModule } from './../../../components/food/food-list-item/food-list-item.module';
 import { RouterModule } from '@angular/router';
 import { LanguageModule } from './../../../services/language/language.module';
@@ -27,7 +27,7 @@ import { MenuComponent } from './menu/menu.component';
     LanguageModule,
     FoodListItemModule,
     FoodListPopupModule,
-    ChefListDialogModule,
+    DisplayDialogModule,
     CartDialogModule,
     OrderOverviewDialogModule
   ],

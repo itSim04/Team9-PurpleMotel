@@ -1,3 +1,4 @@
+import { InformationDatabaseModule } from './pages/admin/information-database/information-database.module';
 import { QuickDialogModule } from './services/dialogs/quick/quick.module';
 import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -29,13 +30,12 @@ import { RestaurantModule } from './pages/guest/restaurant/restaurant.module';
 import { RoomsModule } from './pages/guest/rooms/rooms.module';
 import { ServicesModule } from './pages/guest/services/services.module';
 import { CartDialogModule } from './services/dialogs/cart/cart.module';
-import { ChefListDialogModule } from './services/dialogs/chef-list/chef-list.module';
 import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
   ],
   imports: [
 
@@ -49,9 +49,8 @@ import { ConfirmationDialogModule } from './services/dialogs/confirmation/confir
 
     // Potential
     ConfirmationDialogModule,
-
-    // Potential
     BrowserAnimationsModule,
+
     AnnouncementDatabaseModule,
     BookingDatabaseModule,
     FoodDatabaseModule,
@@ -59,8 +58,9 @@ import { ConfirmationDialogModule } from './services/dialogs/confirmation/confir
     NewsDatabaseModule,
     PromoDatabaseModule,
     OrderDatabaseModule,
+    InformationDatabaseModule,
 
-    
+
     RegistrationDatabaseModule,
     RoomDatabaseModule,
     ServiceDatabaseModule,

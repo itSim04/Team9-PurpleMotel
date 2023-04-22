@@ -1,3 +1,4 @@
+import { InformationDatabaseComponent } from './pages/admin/information-database/information-database.component';
 import { GuestGuard } from './guards/guest.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
@@ -60,6 +61,10 @@ const routes: Routes = [
       {
         path: "news-database",
         component: NewsDatabaseComponent,
+      },
+      {
+        path: "information-database",
+        component: InformationDatabaseComponent,
       },
       {
         path: "order-database",

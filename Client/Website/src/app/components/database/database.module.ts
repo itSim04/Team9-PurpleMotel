@@ -1,3 +1,4 @@
+import { FooterModule } from './../general/footer/footer.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -43,6 +44,7 @@ import { CompletionComponent } from './change/completion/completion.component';
     MatInputModule,
     FormsModule,
     MatOptionModule,
+    FooterModule,
     LanguageModule,
     StarRatingModule,
     MatTableModule,
