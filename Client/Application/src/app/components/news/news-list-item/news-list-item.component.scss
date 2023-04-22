@@ -21,17 +21,9 @@ $primary-color: #14274A;
 .body {
     @extend .parent;
     font-size: 13px;
+    margin-bottom: 2%;
     margin-top: 2%;
     width: 65%;
-}
-
-.button {
-    @extend .parent;
-    font-size: 13px;
-    margin-top: 2%;
-    text-transform: uppercase;
-    width: fit-content;
-    padding-bottom: 6%;
 }
 
 img {
@@ -56,6 +48,29 @@ hr {
     margin-bottom: 4%;
 }
 
-.likes {
-    text-align: left;
+
+.button {
+    @extend .parent;
+    font-size: 13px;
+    margin-top: 2%;
+    text-transform: uppercase;
+    width: fit-content;
+    padding-bottom: 6%;
 }
+
+.likes-btn {
+    width: 30%; 
+    text-align: right; 
+    max-width: 40%; 
+    transform: translateX(-10%);
+}
+
+.likes-nbr{
+    //transform: translateX(-10%);
+    word-wrap: break-word;
+    max-width: 60px;
+}
+
+// table, tr, td {
+//     border: 1px solid black;
+// }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsListPopupComponent } from './news-list-popup.component';
 import { IonicModule } from '@ionic/angular';
+import { LanguageModule } from 'src/app/services/language/language.module';
 
 
 
@@ -11,7 +12,8 @@ import { IonicModule } from '@ionic/angular';
   ],
   imports: [
     CommonModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    LanguageModule
   ],
   exports: [
     NewsListPopupComponent
