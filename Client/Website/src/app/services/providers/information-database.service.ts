@@ -147,7 +147,7 @@ export class InformationDatabaseService {
     }
 
   }
-  getAlllImages(): Observable<ImagesPackage> {
+  getAllImages(): Observable<ImagesPackage> {
 
     try {
 
