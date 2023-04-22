@@ -5,6 +5,7 @@ import { RoomType } from 'src/app/models/RoomType';
 import { Router } from '@angular/router';
 import { formatPrice } from '../../database/database.component';
 import { ModalController } from '@ionic/angular';
+import { RoomModalComponent } from '../room-modal/room-modal.component';
 
 @Component({
   selector: 'app-room-item',
