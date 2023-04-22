@@ -15,6 +15,7 @@ use App\Http\Controllers\UserPermissions;
 use App\Http\Controllers\UserPermissionsController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\UserTypePermissionController;
+use App\Http\Controllers\ImageController;
 use App\Models\User;
 use App\Models\UserType;
 use App\Policies\UserPolicy;
@@ -162,5 +163,6 @@ Route::prefix('v1')->group(function () {
         });
     });
     Route::apiResource('news', NewsController::class);
+    Route::apiResource('images', ImageController::class);
     Route::get('fetch-profile', [UserController::class, 'fetchProfile']);
 });
