@@ -35,5 +35,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EffectPromoCodesSeeder::class);
         $this->call(LikesNewsSeeder::class);
         $this->call(ReviewSeeder::class);
+        $this->call(ImageSeeder::class);
     }
 }
