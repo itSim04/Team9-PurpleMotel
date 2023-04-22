@@ -1,74 +1,60 @@
-<!-- <div class="main">
-    <div style="background: #14274A;">
-        <img [src]="room?.value?.image_path || '../../../assets/room-1.png'" height="400vh"
-            width="100%" style="object-fit: cover;">
-            <div style="vertical-align: center; display: flex; flex-direction: column;" >
-                <p class="label">{{room?.value?.label}}</p>
-            </div>
-    </div>
+<!-- <ion-content style="height: 66vh;">
 
+  <div>
 
-    <table class="footer">
-        <tr>
-            <td>
-                <p class="price">
-                    {{formatPrice}}
+    <table>
 
-                </p>
-            </td>
-            <td>
-                <button class="check-btn" (click)="route()">
-                    View Details
-                </button>
-            </td>
-            <td>
-
-                <star-rating [showHalfStars]="true" [rating]="room?.value?.rating || 0" staticColor="ok"
-                    [readOnly]="true"></star-rating>
-
-            </td>
-        </tr>
-    </table>
-
-
-</div> -->
-
-<!-- <div>
-    <ion-text class="header">
-      {{news.value.title}}
-    </ion-text>
-  </div>
-  
-  <div class="image-bg">
-    <img src="../../../../assets/rooms-pics/room-sample-pic.png">
-  </div>
-  
-  <div class="body">
-    {{news.value.body}}
-  </div> -->
-
-  <ion-content style="height: 66vh;">
-
-    <div>
-  
-  
-      <table>
-  
-        <tr>
-          <td colspan="2">
-            <h2 class="img-title">{{room?.value?.label}}</h2>
-            <div class="image-bg">
+      <tr>
+        <td colspan="2">
+          <h2 class="img-title">{{room?.value?.label}}</h2>
+          <div class="image-bg">
             <img src="../../../assets/rooms/room-sample.jpg">
-            </div>
-          </td>
-  
-        </tr>
-  
-  
-      </table>
-      <!-- <div class="button-container">
+          </div>
+        </td>
+
+      </tr>
+
+    </table>
+    <div class="button-container">
   
         <button class="learn-more-button" (click)="openModal()">Learn More</button>
-      </div> -->
-    </div>
-  </ion-content>
+      </div>
+  </div>
+</ion-content> -->
+
+<div>
+  <ion-text class="header">
+    {{room?.value?.label}}
+  </ion-text>
+</div>
+
+<div class="image-bg">
+  <img src="../../../assets/rooms/room-sample.jpg">
+</div>
+
+<!-- <div class="body">
+  {{room?.value?.description}}
+</div> -->
+
+
+
+<table align="center" style="padding-top: 5%;">
+  <tr>
+    <td style="padding-right: 100px;">
+      <div class="button">
+        <ion-button (click)="openModal()" expand="block" fill="outline" color="#14274A">Explore</ion-button>
+      </div>
+    </td>
+
+    <td></td>
+    <td style="padding-left: 100px;">
+      <div class="price">
+        {{formatPrice}}
+      </div>
+    </td>
+  </tr>
+  <tr>
+  </tr>
+</table>
+
+<hr>
