@@ -70,8 +70,10 @@ export class UserDatabaseService {
 
 
   }
-  getOneUser(id: string): Observable<UserPackage> {
+  getOneUser(id: number): Observable<UserPackage> {
     const headers = this.url.generateHeader();
+
+    console.log(id);
 
     try {
 

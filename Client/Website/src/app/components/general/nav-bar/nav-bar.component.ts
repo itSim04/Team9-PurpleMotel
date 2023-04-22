@@ -1,9 +1,11 @@
+
 import { UserDatabaseService } from './../../../services/providers/user-database.service';
 import { LanguageList } from './../../../models/LanguageList';
 import { LanguageDatabaseService } from '../../../services/providers/language-database.service';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { extractAnyPermission, extractUser, extractUserId } from '../../database/database.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,7 +16,7 @@ export class NavBarComponent {
   @Input() transparent = false;
   @Input() hide_auth = false;
   languages: Map<string, LanguageList> = new Map();
-  constructor (private user_service: UserDatabaseService, private authentication_service: AuthenticationDialogService, private language_service: LanguageDatabaseService) { }
+  constructor (private router: Router, private user_service: UserDatabaseService, private authentication_service: AuthenticationDialogService, private language_service: LanguageDatabaseService) { }
 
 
   ngOnInit() {
@@ -24,6 +26,27 @@ export class NavBarComponent {
       this.languages = data.language_lists;
       console.log(this.languages);
     });
+
+  }
+  openSupport() {
+
+    const user = extractUser();
+    const id = extractUserId();
+    if(user && id) {
+
+      if(user.tier == '0') {
+
+        this.router.navigate(['guestchat/' + id])
+
+      } else {
+
+        this.router.navigate(['adminchat'])
+
+      }
+
+
+    }
+
 
   }
   updateLanguage(arg0: any): any {

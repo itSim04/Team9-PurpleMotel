@@ -1,7 +1,7 @@
 import { KeyValue } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Database, DatabaseReference, getDatabase, onChildAdded, onValue, push, ref, runTransaction, set, update, get } from '@angular/fire/database';
+import { Database, DatabaseReference, getDatabase, onChildAdded, onValue, push, ref, runTransaction, set, update } from '@angular/fire/database';
 import { extractSessionUser, User } from "src/app/models/User";
 import { Chat, Message } from "src/app/models/Chat";
 import { UserDatabaseService } from "src/app/services/providers/user-database.service";
@@ -13,16 +13,11 @@ import { extractUserId, formatDate } from "src/app/components/database/database.
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatsPageComponent implements OnInit {
+export class GuestChatsPageComponent implements OnInit {
 
   // Holds a conversation
-  message: string = ""; // The current message
   loading: boolean = true; // Whether the page is still loading
-  chat_loading: boolean = true; // Whether the page is still loading
-
-  all_users: Map<string, User> = new Map<string, User>();
-  active_guests: KeyValue<string, User>[] = [];
-  active_last_messages: { lastDate: string, lastMessage: string; }[] = [];
+  message: string = ""; // The current message
 
   hovered_id = -1;
 
@@ -38,8 +33,8 @@ export class ChatsPageComponent implements OnInit {
     // Retrieves the messages from Firebase
 
     this.db = getDatabase();
+    this.id = String(this.route.snapshot.paramMap.get("id"));
 
-    this.id = this.route.snapshot.paramMap.get("id") || '0';
 
     this.session_user = {
 
@@ -48,83 +43,45 @@ export class ChatsPageComponent implements OnInit {
 
     };
 
-    this.userService.getAllUsers().subscribe(u => {
+    this.userService.getOneUser(Number.parseInt(this.id)).subscribe(u => {
 
-      this.all_users = u.users;
+      this.chat = {
 
+        user_1: this.session_user,
+        user_2: u.user,
+        lastMessage: {
 
-      const chatsRef = ref(this.db, 'chats/');
+          content: '',
+          owner_id: '-1',
+          date: new Date()
 
-      onChildAdded(chatsRef, (snapshot) => {
+        },
+        messages: [],
+        start: new Date()
 
-        this.chat_loading = false;
+      };
 
-        const temp = this.all_users.get(snapshot.key || '');
-
-
-        if (temp) {
-
-          this.active_guests.push({ key: snapshot.key || '0', value: temp });
-          this.active_last_messages.push((snapshot.val() as { lastDate: string, lastMessage: string; }));
-
-        }
-
-      });
-
-
-      if (this.id != '0') {
-
-        this.download();
-
-      } else {
+      const commentsRef = ref(this.db, 'messages/' + this.id);
+      onChildAdded(commentsRef, (snapshot) => {
 
         this.loading = false;
-      }
+
+        const data = snapshot.val();
+
+        this.chat?.messages.push({
+
+          content: data["message"],
+          date: new Date(data["timestamp"]),
+          owner_id: data["sender"]
 
 
-
-    });
-  }
-
-  download() {
-
-    this.loading = true;
-
-    this.chat = {
-
-      user_1: this.session_user,
-      user_2: this.all_users.getPair(this.id!)!,
-      lastMessage: {
-
-        content: '',
-        owner_id: '-1',
-        date: new Date()
-
-      },
-      messages: [],
-      start: new Date()
-
-    };
-
-    const commentsRef = ref(this.db, 'messages/' + this.id);
-    onChildAdded(commentsRef, (snapshot) => {
-
-      this.loading = false;
-
-      const data = snapshot.val();
-
-      this.chat?.messages.push({
-
-        content: data["message"],
-        date: new Date(data["timestamp"]),
-        owner_id: data["sender"]
-
+        });
 
       });
 
     });
-
   }
+
 
 
   // seperateOwner(id: string): string {
@@ -147,13 +104,6 @@ export class ChatsPageComponent implements OnInit {
   // }
 
 
-  routeTo(id: string) {
-
-    this.router.navigate(['adminchat/' + id]);
-    this.id = String(id);
-    this.download();
-
-  }
 
   postMessage() {
 
@@ -212,11 +162,12 @@ export class ChatsPageComponent implements OnInit {
     return formatDate(date);
 
   }
-  formatDateString(date: string): string {
 
-    // Formats the date in a readable format
+  goBack() {
 
-    return formatDate(new Date(date));
+    // Goes back to the Chat selection screen
+
+    this.router.navigate(["home"]);
 
   }
 

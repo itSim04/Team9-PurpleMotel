@@ -9,20 +9,17 @@ import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, Observable, Subject } from 'rxjs';
 import { DataInjection, Column, ChangeInjection } from 'src/app/models/Database';
 
-export function getInformation(term: string) {
+export function formatDate(date: Date): string {
 
-  const information = localStorage.getItem('information');
+  let minutes: string = String(date.getMinutes());
+  let hours: number = date.getHours() % 12;
+  if(hours == 0) hours = 12;
 
-  if (information) {
-
-    const info = JSON.stringify(information);
-
-  } else {
-
-    
-
+  if (minutes.length == 1) {
+      minutes = 0 + minutes;
   }
 
+  return hours + ":" + minutes + (date.getHours() > 11 ? " PM" : " AM");
 
 }
 export function extractUser(validity_check: boolean = true) {

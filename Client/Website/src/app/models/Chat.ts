@@ -20,7 +20,7 @@ export interface Chat {
     user_1: KeyValue<string, UserAttributes>; // The first user (typically the logged in user)
     user_2: KeyValue<string, UserAttributes>; // The second user
     start: Date; // The start date of the conversation
-    last_message: Message; // The last message in the chat
+    lastMessage: Message; // The last message in the chat
     messages: Message[]; // The messages held by this chat
 
 

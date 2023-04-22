@@ -28,7 +28,7 @@
                 <button *ngIf="extractAnyPermission()" [routerLink]="['/admin']" class="check-btn">
                     {{ "admin_panel" | translate}}
                 </button>
-                <button class="check-btn">
+                <button (click)="openSupport()" class="check-btn">
                     {{ "support" | translate}}
                 </button>
             </td>

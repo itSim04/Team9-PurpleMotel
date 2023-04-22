@@ -1,24 +1,13 @@
 <div class="main">
 
     <app-nav-bar [transparent]="true"></app-nav-bar>
-    <mat-progress-bar mode="indeterminate" *ngIf="loading || chat_loading"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 
-    <table style="background: #00000045; position: fixed; bottom: 0px; height: 80%; width: 100%;">
+    <table [style.visibility]="loading ? 'hidden' : 'visible'" style="background: #00000045; position: fixed; bottom: 0px; height: 80%; width: 100%;">
         <tr>
-            <td [style.visibility]="chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 30%;">
-
-                <div (click)="routeTo(guest.key)" style="padding: 16px;" *ngFor="let guest of active_guests; let i = index">
-
-                    <p class="chat-last" style="float: right;">{{formatDateString(active_last_messages[i].lastDate)}}</p>
-                    <p class="chat-name">{{guest.value.first_name + ' ' + guest.value.last_name}}</p>
-                    <p class="chat-last">{{active_last_messages[i].lastMessage}}</p>
-                    <mat-divider style="border-color: white;"></mat-divider>
-
-                </div>
-
-
-            </td>
-            <td [style.visibility]="loading || chat_loading ? 'hidden' : 'visible'" style="vertical-align: bottom; width: 70%">
+            <!-- <td style="width: 30%;">
+            </td> -->
+            <td style="vertical-align: bottom; width: 70%">
 
                 <div style="height: 66%; overflow-y: scroll;">
 
@@ -44,8 +33,8 @@
                                         [style.border-top-left-radius]="topLeft(c, i)"
                                         [style.border-bottom-right-radius]="bottomRight(c, i)"
                                         [style.border-top-right-radius]="topRight(c, i)"
-                                        [style.float]="c.owner_id == id ? 'left' : 'right'"
-                                        [class]="c.owner_id == id ? 'multi sent-message' : 'multi received-message'">
+                                        [style.float]="c.owner_id == id ? 'right' : 'left'"
+                                        [class]="c.owner_id == id ? 'multi received-message' : 'multi sent-message'">
 
                                         <p style="margin: 0px;">
                                             {{c.content}}</p>
@@ -60,7 +49,7 @@
                             <tr>
 
                                 <td *ngIf="(i == chat?.messages!.length - 1 || formatDate(chat?.messages![i + 1].date) != formatDate(c.date) || chat?.messages![i + 1].owner_id != c.owner_id)"
-                                    class="col" [style.float]="c.owner_id == id ? 'left' : 'right'">
+                                    class="col" [style.float]="c.owner_id == id ? 'right' : 'left'">
                                     <p [style.color]="hovered_id == i ? 'white' : 'transparent'"
                                         style="margin: 0px;" class="date">
                                         {{formatDate(c.date)}}
@@ -73,11 +62,11 @@
 
 
                 <!-- Input -->
-                <div [style.visibility]="loading || chat_loading || (id == '0') ? 'hidden' : 'visible'"
+                <div
                     style="width: 100%; position: relative; margin: 16px; right: 0px; bottom: 0px;">
                     <input placeholder="Type your message..." class="send-area"
                         [(ngModel)]="message">
-                    <img class="send" height="70%" style="position: absolute; top: 0; right: 24px;"
+                    <img class="send" height="70%" style="position: absolute; top: 0; right: 48px;"
                         src="../../../assets/send_icon.png" (click)="postMessage()">
                 </div>
 

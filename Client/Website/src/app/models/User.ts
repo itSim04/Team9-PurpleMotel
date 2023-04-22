@@ -163,10 +163,10 @@ export function extractSessionUser() {
 
         const json = localStorage.getItem('user');
 
-        if(json) {
+        if (json) {
 
             return JSON.parse(json) as User;
-            
+
         } else {
 
             return undefined;
@@ -176,7 +176,7 @@ export function extractSessionUser() {
 
     } catch (e: unknown) {
 
-        return undefined
+        return undefined;
 
     }
 

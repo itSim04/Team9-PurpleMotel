@@ -1,3 +1,4 @@
+import { GuestChatsPageModule } from './pages/guest-chat/chat.module';
 import { InformationDatabaseModule } from './pages/admin/information-database/information-database.module';
 import { QuickDialogModule } from './services/dialogs/quick/quick.module';
 import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
@@ -32,10 +33,10 @@ import { ServicesModule } from './pages/guest/services/services.module';
 import { CartDialogModule } from './services/dialogs/cart/cart.module';
 import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { ChatsPageModule } from './pages/chat/chat.module';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
 
 
 @NgModule({
@@ -82,11 +83,10 @@ import { ChatsPageModule } from './pages/chat/chat.module';
     RoomsModule,
 
     AuthenticationModule,
+    ProfileModule,
 
-    ProfileModule
-    ConfirmationDialogModule,
-    ServiceDatabaseModule,
     ChatsPageModule,
+    GuestChatsPageModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase())
 

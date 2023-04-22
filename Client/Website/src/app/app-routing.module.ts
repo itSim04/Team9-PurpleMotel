@@ -1,3 +1,6 @@
+import { AdminChatGuard } from './guards/admin.chat.guard';
+import { GuestChatsPageComponent } from './pages/guest-chat/chat.component';
+import { GuestChatsPageModule } from './pages/guest-chat/chat.module';
 import { InformationDatabaseComponent } from './pages/admin/information-database/information-database.component';
 import { GuestGuard } from './guards/guest.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -25,6 +28,7 @@ import { ProfileComponent } from './pages/guest/profile/profile.component';
 import { ActivityOverviewComponent } from './components/activities/activity-overview/activity-overview.component';
 import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
+import { ChatGuard } from './guards/chat.guard';
 
 const routes: Routes = [
 
@@ -34,6 +38,21 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: "guestchat/:id",
+    component: GuestChatsPageComponent,
+    canActivate: [ChatGuard]
+  },
+  {
+    path: "adminchat",
+    component: ChatsPageComponent,
+    canActivate: [AdminChatGuard]
+  },
+  {
+    path: "adminchat/:id",
+    component: ChatsPageComponent,
+    canActivate: [AdminChatGuard]
+  },
+  {
     path: 'admin',
     canActivate: [AdminGuard],
     children: [
@@ -41,12 +60,9 @@ const routes: Routes = [
 
         path: "",
         component: AdminDashboardComponent,
-
+        
       },
-      {
-        path: "chat/:id",
-        component: ChatsPageComponent,
-      },
+      
       {
         path: "announcement-database",
         component: AnnouncementDatabaseComponent,
@@ -170,7 +186,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
