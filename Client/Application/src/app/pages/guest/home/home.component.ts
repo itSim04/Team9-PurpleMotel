@@ -29,6 +29,11 @@ export class HomeComponent  implements OnInit {
       console.log(this.news);
       this.filtered_news = Array.from(this.news);
     });
+    
+    // for(let key of this.news) 
+    //   console.log(key);
+   
   }
 
+  
 }

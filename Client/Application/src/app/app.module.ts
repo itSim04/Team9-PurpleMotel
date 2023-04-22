@@ -27,6 +27,7 @@ import { ActivitiesModule } from './components/activities/activities.module';
 import { ServicesModule } from './pages/guest/services/services.module';
 import { HomeModule } from './pages/guest/home/home.module';
 import { NewsListItemModule } from './components/news/news-list-item/news-list-item.module';
+import { NewsListPopupModule } from './components/news/news-list-popup/news-list-popup.module';
 
 
 
@@ -67,7 +68,8 @@ import { NewsListItemModule } from './components/news/news-list-item/news-list-i
 
 
     HomeModule,
-    NewsListItemModule
+    NewsListItemModule,
+    NewsListPopupModule
 
   ],
   providers: [

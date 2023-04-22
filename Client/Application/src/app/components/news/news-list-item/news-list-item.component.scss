@@ -1,17 +1,29 @@
 $primary-color: #14274A;
 
-.header {
+.parent {
     color: $primary-color;
     display: block;
     font-family: 'Abhaya Libre';
-    font-size: 20px;
     font-style: normal;
-    font-weight: 500;
     margin: 0 auto;
-    margin-bottom: 2%;
     position: relative;
+    font-weight: 500;
     text-align: center;
+}
+
+.header {
+    @extend .parent;
+    font-size: 20px;
+    margin-bottom: 2%;
     text-transform: uppercase;
+}
+
+.body {
+    @extend .parent;
+    font-size: 13px;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    width: 65%;
 }
 
 img {
@@ -20,7 +32,7 @@ img {
     margin-left: auto;
     margin-right: auto;
     max-width: 80%;
-    transform: translateY(-20%);
+    transform: translateY(-17%);
 }
 
 .image-bg {
@@ -30,120 +42,35 @@ img {
     margin-top: 12%;
 }
 
-.body {
-    color: $primary-color;
-    display: block;
-    font-family: 'Abhaya Light';
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    margin: 0 auto;
-    margin-top: 2%;
-    position: relative;
-    text-align: center;
-    width: 65%;
+hr {
+    background-color: $primary-color;
+    width: 50%;
+    margin-bottom: 4%;
 }
+
 
 .button {
-    color: $primary-color;
-    display: block;
-    font-family: 'Abhaya Light';
+    @extend .parent;
     font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    margin: 0 auto;
     margin-top: 2%;
-    position: relative;
-    text-align: center;
     text-transform: uppercase;
-
     width: fit-content;
-    //background-color: $primary-color;
-    //shape: 'round';
+    padding-bottom: 6%;
 }
 
-
-ion-modal#example-modal {
-    --width: fit-content;
-    --min-width: 250px;
-    --height: fit-content;
-    --border-radius: 6px;
-    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+.likes-btn {
+    width: 30%; 
+    text-align: right; 
+    max-width: 40%; 
+    transform: translateX(-10%);
 }
 
-ion-modal#example-modal h1 {
-    margin: 20px 20px 10px 20px;
+.likes-nbr{
+    //transform: translateX(-10%);
+    word-wrap: break-word;
+    max-width: 60px;
 }
 
-ion-modal#example-modal ion-icon {
-    margin-right: 6px;
-
-    width: 48px;
-    height: 48px;
-
-    padding: 4px 0;
-
-    color: #aaaaaa;
-}
-
-ion-modal#example-modal .wrapper {
-    margin-bottom: 10px;
-}
-
-
-
-
-
-
-
-.parent {
-
-    color: $primary-color;
-    display: block;
-    font-family: 'Abhaya Libre';
-    font-style: normal;
-    position: relative;
-    margin-right: 2%;
-
-}
-
-.title {
-
-    @extend .parent;
-    font-size: 22px;
-    margin-left: 2%;
-    text-align: center;
-
-}
-
-.date {
-
-    @extend .parent;
-    font-size: 14px;
-    margin-left: 2%;
-    margin-top: -6%;
-    text-align: center;
-}
-
-.description {
-
-    @extend .parent;
-    font-size: 16px;
-    margin-left: 2%;
-    text-align: center;
-
-}
-
-.likes {
-
-    @extend .parent;
-    font-size: 16px;
-    text-align: right;
-}
-
-hr {
-
-    background-color: black;
-    width: 60%;
-
-}
+// table, tr, td {
+//     border: 1px solid black;
+// }

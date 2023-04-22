@@ -1,0 +1,31 @@
+<!-- <ion-modal id="example-modal" #modal trigger="open-custom-dialog">
+  <ng-template> -->
+<div class="wrapper">
+  <h1 class="title">{{title}}</h1>
+  <ion-list lines="none">
+
+    <img src="../../../../assets/news-pics/news-sample-pic.png" class="image">
+
+    <div class="date">
+      {{'published on' | translate}} {{date}}
+    </div>
+
+    <hr>
+
+    <div class="description">
+      {{body}}
+    </div>
+
+    <!-- <div (click)="like()" fill="clear" class="likes">
+      <ion-icon [name]="is_liked ? 'heart-outline' : 'heart-dislike-outline'"
+        [style.color]="is_liked ? '#A4274A' : '#14274A'"></ion-icon>
+    </div> -->
+
+    <div class="likes-number">
+      {{likes}} {{'likes' | translate}}
+    </div>
+
+  </ion-list>
+</div>
+<!-- </ng-template>
+</ion-modal> -->
