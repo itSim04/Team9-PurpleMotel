@@ -2,6 +2,7 @@ import { InformationDatabaseComponent } from './pages/admin/information-database
 import { GuestGuard } from './guards/guest.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
+import { ChatsPageComponent } from './pages/chat/chat.component';
 import { HomeComponent } from './pages/guest/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
@@ -41,6 +42,10 @@ const routes: Routes = [
         path: "",
         component: AdminDashboardComponent,
 
+      },
+      {
+        path: "chat/:id",
+        component: ChatsPageComponent,
       },
       {
         path: "announcement-database",
