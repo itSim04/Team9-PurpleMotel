@@ -16,6 +16,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class NewsListItemComponent {
   @Input() news!: KeyValue<string, News>;
 
+  liking: boolean = false;
+
   image = Math.random() > 0.5 ? "../../../../assets/news-sample1.png" : "../../../../assets/news-sample2.png";
 
   constructor (private authentication: AuthenticationDialogService, private news_dialog: NewsListPopupService, private news_service: NewsDatabaseService) { }
@@ -29,33 +31,40 @@ export class NewsListItemComponent {
   like() {
 
 
+
     const user_id = extractUserId();
 
     if (user_id) {
 
-      if (this.news.value.is_liked) {
+      if (!this.liking) {
 
-        this.news_service.unlike(this.news.key, user_id).subscribe(data => {
 
+        if (this.news.value.is_liked) {
+
+          this.liking = true;
           this.news.value.likes_number -= 1;
           this.news.value.is_liked = false;
 
+          this.news_service.unlike(this.news.key, user_id).subscribe(data => {
 
-        });
+            this.liking = false;
+
+          });
 
 
-      } else {
+        } else {
 
-        this.news_service.like(this.news.key, user_id).subscribe(data => {
-
-          console.log(data);
+          this.liking = true;
           this.news.value.likes_number += 1;
           this.news.value.is_liked = true;
+          this.news_service.like(this.news.key, user_id).subscribe(data => {
 
+            this.liking = false;
 
-        });
+          });
+        }
+
       }
-
 
     } else {
 
