@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { InformationsPackage, InformationsResponse, Information, InformationPackage, InformationResponse } from "src/app/models/Information";
 import { UrlBuilderService } from "../utility/url-builder.service";
+import { Image, ImagePackage, ImageResponse, ImagesPackage, ImagesResponse } from "src/app/models/Image";
 
 
 
@@ -146,4 +147,116 @@ export class InformationDatabaseService {
     }
 
   }
+  getAlllImages(): Observable<ImagesPackage> {
+
+    try {
+
+      return this.http.get<ImagesResponse>(this.url.generateUrl('images')).pipe(
+
+        map((response: ImagesResponse): ImagesPackage => {
+
+          const images = new Map<string, Image>();
+
+          response.data.forEach(image => {
+
+            images.set(image.id, image.attributes);
+
+          });
+
+          return {
+
+            images: images
+
+          };
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+
+  }
+  getOneImage(id: string): Observable<ImagePackage> {
+
+    try {
+
+      return this.http.get<ImageResponse>(this.url.generateUrl(`images/${id}`)).pipe(
+        map((response: ImageResponse): ImagePackage => {
+
+          return {
+
+            image: {
+
+              key: response.data.id,
+              value: response.data.attributes
+
+            },
+          };
+
+
+        })
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  addNewImage(image: Image) {
+
+    try {
+
+      return this.http.post<ImageResponse>(this.url.generateUrl('images'), image).pipe(
+
+        map(result => {
+
+          return result.data.id;
+
+        })
+
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  modifyImage(image_id: string, image: Image) {
+
+    try {
+
+      return this.http.put(this.url.generateUrl(`images/${image_id}`), image).pipe(map(() => undefined));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  deleteImage(key: string) {
+
+    try {
+
+      return this.http.delete(this.url.generateUrl(`images/${key}`)).pipe(map(() => []));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
 }
+
+
