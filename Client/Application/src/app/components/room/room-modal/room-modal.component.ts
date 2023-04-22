@@ -1,4 +1,4 @@
-import { ToastController } from '@ionic/angular';
+import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { BookingDatabaseService } from 'src/app/pages/admin/booking-database/booking-database.service';
 import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
@@ -10,17 +10,22 @@ import { formatPrice } from '../../database/database.component';
 
 
 @Component({
-  selector: 'app-room-details',
-  templateUrl: './room-details.component.html',
-  styleUrls: ['./room-details.component.scss']
+  selector: 'app-room-modal',
+  templateUrl: './room-modal.component.html',
+  styleUrls: ['./room-modal.component.scss']
 })
-export class RoomDetailsComponent {
+export class RoomModalComponent {
 
   @Input() room?: KeyValue<string, Room>
   @Input() room_type?: KeyValue<string, RoomType>
   @Input() overview = true;
 
-  constructor(private booking_service: BookingDatabaseService, private snackBar: ToastController) { }
+  constructor(private modal_params: NavParams, private modal_ctrl: ModalController, private booking_service: BookingDatabaseService, private snackBar: ToastController) {
+    this.room = {
+      key: modal_params.get('key'),
+      value: modal_params.get('data')
+    }
+   }
 
   get formatOccupancy(): string {
 
@@ -79,6 +84,10 @@ export class RoomDetailsComponent {
       console.error('Invalid id or room key')
 
     }
+  }
+
+  closeModal() {
+    this.modal_ctrl.dismiss()
   }
 
   async display_toast(body: string) {

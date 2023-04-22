@@ -1,14 +1,14 @@
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RoomDetailsComponent } from './room-details.component';
+import { RoomModalComponent } from './room-modal.component';
 // import { CalendarModule } from '../calendar/calendar.module';
 
 
 
 @NgModule({
   declarations: [
-    RoomDetailsComponent
+    RoomModalComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +16,7 @@ import { RoomDetailsComponent } from './room-details.component';
     // CalendarModule
   ],
   exports: [
-    RoomDetailsComponent
+    RoomModalComponent
   ]
 })
 export class RoomDetailsModule { }
