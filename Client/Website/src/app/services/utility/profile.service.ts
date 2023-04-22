@@ -1,3 +1,4 @@
+import { IngredientAttributes } from './../../models/Ingredient';
 import { PromoCode, PromoCodeAttributes } from 'src/app/models/PromoCode';
 import { ComponentType } from "@angular/cdk/portal";
 import { HttpClient } from "@angular/common/http";
@@ -95,7 +96,13 @@ export class ProfileService {
 
                   if (food) {
 
-                    food.ingredients.push(value.relationships.stock.data.id);
+                    food.ingredients.push({
+                      
+                      id: value.relationships.stock.data.id,
+                      quantity: (value.attributes as IngredientAttributes).quantity,
+                      required: (value.attributes as IngredientAttributes).required
+
+                    });
 
                   } else {
 

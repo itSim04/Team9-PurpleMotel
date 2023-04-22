@@ -6,6 +6,7 @@ import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Food } from 'src/app/models/Food';
 import { FoodCategory } from 'src/app/models/FoodCategory';
 import { FoodDatabaseService } from 'src/app/services/providers/food-database.service';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'app-food-database',
@@ -62,7 +63,45 @@ export class FoodDatabaseComponent {
 
   change_injection: ChangeInjection<Food> = {
 
-    side_panel: 'images',
+    table: {
+
+      columns: [
+        {
+
+          key: 'id',
+          type: 'selection',
+          outer_link: {
+
+            index: 1,
+            format: (value) => (value as KeyValue<string, Stock>)?.value?.label,
+            key: 'id'
+
+          }
+
+        },
+        {
+
+          key: 'quantity',
+          type: 'text'
+
+        },
+        {
+          key: 'required',
+          type: 'boolean'
+        }
+
+      ],
+      default_value:{
+
+        id: '0',
+        quantity: 0,
+        required: false
+        
+      },
+      key: 'ingredients'
+
+    },
+    side_panel: 'table',
     default_state: {
       label: '',
       description: '',
@@ -88,24 +127,15 @@ export class FoodDatabaseComponent {
         type: 'number'
       },
       {
-        key: 'ingredients',
-        type: 'outer_choices',
-        outer_choices: {
-
-          index: 1,
-          format: (choice) => (choice as Stock)?.label,
-
-        }
-      },
-      {
         key: 'category',
         type: 'selection',
         choices: {
 
           link: true,
-          format: (choice) => (choice as FoodCategory)?.label
-
-        }
+          format: (choice) => (choice as FoodCategory)?.label,
+          
+        },
+        condition: (choice) => choice != '-1'
       }
     ],
 

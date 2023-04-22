@@ -18,7 +18,7 @@ export class FoodDatabaseService {
 
   getAllFoods(): Observable<FoodsPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -41,7 +41,7 @@ export class FoodDatabaseService {
 
             response.included.forEach(value => {
 
-    
+
               switch (value.type) {
 
 
@@ -53,7 +53,13 @@ export class FoodDatabaseService {
                 case 'Ingredient':
 
                   ingredients.set(value.id, { ...(value.attributes as IngredientAttributes), food_id: value.relationships.food.data.id, stock_id: value.relationships.stock.data.id });
-                  foods.get(value.relationships.food.data.id)?.ingredients.push(value.relationships.stock.data.id);
+                  foods.get(value.relationships.food.data.id)?.ingredients.push({
+
+                    id: value.relationships.stock.data.id,
+                    quantity: (value.attributes as IngredientAttributes).quantity,
+                    required: (value.attributes as IngredientAttributes).required
+
+                  });
 
                   break;
 
@@ -92,7 +98,7 @@ export class FoodDatabaseService {
   }
   getOneFood(id: string): Observable<FoodPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -123,7 +129,7 @@ export class FoodDatabaseService {
 
   addNewFood(food: Food) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -147,7 +153,7 @@ export class FoodDatabaseService {
 
   modifyFood(food_id: string, food: Food) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -163,7 +169,7 @@ export class FoodDatabaseService {
 
   deleteFood(key: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 

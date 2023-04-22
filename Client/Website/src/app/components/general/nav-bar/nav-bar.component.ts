@@ -1,8 +1,9 @@
+import { UserDatabaseService } from './../../../services/providers/user-database.service';
 import { LanguageList } from './../../../models/LanguageList';
 import { LanguageDatabaseService } from '../../../services/providers/language-database.service';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
-import { extractAnyPermission, extractUser } from '../../database/database.component';
+import { extractAnyPermission, extractUser, extractUserId } from '../../database/database.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,27 +14,31 @@ export class NavBarComponent {
   @Input() transparent = false;
   @Input() hide_auth = false;
   languages: Map<string, LanguageList> = new Map();
-  constructor (private authentication_service: AuthenticationDialogService, private language_service: LanguageDatabaseService) { }
+  constructor (private user_service: UserDatabaseService, private authentication_service: AuthenticationDialogService, private language_service: LanguageDatabaseService) { }
 
 
   ngOnInit() {
 
     this.language_service.getAllLanguageLists().subscribe(data => {
-      
-      this.languages = data.language_lists
-      console.log(this.languages); 
+
+      this.languages = data.language_lists;
+      console.log(this.languages);
     });
 
   }
   updateLanguage(arg0: any): any {
-    
-    
+
+
     const user = extractUser();
-    if(user) {
+    const user_id = extractUserId();
+    if (user && user_id) {
 
       user.language = arg0;
-      localStorage.setItem("user", JSON.stringify(user));
-      window.location.reload();
+      this.user_service.modifyUser(user_id, user).subscribe(data => {
+
+        localStorage.setItem("user", JSON.stringify(user));
+        window.location.reload();
+      });
 
     }
 

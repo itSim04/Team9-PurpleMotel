@@ -128,15 +128,19 @@ export class UserDatabaseService {
 
     const headers = this.url.generateHeader();
 
-    const permissions: any = {};
-    user.permissions.forEach((permission, label) => {
-
-      permissions[label] = permission;
-
-    });
-
     const user_request = clone(user);
-    user_request.permissions = permissions;
+    const permissions: any = {};
+    if (user.permissions) {
+
+      user.permissions.forEach((permission, label) => {
+
+        permissions[label] = permission;
+
+      });
+      user_request.permissions = permissions;
+    }
+
+
 
     try {
 
@@ -185,7 +189,7 @@ export class UserDatabaseService {
   }
 
 
-  
+
 
   getAllUserTypes(): Observable<UserTypesPackage> {
 

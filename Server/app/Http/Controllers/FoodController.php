@@ -85,7 +85,6 @@ class FoodController extends Controller
             foreach (Ingredient::all()->where('food_id', $food_id) as $stock) {
 
                 $stock_ids[] = $stock->id;
-
             }
             Ingredient::destroy($stock_ids);
 
@@ -94,16 +93,16 @@ class FoodController extends Controller
                 $ingredient = [
 
                     'food_id' => $food_id,
-                    'stock_id' => $stock_id,
-                    'required' => true,
-                    'quantity' => 1
+                    'stock_id' => $stock_id['id'],
+                    'required' => $stock_id['required'],
+                    'quantity' => $stock_id['quantity']
 
                 ];
                 Ingredient::create($ingredient);
             }
         }
 
-        return $response; 
+        return $response;
     }
 
     /**
@@ -147,7 +146,6 @@ class FoodController extends Controller
             foreach (Ingredient::all()->where('food_id', $food_id) as $stock) {
 
                 $stock_ids[] = $stock->id;
-
             }
             Ingredient::destroy($stock_ids);
 
@@ -156,9 +154,9 @@ class FoodController extends Controller
                 $ingredient = [
 
                     'food_id' => $food_id,
-                    'stock_id' => $stock_id,
-                    'required' => true,
-                    'quantity' => 1
+                    'stock_id' => $stock_id['id'],
+                    'required' => $stock_id['required'],
+                    'quantity' => $stock_id['quantity']
 
                 ];
                 Ingredient::create($ingredient);

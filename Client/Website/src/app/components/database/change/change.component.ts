@@ -84,76 +84,7 @@ export function clone(obj: any) {
   styleUrls: ['./change.component.scss']
 })
 export class ChangeComponent<Data extends { [key: string]: string | boolean | number | unknown[]; }> {
-  deleteData(id: number) {
-
-    (this.data[this.table!.key] as unknown[]).splice(id, 1);
-    this.table!.data.data = this.data[this.table!.key] as unknown[];
-
-  }
-
-  pushData() {
-
-    (this.data[this.table!.key] as unknown[]).push({ id: '1', quantity: 1 });
-
-    this.table!.data.data = this.data[this.table!.key] as unknown[];
-
-  }
-  updateData(col: string, element: any, result: number) {
-
-    element[col] = result;
-
-  }
-  formatTableData(element: any, col: string) {
-
-    return element[col];
-
-  }
-
-  getOuter(id: string, index: number) {
-
-    const temp = this.outer_data?.at(index)?.get(id);
-
-    if (temp) {
-
-      return temp;
-
-    } else {
-
-      return undefined;
-
-    }
-
-
-  }
-
-  // getOuterTableData(col: ExtraColumn, element: any) {
-
-  //   if (col.outer_link) {
-
-  //     const temp = this.getOuter(element[col.outer_link.key], col.outer_link.index);
-  //     return col.outer_link.format(temp, element);
-  //     console.log(element);
-
-  //   } else {
-
-  //     throw new Error("Type Link requires Format and Index");
-
-  //   }
-
-  // }
-
-  debug(id: number, row: string, result: boolean) {
-
-    const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
-
-    old_permissions[id] = result;
-
-    this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
-
-  }
-
-
-
+  
   modification_mode = false;
   side_panel: 'images' | 'permissions' | 'empty' | 'table';
   data: Data;
@@ -178,6 +109,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     data: MatTableDataSource<unknown>;
     columns: ExtraColumn[];
     key: keyof Data;
+    default_value: unknown;
 
   };
   readonly old_data?: KeyValue<string, Data>;
@@ -241,6 +173,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
       this.table = {
 
         ...injected_data.injection.table,
+        default_value: clone(injected_data.injection.table.default_value),
         data: new MatTableDataSource(this.data[injected_data.injection.table.key] as unknown[])
 
       };
@@ -520,6 +453,61 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     return undefined;
 
   }
+
+  deleteData(id: number) {
+
+    (this.data[this.table!.key] as unknown[]).splice(id, 1);
+    this.table!.data.data = this.data[this.table!.key] as unknown[];
+
+  }
+
+  pushData() {
+
+    (this.data[this.table!.key] as unknown[]).push(clone(this.table?.default_value));
+
+    this.table!.data.data = this.data[this.table!.key] as unknown[];
+
+  }
+  updateData(col: string, element: any, result: number) {
+
+    element[col] = result;
+
+  }
+  formatTableData(element: any, col: string) {
+
+    return element[col];
+
+  }
+
+  getOuter(id: string, index: number) {
+
+    const temp = this.outer_data?.at(index)?.get(id);
+
+    if (temp) {
+
+      return temp;
+
+    } else {
+
+      return undefined;
+
+    }
+
+
+  }
+
+  debug(id: number, row: string, result: boolean) {
+
+    const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
+
+    old_permissions[id] = result;
+
+    this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
+
+  }
+
+
+
 
   areEqual(a: any, b: any) {
 

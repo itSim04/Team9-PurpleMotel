@@ -5,7 +5,11 @@ import { KeyValue } from '@angular/common';
 export interface Food extends FoodAttributes {
 
   category: string,
-  ingredients: string[], //The ingredients constituting the food
+  ingredients: {
+    id: string,
+    quantity: number,
+    required: boolean;
+  }[], //The ingredients constituting the food
 
 }
 

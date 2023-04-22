@@ -32,7 +32,7 @@ export interface ExtraColumn {
 
 
     key: string,
-    type?: 'text' | 'selection';
+    type?: 'text' | 'selection' | 'boolean';
     custom?: (data: Data) => string; // Exclusively used with Custom
 
     header_alt?: string; // An alternative name for a header
@@ -190,6 +190,7 @@ export interface ChangeInjection<Data> {
 
         columns: ExtraColumn[];
         key: keyof Data;
+        default_value: unknown;
 
     };
     side_panel: 'images' | 'permissions' | 'empty' | 'table';

@@ -111,8 +111,8 @@ export class ProfileComponent implements OnInit {
         this.foods = data.foods;
         this.promo = data.promo;
 
-        console.log(this.promo)
-        
+        console.log(this.promo);
+
 
         console.log(this.rooms);
       },
@@ -150,6 +150,8 @@ export class ProfileComponent implements OnInit {
 
         this.room_service.addReview(result).subscribe(() => {
 
+          const room = this.rooms.get(room_id);
+          if (room) room.is_reviewed = true;
           this.snackBar.open('Review added', 'Dismiss', { duration: 2000 });
 
         });
