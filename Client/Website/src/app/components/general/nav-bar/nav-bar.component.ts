@@ -1,5 +1,5 @@
 import { LanguageList } from './../../../models/LanguageList';
-import { LanguageDatabaseService } from './../../../pages/admin/language-database/language-database.service';
+import { LanguageDatabaseService } from '../../../services/providers/language-database.service';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { extractAnyPermission, extractUser } from '../../database/database.component';

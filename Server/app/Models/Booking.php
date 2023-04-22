@@ -13,6 +13,7 @@ class Booking extends Model
         'user_id',
         'check_in',
         'end_date',
+        'promo_id',
         'exhausted'
     ];
 }

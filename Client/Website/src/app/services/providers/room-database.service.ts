@@ -57,6 +57,7 @@ export class RoomDatabaseService {
 
                   promo_codes.set(data.id, {
                     ...data.attributes as PromoCodeAttributes, concerned_everyone: false,
+                    exhausted: false,
                     concerned_everything: false,
                     concerned_room_types: [],
                     concerned_rooms: [],
@@ -181,6 +182,7 @@ export class RoomDatabaseService {
 
                   promo_codes.set(data.id, {
                     ...data.attributes as PromoCodeAttributes, concerned_everyone: false,
+                    exhausted: false,
                     concerned_everything: false,
                     concerned_room_types: [],
                     concerned_rooms: [],
@@ -289,9 +291,24 @@ export class RoomDatabaseService {
 
           };
 
+          let promo_code: KeyValue<string, PromoCodeAttributes> = {
+
+            key: '0',
+            value: {
+              
+              change: 0,
+              code: '0',
+              end_date: parseDate(new Date()),
+              start_date: parseDate(new Date())
+
+            }
+
+          };
+
           let room_type: KeyValue<string, RoomType> | undefined = undefined;
 
 
+          console.log(response.included)
           response.included?.forEach(data => {
 
             switch (data.type) {
@@ -305,6 +322,15 @@ export class RoomDatabaseService {
 
                 if ((data.attributes as Review).user_id == extractUserId()) room.value.is_reviewed = true;
                 room.value.reviews.push(data.attributes as Review);
+                break;
+
+              case 'PromoCodes':
+
+                promo_code = {
+
+                  key: data.id,
+                  value: data.attributes as PromoCodeAttributes
+                };
 
             }
 
@@ -318,9 +344,10 @@ export class RoomDatabaseService {
 
               promo_code: {
 
-                key: '0',
+                key: promo_code.key,
                 value: {
-                  change: 0,
+                  ...promo_code.value,
+                  exhausted: false,
                   concerned_everyone: false,
                   concerned_everything: false,
                   concerned_room_types: [],
@@ -328,9 +355,7 @@ export class RoomDatabaseService {
                   concerned_rooms: [],
                   concerned_user_tiers: [],
                   concerned_user_types: [],
-                  concerned_users: [],
-                  end_date: parseDate(new Date()),
-                  start_date: parseDate(new Date()),
+                  concerned_users: []
 
                 }
 

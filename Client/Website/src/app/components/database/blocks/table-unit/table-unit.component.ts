@@ -43,7 +43,7 @@ export class TableUnitComponent<Data, Data2> {
       if (this.change_injection) {
 
         this.change_injection.affected_data = undefined;
-        const dialogRef = this.add_service.openDialog<Data>(ChangeComponent, this.change_injection, this.extra_data_map, this.data_injection.permission, this.outer_data);
+        const dialogRef = this.add_service.openDialog<Data>(ChangeComponent, this.change_injection, this.data_map, this.extra_data_map, this.data_injection.permission, this.outer_data);
         dialogRef.afterClosed().subscribe((result: KeyValue<string, Data>) => {
 
           if (result) {
@@ -72,7 +72,7 @@ export class TableUnitComponent<Data, Data2> {
 
       this.change_injection.affected_data = { key: data[0], value: data[1] as Data };
 
-      const dialogRef = this.add_service.openDialog<Data>(ChangeComponent, this.change_injection, this.extra_data_map, this.data_injection.permission, this.outer_data);
+      const dialogRef = this.add_service.openDialog<Data>(ChangeComponent, this.change_injection, this.data_map, this.extra_data_map, this.data_injection.permission, this.outer_data);
       dialogRef.afterClosed().subscribe(result => {
 
 

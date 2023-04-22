@@ -20,7 +20,7 @@ class PromoCodeFactory extends Factory
             'change' => random_int(0,1000),
             'start_date' => fake()->date(),
             'end_date' => fake()->date(),  
-            'code' => fake()->buildingNumber()  
+            'code' => fake()->buildingNumber()
         ];
     }
 }

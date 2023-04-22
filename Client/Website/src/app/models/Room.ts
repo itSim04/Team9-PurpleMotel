@@ -51,8 +51,8 @@ export interface RoomResponse {
   included?: {
 
     id: string;
-    type: 'RoomTypes' | 'Review';
-    attributes: RoomType | Review;
+    type: 'RoomTypes' | 'Review' | 'PromoCodes';
+    attributes: RoomType | Review | PromoCodeAttributes;
 
   }[];
 }

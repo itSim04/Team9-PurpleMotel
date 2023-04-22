@@ -20,6 +20,7 @@ class BookingFactory extends Factory
             'room_id' => random_int(1,20),
             'user_id' => random_int(1,20),
             'check_in' => fake()->date(),
+            'promo_id' => random_int(1, 20),
             'end_date' => fake()->date(),
             'exhausted' => fake()->boolean()    
         ];

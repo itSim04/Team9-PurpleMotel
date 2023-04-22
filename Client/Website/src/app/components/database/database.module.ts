@@ -22,6 +22,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CompletionComponent } from './change/completion/completion.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     TableComponent,
     TableUnitComponent,
     DatabaseComponent,
-    ChangeComponent
+    ChangeComponent,
+    CompletionComponent
 
   ],
   imports: [

@@ -37,7 +37,7 @@ export class BookingDatabaseService {
 
           response.data.forEach(booking => {
 
-            bookings.set(booking.id, { ...booking.attributes, room_id: booking.relationships.room.data.id, user_id: booking.relationships.user.data.id });
+            bookings.set(booking.id, { ...booking.attributes, room_id: booking.relationships.room.data.id, user_id: booking.relationships.user.data.id, promo_id: booking.relationships.promo.data.id });
 
           });
 
@@ -119,7 +119,7 @@ export class BookingDatabaseService {
 
           response.data.forEach(booking => {
 
-            bookings.set(booking.id, { ...booking.attributes, room_id: booking.relationships.room.data.id, user_id: booking.relationships.user.data.id });
+            bookings.set(booking.id, { ...booking.attributes, room_id: booking.relationships.room.data.id, user_id: booking.relationships.user.data.id, promo_id: booking.relationships.promo.data.id });
 
           });
 
@@ -191,7 +191,7 @@ export class BookingDatabaseService {
             booking: {
 
               key: response.data.id,
-              value: { ...response.data.attributes, room_id: response.data.relationships.room.data.id, user_id: response.data.relationships.user.data.id }
+              value: { ...response.data.attributes, room_id: response.data.relationships.room.data.id, user_id: response.data.relationships.user.data.id, promo_id: response.data.relationships.promo.data.id }
 
             },
 

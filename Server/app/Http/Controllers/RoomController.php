@@ -69,22 +69,15 @@ class RoomController extends Controller
 
         if ($user) {
 
+            $promo_code_ids = AppliedPromoCodes::all()
+                ->where('exhausted', false)
+                ->where('user_id', $user->id)->pluck('promo_id');
 
 
 
-
-
-            $applied_code = AppliedPromoCodes::all()
-                ->where('user_id', $user->id);
-
-
-            $promo_code_ids = [];
-            foreach ($applied_code as $key => $value) {
-
-                $promo_code_ids[] = $value->promo_id;
-            }
             $effect_code = EffectPromoCodes::all()
-                ->whereIn('id', $promo_code_ids);
+                ->whereIn('promo_id', $promo_code_ids);
+
 
             $effective_ids = [];
             $actual_effect = [];
@@ -119,7 +112,9 @@ class RoomController extends Controller
                 }
             }
 
-            $promo_code = PromoCodeResource::collection(PromoCode::all()->whereIn('id', $effective_ids));
+            $promo_code = PromoCodeResource::collection(PromoCode::all()
+                ->where('exhausted', false)
+                ->whereIn('id', $effective_ids));
 
             $included = array_values($included
                 ->concat($promo_code)
@@ -165,16 +160,13 @@ class RoomController extends Controller
 
 
 
-                $applied_code = AppliedPromoCodes::all()
-                    ->where('user_id', Auth::user()->id);
+                $promo_code_ids = AppliedPromoCodes::all()
+                    ->where('exhausted', false)
+                    ->where('user_id', Auth::user()->id)->pluck('promo_id');
 
-                $promo_code_ids = [];
-                foreach ($applied_code as $key => $value) {
 
-                    $promo_code_ids[] = $value->promo_id;
-                }
                 $effect_code = EffectPromoCodes::all()
-                    ->whereIn('id', $promo_code_ids);
+                    ->whereIn('promo_id', $promo_code_ids);
 
                 $effective_ids = [];
 
@@ -205,7 +197,9 @@ class RoomController extends Controller
                     }
                 }
 
-                $promo_code = PromoCode::all()->whereIn('id', $effective_ids)->first();
+                $promo_code = PromoCode::all()
+                    ->whereIn('id', $effective_ids)
+                    ->first();
 
 
                 if ($promo_code) {

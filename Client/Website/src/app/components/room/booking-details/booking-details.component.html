@@ -26,11 +26,18 @@
         <h4 class="properties-title">{{ 'occupancy' | translate }}:</h4>
         <p class="properties-info">{{formatOccupancy(room_type?.adults_capacity, room_type?.adults_with_kids_capacity, room_type?.kids_capacity)}}</p>
         <h4 class="properties-title">{{ 'price' | translate }}:</h4>
-        <p class="properties-info">{{formatPrice(room_type?.price)}}</p>
+        <div class="properties-info">
+            <p [style.textDecoration]="promo_code?.change ? 'line-through' : 'none'">
+                {{formatPrice(room_type?.price)}}
+            </p>
+            <p *ngIf="promo_code && promo_code.change">
+                {{formatPrice((promo_code.change / 100) * (room_type?.price || 1))}}
+            </p>
+        </div>
         
         <h4 class="properties-total">{{ 'total' | translate }}:</h4>
         <div style="display: flex;">
-            <h3 class="properties-price">{{formatTotalPrice(room_type?.price)}}</h3>
+            <h3 class="properties-price">{{formatTotalPrice(((promo_code?.change || 100) / 100) * (room_type?.price || 1))}}</h3>
             <button *ngIf="!room?.is_reviewed" (click)="review.emit(booking_id)" [style.visibility]="exhausted || past ? 'hidden' : 'visible'" class="review-button">
                 <mat-icon style="color: white">
                     comment

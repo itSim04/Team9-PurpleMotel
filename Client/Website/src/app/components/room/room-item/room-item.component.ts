@@ -1,3 +1,4 @@
+import { PromoCode } from './../../../models/PromoCode';
 import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Room } from 'src/app/models/Room';
@@ -14,7 +15,7 @@ export class RoomItemComponent {
 
   @Input() room?: KeyValue<string, Room>;
   @Input() room_type?: KeyValue<string, RoomType>;
-  @Input() change: number = 0;
+  @Input() promo?: KeyValue<string, PromoCode>;
 
   // write a function that generates a random number between 1 and 6 and then returns the number
   // then use that number to generate the path
@@ -34,7 +35,7 @@ export class RoomItemComponent {
 
     if (this.room_type) {
 
-      return Math.round(this.room_type.value.price * (this.change / 100)).toString();
+      return Math.round(this.room_type.value.price * ((this.promo?.value?.change || 0) / 100)).toString();
 
     } else {
 
@@ -49,6 +50,7 @@ export class RoomItemComponent {
 
       localStorage.setItem('temp_room_item', JSON.stringify(this.room));
       localStorage.setItem('temp_room_type_item', JSON.stringify(this.room_type));
+      localStorage.setItem('temp_room_promo', JSON.stringify(this.promo))
 
       this.router.navigate([`/rooms/details/${this.room.key}`]);
 

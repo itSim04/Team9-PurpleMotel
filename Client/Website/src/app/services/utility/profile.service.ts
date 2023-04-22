@@ -1,3 +1,4 @@
+import { PromoCode, PromoCodeAttributes } from 'src/app/models/PromoCode';
 import { ComponentType } from "@angular/cdk/portal";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -53,6 +54,7 @@ export class ProfileService {
             const user_activities = new Map<string, Activity>();
             const user_registrations = new Map<string, Registration>();
             const user_reviews = new Map<string, Review>();
+            const user_promo = new Map<string, PromoCode>();
             response.data.forEach(value => {
 
 
@@ -61,7 +63,7 @@ export class ProfileService {
 
                 case 'Booking':
 
-                  user_bookings.set(value.id, { ...(value.attributes as BookingAttributes), user_id: value.relationships.room.data.id, room_id: value.relationships.room.data.id });
+                  user_bookings.set(value.id, { ...(value.attributes as BookingAttributes), user_id: value.relationships.room.data.id, room_id: value.relationships.room.data.id, promo_id: value.relationships.promo.data.id });
                   break;
 
                 case 'RoomTypes':
@@ -143,6 +145,22 @@ export class ProfileService {
                     room.reviews.push(value.attributes as Review);
 
                   }
+                  break;
+
+                case 'PromoCodes':
+
+                  user_promo.set(value.id, {
+                    ...value.attributes as PromoCodeAttributes,
+                    exhausted: false,
+                    concerned_everyone: false,
+                    concerned_everything: false,
+                    concerned_room_types: [],
+                    applied_users: [],
+                    concerned_rooms: [],
+                    concerned_user_tiers: [],
+                    concerned_user_types: [],
+                    concerned_users: []
+                  });
 
 
 
@@ -164,7 +182,8 @@ export class ProfileService {
               stocks: user_stocks,
               activities: user_activities,
               registrations: user_registrations,
-              reviews: user_reviews
+              reviews: user_reviews,
+              promo: user_promo
 
 
 

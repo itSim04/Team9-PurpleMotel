@@ -1,5 +1,5 @@
 import { extractUser } from 'src/app/components/database/database.component';
-import { LanguageDatabaseService } from './../../pages/admin/language-database/language-database.service';
+import { LanguageDatabaseService } from '../providers/language-database.service';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -206,16 +206,17 @@ export const terms: [string, string][] = [
   ["116", "terms_conditions"],
   ["117", "testimonials"],
   ["118", "total"],
-  ["119", "used_credentials"],
-  ["120", "user"],
-  ["121", "user_type"],
-  ["122", "valid_number"],
-  ["123", "verification"],
-  ["124", "verify"],
-  ["125", "view_cart"],
-  ["126", "view_details"],
-  ["127", "view_menu"],
-  ["128", "weak_password"],
-  ["129", "website_name"],
-  ["130", "welcome_to"]
+  ["119", "unique"],
+  ["120", "used_credentials"],
+  ["121", "user"],
+  ["122", "user_type"],
+  ["123", "valid_number"],
+  ["124", "verification"],
+  ["125", "verify"],
+  ["126", "view_cart"],
+  ["127", "view_details"],
+  ["128", "view_menu"],
+  ["129", "weak_password"],
+  ["130", "website_name"],
+  ["131", "welcome_to"]
 ];

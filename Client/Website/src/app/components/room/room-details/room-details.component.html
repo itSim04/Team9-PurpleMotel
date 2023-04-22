@@ -39,9 +39,17 @@
                 <table style="width: 100%; padding: 0px;">
                     <tr>
                         <td style="width: 50%;">
-                            <p class="title-2">
-                                {{formatPrice}}
-                            </p>
+
+                            <div class="title-2">
+                                USD
+
+                                <div style="display: inline;" [style.textDecoration]="promo?.value?.change ? 'line-through' : 
+                                    'none'">{{formatPrice}}</div>
+                                <div *ngIf="promo?.value?.change" style="display: inline;"> {{formatNewPrice}}
+                                </div>
+                            </div>
+
+
                         </td>
                         <td>
                             <app-calendar (result)="addBooking($event)"

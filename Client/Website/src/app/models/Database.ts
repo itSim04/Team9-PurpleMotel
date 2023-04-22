@@ -130,7 +130,8 @@ export interface Field<Data> {
     readonly?: boolean,
 
     raw?: boolean;
-    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices';
+    unique?: boolean;
+    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices' | 'toggle';
     choices?: Choices; // Can only be used with selection and choices.
     outer_choices?: OuterChoices; // Can only be used with outer selection.
     condition?: (data: unknown) => boolean; // When to consider the value as satisfied. Not required with Text and Number
@@ -171,6 +172,7 @@ export interface ChangeInjection<Data> {
     affected_data?: KeyValue<string, Data>; // Old Data
 
 
+    size?: number;
 
     modification_rule?: (data: Data) => boolean;
     permissions?: {

@@ -1,3 +1,4 @@
+import { KeyValue } from '@angular/common';
 import { RawRoomsPackage } from './../../../../models/Room';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -60,19 +61,23 @@ export class BrowseRoomsComponent implements OnInit, OnDestroy {
 
   }
 
-  getEffect(room_id: string, type: string) {
+  getEffect(room_id: string, type: string): KeyValue<string, PromoCode> | undefined {
 
 
-    for (let code of this.promo_codes.values()) {
+    for (let code of this.promo_codes) {
 
 
-      if (code.concerned_everything || code.concerned_rooms.includes(room_id) || code.concerned_room_types.includes(type))
-        return code.change;
+      if (code[1].concerned_everything || code[1].concerned_rooms.includes(room_id) || code[1].concerned_room_types.includes(type))
+        return {
+
+          key: code[0],
+          value: code[1]
+        };
 
 
 
     }
-    return 0;
+    return undefined;
 
 
 

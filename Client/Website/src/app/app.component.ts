@@ -1,4 +1,4 @@
-import { LanguageDatabaseService } from './pages/admin/language-database/language-database.service';
+import { LanguageDatabaseService } from './services/providers/language-database.service';
 import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';

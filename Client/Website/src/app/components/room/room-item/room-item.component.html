@@ -13,8 +13,8 @@
             <td>
                 <div class="price">
                     USD
-                <div style="display: inline;" [style.textDecoration]="change ? 'line-through' : 
-                    'none'">{{formatPrice}}</div> <div *ngIf="change" style="display: inline;">{{formatNewPrice}}</div>
+                <div style="display: inline;" [style.textDecoration]="promo?.value?.change ? 'line-through' : 
+                    'none'">{{formatPrice}}</div> <div *ngIf="promo?.value?.change" style="display: inline;"> {{formatNewPrice}}</div>
                 </div>
             </td>
             <td>

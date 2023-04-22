@@ -42,7 +42,7 @@
         [scrollWindow]="true" (scrolled)="ngOnInit()">
 
         <div *ngFor="let room of filtered_rooms" style="width: 50%;">
-            <app-room-item [change]="getEffect(room[0], room[1].type)" class="item"
+            <app-room-item [promo]="getEffect(room[0], room[1].type)" class="item"
                 [room]="{key: room[0], value: room[1]}"
                 [room_type]="room_types.getPair(room[1].type)"></app-room-item>
             <mat-divider

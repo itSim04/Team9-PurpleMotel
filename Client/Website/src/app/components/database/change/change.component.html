@@ -170,117 +170,20 @@
                     </tr>
                 </table>
             </td>
-            <td class="padded" style="text-align: left;">
+            <td class="padded" style="text-align: left">
 
                 <!-- Fields -->
 
                 <table style="table-layout: fixed; width: 90%;">
 
-                    <tr *ngFor="let field of fields">
-                        <td>
+                    <tr *ngFor="let field of fields; let i = index">
+                        <td *ngFor="let x of iterator">
 
-                            <!-- Raw Text -->
-                            <mat-form-field *ngIf="field.type === 'text'" class="full-width input">
-                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input [disabled]="field.readonly || !modification_rule(this.data)"
-                                    class="input" [(ngModel)]="data[field.key]" matInput>
-                            </mat-form-field>
-
-                            <!-- Number -->
-                            <mat-form-field *ngIf="field.type === 'number'"
-                                class="full-width input">
-                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input [disabled]="field.readonly || !modification_rule(this.data)"
-                                    class="input" type="number" [(ngModel)]="data[field.key]"
-                                    matInput>
-                                <div class="number-error"
-                                    *ngIf="field.condition && data[field.key] ? !field.condition(data[field.key]) : false">
-                                    {{ 'valid_number' | translate }}</div>
-                            </mat-form-field>
-
-                            <!-- Constraint Text -->
-                            <mat-form-field
-                                *ngIf="field.type === 'digits_string' || field.type === 'positive_digits_string'"
-                                class="full-width input"
-                                [color]="data[field.key] && !isNum(data[field.key].toString()) ? 'warn' : 'primary'">
-                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input [disabled]="field.readonly || !modification_rule(this.data)"
-                                    [min]="field.type === 'positive_digits_string' ? 0 : -999999"
-                                    class="input" [(ngModel)]="data[field.key]" matInput>
-                                <div class="number-error"
-                                    *ngIf="!isNum(data[field.key].toString()) && data[field.key]">
-                                    {{ 'valid_number" | translate }}</div>
-                            </mat-form-field>
-
-                            <!-- Selection -->
-                            <mat-form-field
-                                *ngIf="!field.choices?.link && field.choices && (field.type === 'selection' || field.type === 'choices')"
-                                class="full-width input">
-                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <mat-select [multiple]="field.type === 'choices'" class="input"
-                                    [ngModel]="data[field.key]"
-                                    (ngModelChange)="data[field.key]=$event">
-                                    <mat-option
-                                        [disabled]="field.readonly || !modification_rule(this.data)"
-                                        class="input" *ngFor="let type of field.choices.choices"
-                                        [value]="field.choices.key ? field.choices.key(type) : type[0]">
-                                        {{field.choices.format ? (field.choices.format(type[1])) : (
-                                        field.raw ? type[1] : (type[1] + "" | translate) )}}
-                                    </mat-option> </mat-select>
-                            </mat-form-field>
-
-                            <!-- Linked Selection -->
-                            <mat-form-field
-                                *ngIf="field.choices?.link && field.choices && (field.type === 'selection' || field.type === 'choices')"
-                                class="full-width input">
-                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <mat-select [multiple]="field.type === 'choices'" class="input"
-                                    [ngModel]="data[field.key]"
-                                    (ngModelChange)="data[field.key]=$event">
-                                    <mat-option
-                                        [disabled]="field.readonly || !modification_rule(this.data)"
-                                        class="input" *ngFor="let type of linked_data | keyvalue"
-                                        [value]="field.choices.key ? field.choices.key([type.key, type.value]) : type.key">
-                                        {{field.choices.format ? field.choices.format(type.value) :
-                                        type.value}}
-                                    </mat-option> </mat-select>
-                            </mat-form-field>
-
-                            <!-- Outer Linked Selection -->
-                            <mat-form-field
-                                *ngIf="field.outer_choices && (field.type === 'outer_selection' || field.type === 'outer_choices')"
-                                class="full-width input">
-
-                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <mat-select *ngIf="outer_data"
-                                    [multiple]="field.type === 'outer_choices'" class="input"
-                                    [ngModel]="data[field.key]"
-                                    (ngModelChange)="data[field.key]=$event">
-                                    <mat-option
-                                        [disabled]="field.readonly || !modification_rule(this.data)"
-                                        class="input"
-                                        *ngFor="let type of outer_data[field.outer_choices.index!] | keyvalue"
-                                        [value]="field.outer_choices.key ? field.outer_choices.key([type.key, type.value]) : type.key">
-                                        {{formatOuterChoice(field, type)}}
-                                    </mat-option>
-
-                                </mat-select>
-                            </mat-form-field>
-
-                            <!-- Date -->
-                            <mat-form-field *ngIf="field.type === 'date'" class="full-width input"
-                                appearance="fill">
-                                <mat-label class="label">{{ 'choose_date' | translate }}</mat-label>
-                                <input [ngModel]="data[field.key]"
-                                    (ngModelChange)="data[field.key]=parseDate($event)" matInput
-                                    [matDatepicker]="picker" readonly>
-                                <mat-datepicker-toggle matIconSuffix
-                                    [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field>
-
+                            <app-completion [uniqueness]="uniqueness" *ngIf="fields[x + i * size]" [outer_data]="outer_data"
+                                [data]="data" [field]="fields[x + i * size]" [fields]="fields"
+                                [linked_data]="linked_data">
+                            </app-completion>
                         </td>
-
                     </tr>
                     <tr *ngFor="let field of static_fields">
 

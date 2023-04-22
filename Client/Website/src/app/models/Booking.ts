@@ -18,6 +18,7 @@ export interface Booking extends BookingAttributes {
 
   room_id: string,
   user_id: string,
+  promo_id: string
 
 }
 
@@ -61,6 +62,12 @@ export interface BookingResponse {
           type: string;
         };
       };
+      promo: {
+        data: {
+          id: string;
+          type: string;
+        };
+      };
     };
   };
   included?: {
@@ -87,6 +94,12 @@ export interface BookingsResponse {
         };
       };
       room: {
+        data: {
+          id: string;
+          type: string;
+        };
+      };
+      promo: {
         data: {
           id: string;
           type: string;

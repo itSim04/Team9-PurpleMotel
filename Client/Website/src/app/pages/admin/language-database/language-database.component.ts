@@ -1,7 +1,7 @@
 import { terms } from './../../../services/language/language.module';
 import { LanguageList } from './../../../models/LanguageList';
 import { ChangeInjection } from 'src/app/models/Database';
-import { LanguageDatabaseService } from './language-database.service';
+import { LanguageDatabaseService } from '../../../services/providers/language-database.service';
 import { Language } from './../../../models/Language';
 import { DataInjection } from './../../../models/Database';
 import { Component } from '@angular/core';
@@ -73,19 +73,19 @@ export class LanguageDatabaseComponent {
       language: '0',
       term: '',
       value: ''
-      
+
     },
     fields: [
       {
         key: 'language',
         type: 'selection',
         choices: {
-          
+
           link: true,
           format: (choice) => (choice as LanguageList)?.language_name
-          
+
         }
-        
+
       },
       {
         key: 'term',
@@ -110,6 +110,37 @@ export class LanguageDatabaseComponent {
     modify_service: (key, data) => this.language_service.modifyLanguage(key, data),
     delete_service: (key) => this.language_service.deleteLanguage(key),
 
+
+
+
+  };
+
+  extra_change_injection: ChangeInjection<LanguageList> = {
+
+    data_type: 'Language',
+    add_service: (list) => this.language_service.addNewLanguageLists(list),
+    modify_service: (key, list) => this.language_service.modifyLanguageLists(key, list),
+    delete_service: (key) => this.language_service.deleteLanguageLists(key),
+    fields: [
+      {
+        key: 'code_name',
+        type: 'text',
+        unique: true
+      },
+      {
+        key: 'language_name',
+        type: 'text',
+        unique: true
+      }
+    ],
+    default_state: {
+
+      code_name: '',
+      language_name: ''
+
+    },
+    identifier: (data) => data.language_name,
+    side_panel: 'empty'
 
 
 

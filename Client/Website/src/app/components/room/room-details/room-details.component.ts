@@ -1,3 +1,4 @@
+import { PromoCode } from './../../../models/PromoCode';
 import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { Router } from '@angular/router';
 import { extractUserId } from 'src/app/components/database/database.component';
@@ -22,6 +23,7 @@ export class RoomDetailsComponent {
   @Input() room?: KeyValue<string, Room>;
   @Input() room_type?: KeyValue<string, RoomType>;
   @Input() overview = true;
+  @Input() promo?: KeyValue<string, PromoCode>;
 
   constructor (private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService) { }
 
@@ -33,7 +35,19 @@ export class RoomDetailsComponent {
 
 
   get formatPrice(): string {
-    return formatPrice(this.room_type?.value?.price);
+    return formatPrice(this.room_type?.value?.price, false, false);
+  }
+  get formatNewPrice(): string | undefined {
+
+    if (this.room_type) {
+
+      return Math.round(this.room_type.value.price * ((this.promo?.value.change || 0) / 100)).toString();
+
+    } else {
+
+      return '';
+
+    }
   }
 
   addBooking(range: { check_in: Date, check_out: Date; }) {
@@ -70,6 +84,7 @@ export class RoomDetailsComponent {
 
               check_in: parseDate(range.check_in),
               end_date: parseDate(range.check_out),
+              promo_id: this.promo?.key || '0',
               exhausted: false,
               room_id: this.room!.key,
               user_id: user_id

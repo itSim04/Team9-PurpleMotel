@@ -9,6 +9,7 @@ import { Activity } from "src/app/models/Activity";
 import { Booking } from "src/app/models/Booking";
 import { Food } from "src/app/models/Food";
 import { Order } from "src/app/models/Order";
+import { PromoCode } from "src/app/models/PromoCode";
 import { Registration } from "src/app/models/Registration";
 import { Room } from "src/app/models/Room";
 import { RoomType } from "src/app/models/RoomType";
@@ -44,6 +45,7 @@ export class ProfileComponent implements OnInit {
   room_types!: Map<string, RoomType>;
   activities!: Map<string, Activity>;
   registrations!: Map<string, Registration>;
+  promo: Map<string, PromoCode> = new Map();
   user: User;
   first_name;
   last_name;
@@ -107,6 +109,10 @@ export class ProfileComponent implements OnInit {
         this.activities = data.activities;
         this.registrations = data.registrations;
         this.foods = data.foods;
+        this.promo = data.promo;
+
+        console.log(this.promo)
+        
 
         console.log(this.rooms);
       },

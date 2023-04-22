@@ -118,7 +118,7 @@ export function formatWord(word: string | number | symbol | undefined) {
 
   if (!word) return "";
 
-  const splits = word.toString().replaceAll("_", " ").split(" ");
+  const splits = word.toString().replaceAll(/\_/g, " ").split(" ");
   for (let i = 0; i < splits.length; i++) {
 
     splits[i] = splits[i][0].toUpperCase() + splits[i].slice(1).toLowerCase();

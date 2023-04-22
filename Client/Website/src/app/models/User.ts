@@ -1,3 +1,4 @@
+import { PromoCode, PromoCodeAttributes } from 'src/app/models/PromoCode';
 import { KeyValue } from '@angular/common';
 import { Food, FoodAttributes } from './Food';
 import { Order, OrderAttributes } from './Order';
@@ -162,8 +163,8 @@ export interface ProfileResponse {
     status: string,
     data: {
         id: string,
-        type: 'Foods' | 'Orders' | 'Review' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient' | 'Registration' | 'Activities',
-        attributes: FoodAttributes | OrderAttributes | Review | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes | Activity | RegistrationAttributes,
+        type: 'Foods' | 'Orders' | 'Review' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient' | 'Registration' | 'Activities' | 'PromoCodes',
+        attributes: FoodAttributes | OrderAttributes | Review | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes | Activity | RegistrationAttributes | PromoCodeAttributes,
         relationships: {
             food_category: {
                 data: {
@@ -207,6 +208,12 @@ export interface ProfileResponse {
                     type: string;
                 };
             },
+            promo: {
+                data: {
+                    id: string,
+                    type: string;
+                };
+            },
             activity: {
                 data: {
                     id: string,
@@ -231,5 +238,6 @@ export interface ProfilePackage {
     activities: Map<string, Activity>;
     registrations: Map<string, Registration>;
     reviews: Map<string, Review>;
+    promo: Map<string, PromoCode>;
 
 }
