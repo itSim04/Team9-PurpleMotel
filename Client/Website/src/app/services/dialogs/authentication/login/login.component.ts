@@ -11,13 +11,13 @@ import { validateEmail } from '../authentication.utility';
 })
 export class LoginComponent {
 
-  email = 'clovis.prosacco@example.com';
-  password = 'password';
+  email = '';
+  password = '';
   validated_email = true;
   validated_credentials = true;
   connection_error = false;
   loading = false;
-  constructor(private dialogRef: MatDialogRef<LoginComponent>, private authentication_service: AuthenticationDialogService) { }
+  constructor (private dialogRef: MatDialogRef<LoginComponent>, private authentication_service: AuthenticationDialogService) { }
 
 
   login() {
@@ -53,12 +53,15 @@ export class LoginComponent {
 
           }
         }
-      })
+      });
     }
   }
-  goToRegister(){
+  goToRegister() {
     this.dialogRef.close();
-    this.authentication_service.openDialog('register');
+    setTimeout(() => {
+
+      this.authentication_service.openDialog('register');
+    }, 300);
   }
 
   forgotPassword() {

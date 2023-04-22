@@ -83,7 +83,7 @@
                                             (ngModelChange)="updateData(col.key, element, $event)"
                                             matInput>
                                         </mat-checkbox>
-                                        
+
                                     </td>
 
                                 </ng-container>
@@ -247,9 +247,9 @@
                     *ngIf="modification_rule(this.data) && modification_mode">Delete</button>
                 <button *ngIf="modification_rule(this.data)" style="width: 30%;" class="back-btn"
                     (click)="modification_mode ? modify() : add()"
-                    [disabled]="!fieldsCompleteness || !differenceCheck"
-                    [style.background]="(!fieldsCompleteness || !differenceCheck) ? 'gray' : '#14274A'"
-                    mat-button color="primary">{{modification_mode ?
+                    
+                    [style.background]="(fieldsCompleteness.length || !differenceCheck) ? 'gray' : '#14274A'"
+                    [matTooltipClass]="'tooltip'" mat-button color="primary" [matTooltipDisabled]="!fieldsCompleteness.length" [matTooltip]="fieldsCompleteness.join('\n')">{{modification_mode ?
                     'Modify' : 'Add'}} {{data_type}}</button>
             </td>
             <td *ngIf="toggle" class="padded" style="text-align: left;"> <button style="width: 30%;"

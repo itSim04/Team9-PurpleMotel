@@ -11,28 +11,28 @@
 
     <div class="section">
 
-        <div class="wrap">
+        <div (click)="scroll('Starters')" class="wrap">
             <img width="100%" src="../../../../../assets/starters-main.png" />
             <div class="content">
                 {{ 'starters' | translate }}
             </div>
         </div>
 
-        <div class="wrap">
+        <div (click)="scroll('Pizza')" class="wrap">
             <img width="100%" src="../../../../../assets/platters-main.png" />
             <div class="content">
                 {{ 'platters' | translate }}
             </div>
         </div>
 
-        <div class="wrap">
+        <div (click)="scroll('Salads')" class="wrap">
             <img width="100%" src="../../../../../assets/salads-main.png" />
             <div class="content">
                 {{ 'salads' | translate }}
             </div>
         </div>
 
-        <div class="wrap">
+        <div (click)="scroll('Drinks')" class="wrap">
             <img width="100%" src="../../../../../assets/desserts-main.png" />
             <div class="content">
 {{ 'desserts' | translate }}
@@ -42,7 +42,7 @@
 
     <div *ngFor="let category of food_categories | keyvalue">
 
-        <p class="title-2">{{category.value.label}}</p>
+        <p [attr.id]="category.value.label" class="title-2">{{category.value.label}}</p>
 
         <ng-container *ngFor="let food of foods | keyvalue">
 

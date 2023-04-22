@@ -24,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CompletionComponent } from './change/completion/completion.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { CompletionComponent } from './change/completion/completion.component';
     FormsModule,
     MatOptionModule,
     FooterModule,
+    MatTooltipModule,
     LanguageModule,
     StarRatingModule,
     MatTableModule,

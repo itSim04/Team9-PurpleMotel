@@ -1,3 +1,4 @@
+import { validateEmail } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { User, UserInformation, UserInjection } from './../../../models/User';
 import { genders } from './../../../services/dialogs/authentication/authentication.utility';
 import { DataInjection, ChangeInjection } from 'src/app/models/Database';
@@ -54,6 +55,7 @@ export class UserDatabaseComponent {
         type: 'link',
         link: {
 
+          format_index: 'label',
           key: 'type',
           format: (value, org) => {
 
@@ -166,10 +168,14 @@ export class UserDatabaseComponent {
       {
         key: 'email',
         type: 'text',
+        condition: (data) => validateEmail(data as string),
+        condition_label: "Invalid Email"
       },
       {
         key: 'phone',
-        type: 'text'
+        type: 'text',
+        condition: (data) => (data as string).toString().length > 3,
+        condition_label: "Invalid Phone Number"
       },
       {
         key: 'tier',
@@ -200,6 +206,7 @@ export class UserDatabaseComponent {
       {
         key: 'type',
         type: 'selection',
+        condition: (data) => (data as string) != '0',
         choices: {
 
           link: true,

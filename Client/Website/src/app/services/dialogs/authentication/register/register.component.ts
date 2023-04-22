@@ -10,18 +10,18 @@ import { AuthenticationDialogService } from 'src/app/services/utility/authentica
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  first_name = "charbel";
-  last_name = "gerges";
-  email = "charfbe@ex.com";
-  password = "chacA$4ds";
-  confirm_password = "chacA$4ds";
-  phone_number = "12213";
+  first_name = "";
+  last_name = "";
+  email = "";
+  password = "";
+  confirm_password = "";
+  phone_number = "";
   date_of_birth = new Date();
   validated_email = true;
   validated_password = true;
   connection_error = false;
   loading = false;
-  gender = "2";
+  gender = "";
   password_match = true;
   used_credentials = false;
 
@@ -82,7 +82,10 @@ export class RegisterComponent {
 
   goToLogin() {
     this.dialogRef.close();
-    this.authentication_service.openDialog('login');
+
+    setTimeout(() => {
+      this.authentication_service.openDialog('login');
+    }, 300);
   }
 
 

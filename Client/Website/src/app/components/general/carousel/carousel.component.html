@@ -8,9 +8,9 @@
             <td>
                 <div style="border-radius: 20px; background: white; width: fit-content; height: fit-content"
                     (window:resize)="initiateCarousel()">
-                    <section class="carousel-wrapper" [ngStyle]="carouselWrapperStyle">
-                        <ul class="carousel-inner" #carousel>
-                            <li *ngFor="let item of items;" class="carousel-item">
+                    <section [style.backgroundColor]="background_color" class="carousel-wrapper" [ngStyle]="carouselWrapperStyle">
+                        <ul [style.backgroundColor]="background_color" class="carousel-inner" #carousel>
+                            <li [style.backgroundColor]="background_color" *ngFor="let item of items;" class="carousel-item">
                                 <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
                             </li>
                         </ul>

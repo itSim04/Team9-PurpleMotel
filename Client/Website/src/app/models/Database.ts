@@ -13,6 +13,7 @@ export interface Column<Data> {
     link?: {
 
         key: keyof Data,
+        format_index?: string,
         format: (value: unknown, org?: Data) => string; // 'Unknown' represents the Linked data (aka the other Table's data)
 
     }; // Exclusively used with Link
@@ -135,6 +136,8 @@ export interface Field<Data> {
     choices?: Choices; // Can only be used with selection and choices.
     outer_choices?: OuterChoices; // Can only be used with outer selection.
     condition?: (data: unknown) => boolean; // When to consider the value as satisfied. Not required with Text and Number
+
+    condition_label?: string;
     formatting?: (data: Data) => string; // The way to display the value. NOT used
 }
 export interface Toggle<Data> {

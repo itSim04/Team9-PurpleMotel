@@ -2,8 +2,10 @@
 
     <div>
         <app-nav-bar [hide_auth]="true" style="position: relative;"></app-nav-bar>
-        <button (click)="edit_profile()" class="edit-button">{{ 'edit_profile' | translate}}</button>
-        <button (click)="change_password()" class="change-pass-button">{{ 'change_password' | translate }}</button>
+        <button (click)="edit_profile()" class="edit-button">{{ 'edit_profile' |
+            translate}}</button>
+        <button (click)="change_password()" class="change-pass-button">{{ 'change_password' |
+            translate }}</button>
         <button (click)="logout()" class="logout-button">{{ 'logout' | translate }}</button>
     </div>
 
@@ -11,7 +13,8 @@
     <div>
         <h1 class="user">{{first_name}} {{last_name}}</h1>
         <hr class="main-divider">
-        <button (click)="applyCode()" class="promo-code-button">{{'apply_promo' | translate}}</button>
+        <button (click)="applyCode()" class="promo-code-button">{{'apply_promo' |
+            translate}}</button>
     </div>
 
     <div *ngIf="orders && orders.size" class="profile-container">
@@ -31,12 +34,14 @@
     <div *ngIf="bookings && bookings.size" style="width: 98%;">
         <h1 class="page-titles">{{ 'my_bookings' | translate }}</h1>
         <hr class="divider">
-        <app-carousel #carousel>
+        <app-carousel [background_color]="'#14274A'" #carousel>
             <ng-container *ngFor="let booking of bookings | keyvalue: keyDescOrder; let i = index">
                 <ng-container *carouselItem>
 
-                    <app-booking-details [promo_code]="promo.get(booking.value.promo_id)" [booking_id]="booking.key" (review)="reviewRoom(booking.value.room_id)" (delete)="deleteBooking($event)"
-                        style="width: 100%" [@fadeOut] [room]="rooms.get(booking.value.room_id)"
+                    <app-booking-details [promo_code]="promo.get(booking.value.promo_id)"
+                        [booking_id]="booking.key" (review)="reviewRoom(booking.value.room_id)"
+                        (delete)="deleteBooking($event)" style="width: 100%" [@fadeOut]
+                        [room]="rooms.get(booking.value.room_id)"
                         [room_type]="room_types.get(rooms.get(booking.value.room_id)?.type || '0')"
                         [check_in]="booking.value.check_in" [end_date]="booking.value.end_date"
                         [exhausted]="booking.value.exhausted"></app-booking-details>
@@ -49,7 +54,7 @@
     <div *ngIf="registrations && registrations.size">
         <h1 class="page-titles">{{ 'my_activities' | translate }}</h1>
         <hr class="divider">
-        <app-carousel #carousel>
+        <app-carousel [background_color]="'#14274A'" #carousel>
             <ng-container
                 *ngFor="let registration of registrations | keyvalue: activity_key; let i = index">
                 <ng-container *carouselItem>

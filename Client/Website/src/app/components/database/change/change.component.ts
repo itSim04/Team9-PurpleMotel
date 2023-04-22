@@ -84,7 +84,7 @@ export function clone(obj: any) {
   styleUrls: ['./change.component.scss']
 })
 export class ChangeComponent<Data extends { [key: string]: string | boolean | number | unknown[]; }> {
-  
+
   modification_mode = false;
   side_panel: 'images' | 'permissions' | 'empty' | 'table';
   data: Data;
@@ -129,7 +129,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   uniqueness: boolean = true;
 
-  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; all_data: Map<string, Data> }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService) {
+  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; all_data: Map<string, Data>; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService) {
 
     this.linked_data = injected_data.link;
 
@@ -184,41 +184,117 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   add() {
 
-    this.uniqueness = true;
-    this.fields.forEach(field => {
+    if (!this.fieldsCompleteness.length && this.differenceCheck) {
 
-      if (field.unique) {
+      this.uniqueness = true;
+      this.fields.forEach(field => {
+
+        if (field.unique) {
 
 
-        this.all_data.forEach((value, key) => {
+          this.all_data.forEach((value, key) => {
 
-          if (value[field.key] == this.data[field.key]) {
+            if (value[field.key] == this.data[field.key]) {
 
-            this.uniqueness = false;
+              this.uniqueness = false;
+
+            }
+
+          });
+
+
+        }
+
+      });
+
+      if (this.uniqueness) {
+
+        const dialogRef = this.confirmation_controller.openDialog(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add", "Cancel");
+        dialogRef.afterClosed().subscribe(confirmation => {
+
+          if (confirmation) {
+
+            this.add_service(this.data).subscribe(
+
+              {
+                next: result => {
+
+                  this.dialogRef.close({ key: result, value: this.data });
+
+                },
+                error: error => {
+
+                  if (error.status == 401) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('id');
+                    localStorage.removeItem('token_time');
+                    this.router.navigate(['/home']);
+                    this.dialogRef.close();
+                    this.authentication.openDialog('login');
+                  }
+
+
+                }
+              });
 
           }
-
         });
-
-
       }
+    }
 
-    });
+  }
 
-    if (this.uniqueness) {
+  modify() {
 
-      const dialogRef = this.confirmation_controller.openDialog(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add", "Cancel");
-      dialogRef.afterClosed().subscribe(confirmation => {
 
-        if (confirmation) {
+    if (!this.fieldsCompleteness.length && this.differenceCheck) {
 
-          this.add_service(this.data).subscribe(
 
-            {
-              next: result => {
 
-                this.dialogRef.close({ key: result, value: this.data });
+      if (extractPermission('write', this.permission)) {
 
+
+
+        if (this.old_data) {
+
+
+          this.uniqueness = true;
+          this.fields.forEach(field => {
+
+            if (field.unique) {
+
+
+              this.all_data.forEach((value, key) => {
+
+                if (value[field.key] == this.data[field.key] && value[field.key] != this.old_data?.value[field.key]) {
+
+                  this.uniqueness = false;
+
+                }
+
+              });
+
+
+            }
+
+          });
+
+          if (this.uniqueness) {
+
+            const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
+            dialogRef.afterClosed().subscribe({
+              next: confirmation => {
+
+                if (confirmation && this.old_data) {
+
+                  this.modify_service(this.old_data.key, this.data).subscribe(() => {
+                    if (this.old_data) {
+
+                      this.dialogRef.close({ key: this.old_data.key, value: this.data });
+                    }
+                  });
+                }
               },
               error: error => {
 
@@ -227,91 +303,22 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
                   localStorage.removeItem('user');
                   localStorage.removeItem('id');
                   localStorage.removeItem('token_time');
-                  this.router.navigate(['/home']);
                   this.dialogRef.close();
+                  this.router.navigate(['/home']);
                   this.authentication.openDialog('login');
                 }
 
-
               }
             });
-
-        }
-      });
-    }
-
-  }
-
-  modify() {
-
-
-
-    if (extractPermission('write', this.permission)) {
-
-
-
-      if (this.old_data) {
-
-
-        this.uniqueness = true;
-        this.fields.forEach(field => {
-
-          if (field.unique) {
-
-
-            this.all_data.forEach((value, key) => {
-
-              if (value[field.key] == this.data[field.key] && value[field.key] != this.old_data?.value[field.key]) {
-
-                this.uniqueness = false;
-
-              }
-
-            });
-
-
           }
-
-        });
-
-        if (this.uniqueness) {
-
-          const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
-          dialogRef.afterClosed().subscribe({
-            next: confirmation => {
-
-              if (confirmation && this.old_data) {
-
-                this.modify_service(this.old_data.key, this.data).subscribe(() => {
-                  if (this.old_data) {
-
-                    this.dialogRef.close({ key: this.old_data.key, value: this.data });
-                  }
-                });
-              }
-            },
-            error: error => {
-
-              if (error.status == 401) {
-                localStorage.removeItem('token');
-                localStorage.removeItem('user');
-                localStorage.removeItem('id');
-                localStorage.removeItem('token_time');
-                this.dialogRef.close();
-                this.router.navigate(['/home']);
-                this.authentication.openDialog('login');
-              }
-
-            }
-          });
         }
-      }
-    } else {
+      } else {
 
-      this.snackbar.open('You do not have writing permissions');
+        this.snackbar.open('You do not have writing permissions');
+
+      }
 
     }
-
   }
 
   delete() {
@@ -522,16 +529,19 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   get fieldsCompleteness() {
 
+    let temp = [];
     for (const field of this.fields) {
+
 
       if (field.condition ? !field.condition(this.data[field.key]) : !this.data[field.key]) {
 
-        return false;
+
+        temp.push(field.condition_label || 'Missing ' + this.formatLabel(field.key));
 
       }
 
     }
-    return true;
+    return temp;
 
   }
 

@@ -19,7 +19,7 @@
     </div> -->
 <!-- </div> -->
 <div style="width:100%">
-    <app-carousel #carousel>
+    <app-carousel [background_color]="'white'" #carousel>
         <ng-container *ngFor="let activity of activities | keyvalue; let i = index">
             <ng-container *carouselItem>
                 <app-activity-list-item style="width: 100%; display: flex; position: relative;" [@fadeOut]
