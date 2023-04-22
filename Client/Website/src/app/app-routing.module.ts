@@ -1,11 +1,10 @@
 import { AdminChatGuard } from './guards/admin.chat.guard';
-import { GuestChatsPageComponent } from './pages/guest-chat/chat.component';
-import { GuestChatsPageModule } from './pages/guest-chat/chat.module';
+import { GuestChatsPageComponent } from './pages/chat/guest/chat.component';
+import { GuestChatsPageModule } from './pages/chat/guest/chat.module';
 import { InformationDatabaseComponent } from './pages/admin/information-database/information-database.component';
 import { GuestGuard } from './guards/guest.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
-import { ChatsPageComponent } from './pages/chat/chat.component';
 import { HomeComponent } from './pages/guest/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
@@ -29,6 +28,7 @@ import { ActivityOverviewComponent } from './components/activities/activity-over
 import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 import { ChatGuard } from './guards/chat.guard';
+import { ChatsPageComponent } from './pages/chat/admin/chat.component';
 
 const routes: Routes = [
 

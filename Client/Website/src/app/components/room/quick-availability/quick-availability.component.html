@@ -52,7 +52,7 @@
                         <mat-label class="selectors">{{ 'number_input' | translate }}</mat-label>
                         <mat-select [(ngModel)]="adults_value" matInput>
 
-                            <mat-option *ngFor="let capacity of adult_capacity">
+                            <mat-option *ngFor="let capacity of adult_capacity" [value]="capacity">
                                 {{capacity}}
                             </mat-option>
                         </mat-select>
@@ -62,9 +62,9 @@
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label class="selectors">{{ 'number_input' | translate }}</mat-label>
-                        <mat-select [(ngModel)]="adults_value" matInput>
+                        <mat-select [(ngModel)]="kids_value" matInput>
 
-                            <mat-option *ngFor="let capacity of kids_capacity">
+                            <mat-option *ngFor="let capacity of kids_capacity" [value]="capacity">
                                 {{capacity}}
                             </mat-option>
                         </mat-select>

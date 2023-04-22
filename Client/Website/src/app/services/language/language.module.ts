@@ -103,7 +103,7 @@ export const terms: [string, string][] = [
   ["13", "cart"],
   ["14", "change_password"],
   ["15", "chefs"],
-  ["16", "chefs"],
+  ["16", "check_availability"],
   ["17", "choose_date"],
   ["18", "confirm_password"],
   ["19", "connection_error"],

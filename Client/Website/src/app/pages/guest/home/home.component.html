@@ -6,6 +6,8 @@
         <p class="title-3">{{ 'name2' | translate }}</p>
         <p class="title-4">{{'hotel_introduction' | translate }}</p>
     </div>
+    <app-quick-availability (result)="filterRooms($event)"
+        class="quick-container"></app-quick-availability>
 </div>
 
 <div>

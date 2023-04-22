@@ -8,8 +8,15 @@ $image-path: '../../../../assets/';
     background-image: url('#{$image-path}hopepage-background.png');
     background-size: cover;
     height: 100%;
+    margin-bottom: 7.5%;
 }
 
+.quick-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    bottom: -37%;
+}
 .title {
     text-transform: uppercase;
     color: white;

@@ -1,5 +1,5 @@
 import { KeyValue } from '@angular/common';
-import { RawRoomsPackage } from './../../../../models/Room';
+import { RawRoomsPackage, RoomsPackage } from './../../../../models/Room';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Room } from 'src/app/models/Room';
@@ -38,20 +38,45 @@ export class BrowseRoomsComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
 
-    this.subscription = this.room_service.getPaginatedRooms(this.current_page, this.page_size).subscribe(data => {
-      data.rooms.forEach((value, key) => this.rooms.set(key, value));
-      data.room_types.forEach((value, key) => this.room_types.set(key, value));
-      data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
+    const temp = localStorage.getItem('temp_quick_availability');
 
-      Array.from(data.rooms).forEach((value) => this.filtered_rooms.push(value));
-      this.current_page += this.page_size;
-    });
+    if (temp) {
 
+      const result = JSON.parse(temp) as [[string, Room][], [string, RoomType][], [string, PromoCode][]];
+
+      this.filterRooms({
+
+        rooms: new Map(result[0]),
+        room_types: new Map(result[1]),
+        promo_codes: new Map(result[2])
+
+
+      });
+      localStorage.removeItem('temp_quick_availability');
+
+    }
+
+    if (!this.filtered) {
+
+
+      this.subscription = this.room_service.getPaginatedRooms(this.current_page, this.page_size).subscribe(data => {
+
+        data.rooms.forEach((value, key) => this.rooms.set(key, value));
+        data.room_types.forEach((value, key) => this.room_types.set(key, value));
+        data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
+
+        Array.from(data.rooms).forEach((value) => this.filtered_rooms.push(value));
+        this.current_page += this.page_size;
+      });
+
+    }
   }
 
-  filterRooms(result: RawRoomsPackage) {
+  filterRooms(result: RoomsPackage) {
 
     this.filtered_rooms = Array.from(result.rooms);
+    this.room_types = result.room_types;
+    this.promo_codes = result.promo_codes;
     this.filtered = true;
 
   }
