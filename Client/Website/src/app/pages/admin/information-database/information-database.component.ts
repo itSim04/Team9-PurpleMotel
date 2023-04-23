@@ -63,51 +63,51 @@ export class InformationDatabaseComponent {
     identifier: data => data.record
   };
 
-  extra_injection: DataInjection<Image> = {
-    title: 'Images',
+  // extra_injection: DataInjection<Image> = {
+  //   title: 'Images',
 
-    permission: 'announcement',
+  //   permission: 'announcement',
 
-    displayed_columns: [
-      {
-        key: 'model_name',
-        type: 'text'
-      },
-      {
-        key: 'url',
-        type: 'text'
-      }
-    ],
+  //   displayed_columns: [
+  //     {
+  //       key: 'model_name',
+  //       type: 'text'
+  //     },
+  //     {
+  //       key: 'url',
+  //       type: 'text'
+  //     }
+  //   ],
 
-    data_fetcher: () => this.information_service.getAllImages().pipe(map(data => [data.images, undefined]))
-  };
+  //   data_fetcher: () => this.information_service.getAllImages().pipe(map(data => [data.images, undefined]))
+  // };
 
-  extra_change_injection: ChangeInjection<Image> = {
+  // extra_change_injection: ChangeInjection<Image> = {
 
-    data_type: 'image',
+  //   data_type: 'image',
 
-    default_state: {
-      model_name: '',
-      url: ''
-    },
+  //   default_state: {
+  //     model_name: '',
+  //     url: ''
+  //   },
 
-    side_panel: 'empty',
+  //   side_panel: 'empty',
 
-    fields: [
-      {
-        key: 'model_name',
-        type: 'text'
-      },
-      {
-        key: 'url',
-        type: 'text'
-      }
-    ],
+  //   fields: [
+  //     {
+  //       key: 'model_name',
+  //       type: 'text'
+  //     },
+  //     {
+  //       key: 'url',
+  //       type: 'text'
+  //     }
+  //   ],
 
-    add_service: image => this.information_service.addNewImage(image),
-    modify_service: (key, data) => this.information_service.modifyImage(key, data),
-    delete_service: (key) => this.information_service.deleteImage(key),
-    identifier: data => data.model_name
-  };
+  //   add_service: image => this.information_service.addNewImage(image),
+  //   modify_service: (key, data) => this.information_service.modifyImage(key, data),
+  //   delete_service: (key) => this.information_service.deleteImage(key),
+  //   identifier: data => data.model_name
+  // };
 
 }

@@ -1,3 +1,4 @@
+import { CarouselModule } from './../general/carousel/carousel.module';
 import { FooterModule } from './../general/footer/footer.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +26,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CompletionComponent } from './change/completion/completion.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgpImagePickerModule } from 'ngp-image-picker';
 
 
 @NgModule({
@@ -57,10 +59,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDialogModule,
     MatSelectModule,
     MatCheckboxModule,
+    CarouselModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgpImagePickerModule
   ],
   exports: [
     DatabaseComponent

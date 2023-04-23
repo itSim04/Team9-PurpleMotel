@@ -3,27 +3,30 @@
     <app-nav-bar [transparent]="true"></app-nav-bar>
     <mat-progress-bar mode="indeterminate" *ngIf="loading || chat_loading"></mat-progress-bar>
 
-    <table style="background: #00000045; position: fixed; bottom: 0px; height: 80%; width: 100%;">
+    <table style="background: #00000045;height: 70%; width: 100%;">
         <tr>
-            <td [style.visibility]="chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 30%;">
+            <td [style.visibility]="chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 30%; max-height: 50px;">
 
-                <div (click)="routeTo(guest.key)" style="padding: 16px;" *ngFor="let guest of active_guests; let i = index">
+                <div style="overflow-y: auto; height: 100%;">
 
-                    <p class="chat-last" style="float: right;">{{formatDateString(active_last_messages[i].lastDate)}}</p>
-                    <p class="chat-name">{{guest.value.first_name + ' ' + guest.value.last_name}}</p>
-                    <p class="chat-last">{{active_last_messages[i].lastMessage}}</p>
-                    <mat-divider style="border-color: white;"></mat-divider>
-
+                    <div (click)="routeTo(guest.key)" style="padding: 16px;" *ngFor="let guest of active_guests; let i = index">
+                        
+                        <p class="chat-last" style="float: right;">{{formatDateString(active_last_messages[i].lastDate)}}</p>
+                        <p class="chat-name">{{guest.value.first_name + ' ' + guest.value.last_name}}</p>
+                        <p class="chat-last">{{active_last_messages[i].lastMessage}}</p>
+                        <mat-divider style="border-color: white;"></mat-divider>
+                        
+                    </div>
                 </div>
 
 
             </td>
-            <td [style.visibility]="loading || chat_loading ? 'hidden' : 'visible'" style="vertical-align: bottom; width: 70%">
+            <td [style.visibility]="loading || chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 70%">
 
-                <div style="height: 66%; overflow-y: scroll;">
+                <div style="height: 90%; overflow-y: scroll">
 
                     <!-- Title -->
-                    <div style="position: absolute; top: 0px; width: 100%; margin: 16px;">
+                    <div style="width: 95%; margin: 16px;">
 
                         <p class="title">{{chat?.user_2?.value?.first_name}}</p>
                         <mat-divider style="background-color: white;"></mat-divider>
@@ -31,7 +34,7 @@
 
                     <!-- Messages -->
 
-                    <table style="margin: 16px; width: 95%;">
+                    <table style="margin: 16px; margin-top: 128px; width: 95%;">
                         <ng-container *ngFor="let c of chat?.messages; let i = index">
 
                             <tr>
@@ -74,7 +77,7 @@
 
                 <!-- Input -->
                 <div [style.visibility]="loading || chat_loading || (id == '0') ? 'hidden' : 'visible'"
-                    style="width: 100%; position: relative; margin: 16px; right: 0px; bottom: 0px;">
+                    style="width: 98%; position: relative; margin: 16px; right: 0px; bottom: 0px;">
                     <input placeholder="Type your message..." class="send-area"
                         [(ngModel)]="message">
                     <img class="send" height="70%" style="position: absolute; top: 0; right: 24px;"

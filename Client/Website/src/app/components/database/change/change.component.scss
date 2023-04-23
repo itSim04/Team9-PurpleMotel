@@ -15,20 +15,6 @@
 
 }
 
-::ng-deep .tooltip {
-
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px !important;
-
-
-    background-color: #14274A !important;
-    color: white;
-
-
-}
-
 .back-btn {
 
     font-family: 'Roboto';
@@ -52,8 +38,8 @@
 
 .back-btn:hover {
     
-    border: 1px solid lightgray;
-    background: lightgray;
+    border: 1px solid #4668a6;
+    background: #4668a6;
 }
 
 .delete-btn {
@@ -139,7 +125,6 @@ th {
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
-    width: 3vw;
 
     letter-spacing: 0.05em;
 

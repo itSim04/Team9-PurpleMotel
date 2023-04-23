@@ -52,21 +52,27 @@ export class ChatsPageComponent implements OnInit {
 
       this.all_users = u.users;
 
-
       const chatsRef = ref(this.db, 'chats/');
 
       onChildAdded(chatsRef, (snapshot) => {
 
-        this.chat_loading = false;
 
         const temp = this.all_users.get(snapshot.key || '');
 
 
         if (temp) {
 
-          this.active_guests.push({ key: snapshot.key || '0', value: temp });
-          this.active_last_messages.push((snapshot.val() as { lastDate: string, lastMessage: string; }));
+          if (snapshot.key == this.id) {
 
+            this.chat_loading = true;
+
+          } else {
+            this.chat_loading = false;
+
+            this.active_guests.push({ key: snapshot.key || '0', value: temp });
+            this.active_last_messages.push((snapshot.val() as { lastDate: string, lastMessage: string; }));
+
+          }
         }
 
       });

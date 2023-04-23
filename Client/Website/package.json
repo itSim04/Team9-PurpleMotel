@@ -28,6 +28,7 @@
     "eslint": "^8.37.0",
     "firebase": "^9.19.1",
     "ng-let": "^15.0.2",
+    "ngp-image-picker": "^2.4.4",
     "ngx-autosize": "^2.0.4",
     "ngx-infinite-scroll": "^15.0.0",
     "ngx-translate": "^0.0.1-security",

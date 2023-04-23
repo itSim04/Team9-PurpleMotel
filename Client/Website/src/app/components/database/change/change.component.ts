@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserType } from 'src/app/models/UserType';
 import { KeyValue } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Field, Toggle, StaticField, ChangeInjection, Column, ExtraColumn } from 'src/app/models/Database';
@@ -13,6 +13,8 @@ import { extractPermission, formatWord, isNum } from '../database.component';
 import { User } from 'src/app/models/User';
 import { ConfirmationDialogService } from 'src/app/services/utility/confirmation.service';
 import { WarningDialogService } from 'src/app/services/utility/warning.service';
+import { ImagePickerConf, NgpImagePickerComponent } from 'ngp-image-picker';
+import { InformationDatabaseService } from 'src/app/services/providers/information-database.service';
 
 
 export function areEqual(a: any, b: any) {
@@ -85,6 +87,33 @@ export function clone(obj: any) {
 })
 export class ChangeComponent<Data extends { [key: string]: string | boolean | number | unknown[]; }> {
 
+  onImageChange($event: any, image?: { filename: string, base64: string; }) {
+
+    if ($event) {
+      this.image_service.storeImage($event, this.data_type, this.old_data?.key!).subscribe((result) => {
+
+        this.images.push({
+
+          filename: '',
+          base64: '',
+
+        });
+
+      });
+
+    } else {
+
+      const filename = image?.filename!.split('/')!;
+      this.image_service.deleteImage(filename[filename.length - 1], this.data_type, this.old_data?.key!).subscribe((result) => {
+
+        this.images.splice(this.images.findIndex((data) => data.filename === image?.filename), 1);
+
+      });
+
+
+    }
+  }
+
   modification_mode = false;
   side_panel: 'images' | 'permissions' | 'empty' | 'table';
   data: Data;
@@ -129,7 +158,22 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   uniqueness: boolean = true;
 
-  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; all_data: Map<string, Data>; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService) {
+  images: {
+
+    filename: string,
+    base64: string;
+
+  }[] = [];
+
+  imagePickerConf: ImagePickerConf = {
+    borderRadius: '4px',
+    language: 'en',
+    width: '320px',
+    height: '240px',
+  };
+
+  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; all_data: Map<string, Data>; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService, private image_service: InformationDatabaseService) {
+
 
     this.linked_data = injected_data.link;
 
@@ -156,6 +200,18 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     if (injected_data.injection.affected_data) {
 
       this.old_data = injected_data.injection.affected_data;
+      image_service.browseImages(this.data_type, this.old_data?.key!).subscribe((result) => {
+
+        console.log(result);
+        this.images = result.images;
+        this.images.push({
+
+          filename: '',
+          base64: ''
+
+        });
+
+      });
 
       console.log(this.old_data);
 

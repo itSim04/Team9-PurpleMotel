@@ -22,8 +22,22 @@
 
                         <tr>
                             <td colspan="2">
-                                <img width="100%" src="../../../../../assets/room-1.png"
-                                    height="100%">
+                                <!-- <img width="100%" src="../../../../../assets/room-1.png"
+                                    height="100%"> -->
+
+                                <app-carousel #carousel>
+
+                                    <ng-container *ngFor="let image of images; let i = index">
+                                        <ng-container *carouselItem>
+                                            <ngp-image-picker
+                                                [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
+                                                [_config]="imagePickerConf"
+                                                ($imageChanged)="onImageChange($event, image)"></ngp-image-picker>
+                                        </ng-container>
+
+                                    </ng-container>
+
+                                </app-carousel>
                             </td>
                         </tr>
                         <tr>
@@ -247,9 +261,10 @@
                     *ngIf="modification_rule(this.data) && modification_mode">Delete</button>
                 <button *ngIf="modification_rule(this.data)" style="width: 30%;" class="back-btn"
                     (click)="modification_mode ? modify() : add()"
-                    
                     [style.background]="(fieldsCompleteness.length || !differenceCheck) ? 'gray' : '#14274A'"
-                    [matTooltipClass]="'tooltip'" mat-button color="primary" [matTooltipDisabled]="!fieldsCompleteness.length" [matTooltip]="fieldsCompleteness.join('\n')">{{modification_mode ?
+                    [matTooltipClass]="'tooltip'" mat-button color="primary"
+                    [matTooltipDisabled]="!fieldsCompleteness.length"
+                    [matTooltip]="fieldsCompleteness.join('\n')">{{modification_mode ?
                     'Modify' : 'Add'}} {{data_type}}</button>
             </td>
             <td *ngIf="toggle" class="padded" style="text-align: left;"> <button style="width: 30%;"

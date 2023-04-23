@@ -20,7 +20,7 @@ export class InformationDatabaseService {
 
     try {
 
-      return this.http.get<any>(this.url.generateUrl(`information`),  { headers: headers }).pipe(
+      return this.http.get<any>(this.url.generateUrl(`information`), { headers: headers }).pipe(
 
         map((response: any): any => {
 
@@ -147,29 +147,11 @@ export class InformationDatabaseService {
     }
 
   }
-  getAllImages(): Observable<ImagesPackage> {
+  browseImages(model_name: string, id: string): Observable<ImageResponse> {
 
     try {
 
-      return this.http.get<ImagesResponse>(this.url.generateUrl('images')).pipe(
-
-        map((response: ImagesResponse): ImagesPackage => {
-
-          const images = new Map<string, Image>();
-
-          response.data.forEach(image => {
-
-            images.set(image.id, image.attributes);
-
-          });
-
-          return {
-
-            images: images
-
-          };
-
-        }));
+      return this.http.get<ImageResponse>(this.url.generateUrl(`browse-images?model_name=${model_name}&id=${id}`));
 
     } catch (e: unknown) {
 
@@ -179,26 +161,19 @@ export class InformationDatabaseService {
 
 
   }
-  getOneImage(id: string): Observable<ImagePackage> {
+
+
+  storeImage(image: string, model_name: string, id: string) {
 
     try {
 
-      return this.http.get<ImageResponse>(this.url.generateUrl(`images/${id}`)).pipe(
-        map((response: ImageResponse): ImagePackage => {
+      return this.http.post<ImageResponse>(this.url.generateUrl('store-images'), {
 
-          return {
+        image: image,
+        model_name: model_name,
+        id: id
 
-            image: {
-
-              key: response.data.id,
-              value: response.data.attributes
-
-            },
-          };
-
-
-        })
-      );
+      });
 
     } catch (e: unknown) {
 
@@ -208,19 +183,11 @@ export class InformationDatabaseService {
 
   }
 
-  addNewImage(image: Image) {
+  deleteImage(filename: string, model_name: string, id: string) {
 
     try {
 
-      return this.http.post<ImageResponse>(this.url.generateUrl('images'), image).pipe(
-
-        map(result => {
-
-          return result.data.id;
-
-        })
-
-      );
+      return this.http.get<ImageResponse>(this.url.generateUrl(`delete-images?filename=${filename}&model_name=${model_name}&id=${id}`));
 
     } catch (e: unknown) {
 
@@ -235,20 +202,6 @@ export class InformationDatabaseService {
     try {
 
       return this.http.put(this.url.generateUrl(`images/${image_id}`), image).pipe(map(() => undefined));
-
-    } catch (e: unknown) {
-
-      throw new Error(JSON.stringify(e));
-
-    }
-
-  }
-
-  deleteImage(key: string) {
-
-    try {
-
-      return this.http.delete(this.url.generateUrl(`images/${key}`)).pipe(map(() => []));
 
     } catch (e: unknown) {
 

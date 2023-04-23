@@ -2,8 +2,8 @@ import { KeyValue } from "@angular/common";
 
 export interface Image {
 
-  model_name: string, 
-  url: string
+  model_name: string,
+  url: string;
 
 }
 
@@ -18,12 +18,11 @@ export interface ImagesResponse {
 }
 
 export interface ImageResponse {
-  status: string,
-  data: {
-    id: string;
-    type: string;
-    attributes: Image;
-  };
+  images:
+  {
+    filename: string,
+    base64: string;
+  }[];
 }
 
 export interface ImagePackage {
@@ -31,5 +30,8 @@ export interface ImagePackage {
 }
 
 export interface ImagesPackage {
-  images: Map<string, Image>;
+  images: {
+    filename: string,
+    base64: string;
+  }[];
 }

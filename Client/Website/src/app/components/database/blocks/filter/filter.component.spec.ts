@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FilterComponent } from './filter.component';
 
 describe('FilterComponent', () => {
-  let component: FilterComponent<unknown>;
-  let fixture: ComponentFixture<FilterComponent<unknown>>;
+  let component: FilterComponent<unknown, unknown>;
+  let fixture: ComponentFixture<FilterComponent<unknown, unknown>>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

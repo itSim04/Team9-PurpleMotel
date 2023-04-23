@@ -62,6 +62,12 @@ export class GuestChatsPageComponent implements OnInit {
       };
 
       const commentsRef = ref(this.db, 'messages/' + this.id);
+
+      setTimeout(() => {
+
+        this.loading = false
+
+      }, 2000);
       onChildAdded(commentsRef, (snapshot) => {
 
         this.loading = false;
