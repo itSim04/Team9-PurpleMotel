@@ -18,8 +18,7 @@ export class GuestGuard implements CanActivate {
       return true;
     } else {
 
-      this.router.navigate(['/']);
-      this.authentication.openDialog('login');
+      this.router.navigate(['/auth/login']);
       return false;
 
     }
