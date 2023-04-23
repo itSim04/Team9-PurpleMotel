@@ -137,7 +137,6 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-
         return storeTemplate($request, $this->model, $this->resource, $this->options);
     }
 
@@ -221,7 +220,6 @@ class RoomController extends Controller
      */
     public function update(Request $request, string $room_id)
     {
-
         return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options);
     }
 

@@ -75,6 +75,9 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('bookings', BookingController::class);
     Route::apiResource('registrations', RegistrationController::class);
     Route::apiResource('promocodes', PromoCodeController::class);
+    Route::get('browse-images', [ImageController::class, 'browse']);
+    Route::get('store-images', [ImageController::class, 'browse']);
+    Route::get('delete-images', [ImageController::class, 'destroy']);
 
 
     Route::controller(PromoCodeController::class)->group(function () {

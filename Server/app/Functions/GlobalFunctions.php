@@ -3,6 +3,7 @@
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 function generateResponse(int $code, $collection = [], $included = [], bool $error = false)
 {
@@ -10,11 +11,29 @@ function generateResponse(int $code, $collection = [], $included = [], bool $err
 
     // if ($collection) {
 
-        $response[$error ? 'message' : 'data'] = $collection;
-        $response['included'] = $included;
+    $response[$error ? 'message' : 'data'] = $collection;
+    $response['included'] = $included;
     // }
 
     return response()->json($response, $code);
+}
+
+function storeImage(string $base64_image, string $model_name, string $id)
+{
+    // Extract the image data and MIME type from the base64 string
+    list($type, $data) = explode(';', $base64_image);
+    list(, $data) = explode(',', $data);
+
+    $data = base64_decode($data);
+
+    // Generate a unique filename for the image
+    $filename = uniqid() . '.' . explode('/', $type)[1];
+
+    // Save the image file using Laravel's File Storage API
+    Storage::disk('public')->put('images/' . $model_name . '/' . $id . '/' . $filename, $data);
+
+    // Return a response indicating the image was saved
+    return $filename;
 }
 
 function extractPermissions($id, $type)
@@ -52,7 +71,7 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
     $included = [];
 
     if ($condition) {
-        
+
         foreach ($extra_model as $key => $extra) {
 
             foreach ($extra::collection($key::all()->where($condition, $condition_value)) as $item) {
@@ -60,7 +79,6 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
                 $included[] = $item;
             }
         }
-
     } else {
 
         foreach ($extra_model as $key => $extra) {
@@ -72,15 +90,13 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
         }
     }
 
-    
-    if($pagination_index && $page_size) {
+
+    if ($pagination_index && $page_size) {
 
         $result = $resource::collection($model::all()->skip($pagination_index)->take($page_size));
- 
-    } else  {
+    } else {
 
         $result = $resource::collection($model::all());
-
     }
 
     return generateResponse(200, $result, $included);
@@ -199,7 +215,6 @@ function storeTemplate(Request $request, string $model, string $resource, array 
         }
 
         return generateResponse(201, new $resource($data));
-
     } catch (Exception $e) {
 
         return generateResponse(500, $e->getMessage(), true);
