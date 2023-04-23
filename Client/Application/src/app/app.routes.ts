@@ -30,6 +30,7 @@ export const routes: Routes = [
   {
 
     path: 'auth',
+    
     children: [
 
       {
@@ -59,6 +60,7 @@ export const routes: Routes = [
     //children: [
       {
         path: 'rooms',
+        canActivate:[GuestGuard],
         children: [
           {
             path: 'browse',
@@ -73,14 +75,17 @@ export const routes: Routes = [
       },
       {
         path: 'home',
+        canActivate:[GuestGuard],
         component: HomeComponent
       },
       {
         path: 'services',
+        canActivate:[GuestGuard],
         component: BrowseServicesComponent
       },
       {
         path: 'restaurant',
+        canActivate:[GuestGuard],
         component: HomeComponent
       },
       // {
