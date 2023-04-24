@@ -1,4 +1,4 @@
-<div class="restaurant-header">
+<!-- <div class="restaurant-header">
     <app-nav-bar [transparent]="true"></app-nav-bar>
     <div class="title-container">
         <p class="title-1">{{"welcome_to" | translate}}</p>
@@ -29,4 +29,32 @@
 <div style="display: flex;justify-content: center;">
     <button [routerLink]="['/restaurant/menu']" class="menu-button">{{"view_menu" | translate}}</button>
     <button class="feedback-button">{{"feedback" | translate}}</button>
-</div>
+</div> -->
+<ion-content>
+
+    <div class="main">
+        <p class="title">
+            This is it.
+        </p>
+    </div>
+
+    <h1 class="restaurant-header">Restaurant</h1>
+    <hr>
+    <div class="container">
+        <p class="content-2">
+
+            Indulge in a culinary adventure at our hotel's application restaurant, where each bite is a thrilling
+            explosion
+            of flavors. Led by a team of skilled chefs, our dining destination will take you on a journey of taste, with
+            dishes crafted from the freshest ingredients and innovative techniques.
+
+        </p>
+    </div>
+    <br>
+    <p class="header-2">The Chefs</p>
+    <div class="image-bg">
+        <div class="image-container">
+        <img (click)="chef_dialog.openDialog()" src="../../../../../assets/rooms/chefs2.jpg">
+        <div class="overlay-text">Click here to view</div>
+        </div>
+    </div>

@@ -21,6 +21,7 @@ import { BrowseServicesComponent } from './pages/guest/services/browse/browse-se
 import { HomeComponent } from './pages/guest/home/home.component';
 import { AdminGuard } from './guards/admin.guard';
 import { GuestGuard } from './guards/guest.guard';
+import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 
 
 
@@ -236,28 +237,28 @@ export const routes: Routes = [
   //   },
   //   {
       
-  //   {
-  //     path: "restaurant",
-  //     children: [
-  //       {
-  //         path: "",
-  //         redirectTo: "browse",
-  //         pathMatch: "full"
-  //       },
-  //       {
-  //          component: MenuComponent,
-  //         path: "menu"
-  //       },
-  //       {
-  //          component: RestaurantLandingComponent,
-  //         path: "browse"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     path: "home",
-  //      component: HomeComponent
-  //   }
+    {
+      path: "restaurant",
+      children: [
+        {
+          path: "",
+          redirectTo: "browse",
+          pathMatch: "full"
+        },
+        // {
+        //    component: MenuComponent,
+        //   path: "menu"
+        // },
+        {
+           component: RestaurantLandingComponent,
+          path: "browse"
+        }
+      ]
+    },
+    {
+      path: "home",
+       component: HomeComponent
+    }
 
 
 

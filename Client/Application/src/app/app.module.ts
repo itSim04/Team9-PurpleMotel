@@ -31,6 +31,7 @@ import { NewsListPopupModule } from './components/news/news-list-popup/news-list
 import { RoomsModule } from './pages/guest/rooms/rooms.module';
 import { App } from '@capacitor/app';
 import { CalendarModule } from './components/room/calendar/calendar.module';
+import { RestaurantModule } from './pages/guest/restaurant/restaurant.module';
 
 
 
@@ -69,7 +70,7 @@ import { CalendarModule } from './components/room/calendar/calendar.module';
     ServicesModule,
     AdminDashboardModule,
     CalendarModule,
-
+    RestaurantModule,
     RoomsModule,
     HomeModule,
     NewsListItemModule,
