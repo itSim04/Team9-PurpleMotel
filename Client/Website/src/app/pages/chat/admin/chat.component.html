@@ -23,7 +23,7 @@
             </td>
             <td [style.visibility]="loading || chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 70%">
 
-                <div style="height: 90%; overflow-y: scroll">
+                <div #container style="height: 90%; overflow-y: scroll">
 
                     <!-- Title -->
                     <div style="width: 95%; margin: 16px;">
@@ -50,7 +50,7 @@
                                         [style.float]="c.owner_id == id ? 'left' : 'right'"
                                         [class]="c.owner_id == id ? 'multi sent-message' : 'multi received-message'">
 
-                                        <p style="margin: 0px;">
+                                        <p [style.fontSize]="isSpecial(c.content) ? '40px' : '14px'" style="margin: 0px;">
                                             {{c.content}}</p>
 
 
@@ -78,9 +78,9 @@
                 <!-- Input -->
                 <div [style.visibility]="loading || chat_loading || (id == '0') ? 'hidden' : 'visible'"
                     style="width: 98%; position: relative; margin: 16px; right: 0px; bottom: 0px;">
-                    <input placeholder="Type your message..." class="send-area"
+                    <input (keydown)="keyStroke($event)" placeholder="Type your message..." class="send-area"
                         [(ngModel)]="message">
-                    <img class="send" height="70%" style="position: absolute; top: 0; right: 24px;"
+                    <img [style.visibility]="this.message.trim() ? 'visible' : 'hidden'" class="send" height="70%" style="position: absolute; top: 0; right: 24px;"
                         src="../../../assets/send_icon.png" (click)="postMessage()">
                 </div>
 
