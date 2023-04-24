@@ -1,7 +1,7 @@
 import { Route, Router } from '@angular/router';
 import { AuthenticationDialogService } from './../../../../services/utility/authentication.service';
 import { extractUser } from 'src/app/components/database/database.component';
-import { FoodCategory } from './../../../../models/FoodCategory';
+import { FoodCategory, FoodCategoryAttributes } from './../../../../models/FoodCategory';
 import { Food } from 'src/app/models/Food';
 import { Component, ViewChild } from '@angular/core';
 import { KeyValue } from '@angular/common';
@@ -60,11 +60,21 @@ export class MenuComponent {
   ngOnInit() {
 
 
-    this.food_service.getAllFoods().subscribe(data => {
+    this.food_service.getAllFoods().subscribe({
 
-      this.foods = data.foods,
-        this.food_categories = data.categories;
+      next: data => {
 
+        console.log(data);
+        this.foods = data.foods,
+          this.food_categories = data.categories;
+
+      },
+
+      error: error => {
+
+        console.error(error);
+
+      }
     });
 
 

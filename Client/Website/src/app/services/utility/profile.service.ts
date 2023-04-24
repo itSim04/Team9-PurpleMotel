@@ -56,7 +56,7 @@ export class ProfileService {
             const user_registrations = new Map<string, Registration>();
             const user_reviews = new Map<string, Review>();
             const user_promo = new Map<string, PromoCode>();
-            const images = response.images
+            const images = response.images;
             response.data.forEach(value => {
 
 
@@ -76,13 +76,13 @@ export class ProfileService {
 
                 case 'Rooms':
 
-                  user_rooms.set(value.id, { ...(value.attributes as RoomAttributes), type: value.relationships.room_type.data.id.toString(), reviews: [], is_reviewed: false, images: images.rooms[value.id] });
+                  user_rooms.set(value.id, { ...(value.attributes as RoomAttributes), type: value.relationships.room_type.data.id.toString(), reviews: [], is_reviewed: false, images: images.rooms ? images.rooms[value.id] : [] });
 
                   break;
 
                 case 'Foods':
 
-                  user_foods.set(value.id, { ...(value.attributes as FoodAttributes), category: value.relationships.food_category.data.id.toString(), ingredients: [] });
+                  user_foods.set(value.id, { ...(value.attributes as FoodAttributes), category: value.relationships.food_category.data.id.toString(), ingredients: [], image: images.food ? images.food[value.id][0] : '' });
 
                   break;
 
@@ -98,7 +98,7 @@ export class ProfileService {
                   if (food) {
 
                     food.ingredients.push({
-                      
+
                       id: value.relationships.stock.data.id,
                       quantity: (value.attributes as IngredientAttributes).quantity,
                       required: (value.attributes as IngredientAttributes).required

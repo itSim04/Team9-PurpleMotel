@@ -22,7 +22,15 @@ class FoodCategoryController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource);
+
+        $foods = FoodCategory::all();
+
+        foreach ($foods->pluck('id') as $id) {
+
+            $images['food_categories'][$id] = extractImages('Food Categories', $id);
+        }
+
+        return generateResponse(200, $foods, [], false, $images);
     }
 
     /**
@@ -39,7 +47,11 @@ class FoodCategoryController extends Controller
     public function show(int $id)
     {
 
-        return showTemplate($this->model, $this->resource, $id);
+        $foods = FoodCategory::find($id);
+
+        $images['food_categories'][$id] = extractImages('Food Categories', $id);
+
+        return generateResponse(200, $foods, [], false, $images);
     }
 
     /**
@@ -47,7 +59,7 @@ class FoodCategoryController extends Controller
      */
     public function update(Request $request, string $food_id)
     {
-       
+
         return updateTemplate($request, $this->model, $food_id, $this->resource, $this->options, $this->model_name);
     }
 

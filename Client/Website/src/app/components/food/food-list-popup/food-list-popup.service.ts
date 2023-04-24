@@ -11,7 +11,7 @@ export class FoodListPopupService {
 
   constructor (public dialog: MatDialog) { }
 
-  openDialog<T>(title: string, description: string, price: number, id:string, quantity: number) {
+  openDialog<T>(title: string, description: string, price: number, id:string, quantity: number, image: string) {
 
     return this.dialog.open(FoodListPopupComponent, {
       data: {
@@ -19,6 +19,7 @@ export class FoodListPopupService {
         description: description,
         price: price,
         id: id,
+        image: image,
         quantity: quantity
       }
     });

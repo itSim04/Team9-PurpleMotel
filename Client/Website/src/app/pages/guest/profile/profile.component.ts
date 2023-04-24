@@ -111,13 +111,12 @@ export class ProfileComponent implements OnInit {
         this.foods = data.foods;
         this.promo = data.promo;
 
-        console.log(this.promo);
 
-
-        console.log(this.rooms);
+        console.log(data);
       },
       error: error => {
 
+        console.error(error);
         if (error.status) {
 
 

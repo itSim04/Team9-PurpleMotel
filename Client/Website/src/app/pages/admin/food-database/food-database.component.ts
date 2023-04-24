@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Food } from 'src/app/models/Food';
-import { FoodCategory } from 'src/app/models/FoodCategory';
+import { FoodCategory, FoodCategoryAttributes } from 'src/app/models/FoodCategory';
 import { FoodDatabaseService } from 'src/app/services/providers/food-database.service';
 import { KeyValue } from '@angular/common';
 
@@ -39,7 +39,7 @@ export class FoodDatabaseComponent {
         link: {
 
           key: 'category',
-          format: (value) => (value as FoodCategory)?.label
+          format: (value) => (value as FoodCategoryAttributes)?.label
 
         }
       }
@@ -91,18 +91,19 @@ export class FoodDatabaseComponent {
         }
 
       ],
-      default_value:{
+      default_value: {
 
         id: '0',
         quantity: 0,
         required: false
-        
+
       },
       key: 'ingredients'
 
     },
     side_panel: 'table',
     default_state: {
+      image: '',
       label: '',
       description: '',
       price: 0,
@@ -132,8 +133,8 @@ export class FoodDatabaseComponent {
         choices: {
 
           link: true,
-          format: (choice) => (choice as FoodCategory)?.label,
-          
+          format: (choice) => (choice as FoodCategoryAttributes)?.label,
+
         },
         condition: (choice) => choice != '-1'
       }
@@ -165,5 +166,30 @@ export class FoodDatabaseComponent {
 
   };
 
+  extra_change_injection: ChangeInjection<FoodCategory> = {
+
+    data_type: 'Food Category',
+    default_state: {
+
+      image: '',
+      label: '',
+
+    },
+    fields: [],
+    standalone_field: {
+
+      key: 'label',
+      type: 'text'
+
+    },
+    side_panel: 'images',
+    add_service: category => this.food_service.addNewFoodCategory(category),
+    modify_service: (key, data) => this.food_service.modifyFoodCategory(key, data),
+    delete_service: key => this.food_service.deleteFoodCategory(key),
+    identifier: (data) => '' + data.label,
+
+  };
+
   dual_fetcher: () => Observable<[Map<string, Food>, Map<string, FoodCategory>, Map<string, unknown>[]]> = () => this.food_service.getAllFoods().pipe(map(data => [data.foods, data.categories, [data.ingredients, data.stocks]]));
+
 }

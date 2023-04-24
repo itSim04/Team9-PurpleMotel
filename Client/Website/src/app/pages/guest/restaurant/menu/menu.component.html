@@ -11,14 +11,22 @@
 
     <div class="section">
 
-        <div (click)="scroll('Starters')" class="wrap">
-            <img width="100%" src="../../../../../assets/starters-main.png" />
-            <div class="content">
-                {{ 'starters' | translate }}
-            </div>
-        </div>
+        <table style="table-layout: fixed; width: 100%;">
+            <tr>
 
-        <div (click)="scroll('Pizza')" class="wrap">
+
+                <td style="height:16%; width:16%" *ngFor="let category of food_categories | keyvalue"
+                    (click)="scroll(category.value.label)" class="wrap" style="overflow-x: auto;">
+                    <img [src]="category.value.image" width="100%" height="160vh" 
+                        onerror="this.src='assets/placeholder.png'" style="object-fit: cover;">
+                    <div class="content">
+                        {{ category.value.label | translate }}
+                    </div>
+                </td>
+
+            </tr>
+        </table>
+        <!-- <div (click)="scroll('Pizza')" class="wrap">
             <img width="100%" src="../../../../../assets/platters-main.png" />
             <div class="content">
                 {{ 'platters' | translate }}
@@ -32,12 +40,24 @@
             </div>
         </div>
 
-        <div (click)="scroll('Drinks')" class="wrap">
+        <div (click)="scroll('Burger')" class="wrap">
+            <img width="100%" src="../../../../../assets/burger-main.png" />
+            <div class="content">
+{{ 'burger' | translate }}
+            </div>
+        </div>
+        <div (click)="scroll('Desserts')" class="wrap">
             <img width="100%" src="../../../../../assets/desserts-main.png" />
             <div class="content">
 {{ 'desserts' | translate }}
             </div>
         </div>
+        <div (click)="scroll('Drinks')" class="wrap">
+            <img width="100%" src="../../../../../assets/drinks-main.png" />
+            <div class="content">
+{{ 'drinks' | translate }}
+            </div>
+        </div> -->
     </div>
 
     <div *ngFor="let category of food_categories | keyvalue">
@@ -47,7 +67,8 @@
         <ng-container *ngFor="let food of foods | keyvalue">
 
             <div *ngIf="food.value.category == category.key">
-                <app-food-list-item [quantity]="getQuantity(food.key)" [food]="food"></app-food-list-item>
+                <app-food-list-item [quantity]="getQuantity(food.key)"
+                    [food]="food"></app-food-list-item>
             </div>
         </ng-container>
 

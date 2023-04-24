@@ -4,7 +4,7 @@ import { Observable, map } from "rxjs";
 import { FoodsResponse, Food, FoodResponse, FoodPackage, FoodsPackage } from "src/app/models/Food";
 import { UrlBuilderService } from "../utility/url-builder.service";
 import { Stock } from 'src/app/models/Stock';
-import { FoodCategory } from "src/app/models/FoodCategory";
+import { FoodCategory, FoodCategoryAttributes } from "src/app/models/FoodCategory";
 import { Ingredient, IngredientAttributes } from "src/app/models/Ingredient";
 
 
@@ -32,10 +32,11 @@ export class FoodDatabaseService {
             const food_categories = new Map<string, FoodCategory>();
             const ingredients = new Map<string, Ingredient>();
             const stocks = new Map<string, Stock>();
+            const image = response.images;
 
             response.data.forEach(food => {
 
-              foods.set(food.id, { ...food.attributes, ingredients: [], category: food.relationships.food_category.data.id });
+              foods.set(food.id, { ...food.attributes, ingredients: [], category: food.relationships.food_category.data.id, image: image.food[food.id][0] });
 
             });
 
@@ -47,7 +48,7 @@ export class FoodDatabaseService {
 
                 case 'FoodCategory':
 
-                  food_categories.set(value.id, value.attributes as FoodCategory);
+                  food_categories.set(value.id, { ...value.attributes as FoodCategoryAttributes, image: image.food_categories[value.id][0] });
                   break;
 
                 case 'Ingredient':
@@ -110,7 +111,12 @@ export class FoodDatabaseService {
             food: {
 
               key: response.data.id,
-              value: response.data.attributes
+              value: {
+                ...response.data.attributes,
+                category: response.data.relationships.food_category.data.id,
+                image: response.images.food[response.data.id][0],
+                ingredients: []
+              }
 
             },
           };
@@ -125,7 +131,7 @@ export class FoodDatabaseService {
 
     }
 
-  }
+  };
 
   addNewFood(food: Food) {
 
@@ -174,6 +180,61 @@ export class FoodDatabaseService {
     try {
 
       return this.http.delete(this.url.generateUrl(`foods/${key}`), { headers: headers }).pipe(map(() => []));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+  addNewFoodCategory(food: FoodCategoryAttributes) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.post<FoodResponse>(this.url.generateUrl('food-categories'), food, { headers: headers }).pipe(
+
+        map(result => {
+
+          return result.data.id;
+
+        })
+
+      );
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  modifyFoodCategory(food_id: string, food: FoodCategoryAttributes) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.put(this.url.generateUrl(`food-categories/${food_id}`), food, { headers: headers }).pipe(map(() => undefined));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+
+  deleteFoodCategory(key: string) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.delete(this.url.generateUrl(`food-categories/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 

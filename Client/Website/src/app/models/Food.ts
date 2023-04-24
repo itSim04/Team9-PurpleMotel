@@ -1,6 +1,6 @@
 import { Stock } from './Stock';
 import { Ingredient, IngredientAttributes } from './Ingredient';
-import { FoodCategory } from './FoodCategory';
+import { FoodCategory, FoodCategoryAttributes } from './FoodCategory';
 import { KeyValue } from '@angular/common';
 export interface Food extends FoodAttributes {
 
@@ -10,6 +10,7 @@ export interface Food extends FoodAttributes {
     quantity: number,
     required: boolean;
   }[], //The ingredients constituting the food
+  image: string,
 
 }
 
@@ -38,13 +39,27 @@ export interface FoodsResponse {
       };
     };
   }[],
+  images: {
+
+    food: {
+
+      [id: string]: string[];
+
+    };
+    food_categories: {
+
+      [id: string]: string[];
+
+    };
+
+  };
 
   included?: {
 
 
     id: string,
     type: 'FoodCategory' | 'Ingredient' | 'Stocks',
-    attributes: FoodCategory | IngredientAttributes | Stock,
+    attributes: FoodCategoryAttributes | IngredientAttributes | Stock,
     relationships: {
       food: {
         data: {
@@ -67,7 +82,27 @@ export interface FoodResponse {
   data: {
     id: string;
     type: string;
-    attributes: Food;
+    attributes: FoodAttributes;
+    relationships: {
+      food_category: {
+        data: {
+          id: string,
+          type: 'Food_Category';
+        };
+      };
+    };
+  };
+  images: {
+
+    food: {
+
+      [id: string]: string[];
+    };
+    food_categories: {
+
+      [id: string]: string[];
+    };
+
   };
 }
 

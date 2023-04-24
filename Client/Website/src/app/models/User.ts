@@ -256,6 +256,13 @@ export interface ProfileResponse {
             [id: string]: string[];
         };
 
+        food: {
+
+            [id: string]: string[];
+        };
+
+
+
     };
 
 
