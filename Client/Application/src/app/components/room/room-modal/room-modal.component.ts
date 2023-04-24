@@ -28,14 +28,15 @@ export class RoomModalComponent {
    }
 
   get formatOccupancy(): string {
-
+    //console.log('hello');
     return formatOccupancy([this.room_type?.value?.adults_capacity, this.room_type?.value?.adults_with_kids_capacity, this.room_type?.value?.kids_capacity]);
 
   }
 
 
   get formatPrice(): string {
-    return formatPrice(this.room_type?.value?.price);
+    console.log(this.room_type?.value.price);
+    return formatPrice(this.room_type?.value.price);
   }
 
   addBooking(range: { check_in: Date, check_out: Date }) {
