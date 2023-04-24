@@ -147,11 +147,11 @@ export class InformationDatabaseService {
     }
 
   }
-  browseImages(model_name: string, id: string): Observable<ImageResponse> {
+  browseImages(model_name: string, id: string): Observable<ImagesResponse> {
 
     try {
 
-      return this.http.get<ImageResponse>(this.url.generateUrl(`browse-images?model_name=${model_name}&id=${id}`));
+      return this.http.get<ImagesResponse>(this.url.generateUrl(`browse-images?model_name=${model_name}&id=${id}`));
 
     } catch (e: unknown) {
 
@@ -187,7 +187,7 @@ export class InformationDatabaseService {
 
     try {
 
-      return this.http.get<ImageResponse>(this.url.generateUrl(`delete-images?filename=${filename}&model_name=${model_name}&id=${id}`));
+      return this.http.get<ImagesResponse>(this.url.generateUrl(`delete-images?filename=${filename}&model_name=${model_name}&id=${id}`));
 
     } catch (e: unknown) {
 
@@ -197,11 +197,18 @@ export class InformationDatabaseService {
 
   }
 
-  modifyImage(image_id: string, image: Image) {
+  modifyImage(image: string, model_name: string, id: string, filename: string) {
 
     try {
 
-      return this.http.put(this.url.generateUrl(`images/${image_id}`), image).pipe(map(() => undefined));
+      return this.http.post<ImagesResponse>(this.url.generateUrl('modify-images'), {
+
+        image: image,
+        model_name: model_name,
+        id: id,
+        filename: filename
+
+      });
 
     } catch (e: unknown) {
 

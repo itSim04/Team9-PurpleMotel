@@ -1,6 +1,6 @@
 <div class="main">
     <div style="background: #14274A;">
-        <img [src]="path" height="400vh"
+        <img [src]="room?.value?.images?.at(0)" onerror="this.src='assets/placeholder.png'"  height="400vh"
             width="100%" style="object-fit: cover;">
         <div style="vertical-align: center; display: flex; flex-direction: column;">
             <p class="label">{{room?.value?.label}}</p>

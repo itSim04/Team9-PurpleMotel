@@ -1,9 +1,10 @@
+import { CarouselComponent } from './../../general/carousel/carousel.component';
 import { PromoCode } from './../../../models/PromoCode';
 import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { Router } from '@angular/router';
 import { extractUserId } from 'src/app/components/database/database.component';
 import { KeyValue } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { formatOccupancy } from 'src/app/pages/admin/room-database/room-database.component';
@@ -20,6 +21,7 @@ import { BookingDatabaseService } from 'src/app/services/providers/booking-datab
 })
 export class RoomDetailsComponent {
 
+  @ViewChild('carousel') carousel!: CarouselComponent;
   @Input() room?: KeyValue<string, Room>;
   @Input() room_type?: KeyValue<string, RoomType>;
   @Input() overview = true;
@@ -30,6 +32,12 @@ export class RoomDetailsComponent {
   get formatOccupancy(): string {
 
     return formatOccupancy([this.room_type?.value?.adults_capacity, this.room_type?.value?.adults_with_kids_capacity, this.room_type?.value?.kids_capacity]);
+
+  }
+
+  fixImage() {
+
+    this.carousel.initiateCarousel();
 
   }
 

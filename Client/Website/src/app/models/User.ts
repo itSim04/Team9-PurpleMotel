@@ -249,6 +249,15 @@ export interface ProfileResponse {
         };
     }[];
 
+    images: {
+
+        rooms: {
+
+            [id: string]: string[];
+        };
+
+    };
+
 
 
 

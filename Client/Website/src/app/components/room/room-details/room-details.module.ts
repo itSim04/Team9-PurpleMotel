@@ -1,3 +1,4 @@
+import { CarouselModule } from './../../general/carousel/carousel.module';
 import { LanguageModule } from 'src/app/services/language/language.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,6 +21,7 @@ import { CalendarModule } from '../calendar/calendar.module';
     CalendarModule,
     MatProgressSpinnerModule,
     LanguageModule,
+    CarouselModule
   ],
   exports: [
     RoomDetailsComponent

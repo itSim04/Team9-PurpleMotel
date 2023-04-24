@@ -30,6 +30,8 @@ export class RoomDatabaseService {
 
         map((response: RoomsResponse): RoomsPackage => {
 
+
+          const images = response.images;
           const rooms = new Map<string, Room>();
           const room_types = new Map<string, RoomType>();
           const promo_codes = new Map<string, PromoCode>();
@@ -38,7 +40,7 @@ export class RoomDatabaseService {
           response.data.forEach(room => {
 
             const roomType = room.relationships?.room_type?.data?.id;
-            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false });
+            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false, images: images.rooms[room.id] });
 
           });
 
@@ -148,7 +150,6 @@ export class RoomDatabaseService {
 
     const headers = this.url.generateHeader();
 
-
     try {
 
       return this.http.get<RoomsResponse>(this.url.generateUrl(`rooms?size=${size}&index=${index}`), { headers: headers }).pipe(
@@ -159,11 +160,12 @@ export class RoomDatabaseService {
           const room_types = new Map<string, RoomType>();
           const promo_codes = new Map<string, PromoCode>();
           const effect_codes: EffectPromoCodes[] = [];
+          const images = response.images;
 
           response.data.forEach(room => {
 
             const roomType = room.relationships?.room_type?.data?.id;
-            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false });
+            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false, images: images.rooms[room.id] });
 
           });
 
@@ -284,10 +286,11 @@ export class RoomDatabaseService {
       return this.http.get<RoomResponse>(this.url.generateUrl(`rooms/${id}`), { headers: headers }).pipe(
         map((response: RoomResponse): RoomPackage => {
 
+          const images = response.images.rooms[id];
           const room: KeyValue<string, Room> = {
 
             key: id,
-            value: { ...response.data.attributes, type: response.data.relationships.room_type.data.id, reviews: [], is_reviewed: false }
+            value: { ...response.data.attributes, type: response.data.relationships.room_type.data.id, reviews: [], is_reviewed: false, images: images }
 
           };
 
@@ -295,7 +298,7 @@ export class RoomDatabaseService {
 
             key: '0',
             value: {
-              
+
               change: 0,
               code: '0',
               end_date: parseDate(new Date()),
@@ -308,7 +311,7 @@ export class RoomDatabaseService {
           let room_type: KeyValue<string, RoomType> | undefined = undefined;
 
 
-          console.log(response.included)
+          console.log(response.included);
           response.included?.forEach(data => {
 
             switch (data.type) {

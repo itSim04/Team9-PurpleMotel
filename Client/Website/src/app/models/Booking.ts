@@ -139,4 +139,12 @@ export interface BookingsResponse {
       };
     };
   }[];
+  images: {
+
+    rooms: {
+
+      [id: string]: string[];
+    };
+
+  };
 }

@@ -78,6 +78,7 @@ Route::prefix('v1')->group(function () {
     Route::get('browse-images', [ImageController::class, 'browse']);
     Route::post('store-images', [ImageController::class, 'store']);
     Route::get('delete-images', [ImageController::class, 'destroy']);
+    Route::post('modify-images', [ImageController::class, 'update']);
 
 
     Route::controller(PromoCodeController::class)->group(function () {

@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-function generateResponse(int $code, $collection = [], $included = [], bool $error = false)
+function generateResponse(int $code, $collection = [], $included = [], bool $error = false, array $images = [])
 {
     $response = ['status' => $error ? 'error' : 'success'];
 
@@ -13,28 +13,24 @@ function generateResponse(int $code, $collection = [], $included = [], bool $err
 
     $response[$error ? 'message' : 'data'] = $collection;
     $response['included'] = $included;
+    $response['images'] = $images;
     // }
 
     return response()->json($response, $code);
 }
 
-function storeImage(string $base64_image, string $model_name, string $id)
+function extractImages($model_name, $id): array
 {
-    // Extract the image data and MIME type from the base64 string
-    list($type, $data) = explode(';', $base64_image);
-    list(, $data) = explode(',', $data);
+    // Get all the image files in the public/images directory
+    $files = Storage::disk('public')->allFiles('images/' . $model_name . '/' . $id);
 
-    $data = base64_decode($data);
-
-    // Generate a unique filename for the image
-    $filename = uniqid() . '.' . explode('/', $type)[1];
-
-    // Save the image file using Laravel's File Storage API
-    Storage::disk('public')->put('images/' . $model_name . '/' . $id . '/' . $filename, $data);
-
-    // Return a response indicating the image was saved
-    return $filename;
+    $imageData = [];
+    foreach ($files as $file) {
+        $imageData[] = Storage::disk('public')->url($file);
+    }
+    return $imageData;
 }
+
 
 function extractPermissions($id, $type)
 {

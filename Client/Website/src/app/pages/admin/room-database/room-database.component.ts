@@ -128,6 +128,8 @@ export class RoomDatabaseComponent {
 
 
     default_state: {
+
+      images: [],
       is_reviewed: false,
       reviews: [],
       label: '',
@@ -136,7 +138,6 @@ export class RoomDatabaseComponent {
       level: '',
       type: '',
       rating: 0,
-      image_path: '',
       open: true
     },
 

@@ -268,7 +268,7 @@ export class PromoDatabaseService {
 
                 case 'Rooms':
 
-                  rooms.set(data.id, { ...data.attributes as RoomAttributes, type: data.relationships.room_type.data.id, reviews: [], is_reviewed: false });
+                  rooms.set(data.id, { ...data.attributes as RoomAttributes, type: data.relationships.room_type.data.id, reviews: [], is_reviewed: false, images: [] });
                   break;
 
                 case 'RoomTypes':

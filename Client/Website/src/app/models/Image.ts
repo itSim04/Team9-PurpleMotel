@@ -7,18 +7,18 @@ export interface Image {
 
 }
 
-export interface ImagesResponse {
+export interface ImageResponse {
   status: string,
   data: {
-    id: string;
-    type: string;
-    attributes: Image;
-  }[];
+    filename: string,
+    base64: string;
+  };
 
 }
 
-export interface ImageResponse {
-  images:
+export interface ImagesResponse {
+
+  data:
   {
     filename: string,
     base64: string;

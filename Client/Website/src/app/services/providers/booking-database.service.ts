@@ -35,6 +35,7 @@ export class BookingDatabaseService {
           const room_types = new Map<string, RoomType>();
           const users = new Map<string, User>();
           const user_types = new Map<string, UserType>();
+          const images  = response.images;
 
           response.data.forEach(booking => {
 
@@ -50,7 +51,7 @@ export class BookingDatabaseService {
 
                 case 'Rooms':
 
-                  rooms.set(value.id, { ...value.attributes as RoomAttributes, type: value.relationships.room_type.data.id, reviews: [], is_reviewed: false });
+                  rooms.set(value.id, { ...value.attributes as RoomAttributes, type: value.relationships.room_type.data.id, reviews: [], is_reviewed: false, images: images.rooms[value.id] });
 
                   break;
 
@@ -157,11 +158,12 @@ export class BookingDatabaseService {
           const room_types = new Map<string, RoomType>();
           const promo_codes = new Map<string, PromoCode>();
           const effect_codes: EffectPromoCodes[] = [];
+          const images = response.images;
 
           response.data.forEach(room => {
 
             const roomType = room.relationships?.room_type?.data?.id;
-            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false });
+            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false, images: images.rooms[room.id] });
 
           });
 

@@ -19,6 +19,8 @@ export interface Room extends RoomAttributes {
   reviews: Review[];
   is_reviewed: boolean;
 
+  images: string[];
+
 }
 
 export interface RoomAttributes {
@@ -28,7 +30,6 @@ export interface RoomAttributes {
   number: string, //Room Number
   open: boolean; //Is that room currently open or restricted?
   rating: number; //A rating out of  of said room
-  image_path: string;
 
 
 }
@@ -47,6 +48,14 @@ export interface RoomResponse {
         };
       };
     };
+  };
+  images: {
+
+    rooms: {
+
+      [id: string]: string[];
+    };
+
   };
   included?: {
 
@@ -84,6 +93,14 @@ export interface RoomsResponse {
     attributes: RoomType | PromoCodeAttributes | EffectPromoCodes | Review;
 
   }[];
+  images: {
+
+    rooms: {
+
+      [id: string]: string[];
+    };
+
+  };
 }
 
 export interface RoomPackage {

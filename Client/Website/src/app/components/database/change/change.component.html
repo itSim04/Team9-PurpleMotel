@@ -25,26 +25,27 @@
                                 <!-- <img width="100%" src="../../../../../assets/room-1.png"
                                     height="100%"> -->
 
-                                <app-carousel #carousel>
+                                <!-- <app-carousel #carousel> -->
 
-                                    <ng-container *ngFor="let image of images; let i = index">
-                                        <ng-container *carouselItem>
-                                            <ngp-image-picker
-                                                [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
-                                                [_config]="imagePickerConf"
-                                                ($imageChanged)="onImageChange($event, image)"></ngp-image-picker>
-                                        </ng-container>
+                                <ng-container *ngFor="let image of images; let i = index">
+                                    <!-- <ng-container *carouselItem> -->
+                                    <ngp-image-picker *ngIf="i == current_image"
+                            
+                                        [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
+                                        [_config]="imagePickerConf"
+                                        ($imageChanged)="onImageChange($event, image, i)"></ngp-image-picker>
+                                    <!-- </ng-container> -->
 
-                                    </ng-container>
+                                </ng-container>
 
-                                </app-carousel>
+                                <!-- </app-carousel> -->
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 0px; width: 50%;"> <button
-                                    class="image-btn">{{ 'add_picture' | translate }}</button> </td>
-                            <td style="padding-left: 0px; width: 50%;"> <button
-                                    class="image-btn">{{'remove_picture' | translate}}</button>
+                            <td style="padding-right: 0px; width: 50%;"> <button (click)="prev()" *ngIf="current_image > 0"
+                                    class="image-btn">{{ 'previous' | translate }}</button> </td>
+                            <td style="padding-left: 0px; width: 50%;"> <button (click)="next()" *ngIf="current_image < images.length - 1"
+                                    class="image-btn">{{'next' | translate}}</button>
                             </td>
                         </tr>
                     </ng-container>

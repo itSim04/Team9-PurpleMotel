@@ -11,7 +11,7 @@
         <tr>
             <td>
 
-                <img class="details-pic" [src]="path">
+                <img class="details-pic" [src]="room?.images?.at(0)" onerror="this.src='assets/placeholder.png'">
             </td> 
         </tr>
     </table>

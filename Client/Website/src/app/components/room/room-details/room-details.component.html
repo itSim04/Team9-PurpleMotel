@@ -8,8 +8,16 @@
     <tr>
         <td style="padding: 16px; width: 60%;">
 
-            <img [src]="room?.value?.image_path ? room!.value.image_path : '../../../assets/room-1.png'"
-                width="100%" src="../../../assets/room-1.png">
+            <app-carousel #carousel [background_color]="'#14274A'">
+
+                <ng-container *ngFor="let image of room?.value?.images">
+                    <ng-container *carouselItem>
+                        <img (load)="fixImage()" [src]="image"
+                            onerror="this.src='assets/placeholder.png'" height="480vh">
+                    </ng-container>
+                </ng-container>
+
+            </app-carousel>
 
         </td>
         <td style="padding: 16px; width: 40%;" *ngIf="room && room_type">
@@ -45,7 +53,8 @@
 
                                 <div style="display: inline;" [style.textDecoration]="promo?.value?.change ? 'line-through' : 
                                     'none'">{{formatPrice}}</div>
-                                <div *ngIf="promo?.value?.change" style="display: inline;"> {{formatNewPrice}}
+                                <div *ngIf="promo?.value?.change" style="display: inline;">
+                                    {{formatNewPrice}}
                                 </div>
                             </div>
 

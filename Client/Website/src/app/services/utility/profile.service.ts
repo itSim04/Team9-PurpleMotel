@@ -56,6 +56,7 @@ export class ProfileService {
             const user_registrations = new Map<string, Registration>();
             const user_reviews = new Map<string, Review>();
             const user_promo = new Map<string, PromoCode>();
+            const images = response.images
             response.data.forEach(value => {
 
 
@@ -75,7 +76,7 @@ export class ProfileService {
 
                 case 'Rooms':
 
-                  user_rooms.set(value.id, { ...(value.attributes as RoomAttributes), type: value.relationships.room_type.data.id.toString(), reviews: [], is_reviewed: false });
+                  user_rooms.set(value.id, { ...(value.attributes as RoomAttributes), type: value.relationships.room_type.data.id.toString(), reviews: [], is_reviewed: false, images: images.rooms[value.id] });
 
                   break;
 

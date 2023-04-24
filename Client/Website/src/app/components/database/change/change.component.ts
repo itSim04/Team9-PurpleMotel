@@ -87,19 +87,45 @@ export function clone(obj: any) {
 })
 export class ChangeComponent<Data extends { [key: string]: string | boolean | number | unknown[]; }> {
 
-  onImageChange($event: any, image?: { filename: string, base64: string; }) {
+  onImageChange($event: any, image: { filename: string, base64: string; }, image_id: number) {
+
+    // console.log(image, $event);
 
     if ($event) {
-      this.image_service.storeImage($event, this.data_type, this.old_data?.key!).subscribe((result) => {
 
-        this.images.push({
+      if (image.filename) {
 
-          filename: '',
-          base64: '',
+        const filename = image?.filename!.split('/')!;
+        this.image_service.modifyImage($event, this.data_type, this.old_data?.key!, filename[filename.length - 1]).subscribe((result) => {
+
+          this.images[image_id].base64 = $event.split(',')[1];
 
         });
 
-      });
+
+      } else {
+
+        this.image_service.storeImage($event, this.data_type, this.old_data?.key!).subscribe((result) => {
+
+
+          this.images[image_id] = {
+
+            filename: result.data.filename,
+            base64: $event.split(',')[1]
+
+          };
+
+          console.log(this.images);
+
+          this.images.push({
+
+            filename: '',
+            base64: '',
+
+          });
+
+        });
+      }
 
     } else {
 
@@ -166,11 +192,36 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   }[] = [];
 
   imagePickerConf: ImagePickerConf = {
+
     borderRadius: '4px',
     language: 'en',
-    width: '320px',
-    height: '240px',
+    width: '32vw',
+    height: '48vh',
+    aspectRatio: 8 / 6,
+    hideAddBtn: true,
+
   };
+
+  current_image = 0;
+
+  next() {
+
+    if (this.current_image + 1 < this.images.length) {
+
+      this.current_image++;
+
+    }
+
+  }
+  prev() {
+
+    if (this.current_image > 0) {
+
+      this.current_image--;
+
+    }
+
+  }
 
   constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; all_data: Map<string, Data>; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService, private image_service: InformationDatabaseService) {
 
@@ -203,7 +254,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
       image_service.browseImages(this.data_type, this.old_data?.key!).subscribe((result) => {
 
         console.log(result);
-        this.images = result.images;
+        this.images = result.data;
         this.images.push({
 
           filename: '',

@@ -83,7 +83,7 @@ class ImageController extends Controller
             ];
         }
 
-        return response()->json(['images' => $imageData]);
+        return generateResponse(200, $imageData);
     }
     public function destroy(Request $request)
     {
@@ -122,9 +122,30 @@ class ImageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $image_id)
+    public function update(Request $request)
     {
+        $request->validate([
+            'image' => 'required|string',
+            'model_name' => 'required|string',
+            'id' => 'required|string',
+            'filename' => 'required|string'
+        ]);
 
-        return updateTemplate($request, $this->model, $image_id, $this->resource, $this->options);
+        $base64_image = $request->input('image');
+        $model_name = $request->input('model_name');
+        $id = $request->input('id');
+        $filename = $request->input('filename');
+
+        // Extract the image data and MIME type from the base64 string
+        list($type, $data) = explode(';', $base64_image);
+        list(, $data) = explode(',', $data);
+
+        $data = base64_decode($data);
+
+        // Save the image file using Laravel's File Storage API
+        Storage::disk('public')->put('images/' . $model_name . '/' . $id . '/' . $filename, $data);
+
+        // Return a response indicating the image was saved
+        return generateResponse(201, $filename);
     }
 }

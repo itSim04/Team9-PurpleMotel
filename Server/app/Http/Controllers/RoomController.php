@@ -128,8 +128,14 @@ class RoomController extends Controller
                 ->all());
         }
 
+        foreach($ids as $id) {
 
-        return generateResponse(200, RoomResource::collection($room), $included);
+            $images['rooms'][$id] = extractImages('Room', $id);
+
+        }
+
+
+        return generateResponse(200, RoomResource::collection($room), $included, false, $images);
     }
 
     /**
@@ -208,7 +214,9 @@ class RoomController extends Controller
                     $included[] = $promo_code;
                 }
             }
-            return generateResponse(200, new RoomResource($room), $included);
+            $images['rooms'][$id] = extractImages('Room', $id);
+
+            return generateResponse(200, new RoomResource($room), $included, false, $images);
         } else {
 
             return generateResponse(404, $id . " not in Database", true);
