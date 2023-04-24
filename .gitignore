@@ -23,12 +23,5 @@ Homestead.json
 .phpunit.result.cache
 Client/Website/src/environments/environment.ts
 Client/Application/.firebaserc
-Client/Application/.firebaserc
-Client/Application/.firebaserc
-Client/Application/angular.json
-Client/Application/angular.json
-Client/Application/firebase.json
-*.json
 Client/Application/src/environments/environment.ts
-Client/Application/src/environments/environment.prod.ts
-Client/Application/src/environments/environment.prod.ts
+Client/Application/src/environments/environment.ts

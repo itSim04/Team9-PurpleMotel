@@ -1,5 +1,5 @@
-import { KeyValue} from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { KeyValue } from "@angular/common";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Database, getDatabase, ref, onChildAdded, set, push, update, DatabaseReference, runTransaction } from "@angular/fire/database";
 import { Router, ActivatedRoute } from "@angular/router";
 import { extractUserId, formatDate } from "src/app/components/database/database.component";
@@ -16,6 +16,8 @@ import { UserDatabaseService } from "src/app/pages/admin/user-database/user-data
 })
 export class GuestChatComponent implements OnInit {
 
+  @ViewChild('container') container !: ElementRef;
+
   // Holds a conversation
   loading: boolean = true; // Whether the page is still loading
   message: string = ""; // The current message
@@ -27,7 +29,7 @@ export class GuestChatComponent implements OnInit {
   db: Database = getDatabase(); // Instance of firebase
   id?: string; // The id of the chat (x-y)
   chat?: Chat; // The chat this class holds
-  constructor (private router: Router, private database: Database, private userService: UserDatabaseService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private database: Database, private userService: UserDatabaseService, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -84,9 +86,21 @@ export class GuestChatComponent implements OnInit {
 
         });
 
+        setTimeout(() => {
+
+          this.container.nativeElement.scrollTo({left: 0 , top: this.container.nativeElement.scrollHeight, behavior: 'smooth'});
+
+        }, 100)
+
+
       });
 
     });
+  }
+
+  isSpecial(str: string): boolean {
+    const emojiRegex = /^\p{Emoji}$/u // regular expression to match a single Unicode emoji
+    return emojiRegex.test(str.trim());
   }
 
 
@@ -110,56 +124,67 @@ export class GuestChatComponent implements OnInit {
   //   throw new Error("Illegal argument Exception");
   // }
 
+  keyStroke($event: KeyboardEvent) {
 
+    if($event.key == "Enter") {
+
+      this.postMessage();
+
+    }
+
+  }
 
   postMessage() {
 
     // Posts the message
+    if (this.message.trim()) {
 
-    const postListRef = ref(this.db, 'messages/' + this.id);
 
-    const current_date = new Date();
+      const postListRef = ref(this.db, 'messages/' + this.id);
 
-    set(push(postListRef), {
+      const current_date = new Date();
 
-      message: this.message,
-      sender: this.session_user!.key,
-      timestamp: current_date.toISOString()
+      set(push(postListRef), {
 
-    }).catch(r => console.log(r));
+        message: this.message,
+        sender: this.session_user!.key,
+        timestamp: current_date.toISOString()
 
-    const chatRef = ref(this.db, 'chats/' + this.id);
+      }).catch(r => console.log(r));
 
-    update(chatRef, {
+      const chatRef = ref(this.db, 'chats/' + this.id);
 
-      lastMessage: this.message,
-      lastDate: current_date.toISOString(),
-      lastSender: this.session_user.key
+      update(chatRef, {
 
-    }).catch(r => console.log(r));
+        lastMessage: this.message,
+        lastDate: current_date.toISOString(),
+        lastSender: this.session_user.key
 
-    const postRef: DatabaseReference = ref(this.db, "users/" + this.id + "/chats/");
+      }).catch(r => console.log(r));
 
-    runTransaction(postRef, (post) => {
+      const postRef: DatabaseReference = ref(this.db, "users/" + this.id + "/chats/");
 
-      if (!post) {
+      runTransaction(postRef, (post) => {
 
-        post = {
+        if (!post) {
 
-          [this.id!]: current_date.toISOString()
+          post = {
 
-        };
+            [this.id!]: current_date.toISOString()
 
-      } else if (!post[this.id!]) {
+          };
 
-        post[this.id!] = current_date.toISOString();
+        } else if (!post[this.id!]) {
 
-      }
-      return post;
-    }).catch(r => console.log(r));
+          post[this.id!] = current_date.toISOString();
 
-    this.message = "";
+        }
+        return post;
+      }).catch(r => console.log(r));
 
+      this.message = "";
+
+    }
   }
 
   formatDate(date: Date): string {

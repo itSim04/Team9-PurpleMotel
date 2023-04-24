@@ -1,3 +1,4 @@
+<ion-content>
 <div class="main">
 
   
@@ -8,7 +9,7 @@
             </td> -->
             <td style="vertical-align: bottom; width: 70%">
 
-                <div style="height: 66%; overflow-y: scroll;">
+                <div #container style="height: 66%; overflow-y: scroll;">
 
                     <!-- Title -->
                     <div style="position: absolute; top: 0px; width: 100%; margin: 16px;">
@@ -35,7 +36,7 @@
                                         [style.float]="c.owner_id == id ? 'right' : 'left'"
                                         [class]="c.owner_id == id ? 'multi received-message' : 'multi sent-message'">
 
-                                        <p style="margin: 0px;">
+                                        <p [style.fontSize]="isSpecial(c.content.trim()) ? '46px' : '16px'" style="margin: 0px;">
                                             {{c.content}}</p>
 
 
@@ -63,9 +64,9 @@
                 <!-- Input -->
                 <div
                     style="width: 100%; position: relative; margin: 16px; right: 0px; bottom: 0px;">
-                    <input placeholder="Type your message..." class="send-area"
+                    <input (keydown)="keyStroke($event)" placeholder="Type your message..." class="send-area"
                         [(ngModel)]="message">
-                    <img class="send" height="70%" style="position: absolute; top: 0; right: 48px;"
+                    <img [style.visibility]="this.message.trim() ? 'visible' : 'hidden'" class="send" height="70%" style="position: absolute; top: 0; right: 48px;"
                         src="../../../assets/services-pics/building.png" 
                         (click)="postMessage()">
                 </div>
@@ -75,3 +76,4 @@
         </tr>
     </table>
 </div>
+</ion-content>

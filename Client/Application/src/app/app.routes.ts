@@ -90,7 +90,7 @@ export const routes: Routes = [
         component: HomeComponent
       },
       {
-        path: 'support',
+        path: 'support/:id',
         canActivate:[GuestGuard],
         component: GuestChatComponent
       },
