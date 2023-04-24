@@ -28,6 +28,9 @@ import { ServicesModule } from './pages/guest/services/services.module';
 import { HomeModule } from './pages/guest/home/home.module';
 import { NewsListItemModule } from './components/news/news-list-item/news-list-item.module';
 import { NewsListPopupModule } from './components/news/news-list-popup/news-list-popup.module';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
 
 
 
@@ -69,7 +72,9 @@ import { NewsListPopupModule } from './components/news/news-list-popup/news-list
 
     HomeModule,
     NewsListItemModule,
-    NewsListPopupModule
+    NewsListPopupModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase())
 
   ],
   providers: [

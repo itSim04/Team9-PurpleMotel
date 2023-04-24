@@ -88,6 +88,11 @@ export const routes: Routes = [
         canActivate:[GuestGuard],
         component: HomeComponent
       },
+      {
+        path: 'support',
+        canActivate:[GuestGuard],
+        component: HomeComponent
+      },
       // {
       //   path: "profile",
       //   canActivate: [GuestGuard],
