@@ -214,6 +214,7 @@ hr {
   
   .content-2 {
     @extend .content;
+    font-family: 'Asap';
     font-weight: 400;
     max-width: 40vh;
     text-align: center;
@@ -272,4 +273,26 @@ img:hover {
 .header-2{
     @extend .restaurant-header;
     font-size: 20px;
+}
+
+.view-menu-button{
+    border-radius: 40px;
+    padding: 10px;
+    width: 175px;
+    color: #FFFFFF;
+    height: 50px;
+    background-color: #930000;
+}
+
+.feedback-button{
+    @extend .view-menu-button;
+    background-color: #FFFFFF;
+    color: #930000;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
