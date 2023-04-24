@@ -14,7 +14,8 @@ import { GuestChatComponent } from './chat.component';
     CommonModule,
     RouterModule,
     FormsModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    FormsModule
   ],
   exports:[
     GuestChatComponent

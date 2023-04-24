@@ -2,6 +2,7 @@ import { AuthenticationService } from './../authentication.service';
 import { Component } from '@angular/core';
 import { validateEmail } from '../authentication.utility';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-dialog',
@@ -10,13 +11,13 @@ import { ToastController } from '@ionic/angular';
 })
 export class LoginComponent {
 
-  email = 'clovis.prosacco@example.com';
-  password = 'password';
+  email = '';
+  password = '';
   validated_email = true;
   validated_credentials = true;
   connection_error = false;
   loading = false;
-  constructor (private toastController: ToastController, private authentication_service: AuthenticationService) { }
+  constructor (private toastController: ToastController, private authentication_service: AuthenticationService, private router: Router) { }
 
 
 
@@ -29,13 +30,15 @@ export class LoginComponent {
     if (this.validated_email) {
 
       this.authentication_service.login({
+
         email: this.email,
         password: this.password
       }).subscribe({
 
         next: result => {
-
           console.log(result);
+          console.log("Email:", this.email);
+          console.log("Password:", this.password);
 
         }, error: error => {
 

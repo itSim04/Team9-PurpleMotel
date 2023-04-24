@@ -51,6 +51,7 @@ export class AuthenticationService {
           localStorage.setItem('id', result.data.id);
           localStorage.setItem('token_time', JSON.stringify(new Date()));
           if (result.permissions) localStorage.setItem('permissions', JSON.stringify(result.permissions));
+          return result;
         }
 
         return;

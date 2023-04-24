@@ -21,6 +21,7 @@ import { BrowseServicesComponent } from './pages/guest/services/browse/browse-se
 import { HomeComponent } from './pages/guest/home/home.component';
 import { AdminGuard } from './guards/admin.guard';
 import { GuestGuard } from './guards/guest.guard';
+import { GuestChatComponent } from './chat/guest/chat.component';
 
 
 
@@ -91,7 +92,7 @@ export const routes: Routes = [
       {
         path: 'support',
         canActivate:[GuestGuard],
-        component: HomeComponent
+        component: GuestChatComponent
       },
       // {
       //   path: "profile",

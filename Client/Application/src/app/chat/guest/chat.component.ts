@@ -2,10 +2,11 @@ import { KeyValue} from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Database, getDatabase, ref, onChildAdded, set, push, update, DatabaseReference, runTransaction } from "@angular/fire/database";
 import { Router, ActivatedRoute } from "@angular/router";
-import { extractSessionUser, User } from "src/app/models/User";
-import { extractUserId, formatDate} from "src/app/components/database/database.component";
+import { extractUserId, formatDate } from "src/app/components/database/database.component";
 import { Chat, Message } from "src/app/models/Chat";
+import { User, extractSessionUser } from "src/app/models/User";
 import { UserDatabaseService } from "src/app/pages/admin/user-database/user-database.service";
+
 
 
 @Component({

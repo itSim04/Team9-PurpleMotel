@@ -78,7 +78,8 @@ import { ConfirmationDialogModule } from './services/dialogs/confirmation/confir
 
     AuthenticationModule,
 
-    ProfileModule
+    ProfileModule,
+    
 
   ],
   providers: [

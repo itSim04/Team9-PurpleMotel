@@ -31,6 +31,7 @@ import { NewsListPopupModule } from './components/news/news-list-popup/news-list
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { ChatsPageModule } from './chat/guest/chat.module';
 
 
 
@@ -68,6 +69,7 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
     ActivitiesModule,
     ServicesModule,
     AdminDashboardModule,
+    ChatsPageModule,
 
 
     HomeModule,
