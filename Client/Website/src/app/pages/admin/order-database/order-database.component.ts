@@ -70,9 +70,8 @@ export class OrderDatabaseComponent {
           key: 'id',
           index: 0,
           format: (value) => {
-           
-            
-            return (value as KeyValue<string, Food>)?.value.label
+
+            return (value as KeyValue<string, Food>)?.value.label;
 
           }
 
@@ -83,8 +82,15 @@ export class OrderDatabaseComponent {
 
         type: 'text',
         key: 'quantity'
-      
-    }],
+
+      }],
+
+      default_value: {
+
+        id: '0',
+        quantity: 0
+
+      },
       key: 'food'
 
     },

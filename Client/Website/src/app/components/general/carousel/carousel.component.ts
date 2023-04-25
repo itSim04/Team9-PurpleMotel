@@ -32,6 +32,8 @@ export class CarouselComponent implements AfterViewInit {
   @ViewChildren(CarouselElementDirective, { read: ElementRef }) private itemsElements !: QueryList<ElementRef>;
   @ViewChild('carousel') private carousel !: ElementRef;
   @Input() timing = '250ms ease-in';
+
+  @Input() background_color = 'white';
   @Input() showControls = true;
   @Input() browsePopup!: () => void;
 

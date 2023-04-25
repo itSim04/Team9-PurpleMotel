@@ -11,20 +11,17 @@
         <tr>
             <td>
 
-                <img class="details-pic" src="../../../../assets/facility-1.png">
+                <img class="details-pic" [src]="facility?.value?.image?.at(0)"
+                    onerror="this.src='assets/placeholder.png'">
             </td>
         </tr>
     </table>
 
     <div class="facility-info">
 
-        <p class="title-1">Description</p>
+        <p class="title-1">{{ 'description' | translate }}</p>
         <mat-divider style="border-top-color: #14274A"></mat-divider>
         <br>
-        <br>
-        <p class="content-1">
-            Description:
-        </p>
         <p class="content-2">
             {{facility?.value?.description}}
         </p>

@@ -11,6 +11,7 @@ class AppliedPromoCodes extends Model
 
     protected $fillable = [
         'user_id',
-        'promo_id'
+        'promo_id',
+        'exhausted'
     ];
 }

@@ -1,5 +1,8 @@
+import { LanguageDatabaseService } from './services/providers/language-database.service';
 import { KeyValue } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { InformationDatabaseService } from './services/providers/information-database.service';
 
 declare global {
   interface Map<K, V> {
@@ -29,4 +32,15 @@ if (!Map.prototype.getPair) {
 })
 export class AppComponent {
   title = 'Application';
+
+  constructor (information_service: InformationDatabaseService) {
+
+    information_service.getTerms().subscribe(data => {
+
+      localStorage.setItem('information', JSON.stringify(data));
+
+    });
+
+  }
+
 }

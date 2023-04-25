@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { ActivitiesResponse, Activity, ActivityResponse, ActivityPackage, ActivitiesPackage } from "src/app/models/Activity";
-import { FacilitiesPackage, FacilitiesResponse, Facility, FacilityPackage, FacilityResponse } from "src/app/models/Facility";
+import { FacilitiesPackage, FacilitiesResponse, Facility, FacilityAttributes, FacilityPackage, FacilityResponse } from "src/app/models/Facility";
 import { Registration } from "src/app/models/Registration";
 import { UrlBuilderService } from "../utility/url-builder.service";
 
@@ -18,7 +18,7 @@ export class ServiceDatabaseService {
   getAllActivities(): Observable<ActivitiesPackage> {
 
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -26,12 +26,14 @@ export class ServiceDatabaseService {
 
         map((response: ActivitiesResponse): ActivitiesPackage => {
 
+          console.log(response);
+
           const activities = new Map<string, Activity>();
           const registrations = new Map<string, Registration>();
 
           response.data.forEach(activity => {
 
-            activities.set(activity.id, { ...activity.attributes, registrations: [] });
+            activities.set(activity.id, { ...activity.attributes, registrations: [], image: response.images.activities[activity.id] });
 
           });
 
@@ -71,14 +73,14 @@ export class ServiceDatabaseService {
   getOneActivity(id: string): Observable<ActivityPackage> {
 
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
       return this.http.get<ActivityResponse>(this.url.generateUrl(`activities/${id}`), { headers: headers }).pipe(
         map((response: ActivityResponse): ActivityPackage => {
 
-          const activity: Activity = { ...response.data.attributes, registrations: [] };
+          const activity: Activity = { ...response.data.attributes, registrations: [], image: response.images.activities[response.data.id] };
           if (response.included) {
 
 
@@ -114,7 +116,7 @@ export class ServiceDatabaseService {
   addNewActivity(activity: Activity) {
 
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -139,7 +141,7 @@ export class ServiceDatabaseService {
   modifyActivity(activity_id: string, activity: Activity) {
 
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -155,7 +157,7 @@ export class ServiceDatabaseService {
 
   deleteActivity(key: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -170,7 +172,7 @@ export class ServiceDatabaseService {
   }
   getAllFacilities(): Observable<FacilitiesPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -182,7 +184,7 @@ export class ServiceDatabaseService {
 
           response.data.forEach(facility => {
 
-            facilities.set(facility.id, facility.attributes);
+            facilities.set(facility.id, { ...facility.attributes, image: response.images.facilities[facility.id] });
 
           });
 
@@ -204,7 +206,7 @@ export class ServiceDatabaseService {
   }
   getOneFacility(id: string): Observable<FacilityPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -216,7 +218,7 @@ export class ServiceDatabaseService {
             facility: {
 
               key: response.data.id,
-              value: response.data.attributes
+              value: { ...response.data.attributes, image: response.images.facilities[response.data.id] }
 
             },
           };
@@ -233,9 +235,9 @@ export class ServiceDatabaseService {
 
   }
 
-  addNewFacility(facility: Facility) {
+  addNewFacility(facility: FacilityAttributes) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -257,9 +259,9 @@ export class ServiceDatabaseService {
 
   }
 
-  modifyFacility(facility_id: string, facility: Facility) {
+  modifyFacility(facility_id: string, facility: FacilityAttributes) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -275,7 +277,7 @@ export class ServiceDatabaseService {
 
   deleteFacility(key: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 

@@ -9,9 +9,11 @@ import { formatWord, parseInt, Required } from '../../database.component';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent<Data> {
+export class FilterComponent<Data, Data2> {
 
   @Input() @Required data: [string, Data][] = [];
+
+  @Input() @Required other_data?: [string, Data2][] = [];
   @Input() @Required data_injection!: DataInjection<Data>;
   @Input() @Required filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
   filter_by!: Column<Data>;
@@ -35,22 +37,45 @@ export class FilterComponent<Data> {
     this.filter = event;
 
   }
-  applyFilter(event?: boolean) {
+  applyFilter(event?: boolean, link: boolean = false) {
 
     if (event) {
-      this.filtered_data.data = this.data.filter(t => {
 
-        let value = JSON.stringify(t[1][this.filter_by.key]);
+      if (link && this.other_data && this.filter_by.link && this.filter_by.link.format_index) {
 
-        if (!Number.isNaN(Number.parseFloat(value))) {
+        const temp = this.other_data.filter(t => {
 
-          value = Math.floor(Number.parseFloat(value + "")).toString();
+          return JSON.stringify(t[1][this.filter_by.link?.format_index as keyof Data2]).toLowerCase().includes(this.filter.toString().toLowerCase());
 
-        }
+        }).map(data => data[0]);
 
-        return JSON.stringify(value).includes(this.filter.toString());
 
-      });
+        this.filtered_data.data = this.data.filter(t => {
+
+          return temp.includes("" + (t[1][this.filter_by.link!.key]));
+
+        });
+
+
+
+
+
+      } else {
+
+        this.filtered_data.data = this.data.filter(t => {
+
+          let value = JSON.stringify(t[1][this.filter_by.key]);
+
+          if (!Number.isNaN(Number.parseFloat(value))) {
+
+            value = Math.floor(Number.parseFloat(value + "")).toString();
+
+          }
+
+          return JSON.stringify(value.toLowerCase()).includes(this.filter.toString().toLowerCase());
+
+        });
+      }
 
     } else {
 

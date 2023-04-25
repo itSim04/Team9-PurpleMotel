@@ -64,6 +64,7 @@ export class BookingDatabaseComponent {
   change_injection: ChangeInjection<Booking> = {
     side_panel: 'empty',
     default_state: {
+      promo_id: '0',
       check_in: parseDate(new Date()),
       end_date: parseDate(new Date()),
       exhausted: false,

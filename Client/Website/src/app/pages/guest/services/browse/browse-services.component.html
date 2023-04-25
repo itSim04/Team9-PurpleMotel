@@ -1,18 +1,15 @@
 <div class="nav">
     <app-nav-bar [transparent]="true"></app-nav-bar>
     <div class="title-container">
-        <p class="title-1">Welcome to</p>
-        <p class="title-2">Purple</p>
-        <p class="title-3">Motel</p>
-        <p class="title-4">Book your stay and enjoy Luxury<br>redefined at the most affordable
-            rates.</p>
+        <p class="title-1">{{ 'welcome' | translate }}</p>
+        <p class="title-2">{{ 'name1' | translate }}</p>
+        <p class="title-3">{{ 'name2' | translate }}</p>
+        <p class="title-4">{{'hotel_introduction' | translate }}</p>
     </div>
 </div>
-<p class="header">Activities</p>
+<p class="header">{{ 'activities' | translate }}</p>
 <mat-divider style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
-<p class="sub-header">Discover endless excitement and adventure with our hotel's website activities.
-    From kayaking in crystal clear waters to taking a scenic hike through lush forests,
-    there's something for every thrill-seeker to enjoy. </p>
+<p class="sub-header">{{'services_introduction' | translate }} </p>
 
 <!-- <div style="display: flex; flex-wrap: wrap;">
     <div *ngFor="let activity of activities | keyvalue" style="width: 50%;">
@@ -22,7 +19,7 @@
     </div> -->
 <!-- </div> -->
 <div style="width:100%">
-    <app-carousel #carousel>
+    <app-carousel [background_color]="'white'" #carousel>
         <ng-container *ngFor="let activity of activities | keyvalue; let i = index">
             <ng-container *carouselItem>
                 <app-activity-list-item style="width: 100%; display: flex; position: relative;" [@fadeOut]
@@ -32,13 +29,9 @@
     </app-carousel>
 </div>
 
-<p class="header">Facilities</p>
+<p class="header">{{ 'facilities' | translate }}</p>
 <mat-divider style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
-<p class="sub-header">We want your stay at our lush hotel to be truly unforgettable. That is why we give special
-    attention to all of your needs so
-    that we can ensure an experience quite unique. Luxury hotels offers the perfect setting with stunning views for
-    leisure
-    and our modern luxury resort facilities will help you enjoy the best of all. </p>
+<p class="sub-header">{{ 'facilities_introduction' | translate }} </p>
 
 <div style="width:100%">
     <app-carousel #carousel>
@@ -50,3 +43,4 @@
         </ng-container>
     </app-carousel>
 </div>
+<app-footer main_color="#14274A" [alt_color]="'white'" [font_color]="'white'"></app-footer>

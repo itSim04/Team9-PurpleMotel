@@ -1,6 +1,6 @@
 import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Facility } from 'src/app/models/Facility';
+import { Facility, FacilityAttributes } from 'src/app/models/Facility';
 
 @Component({
   selector: 'app-facility',

@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule, MatDateRangePicker } from '@angular/material/datepicker';
@@ -18,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     FormsModule,
     MatDatepickerModule,
+    LanguageModule,
     MatInputModule,
     MatNativeDateModule,
     ReactiveFormsModule,

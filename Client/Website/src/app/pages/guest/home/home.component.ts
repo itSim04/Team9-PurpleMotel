@@ -1,8 +1,10 @@
+import { Router } from '@angular/router';
 import { News } from 'src/app/models/News';
 import { Component } from '@angular/core';
 import { NewsAttributes } from 'src/app/models/News';
 import { Subscription } from 'rxjs';
 import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
+import { RawRoomsPackage, RoomsPackage } from 'src/app/models/Room';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,7 @@ export class HomeComponent {
   filtered_news: [string, News][] = [];
   subscription?: Subscription;
 
-  constructor (private news_service: NewsDatabaseService) { }
+  constructor (private news_service: NewsDatabaseService, private route: Router) { }
 
   get data() {
 
@@ -23,10 +25,29 @@ export class HomeComponent {
 
   }
 
+  filterRooms(result: RoomsPackage) {
+
+    const temp = [
+
+      Array.from(result.rooms.entries()),
+      Array.from(result.room_types.entries()),
+      Array.from(result.promo_codes.entries())
+
+
+    ];
+
+
+
+
+
+    localStorage.setItem('temp_quick_availability', JSON.stringify(temp));
+    this.route.navigate(['/rooms']);
+
+  }
+
   ngOnInit() {
     this.subscription = this.news_service.getAllNews().subscribe(data => {
       this.news = data.news;
-      console.log(this.news);
       this.filtered_news = Array.from(this.news);
     });
   }

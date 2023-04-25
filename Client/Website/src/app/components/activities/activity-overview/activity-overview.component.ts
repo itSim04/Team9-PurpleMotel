@@ -14,6 +14,8 @@ export class ActivityOverviewComponent {
   @Input() price!: number;
   @Input() date!: Date;
 
+  @Input() image!: string[];
+
   /*get formatRange(): string {
 
     return `${DAYS[this.date.getDay()].substring(0, 3)} ${this.date.getDate()} ${MONTHS[this.date.getMonth()]}`;

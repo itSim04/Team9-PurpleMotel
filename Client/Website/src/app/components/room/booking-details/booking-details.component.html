@@ -11,26 +11,33 @@
         <tr>
             <td>
 
-                <img class="details-pic" [src]="path">
+                <img class="details-pic" [src]="room?.images?.at(0)" onerror="this.src='assets/placeholder.png'">
             </td> 
         </tr>
     </table>
 
     <div class="booking-info">
 
-        <h2 class="booking-title">Booking Details</h2>
+        <h2 class="booking-title">{{ 'booking_details' | translate }}</h2>
         <hr style="width: 90%; margin-left: 32px; margin-right: 32px;">
 
-        <h4 class="properties-title">Date:</h4>
+        <h4 class="properties-title">{{ 'date' | translate }}:</h4>
         <p class="properties-info">{{check_in}} / {{end_date}}</p>
-        <h4 class="properties-title">Occupancy:</h4>
+        <h4 class="properties-title">{{ 'occupancy' | translate }}:</h4>
         <p class="properties-info">{{formatOccupancy(room_type?.adults_capacity, room_type?.adults_with_kids_capacity, room_type?.kids_capacity)}}</p>
-        <h4 class="properties-title">Price:</h4>
-        <p class="properties-info">{{formatPrice(room_type?.price)}}</p>
+        <h4 class="properties-title">{{ 'price' | translate }}:</h4>
+        <div class="properties-info">
+            <p [style.textDecoration]="promo_code?.change ? 'line-through' : 'none'">
+                {{formatPrice(room_type?.price)}}
+            </p>
+            <p *ngIf="promo_code && promo_code.change">
+                {{formatPrice((promo_code.change / 100) * (room_type?.price || 1))}}
+            </p>
+        </div>
         
-        <h4 class="properties-total">Total:</h4>
+        <h4 class="properties-total">{{ 'total' | translate }}:</h4>
         <div style="display: flex;">
-            <h3 class="properties-price">{{formatTotalPrice(room_type?.price)}}</h3>
+            <h3 class="properties-price">{{formatTotalPrice(((promo_code?.change || 100) / 100) * (room_type?.price || 1))}}</h3>
             <button *ngIf="!room?.is_reviewed" (click)="review.emit(booking_id)" [style.visibility]="exhausted || past ? 'hidden' : 'visible'" class="review-button">
                 <mat-icon style="color: white">
                     comment

@@ -1,8 +1,10 @@
+import { GuestChatsPageModule } from './pages/chat/guest/chat.module';
+import { InformationDatabaseModule } from './pages/admin/information-database/information-database.module';
 import { QuickDialogModule } from './services/dialogs/quick/quick.module';
 import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { HomeModule } from './pages/guest/home/home.module';
+import { HomeModule } from './pages/guest/home/home.module';;
 import { UserDatabaseModule } from './pages/admin/user-database/user-database.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,13 +31,17 @@ import { RestaurantModule } from './pages/guest/restaurant/restaurant.module';
 import { RoomsModule } from './pages/guest/rooms/rooms.module';
 import { ServicesModule } from './pages/guest/services/services.module';
 import { CartDialogModule } from './services/dialogs/cart/cart.module';
-import { ChefListDialogModule } from './services/dialogs/chef-list/chef-list.module';
 import { ConfirmationDialogModule } from './services/dialogs/confirmation/confirmation.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { environment } from '../environments/environment';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { ChatsPageModule } from './pages/chat/admin/chat.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
   ],
   imports: [
 
@@ -49,9 +55,8 @@ import { ConfirmationDialogModule } from './services/dialogs/confirmation/confir
 
     // Potential
     ConfirmationDialogModule,
-
-    // Potential
     BrowserAnimationsModule,
+
     AnnouncementDatabaseModule,
     BookingDatabaseModule,
     FoodDatabaseModule,
@@ -59,8 +64,9 @@ import { ConfirmationDialogModule } from './services/dialogs/confirmation/confir
     NewsDatabaseModule,
     PromoDatabaseModule,
     OrderDatabaseModule,
+    InformationDatabaseModule,
 
-    
+
     RegistrationDatabaseModule,
     RoomDatabaseModule,
     ServiceDatabaseModule,
@@ -77,9 +83,12 @@ import { ConfirmationDialogModule } from './services/dialogs/confirmation/confir
     RoomsModule,
 
     AuthenticationModule,
-
     ProfileModule,
-    
+
+    ChatsPageModule,
+    GuestChatsPageModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase())
 
   ],
   providers: [

@@ -1,0 +1,89 @@
+<div mat-dialog-title>
+    <p class="title">{{'edit profile'|translate}}</p>
+</div>
+<div style="overflow: hidden;" class="content" mat-dialog-content>
+    <!-- Fields -->
+
+
+    <table>
+        <tr>
+            <td>
+                <!-- First Name -->
+                <mat-form-field class="full-width input">
+                    <mat-label class="label">{{'first_name'|translate}}</mat-label>
+                    <input [(ngModel)]="user.first_name" matInput>
+
+                </mat-form-field>
+            </td>
+            <td>
+                <!-- Last Name -->
+                <mat-form-field class="full-width input">
+                    <mat-label class="label">{{'last_name'|translate}}</mat-label>
+                    <input [(ngModel)]="user.last_name" matInput>
+
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Email -->
+                <mat-form-field class="full-width input">
+                    <mat-label class="label">{{'email'|translate}}</mat-label>
+                    <input [(ngModel)]="user.email" matInput>
+                    <div class="number-error" *ngIf="!validated_email">
+                        {{'invalid_email'|translate}} </div>
+                </mat-form-field>
+            </td>
+            <td>
+                <!-- Date of Birth -->
+                <mat-form-field class="full-width input" appearance="fill">
+                    <mat-label class="label">{{ 'choose_date' | translate }}</mat-label>
+                    <input (ngModelChange)="user.date_of_birth = parseDate($event)"
+                        [ngModel]="user.date_of_birth" matInput [matDatepicker]="picker" readonly>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Phone Number -->
+                <mat-form-field class="full-width input">
+                    <mat-label class="label">{{'phone_number'|translate}}</mat-label>
+                    <input [(ngModel)]="user.phone" matInput>
+
+                </mat-form-field>
+            </td>
+            <td>
+                <!-- Gender -->
+                <mat-form-field class="full-width input">
+                    <mat-label class="label">{{'gender'|translate}}</mat-label>
+                    <mat-select [(ngModel)]="user.gender">
+                        <mat-option *ngFor="let gender of genders; let i = index" [value]="i">
+                            {{gender |translate}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+
+
+    <div class="number-error-2" *ngIf="connection_error">
+        {{'connection_error'|translate}}
+    </div>
+    <div class="number-error-2" *ngIf="taken_information">
+        {{'used_credentials'|translate}}
+    </div>
+
+</div>
+<div mat-dialog-actions>
+    <button style="width: 30%;" class="back-btn" (click)="confirmChanges(user)"
+        [disabled]="identical || !user.email || !user.first_name || !user.last_name || !user.date_of_birth || !user.phone || !user.gender"
+        mat-button color="primary">
+        {{'confirm changes'|translate}}
+    </button>
+</div>
+
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>

@@ -20,7 +20,7 @@ class EligibilityPromoCodesResource extends JsonResource
             'attributes' => [
                 'promo_id' => (string)$this->promo_id,
                 'effect_id' => (string)$this->effect_id,
-                'type' => (string)$this->type,
+                'type' => $this->type,
             ]
         ];
     }

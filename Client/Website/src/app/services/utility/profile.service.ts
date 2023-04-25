@@ -1,21 +1,25 @@
-import { Review } from './../../models/Room';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
-import { Activity } from 'src/app/models/Activity';
-import { Booking, BookingAttributes } from 'src/app/models/Booking';
-import { Food, FoodAttributes } from 'src/app/models/Food';
-import { Order, OrderAttributes } from 'src/app/models/Order';
-import { OrderContains, OrderContainsAttributes } from 'src/app/models/OrderContains';
-import { PromoCodeApplicationResponse, PromoCodeResponse } from 'src/app/models/PromoCode';
-import { Registration, RegistrationAttributes } from 'src/app/models/Registration';
-import { Room, RoomAttributes } from 'src/app/models/Room';
-import { RoomType } from 'src/app/models/RoomType';
-import { Stock } from 'src/app/models/Stock';
-import { ProfilePackage, ProfileResponse } from 'src/app/models/User';
-import { UrlBuilderService } from './url-builder.service';
-import { extractUserId } from 'src/app/components/database/database.component';
+import { IngredientAttributes } from './../../models/Ingredient';
+import { PromoCode, PromoCodeAttributes } from 'src/app/models/PromoCode';
+import { ComponentType } from "@angular/cdk/portal";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { Observable, map, catchError, throwError } from "rxjs";
+import { extractUserId } from "src/app/components/database/database.component";
+import { Activity } from "src/app/models/Activity";
+import { Booking, BookingAttributes } from "src/app/models/Booking";
+import { Food, FoodAttributes } from "src/app/models/Food";
+import { Order, OrderAttributes } from "src/app/models/Order";
+import { OrderContainsAttributes } from "src/app/models/OrderContains";
+import { Registration, RegistrationAttributes } from "src/app/models/Registration";
+import { Room, Review, RoomAttributes } from "src/app/models/Room";
+import { RoomType } from "src/app/models/RoomType";
+import { Stock } from "src/app/models/Stock";
+import { ProfilePackage, ProfileResponse } from "src/app/models/User";
+import { ChangePasswordComponent } from "src/app/pages/guest/profile/change-password/change-password.component";
+import { EditProfileComponent } from "src/app/pages/guest/profile/edit-profile/edit-profile.component";
+import { UserDatabaseService } from "../providers/user-database.service";
+import { UrlBuilderService } from "./url-builder.service";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +31,7 @@ export class ProfileService {
   bookings = new Map<string, Booking>();
 
 
-  constructor (private http: HttpClient, private url: UrlBuilderService) { }
+  constructor (private url: UrlBuilderService, public dialog: MatDialog, private http: HttpClient, private userDatabaseService: UserDatabaseService) { }
 
   getAllData(): Observable<ProfilePackage> {
 
@@ -51,6 +55,8 @@ export class ProfileService {
             const user_activities = new Map<string, Activity>();
             const user_registrations = new Map<string, Registration>();
             const user_reviews = new Map<string, Review>();
+            const user_promo = new Map<string, PromoCode>();
+            const images = response.images;
             response.data.forEach(value => {
 
 
@@ -59,7 +65,7 @@ export class ProfileService {
 
                 case 'Booking':
 
-                  user_bookings.set(value.id, { ...(value.attributes as BookingAttributes), user_id: value.relationships.room.data.id, room_id: value.relationships.room.data.id });
+                  user_bookings.set(value.id, { ...(value.attributes as BookingAttributes), user_id: value.relationships.room.data.id, room_id: value.relationships.room.data.id, promo_id: value.relationships.promo.data.id });
                   break;
 
                 case 'RoomTypes':
@@ -70,13 +76,13 @@ export class ProfileService {
 
                 case 'Rooms':
 
-                  user_rooms.set(value.id, { ...(value.attributes as RoomAttributes), type: value.relationships.room_type.data.id.toString(), reviews: [], is_reviewed: false });
+                  user_rooms.set(value.id, { ...(value.attributes as RoomAttributes), type: value.relationships.room_type.data.id.toString(), reviews: [], is_reviewed: false, images: images.rooms ? images.rooms[value.id] : [] });
 
                   break;
 
                 case 'Foods':
 
-                  user_foods.set(value.id, { ...(value.attributes as FoodAttributes), category: value.relationships.food_category.data.id.toString(), ingredients: [] });
+                  user_foods.set(value.id, { ...(value.attributes as FoodAttributes), category: value.relationships.food_category.data.id.toString(), ingredients: [], image: images.food ? images.food[value.id][0] : '' });
 
                   break;
 
@@ -91,7 +97,13 @@ export class ProfileService {
 
                   if (food) {
 
-                    food.ingredients.push(value.relationships.stock.data.id);
+                    food.ingredients.push({
+
+                      id: value.relationships.stock.data.id,
+                      quantity: (value.attributes as IngredientAttributes).quantity,
+                      required: (value.attributes as IngredientAttributes).required
+
+                    });
 
                   } else {
 
@@ -141,6 +153,22 @@ export class ProfileService {
                     room.reviews.push(value.attributes as Review);
 
                   }
+                  break;
+
+                case 'PromoCodes':
+
+                  user_promo.set(value.id, {
+                    ...value.attributes as PromoCodeAttributes,
+                    exhausted: false,
+                    concerned_everyone: false,
+                    concerned_everything: false,
+                    concerned_room_types: [],
+                    applied_users: [],
+                    concerned_rooms: [],
+                    concerned_user_tiers: [],
+                    concerned_user_types: [],
+                    concerned_users: []
+                  });
 
 
 
@@ -162,7 +190,8 @@ export class ProfileService {
               stocks: user_stocks,
               activities: user_activities,
               registrations: user_registrations,
-              reviews: user_reviews
+              reviews: user_reviews,
+              promo: user_promo
 
 
 
@@ -180,6 +209,61 @@ export class ProfileService {
     }
 
   }
+
+
+
+
+  openDialog(type: 'edit_profile' | 'change_password') {
+
+    let component: ComponentType<unknown>;
+
+    switch (type) {
+
+      case 'edit_profile':
+
+        component = EditProfileComponent;
+        break;
+
+      case 'change_password':
+
+        component = ChangePasswordComponent;
+        break;
+
+    }
+
+    return this.dialog.open(component, {});
+  }
+
+  resetPassword(email: string): Observable<void> {
+
+    return this.http.post<void>("http://127.0.0.1:8000/api/v1/auth/reset-password", { email }).pipe(
+
+      map(result => {
+
+        // handle successful reset password response (if any)
+
+      }), catchError(error => {
+
+        // handle error response
+
+        return throwError(error);
+
+      })
+
+    );
+  }
+
+
+
+  // resetPassword(email: string, token: string, newPassword: string): Observable<void> {
+  //   const resetRequest = {
+  //     email: email,
+  //     token: token,
+  //     password: newPassword
+  //   };
+
+  //   return this.http.post<void>('http://example.com/api/reset-password', resetRequest);
+  // }
 
 
 

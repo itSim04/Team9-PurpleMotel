@@ -1,3 +1,5 @@
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
+import { Router } from '@angular/router';
 import { Component } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
 import { PromoDialogService } from "../../utility/promo.service";
@@ -13,7 +15,7 @@ export class PromoDialogComponent {
     promo = '0';
     message = '';
 
-    constructor (private promo_service: PromoDialogService, private dialog: MatDialogRef<PromoDialogComponent>) { }
+    constructor (private promo_service: PromoDialogService, private dialog: MatDialogRef<PromoDialogComponent>, private router: Router, private authentication: AuthenticationDialogService) { }
 
     apply() {
 
@@ -31,7 +33,17 @@ export class PromoDialogComponent {
                     this.dialog.close();
                     break;
 
+                case 400:
+
+                    this.message = 'You already have a promo code';
+                    break;
+
                 case 403:
+
+                    this.router.navigate(['/']);
+                    this.authentication.openDialog('login');
+                    break;
+
                 case 404:
 
                     this.message = 'Invalid Promo Code';

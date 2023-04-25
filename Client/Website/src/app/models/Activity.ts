@@ -14,7 +14,8 @@ export interface ActivityAttributes {
 
 export interface Activity extends ActivityAttributes {
 
-  registrations: Registration[]
+  registrations: Registration[],
+  image: string[];
 
 }
 
@@ -45,6 +46,13 @@ export interface ActivitiesResponse {
       };
     };
   }[];
+  images: {
+
+    activities: {
+
+      [id: string]: string[];
+    };
+  };
 
 }
 
@@ -74,6 +82,13 @@ export interface ActivityResponse {
       };
     };
   }[];
+  images: {
+
+    activities: {
+
+      [id: string]: string[];
+    };
+  };
 }
 
 export interface ActivityPackage {

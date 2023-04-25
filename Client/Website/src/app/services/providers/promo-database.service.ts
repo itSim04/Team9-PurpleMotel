@@ -32,6 +32,7 @@ export class PromoDatabaseService {
 
             promo_codes.set(promo_code.id, {
               ...promo_code.attributes,
+              exhausted: false,
               concerned_everyone: false,
               concerned_everything: false,
               concerned_room_types: [],
@@ -156,10 +157,13 @@ export class PromoDatabaseService {
           const rooms = new Map<string, Room>();
           const room_types = new Map<string, RoomType>();
 
+          console.log(response);
+
           response.data.forEach(promo_code => {
 
             promo_codes.set(promo_code.id, {
               ...promo_code.attributes,
+              exhausted: false,
               concerned_everyone: false,
               concerned_everything: false,
               concerned_room_types: [],
@@ -178,6 +182,8 @@ export class PromoDatabaseService {
 
             response.included.forEach(data => {
 
+              // console.log(data.type, data.attributes);
+
               switch (data.type) {
 
                 case 'AppliedPromoCodes':
@@ -191,7 +197,8 @@ export class PromoDatabaseService {
                   const eligiblity_temp = promo_codes.get((data.attributes as EligiblityPromoCodes).promo_id);
 
                   if (eligiblity_temp) {
-
+                    
+                    console.log(data.attributes);
                     switch ((data.attributes as EligiblityPromoCodes).type) {
 
                       case 0:
@@ -217,6 +224,7 @@ export class PromoDatabaseService {
                     }
 
                   }
+                  // console.log(eligiblity_temp)
 
                   break;
 
@@ -260,7 +268,7 @@ export class PromoDatabaseService {
 
                 case 'Rooms':
 
-                  rooms.set(data.id, { ...data.attributes as RoomAttributes, type: data.relationships.room_type.data.id, reviews: [], is_reviewed: false });
+                  rooms.set(data.id, { ...data.attributes as RoomAttributes, type: data.relationships.room_type.data.id, reviews: [], is_reviewed: false, images: [] });
                   break;
 
                 case 'RoomTypes':
@@ -275,7 +283,7 @@ export class PromoDatabaseService {
             });
           }
 
-          console.log(users);
+          console.log(promo_codes);
 
           return {
 

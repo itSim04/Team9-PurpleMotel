@@ -3,19 +3,34 @@
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-function generateResponse(int $code, $collection = [], $included = [], bool $error = false)
+function generateResponse(int $code, $collection = [], $included = [], bool $error = false, array $images = [])
 {
     $response = ['status' => $error ? 'error' : 'success'];
 
     // if ($collection) {
 
-        $response[$error ? 'message' : 'data'] = $collection;
-        $response['included'] = $included;
+    $response[$error ? 'message' : 'data'] = $collection;
+    $response['included'] = $included;
+    $response['images'] = $images;
     // }
 
     return response()->json($response, $code);
 }
+
+function extractImages($model_name, $id): array
+{
+    // Get all the image files in the public/images directory
+    $files = Storage::disk('public')->allFiles('images/' . $model_name . '/' . $id);
+
+    $imageData = [];
+    foreach ($files as $file) {
+        $imageData[] = Storage::disk('public')->url($file);
+    }
+    return $imageData;
+}
+
 
 function extractPermissions($id, $type)
 {
@@ -52,7 +67,7 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
     $included = [];
 
     if ($condition) {
-        
+
         foreach ($extra_model as $key => $extra) {
 
             foreach ($extra::collection($key::all()->where($condition, $condition_value)) as $item) {
@@ -60,7 +75,6 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
                 $included[] = $item;
             }
         }
-
     } else {
 
         foreach ($extra_model as $key => $extra) {
@@ -72,15 +86,13 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
         }
     }
 
-    
-    if($pagination_index && $page_size) {
+
+    if ($pagination_index && $page_size) {
 
         $result = $resource::collection($model::all()->skip($pagination_index)->take($page_size));
- 
-    } else  {
+    } else {
 
         $result = $resource::collection($model::all());
-
     }
 
     return generateResponse(200, $result, $included);
@@ -199,7 +211,6 @@ function storeTemplate(Request $request, string $model, string $resource, array 
         }
 
         return generateResponse(201, new $resource($data));
-
     } catch (Exception $e) {
 
         return generateResponse(500, $e->getMessage(), true);

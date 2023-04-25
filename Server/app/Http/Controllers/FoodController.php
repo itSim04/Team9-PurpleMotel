@@ -38,14 +38,21 @@ class FoodController extends Controller
         $foods = Food::all();
         $food_id = [];
         $categories = [];
+        $images = [];
 
         foreach ($foods as $food) {
 
             $categories[] = $food->category;
             $food_id[] = $food->id;
+            $images['food'][$food->id] = extractImages('Food', $food->id);
         }
 
         $categories = collect($categories)->unique()->values()->all();
+
+        foreach ($categories as $category) {
+
+            $images['food_categories'][$category] = extractImages('Food Category', $category);
+        }
 
         $food_categories = FoodCategoryResource::collection(FoodCategory::all()->whereIn('id', $categories));
 
@@ -60,14 +67,13 @@ class FoodController extends Controller
 
         $stock = StocksResource::collection(Stocks::all());
 
-        $included = $food_categories->merge(IngredientResource::collection($ingredients));
+        $included = array_values($food_categories
+            ->concat(IngredientResource::collection($ingredients))
+            ->concat($stock)
+            ->all());
 
-        foreach ($stock as $item) {
 
-            $included[] = $item;
-        }
-
-        return generateResponse(200, FoodResource::collection($foods), $included);
+        return generateResponse(200, FoodResource::collection($foods), $included, false, $images);
     }
 
     /**
@@ -85,7 +91,6 @@ class FoodController extends Controller
             foreach (Ingredient::all()->where('food_id', $food_id) as $stock) {
 
                 $stock_ids[] = $stock->id;
-
             }
             Ingredient::destroy($stock_ids);
 
@@ -94,16 +99,16 @@ class FoodController extends Controller
                 $ingredient = [
 
                     'food_id' => $food_id,
-                    'stock_id' => $stock_id,
-                    'required' => true,
-                    'quantity' => 1
+                    'stock_id' => $stock_id['id'],
+                    'required' => $stock_id['required'],
+                    'quantity' => $stock_id['quantity']
 
                 ];
                 Ingredient::create($ingredient);
             }
         }
 
-        return $response; 
+        return $response;
     }
 
     /**
@@ -116,6 +121,9 @@ class FoodController extends Controller
         $stock_id = [];
 
         $food_category = new FoodCategoryResource(FoodCategory::find($food->category));
+
+        $images['food'][$id] = extractImages('Food', $id);
+        $images['food_categories'][$id] = extractImages('Food Categories', $food_category->id);
 
         $ingredients = Ingredient::all()->whereIn('food_id', $food->id);
 
@@ -133,7 +141,7 @@ class FoodController extends Controller
         $included[] = $food_category;
 
 
-        return generateResponse(200, new FoodResource($food), $included);
+        return generateResponse(200, new FoodResource($food), $included, false, $images);
     }
 
     /**
@@ -147,7 +155,6 @@ class FoodController extends Controller
             foreach (Ingredient::all()->where('food_id', $food_id) as $stock) {
 
                 $stock_ids[] = $stock->id;
-
             }
             Ingredient::destroy($stock_ids);
 
@@ -156,9 +163,9 @@ class FoodController extends Controller
                 $ingredient = [
 
                     'food_id' => $food_id,
-                    'stock_id' => $stock_id,
-                    'required' => true,
-                    'quantity' => 1
+                    'stock_id' => $stock_id['id'],
+                    'required' => $stock_id['required'],
+                    'quantity' => $stock_id['quantity']
 
                 ];
                 Ingredient::create($ingredient);

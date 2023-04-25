@@ -9,6 +9,7 @@ use App\Http\Resources\IngredientResource;
 use App\Http\Resources\OrderContainsResource;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\PermissionResource;
+use App\Http\Resources\PromoCodeResource;
 use App\Http\Resources\RegistrationResource;
 use App\Http\Resources\ReviewResource;
 use App\Http\Resources\RoomResource;
@@ -16,12 +17,14 @@ use App\Http\Resources\RoomTypeResource;
 use App\Http\Resources\StocksResource;
 use App\Http\Resources\UserResource;
 use App\Models\Activity;
+use App\Models\AppliedPromoCodes;
 use App\Models\Booking;
 use App\Models\Food;
 use App\Models\Ingredient;
 use App\Models\Order;
 use App\Models\OrderContains;
 use App\Models\Permission;
+use App\Models\PromoCode;
 use App\Models\Registration;
 use App\Models\Review;
 use App\Models\Room;
@@ -79,10 +82,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $room_id)
+    public function update(Request $request, string $user_id)
     {
 
-        return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options, $this->model_name, true);
+        return updateTemplate($request, $this->model, $user_id, $this->resource, $this->options, $this->model_name, true);
     }
 
     /**
@@ -191,12 +194,12 @@ class UserController extends Controller
 
             $room_ids = [];
 
-            
+
             foreach ($bookings as $booking) {
-                
+
                 $room_ids[] = $booking->room_id;
             }
-            
+
             $reviews = ReviewResource::collection(Review::all()->whereIn('room_id', $room_ids));
 
             $rooms = Room::all()
@@ -230,6 +233,11 @@ class UserController extends Controller
 
             $activities = ActivityResource::collection(Activity::all()->whereIn('id', $registrations_id));
 
+            $applied_codes = AppliedPromoCodes::all()
+                ->where('user_id', $id)->pluck('promo_id');
+
+            $promo_code = PromoCode::all()
+                ->whereIn('id', $applied_codes);
 
             // 1. Validation that the user is authenticated.
             // 2. Duplicated values remover. If the user booked the same room twice it will be downloaded twice.
@@ -248,6 +256,7 @@ class UserController extends Controller
                 ->concat($activities)
                 ->concat(RegistrationResource::collection($registrations))
                 ->concat($reviews)
+                ->concat(PromoCodeResource::collection($promo_code))
                 ->all());
 
             // im also gonna supply with Ingredients. in case we need the pivot later (we will eventually)
