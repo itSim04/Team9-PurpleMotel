@@ -1,5 +1,4 @@
 <ion-content>
-
     <div class="main">
         <p class="title">
             This is it.
@@ -24,7 +23,7 @@
     <p class="header-2">The Chefs</p>
     <div class="image-bg">
         <div class="image-container">
-            <img  src="../../../../../assets/rooms/chefs2.jpg">
+            <img src="../../../../../assets/rooms/chefs2.jpg">
             <div class="overlay-text">Click here to view</div>
         </div>
     </div>
@@ -40,9 +39,10 @@
 
     <div class="button-container">
 
-        <button class="view-menu-button">View Menu</button>
-      </div>
-      <div class="button-container">
+        <button [routerLink]="['/restaurant/menu']" class="view-menu-button">View Menu</button>
+    </div>
+    <div class="button-container">
 
         <button class="feedback-button">Feedback</button>
-      </div>
+    </div>
+</ion-content>

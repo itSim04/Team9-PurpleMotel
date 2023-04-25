@@ -27,6 +27,7 @@ import { ChatGuard } from './guards/chat.guard';
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse-rooms/browse-rooms.component';
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 import { ProfileComponent } from './pages/guest/profile/profile.component';
+import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 
 
 
@@ -111,8 +112,10 @@ export const routes: Routes = [
           },
           {
 
-            // path: 'menu',
-            // component: 
+            path: 'menu',
+            component: MenuComponent
+          },
+          {
             path: 'landing',
             component: RestaurantLandingComponent
 
