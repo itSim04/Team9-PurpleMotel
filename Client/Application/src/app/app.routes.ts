@@ -23,6 +23,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { GuestGuard } from './guards/guest.guard';
 import { GuestChatComponent } from './chat/guest/chat.component';
 import { AdminChatComponent } from './chat/admin/chat/chat.component';
+import { ChatListComponent } from './chat/chat-list/chat-list.component';
 
 
 
@@ -166,7 +167,7 @@ export const routes: Routes = [
       },
       {
         path: "support",
-        component: AdminChatComponent,
+        component: ChatListComponent,
       }
 
     ]

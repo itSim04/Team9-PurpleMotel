@@ -151,35 +151,6 @@ export class AdminChatComponent implements OnInit {
     return emojiRegex.test(str.trim());
   }
 
-
-
-
-
-
-
-
-
-
-  // seperateOwner(id: string): string {
-
-  //   // Analyzes the ID and returns the other user's id
-
-  //   if (id.split('-')[0] == String(this.session_user.key)) {
-
-  //     return id.split('-')[1];
-
-  //   }
-
-  //   if (id.split('-')[1] == String(this.session_user.key)) {
-
-  //     return id.split('-')[0];
-
-  //   }
-
-  //   throw new Error("Illegal argument Exception");
-  // }
-
-
   routeTo(id: string) {
 
     this.router.navigate(['adminchat/' + id]);

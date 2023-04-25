@@ -33,6 +33,7 @@ import { environment } from '../environments/environment';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import {GuestChatsPageModule } from './chat/guest/chat.module';
 import { AdminChatsPageModule } from './chat/admin/chat/chat.module';
+import { ChatListModule } from './chat/chat-list/chat-list.module';
 
 
 
@@ -75,6 +76,7 @@ import { AdminChatsPageModule } from './chat/admin/chat/chat.module';
     HomeModule,
     NewsListItemModule,
     NewsListPopupModule,
+    ChatListModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase())
 

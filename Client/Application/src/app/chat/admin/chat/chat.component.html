@@ -1,8 +1,24 @@
 <div class="main">
 
+
   <table style="background: #00000045;height: 70%; width: 100%;">
       <tr>
-      
+          <td [style.visibility]="chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 30%; max-height: 50px;">
+
+              <div style="overflow-y: auto; height: 100%;">
+
+                  <div (click)="routeTo(guest.key)" style="padding: 16px;" *ngFor="let guest of active_guests; let i = index">
+                      
+                      <p class="chat-last" style="float: right;">{{formatDateString(active_last_messages[i].lastDate)}}</p>
+                      <p class="chat-name">{{guest.value.first_name + ' ' + guest.value.last_name}}</p>
+                      <p class="chat-last">{{active_last_messages[i].lastMessage}}</p>
+                      
+                      
+                  </div>
+              </div>
+
+
+          </td>
           <td [style.visibility]="loading || chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 70%">
 
               <div #container style="height: 90%; overflow-y: scroll">
@@ -63,7 +79,7 @@
                   <input (keydown)="keyStroke($event)" placeholder="Type your message..." class="send-area"
                       [(ngModel)]="message">
                   <img [style.visibility]="this.message.trim() ? 'visible' : 'hidden'" class="send" height="70%" style="position: absolute; top: 0; right: 24px;"
-                      src="../../../../assets/chat-pics/send-button.png" (click)="postMessage()">
+                      src="../../../assets/send_icon.png" (click)="postMessage()">
               </div>
 
 
