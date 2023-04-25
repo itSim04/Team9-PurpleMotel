@@ -136,7 +136,7 @@ export class ProfileService {
 
                 case 'Activities':
 
-                  user_activities.set(value.id, value.attributes as Activity);
+                  user_activities.set(value.id, {...value.attributes as Activity, image: images.activity[value.id]});
                   break;
 
                 case 'Registration':

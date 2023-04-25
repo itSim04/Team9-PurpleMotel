@@ -1,1 +1,24 @@
 <ion-img style="position: fixed;" src="../../../../assets/profile-pics/profile-bg.png"></ion-img>
+
+<div class="container">
+
+    <ion-text class="name">{{ user.first_name + ' ' + user.last_name}}</ion-text>
+    <ion-button class="promo" fill="clear">{{ 'Apply Promo Code' | translate }}</ion-button>
+    <div style="display: flex;">
+
+        <ion-button class="options">{{ 'Edit Profile' | translate }}</ion-button>
+        <ion-button class="options">{{ 'Change Password' | translate }}</ion-button>
+
+    </div>
+
+    <div style="display: flex;">
+
+        <div *ngFor="let order of orders | keyvalue">
+
+            <ng-container *ngIf="order.value.food.length">
+
+                <ion-img [src]="foods.get(order.value.food[0].id)?.image"></ion-img>
+            </ng-container>
+        </div>
+    </div>
+</div>

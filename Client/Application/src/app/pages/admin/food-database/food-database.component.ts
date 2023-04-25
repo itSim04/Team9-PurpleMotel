@@ -112,7 +112,7 @@ export class FoodDatabaseComponent {
       ingredients: []
     },
 
-    data_type: 'food',
+    data_type: 'Food',
 
     fields: [
       {

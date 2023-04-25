@@ -5,7 +5,7 @@ import { Order, OrderAttributes } from './Order';
 import { Room, RoomAttributes, Review } from './Room';
 import { Booking, BookingAttributes } from './Booking';
 import { RoomType } from './RoomType';
-import { Activity } from './Activity';
+import { Activity, ActivityAttributes } from './Activity';
 import { OrderContainsAttributes } from './OrderContains';
 import { Stock } from './Stock';
 import { IngredientAttributes } from './Ingredient';
@@ -189,7 +189,7 @@ export interface ProfileResponse {
     data: {
         id: string,
         type: 'Foods' | 'Orders' | 'Review' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient' | 'Registration' | 'Activities' | 'PromoCodes',
-        attributes: FoodAttributes | OrderAttributes | Review | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes | Activity | RegistrationAttributes | PromoCodeAttributes,
+        attributes: FoodAttributes | OrderAttributes | Review | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes | ActivityAttributes | RegistrationAttributes | PromoCodeAttributes,
         relationships: {
             food_category: {
                 data: {
@@ -259,6 +259,12 @@ export interface ProfileResponse {
 
             [id: string]: string[];
         };
+        
+        activity: {
+            
+            [id: string]: string[];
+
+        }
 
 
 

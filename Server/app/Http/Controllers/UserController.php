@@ -151,6 +151,8 @@ class UserController extends Controller
 
                 // As mentioned previously the pivot has a foreign key named food_id
                 $food_ids[] = $pivot->food_id;
+                $images['food'][$pivot->food_id] = extractImages('Food', $pivot->food_id);
+                
             }
 
             // Now that we have the id we can retrieve all the foods with said idea. We can directly englobe
@@ -197,6 +199,7 @@ class UserController extends Controller
 
             foreach ($bookings as $booking) {
 
+                $images['rooms'][$booking->room_id] = extractImages('Room', $booking->room_id);
                 $room_ids[] = $booking->room_id;
             }
 
@@ -214,6 +217,7 @@ class UserController extends Controller
             $room_types_ids = [];
 
             foreach ($rooms as $type) {
+
                 $room_types_ids[] = $type->type;
             }
 
@@ -227,7 +231,8 @@ class UserController extends Controller
             $registrations = Registration::all()->where('user_id', $id);
             $registrations_id = [];
             foreach ($registrations as $registration) {
-
+                
+                $images['activity'][$registration->activity_id] = extractImages('Activitiy', $registration->activity_id);
                 $registrations_id[] = $registration->activity_id;
             }
 
@@ -265,7 +270,7 @@ class UserController extends Controller
 
 
 
-            return generateResponse(200, $result);
+            return generateResponse(200, $result, [], false, $images);
         }
         return generateResponse(401, []);
     }

@@ -65,10 +65,6 @@ export class ProfileComponent implements OnInit {
   @ViewChild('carousel') carousel !: CarouselComponent;
   // food from 1 to 8
 
-  image(index: number) {
-
-    return '../../../../assets/food-' + ((index % 8) + 1) + '.jpg';
-  }
 
   constructor (private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService, private review_service: ReviewDialogService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService) {
 
@@ -112,11 +108,11 @@ export class ProfileComponent implements OnInit {
         this.promo = data.promo;
 
 
-        console.log(data);
+        console.log("Profile fetched:", data);
       },
       error: error => {
 
-        console.error(error);
+        console.error("Profile not fetched:", error);
         if (error.status) {
 
 
