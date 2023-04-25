@@ -8,7 +8,7 @@ import { RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-import { environment } from "src/environments/environment";
+//import { environment } from "src/environments/environment";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 import { AdminChatsPageModule } from "./chat/admin/chat/chat.module";
@@ -78,7 +78,7 @@ import { ProfileModule } from "./pages/guest/profile/profile.module";
     HomeModule,
     ProfileModule,
     RestaurantModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    //provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase())
 
   ],
