@@ -10,6 +10,7 @@ import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { formatOccupancy } from 'src/app/pages/admin/room-database/room-database.component';
 import { formatPrice, extractUserId } from '../../database/database.component';
+import { ModalController, NavParams, ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -24,12 +25,14 @@ export class RoomModalComponent {
   @Input() overview = true;
   @Input() promo?: KeyValue<string, PromoCode>;
 
-  constructor(private modal_params: NavParams, private modal_ctrl: ModalController, private booking_service: BookingDatabaseService, private snackBar: ToastController) {
+  constructor(private modal_params: NavParams, private modal_ctrl: ModalController, private booking_service: BookingDatabaseService, private snackBar: ToastController, private router: Router) {
+
     this.room = {
       key: modal_params.get('key'),
       value: modal_params.get('data')
     }
-   }
+
+  }
 
   get formatOccupancy(): string {
     //console.log('hello');
@@ -41,6 +44,7 @@ export class RoomModalComponent {
   get formatPrice(): string {
     return formatPrice(this.room_type?.value?.price, false, false);
   }
+
   get formatNewPrice(): string | undefined {
 
     if (this.room_type) {
@@ -59,14 +63,17 @@ export class RoomModalComponent {
   }
 
   async display_toast(body: string) {
-    
+
     const toast = await this.snackBar.create({
       message: body,
       duration: 1500,
       position: 'bottom'
     });
-  
+
     await toast.present();
+
+  }
+
   addBooking(range: { check_in: Date, check_out: Date; }) {
 
     const user_id = extractUserId();
@@ -93,7 +100,7 @@ export class RoomModalComponent {
 
           if (conflicting_bookings.length) {
 
-            this.snackBar.open('Conflicting bookings');
+            this.display_toast('Conflicting bookings');
 
           } else {
 

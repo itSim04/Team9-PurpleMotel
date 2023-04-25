@@ -1,6 +1,4 @@
 import { TabsPage } from './tabs/tabs.page';
-import { BrowseRoomsComponent } from './pages/guest/rooms/browse-rooms/browse-rooms.component';
-
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/authentication/login/login.component';
 import { RegisterComponent } from './pages/authentication/register/register.component';
@@ -26,6 +24,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { GuestGuard } from './guards/guest.guard';
 import { AdminChatGuard } from './guards/admin.chat.guard';
 import { ChatGuard } from './guards/chat.guard';
+import { BrowseRoomsComponent } from './pages/guest/rooms/browse-rooms/browse-rooms.component';
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 
 
@@ -96,7 +95,26 @@ export const routes: Routes = [
       {
         path: 'restaurant',
         canActivate: [GuestGuard],
-        component: HomeComponent
+        children: [
+
+          {
+
+            path: '',
+            redirectTo: 'landing',
+            pathMatch: 'full'
+
+          },
+          {
+
+            // path: 'menu',
+            // component: 
+            path: 'landing',
+            component: RestaurantLandingComponent
+
+          }
+
+
+        ]
       },
 
     ]
@@ -268,29 +286,29 @@ export const routes: Routes = [
   //     ]
   //   },
   //   {
-      
-    {
-      path: "restaurant",
-      children: [
-        {
-          path: "",
-          redirectTo: "browse",
-          pathMatch: "full"
-        },
-        // {
-        //    component: MenuComponent,
-        //   path: "menu"
-        // },
-        {
-           component: RestaurantLandingComponent,
-          path: "browse"
-        }
-      ]
-    },
-    {
-      path: "home",
-       component: HomeComponent
-    }
+
+  //   {
+  //     path: "restaurant",
+  //     children: [
+  //       {
+  //         path: "",
+  //         redirectTo: "browse",
+  //         pathMatch: "full"
+  //       },
+  //       {
+  //          component: MenuComponent,
+  //         path: "menu"
+  //       },
+  //       {
+  //          component: RestaurantLandingComponent,
+  //         path: "browse"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     path: "home",
+  //      component: HomeComponent
+  //   }
 
 
 

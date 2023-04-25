@@ -1,6 +1,6 @@
 import { PromoCode } from './../../../models/PromoCode';
 import { KeyValue } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { Router } from '@angular/router';
@@ -13,15 +13,15 @@ import { RoomModalComponent } from '../room-modal/room-modal.component';
   templateUrl: './room-item.component.html',
   styleUrls: ['./room-item.component.scss']
 })
-export class RoomItemComponent implements OnInit {
 
-  ngOnInit() { }
+export class RoomItemComponent {
 
   @Input() room?: KeyValue<string, Room>;
   @Input() room_type?: KeyValue<string, RoomType>;
   @Input() promo?: KeyValue<string, PromoCode>;
 
-  constructor(private modal_ctrl: ModalController) { }
+  constructor(private modal_ctrl: ModalController, private router: Router) { }
+
   async openModal() {
 
     const modal = await this.modal_ctrl.create({
@@ -58,6 +58,9 @@ export class RoomItemComponent implements OnInit {
   }
 
 
+  route() {
+
+
     if (this.room) {
 
       localStorage.setItem('temp_room_item', JSON.stringify(this.room));
@@ -67,6 +70,8 @@ export class RoomItemComponent implements OnInit {
       this.router.navigate([`/rooms/details/${this.room.key}`]);
 
     }
+
+  }
 
 }
 

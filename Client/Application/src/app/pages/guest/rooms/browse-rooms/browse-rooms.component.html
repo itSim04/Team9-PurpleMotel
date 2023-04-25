@@ -1,28 +1,19 @@
 <ion-content>
-  
+
   <div class="main">
     <p class="title">
-        This is it.
+      This is it.
     </p>
   </div>
 
   <h1 class="rooms-header">Rooms and rates</h1>
   <hr>
 
-  <!-- <div>
-
-    <div *ngFor="let room of filtered_rooms">
-      <app-room-item [change]="getEffect(room[0], room[1].type)" class="item"
-      [room]="{key: room[0], value: room[1]}"
-      [room_type]="room_types.getPair(room[1].type)"></app-room-item>
-  </div>
-  </div> -->
-
   <div>
     <div *ngFor="let room of filtered_rooms">
       <app-room-item [room]="{key: room[0], value: room[1]}"
-      [room_type]="room_types.getPair(room[1].type)"></app-room-item>
-  </div>
+        [room_type]="room_types.getPair(room[1].type)"></app-room-item>
+    </div>
   </div>
 
 </ion-content>

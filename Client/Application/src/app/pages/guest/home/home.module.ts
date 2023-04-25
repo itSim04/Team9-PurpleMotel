@@ -4,6 +4,8 @@ import { IonicModule } from '@ionic/angular';
 import { HomeComponent } from './home.component';
 import { NewsListItemModule } from 'src/app/components/news/news-list-item/news-list-item.module';
 import { LanguageModule } from 'src/app/services/language/language.module';
+import { NewsListItemComponent } from 'src/app/components/news/news-list-item/news-list-item.component';
+import { NewsListPopupModule } from 'src/app/components/news/news-list-popup/news-list-popup.module';
 
 
 
@@ -16,6 +18,7 @@ import { LanguageModule } from 'src/app/services/language/language.module';
     CommonModule,
     IonicModule.forRoot(),
     NewsListItemModule,
+    NewsListPopupModule,
     LanguageModule
   ],
   exports: [

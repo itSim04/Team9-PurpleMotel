@@ -13,6 +13,7 @@ import { RoomDetailsModule } from "src/app/components/room/room-details/room-det
 import { RoomItemModule } from "src/app/components/room/room-item/room-item.module";
 import { BrowseRoomsComponent } from "./browse/browse-rooms.component";
 import { RoomOverviewComponent } from "./overview/room-overview.component";
+import { CalendarModule } from 'src/app/components/room/calendar/calendar.module';
 
 
 
@@ -34,7 +35,9 @@ import { RoomOverviewComponent } from "./overview/room-overview.component";
     RoomDetailsModule,
     LanguageModule,
     ReviewDialogModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    CalendarModule,
+    RoomDetailsModule
   ],
   exports: [
     BrowseRoomsComponent,

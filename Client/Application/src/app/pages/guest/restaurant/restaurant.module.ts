@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RestaurantLandingComponent } from './landing/landing-restaurant.component';
+import { LanguageModule } from 'src/app/services/language/language.module';
 
 
 
@@ -11,7 +12,8 @@ import { RestaurantLandingComponent } from './landing/landing-restaurant.compone
   ],
   imports: [
     CommonModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    LanguageModule
   ],
   exports: [
     RestaurantLandingComponent

@@ -34,6 +34,8 @@ import { HomeModule } from "./pages/guest/home/home.module";
 import { ServicesModule } from "./pages/guest/services/services.module";
 import { TabsPage } from "./tabs/tabs.page";
 import { ChatListModule } from "./chat/chat-list/chat-list.module";
+import { RoomsModule } from "./pages/guest/rooms/rooms.module";
+import { RestaurantModule } from "./pages/guest/restaurant/restaurant.module";
 
 
 
@@ -68,15 +70,12 @@ import { ChatListModule } from "./chat/chat-list/chat-list.module";
     ActivitiesModule,
     ServicesModule,
     AdminDashboardModule,
-    CalendarModule,
-    RestaurantModule,
     RoomsModule,
     GuestChatsPageModule,
     AdminChatsPageModule,
     ChatListModule,
     HomeModule,
-    NewsListItemModule,
-    NewsListPopupModule,
+    RestaurantModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase())
 

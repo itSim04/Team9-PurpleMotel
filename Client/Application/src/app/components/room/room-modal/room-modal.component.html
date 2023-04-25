@@ -66,7 +66,7 @@
     <tr>
         <td style="padding: 16px; height:60vh;">
 
-            <img style="object-fit: cover; height: 90%;" [src]="room?.value?.image_path ? room!.value.image_path : '../../../assets/rooms/room-sample.jpg'" width="100%">
+            <img style="object-fit: cover; height: 90%;" [src]="room?.value?.images?.at(0)" onerror="this.src='assets/placeholder.png'" width="100%">
 
         </td>
         <td style="padding: 16px; height: 50vh; width: 40%; ">

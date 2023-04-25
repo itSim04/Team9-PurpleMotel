@@ -8,6 +8,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { IonicModule } from "@ionic/angular";
 import { CalendarComponent } from "./calendar.component";
+import { LanguageModule } from "src/app/services/language/language.module";
 
 
 
@@ -23,6 +24,7 @@ import { CalendarComponent } from "./calendar.component";
     ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    LanguageModule,
     MatInputModule,
     MatButtonModule,
     MatDatepickerModule,

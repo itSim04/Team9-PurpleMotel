@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChefListDialogService } from 'src/app/services/dialogs/chef-list/chef-list.service';
+
 
 
 @Component({
@@ -9,5 +9,5 @@ import { ChefListDialogService } from 'src/app/services/dialogs/chef-list/chef-l
 })
 export class RestaurantLandingComponent {
 
-  constructor(public chef_dialog: ChefListDialogService) {}
+  constructor() {}
 }
