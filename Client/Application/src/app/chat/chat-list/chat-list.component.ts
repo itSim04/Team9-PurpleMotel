@@ -134,7 +134,7 @@ export class ChatListComponent  implements OnInit {
 
   routeTo(id: string) {
 
-    this.router.navigate(['adminchat/' + id]);
+    this.router.navigate(['admin/support/' + id]);
     this.id = String(id);
     this.download();
 

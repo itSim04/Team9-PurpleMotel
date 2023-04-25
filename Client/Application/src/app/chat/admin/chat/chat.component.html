@@ -1,89 +1,76 @@
-<div class="main">
+<ion-content>
+    <div class="main">
+        <table [style.visibility]="loading ? 'hidden' : 'visible'"
+            style="background: #00000045; position: fixed; bottom: 0px; height: 100%; width: 100%;">
+            <tr>
+
+                <td style="vertical-align: bottom; width: 70%">
+
+                    <div #container style="height: 66%; overflow-y: scroll;">
+
+                        <!-- Title -->
+                        <div style="position: absolute; top: 0px; width: 100%; margin: 16px;">
+
+                            <p class="title">{{chat?.user_2?.value?.first_name}}</p>
+
+                        </div>
+
+                        <!-- Messages -->
+
+                        <table style="margin: 16px; width: 95%;">
+                            <ng-container *ngFor="let c of chat?.messages; let i = index">
+
+                                <tr>
+                                    <td style="height: fit-content;" class="col unselectable">
+
+                                        <!-- Content -->
+                                        <div (mouseenter)="hovered_id = i" (mouseleave)="hovered_id = -1"
+                                            [style.border-bottom-left-radius]="bottomLeft(c, i)"
+                                            [style.border-top-left-radius]="topLeft(c, i)"
+                                            [style.border-bottom-right-radius]="bottomRight(c, i)"
+                                            [style.border-top-right-radius]="topRight(c, i)"
+                                            [style.float]="c.owner_id == id ? 'left' : 'right'"
+                                            [class]="c.owner_id == id ? 'multi received-message' : 'multi sent-message'">
+
+                                            <p [style.fontSize]="isSpecial(c.content.trim()) ? '46px' : '16px'"
+                                                style="margin: 0px;">
+                                                {{c.content}}</p>
 
 
-  <table style="background: #00000045;height: 70%; width: 100%;">
-      <tr>
-          <td [style.visibility]="chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 30%; max-height: 50px;">
+                                        </div>
 
-              <div style="overflow-y: auto; height: 100%;">
+                                    </td>
+                                </tr>
 
-                  <div (click)="routeTo(guest.key)" style="padding: 16px;" *ngFor="let guest of active_guests; let i = index">
-                      
-                      <p class="chat-last" style="float: right;">{{formatDateString(active_last_messages[i].lastDate)}}</p>
-                      <p class="chat-name">{{guest.value.first_name + ' ' + guest.value.last_name}}</p>
-                      <p class="chat-last">{{active_last_messages[i].lastMessage}}</p>
-                      
-                      
-                  </div>
-              </div>
+                                <!-- Date -->
+                                <tr>
 
-
-          </td>
-          <td [style.visibility]="loading || chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 70%">
-
-              <div #container style="height: 90%; overflow-y: scroll">
-
-                  <!-- Title -->
-                  <div style="width: 95%; margin: 16px;">
-
-                      <p class="title">{{chat?.user_2?.value?.first_name}}</p>
-              
-                  </div>
-
-                  <!-- Messages -->
-
-                  <table style="margin: 16px; margin-top: 128px; width: 95%;">
-                      <ng-container *ngFor="let c of chat?.messages; let i = index">
-
-                          <tr>
-                              <td style="height: fit-content;" class="col unselectable">
-
-                                  <!-- Content -->
-                                  <div (mouseenter)="hovered_id = i"
-                                      (mouseleave)="hovered_id = -1"
-                                      [style.border-bottom-left-radius]="bottomLeft(c, i)"
-                                      [style.border-top-left-radius]="topLeft(c, i)"
-                                      [style.border-bottom-right-radius]="bottomRight(c, i)"
-                                      [style.border-top-right-radius]="topRight(c, i)"
-                                      [style.float]="c.owner_id == id ? 'left' : 'right'"
-                                      [class]="c.owner_id == id ? 'multi sent-message' : 'multi received-message'">
-
-                                      <p [style.fontSize]="isSpecial(c.content) ? '40px' : '14px'" style="margin: 0px;">
-                                          {{c.content}}</p>
+                                    <td *ngIf="(i == chat?.messages!.length - 1 || formatDate(chat?.messages![i + 1].date) != formatDate(c.date) || chat?.messages![i + 1].owner_id != c.owner_id)"
+                                        class="col" [style.float]="c.owner_id == id ? 'left' : 'right'">
+                                        <p [style.color]="hovered_id == i ? 'white' : 'transparent'"
+                                            style="margin: 0px;" class="date">
+                                            {{formatDate(c.date)}}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </table>
+                    </div>
 
 
-                                  </div>
-
-                              </td>
-                          </tr>
-
-                          <!-- Date -->
-                          <tr>
-
-                              <td *ngIf="(i == chat?.messages!.length - 1 || formatDate(chat?.messages![i + 1].date) != formatDate(c.date) || chat?.messages![i + 1].owner_id != c.owner_id)"
-                                  class="col" [style.float]="c.owner_id == id ? 'left' : 'right'">
-                                  <p [style.color]="hovered_id == i ? 'white' : 'transparent'"
-                                      style="margin: 0px;" class="date">
-                                      {{formatDate(c.date)}}
-                                  </p>
-                              </td>
-                          </tr>
-                      </ng-container>
-                  </table>
-              </div>
+                    <!-- Input -->
+                    <div style="width: 95%; position: relative; margin: 8px;bottom: 0px;background-color: #D6B389CC;border-radius: 30px;">
+                        <input (keydown)="keyStroke($event)" placeholder="Type your message..." class="send-area"
+                            [(ngModel)]="message">
+                        <img [style.visibility]="this.message.trim() ? 'visible' : 'hidden'" class="send" height="70%"
+                            class="send-img"
+                            src="../../../assets/chat-pics/send-button.png" (click)="postMessage()">
+                        
+                    </div>
 
 
-              <!-- Input -->
-              <div [style.visibility]="loading || chat_loading || (id == '0') ? 'hidden' : 'visible'"
-                  style="width: 98%; position: relative; margin: 16px; right: 0px; bottom: 0px;">
-                  <input (keydown)="keyStroke($event)" placeholder="Type your message..." class="send-area"
-                      [(ngModel)]="message">
-                  <img [style.visibility]="this.message.trim() ? 'visible' : 'hidden'" class="send" height="70%" style="position: absolute; top: 0; right: 24px;"
-                      src="../../../assets/send_icon.png" (click)="postMessage()">
-              </div>
-
-
-          </td>
-      </tr>
-  </table>
-</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</ion-content>

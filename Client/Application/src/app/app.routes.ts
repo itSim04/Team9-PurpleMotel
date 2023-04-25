@@ -95,11 +95,7 @@ export const routes: Routes = [
         canActivate:[GuestGuard],
         component: HomeComponent
       },
-      {
-        path: 'support/:id',
-        canActivate:[GuestGuard],
-        component: GuestChatComponent
-      },
+      
       // {
       //   path: "profile",
       //   canActivate: [GuestGuard],
@@ -168,9 +164,18 @@ export const routes: Routes = [
       {
         path: "support",
         component: ChatListComponent,
+      },
+      {
+        path: "support/:id",
+        component: AdminChatComponent,
       }
 
     ]
+  },
+  {
+    path: 'support/:id',
+    canActivate:[GuestGuard],
+    component: GuestChatComponent
   },
  
 
