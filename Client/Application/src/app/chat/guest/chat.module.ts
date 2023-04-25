@@ -22,4 +22,4 @@ import { GuestChatComponent } from './chat.component';
     GuestChatComponent
   ]
 })
-export class ChatsPageModule {}
+export class GuestChatsPageModule {}
