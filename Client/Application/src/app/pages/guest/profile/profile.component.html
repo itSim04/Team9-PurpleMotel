@@ -11,13 +11,13 @@
 
     </div>
 
-    <div style="display: flex;">
+    <div style="display: flex;  overflow-x: scroll;">
 
-        <div *ngFor="let order of orders | keyvalue">
+        <div style="flex-wrap: nowrap; position: relative;" *ngFor="let order of orders | keyvalue">
 
             <ng-container *ngIf="order.value.food.length">
 
-                <ion-img [src]="foods.get(order.value.food[0].id)?.image"></ion-img>
+                <ion-img class="order-imgs" [src]="foods.get(order.value.food[0].id)?.image"></ion-img>
             </ng-container>
         </div>
     </div>
