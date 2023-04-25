@@ -39,7 +39,7 @@ export const routes: Routes = [
   {
 
     path: 'auth',
-    
+
     children: [
 
       {
@@ -62,14 +62,14 @@ export const routes: Routes = [
   },
 
 
-  //{
+  {
 
-    //path: '',
-    //component: TabsPage,
-    //children: [
+    path: '',
+    component: TabsPage,
+    children: [
       {
         path: 'rooms',
-        canActivate:[GuestGuard],
+        canActivate: [GuestGuard],
         children: [
           {
             path: 'browse',
@@ -84,30 +84,32 @@ export const routes: Routes = [
       },
       {
         path: 'home',
-        canActivate:[GuestGuard],
+        canActivate: [GuestGuard],
         component: HomeComponent
       },
       {
         path: 'services',
-        canActivate:[GuestGuard],
+        canActivate: [GuestGuard],
         component: BrowseServicesComponent
       },
       {
         path: 'restaurant',
-        canActivate:[GuestGuard],
+        canActivate: [GuestGuard],
         component: HomeComponent
       },
-      
-      // {
-      //   path: "profile",
-      //   canActivate: [GuestGuard],
-      //   component: ProfileComponent,
-      // },
 
-     {
-      path: 'admin',
-      canActivate:[AdminGuard],
-      children: [
+    ]
+  },
+  // {
+  //   path: "profile",
+  //   canActivate: [GuestGuard],
+  //   component: ProfileComponent,
+  // },
+
+  {
+    path: 'admin',
+    canActivate: [AdminGuard],
+    children: [
       {
 
         path: "",
@@ -163,15 +165,15 @@ export const routes: Routes = [
         path: "service-database",
         component: ServiceDatabaseComponent,
       },
-      
+
     ]
   },
   {
     path: 'support/:id',
-    canActivate:[ChatGuard],
+    canActivate: [ChatGuard],
     component: GuestChatComponent
   },
-  
+
   {
     path: "support",
     canActivate: [AdminChatGuard],
@@ -182,8 +184,8 @@ export const routes: Routes = [
     canActivate: [AdminChatGuard],
     component: AdminChatComponent,
   }
-  
-  
+
+
   //   {
   //     path: "",
   //     redirectTo: "home",
@@ -265,7 +267,7 @@ export const routes: Routes = [
   //     ]
   //   },
   //   {
-      
+
   //   {
   //     path: "restaurant",
   //     children: [

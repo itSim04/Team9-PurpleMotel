@@ -59,6 +59,7 @@ import { NgpImagePickerModule } from 'ngp-image-picker';
     MatButtonModule,
     MatSnackBarModule,
     NgpImagePickerModule
+    
   ],
   exports: [
     DatabaseComponent

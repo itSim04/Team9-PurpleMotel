@@ -36,12 +36,13 @@ export class LoginComponent {
       }).subscribe({
 
         next: result => {
+
           console.log(result);
-          console.log("Email:", this.email);
-          console.log("Password:", this.password);
+          this.router.navigate(['/home'])
 
         }, error: error => {
 
+          console.error(error)
           this.loading = false;
 
           if (error.status == 401) {

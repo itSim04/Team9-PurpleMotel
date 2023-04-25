@@ -33,6 +33,7 @@ import { AuthenticationModule } from "./pages/authentication/authentication.modu
 import { HomeModule } from "./pages/guest/home/home.module";
 import { ServicesModule } from "./pages/guest/services/services.module";
 import { TabsPage } from "./tabs/tabs.page";
+import { ChatListModule } from "./chat/chat-list/chat-list.module";
 
 
 
@@ -69,6 +70,7 @@ import { TabsPage } from "./tabs/tabs.page";
     AdminDashboardModule,
     GuestChatsPageModule,
     AdminChatsPageModule,
+    ChatListModule,
     HomeModule,
     NewsListItemModule,
     NewsListPopupModule,
