@@ -22,12 +22,17 @@ import { HomeComponent } from './pages/guest/home/home.component';
 import { AdminGuard } from './guards/admin.guard';
 import { GuestGuard } from './guards/guest.guard';
 import { GuestChatComponent } from './chat/guest/chat.component';
+import { AdminChatComponent } from './chat/admin/chat/chat.component';
 
 
 
 export const routes: Routes = [
 
-
+  {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full'
+  },
   {
 
     path: 'auth',
@@ -159,6 +164,10 @@ export const routes: Routes = [
         path: "service-database",
         component: ServiceDatabaseComponent,
       },
+      {
+        path: "support",
+        component: AdminChatComponent,
+      }
 
     ]
   },
