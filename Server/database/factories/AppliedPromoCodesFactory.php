@@ -18,7 +18,8 @@ class AppliedPromoCodesFactory extends Factory
     {
         return [
             'user_id' => random_int(1, 20),
-            'promo_id' => random_int(1, 20)
+            'promo_id' => random_int(1, 20),
+            'exhausted' => fake()->boolean()
         ];
     }
 }

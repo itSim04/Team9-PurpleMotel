@@ -1,15 +1,15 @@
+
+import { extractAnyPermission, extractPermission, extractUser } from 'src/app/components/database/database.component';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { extractUser } from '../components/database/database.component';
-import { AuthenticationDialogService } from '../authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
 
-  constructor (private router: Router, private authentication: AuthenticationDialogService) { }
+  constructor (private router: Router) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -28,8 +28,7 @@ export class AdminGuard implements CanActivate {
       }
     } else {
       
-      this.router.navigate(['/']);
-      this.authentication.openDialog('login');
+      this.router.navigate(['/auth']);
       return false;
 
     }

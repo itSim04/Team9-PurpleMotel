@@ -7,7 +7,7 @@
             <p class="body_table_content">{{news.value.body}}</p>
             <div>
                 <button class="button" (click)="openPopup()">
-                    Learn More
+                    {{ 'learn_more' | translate }}
                 </button>
                 <div class="likes">
                     <div style="display: inline; vertical-align: middle;" (click)="like()">
@@ -15,7 +15,7 @@
                             [style.color]="news.value.is_liked ? '#A4274A' : '#14274A'">thumb_up_alt</mat-icon>
 
                     </div>
-                    {{news.value.likes_number}} Likes
+                    {{news.value.likes_number}} {{ 'likes' | translate }}
                 </div>
             </div>
         </td>

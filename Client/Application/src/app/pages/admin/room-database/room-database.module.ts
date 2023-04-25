@@ -5,15 +5,13 @@ import { DatabaseModule } from 'src/app/components/database/database.module';
 
 
 
-
 @NgModule({
   declarations: [
     RoomDatabaseComponent
   ],
   imports: [
     CommonModule,
-    DatabaseModule,
-
+    DatabaseModule
   ],
   exports: [
     RoomDatabaseComponent

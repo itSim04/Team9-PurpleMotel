@@ -1,6 +1,6 @@
 <div mat-dialog-title class="title padded">
 
-  Order Overview
+  {{ 'order_overview' | translate }}
   <hr style="border-color: #14274A;">
 
 </div>
@@ -13,14 +13,14 @@
 
 
         <td>
-          <p class="label">Label:</p>
+          <p class="label">{{'label' | translate }}:</p>
           <p class="mark">
             {{foods.get(food.id)?.label}}
           </p>
 
           <br>
 
-          <p class="label">Price:</p>
+          <p class="label">{{'price' | translate}}:</p>
           <p class="mark">
             {{formatPrice(foods.get(food.id)?.price!, food.quantity)}}
           </p>
@@ -49,5 +49,5 @@
 </div>
 
 <div matDialogActions>
-  <button class="add-btn" [mat-dialog-close]>Ok</button>
+  <button class="add-btn" [mat-dialog-close]>{{ 'ok' | translate }}</button>
 </div>

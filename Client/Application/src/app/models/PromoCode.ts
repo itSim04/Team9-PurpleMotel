@@ -9,6 +9,7 @@ export interface PromoCodeAttributes {
   change: number,
   start_date: string,
   end_date: string;
+  code: string;
 
 }
 
@@ -22,6 +23,7 @@ export interface PromoCode extends PromoCodeAttributes {
   concerned_rooms: string[];
   concerned_room_types: string[];
   applied_users: string[];
+  exhausted: boolean;
 
 
 }

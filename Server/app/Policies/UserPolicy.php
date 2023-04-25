@@ -67,9 +67,9 @@ class UserPolicy
         }
     }
 
-    public function update(User $user) {
+    public function update(User $user, string $model) {
 
-        if($user->tier == 2) {
+        if($user->tier == 2 || $user->id == $model) {
             return true;
         }
         $permissions = extractPermissions($user->id, $user->type);

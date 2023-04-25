@@ -24,3 +24,6 @@ Homestead.json
 Client/Website/src/environments/environment.ts
 Client/Application/package-lock.json
 *.json
+Client/Application/.firebaserc
+Client/Application/src/environments/environment.ts
+Client/Application/src/environments/environment.ts

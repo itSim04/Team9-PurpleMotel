@@ -13,6 +13,8 @@ export interface FoodPopup {
   description: string;
   price: number;
 
+  image: string,
+
   quantity: number;
 
 
@@ -31,7 +33,7 @@ export class FoodListPopupComponent {
   price: number;
   quantity = 0;
 
-  image = `../../../../assets/food-${Math.floor(Math.random() * 8) + 1}.jpg`;
+  image = '';
 
   constructor (@Inject(MAT_DIALOG_DATA) public data: FoodPopup, private dialog: MatDialogRef<FoodListPopupComponent>, private authentication: AuthenticationDialogService) {
     this.name = data.title;
@@ -39,6 +41,7 @@ export class FoodListPopupComponent {
     this.price = data.price;
     this.id = data.id;
     this.quantity = data.quantity;
+    this.image = data.image;
 
   }
 

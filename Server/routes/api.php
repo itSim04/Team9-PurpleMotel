@@ -15,6 +15,7 @@ use App\Http\Controllers\UserPermissions;
 use App\Http\Controllers\UserPermissionsController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\UserTypePermissionController;
+use App\Http\Controllers\ImageController;
 use App\Models\User;
 use App\Models\UserType;
 use App\Policies\UserPolicy;
@@ -22,16 +23,15 @@ use App\Policies\UserTypePolicy;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\FoodCategoryController;
+use App\Http\Controllers\InformationController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LanguageListController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PromoCodeController;
+use App\Models\Information;
 use App\Models\Stocks;
 use App\Policies\StocksPolicy;
-use App\Models\Food;
-use App\Models\FoodCategory;
-use App\Models\Ingredient;
-use App\Models\Permission;
-use App\Policies\FoodPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -47,7 +47,10 @@ Route::prefix('v1')->group(function () {
         Route::post('logout', 'logout');
         Route::post('refresh', 'refresh');
         Route::get('forgot-password-1', 'forgotPassword1');
+        Route::get('send-verify-email', 'sendVerifyEmail');
         Route::get('forgot-password-2', 'forgotPassword2');
+        Route::get('verify-email', 'verifyEmail');
+        Route::post('reset-password', 'resetPassword');
     });
 
     Route::apiResource('announcements', AnnouncementsController::class);
@@ -58,38 +61,46 @@ Route::prefix('v1')->group(function () {
     Gate::policy(Food::class, FoodPolicy::class);
     Route::apiResource('food-categories', FoodCategoryController::class);
     Route::apiResource('ingredients', IngredientController::class);
+    Route::get('terms', [LanguageController::class, 'getTerms']);
+    Route::get('information', [InformationController::class, 'getInformation']);
     Route::apiResource('foods', FoodController::class);
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('languages', LanguageController::class);
     Route::apiResource('language-list', LanguageListController::class);
     Route::apiResource('roomtypes', RoomTypeController::class);
+    Route::apiResource('informations', InformationController::class);
     Route::apiResource('facilities', FacilityController::class);
     Route::apiResource('activities', ActivityController::class);
     Route::apiResource('bookings', BookingController::class);
     Route::apiResource('registrations', RegistrationController::class);
     Route::apiResource('promocodes', PromoCodeController::class);
+    Route::get('browse-images', [ImageController::class, 'browse']);
+    Route::post('store-images', [ImageController::class, 'store']);
+    Route::get('delete-images', [ImageController::class, 'destroy']);
+    Route::post('modify-images', [ImageController::class, 'update']);
 
-    Route::post('filter', [RoomController::class, 'filter']);;
-    Route::get('room_bookings', [RoomController::class, 'roomBookings']);
+
+    Route::controller(PromoCodeController::class)->group(function () {
+
+        Route::get('full-promocodes', 'full_index');
+        Route::get('applyPromo/{id}', 'applyPromo');
+        Route::get('appliedCodes/{id}', 'isAlreadyApplied');
+    });
 
     Route::controller(NewsController::class)->group(function () {
 
         Route::get('like', 'like');
         Route::get('unlike',  'unlike');
         Route::get('isLiked', 'isLiked');
-        
     });
+
 
     Route::controller(RoomController::class)->group(function () {
 
+        Route::post('filter', [RoomController::class, 'filter']);;
+        Route::get('room_bookings', [RoomController::class, 'roomBookings']);
         Route::post('postReview', 'postReview');
-
     });
-
-
-    Route::get('full-promocodes', [PromoCodeController::class, 'full_index']);
-    Route::get('applyPromo/{id}', [PromoCodeController::class, 'applyPromo']);
-    Route::get('appliedCodes/{id}', [PromoCodeController::class, 'isAlreadyApplied']);
 
     Route::prefix('foods')->controller(FoodController::class)->group(function () {
 
@@ -132,7 +143,7 @@ Route::prefix('v1')->group(function () {
             Route::get('', 'index')->middleware('can:viewAny,App\User');
             Route::post('', 'store')->middleware('can:update,App\User');
             Route::get('/{user}', 'show')->middleware('can:view,App\User,user');
-            Route::put('/{user}', 'update')->middleware('can:update,App\User');
+            Route::put('/{user}', 'update')->middleware('can:update,App\User,user');
             Route::delete('/{user}', 'destroy')->middleware('can:delete,App\User');
         });
 
@@ -155,5 +166,6 @@ Route::prefix('v1')->group(function () {
         });
     });
     Route::apiResource('news', NewsController::class);
+    Route::apiResource('images', ImageController::class);
     Route::get('fetch-profile', [UserController::class, 'fetchProfile']);
 });

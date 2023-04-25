@@ -1,11 +1,14 @@
+import { Router } from '@angular/router';
 import { Component, Output, EventEmitter, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MatDatepicker, MatDateRangeInput } from '@angular/material/datepicker';
+import { MatDateRangeInput, MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticationService } from 'src/app/authentication.service';
 import { Booking } from 'src/app/models/Booking';
-import { BookingDatabaseService } from 'src/app/pages/admin/booking-database/booking-database.service';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';
+import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
+import { extractUser } from '../../database/database.component';
 
 
 @Component({
@@ -34,7 +37,7 @@ export class CalendarComponent implements OnInit {
   closer?: () => void;
 
 
-  constructor(private room_service: BookingDatabaseService, private snackBar: MatSnackBar) { }
+  constructor(private router: Router, private room_service: BookingDatabaseService, private snackBar: MatSnackBar, private authentication: AuthenticationService) { }
 
   ngOnInit() {
 
@@ -49,17 +52,24 @@ export class CalendarComponent implements OnInit {
   downloadConflicts() {
 
 
-    if (this.room_id) {
+    if(extractUser()) {
 
-      this.room_service.getAllRoomsBookings(this.room_id).subscribe(data => {
 
-        this.conflicting_bookings = data.bookings;
+      if (this.room_id) {
+        
+        this.room_service.getAllRoomsBookings(this.room_id).subscribe(data => {
+
+          this.conflicting_bookings = data.bookings;
 
         this.picker.open()
-
+        
       })
-
+      
     }
+  } else {
+
+    this.router.navigate(['/auth/login']);
+  }
 
 
   }
@@ -79,6 +89,8 @@ export class CalendarComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
 
     if (!d) return false;
+
+    if(d < new Date()) return false;
 
     for (const booking of this.conflicting_bookings) {
 

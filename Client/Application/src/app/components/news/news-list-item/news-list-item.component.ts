@@ -1,9 +1,9 @@
 import { KeyValue } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { News } from 'src/app/models/News';
-import { NewsListPopupService } from '../news-list-popup/news-list-popup.service';
+import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
 import { extractUserId } from '../../database/database.component';
-import { NewsDatabaseService } from 'src/app/pages/admin/news-database/news-database.service';
+import { NewsListPopupService } from '../news-list-popup/news-list-popup.service';
 
 @Component({
   selector: 'app-news-list-item',

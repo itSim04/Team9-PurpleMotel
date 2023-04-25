@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PromoCode } from 'src/app/models/PromoCode';
+import { Component, EventEmitter, Input, Output, AfterViewInit } from '@angular/core';
 import { formatPrice, Required } from 'src/app/components/database/database.component';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
@@ -9,12 +10,13 @@ import { formatOccupancy } from 'src/app/pages/admin/room-database/room-database
   templateUrl: './booking-details.component.html',
   styleUrls: ['./booking-details.component.scss']
 })
-export class BookingDetailsComponent {
+export class BookingDetailsComponent implements AfterViewInit {
   @Input() check_in!: string;
   @Input() end_date!: string;
   @Input() exhausted!: boolean;
   @Input() room?: Room;
   @Input() room_type?: RoomType;
+  @Input() promo_code?: PromoCode;
 
   @Input() @Required booking_id!: string;
 
@@ -22,6 +24,11 @@ export class BookingDetailsComponent {
   @Output() review = new EventEmitter<string>();
   path = '../../../../assets/room-' + (Math.floor(Math.random() * 6) + 1) + '.png';
 
+  ngAfterViewInit() {
+
+    console.log(this.promo_code)
+
+  }
   formatPrice(price: number | undefined) {
 
     return formatPrice(price);

@@ -1,0 +1,171 @@
+.half-width {
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.padded {
+
+    // width: 40%;
+    padding-left: 32px;
+    padding-right: 32px;
+    // border: 1px solid black;
+
+}
+
+.back-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    border-radius: 0px;
+
+    padding: 16px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+    text-transform: uppercase;
+
+    background-color: #14274A;
+
+    color: white;
+
+}
+
+.back-btn:hover {
+    
+    border: 1px solid #4668a6;
+    background: #4668a6;
+}
+
+.delete-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    border-radius: 0px;
+
+    padding: 16px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+    text-transform: uppercase;
+
+    background-color: #A4274A;
+
+    color: white;
+
+}
+
+
+.delete-btn:hover {
+    
+    border: 1px solid #4668a6;
+    background: #4668a6;
+}
+
+th {
+
+    font-family: 'Roboto' !important;
+    text-align: center;
+    background-color: #14274A !important;
+    color: white;
+    font-weight: 400;
+
+}
+
+.content {
+
+    padding: 16px;
+    margin: 16px;
+    margin-top: 0px;
+
+}
+
+.mat-mdc-dialog-content {
+     max-height: 75vh;
+}
+
+.example-high {
+
+    height: 100px;
+
+}
+.permissions {
+
+    padding: 8px;
+
+}
+
+.title {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 700;
+    width: 25vw;
+    font-size: 40px;
+
+    margin: 24px;
+    text-align: center;
+    letter-spacing: 0.05em;
+
+    color: #14274A;
+
+}
+
+.input {
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+
+    letter-spacing: 0.05em;
+
+    color: #14274A;
+
+
+
+}
+
+.number-error {
+    color: red;
+    font-size: smaller;
+}
+
+.image-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 8px;
+
+    height: 100%;
+    width: 100%;
+
+    background-color: white;
+
+    color: #14274A;
+
+    border: 1px solid #14274A;
+
+}
+
+.label {
+
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+
+    color: #14274A;
+
+}

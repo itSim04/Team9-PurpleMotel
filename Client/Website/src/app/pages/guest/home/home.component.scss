@@ -8,40 +8,52 @@ $image-path: '../../../../assets/';
     background-image: url('#{$image-path}hopepage-background.png');
     background-size: cover;
     height: 100%;
+    margin-bottom: 7.5%;
 }
 
-.nav_title {
+.quick-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    bottom: -30%;
+}
+.title {
+    text-transform: uppercase;
     color: white;
-    font-family: $font-primary;
+    padding: 0px;
     margin: 0px;
-    margin-left: 100px;
+}
 
-    &_1 {
-        @extend .nav_title;
-        font-size: 43px;
-        margin-top: 40px;
-        text-transform: uppercase;
-    }
 
-    &_2 {
-        @extend .nav_title;
-        font-weight: 400;
-        font-size: 130px;
-        text-transform: uppercase;
-    }
+.title-container {
+    margin-left: 128px;
+    margin-top: 32px;
+}
 
-    &_3 {
-        @extend .nav_title;
-        font-size: 85px;
-        font-weight: 200px;
-        margin-top: -30px;
-        text-transform: uppercase;
-    }
+.title-1 {
+    @extend .title;
+    font-family: 'Montserrat';
+    font-size: 32px;
+}
 
-    &_4 {
-        @extend .nav_title;
-        font-size: 30px;
-    }
+.title-2 {
+    @extend .title;
+    font-family: 'Kulim Park';
+    font-size: 96px;
+}
+
+.title-3 {
+    @extend .title;
+    font-family: 'Kulim Park';
+    font-size: 64px;
+}
+
+.title-4 {
+    @extend .title;
+    font-family: 'Kulim Park';
+    font-size: 16px;
+    text-transform: none;
+    padding-top: 0px;
 }
 
 .body_title {

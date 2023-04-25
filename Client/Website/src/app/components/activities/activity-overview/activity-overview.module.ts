@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +12,8 @@ import { ActivityOverviewComponent } from './activity-overview.component';
   ],
   imports: [
     CommonModule,
-    MatDividerModule
+    MatDividerModule,
+    LanguageModule
   ],
   exports: [
     ActivityOverviewComponent

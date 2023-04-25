@@ -2,6 +2,7 @@ import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from './../authentication.service';
 import { Component } from '@angular/core';
 import { genders, parseDate, validateEmail, validatePassword } from '../authentication.utility';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class RegisterComponent {
 
   final_page = false;
 
-  constructor (private authentication_service: AuthenticationService, private toast_controller: ToastController) { }
+  constructor (private authentication_service: AuthenticationService, private toast_controller: ToastController, private router: Router) { }
 
 
   register() {
@@ -51,7 +52,7 @@ export class RegisterComponent {
 
         next: result => {
 
-          console.log(result);
+          this.router.navigate(['/'])
 
         }, error: error => {
 

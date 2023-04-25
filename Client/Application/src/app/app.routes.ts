@@ -19,18 +19,28 @@ import { StockDatabaseComponent } from './pages/admin/stock-database/stock-datab
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 import { HomeComponent } from './pages/guest/home/home.component';
+import { GuestChatComponent } from './chat/guest/chat.component';
+import { AdminChatComponent } from './chat/admin/chat/chat.component';
+import { ChatListComponent } from './chat/chat-list/chat-list.component';
 import { AdminGuard } from './guards/admin.guard';
 import { GuestGuard } from './guards/guest.guard';
+import { AdminChatGuard } from './guards/admin.chat.guard';
+import { ChatGuard } from './guards/chat.guard';
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 
 
 
 export const routes: Routes = [
 
-
+  {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full'
+  },
   {
 
     path: 'auth',
+
     children: [
 
       {
@@ -53,13 +63,14 @@ export const routes: Routes = [
   },
 
 
-  //{
+  {
 
-    //path: '',
-    //component: TabsPage,
-    //children: [
+    path: '',
+    component: TabsPage,
+    children: [
       {
         path: 'rooms',
+        canActivate: [GuestGuard],
         children: [
           {
             path: 'browse',
@@ -74,26 +85,32 @@ export const routes: Routes = [
       },
       {
         path: 'home',
+        canActivate: [GuestGuard],
         component: HomeComponent
       },
       {
         path: 'services',
+        canActivate: [GuestGuard],
         component: BrowseServicesComponent
       },
       {
         path: 'restaurant',
+        canActivate: [GuestGuard],
         component: HomeComponent
       },
-      // {
-      //   path: "profile",
-      //   canActivate: [GuestGuard],
-      //   component: ProfileComponent,
-      // },
 
-     {
-      path: 'admin',
-      canActivate:[AdminGuard],
-      children: [
+    ]
+  },
+  // {
+  //   path: "profile",
+  //   canActivate: [GuestGuard],
+  //   component: ProfileComponent,
+  // },
+
+  {
+    path: 'admin',
+    canActivate: [AdminGuard],
+    children: [
       {
 
         path: "",
@@ -152,7 +169,22 @@ export const routes: Routes = [
 
     ]
   },
- 
+  {
+    path: 'support/:id',
+    canActivate: [ChatGuard],
+    component: GuestChatComponent
+  },
+
+  {
+    path: "support",
+    canActivate: [AdminChatGuard],
+    component: ChatListComponent,
+  },
+  {
+    path: "support/:id",
+    canActivate: [AdminChatGuard],
+    component: AdminChatComponent,
+  }
 
 
   //   {

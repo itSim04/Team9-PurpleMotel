@@ -15,7 +15,17 @@ export class GuestGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const user = extractUser();
     if (user) {
-      return true;
+
+      if (user.email_verified_at) {
+
+        return true;
+
+      } else {
+
+        this.authentication.openDialog('verify');
+        return false;
+        
+      }
     } else {
 
       this.router.navigate(['/']);
@@ -23,6 +33,7 @@ export class GuestGuard implements CanActivate {
       return false;
 
     }
+
   }
 
 }

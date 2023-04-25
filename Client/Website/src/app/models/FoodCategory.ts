@@ -1,5 +1,11 @@
-export interface FoodCategory {
+export interface FoodCategoryAttributes {
 
-    label: string
+    label: string,
+    
+}
+
+export interface FoodCategory extends FoodCategoryAttributes {
+
+    image: string,
 
 }

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { Activity } from 'src/app/models/Activity';
-import { RegistrationDatabaseService } from 'src/app/pages/admin/registration-database/registration-database.service';
-import { extractUserId } from '../../database/database.component';
 import { KeyValue } from '@angular/common';
+import { RegistrationDatabaseService } from 'src/app/services/providers/registration-database.service';
+import { extractUserId } from '../../database/database.component';
 
 
 @Component({

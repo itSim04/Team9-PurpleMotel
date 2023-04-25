@@ -23,7 +23,7 @@ export class NewsDatabaseService {
 
         map((response: NewsResponse): NewsPackage => {
 
-          console.log(response);
+          
 
           const news = new Map<string, News>();
 
@@ -34,15 +34,15 @@ export class NewsDatabaseService {
 
           });
 
-          console.log(news);
+          
           response.included.forEach(like => {
 
             const temp = news.get(like.attributes.news_id);
-            console.log(like.attributes.news_id, temp);
+            
 
             if (temp) {
 
-              console.log(like.attributes.user_id, extractUserId())
+              
               if (extractUserId() == like.attributes.user_id) temp.is_liked = true;
 
               temp.likes.push(like.attributes);
