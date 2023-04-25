@@ -36,6 +36,7 @@ import { TabsPage } from "./tabs/tabs.page";
 import { ChatListModule } from "./chat/chat-list/chat-list.module";
 import { RoomsModule } from "./pages/guest/rooms/rooms.module";
 import { RestaurantModule } from "./pages/guest/restaurant/restaurant.module";
+import { ProfileModule } from "./pages/guest/profile/profile.module";
 
 
 
@@ -75,6 +76,7 @@ import { RestaurantModule } from "./pages/guest/restaurant/restaurant.module";
     AdminChatsPageModule,
     ChatListModule,
     HomeModule,
+    ProfileModule,
     RestaurantModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase())

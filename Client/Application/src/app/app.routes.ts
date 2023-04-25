@@ -26,6 +26,7 @@ import { AdminChatGuard } from './guards/admin.chat.guard';
 import { ChatGuard } from './guards/chat.guard';
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse-rooms/browse-rooms.component';
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
+import { ProfileComponent } from './pages/guest/profile/profile.component';
 
 
 
@@ -66,10 +67,17 @@ export const routes: Routes = [
 
     path: '',
     component: TabsPage,
+    canActivate: [GuestGuard],
     children: [
       {
+
+        path: 'profile',
+        component: ProfileComponent
+        
+
+      },
+      {
         path: 'rooms',
-        canActivate: [GuestGuard],
         children: [
           {
             path: 'browse',
@@ -84,17 +92,14 @@ export const routes: Routes = [
       },
       {
         path: 'home',
-        canActivate: [GuestGuard],
         component: HomeComponent
       },
       {
         path: 'services',
-        canActivate: [GuestGuard],
         component: BrowseServicesComponent
       },
       {
         path: 'restaurant',
-        canActivate: [GuestGuard],
         children: [
 
           {
