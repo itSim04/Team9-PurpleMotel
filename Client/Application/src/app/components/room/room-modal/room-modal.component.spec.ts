@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RoomDetailsComponent } from './room-details.component';
+import { RoomDetailsComponent } from './room-modal.component';
 
 describe('RoomDetailsComponent', () => {
   let component: RoomDetailsComponent;

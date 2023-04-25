@@ -10,6 +10,7 @@ import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
 import { extractUser } from '../../database/database.component';
 
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',

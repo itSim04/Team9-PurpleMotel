@@ -1,5 +1,5 @@
 import { TabsPage } from './tabs/tabs.page';
-import { BrowseRoomsPage } from './pages/guest/rooms/browse-rooms/browse-rooms.page';
+import { BrowseRoomsComponent } from './pages/guest/rooms/browse-rooms/browse-rooms.component';
 
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/authentication/login/login.component';
@@ -26,6 +26,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { GuestGuard } from './guards/guest.guard';
 import { AdminChatGuard } from './guards/admin.chat.guard';
 import { ChatGuard } from './guards/chat.guard';
+import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 
 
 
@@ -73,7 +74,7 @@ export const routes: Routes = [
         children: [
           {
             path: 'browse',
-            component: BrowseRoomsPage
+            component: BrowseRoomsComponent
           },
           {
             path: '',
@@ -267,29 +268,29 @@ export const routes: Routes = [
   //     ]
   //   },
   //   {
-
-  //   {
-  //     path: "restaurant",
-  //     children: [
-  //       {
-  //         path: "",
-  //         redirectTo: "browse",
-  //         pathMatch: "full"
-  //       },
-  //       {
-  //          component: MenuComponent,
-  //         path: "menu"
-  //       },
-  //       {
-  //          component: RestaurantLandingComponent,
-  //         path: "browse"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     path: "home",
-  //      component: HomeComponent
-  //   }
+      
+    {
+      path: "restaurant",
+      children: [
+        {
+          path: "",
+          redirectTo: "browse",
+          pathMatch: "full"
+        },
+        // {
+        //    component: MenuComponent,
+        //   path: "menu"
+        // },
+        {
+           component: RestaurantLandingComponent,
+          path: "browse"
+        }
+      ]
+    },
+    {
+      path: "home",
+       component: HomeComponent
+    }
 
 
 

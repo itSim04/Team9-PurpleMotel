@@ -1,23 +1,43 @@
 .title {
 
-    font-family: 'Abhaya Libre';
+    font-family: 'Asap';
     font-style: normal;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 30px;
 
     text-align: center;
     letter-spacing: 0.05em;
 
     padding-top: 32px;
     
-    color: #14274A;
+    color: #000000;
     
 }
+
+hr {
+    background-color: #930000;
+    width: 80%;
+    margin-bottom: 4%;
+}
+
+/* Adjust the CSS of the dialog container element */
+.dialog-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: #FFFFFF;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 50px;
+  }
+  
 
 .content {
     
     padding-bottom: 32px;
-    font-family: 'Montserrat';
+    font-family: 'Asap';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -26,7 +46,7 @@
 
     
 
-    color: #14274A;
+    color: #000000;
 }
 
 .padded {

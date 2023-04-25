@@ -1,30 +1,43 @@
 import { PromoCode } from './../../../models/PromoCode';
 import { KeyValue } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { Router } from '@angular/router';
 import { formatPrice } from '../../database/database.component';
+import { ModalController } from '@ionic/angular';
+import { RoomModalComponent } from '../room-modal/room-modal.component';
 
 @Component({
   selector: 'app-room-item',
   templateUrl: './room-item.component.html',
   styleUrls: ['./room-item.component.scss']
 })
-export class RoomItemComponent {
+export class RoomItemComponent implements OnInit {
+
+  ngOnInit() { }
 
   @Input() room?: KeyValue<string, Room>;
   @Input() room_type?: KeyValue<string, RoomType>;
   @Input() promo?: KeyValue<string, PromoCode>;
 
-  // write a function that generates a random number between 1 and 6 and then returns the number
-  // then use that number to generate the path
-  path = '../../../../assets/room-' + Math.floor(Math.random() * 6 + 1) + '.png';
+  constructor(private modal_ctrl: ModalController) { }
+  async openModal() {
 
-  
+    const modal = await this.modal_ctrl.create({
+      component: RoomModalComponent,
+      componentProps: {
+        key: this.room?.key,
+        data: this.room?.value,
+      }
 
+    });
+    await modal.present();
+  }
 
-  constructor (private router: Router) { }
+  closeModal() {
+    this.modal_ctrl.dismiss();
+  }
 
   get formatPrice(): string {
 
@@ -44,7 +57,6 @@ export class RoomItemComponent {
     }
   }
 
-  route() {
 
     if (this.room) {
 
@@ -56,5 +68,5 @@ export class RoomItemComponent {
 
     }
 
-  }
 }
+

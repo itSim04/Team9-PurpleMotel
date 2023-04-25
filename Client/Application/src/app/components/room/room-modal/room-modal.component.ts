@@ -13,21 +13,26 @@ import { formatPrice, extractUserId } from '../../database/database.component';
 
 
 @Component({
-  selector: 'app-room-details',
-  templateUrl: './room-details.component.html',
-  styleUrls: ['./room-details.component.scss']
+  selector: 'app-room-modal',
+  templateUrl: './room-modal.component.html',
+  styleUrls: ['./room-modal.component.scss']
 })
-export class RoomDetailsComponent {
+export class RoomModalComponent {
 
   @Input() room?: KeyValue<string, Room>;
   @Input() room_type?: KeyValue<string, RoomType>;
   @Input() overview = true;
   @Input() promo?: KeyValue<string, PromoCode>;
 
-  constructor (private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService) { }
+  constructor(private modal_params: NavParams, private modal_ctrl: ModalController, private booking_service: BookingDatabaseService, private snackBar: ToastController) {
+    this.room = {
+      key: modal_params.get('key'),
+      value: modal_params.get('data')
+    }
+   }
 
   get formatOccupancy(): string {
-
+    //console.log('hello');
     return formatOccupancy([this.room_type?.value?.adults_capacity, this.room_type?.value?.adults_with_kids_capacity, this.room_type?.value?.kids_capacity]);
 
   }
@@ -49,6 +54,19 @@ export class RoomDetailsComponent {
     }
   }
 
+  closeModal() {
+    this.modal_ctrl.dismiss()
+  }
+
+  async display_toast(body: string) {
+    
+    const toast = await this.snackBar.create({
+      message: body,
+      duration: 1500,
+      position: 'bottom'
+    });
+  
+    await toast.present();
   addBooking(range: { check_in: Date, check_out: Date; }) {
 
     const user_id = extractUserId();
