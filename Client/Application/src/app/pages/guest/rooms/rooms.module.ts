@@ -2,6 +2,7 @@ import { RoomItemModule } from './../../../components/room/room-item/room-item.m
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LanguageModule } from 'src/app/services/language/language.module';
 
 
 
@@ -10,7 +11,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     IonicModule.forRoot(),
-    RoomItemModule
+    RoomItemModule,
+    LanguageModule
   ]
 })
 export class RoomsModule { }

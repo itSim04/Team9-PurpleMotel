@@ -2,11 +2,11 @@
 
     <div class="header">
         <ion-text class="title">
-            This is it.
+            {{"This is it." | translate}}
         </ion-text>
     </div>
 
-    <h1 class="activities-header">Activities</h1>
+    <h1 class="activities-header">{{"Activities" | translate}}</h1>
 
     <div *ngFor="let activity of activities | keyvalue: activity_key; let i = index">
         <app-activities [activity]="{ key: activity.key, value: activity.value }" 
@@ -14,7 +14,7 @@
 
     </div>
 
-    <h1 class="activities-header">Facilities</h1>
+    <h1 class="activities-header">{{"Facilities" | translate}}</h1>
     <div *ngFor="let facility of facilities | keyvalue: facility_key; let i = index">
         <app-facilities [facility]="facility.value"[title]="facility.value.title"></app-facilities>
 

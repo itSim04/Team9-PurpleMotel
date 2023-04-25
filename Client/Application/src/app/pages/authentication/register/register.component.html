@@ -3,26 +3,26 @@
 
     <ng-container *ngIf="!final_page">
 
-        <ion-text class="title">Sign Up</ion-text>
+        <ion-text class="title">{{"Sign Up" | translate}}</ion-text>
         <ion-input [(ngModel)]="email" placeholder="Name" class="input"></ion-input>
         <ion-input [(ngModel)]="email" placeholder="Last Name" class="input"></ion-input>
         <ion-input [(ngModel)]="email" placeholder="Email" class="input"></ion-input>
         <ion-input [(ngModel)]="email" placeholder="Phone Number" class="input"></ion-input>
-        <ion-button (click)="final_page = true" class="register">Next</ion-button>
-        <ion-text class="login">Already have an Account? <a [routerLink]="['../login']"
-                class="login-button">Sign-in</a></ion-text>
+        <ion-button (click)="final_page = true" class="register">{{"Next" | translate}}</ion-button>
+        <ion-text class="login">{{"Already have an Account?" | translate}} <a [routerLink]="['../login']"
+                class="login-button">{{"Sign-in" | translate}}</a></ion-text>
 
     </ng-container>
     <ng-container *ngIf="final_page">
 
-        <ion-text class="title">Sign Up</ion-text>
+        <ion-text class="title">{{"Sign Up" | translate}}</ion-text>
         <ion-input [(ngModel)]="email" placeholder="Password" class="input"></ion-input>
         <ion-input [(ngModel)]="email" placeholder="Confirm Password" class="input"></ion-input>
         <ion-input [(ngModel)]="email" placeholder="Date of Birth" class="input"></ion-input>
         <ion-input [(ngModel)]="email" placeholder="Gender" class="input"></ion-input>
-        <ion-button (click)="final_page = true" class="register" (click)="register()">Sign up</ion-button>
-        <ion-text class="login">Already have an Account? <a [routerLink]="['../login']"
-                class="login-button">Sign-in</a></ion-text>
+        <ion-button (click)="final_page = true" class="register" (click)="register()">{{"Sign up" | translate}}</ion-button>
+        <ion-text class="login">{{"Already have an Account?" | translate}} <a [routerLink]="['../login']"
+                class="login-button">{{"Sign-in" | translate}}</a></ion-text>
 
     </ng-container>
 </div>

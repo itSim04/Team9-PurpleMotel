@@ -6,6 +6,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
+import { LanguageModule } from 'src/app/services/language/language.module';
 
 @NgModule({
   
@@ -13,7 +14,8 @@ import { RegisterComponent } from "./register/register.component";
     CommonModule,
     FormsModule,
     IonicModule.forRoot(),
-    RouterModule
+    RouterModule,
+    LanguageModule
   ],
   providers: [
     AuthenticationService,

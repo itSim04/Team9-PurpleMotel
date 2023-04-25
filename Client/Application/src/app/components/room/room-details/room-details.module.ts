@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoomDetailsComponent } from './room-details.component';
 import { CalendarModule } from '../calendar/calendar.module';
+import { LanguageModule } from 'src/app/services/language/language.module';
 
 
 
@@ -19,6 +20,7 @@ import { CalendarModule } from '../calendar/calendar.module';
     MatDividerModule,
     MatProgressSpinnerModule,
     CalendarModule,
+    LanguageModule
   ],
   exports: [
     RoomDetailsComponent
