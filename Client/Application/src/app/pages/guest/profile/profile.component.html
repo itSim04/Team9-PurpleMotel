@@ -11,7 +11,7 @@
 
     </div>
 
-    <div style="display: flex;  overflow-x: scroll;">
+    <div style="display: flex;  overflow-x: scroll">
 
         <div style="flex-wrap: nowrap; position: relative;" *ngFor="let order of orders | keyvalue">
 
@@ -21,4 +21,22 @@
             </ng-container>
         </div>
     </div>
+
+    <ion-segment (ionChange)="onSegmentChange($event)">
+        <div [style.borderBottomColor]="selected == 'rooms' ? 'var(--ion-color-primary)' : '#B1B8C3'" style="border-bottom: 1px solid var(--ion-color-primary); width: 50%; margin: 0; transition: all 250ms ease-in-out;">
+
+            <ion-segment-button value="rooms">
+                <img style="transition: all 500ms ease-in-out;" height="50%"
+                    [src]="selected != 'rooms' ?  '../../../../assets/profile-pics/room-segment.png' : '../../../../assets/profile-pics/room-segment-active.png'">
+            </ion-segment-button>
+        </div>
+        <div [style.borderBottomColor]="selected == 'services' ? 'var(--ion-color-primary)' : '#B1B8C3'" style="width: 50%; margin: 0; border-bottom: 1px solid var(--ion-color-primary); transition: all 250ms ease-in-out;">
+
+            <ion-segment-button value="services">
+                <img style="transition: all 500ms ease-in-out;" height="50%"
+                    [src]="selected != 'services' ?  '../../../../assets/profile-pics/services-segment.png' : '../../../../assets/profile-pics/services-segment-active.png'">
+            </ion-segment-button>
+        </div>
+    </ion-segment>
+
 </div>

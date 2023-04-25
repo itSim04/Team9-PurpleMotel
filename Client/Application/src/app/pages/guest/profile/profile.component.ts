@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
     return '../../../../assets/food-' + ((index % 8) + 1) + '.jpg';
   }
 
-  constructor (private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService) {
+  constructor(private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService) {
 
     const user = extractUser()!;
 
@@ -217,5 +217,18 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/home']);
 
 
+  }
+
+  selected: 'rooms' | 'services' = 'rooms';
+
+  onSegmentChange(event: any) {
+    
+    const selectedValue = event.detail.value;
+
+    if (selectedValue === 'rooms') {
+      this.selected = 'rooms';
+    } else if (selectedValue === 'services') {
+      this.selected = 'services'
+    }
   }
 }

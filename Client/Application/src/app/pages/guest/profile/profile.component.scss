@@ -57,12 +57,35 @@
     width: 50%
 }
 
-.order-imgs{
+.order-imgs {
     width: 100px;
     height: 100px;
     object-fit: cover;
     margin: 16px;
-    // padding: 4px;
     border-radius: 50px;
     overflow-x: auto;
+}
+
+ion-segment {
+
+    --border-radius: 0px;
+    --border: 0px;
+    --background: white;
+
+}
+
+.segment-btn {
+
+    border: 0px;
+
+}
+
+ion-segment-button {
+
+    box-shadow: none;
+    --background-focused: transparent;
+    --border-radius-focused: 0;
+    border: none;
+    --indicator-box-shadow: 0;
+    transition: all 250ms ease-in-out;
 }
