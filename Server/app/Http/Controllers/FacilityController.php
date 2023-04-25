@@ -13,8 +13,8 @@ class FacilityController extends Controller
     protected $model_name = 'Facilities';
     protected $options = [
 
-        'title' =>'required|string',
-        'description' =>'required|string|max:255'
+        'title' => 'required|string',
+        'description' => 'required|string|max:255'
     ];
 
     /**
@@ -22,7 +22,15 @@ class FacilityController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource);
+
+        $facilities = Facility::all();
+
+        foreach ($facilities->pluck('id') as $id) {
+
+            $images['facilities'][$id] = extractImages('Facility', $id);
+        }
+
+        return generateResponse(200, FacilityResource::collection($facilities), [], false, $images);
     }
 
     /**
@@ -38,8 +46,11 @@ class FacilityController extends Controller
      */
     public function show(int $id)
     {
+        $facilities = Facility::find($id);
 
-        return showTemplate($this->model, $this->resource, $id);
+        $images['facilities'][$id] = extractImages('Facility', $id);
+
+        return generateResponse(200, new FacilityResource($facilities), [], false, $images);
     }
 
     /**
@@ -47,7 +58,7 @@ class FacilityController extends Controller
      */
     public function update(Request $request, string $activity_id)
     {
-       
+
         return updateTemplate($request, $this->model, $activity_id, $this->resource, $this->options, $this->model_name);
     }
 

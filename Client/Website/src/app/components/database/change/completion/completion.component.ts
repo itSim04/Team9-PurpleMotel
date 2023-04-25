@@ -22,7 +22,6 @@ export class CompletionComponent<Data extends { [key: string]: string | boolean 
   @Input() @Required outer_data: Map<string, unknown>[] | undefined;
   @Input() @Required uniqueness: boolean = true;
 
-
   formatLabel(word: string | number | symbol) {
 
     if (!word) return word;

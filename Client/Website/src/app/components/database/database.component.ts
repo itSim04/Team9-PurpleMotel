@@ -13,10 +13,10 @@ export function formatDate(date: Date): string {
 
   let minutes: string = String(date.getMinutes());
   let hours: number = date.getHours() % 12;
-  if(hours == 0) hours = 12;
+  if (hours == 0) hours = 12;
 
   if (minutes.length == 1) {
-      minutes = 0 + minutes;
+    minutes = 0 + minutes;
   }
 
   return hours + ":" + minutes + (date.getHours() > 11 ? " PM" : " AM");
@@ -532,6 +532,8 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
         }, error: error => {
 
+          console.error(error);
+
           if (error.status == 401) {
 
             localStorage.removeItem('token');
@@ -585,6 +587,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
         }, error: error => {
 
+          console.error(error);
 
           if (error.status == 401) {
 

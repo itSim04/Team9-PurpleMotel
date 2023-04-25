@@ -132,7 +132,7 @@ export interface Field<Data> {
 
     raw?: boolean;
     unique?: boolean;
-    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices' | 'toggle';
+    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices' | 'toggle' | 'image';
     choices?: Choices; // Can only be used with selection and choices.
     outer_choices?: OuterChoices; // Can only be used with outer selection.
     condition?: (data: unknown) => boolean; // When to consider the value as satisfied. Not required with Text and Number
@@ -196,7 +196,7 @@ export interface ChangeInjection<Data> {
         default_value: unknown;
 
     };
-    side_panel: 'images' | 'permissions' | 'empty' | 'table';
+    side_panel: 'images' | 'image' | 'mixed' | 'permissions' | 'empty' | 'table';
     data_type: string; // Type of Data
     standalone_field?: Field<Data>; // The Field that appears alone
     toggle?: Toggle<Data>; // A button that appears in the lower area

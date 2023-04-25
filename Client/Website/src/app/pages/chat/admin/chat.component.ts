@@ -26,13 +26,15 @@ export class ChatsPageComponent implements OnInit {
   active_guests: KeyValue<string, User>[] = [];
   active_last_messages: { lastDate: string, lastMessage: string; }[] = [];
 
+  active_ids: string[] = [];
+
   hovered_id = -1;
 
   session_user!: KeyValue<string, User>; // The logged in user
 
   db: Database = getDatabase(); // Instance of firebase
-  id?: string; // The id of the chat (x-y)
-  chat?: Chat; // The chat this class holds
+  id!: string; // The id of the chat (x-y)
+  chat: Map<string, Chat> = new Map(); // The chat this class holds
   constructor (private router: Router, private database: Database, private userService: UserDatabaseService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -98,87 +100,75 @@ export class ChatsPageComponent implements OnInit {
 
     this.loading = true;
 
-    this.chat = {
 
-      user_1: this.session_user,
-      user_2: this.all_users.getPair(this.id!)!,
-      lastMessage: {
-
-        content: '',
-        owner_id: '-1',
-        date: new Date()
-
-      },
-      messages: [],
-      start: new Date()
-
-    };
 
     const commentsRef = ref(this.db, 'messages/' + this.id);
-    onChildAdded(commentsRef, (snapshot) => {
+
+    console.log(this.id, this.active_ids, this.active_ids.indexOf(this.id!));
+    if (this.id && this.active_ids.indexOf(this.id) == -1) {
+
+      this.chat.set(this.id!, {
+
+        user_1: this.session_user,
+        user_2: this.all_users.getPair(this.id!)!,
+        lastMessage: {
+
+          content: '',
+          owner_id: '-1',
+          date: new Date()
+
+        },
+        messages: [],
+        start: new Date()
+
+      });
+
+      this.active_ids.push(this.id);
+      onChildAdded(commentsRef, (snapshot) => {
+
+        this.loading = false;
+
+        const data = snapshot.val();
+
+        if (data["sender"] == this.session_user.key || data["sender"] == this.id) {
+
+          // console.log(data["sender"], this.session_user.key, this.id)
+
+          const message = {
+
+            content: data["message"],
+            date: new Date(data["timestamp"]),
+            owner_id: data["sender"]
+
+          };
+          this.chat.get(this.id)!.messages.push(message);
+
+          this.chat.get(this.id)!.lastMessage = message;
+
+
+
+          setTimeout(() => {
+
+
+            this.container.nativeElement.scrollTo({ left: 0, top: this.container.nativeElement.scrollHeight, behavior: 'smooth' });
+
+          });
+        }
+
+      });
+    } else {
 
       this.loading = false;
 
-      const data = snapshot.val();
-
-      if (data["sender"] == this.session_user.key || data["sender"] == this.id) {
-
-        // console.log(data["sender"], this.session_user.key, this.id)
-        this.chat?.messages.push({
-
-          content: data["message"],
-          date: new Date(data["timestamp"]),
-          owner_id: data["sender"]
-
-
-        });
-
-        setTimeout(() => {
-
-
-          this.container.nativeElement.scrollTo({ left: 0, top: this.container.nativeElement.scrollHeight, behavior: 'smooth' });
-
-        });
-      }
-
-    });
+    }
 
   }
 
-  
+
   isSpecial(str: string): boolean {
-    const emojiRegex = /^\p{Emoji}$/u // regular expression to match a single Unicode emoji
+    const emojiRegex = /^\p{Emoji}$/u; // regular expression to match a single Unicode emoji
     return emojiRegex.test(str.trim());
   }
-
-
-
-
-
-
-
-
-
-
-  // seperateOwner(id: string): string {
-
-  //   // Analyzes the ID and returns the other user's id
-
-  //   if (id.split('-')[0] == String(this.session_user.key)) {
-
-  //     return id.split('-')[1];
-
-  //   }
-
-  //   if (id.split('-')[1] == String(this.session_user.key)) {
-
-  //     return id.split('-')[0];
-
-  //   }
-
-  //   throw new Error("Illegal argument Exception");
-  // }
-
 
   routeTo(id: string) {
 
@@ -270,11 +260,11 @@ export class ChatsPageComponent implements OnInit {
   // Defines border logic for messages
   topLeft(c: Message, i: number) {
 
-    if (i == 0 || this.formatDate(this.chat?.messages![i - 1].date!) != this.formatDate(c.date) || c.owner_id == this.session_user.key) {
+    if (i == 0 || this.formatDate(this.chat.get(this.id)?.messages![i - 1].date!) != this.formatDate(c.date) || c.owner_id == this.session_user.key) {
 
       return '20px';
 
-    } else if (i > 0 && this.chat?.messages![i - 1].owner_id == c.owner_id) {
+    } else if (i > 0 && this.chat.get(this.id)?.messages![i - 1].owner_id == c.owner_id) {
 
       return '5px';
 
@@ -288,11 +278,11 @@ export class ChatsPageComponent implements OnInit {
 
   bottomRight(c: Message, i: number) {
 
-    if (i == this.chat?.messages!.length! - 1 || this.formatDate(this.chat?.messages![i + 1].date!) != this.formatDate(c.date) || c.owner_id != this.session_user.key) {
+    if (i == this.chat.get(this.id)?.messages!.length! - 1 || this.formatDate(this.chat.get(this.id)?.messages![i + 1].date!) != this.formatDate(c.date) || c.owner_id != this.session_user.key) {
 
       return '20px';
 
-    } else if (i < this.chat?.messages!.length! - 1 && this.chat?.messages![i + 1].owner_id == c.owner_id) {
+    } else if (i < this.chat.get(this.id)?.messages!.length! - 1 && this.chat.get(this.id)?.messages![i + 1].owner_id == c.owner_id) {
 
       return '5px';
 
@@ -305,11 +295,11 @@ export class ChatsPageComponent implements OnInit {
 
   bottomLeft(c: Message, i: number) {
 
-    if (i == this.chat?.messages!.length! - 1 || this.formatDate(this.chat?.messages![i + 1].date!) != this.formatDate(c.date) || c.owner_id == this.session_user.key) {
+    if (i == this.chat.get(this.id)?.messages!.length! - 1 || this.formatDate(this.chat.get(this.id)?.messages![i + 1].date!) != this.formatDate(c.date) || c.owner_id == this.session_user.key) {
 
       return '20px';
 
-    } else if (i < this.chat?.messages!.length! - 1 && this.chat?.messages![i + 1].owner_id == c.owner_id) {
+    } else if (i < this.chat.get(this.id)?.messages!.length! - 1 && this.chat.get(this.id)?.messages![i + 1].owner_id == c.owner_id) {
 
       return '5px';
 
@@ -322,11 +312,11 @@ export class ChatsPageComponent implements OnInit {
 
   topRight(c: Message, i: number) {
 
-    if (i == 0 || this.formatDate(this.chat?.messages![i - 1].date!) != this.formatDate(c.date) || c.owner_id != this.session_user.key) {
+    if (i == 0 || this.formatDate(this.chat.get(this.id)?.messages![i - 1].date!) != this.formatDate(c.date) || c.owner_id != this.session_user.key) {
 
       return '20px';
 
-    } else if (i > 0 && this.chat?.messages![i - 1].owner_id == c.owner_id) {
+    } else if (i > 0 && this.chat.get(this.id)?.messages![i - 1].owner_id == c.owner_id) {
 
       return '5px';
 

@@ -1,7 +1,7 @@
 <div class="activities-container">
     <div class="pic-container">
 
-        <img class="details-pic" src="../../../../assets/party.png">
+        <img class="details-pic" [src]="activity?.image?.at(0)" onerror="this.src='assets/placeholder.png'">
     </div>
  
     <div class="activity-info">

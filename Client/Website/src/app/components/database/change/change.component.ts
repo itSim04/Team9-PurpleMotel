@@ -141,7 +141,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   }
 
   modification_mode = false;
-  side_panel: 'images' | 'permissions' | 'empty' | 'table';
+  side_panel: 'images' | 'permissions' | 'empty' | 'table' | 'image' | 'mixed';
   data: Data;
   data_type: string;
   standalone_field?: Field<Data>;
@@ -195,8 +195,8 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
     borderRadius: '4px',
     language: 'en',
-    width: '32vw',
-    height: '48vh',
+    width: '30vw',
+    height: '30vh',
     aspectRatio: 8 / 6,
     hideAddBtn: true,
 
@@ -251,16 +251,30 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     if (injected_data.injection.affected_data) {
 
       this.old_data = injected_data.injection.affected_data;
-      image_service.browseImages(this.data_type, this.old_data?.key!).subscribe((result) => {
+      image_service.browseImages(this.data_type, this.old_data?.key!).subscribe({
 
-        console.log(result);
-        this.images = result.data;
-        this.images.push({
+        next: (result) => {
 
-          filename: '',
-          base64: ''
+          console.log(result);
 
-        });
+          if (result.data)
+            this.images = result.data;
+
+          
+          this.images.push({
+
+            filename: '',
+            base64: ''
+
+          });
+        },
+
+        error: (error) => {
+
+          console.log(error);
+
+        }
+
 
       });
 

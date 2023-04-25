@@ -116,6 +116,10 @@ export class FoodDatabaseComponent {
 
     fields: [
       {
+        key: 'image',
+        type: 'image'
+      },
+      {
         key: 'label',
         type: 'text'
       },
@@ -137,7 +141,7 @@ export class FoodDatabaseComponent {
 
         },
         condition: (choice) => choice != '-1'
-      }
+      },
     ],
 
     toggle:
@@ -182,7 +186,7 @@ export class FoodDatabaseComponent {
       type: 'text'
 
     },
-    side_panel: 'images',
+    side_panel: 'image',
     add_service: category => this.food_service.addNewFoodCategory(category),
     modify_service: (key, data) => this.food_service.modifyFoodCategory(key, data),
     delete_service: key => this.food_service.deleteFoodCategory(key),
