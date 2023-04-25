@@ -20,9 +20,11 @@
     height: 80px;
 }
 
+.send-area:focus{
+    outline: none;
+}
 .send-area {
-
-    background-color: #D6B389CC;
+    background-color: transparent;
     width: 95%;
     border: transparent;
     padding: 16px;
@@ -32,6 +34,7 @@
     color: white;
     font-size: 18px;
     line-height: 22px;
+    width: calc(100% - 80px);
 }
 
 .send-area::placeholder {
@@ -58,8 +61,6 @@
     color: white;
     font-size: 18px;
     line-height: 22px;
-    // --padding-start: 10px;
-    // border-radius: 50px;
 
 }
 
@@ -135,7 +136,7 @@
     font-size: 20px;
     line-height: 24px;
 
-    
+
     color: #FFFFFF;
 }
 
@@ -148,4 +149,10 @@
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+}
+
+.send-img {
+    position: absolute;
+    top: 8px;
+    right: 20px;
 }
