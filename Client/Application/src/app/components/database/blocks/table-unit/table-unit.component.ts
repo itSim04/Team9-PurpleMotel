@@ -7,7 +7,6 @@ import { DataInjection } from 'src/app/models/Database';
 import { extractPermission, Required } from '../../database.component';
 import { KeyValue } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AddDialogControllerService } from 'src/app/services/dialogs/add/add-dialog-controller.service';
 
 @Component({
   selector: 'app-table-unit',
@@ -27,12 +26,14 @@ export class TableUnitComponent<Data, Data2> {
   @Input() @Required extra_data_map: Map<string, Data2> | undefined = new Map();
   @Input() @Required loading = false;
 
+  @Input() @Required error = false;
+
   @Input() outer_data: Map<unknown, unknown>[] | undefined;
 
   @Output() download: EventEmitter<void> = new EventEmitter();
   @Output() hover: EventEmitter<[string, Data | undefined]> = new EventEmitter();
 
-  constructor (private add_service: AddDialogControllerService, private snackbar: MatSnackBar) { }
+  constructor (private snackbar: MatSnackBar) { }
 
   displayAdd() {
 
@@ -41,17 +42,17 @@ export class TableUnitComponent<Data, Data2> {
       if (this.change_injection) {
 
         this.change_injection.affected_data = undefined;
-        const dialogRef = this.add_service.openDialog<Data>(ChangeComponent, this.change_injection, this.extra_data_map, this.data_injection.permission, this.outer_data);
-        dialogRef.afterClosed().subscribe((result: KeyValue<string, Data>) => {
+        // const dialogRef = this.add_service.openDialog<Data>(ChangeComponent, this.change_injection, this.data_map, this.extra_data_map, this.data_injection.permission, this.outer_data);
+        // dialogRef.afterClosed().subscribe((result: KeyValue<string, Data>) => {
 
-          if (result) {
+        //   if (result) {
 
-            this.data_map.set(result.key, result.value);
-            this.data.push([result.key, result.value]);
-            this.filtered_data.data = this.data;
+        //     this.data_map.set(result.key, result.value);
+        //     this.data.push([result.key, result.value]);
+        //     this.filtered_data.data = this.data;
 
-          }
-        });
+        //   }
+        // });
 
       }
 
@@ -70,27 +71,27 @@ export class TableUnitComponent<Data, Data2> {
 
       this.change_injection.affected_data = { key: data[0], value: data[1] as Data };
 
-      const dialogRef = this.add_service.openDialog<Data>(ChangeComponent, this.change_injection, this.extra_data_map, this.data_injection.permission, this.outer_data);
-      dialogRef.afterClosed().subscribe(result => {
+      // const dialogRef = this.add_service.openDialog<Data>(ChangeComponent, this.change_injection, this.data_map, this.extra_data_map, this.data_injection.permission, this.outer_data);
+      // dialogRef.afterClosed().subscribe(result => {
 
 
-        const index = this.data.findIndex(t => t[0] == data[0]);
+      //   const index = this.data.findIndex(t => t[0] == data[0]);
 
-        if (result) {
+      //   if (result) {
 
-          if (result.value) {
+      //     if (result.value) {
 
-            this.data[index] = ([result.key, result.value]);
-            this.filtered_data.data = this.data;
+      //       this.data[index] = ([result.key, result.value]);
+      //       this.filtered_data.data = this.data;
 
-          } else {
+      //     } else {
 
-            this.data.splice(index, 1);
-            this.filtered_data.data = this.data;
+      //       this.data.splice(index, 1);
+      //       this.filtered_data.data = this.data;
 
-          }
-        }
-      });
+      //     }
+      //   }
+      // });
 
     }
 

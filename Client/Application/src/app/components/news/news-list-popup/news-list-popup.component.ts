@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { extractUserId } from '../../database/database.component';
-import { NewsDatabaseService } from 'src/app/pages/admin/news-database/news-database.service';
+import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
 
 export interface NewsPopup{
   id: string;

@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Activity } from 'src/app/models/Activity';
 import { Registration } from 'src/app/models/Registration';
-import { formatPrice } from '../database/database.component';
 import { ModalController } from '@ionic/angular';
 import { ActivitiesModalComponent } from './activities-modal/activities-modal.component';
 import { KeyValue } from '@angular/common';
+import { formatPrice } from '../database/database.component';
 
 
 

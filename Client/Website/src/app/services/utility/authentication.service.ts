@@ -1,14 +1,14 @@
-import { UrlBuilderService } from './url-builder.service';
-import { ForgotPasswordComponent } from './../dialogs/authentication/forgot-password/forgot-password.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs';
 import { UserCredentials, UserResponse, UserInformation } from 'src/app/models/User';
+import { ForgotPasswordComponent } from '../dialogs/authentication/forgot-password/forgot-password.component';
 import { LoginComponent } from '../dialogs/authentication/login/login.component';
 import { RegisterComponent } from '../dialogs/authentication/register/register.component';
 import { VerifyComponent } from '../dialogs/authentication/verify/verify.component';
+import { UrlBuilderService } from './url-builder.service';
 
 
 
@@ -66,7 +66,6 @@ export class AuthenticationDialogService {
   }
 
   login(user: UserCredentials) {
-
 
     return this.http.post<UserResponse>("http://127.0.0.1:8000/api/v1/auth/login", user).pipe(
 

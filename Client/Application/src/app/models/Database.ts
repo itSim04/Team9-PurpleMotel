@@ -13,6 +13,7 @@ export interface Column<Data> {
     link?: {
 
         key: keyof Data,
+        format_index?: string,
         format: (value: unknown, org?: Data) => string; // 'Unknown' represents the Linked data (aka the other Table's data)
 
     }; // Exclusively used with Link
@@ -32,7 +33,7 @@ export interface ExtraColumn {
 
 
     key: string,
-    type?: 'text' | 'selection';
+    type?: 'text' | 'selection' | 'boolean';
     custom?: (data: Data) => string; // Exclusively used with Custom
 
     header_alt?: string; // An alternative name for a header
@@ -129,10 +130,14 @@ export interface Field<Data> {
     key: keyof Data, // Key of the field
     readonly?: boolean,
 
-    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices';
+    raw?: boolean;
+    unique?: boolean;
+    type: 'text' | 'positive_digits_string' | 'digits_string' | 'selection' | 'choices' | 'number' | 'date' | 'outer_selection' | 'outer_choices' | 'toggle' | 'image';
     choices?: Choices; // Can only be used with selection and choices.
     outer_choices?: OuterChoices; // Can only be used with outer selection.
     condition?: (data: unknown) => boolean; // When to consider the value as satisfied. Not required with Text and Number
+
+    condition_label?: string;
     formatting?: (data: Data) => string; // The way to display the value. NOT used
 }
 export interface Toggle<Data> {
@@ -170,6 +175,7 @@ export interface ChangeInjection<Data> {
     affected_data?: KeyValue<string, Data>; // Old Data
 
 
+    size?: number;
 
     modification_rule?: (data: Data) => boolean;
     permissions?: {
@@ -187,13 +193,15 @@ export interface ChangeInjection<Data> {
 
         columns: ExtraColumn[];
         key: keyof Data;
+        default_value: unknown;
 
-    }
-    side_panel: 'images' | 'permissions' | 'empty' | 'table';
+    };
+    side_panel: 'images' | 'image' | 'mixed' | 'permissions' | 'empty' | 'table';
     data_type: string; // Type of Data
     standalone_field?: Field<Data>; // The Field that appears alone
     toggle?: Toggle<Data>; // A button that appears in the lower area
     fields: Field<Data>[]; // The normal Fields
+
     static_fields?: StaticField<Data>[]; // Fields that do not change
     readonly default_state: Data; // The initial state of the Data
     add_service: (data: Data) => Observable<string>;

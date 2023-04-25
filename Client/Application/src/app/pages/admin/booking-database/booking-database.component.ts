@@ -1,12 +1,11 @@
-import { Component } from "@angular/core";
-import { map } from "rxjs";
-import { Booking } from "src/app/models/Booking";
-import { DataInjection, ChangeInjection } from "src/app/models/Database";
-import { Room } from "src/app/models/Room";
-import { User } from "src/app/models/User";
-import { parseDate } from "../../authentication/authentication.utility";
-import { BookingDatabaseService } from "./booking-database.service";
-
+import { Room } from 'src/app/models/Room';
+import { User } from 'src/app/models/User';
+import { Component } from '@angular/core';
+import { Booking } from 'src/app/models/Booking';
+import { ChangeInjection, DataInjection } from 'src/app/models/Database';
+import { map } from 'rxjs';
+import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
+import { parseDate } from '../../authentication/authentication.utility';
 
 @Component({
   selector: 'app-booking-database',
@@ -65,6 +64,7 @@ export class BookingDatabaseComponent {
   change_injection: ChangeInjection<Booking> = {
     side_panel: 'empty',
     default_state: {
+      promo_id: '0',
       check_in: parseDate(new Date()),
       end_date: parseDate(new Date()),
       exhausted: false,

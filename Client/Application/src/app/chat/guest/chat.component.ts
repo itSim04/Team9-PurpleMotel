@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { extractUserId, formatDate } from "src/app/components/database/database.component";
 import { Chat, Message } from "src/app/models/Chat";
 import { User, extractSessionUser } from "src/app/models/User";
-import { UserDatabaseService } from "src/app/pages/admin/user-database/user-database.service";
+import { UserDatabaseService } from "src/app/services/providers/user-database.service";
 
 
 
@@ -27,7 +27,7 @@ export class GuestChatComponent implements OnInit {
   session_user!: KeyValue<string, User>; // The logged in user
 
   db: Database = getDatabase(); // Instance of firebase
-  id?: string; // The id of the chat (x-y)
+  id!: string; // The id of the chat (x-y)
   chat?: Chat; // The chat this class holds
   constructor(private router: Router, private database: Database, private userService: UserDatabaseService, private route: ActivatedRoute) { }
 

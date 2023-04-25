@@ -5,14 +5,13 @@ import { DatabaseModule } from 'src/app/components/database/database.module';
 
 
 
-
 @NgModule({
   declarations: [
     StockDatabaseComponent
   ],
   imports: [
     CommonModule,
-    DatabaseModule,
+    DatabaseModule
   ]
 })
 export class StockDatabaseModule { }

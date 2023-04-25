@@ -1,10 +1,7 @@
-import { QuickDialogService } from './../../../../services/dialogs/quick/quick.service';
-import { QuickDialogModule } from './../../../../services/dialogs/quick/quick.module';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Data } from '@angular/router';
 import { Button, Column, DataInjection } from 'src/app/models/Database';
 import { formatPrice, formatWord, Required } from '../../database.component';
 
@@ -22,6 +19,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   @Input() @Required filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
   @Input() @Required extra_data: [string, Data2][] | undefined = [];
   @Input() @Required loading: boolean = false;
+  @Input() @Required error: boolean = false;
 
   @Input() outer_data: Map<unknown, unknown>[] | undefined;
 
@@ -32,9 +30,10 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+
   hovered = '-1';
 
-  constructor (private quick_controller: QuickDialogService) { }
+  constructor () { }
   ngAfterViewInit(): void {
 
     this.filtered_data.paginator = this.paginator;
@@ -48,18 +47,18 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
 
       case 'input':
 
-        const dialogRef = this.quick_controller.openDialog(button.title, button.prompt, 'Ok', 'Cancel');
-        dialogRef.afterClosed().subscribe(result => {
+        // const dialogRef = this.quick_controller.openDialog(button.title, button.prompt, 'Ok', 'Cancel');
+        // dialogRef.afterClosed().subscribe(result => {
 
-          if (result) {
+        //   if (result) {
 
-            const goal = button.format(data[1], result);
-            (data[1][button.concerned_data] as string) = goal;
-            button.updater(data[0], data[1]).subscribe();
+        //     const goal = button.format(data[1], result);
+        //     (data[1][button.concerned_data] as string) = goal;
+        //     button.updater(data[0], data[1]).subscribe();
 
-          }
-        });
-        break;
+        //   }
+        // });
+        // break;
 
     }
 

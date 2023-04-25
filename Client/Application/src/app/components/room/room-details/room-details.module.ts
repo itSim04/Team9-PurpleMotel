@@ -1,8 +1,11 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDividerModule } from '@angular/material/divider';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoomDetailsComponent } from './room-details.component';
-// import { CalendarModule } from '../calendar/calendar.module';
+import { CalendarModule } from '../calendar/calendar.module';
 
 
 
@@ -13,7 +16,9 @@ import { RoomDetailsComponent } from './room-details.component';
   imports: [
     CommonModule,
     IonicModule.forRoot(),
-    // CalendarModule
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    CalendarModule,
   ],
   exports: [
     RoomDetailsComponent

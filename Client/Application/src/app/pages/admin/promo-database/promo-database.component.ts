@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { map } from 'rxjs';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { Room } from 'src/app/models/Room';
 import { User } from 'src/app/models/User';
 import { UserType } from 'src/app/models/UserType';
+import { Room } from 'src/app/models/Room';
+import { PromoDatabaseService } from 'src/app/services/providers/promo-database.service';
 import { parseDate } from '../../authentication/authentication.utility';
-import { PromoDatabaseService } from './promo-database.service';
 
 @Component({
   selector: 'app-promo-database',
@@ -26,6 +26,9 @@ export class PromoDatabaseComponent {
         key: 'change'
       },
       {
+        key: 'code'
+      },
+      {
         key: 'start_date'
       },
       {
@@ -39,7 +42,10 @@ export class PromoDatabaseComponent {
   change_injection: ChangeInjection<PromoCode> = {
 
     side_panel: 'empty',
+    size: 2,
     default_state: {
+      exhausted: false,
+      code: '',
       concerned_everyone: false,
       concerned_everything: false,
       concerned_room_types: [],
@@ -57,7 +63,12 @@ export class PromoDatabaseComponent {
     fields: [
       {
         key: 'change',
-        type: 'text'
+        type: 'number'
+      },
+      {
+        key: 'code',
+        type: 'text',
+        unique: true
       },
       {
         key: 'start_date',
@@ -106,12 +117,22 @@ export class PromoDatabaseComponent {
           format: (data) => (data as RoomType).label
 
         }
+      },
+      {
+        key: 'concerned_everyone',
+        type: 'toggle',
+        condition: () => true
+      },
+      {
+        key: 'concerned_everything',
+        type: 'toggle',
+        condition: () => true
       }
     ],
     add_service: promo_code => this.promo_code_service.addNewPromoCode(promo_code),
     modify_service: (key, data) => this.promo_code_service.modifyPromoCode(key, data),
     delete_service: key => this.promo_code_service.deletePromoCode(key),
-    identifier: (data) => '' + data.change,
+    identifier: (data) => data.code,
   };
 
 }

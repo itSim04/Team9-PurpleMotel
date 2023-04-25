@@ -1,7 +1,7 @@
 import { LanguageDatabaseComponent } from './language-database.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { DatabaseModule } from 'src/app/components/database/database.module';
 
 
 
@@ -10,7 +10,8 @@ import { CommonModule } from '@angular/common';
     LanguageDatabaseComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    DatabaseModule
   ],
   exports: [
     LanguageDatabaseComponent

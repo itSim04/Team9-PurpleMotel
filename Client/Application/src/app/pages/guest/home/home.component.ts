@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { News } from 'src/app/models/News';
-import { NewsDatabaseService } from '../../admin/news-database/news-database.service';
+import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
 
 @Component({
   selector: 'app-home',

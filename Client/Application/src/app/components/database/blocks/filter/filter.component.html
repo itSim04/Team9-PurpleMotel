@@ -13,16 +13,26 @@
                   (keyup)="applyFilter(!!$event)">
 
           </mat-form-field>
+          <mat-form-field
+              *ngIf="filter_by && (filter_by.type === 'link')">
+              <mat-label class="label">
+                  {{formatWord(filter_by.key.toString())}}</mat-label>
+
+              <input matInput (ngModelChange)="updateFilterValue($event)" [ngModel]="filter"
+                  (keyup)="applyFilter(!!$event, true)">
+
+          </mat-form-field>
 
           <ng-container *ngIf="filter_by && filter_by.type === 'boolean'">
               <mat-checkbox (ngModelChange)="updateFilterValue($event)" [ngModel]="filter"
                   (input)="applyFilter(!!$event)"></mat-checkbox>
           </ng-container>
-
+          
+          
           <ng-container *ngIf="filter_by && filter_by.type === 'rating'">
-              <!-- <star-rating size="large" style="display: inline;" staticColor="ok"
+              <star-rating size="large" style="display: inline;" staticColor="ok"
                   (ratingChange)="updateFilterValue($event.rating); applyFilter(true)"
-                  [rating]="parseInt(filter)"></star-rating> -->
+                  [rating]="parseInt(filter)"></star-rating>
           </ng-container>
 
 

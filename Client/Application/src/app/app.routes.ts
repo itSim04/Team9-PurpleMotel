@@ -1,29 +1,25 @@
-import { TabsPage } from './tabs/tabs.page';
-import { BrowseRoomsPage } from './pages/guest/rooms/browse-rooms/browse-rooms.page';
-
-import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/authentication/login/login.component';
-import { RegisterComponent } from './pages/authentication/register/register.component';
-import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
-import { AnnouncementDatabaseComponent } from './pages/admin/announcement-database/announcement-database.component';
-import { BookingDatabaseComponent } from './pages/admin/booking-database/booking-database.component';
-import { FoodDatabaseComponent } from './pages/admin/food-database/food-database.component';
-import { LanguageDatabaseComponent } from './pages/admin/language-database/language-database.component';
-import { NewsDatabaseComponent } from './pages/admin/news-database/news-database.component';
-import { OrderDatabaseComponent } from './pages/admin/order-database/order-database.component';
-import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-database.component';
-import { RegistrationDatabaseComponent } from './pages/admin/registration-database/registration-database.component';
-import { RoomDatabaseComponent } from './pages/admin/room-database/room-database.component';
-import { ServiceDatabaseComponent } from './pages/admin/service-database/service-database.component';
-import { StockDatabaseComponent } from './pages/admin/stock-database/stock-database.component';
-import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
-import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
-import { HomeComponent } from './pages/guest/home/home.component';
-import { AdminGuard } from './guards/admin.guard';
-import { GuestGuard } from './guards/guest.guard';
-import { GuestChatComponent } from './chat/guest/chat.component';
-import { AdminChatComponent } from './chat/admin/chat/chat.component';
-import { ChatListComponent } from './chat/chat-list/chat-list.component';
+import { Routes } from "@angular/router";
+import { AdminChatComponent } from "./chat/admin/chat/chat.component";
+import { ChatListComponent } from "./chat/chat-list/chat-list.component";
+import { GuestChatComponent } from "./chat/guest/chat.component";
+import { AdminDashboardComponent } from "./pages/admin/admin-dashboard/admin-dashboard.component";
+import { AnnouncementDatabaseComponent } from "./pages/admin/announcement-database/announcement-database.component";
+import { BookingDatabaseComponent } from "./pages/admin/booking-database/booking-database.component";
+import { FoodDatabaseComponent } from "./pages/admin/food-database/food-database.component";
+import { LanguageDatabaseComponent } from "./pages/admin/language-database/language-database.component";
+import { NewsDatabaseComponent } from "./pages/admin/news-database/news-database.component";
+import { OrderDatabaseComponent } from "./pages/admin/order-database/order-database.component";
+import { PromoDatabaseComponent } from "./pages/admin/promo-database/promo-database.component";
+import { RegistrationDatabaseComponent } from "./pages/admin/registration-database/registration-database.component";
+import { RoomDatabaseComponent } from "./pages/admin/room-database/room-database.component";
+import { ServiceDatabaseComponent } from "./pages/admin/service-database/service-database.component";
+import { StockDatabaseComponent } from "./pages/admin/stock-database/stock-database.component";
+import { UserDatabaseComponent } from "./pages/admin/user-database/user-database.component";
+import { LoginComponent } from "./pages/authentication/login/login.component";
+import { RegisterComponent } from "./pages/authentication/register/register.component";
+import { HomeComponent } from "./pages/guest/home/home.component";
+import { BrowseRoomsPage } from "./pages/guest/rooms/browse-rooms/browse-rooms.page";
+import { BrowseServicesComponent } from "./pages/guest/services/browse/browse-services.component";
 
 
 

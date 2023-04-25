@@ -6,7 +6,7 @@ import { map } from "rxjs";
 import { UserCredentials, UserResponse, UserInformation } from "./models/User";
 import { LoginComponent } from "./pages/authentication/login/login.component";
 import { RegisterComponent } from "./pages/authentication/register/register.component";
-import { UrlBuilderService } from "./services/url-builder.service";
+import { UrlBuilderService } from "./services/utility/url-builder.service";
 
 
 
@@ -14,42 +14,10 @@ import { UrlBuilderService } from "./services/url-builder.service";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationDialogService {
+export class AuthenticationService {
 
   constructor (public dialog: MatDialog, private http: HttpClient, private url: UrlBuilderService) { }
 
-  openDialog(type: 'login' | 'register') 
-   //'verify' | 'forgot-password'
-   {
-
-    let component: ComponentType<unknown>;
-
-    switch (type) {
-
-      case 'login':
-
-        component = LoginComponent;
-        break;
-
-      case 'register':
-
-        component = RegisterComponent;
-        break;
-
-      // case 'verify':
-
-      //   component = VerifyComponent;
-      //   break;
-
-      // case 'forgot-password':
-
-      //   component = ForgotPasswordComponent;
-      //   break;
-
-    }
-
-    return this.dialog.open(component, {});
-  }
 
   resetPassword(old_password: string, new_password: string, confirm_password: string) {
 

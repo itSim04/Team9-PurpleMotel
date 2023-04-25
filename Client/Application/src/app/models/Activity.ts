@@ -3,9 +3,9 @@ import { KeyValue } from "@angular/common";
 
 export interface ActivityAttributes {
 
-  title: string, 
-  description: string, 
-  capacity: number, 
+  title: string, //Label of a certain stock item
+  description: string, //Information about it
+  capacity: number, //Current available quantity of said stock item
   price: number,
   start_date: string,
   end_date: string;
@@ -14,7 +14,8 @@ export interface ActivityAttributes {
 
 export interface Activity extends ActivityAttributes {
 
-  registrations: Registration[]
+  registrations: Registration[],
+  image: string[];
 
 }
 
@@ -45,6 +46,13 @@ export interface ActivitiesResponse {
       };
     };
   }[];
+  images: {
+
+    activities: {
+
+      [id: string]: string[];
+    };
+  };
 
 }
 
@@ -74,6 +82,13 @@ export interface ActivityResponse {
       };
     };
   }[];
+  images: {
+
+    activities: {
+
+      [id: string]: string[];
+    };
+  };
 }
 
 export interface ActivityPackage {
