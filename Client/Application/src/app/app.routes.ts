@@ -19,11 +19,13 @@ import { StockDatabaseComponent } from './pages/admin/stock-database/stock-datab
 import { UserDatabaseComponent } from './pages/admin/user-database/user-database.component';
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 import { HomeComponent } from './pages/guest/home/home.component';
-import { AdminGuard } from './guards/admin.guard';
-import { GuestGuard } from './guards/guest.guard';
 import { GuestChatComponent } from './chat/guest/chat.component';
 import { AdminChatComponent } from './chat/admin/chat/chat.component';
 import { ChatListComponent } from './chat/chat-list/chat-list.component';
+import { AdminGuard } from './guards/admin.guard';
+import { GuestGuard } from './guards/guest.guard';
+import { AdminChatGuard } from './guards/admin.chat.guard';
+import { ChatGuard } from './guards/chat.guard';
 
 
 
@@ -161,25 +163,27 @@ export const routes: Routes = [
         path: "service-database",
         component: ServiceDatabaseComponent,
       },
-      {
-        path: "support",
-        component: ChatListComponent,
-      },
-      {
-        path: "support/:id",
-        component: AdminChatComponent,
-      }
-
+      
     ]
   },
   {
     path: 'support/:id',
-    canActivate:[GuestGuard],
+    canActivate:[ChatGuard],
     component: GuestChatComponent
   },
- 
-
-
+  
+  {
+    path: "support",
+    canActivate: [AdminChatGuard],
+    component: ChatListComponent,
+  },
+  {
+    path: "support/:id",
+    canActivate: [AdminChatGuard],
+    component: AdminChatComponent,
+  }
+  
+  
   //   {
   //     path: "",
   //     redirectTo: "home",

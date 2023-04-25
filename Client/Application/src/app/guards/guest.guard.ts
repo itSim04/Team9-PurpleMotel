@@ -1,46 +1,39 @@
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
+import { extractUser } from 'src/app/components/database/database.component';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { extractUser, extractUserId } from '../components/database/database.component';
-import { AuthenticationDialogService } from '../authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GuestGuard implements CanActivate {
 
-  constructor(private router: Router, private authentication: AuthenticationDialogService) { }
+  constructor (private router: Router, private authentication: AuthenticationDialogService) { }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const user = extractUser();
-    const user_id = extractUserId();
+    if (user) {
 
-    const id = String(route.paramMap.get("id"));
+      if (user.email_verified_at) {
 
-    if(user && user_id) {
-    if (user.tier != '0') {
+        return true;
 
-      this.router.navigate(['/adminchat/']);
-      return false;
+      } else {
 
-    } else if (id == user_id) {
-
-    
-      return true;
-
+        this.authentication.openDialog('verify');
+        return false;
+        
+      }
     } else {
 
-      this.router.navigate([`/support/${user_id}`]);
-      return true;
+      this.router.navigate(['/']);
+      this.authentication.openDialog('login');
+      return false;
 
     }
 
-  } else {
-
-  this.router.navigate(['/auth/login']);
-  return false;
-
-}
   }
+
 }
