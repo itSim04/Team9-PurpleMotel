@@ -4,9 +4,9 @@ import { User } from 'src/app/models/User';
 import { Component } from '@angular/core';
 import { Order } from 'src/app/models/Order';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { OrderDatabaseService } from './order-database.service';
 import { map } from 'rxjs';
 import { KeyValue } from '@angular/common';
+import { OrderDatabaseService } from 'src/app/services/providers/order-database.service';
 import { parseDate } from '../../authentication/authentication.utility';
 
 @Component({
@@ -70,9 +70,8 @@ export class OrderDatabaseComponent {
           key: 'id',
           index: 0,
           format: (value) => {
-           
-            
-            return (value as KeyValue<string, Food>)?.value.label
+
+            return (value as KeyValue<string, Food>)?.value.label;
 
           }
 
@@ -83,8 +82,15 @@ export class OrderDatabaseComponent {
 
         type: 'text',
         key: 'quantity'
-      
-    }],
+
+      }],
+
+      default_value: {
+
+        id: '0',
+        quantity: 0
+
+      },
       key: 'food'
 
     },

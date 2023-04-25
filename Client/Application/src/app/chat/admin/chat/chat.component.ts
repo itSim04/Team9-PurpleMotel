@@ -5,7 +5,7 @@ import { Database, DatabaseReference, getDatabase, onChildAdded, onValue, push, 
 import { extractSessionUser, User } from "src/app/models/User";
 import { Chat, Message } from "src/app/models/Chat";
 import { extractUserId, formatDate } from "src/app/components/database/database.component";
-import { UserDatabaseService } from "src/app/pages/admin/user-database/user-database.service";
+import { UserDatabaseService } from "src/app/services/providers/user-database.service";
 
 
 @Component({
@@ -145,9 +145,9 @@ export class AdminChatComponent implements OnInit {
 
   }
 
-  
+
   isSpecial(str: string): boolean {
-    const emojiRegex = /^\p{Emoji}$/u // regular expression to match a single Unicode emoji
+    const emojiRegex = /^\p{Emoji}$/u; // regular expression to match a single Unicode emoji
     return emojiRegex.test(str.trim());
   }
 

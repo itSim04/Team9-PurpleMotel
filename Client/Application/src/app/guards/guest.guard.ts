@@ -1,8 +1,9 @@
-import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
+
 import { extractUser } from 'src/app/components/database/database.component';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthenticationDialogService } from '../authentication.service';
 
 @Injectable({
   providedIn: 'root'

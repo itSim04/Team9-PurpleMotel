@@ -182,32 +182,6 @@ export function extractSessionUser() {
 
 }
 
-export function extractSessionUser() {
-
-    try {
-
-        const json = localStorage.getItem('user');
-
-        if (json) {
-
-            return JSON.parse(json) as User;
-
-        } else {
-
-            return undefined;
-
-        }
-
-
-    } catch (e: unknown) {
-
-        return undefined;
-
-    }
-
-
-}
-
 export interface ProfileResponse {
 
 

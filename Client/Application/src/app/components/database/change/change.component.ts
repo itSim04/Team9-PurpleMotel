@@ -1,17 +1,58 @@
+import { AuthenticationDialogService } from './../../../services/utility/authentication.service';
+import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserType } from 'src/app/models/UserType';
 import { KeyValue } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Field, Toggle, StaticField, ChangeInjection, Column, ExtraColumn } from 'src/app/models/Database';
 import { extractPermission, formatWord, isNum } from '../database.component';
 import { User } from 'src/app/models/User';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
+import { ImagePickerConf, NgpImagePickerComponent } from 'ngp-image-picker';
+import { InformationDatabaseService } from 'src/app/services/providers/information-database.service';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';
-import { ConfirmationDialogService } from 'src/app/services/dialogs/confirmation/confirmation.service';
-import { WarningDialogService } from 'src/app/services/dialogs/warning/warning.service';
 
+
+export function areEqual(a: any, b: any) {
+  if (a === b) {
+    return true;
+  }
+
+  if (a instanceof Map && b instanceof Map) {
+    if (a.size !== b.size) {
+      return false;
+    }
+
+    for (const [key, value] of a.entries()) {
+      if (!b.has(key) || !areEqual(value, b.get(key))) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
+    return a === b;
+  }
+
+  const keysA = Object.keys(a);
+  const keysB = Object.keys(b);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  for (const key of keysA) {
+    if (!keysB.includes(key) || !areEqual(a[key], b[key])) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 export function clone(obj: any) {
 
@@ -43,78 +84,62 @@ export function clone(obj: any) {
   styleUrls: ['./change.component.scss']
 })
 export class ChangeComponent<Data extends { [key: string]: string | boolean | number | unknown[]; }> {
-  deleteData(id: number) {
 
-    (this.data[this.table!.key] as unknown[]).splice(id, 1);
-    this.table!.data.data = this.data[this.table!.key] as unknown[];
+  onImageChange($event: any, image: { filename: string, base64: string; }, image_id: number) {
 
-  }
+    // console.log(image, $event);
 
-  pushData() {
+    if ($event) {
 
-    (this.data[this.table!.key] as unknown[]).push({id: '1', quantity: 1});
-    
-    this.table!.data.data = this.data[this.table!.key] as unknown[];
+      if (image.filename) {
 
-  }
-  updateData(col: string, element: any, result: number) {
+        const filename = image?.filename!.split('/')!;
+        this.image_service.modifyImage($event, this.data_type, this.old_data?.key!, filename[filename.length - 1]).subscribe((result) => {
 
-    element[col] = result;
+          this.images[image_id].base64 = $event.split(',')[1];
 
-  }
-  formatTableData(element: any, col: string) {
+        });
 
-    return element[col];
 
-  }
+      } else {
 
-  getOuter(id: string, index: number) {
+        this.image_service.storeImage($event, this.data_type, this.old_data?.key!).subscribe((result) => {
 
-    const temp = this.outer_data?.at(index)?.get(id);
 
-    if (temp) {
+          this.images[image_id] = {
 
-      return temp;
+            filename: result.data.filename,
+            base64: $event.split(',')[1]
+
+          };
+
+          console.log(this.images);
+
+          this.images.push({
+
+            filename: '',
+            base64: '',
+
+          });
+
+        });
+      }
 
     } else {
 
-      return undefined;
+      const filename = image?.filename!.split('/')!;
+      this.image_service.deleteImage(filename[filename.length - 1], this.data_type, this.old_data?.key!).subscribe((result) => {
+
+        this.images.splice(this.images.findIndex((data) => data.filename === image?.filename), 1);
+
+      });
+
 
     }
-
-
   }
-
-  // getOuterTableData(col: ExtraColumn, element: any) {
-
-  //   if (col.outer_link) {
-
-  //     const temp = this.getOuter(element[col.outer_link.key], col.outer_link.index);
-  //     return col.outer_link.format(temp, element);
-  //     console.log(element);
-
-  //   } else {
-
-  //     throw new Error("Type Link requires Format and Index");
-
-  //   }
-
-  // }
-
-  debug(id: number, row: string, result: boolean) {
-
-    const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
-
-    old_permissions[id] = result;
-
-    this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
-
-  }
-
-
 
   modification_mode = false;
-  side_panel: 'images' | 'permissions' | 'empty' | 'table';
+  side_panel: 'images' | 'permissions' | 'empty' | 'table' | 'image' | 'mixed';
   data: Data;
   data_type: string;
   standalone_field?: Field<Data>;
@@ -137,6 +162,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     data: MatTableDataSource<unknown>;
     columns: ExtraColumn[];
     key: keyof Data;
+    default_value: unknown;
 
   };
   readonly old_data?: KeyValue<string, Data>;
@@ -147,11 +173,56 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   readonly modification_rule;
   readonly permission;
 
+  readonly size: number;
+
   readonly outer_data: Map<string, unknown>[] | undefined;
+  readonly all_data: Map<string, Data>;
 
   readonly linked_data: Map<string, unknown>;
 
-  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar) {
+  uniqueness: boolean = true;
+
+  images: {
+
+    filename: string,
+    base64: string;
+
+  }[] = [];
+
+  imagePickerConf: ImagePickerConf = {
+
+    borderRadius: '4px',
+    language: 'en',
+    width: '30vw',
+    height: '30vh',
+    aspectRatio: 8 / 6,
+    hideAddBtn: true,
+
+  };
+
+  current_image = 0;
+
+  next() {
+
+    if (this.current_image + 1 < this.images.length) {
+
+      this.current_image++;
+
+    }
+
+  }
+  prev() {
+
+    if (this.current_image > 0) {
+
+      this.current_image--;
+
+    }
+
+  }
+
+  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; all_data: Map<string, Data>; }, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService, private image_service: InformationDatabaseService) {
+
 
     this.linked_data = injected_data.link;
 
@@ -163,6 +234,8 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
     this.permission = injected_data.permission;
     this.outer_data = injected_data.outer_data;
+    this.size = injected_data.injection.size || 1;
+    this.all_data = injected_data.all_data;
 
     this.permissions = injected_data.injection.permissions;
     this.modification_rule = injected_data.injection.modification_rule || (data => true);
@@ -176,6 +249,32 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     if (injected_data.injection.affected_data) {
 
       this.old_data = injected_data.injection.affected_data;
+      image_service.browseImages(this.data_type, this.old_data?.key!).subscribe({
+
+        next: (result) => {
+
+          console.log(result);
+
+          if (result.data)
+            this.images = result.data;
+
+          
+          this.images.push({
+
+            filename: '',
+            base64: ''
+
+          });
+        },
+
+        error: (error) => {
+
+          console.log(error);
+
+        }
+
+
+      });
 
       console.log(this.old_data);
 
@@ -193,6 +292,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
       this.table = {
 
         ...injected_data.injection.table,
+        default_value: clone(injected_data.injection.table.default_value),
         data: new MatTableDataSource(this.data[injected_data.injection.table.key] as unknown[])
 
       };
@@ -203,51 +303,141 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   add() {
 
-    const dialogRef = this.confirmation_controller.openDialog(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add", "Cancel");
-    dialogRef.afterClosed().subscribe(confirmation => {
+    if (!this.fieldsCompleteness.length && this.differenceCheck) {
 
-      if (confirmation) {
+      this.uniqueness = true;
+      this.fields.forEach(field => {
 
-        this.add_service(this.data).subscribe(result => {
+        if (field.unique) {
 
-          this.dialogRef.close({ key: result, value: this.data });
 
-        });
+          this.all_data.forEach((value, key) => {
 
+            if (value[field.key] == this.data[field.key]) {
+
+              this.uniqueness = false;
+
+            }
+
+          });
+
+
+        }
+
+      });
+
+      if (this.uniqueness) {
+
+        // const dialogRef = this.confirmation_controller.openDialog(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add", "Cancel");
+        // dialogRef.afterClosed().subscribe(confirmation => {
+
+        //   if (confirmation) {
+
+        //     this.add_service(this.data).subscribe(
+
+        //       {
+        //         next: result => {
+
+        //           this.dialogRef.close({ key: result, value: this.data });
+
+        //         },
+        //         error: error => {
+
+        //           if (error.status == 401) {
+        //             localStorage.removeItem('token');
+        //             localStorage.removeItem('user');
+        //             localStorage.removeItem('id');
+        //             localStorage.removeItem('token_time');
+        //             this.router.navigate(['/home']);
+        //             this.dialogRef.close();
+        //             this.authentication.openDialog('login');
+        //           }
+
+
+        //         }
+        //       });
+
+        //   }
+        // });
       }
-    });
+    }
 
   }
 
   modify() {
 
-    console.log(this.old_data);
 
-    if (extractPermission('write', this.permission)) {
-
-      if (this.old_data) {
+    if (!this.fieldsCompleteness.length && this.differenceCheck) {
 
 
-        const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
-        dialogRef.afterClosed().subscribe(confirmation => {
 
-          if (confirmation && this.old_data) {
+      if (extractPermission('write', this.permission)) {
 
-            this.modify_service(this.old_data.key, this.data).subscribe(() => {
-              if (this.old_data) {
 
-                this.dialogRef.close({ key: this.old_data.key, value: this.data });
-              }
-            });
+
+        if (this.old_data) {
+
+
+          this.uniqueness = true;
+          this.fields.forEach(field => {
+
+            if (field.unique) {
+
+
+              this.all_data.forEach((value, key) => {
+
+                if (value[field.key] == this.data[field.key] && value[field.key] != this.old_data?.value[field.key]) {
+
+                  this.uniqueness = false;
+
+                }
+
+              });
+
+
+            }
+
+          });
+
+          if (this.uniqueness) {
+
+            // const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
+            // dialogRef.afterClosed().subscribe({
+            //   next: confirmation => {
+
+            //     if (confirmation && this.old_data) {
+
+            //       this.modify_service(this.old_data.key, this.data).subscribe(() => {
+            //         if (this.old_data) {
+
+            //           this.dialogRef.close({ key: this.old_data.key, value: this.data });
+            //         }
+            //       });
+            //     }
+            //   },
+            //   error: error => {
+
+            //     if (error.status == 401) {
+            //       localStorage.removeItem('token');
+            //       localStorage.removeItem('user');
+            //       localStorage.removeItem('id');
+            //       localStorage.removeItem('token_time');
+            //       this.dialogRef.close();
+            //       this.router.navigate(['/home']);
+            //       this.authentication.openDialog('login');
+            //     }
+
+            //   }
+            // });
           }
-        });
-      }
-    } else {
+        }
+      } else {
 
-      this.snackbar.open('You do not have writing permissions');
+        this.snackbar.open('You do not have writing permissions');
+
+      }
 
     }
-
   }
 
   delete() {
@@ -256,26 +446,41 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
       if (this.old_data) {
 
-        const dialogRef = this.confirmation_controller.openDialog(`Delete ${this.data_type}`, `Would you like to delete the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Delete", "Cancel");
-        dialogRef.afterClosed().subscribe(confirmation => {
+        // const dialogRef = this.confirmation_controller.openDialog(`Delete ${this.data_type}`, `Would you like to delete the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Delete", "Cancel");
+        // dialogRef.afterClosed().subscribe(confirmation => {
 
-          if (confirmation && this.old_data) {
+        //   if (confirmation && this.old_data) {
 
-            this.delete_service(this.old_data.key).subscribe(result => {
+        //     this.delete_service(this.old_data.key).subscribe({
+        //       next: result => {
 
-              if (result.length) {
+        //         if (result.length) {
 
-                this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
+        //           this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
 
-              } else if (this.old_data) {
+        //         } else if (this.old_data) {
 
-                this.dialogRef.close({ key: this.old_data.key, value: undefined });
+        //           this.dialogRef.close({ key: this.old_data.key, value: undefined });
 
-              }
+        //         }
 
-            });
-          }
-        });
+        //       },
+        //       error: error => {
+
+
+        //         if (error.status == 401) {
+        //           localStorage.removeItem('token');
+        //           localStorage.removeItem('user');
+        //           localStorage.removeItem('id');
+        //           localStorage.removeItem('token_time');
+        //           this.dialogRef.close();
+        //           this.router.navigate(['/home']);
+        //           this.authentication.openDialog('login');
+        //         }
+        //       }
+        //     });
+        //   }
+        // });
       }
     } else {
 
@@ -329,17 +534,17 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
         }
 
-        const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? (this.toggle.off_title || this.toggle.off_value + ' ' + this.data_type) : (this.toggle.on_title || this.toggle.on_value + ' ' + this.data_type)), prompt, !(this.data[this.toggle.key] as boolean) ? (this.toggle.off_confirm || this.toggle.off_value) : (this.toggle.on_confirm || this.toggle.on_value), 'Cancel');
+        // const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? (this.toggle.off_title || this.toggle.off_value + ' ' + this.data_type) : (this.toggle.on_title || this.toggle.on_value + ' ' + this.data_type)), prompt, !(this.data[this.toggle.key] as boolean) ? (this.toggle.off_confirm || this.toggle.off_value) : (this.toggle.on_confirm || this.toggle.on_value), 'Cancel');
 
-        dialogRef.afterClosed().subscribe(result => {
+        // dialogRef.afterClosed().subscribe(result => {
 
-          if (result && this.toggle) {
+        //   if (result && this.toggle) {
 
-            (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
+        //     (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
 
-          }
+        //   }
 
-        });
+        // });
 
       } else {
 
@@ -375,43 +580,65 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   }
 
+  deleteData(id: number) {
+
+    (this.data[this.table!.key] as unknown[]).splice(id, 1);
+    this.table!.data.data = this.data[this.table!.key] as unknown[];
+
+  }
+
+  pushData() {
+
+    (this.data[this.table!.key] as unknown[]).push(clone(this.table?.default_value));
+
+    this.table!.data.data = this.data[this.table!.key] as unknown[];
+
+  }
+  updateData(col: string, element: any, result: number) {
+
+    element[col] = result;
+
+  }
+  formatTableData(element: any, col: string) {
+
+    return element[col];
+
+  }
+
+  getOuter(id: string, index: number) {
+
+    const temp = this.outer_data?.at(index)?.get(id);
+
+    if (temp) {
+
+      return temp;
+
+    } else {
+
+      return undefined;
+
+    }
+
+
+  }
+
+  debug(id: number, row: string, result: boolean) {
+
+    const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
+
+    old_permissions[id] = result;
+
+    this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
+
+  }
+
+
+
+
   areEqual(a: any, b: any) {
-    if (a === b) {
-      return true;
-    }
 
-    if (a instanceof Map && b instanceof Map) {
-      if (a.size !== b.size) {
-        return false;
-      }
+    return areEqual(a, b);
 
-      for (const [key, value] of a.entries()) {
-        if (!b.has(key) || !this.areEqual(value, b.get(key))) {
-          return false;
-        }
-      }
-
-      return true;
-    }
-
-    if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
-      return a === b;
-    }
-
-    const keysA = Object.keys(a);
-    const keysB = Object.keys(b);
-
-    if (keysA.length !== keysB.length) {
-      return false;
-    }
-
-    for (const key of keysA) {
-      if (!keysB.includes(key) || !this.areEqual(a[key], b[key])) {
-        return false;
-      }
-    }
-
-    return true;
   }
 
   get differenceCheck() {
@@ -421,16 +648,19 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   get fieldsCompleteness() {
 
+    let temp = [];
     for (const field of this.fields) {
+
 
       if (field.condition ? !field.condition(this.data[field.key]) : !this.data[field.key]) {
 
-        return false;
+
+        temp.push(field.condition_label || 'Missing ' + this.formatLabel(field.key));
 
       }
 
     }
-    return true;
+    return temp;
 
   }
 
@@ -444,7 +674,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
     if (!word) return word;
 
-    const splits = word.toString().replace("_", " ").split(" ");
+    const splits = word.toString().replaceAll("_", " ").split(" ");
 
     for (let i = 0; i < splits.length; i++) {
 
@@ -465,12 +695,12 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   get getDisplayedColumnsKey() {
 
 
-    if(this.table) {
+    if (this.table) {
 
       const keys = this.table!.columns.map(t => t.key as string);
       keys.push('buttons');
       return keys;
-      
+
     } else {
 
       throw new Error('Table missing information');
@@ -480,4 +710,18 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
 
   }
+
+  get iterator() {
+
+    const result = [];
+    let index = clone(this.size);
+    while (index--) {
+
+      result.unshift(index);
+
+    }
+    return result;
+
+  }
+
 }

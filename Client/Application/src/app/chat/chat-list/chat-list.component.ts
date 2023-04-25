@@ -1,11 +1,11 @@
 import { User } from 'src/app/models/User';
 import { KeyValue } from "@angular/common";
-import { formatDate } from 'src/app/components/database/database.component';
-import { Database,getDatabase, onChildAdded,ref} from '@angular/fire/database';
-import { Chat } from 'src/app/models/Chat';
-import { Router, ActivatedRoute } from "@angular/router";
-import { UserDatabaseService } from 'src/app/pages/admin/user-database/user-database.service';
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Router, ActivatedRoute } from '@angular/router';
+import { Database, getDatabase, ref, onChildAdded } from 'firebase/database';
+import { Chat } from 'src/app/models/Chat';
+import { UserDatabaseService } from 'src/app/services/providers/user-database.service';
+import { formatDate } from 'src/app/components/database/database.component';
 
 @Component({
   selector: 'app-chat-list',

@@ -1,3 +1,4 @@
+import { PromoCode, PromoCodeAttributes } from 'src/app/models/PromoCode';
 import { KeyValue } from '@angular/common';
 import { Food, FoodAttributes } from './Food';
 import { Order, OrderAttributes } from './Order';
@@ -19,14 +20,19 @@ export interface UserCredentials {
 
 
 }
-export interface UserInformation {
+
+export interface UserChange {
+
     first_name: string,
     last_name: string,
     email: string,
-    password: string,
     gender: number,
     phone: string,
     date_of_birth: string;
+
+}
+export interface UserInformation extends UserChange {
+    password: string,
 }
 export interface UserInjection extends UserInformation {
     tier: string,
@@ -36,11 +42,13 @@ export interface UserAttributes {
     first_name: string,
     last_name: string,
     email: string;
-    gender: string,
+    gender: number,
     phone: string,
     language: string,
     date_of_birth: string,
     tier: string,
+
+    email_verified_at?: string;
 }
 
 export interface User extends UserAttributes {
@@ -101,15 +109,15 @@ export interface UserResponse {
     };
     permissions?: {
 
-        room?: number[]
-        user?: number[]
-        stock?: number[]
-        user_type?: number[]
-        room_type?: number[]
-        language?: number[]
-        booking?: number[]
+        room?: number[];
+        user?: number[];
+        stock?: number[];
+        user_type?: number[];
+        room_type?: number[];
+        language?: number[];
+        booking?: number[];
 
-    }
+    };
 
 }
 export interface UsersResponse {
@@ -149,76 +157,112 @@ export interface UsersResponse {
 
 }
 export function extractSessionUser() {
+
     try {
+
         const json = localStorage.getItem('user');
+
         if (json) {
+
             return JSON.parse(json) as User;
+
         } else {
+
             return undefined;
+
         }
+
+
     } catch (e: unknown) {
+
         return undefined;
+
     }
+
+
 }
+
 export interface ProfileResponse {
 
 
     status: string,
     data: {
         id: string,
-        type: 'Foods' | 'Orders' | 'Review' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient'| 'Registration' | 'Activities',
-        attributes: FoodAttributes | OrderAttributes | Review | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes | Activity | RegistrationAttributes,
+        type: 'Foods' | 'Orders' | 'Review' | 'Rooms' | 'RoomTypes' | 'Booking' | 'OrderContains' | 'Stocks' | 'Ingredient' | 'Registration' | 'Activities' | 'PromoCodes',
+        attributes: FoodAttributes | OrderAttributes | Review | RoomAttributes | BookingAttributes | RoomType | OrderContainsAttributes | Stock | IngredientAttributes | Activity | RegistrationAttributes | PromoCodeAttributes,
         relationships: {
             food_category: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             user: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             room_type: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             room: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             order: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             food: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
             },
             stock: {
                 data: {
                     id: string,
-                    type: string
-                }
+                    type: string;
+                };
+            },
+            promo: {
+                data: {
+                    id: string,
+                    type: string;
+                };
             },
             activity: {
                 data: {
                     id: string,
-                    type: string
-                }
-            }
-        }
-    }[]
+                    type: string;
+                };
+            };
+        };
+    }[];
+
+    images: {
+
+        rooms: {
+
+            [id: string]: string[];
+        };
+
+        food: {
+
+            [id: string]: string[];
+        };
+
+
+
+    };
 
 
 
@@ -235,5 +279,6 @@ export interface ProfilePackage {
     activities: Map<string, Activity>;
     registrations: Map<string, Registration>;
     reviews: Map<string, Review>;
+    promo: Map<string, PromoCode>;
 
 }

@@ -1,12 +1,11 @@
-import { User, UserInformation, UserInjection } from './../../../models/User';
-import { UserDatabaseService } from './user-database.service';
 import { DataInjection, ChangeInjection } from 'src/app/models/Database';
 import { Component } from '@angular/core';
-import { UserAttributes } from 'src/app/models/User';
+import { User, UserAttributes } from 'src/app/models/User';
 import { map } from 'rxjs';
 import { UserType } from 'src/app/models/UserType';
-import { formatWord, parsePermission } from 'src/app/components/database/database.component';
-import { genders } from '../../authentication/authentication.utility';
+import { UserDatabaseService } from 'src/app/services/providers/user-database.service';
+import { validateEmail, genders } from '../../authentication/authentication.utility';
+import { extractUser, parsePermission, formatWord } from 'src/app/components/database/database.component';
 
 @Component({
   selector: 'app-user-database',
@@ -24,7 +23,7 @@ export class UserDatabaseComponent {
 
     special_case: {
 
-      rule: (data) => data.email == JSON.parse(localStorage.getItem('user') || '{}')?.email,
+      rule: (data) => data.email == extractUser()?.email,
       color: '14274A33',
       alt_color: '14274A66'
 
@@ -54,6 +53,7 @@ export class UserDatabaseComponent {
         type: 'link',
         link: {
 
+          format_index: 'label',
           key: 'type',
           format: (value, org) => {
 
@@ -144,7 +144,7 @@ export class UserDatabaseComponent {
       date_of_birth: '1970-01-01',
       email: '',
       first_name: '',
-      gender: '0',
+      gender: 0,
       language: '0',
       last_name: '',
       phone: '',
@@ -166,10 +166,14 @@ export class UserDatabaseComponent {
       {
         key: 'email',
         type: 'text',
+        condition: (data) => validateEmail(data as string),
+        condition_label: "Invalid Email"
       },
       {
         key: 'phone',
-        type: 'text'
+        type: 'text',
+        condition: (data) => (data as string).toString().length > 3,
+        condition_label: "Invalid Phone Number"
       },
       {
         key: 'tier',
@@ -200,6 +204,7 @@ export class UserDatabaseComponent {
       {
         key: 'type',
         type: 'selection',
+        condition: (data) => (data as string) != '0',
         choices: {
 
           link: true,

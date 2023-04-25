@@ -4,8 +4,8 @@ import { Activity } from 'src/app/models/Activity';
 import { DataInjection, ChangeInjection } from 'src/app/models/Database';
 import { Registration } from 'src/app/models/Registration';
 import { User } from 'src/app/models/User';
+import { RegistrationDatabaseService } from 'src/app/services/providers/registration-database.service';
 import { parseDate } from '../../authentication/authentication.utility';
-import { RegistrationDatabaseService } from './registration-database.service';
 
 @Component({
   selector: 'app-registration-database',
@@ -88,7 +88,7 @@ export class RegistrationDatabaseComponent {
         outer_choices: {
 
           format: (choice) => (choice as User)?.first_name + ' ' + (choice as User)?.last_name,
-          index: 3
+          index: 2
 
 
         }
@@ -102,7 +102,7 @@ export class RegistrationDatabaseComponent {
 
             return (choice as Activity)?.title;
           },
-          index: 1
+          index: 0
 
 
         }

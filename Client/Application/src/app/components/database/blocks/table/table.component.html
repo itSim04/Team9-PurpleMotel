@@ -40,8 +40,8 @@
                     {{col.header_alt || formatWord(col.key.toString())}} </th>
                 <td [style.background]="mark(element[1])" class="cell" mat-cell
                     *matCellDef="let element" style="padding-left: 0px;">
-                    <!-- <star-rating staticColor="ok" [readOnly]="true" [rating]="element[1][col.key]"
-                        [showHalfStars]="true"></star-rating> -->
+                    <star-rating staticColor="ok" [readOnly]="true" [rating]="element[1][col.key]"
+                        [showHalfStars]="true"></star-rating>
                 </td>
             </ng-container>
         </ng-container>
@@ -70,7 +70,7 @@
     <tr *matNoDataRow>
         <td *ngIf="!loading" style="padding: 32px;" class="mat-cell"
             [attr.colspan]="data_injection.displayed_columns.length + (data_injection.buttons ? 1 : 0)">
-            Access Denied... <div (click)="download.emit()" class="retry">Try again?</div>
+            {{ error ? 'denied...' : 'empty_table' }}  <div (click)="download.emit()" class="retry" *ngIf="error">{{'retry_question' | translate }}?</div>
         </td>
     </tr>
 </table>

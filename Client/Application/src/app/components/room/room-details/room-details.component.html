@@ -8,14 +8,14 @@
     <tr>
         <td style="padding: 16px; width: 60%;">
 
-            <img [src]="room?.value?.image_path ? room!.value.image_path : '../../../assets/room-1.png'"
+            <img [src]="room?.value?.images?.at(0) ? room!.value.images.at(0) : '../../../assets/room-1.png'"
                 width="100%" src="../../../assets/room-1.png">
 
         </td>
         <td style="padding: 16px; width: 40%;" *ngIf="room && room_type">
             <div style="display: flex;">
-                <star-rating [showHalfStars]="true" [rating]="room.value.rating || 0"
-                    [readOnly]="true" staticColor="positive"></star-rating>
+                <!-- <star-rating [showHalfStars]="true" [rating]="room.value.rating || 0"
+                    [readOnly]="true" staticColor="positive"></star-rating> -->
             </div>
             <br>
             <div style="vertical-align: middle;">

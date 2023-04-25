@@ -5,7 +5,7 @@ import { Subscription } from "rxjs";
 import { Activity } from "src/app/models/Activity";
 import { Facility } from "src/app/models/Facility";
 import { Registration } from "src/app/models/Registration";
-import { ServiceDatabaseService } from "src/app/pages/admin/service-database/service-database.service";
+import { ServiceDatabaseService } from "src/app/services/providers/service-database.service";
 
 @Component({
   selector: 'app-services',

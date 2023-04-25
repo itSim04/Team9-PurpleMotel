@@ -19,6 +19,8 @@ export interface Room extends RoomAttributes {
   reviews: Review[];
   is_reviewed: boolean;
 
+  images: string[];
+
 }
 
 export interface RoomAttributes {
@@ -28,24 +30,9 @@ export interface RoomAttributes {
   number: string, //Room Number
   open: boolean; //Is that room currently open or restricted?
   rating: number; //A rating out of  of said room
-  image_path: string;
 
 
 }
-
-/*export interface RoomPackage {
-
-  room: KeyValue<string, Room>;
-  room_type: KeyValue<string, RoomType>;
-
-
-}
-export interface RoomsPackage {
-
-  rooms: Map<string, Room>;
-  room_types: Map<string, RoomType>;
-
-}*/
 
 export interface RoomResponse {
   status: string,
@@ -62,11 +49,19 @@ export interface RoomResponse {
       };
     };
   };
+  images: {
+
+    rooms: {
+
+      [id: string]: string[];
+    };
+
+  };
   included?: {
 
     id: string;
-    type: 'RoomTypes' | 'Review';
-    attributes: RoomType | Review;
+    type: 'RoomTypes' | 'Review' | 'PromoCodes';
+    attributes: RoomType | Review | PromoCodeAttributes;
 
   }[];
 }
@@ -98,6 +93,14 @@ export interface RoomsResponse {
     attributes: RoomType | PromoCodeAttributes | EffectPromoCodes | Review;
 
   }[];
+  images: {
+
+    rooms: {
+
+      [id: string]: string[];
+    };
+
+  };
 }
 
 export interface RoomPackage {
