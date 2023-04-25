@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { RawRoomsPackage, Room } from 'src/app/models/Room';
-import { RoomDatabaseService } from 'src/app/pages/admin/room-database/room-database.service';
 import { Subscription } from 'rxjs';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { RoomType } from 'src/app/models/RoomType';
+import { RoomDatabaseService } from 'src/app/services/providers/room-database.service';
 
 @Component({
   selector: 'app-browse-rooms',
