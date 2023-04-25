@@ -1,9 +1,9 @@
 import { Route, Router } from '@angular/router';
 import { AuthenticationDialogService } from './../../../../services/utility/authentication.service';
 import { extractUser } from 'src/app/components/database/database.component';
-import { FoodCategory } from './../../../../models/FoodCategory';
+import { FoodCategory, FoodCategoryAttributes } from './../../../../models/FoodCategory';
 import { Food } from 'src/app/models/Food';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { KeyValue } from '@angular/common';
 import { Order } from 'src/app/models/Order';
 import { FoodListPopupService } from 'src/app/components/food/food-list-popup/food-list-popup.service';
@@ -16,6 +16,10 @@ import { CartDialogService } from 'src/app/services/utility/cart.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
+  scroll(search: string) {
+    document.getElementById(search)?.scrollIntoView();
+
+  }
 
   foods: Map<string, Food> = new Map();
   food_categories: Map<string, FoodCategory> = new Map();
@@ -56,11 +60,21 @@ export class MenuComponent {
   ngOnInit() {
 
 
-    this.food_service.getAllFoods().subscribe(data => {
+    this.food_service.getAllFoods().subscribe({
 
-      this.foods = data.foods,
-        this.food_categories = data.categories;
+      next: data => {
 
+        console.log(data);
+        this.foods = data.foods,
+          this.food_categories = data.categories;
+
+      },
+
+      error: error => {
+
+        console.error(error);
+
+      }
     });
 
 
@@ -73,7 +87,10 @@ export class MenuComponent {
 
 
       const dialogRef = this.cart_dialog.openDialog({ food: this.foods });
-      dialogRef.afterClosed().subscribe(data => this.route.navigate(['/profile']));
+      dialogRef.afterClosed().subscribe(data => {
+
+        if (data) this.route.navigate(['/profile']);
+      });
 
     } else {
 

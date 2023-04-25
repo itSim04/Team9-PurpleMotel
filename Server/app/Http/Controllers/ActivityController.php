@@ -29,7 +29,18 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource, [Registration::class => RegistrationResource::class]);
+
+        $activities = Activity::all();
+
+        $registration = Registration::all()->whereIn('activity_id', $activities->pluck('id'));
+
+        foreach ($activities->pluck('id') as $id) {
+
+            $images['activities'][$id] = extractImages('Activity', $id);
+        }
+
+        return generateResponse(200, ActivityResource::collection($activities), RegistrationResource::collection($registration), false, $images);
+        // return indexTemplate($this->model, $this->resource, [Registration::class => RegistrationResource::class]);
     }
 
     /**
@@ -46,7 +57,12 @@ class ActivityController extends Controller
     public function show(int $id)
     {
 
-        return showTemplate($this->model, $this->resource, $id);
+        $activities = Activity::find($id);
+        $registration = Registration::all()->where('activity_id', $id);
+
+        $images['activities'][$id] = extractImages('Activity', $id);
+
+        return generateResponse(200, new ActivityResource($activities), new RegistrationResource($registration), false, $images);
     }
 
     /**

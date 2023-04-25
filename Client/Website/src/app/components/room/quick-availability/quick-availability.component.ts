@@ -1,6 +1,6 @@
 import { RoomDatabaseService } from './../../../services/providers/room-database.service';
 import { RoomType } from './../../../models/RoomType';
-import { RawRoomsPackage } from './../../../models/Room';
+import { RawRoomsPackage, RoomsPackage } from './../../../models/Room';
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
@@ -12,7 +12,7 @@ import { BookingDatabaseService } from 'src/app/services/providers/booking-datab
 })
 export class QuickAvailabilityComponent implements OnInit {
 
-  @Output() result: EventEmitter<RawRoomsPackage> = new EventEmitter();
+  @Output() result: EventEmitter<RoomsPackage> = new EventEmitter();
 
   start_date_value?: Date;
   end_date_value?: Date;

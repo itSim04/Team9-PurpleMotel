@@ -84,6 +84,14 @@ export interface OrdersResponse {
       };
     };
   }[];
+  images: {
+
+    food: {
+
+      [id: string]: string[];
+    };
+
+  };
   included: {
     id: string,
     type: 'OrderContains' | 'Foods' | 'Users',

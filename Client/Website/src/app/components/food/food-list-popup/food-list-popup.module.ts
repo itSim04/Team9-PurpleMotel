@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -15,6 +16,7 @@ import { FoodListPopupComponent } from './food-list-popup.component';
   imports: [
     CommonModule,
     MatDividerModule,
+    LanguageModule,
     MatButtonModule,
     MatDialogModule
   ],

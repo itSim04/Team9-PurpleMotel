@@ -1,5 +1,6 @@
+import { UserChange } from './../../models/User';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, switchMap, throwError } from 'rxjs';
 import { RoomsPackage, RoomsResponse, Room, RoomPackage, RoomResponse } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { UserType, UserTypeResponse, UserTypesPackage, UserTypesResponse } from 'src/app/models/UserType';
@@ -19,7 +20,7 @@ export class UserDatabaseService {
 
   getAllUsers(): Observable<UsersPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -69,8 +70,10 @@ export class UserDatabaseService {
 
 
   }
-  getOneUser(id: string): Observable<UserPackage> {
-    const headers = this.url.generateHeader()
+  getOneUser(id: number): Observable<UserPackage> {
+    const headers = this.url.generateHeader();
+
+    console.log(id);
 
     try {
 
@@ -101,7 +104,7 @@ export class UserDatabaseService {
 
   addNewUser(user: UserAttributes) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -125,17 +128,21 @@ export class UserDatabaseService {
 
   modifyUser(user_id: string, user: User) {
 
-    const headers = this.url.generateHeader()
-
-    const permissions: any = {};
-    user.permissions.forEach((permission, label) => {
-
-      permissions[label] = permission;
-
-    });
+    const headers = this.url.generateHeader();
 
     const user_request = clone(user);
-    user_request.permissions = permissions;
+    const permissions: any = {};
+    if (user.permissions) {
+
+      user.permissions.forEach((permission, label) => {
+
+        permissions[label] = permission;
+
+      });
+      user_request.permissions = permissions;
+    }
+
+
 
     try {
 
@@ -148,10 +155,28 @@ export class UserDatabaseService {
     }
 
   }
+  editProfile(user_id: string, user: UserChange) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.put<UserResponse>(this.url.generateUrl(`users/${user_id}`), user, { headers: headers }).pipe(map((data) => {
+
+        return data.data.attributes;
+      }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
 
   deleteUser(key: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -170,7 +195,7 @@ export class UserDatabaseService {
 
   getAllUserTypes(): Observable<UserTypesPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -277,7 +302,7 @@ export class UserDatabaseService {
 
   modifyUserType(user_id: string, user: UserType) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     const permissions: any = {};
     user.permissions.forEach((permission, label) => {

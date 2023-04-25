@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoomItemComponent } from './room-item.component';
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     StarRatingModule,
-    RouterModule
+    RouterModule,
+    LanguageModule
   ],
   exports: [
     RoomItemComponent

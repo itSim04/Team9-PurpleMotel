@@ -9,8 +9,10 @@ class PromoCode extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'code',
         'change',
         'start_date',
-        'end_date'
+        'end_date',
+        
     ];
 }

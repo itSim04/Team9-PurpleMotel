@@ -7,7 +7,9 @@ use App\Http\Resources\RoomResource;
 use App\Http\Resources\RoomTypeResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserTypeResource;
+use App\Models\AppliedPromoCodes;
 use App\Models\Booking;
+use App\Models\PromoCode;
 use App\Models\User;
 use App\Models\UserType;
 use App\Models\Room;
@@ -24,6 +26,7 @@ class BookingController extends Controller
         'room_id' => 'required|string',
         'user_id' => 'required|string',
         'check_in' => 'required|date',
+        'promo_id' => 'required|numeric',
         'end_date' => 'required|date',
         'exhausted' => 'required|boolean'
 
@@ -35,12 +38,12 @@ class BookingController extends Controller
     public function index()
     {
         return indexTemplate($this->model, $this->resource, [
-            
-            User::class => UserResource::class, 
-            UserType::class => UserTypeResource::class, 
-            Room::class => RoomResource::class, 
+
+            User::class => UserResource::class,
+            UserType::class => UserTypeResource::class,
+            Room::class => RoomResource::class,
             RoomType::class => RoomTypeResource::class
-        
+
         ]);
     }
 
@@ -49,7 +52,19 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        return storeTemplate($request, $this->model, $this->resource, $this->options);
+        $response = storeTemplate($request, $this->model, $this->resource, $this->options);
+
+        $promo = AppliedPromoCodes::all()
+            ->firstWhere('promo_id', $request->promo_id);
+
+        if ($promo) {
+
+            $promo->update([
+                'exhausted' => true
+            ]);
+            
+        }
+        return $response;
     }
 
     /**

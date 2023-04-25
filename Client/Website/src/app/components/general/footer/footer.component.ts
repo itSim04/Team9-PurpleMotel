@@ -1,3 +1,4 @@
+import { DisplayDialogService } from './../../../services/utility/display.service';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -11,5 +12,12 @@ export class FooterComponent {
   @Input() alt_color = '#FFFFFF';
 
   @Input() font_color = '#000000';
+  getTerm(arg0: string) {
+
+    return (JSON.parse(localStorage.getItem('information')!))[arg0];
+
+  }
+
+  constructor(public display_dialog: DisplayDialogService) {}
 
 }

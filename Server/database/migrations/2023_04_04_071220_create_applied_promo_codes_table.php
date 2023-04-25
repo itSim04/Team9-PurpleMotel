@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('applied_promo_codes', function (Blueprint $table) {
             $table->id();
             $table->integer('promo_id');
+            $table->boolean('exhausted');
             $table->integer('user_id');
             $table->timestamps();
         });

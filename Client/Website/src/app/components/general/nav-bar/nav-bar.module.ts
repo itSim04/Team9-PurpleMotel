@@ -1,3 +1,6 @@
+import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 import { RouterModule } from '@angular/router';
 import { LanguageModule } from './../../../services/language/language.module';
 import { NgModule } from '@angular/core';
@@ -13,8 +16,11 @@ import { MatDividerModule } from '@angular/material/divider';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     LanguageModule,
     RouterModule,
+    MatOptionModule,
+    MatSelectModule,
     
     MatDividerModule
   ],

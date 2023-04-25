@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CalendarModule } from './../calendar/calendar.module';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +23,7 @@ import {MatButtonModule} from '@angular/material/button';
     CommonModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    LanguageModule,
     MatInputModule,
     MatNativeDateModule,
     MatButtonModule,

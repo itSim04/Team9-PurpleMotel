@@ -1,3 +1,5 @@
+import { information } from './../../services/language/language.module';
+import { InformationDatabaseService } from '../../services/providers/information-database.service';
 import { Router } from '@angular/router';
 import { Route } from '@angular/router';
 import { User } from 'src/app/models/User';
@@ -7,7 +9,19 @@ import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, Observable, Subject } from 'rxjs';
 import { DataInjection, Column, ChangeInjection } from 'src/app/models/Database';
 
+export function formatDate(date: Date): string {
 
+  let minutes: string = String(date.getMinutes());
+  let hours: number = date.getHours() % 12;
+  if (hours == 0) hours = 12;
+
+  if (minutes.length == 1) {
+    minutes = 0 + minutes;
+  }
+
+  return hours + ":" + minutes + (date.getHours() > 11 ? " PM" : " AM");
+
+}
 export function extractUser(validity_check: boolean = true) {
 
   const user = localStorage.getItem('user');
@@ -131,7 +145,7 @@ export function formatWord(word: string | number | symbol | undefined) {
 
   if (!word) return "";
 
-  const splits = word.toString().replaceAll("_", " ").split(" ");
+  const splits = word.toString().replaceAll(/\_/g, " ").split(" ");
   for (let i = 0; i < splits.length; i++) {
 
     splits[i] = splits[i][0].toUpperCase() + splits[i].slice(1).toLowerCase();
@@ -274,9 +288,11 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   mouseMove$: Observable<MouseEvent>;
   hover_list: [string, unknown][] = [];
   extra_list: [string, Data][] = [];
+  extra_error: boolean = false;
+  error: boolean = false;
 
 
-  constructor (private cdr: ChangeDetectorRef, public router: Router) {
+  constructor (private cdr: ChangeDetectorRef, public router: Router, private information_service: InformationDatabaseService) {
 
     this.mouseMove$ = this.mouseMoveSubject.asObservable().pipe(
 
@@ -432,6 +448,8 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
     this.loading = true;
     this.extra_loading = true;
+    this.error = false;
+    this.extra_error = false;
     if (extractPermission('read', this.data_injection.permission) || extractPermission('read', this.extra_injection!.permission)) {
 
       this.dual_fetcher!().subscribe({
@@ -446,6 +464,10 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
               this.all_data_map = result[0];
               this.filtered_data.data = this.all_data;
 
+            } else {
+
+              this.error = true;
+
             }
 
             if (extractPermission('read', this.extra_injection.permission)) {
@@ -453,6 +475,10 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
               this.all_extra = Array.from(result[1]);
               this.all_extra_map = result[1];
               this.extra_data.data = this.all_extra;
+
+            } else {
+
+              this.extra_error = true;
 
             }
 
@@ -502,6 +528,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
     if (!extractPermission('read', this.data_injection.permission)) {
 
       this.loading = false;
+      this.error = true;
 
     } else if (this.data_injection.data_fetcher) {
 
@@ -517,6 +544,8 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
 
         }, error: error => {
+
+          console.error(error);
 
           if (error.status == 401) {
 
@@ -551,6 +580,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
     if (!extractPermission('read', this.extra_injection!.permission)) {
 
       this.extra_loading = false;
+      this.extra_error = true;
 
     } else if (this.extra_injection?.data_fetcher) {
 
@@ -570,6 +600,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
 
         }, error: error => {
 
+          console.error(error);
 
           if (error.status == 401) {
 

@@ -1,3 +1,6 @@
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { LanguageModule } from 'src/app/services/language/language.module';
+import { ReviewDialogModule } from './../../../services/dialogs/review/review.module';
 import { StarRatingModule } from 'angular-star-rating';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
@@ -28,7 +31,10 @@ import { RoomOverviewComponent } from "./overview/room-overview.component";
     PaginatorModule,
     RoomItemModule,
     StarRatingModule,
-    RoomDetailsModule
+    RoomDetailsModule,
+    LanguageModule,
+    ReviewDialogModule,
+    InfiniteScrollModule
   ],
   exports: [
     BrowseRoomsComponent,

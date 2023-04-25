@@ -1,6 +1,6 @@
 <div class="main">
     <app-nav-bar></app-nav-bar>
-    <app-room-details [overview]="false" [room]="room" [room_type]="room_type"
+    <app-room-details [promo]="promo_code" [overview]="false" [room]="room" [room_type]="room_type"
         style="margin-bottom: 64px;"></app-room-details>
 
     <mat-divider
@@ -9,7 +9,7 @@
 
     <div style="background-color: #14274A;">
 
-        <p class="testimonial-title">Testimonials</p>
+        <p class="testimonial-title">{{ 'testimonials' | translate }}</p>
         <mat-divider
             style="margin-left: 30%; margin-right: 30%; background-color: #14274A; border-color: lightgray;"></mat-divider>
 

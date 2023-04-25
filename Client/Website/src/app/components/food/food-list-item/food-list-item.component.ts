@@ -22,7 +22,7 @@ export class FoodListItemComponent {
 
   openPopup() {
 
-    const dialogRef = this.food_dialog.openDialog(this.food.value.label, this.food.value.description, this.food.value.price, this.food.key, this.quantity);
+    const dialogRef = this.food_dialog.openDialog(this.food.value.label, this.food.value.description, this.food.value.price, this.food.key, this.quantity, this.food.value.image);
     dialogRef.afterClosed().subscribe(result => this.quantity = (result as number));
 
   }

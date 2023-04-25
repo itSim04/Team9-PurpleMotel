@@ -69,22 +69,15 @@ class RoomController extends Controller
 
         if ($user) {
 
+            $promo_code_ids = AppliedPromoCodes::all()
+                ->where('exhausted', false)
+                ->where('user_id', $user->id)->pluck('promo_id');
 
 
 
-
-
-            $applied_code = AppliedPromoCodes::all()
-                ->where('user_id', $user->id);
-
-
-            $promo_code_ids = [];
-            foreach ($applied_code as $key => $value) {
-
-                $promo_code_ids[] = $value->promo_id;
-            }
             $effect_code = EffectPromoCodes::all()
-                ->whereIn('id', $promo_code_ids);
+                ->whereIn('promo_id', $promo_code_ids);
+
 
             $effective_ids = [];
             $actual_effect = [];
@@ -119,7 +112,9 @@ class RoomController extends Controller
                 }
             }
 
-            $promo_code = PromoCodeResource::collection(PromoCode::all()->whereIn('id', $effective_ids));
+            $promo_code = PromoCodeResource::collection(PromoCode::all()
+                ->where('exhausted', false)
+                ->whereIn('id', $effective_ids));
 
             $included = array_values($included
                 ->concat($promo_code)
@@ -133,8 +128,14 @@ class RoomController extends Controller
                 ->all());
         }
 
+        foreach($ids as $id) {
 
-        return generateResponse(200, RoomResource::collection($room), $included);
+            $images['rooms'][$id] = extractImages('Room', $id);
+
+        }
+
+
+        return generateResponse(200, RoomResource::collection($room), $included, false, $images);
     }
 
     /**
@@ -142,7 +143,6 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-
         return storeTemplate($request, $this->model, $this->resource, $this->options);
     }
 
@@ -165,16 +165,13 @@ class RoomController extends Controller
 
 
 
-                $applied_code = AppliedPromoCodes::all()
-                    ->where('user_id', Auth::user()->id);
+                $promo_code_ids = AppliedPromoCodes::all()
+                    ->where('exhausted', false)
+                    ->where('user_id', Auth::user()->id)->pluck('promo_id');
 
-                $promo_code_ids = [];
-                foreach ($applied_code as $key => $value) {
 
-                    $promo_code_ids[] = $value->promo_id;
-                }
                 $effect_code = EffectPromoCodes::all()
-                    ->whereIn('id', $promo_code_ids);
+                    ->whereIn('promo_id', $promo_code_ids);
 
                 $effective_ids = [];
 
@@ -205,7 +202,9 @@ class RoomController extends Controller
                     }
                 }
 
-                $promo_code = PromoCode::all()->whereIn('id', $effective_ids)->first();
+                $promo_code = PromoCode::all()
+                    ->whereIn('id', $effective_ids)
+                    ->first();
 
 
                 if ($promo_code) {
@@ -215,7 +214,9 @@ class RoomController extends Controller
                     $included[] = $promo_code;
                 }
             }
-            return generateResponse(200, new RoomResource($room), $included);
+            $images['rooms'][$id] = extractImages('Room', $id);
+
+            return generateResponse(200, new RoomResource($room), $included, false, $images);
         } else {
 
             return generateResponse(404, $id . " not in Database", true);
@@ -227,7 +228,6 @@ class RoomController extends Controller
      */
     public function update(Request $request, string $room_id)
     {
-
         return updateTemplate($request, $this->model, $room_id, $this->resource, $this->options);
     }
 
@@ -242,6 +242,12 @@ class RoomController extends Controller
 
     public function filter(Request $request)
     {
+
+        $request->validate([
+
+            'check_in' => 'required|date',
+            'check_out' => 'required|date'
+        ]);
 
         $start_date = strtotime($request->check_in);
         $end_date = strtotime($request->check_out);
@@ -260,8 +266,110 @@ class RoomController extends Controller
             }
         }
 
+        if (isset($request->index) && isset($request->size)) {
 
-        return RoomResource::collection(Room::all()->whereNotIn('id', $conflictingBooking));
+            $room = Room::all()->whereNotIn('id', $conflictingBooking)->skip($request->index)->take($request->size);
+        } else {
+
+            $room = Room::all()->whereNotIn('id', $conflictingBooking);
+        }
+
+        $types = $room->pluck('type');
+
+        $room_type = RoomType::all()
+            ->whereIn('id', $types);
+
+        if ($request->adults_capacity || $request->kids_capacity) {
+
+            if (!$request->kids_capacity) {
+
+                $room_type = $room_type->where('adults_capacity', $request->adults_capacity);
+            } else if (!$request->adults_capacity) {
+
+                $room_type = $room_type->where('kids_capacity', $request->kids_capacity);
+            } else {
+
+                $room_type = $room_type->where('adults_capacity', $request->adults_capacity)
+                    ->where('kids_capacity', $request->kids_capacity);
+            }
+
+
+            $types = $room_type->pluck('id');
+            $room = $room->whereIn('type', $types);
+        }
+
+        $ids = $room->pluck('id');
+
+        $included = RoomTypeResource::collection($room_type);
+
+
+        $review = ReviewResource::collection(Review::all()->whereIn('room_id', $ids));
+
+        $user = Auth::user();
+
+        if ($user) {
+
+            $promo_code_ids = AppliedPromoCodes::all()
+                ->where('exhausted', false)
+                ->where('user_id', $user->id)->pluck('promo_id');
+
+
+
+            $effect_code = EffectPromoCodes::all()
+                ->whereIn('promo_id', $promo_code_ids);
+
+
+            $effective_ids = [];
+            $actual_effect = [];
+
+
+            foreach ($effect_code as $key => $value) {
+
+                switch ($value->type) {
+
+                    case 0:
+
+                        if (in_array($value->effect_id, $ids->toArray())) {
+
+                            $effective_ids[] = $value->promo_id;
+                            $actual_effect[] = $value;
+                        }
+                        break;
+
+                    case 1:
+
+                        if (in_array($value->effect_id, $types->toArray())) {
+
+                            $effective_ids[] = $value->promo_id;
+                            $actual_effect[] = $value;
+                        }
+                        break;
+
+                    case 2:
+
+                        $effective_ids[] = $value->promo_id;
+                        $actual_effect[] = $value;
+                }
+            }
+
+            $promo_code = PromoCodeResource::collection(PromoCode::all()
+                ->where('exhausted', false)
+                ->whereIn('id', $effective_ids));
+
+            $included = array_values($included
+                ->concat($promo_code)
+                ->concat(EffectPromoCodesResource::collection($actual_effect))
+                ->concat($review)
+                ->all());
+        } else {
+
+            $included = array_values($included
+                ->concat($review)
+                ->all());
+        }
+
+
+        return generateResponse(200, RoomResource::collection($room), $included);
     }
 
     public function roomBookings(Request $request)

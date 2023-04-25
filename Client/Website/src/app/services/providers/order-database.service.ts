@@ -46,7 +46,7 @@ export class OrderDatabaseService {
 
                 case 'Foods':
 
-                  foods.set(value.id, { ...value.attributes as FoodAttributes, category: value.relationships.food_category.data.id, ingredients: [] });
+                  foods.set(value.id, { ...value.attributes as FoodAttributes, category: value.relationships.food_category.data.id, ingredients: [], image: response.images.food[value.id][0] });
                   break;
 
                 case 'OrderContains':

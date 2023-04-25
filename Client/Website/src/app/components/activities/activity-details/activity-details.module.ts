@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivityDetailsComponent } from './activity-details.component';
@@ -9,7 +10,8 @@ import { ActivityDetailsComponent } from './activity-details.component';
     ActivityDetailsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    LanguageModule
   ],
   exports:[
     ActivityDetailsComponent

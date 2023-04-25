@@ -37,7 +37,7 @@
             <td>
                 <!-- Date of Birth -->
                 <mat-form-field class="full-width input" appearance="fill">
-                    <mat-label class="label">Choose a date</mat-label>
+                    <mat-label class="label">{{ 'choose_date' | translate }}</mat-label>
                     <input [(ngModel)]="date_of_birth" matInput [matDatepicker]="picker" readonly>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
@@ -91,6 +91,9 @@
   
     <div class="number-error-2" *ngIf="connection_error">
         {{'connection_error'|translate}} 
+    </div>
+    <div class="number-error-2" *ngIf="used_credentials">
+        {{'used_credentials'|translate}} 
     </div>
 
     <div class="register">

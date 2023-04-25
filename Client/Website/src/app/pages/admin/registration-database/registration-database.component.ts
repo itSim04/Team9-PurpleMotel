@@ -88,7 +88,7 @@ export class RegistrationDatabaseComponent {
         outer_choices: {
 
           format: (choice) => (choice as User)?.first_name + ' ' + (choice as User)?.last_name,
-          index: 3
+          index: 2
 
 
         }
@@ -102,7 +102,7 @@ export class RegistrationDatabaseComponent {
 
             return (choice as Activity)?.title;
           },
-          index: 1
+          index: 0
 
 
         }

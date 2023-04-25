@@ -1,3 +1,5 @@
+import { CarouselModule } from './../general/carousel/carousel.module';
+import { FooterModule } from './../general/footer/footer.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -22,6 +24,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CompletionComponent } from './change/completion/completion.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgpImagePickerModule } from 'ngp-image-picker';
 
 
 @NgModule({
@@ -31,7 +36,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     TableComponent,
     TableUnitComponent,
     DatabaseComponent,
-    ChangeComponent
+    ChangeComponent,
+    CompletionComponent
 
   ],
   imports: [
@@ -41,6 +47,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     FormsModule,
     MatOptionModule,
+    FooterModule,
+    MatTooltipModule,
     LanguageModule,
     StarRatingModule,
     MatTableModule,
@@ -51,10 +59,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDialogModule,
     MatSelectModule,
     MatCheckboxModule,
+    CarouselModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgpImagePickerModule
   ],
   exports: [
     DatabaseComponent

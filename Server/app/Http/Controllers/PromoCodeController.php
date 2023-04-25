@@ -26,10 +26,11 @@ class PromoCodeController extends Controller
 {
     protected $resource = PromoCodeResource::class;
     protected $model = PromoCode::class;
-    protected $model_name = 'PromoCodes';
+    protected $model_name = 'Promo_Codes';
     protected $options = [
 
-        'change' => 'required|string',
+        'change' => 'required|numeric',
+        'code' => 'required|string|unique:Promo_Codes',
         'start_date' => 'required|date',
         'end_date' => 'required|date',
     ];
@@ -64,7 +65,77 @@ class PromoCodeController extends Controller
      */
     public function store(Request $request)
     {
-        return storeTemplate($request, $this->model, $this->resource, $this->options);
+        $response = storeTemplate($request, $this->model, $this->resource, $this->options);
+        $promo_code_id = (string)json_encode($response->original['data']->id);
+
+        $ids = EffectPromoCodes::all()->where('promo_id', $promo_code_id)->pluck('id');
+        EffectPromoCodes::destroy($ids);
+        $ids = EligibilityPromoCodes::all()->where('promo_id', $promo_code_id)->pluck('id');
+        EligibilityPromoCodes::destroy($ids);
+
+        if ($request->concerned_everyone) {
+
+            EligibilityPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => 0,
+                'type' => 3
+
+            ]);
+        }
+        if ($request->concerned_everything) {
+
+            EffectPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => 0,
+                'type' => 2
+
+            ]);
+        }
+
+        foreach ($request->concerned_users as $id) {
+
+            EligibilityPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => $id,
+                'type' => 0
+
+            ]);
+        }
+        foreach ($request->concerned_user_types as $id) {
+
+            EligibilityPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => $id,
+                'type' => 1
+
+            ]);
+        }
+        foreach ($request->concerned_rooms as $id) {
+
+            EffectPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => $id,
+                'type' => 0
+
+            ]);
+        }
+        foreach ($request->concerned_room_types as $id) {
+
+            EffectPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => $id,
+                'type' => 1
+
+            ]);
+        }
+
+        return $response;
     }
 
     /**
@@ -81,6 +152,72 @@ class PromoCodeController extends Controller
      */
     public function update(Request $request, string $promo_code_id)
     {
+        $ids = EffectPromoCodes::all()->where('promo_id', $promo_code_id)->pluck('id');
+        EffectPromoCodes::destroy($ids);
+        $ids = EligibilityPromoCodes::all()->where('promo_id', $promo_code_id)->pluck('id');
+        EligibilityPromoCodes::destroy($ids);
+
+        if ($request->concerned_everyone) {
+
+            EligibilityPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => 0,
+                'type' => 3
+
+            ]);
+        }
+        if ($request->concerned_everything) {
+
+            EffectPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => 0,
+                'type' => 2
+
+            ]);
+        }
+
+        foreach ($request->concerned_users as $id) {
+
+            EligibilityPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => $id,
+                'type' => 0
+
+            ]);
+        }
+        foreach ($request->concerned_user_types as $id) {
+
+            EligibilityPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => $id,
+                'type' => 1
+
+            ]);
+        }
+        foreach ($request->concerned_rooms as $id) {
+
+            EffectPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => $id,
+                'type' => 0
+
+            ]);
+        }
+        foreach ($request->concerned_room_types as $id) {
+
+            EffectPromoCodes::create([
+
+                'promo_id' => $promo_code_id,
+                'effect_id' => $id,
+                'type' => 1
+
+            ]);
+        }
 
         return updateTemplate($request, $this->model, $promo_code_id, $this->resource, $this->options, $this->model_name);
     }
@@ -99,92 +236,102 @@ class PromoCodeController extends Controller
 
         $user = Auth::user();
 
-        $promo = PromoCode::all()
-            ->where('code', $id)
-            ->first();
+        if (!$user) {
 
-        if ($promo) {
+            return generateResponse(200, 403);
+        } else if (AppliedPromoCodes::all()->where('exhausted', false)->firstWhere('user_id', $user->id)) {
 
-
-            $promo_id = $promo->id;
-
-
-
-            $existing_application  = AppliedPromoCodes::all()
-                ->where('promo_id', $promo_id)
-                ->where('user_id', $user->id)
-                ->first();
-
-
-
-            if ($existing_application) {
-
-                return generateResponse(200, 200);
-            } else {
-
-                $eligibility_array = EligibilityPromoCodes::all()
-                    ->where('promo_id', $promo_id);
-
-                $eligibility = false;
-
-                foreach ($eligibility_array as $key => $value) {
-
-                    switch ($value->type) {
-
-
-                        case 0:
-
-                            if ($user->id == $value->effect_id) {
-
-                                $eligibility = true;
-                            }
-                            break;
-
-                        case 1:
-
-                            if ($user->type == $value->effect_id) {
-
-                                $eligibility = true;
-                            }
-                            break;
-
-                        case 2:
-
-                            if ($user->tier == $value->effect_id) {
-
-                                $eligibility = true;
-                            }
-                            break;
-
-                        case 3:
-
-                            $eligibility = true;
-                            break;
-
-                        default:
-
-                            throw new Exception('Invalid Type');
-                    }
-                }
-
-                if ($eligibility) {
-
-                    $data = AppliedPromoCodes::create([
-
-                        'user_id' => $user->id,
-                        'promo_id' => $promo_id
-
-                    ]);
-
-                    return generateResponse(201, 201, $data);
-                } else {
-
-                    return generateResponse(200, 403);
-                }
-            }
+            return generateResponse(200, 400);
         } else {
 
-            return generateResponse(200, 404);
+            $promo = PromoCode::all()
+                ->where('code', $id)
+                ->first();
+
+            if ($promo) {
+
+
+                $promo_id = $promo->id;
+
+
+
+                $existing_application  = AppliedPromoCodes::all()
+                    ->where('promo_id', $promo_id)
+                    ->where('user_id', $user->id)
+                    ->first();
+
+
+
+                if ($existing_application) {
+
+                    return generateResponse(200, 200);
+                } else {
+
+                    $eligibility_array = EligibilityPromoCodes::all()
+                        ->where('promo_id', $promo_id);
+
+                    $eligibility = false;
+
+                    foreach ($eligibility_array as $key => $value) {
+
+                        switch ($value->type) {
+
+
+                            case 0:
+
+                                if ($user->id == $value->effect_id) {
+
+                                    $eligibility = true;
+                                }
+                                break;
+
+                            case 1:
+
+                                if ($user->type == $value->effect_id) {
+
+                                    $eligibility = true;
+                                }
+                                break;
+
+                            case 2:
+
+                                if ($user->tier == $value->effect_id) {
+
+                                    $eligibility = true;
+                                }
+                                break;
+
+                            case 3:
+
+                                $eligibility = true;
+                                break;
+
+                            default:
+
+                                throw new Exception('Invalid Type');
+                        }
+                    }
+
+                    if ($eligibility) {
+
+                        $data = AppliedPromoCodes::create([
+
+                            'user_id' => $user->id,
+                            'promo_id' => $promo_id,
+                            'exhausted' => false
+
+                        ]);
+
+                        return generateResponse(201, 201, $data);
+                    } else {
+
+                        return generateResponse(200, 404);
+                    }
+                }
+            } else {
+
+                return generateResponse(200, 404);
+            }
         }
     }
 

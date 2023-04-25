@@ -1,0 +1,13 @@
+<div mat-dialog-title class="title padded">
+
+  {{ title | translate}}
+  <hr style="border-color: #14274A;">
+
+</div>
+<div class="content padded" mat-dialog-content>
+  <p *ngFor="let chef of display">
+
+    {{chef}}<br>
+  
+  </p>
+</div>

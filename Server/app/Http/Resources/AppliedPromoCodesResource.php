@@ -19,7 +19,8 @@ class AppliedPromoCodesResource extends JsonResource
             'type' => 'AppliedPromoCodes',
             'attributes' => [
                 'user_id' => (string)$this->user_id,
-                'promo_id' => (string)$this->promo_id
+                'promo_id' => (string)$this->promo_id,
+                'exhausted' => $this->exhausted
             ]
 
         ];
