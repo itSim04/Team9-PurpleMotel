@@ -6,10 +6,15 @@
 
                 <td style="vertical-align: bottom; width: 70%">
 
-                    <div #container style="height: 66%; overflow-y: scroll;">
+                    <div #container style="height: 76%; overflow-y: scroll;">
 
                         <!-- Title -->
                         <div style="position: absolute; top: 0px; width: 100%; margin: 16px;">
+                            <ion-fab>
+                                <ion-fab-button class="back-btn">
+                                    <ion-icon name="arrow-back-outline"></ion-icon>
+                                </ion-fab-button>
+                              </ion-fab>
 
                             <p class="title">{{chat?.user_2?.value?.first_name}}</p>
 

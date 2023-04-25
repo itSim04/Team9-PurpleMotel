@@ -20,9 +20,10 @@
     height: 80px;
 }
 
-.send-area:focus{
+.send-area:focus {
     outline: none;
 }
+
 .send-area {
     background-color: transparent;
     width: 95%;
@@ -129,14 +130,13 @@
 
 
 .title {
-
+    position: relative;
+    left: 40%;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
-
-
     color: #FFFFFF;
 }
 
@@ -155,4 +155,11 @@
     position: absolute;
     top: 8px;
     right: 20px;
+}
+
+.back-btn {
+
+    --background: #D6B389CC;
+    --background-hover: #d6b38968;
+    --border-radius: 30px;
 }
