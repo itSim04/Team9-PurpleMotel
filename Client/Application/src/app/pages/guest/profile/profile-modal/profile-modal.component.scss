@@ -29,3 +29,14 @@
 
     color: #000000;
 }
+
+.back-btn {
+
+    margin: 16px;
+    --background: transparent;
+    --color: black;
+    --box-shadow: none;
+    --background-activated-opacity: 0;
+    --background-focused-opacity: 0;
+
+}

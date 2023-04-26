@@ -25,6 +25,17 @@ export class ProfileModalComponent {
   @Input() @Required data?: ProfileModalData
 
 
+  constructor(private modal_ctrl: ModalController) {
+
+
+
+  }
+
+
+  closeModal() {
+    this.modal_ctrl.dismiss();
+  }
+
 
 
 }
