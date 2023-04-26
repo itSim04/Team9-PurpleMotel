@@ -2,7 +2,16 @@
   <ion-icon name="arrow-back-outline"></ion-icon>
 </ion-fab-button>
 <div class="container">
-  <ion-text class="title">{{data?.title}}</ion-text>
-  <hr style="border-bottom: 1px solid #D6B389; width: 95%;">
-  <img style="object-fit: cover; margin-top: 8px;" width="90%" height="40%" [src]="data?.image" onerror="this.src='assets/placeholder.png'">
+  <div style="text-align: center;">
+
+    <ion-text class="title">{{data?.title}}</ion-text>
+    <hr style="border-bottom: 1px solid #D6B389; width: 95%;">
+    <img style="object-fit: cover; margin-top: 8px;" width="100%" height="40%" [src]="data?.image"
+      onerror="this.src='assets/placeholder.png'">
+  </div>
+  <br>
+  <ion-text class="label">{{'description' | translate}}</ion-text>
+  <br>
+  <ion-text class="body">{{data?.body}}</ion-text>
+  <br>
 </div>
