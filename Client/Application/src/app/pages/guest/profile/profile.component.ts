@@ -21,6 +21,7 @@ import { RoomDatabaseService } from "src/app/services/providers/room-database.se
 import { AuthenticationDialogService } from "src/app/services/utility/authentication.service";
 import { ProfileService } from "src/app/services/utility/profile.service";
 import { ProfileModalComponent, ProfileModalData } from "./profile-modal/profile-modal.component";
+import { OrderDatabaseService } from "src/app/services/providers/order-database.service";
 
 
 @Component({
@@ -35,6 +36,65 @@ import { ProfileModalComponent, ProfileModalData } from "./profile-modal/profile
       ])])]
 })
 export class ProfileComponent implements OnInit {
+formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
+
+  const activity = this.activities.get(registration.value.activity_id)!;
+
+
+    return {
+
+      title: activity.title,
+      body: activity.description,
+      price: activity.price,
+      start_date: activity.start_date,
+      end_date: activity.end_date,
+      image: activity.image[0],
+      button: {
+        label: 'Cancel',
+        action: () => {
+            
+            this.registration_service.deleteRegistration(registration.key).subscribe(() => {
+  
+              this.registrations.delete(registration.key);
+              this.closeModal();
+  
+            });
+  
+        }
+      }
+    }
+}
+  formatBooking(booking: KeyValue<string, Booking>): ProfileModalData {
+
+    const room = this.rooms.get(booking.value.room_id)!;
+    const room_type = this.room_types.get(room.type || '0')!;
+
+    return {
+
+
+      title: room.label,
+      body: room.description,
+      price: room_type.price,
+      start_date: booking.value.check_in,
+      end_date: booking.value.end_date,
+      image: room.images[0],
+      button: {
+
+        label: 'Cancel',
+        action: () => {
+
+          this.booking_service.deleteBooking(booking.key).subscribe(() => {
+
+            this.bookings.delete(booking.key);
+            this.closeModal();
+
+          });
+
+        }
+      }
+
+    }
+  }
 
 
   bookings!: Map<string, Booking>;
@@ -53,7 +113,7 @@ export class ProfileComponent implements OnInit {
 
   isModalOpen: boolean = false;
 
-  constructor(private animationCtrl: AnimationController, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService, private modal_ctrl: ModalController) {
+  constructor(private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService, private modal_ctrl: ModalController) {
 
     const user = extractUser()!;
 
@@ -94,10 +154,10 @@ export class ProfileComponent implements OnInit {
     return this.enterAnimation(baseEl).direction('reverse');
   };
 
-  formatOrder(order: Order): ProfileModalData {
+  formatOrder(order: KeyValue<string, Order>): ProfileModalData {
 
 
-    const ingredients = order.food;
+    const ingredients = order.value.food;
     const food_ids = ingredients.map(t => t.id);
 
     const foods = Array.from(this.foods).filter(t => food_ids.includes(t[0]));
@@ -117,20 +177,35 @@ export class ProfileComponent implements OnInit {
     return {
       body: body.join('\n'),
       price: price,
-      start_date: order?.date,
-      image: foods[0][1].image
-    }
+      start_date: order?.value.date,
+      image: foods[0][1].image,
+      button: {
 
+        label: 'Cancel',
+        action: () => {
+
+
+          this.order_service.deleteOrder(order.key).subscribe(() => {
+
+
+            this.orders.delete(order.key);
+            this.closeModal();
+
+          });
+        }
+      }
+
+    }
   }
 
   get booking_array() {
 
-    return Array.from(this.bookings?.values() || [])
+    return Array.from(this.bookings || [])
 
   }
   get registration_array() {
 
-    return Array.from(this.registrations?.values() || [])
+    return Array.from(this.registrations || [])
 
   }
 
@@ -157,7 +232,7 @@ export class ProfileComponent implements OnInit {
     this.isModalOpen = true;
 
     this.active_data = data;
-   
+
   }
 
   async closeModal() {
@@ -167,7 +242,7 @@ export class ProfileComponent implements OnInit {
     this.active_data = undefined;
 
     this.isModalOpen = false;
-   
+
   }
   // edit_profile() {
 

@@ -17,8 +17,9 @@
 
             <ng-container *ngIf="order.value.food.length">
 
-                <ion-img class="order-imgs" [src]="foods.get(order.value.food[0].id)?.image" (click)="openModal(formatOrder(order.value))">
-            </ion-img>
+                <ion-img class="order-imgs" [src]="foods.get(order.value.food[0].id)?.image"
+                    (click)="openModal(formatOrder(order))">
+                </ion-img>
             </ng-container>
         </div>
     </div>
@@ -43,11 +44,13 @@
     </ion-segment>
     <ion-content>
 
-        <ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" class="modal" [isOpen]="isModalOpen">
+        <ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" class="modal"
+            [isOpen]="isModalOpen">
             <ng-template>
-              <app-profile-modal (closeModal)="closeModal()" [data]="active_data" style="height: 100%;"></app-profile-modal>
+                <app-profile-modal (closeModal)="closeModal()" [data]="active_data"
+                    style="height: 100%;"></app-profile-modal>
             </ng-template>
-          </ion-modal>
+        </ion-modal>
 
         <ng-container *ngIf="selected==='rooms'">
 
@@ -60,15 +63,12 @@
 
                         <div class="square">
                             <img *ngIf="booking_array[x + i * 3]"
-                                [src]="rooms.get(booking_array[x + i * 3].room_id || '0')?.images?.at(0)"
-                                onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal({
-                                    title: rooms.get(booking_array[x + i * 3].room_id)?.label,
-                                    body: rooms.get(booking_array[x + i * 3].room_id)?.description,
-                                    price: room_types.get(rooms.get(booking_array[x + i * 3].room_id)?.type || '0')?.price,
-                                    start_date: booking_array[x + i * 3].check_in,
-                                    end_date: booking_array[x + i * 3].end_date,
-                                    image: rooms.get(booking_array[x + i * 3].room_id)?.images?.at(0)
-                                })">
+                                [src]="rooms.get(booking_array[x + i * 3][1].room_id || '0')?.images?.at(0)"
+                                onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal(formatBooking({
+                                    
+                                    key: booking_array[x + i * 3][0],
+                                    value: booking_array[x + i * 3][1]
+                                }))">
                         </div>
                     </td>
                 </tr>
@@ -76,7 +76,7 @@
             </table>
 
         </ng-container>
- 
+
 
         <ng-container *ngIf="selected==='services'">
 
@@ -88,16 +88,11 @@
 
                         <div class="square">
                             <img *ngIf="registration_array[x + i * 3]"
-                                [src]="activities.get(registration_array[x + i * 3].activity_id || '0')?.image?.at(0)"
-                                onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal({
-
-                                    title: activities.get(registration_array[x + i * 3].activity_id)?.title,
-                                    body: activities.get(registration_array[x + i * 3].activity_id)?.description,
-                                    price: activities.get(registration_array[x + i * 3].activity_id)?.price,
-                                    start_date: activities.get(registration_array[x + i * 3].activity_id)?.start_date,
-                                    end_date: activities.get(registration_array[x + i * 3].activity_id)?.end_date,
-                                    image: activities.get(registration_array[x + i * 3].activity_id)?.image?.at(0),
-                                })">
+                                [src]="activities.get(registration_array[x + i * 3][1].activity_id)?.image?.at(0)"
+                                onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal(formatActivity({
+                                    key: registration_array[x + i * 3][0],
+                                    value: registration_array[x + i * 3][1]
+                                }))">
                         </div>
                     </td>
                 </tr>

@@ -14,4 +14,11 @@
   <br>
   <ion-text class="body">{{data?.body}}</ion-text>
   <br>
+  <div>
+
+    <ion-button *ngIf="data?.button" (click)="data!.button.action()">
+      {{data!.button.label}}
+    </ion-button>
+
+  </div>
 </div>
