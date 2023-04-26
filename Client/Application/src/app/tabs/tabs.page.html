@@ -1,7 +1,3 @@
-<ion-header>
-
-
-</ion-header>
 <ion-content>
   <ion-router-outlet></ion-router-outlet>
 
@@ -18,30 +14,38 @@
           session_user.last_name}}</ion-text>
         <hr style="border-bottom:1px solid #14274A; width: 80%;">
       </div>
-      
+
       <br>
       <br>
       <br>
       <br>
-      <ion-text class="tabs">
-        {{ 'profile' | translate}}
-      </ion-text>
+      <ion-menu-toggle>
+
+        <ion-text [routerLink]="['/profile']" class="tabs">
+          {{ 'profile' | translate}}
+        </ion-text>
+
+      </ion-menu-toggle>
       <br>
       <br>
       <br>
-      <ion-text class="tabs">
-        {{ 'settings' | translate}}
-      </ion-text>
+      <ion-menu-toggle>
+        <ion-text [routerLink]="['/settings']" class="tabs">
+          {{ 'settings' | translate}}
+        </ion-text>
+      </ion-menu-toggle>
       <br>
       <br>
       <br>
-      <ion-text class="tabs">
-        {{ 'support' | translate}}
-      </ion-text>
-      
+      <ion-menu-toggle>
+        <ion-text (click)="openSupport()" class="tabs">
+          {{ 'support' | translate}}
+        </ion-text>
+      </ion-menu-toggle>
+
     </ion-content>
     <div style="position: relative; bottom: 16px">
-      
+
       <hr style="border-bottom:1px solid #14274A; width: 85%;">
       <br>
       <ion-text class="bottom">
@@ -56,16 +60,16 @@
     </div>
   </ion-menu>
 
-  <div style="position: fixed;height: 10% !important;" id="main-content">
+  <div *ngIf="!isActive('/chat/admin/')"  style="position: fixed;height: 10% !important;" id="main-content">
 
     <ion-menu-toggle>
       <ion-fab-button translucent="false" class="burger-btn">
-        <img width="80%" src="../../assets/tabs/menu-btn.png">
+        <img width="80%" src="../../assets/tabs/menu-btn-inactive.png">
       </ion-fab-button>
     </ion-menu-toggle>
   </div>
 
-  <div style="bottom: 0px; position: fixed; width: 100%;">
+  <div *ngIf="isActive('/chat/guest') || !isActive('/chat/admin/')" style="bottom: 0px; position: fixed; width: 100%;">
 
 
     <!-- <ion-toolbar> -->

@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,8 @@ import { GuestChatComponent } from './chat.component';
     RouterModule,
     FormsModule,
     IonicModule.forRoot(),
-    FormsModule
+    FormsModule,
+    LanguageModule
   ],
   exports:[
     GuestChatComponent

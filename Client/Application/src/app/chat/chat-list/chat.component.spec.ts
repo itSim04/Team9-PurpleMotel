@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ChatListComponent } from './chat-list.component';
+import { ChatListComponent } from './chat.component';
 
-describe('ChatListComponent', () => {
+describe('ChatComponent', () => {
   let component: ChatListComponent;
   let fixture: ComponentFixture<ChatListComponent>;
 

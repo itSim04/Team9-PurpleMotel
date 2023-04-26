@@ -27,7 +27,7 @@ export class AdminChatGuard implements CanActivate {
 
       } else {
 
-        this.router.navigate([`/guestchat/${user_id}`]);
+        this.router.navigate([`/chat/guest/${user_id}`]);
         return false;
 
       }
