@@ -68,3 +68,15 @@
     color: #000000;
 
 }
+
+.cancel-btn {
+
+    --background: #D6B389;
+    width: 150px;
+    text-align: center;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+
+}
