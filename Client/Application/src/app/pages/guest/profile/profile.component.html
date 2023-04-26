@@ -40,42 +40,51 @@
             </ion-segment-button>
         </div>
     </ion-segment>
-    <ng-container *ngIf="selected==='rooms'">
+    <ion-content>
 
-        <table style="width:100%;table-layout: fixed;">
-    
-            <tr *ngFor="let booking of booking_array; let i = index">
-    
-                <td *ngFor="let x of [0,1,2]" style="margin: 12px;">
-    
-    
-                    <div class="square">
-                    <img *ngIf="booking_array[x + i * 3]" [src]="rooms.get(booking_array[x + i * 3].room_id || '0')?.images?.at(0)" onerror="this.src='assets/placeholder.png'" class="booking-imgs">
-                    </div>
-                </td>
-            </tr>
-    
-        </table>
+        <ng-container *ngIf="selected==='rooms'">
 
-    </ng-container>    
+            <table style="width:100%;table-layout: fixed;">
+
+                <tr *ngFor="let booking of booking_array; let i = index">
+
+                    <td *ngFor="let x of [0,1,2]" style="margin: 12px;">
+
+
+                        <div class="square">
+                            <img *ngIf="booking_array[x + i * 3]"
+                                [src]="rooms.get(booking_array[x + i * 3].room_id || '0')?.images?.at(0)"
+                                onerror="this.src='assets/placeholder.png'" class="booking-imgs">
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+
+        </ng-container>
  
-    <ng-container *ngIf="selected==='services'">
 
-        <table style="width:100%;table-layout: fixed;">
-    
-            <tr *ngFor="let activity of registration_array; let i = index">
-    
-                <td *ngFor="let x of [0,1,2]" style="margin: 12px;">
-    
-                    <div class="square">
-                    <img *ngIf="registration_array[x + i * 3]" [src]="activities.get(registration_array[x + i * 3].activity_id || '0')?.image?.at(0)" onerror="this.src='assets/placeholder.png'" class="booking-imgs">
-                    </div>
-                </td>
-            </tr>
-    
-        </table>
+        <ng-container *ngIf="selected==='services'">
 
-    </ng-container>   
+            <table style="width:100%;table-layout: fixed;">
+
+                <tr *ngFor="let activity of registration_array; let i = index">
+
+                    <td *ngFor="let x of [0,1,2]" style="margin: 12px;">
+
+                        <div class="square">
+                            <img *ngIf="registration_array[x + i * 3]"
+                                [src]="activities.get(registration_array[x + i * 3].activity_id || '0')?.image?.at(0)"
+                                onerror="this.src='assets/placeholder.png'" class="booking-imgs">
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+
+        </ng-container>
+    </ion-content>
+
 
 
 </div>
