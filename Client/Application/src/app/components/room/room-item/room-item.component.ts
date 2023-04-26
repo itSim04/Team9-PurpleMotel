@@ -1,12 +1,10 @@
 import { PromoCode } from './../../../models/PromoCode';
 import { KeyValue } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { Router } from '@angular/router';
 import { formatPrice } from '../../database/database.component';
-import { ModalController } from '@ionic/angular';
-import { RoomModalComponent } from '../room-modal/room-modal.component';
 
 @Component({
   selector: 'app-room-item',
@@ -19,25 +17,9 @@ export class RoomItemComponent {
   @Input() room?: KeyValue<string, Room>;
   @Input() room_type?: KeyValue<string, RoomType>;
   @Input() promo?: KeyValue<string, PromoCode>;
+  @Output() open_modal: EventEmitter<void> = new EventEmitter();
 
-  constructor(private modal_ctrl: ModalController, private router: Router) { }
-
-  async openModal() {
-
-    const modal = await this.modal_ctrl.create({
-      component: RoomModalComponent,
-      componentProps: {
-        key: this.room?.key,
-        data: this.room?.value,
-      }
-
-    });
-    await modal.present();
-  }
-
-  closeModal() {
-    this.modal_ctrl.dismiss();
-  }
+  constructor(private router: Router) { }
 
   get formatPrice(): string {
 

@@ -8,6 +8,9 @@ import { Subscription } from 'rxjs';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { RoomType } from 'src/app/models/RoomType';
 import { RoomDatabaseService } from 'src/app/services/providers/room-database.service';
+import { ProfileModalData } from '../../profile/profile-modal/profile-modal.component';
+import { extractUserId } from 'src/app/components/database/database.component';
+import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 
 @Component({
   selector: 'app-browse-rooms',
@@ -22,6 +25,31 @@ import { RoomDatabaseService } from 'src/app/services/providers/room-database.se
 })
 export class BrowseRoomsComponent implements OnInit {
 
+
+  openModal(room: [string, Room]) {
+
+    this.active_data = undefined;
+
+    this.isModalOpened = true;
+
+    const room_type = this.room_types.get(room[1].type)!;
+
+    this.active_data = {
+
+      key: room[0],
+      value: room[1],
+
+    }
+  }
+
+
+  closeModal() {
+
+    this.isModalOpened = false;
+    this.active_data = undefined;
+
+  }
+
   rooms: Map<string, Room> = new Map();
   room_types: Map<string, RoomType> = new Map();
   promo_codes: Map<string, PromoCode> = new Map();
@@ -35,7 +63,11 @@ export class BrowseRoomsComponent implements OnInit {
 
   page = 0;
 
+  isModalOpened = false;
+  active_data?: KeyValue<string, Room>;
+
   constructor(private rooms_service: RoomDatabaseService) { }
+
 
   get data() {
 
@@ -60,6 +92,8 @@ export class BrowseRoomsComponent implements OnInit {
       data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
 
       Array.from(data.rooms).forEach((value) => this.filtered_rooms.push(value));
+
+      console.log(this.filtered_rooms)
       this.current_page += this.page_size;
     });
 

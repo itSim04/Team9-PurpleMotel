@@ -11,9 +11,17 @@
 
   <div>
     <div *ngFor="let room of filtered_rooms">
-      <app-room-item [room]="{key: room[0], value: room[1]}"
+      <app-room-item (open_modal)="openModal(room)" [room]="{key: room[0], value: room[1]}"
         [room_type]="room_types.getPair(room[1].type)"></app-room-item>
     </div>
   </div>
 
+  <ion-modal [isOpen]="isModalOpened" *ngIf="active_data" class="modal">
+  
+  
+    <ng-template>
+      <app-room-modal [room]="active_data" (closeModal)="closeModal()"></app-room-modal>
+    </ng-template>
+  </ion-modal>
+  
 </ion-content>

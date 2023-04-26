@@ -4,20 +4,20 @@
 <div class="container">
   <div style="text-align: center;">
 
-    <ion-text class="title">{{data?.title}}</ion-text>
+    <ion-text class="title">{{room?.value?.label}}</ion-text>
     <hr style="border-bottom: 1px solid #D6B389; width: 95%;">
-    <img style="object-fit: cover; margin-top: 8px;" width="100%" height="40%" [src]="data?.image"
+    <img style="object-fit: cover; margin-top: 8px;" width="100%" height="40%" [src]="room?.value?.images?.at(0)"
       onerror="this.src='assets/placeholder.png'">
   </div>
   <br>
   <ion-text class="label">{{'description' | translate}}</ion-text>
   <br>
-  <ion-text class="body">{{data?.body}}</ion-text>
+  <ion-text class="body">{{room?.value?.description}}</ion-text>
   <br>
   <div style="text-align: center; height: 50%">
 
-    <ion-button *ngIf="data?.button" (click)="data!.button!.action()" class="cancel-btn">
-      {{data!.button!.label}}
+    <ion-button  class="cancel-btn">
+      {{'Register' | translate}}
     </ion-button>
 
   </div>

@@ -9,7 +9,8 @@ import { MatInputModule } from "@angular/material/input";
 import { IonicModule } from "@ionic/angular";
 import { CalendarComponent } from "./calendar.component";
 import { LanguageModule } from "src/app/services/language/language.module";
-
+import { NoopAnimationPlayer } from "@angular/animations";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -20,7 +21,7 @@ import { LanguageModule } from "src/app/services/language/language.module";
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule.forRoot(),
+    // IonicModule.forRoot(),
     ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,

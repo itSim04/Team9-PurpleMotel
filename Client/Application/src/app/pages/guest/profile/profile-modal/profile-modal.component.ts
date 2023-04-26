@@ -12,7 +12,7 @@ export interface ProfileModalData {
   start_date?: string;
   end_date?: string;
   image?: string;
-  button: {
+  button?: {
 
     label: string;
     action: () => void;

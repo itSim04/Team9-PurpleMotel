@@ -38,6 +38,11 @@ import { ProfileModule } from "./pages/guest/profile/profile.module";
 import { GuestChatsPageModule } from './chat/guest/chat.module';
 import { AdminChatsPageModule } from './chat/admin/chat/chat.module';
 import { ChatListModule } from './chat/chat-list/chat.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CalendarComponent } from './components/room/calendar/calendar.component';
 
 
 
@@ -56,6 +61,7 @@ import { ChatListModule } from './chat/chat-list/chat.module';
     IonicModule.forRoot(),
 
     LanguageModule,
+    BrowserAnimationsModule,
 
     // Admin
     AnnouncementDatabaseModule,
@@ -75,6 +81,10 @@ import { ChatListModule } from './chat/chat-list/chat.module';
     ServicesModule,
     AdminDashboardModule,
     RoomsModule,
+
+    MatDatepickerModule,
+    MatNativeDateModule, 
+    MatFormFieldModule,
     
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase()),
