@@ -20,16 +20,11 @@ export interface ProfileModalData {
   templateUrl: './profile-modal.component.html',
   styleUrls: ['./profile-modal.component.scss'],
 })
-export class ProfileModalComponent{
+export class ProfileModalComponent {
 
-  data?: ProfileModalData
- 
+  @Input() @Required data?: ProfileModalData
 
-  constructor(private modal_params: NavParams, private modal_ctrl: ModalController) { 
-  
-  this.data = modal_params.get('data')
-  
-}
- 
+
+
 
 }

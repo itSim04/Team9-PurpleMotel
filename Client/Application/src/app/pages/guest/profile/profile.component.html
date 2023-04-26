@@ -43,6 +43,12 @@
     </ion-segment>
     <ion-content>
 
+        <ion-modal [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" class="modal" [isOpen]="isModalOpen">
+            <ng-template>
+              <app-profile-modal></app-profile-modal>
+            </ng-template>
+          </ion-modal>
+
         <ng-container *ngIf="selected==='rooms'">
 
             <table style="width:100%;table-layout: fixed;">

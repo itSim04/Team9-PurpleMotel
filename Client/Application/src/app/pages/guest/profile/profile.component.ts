@@ -3,7 +3,7 @@ import { KeyValue } from "@angular/common";
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { ModalController } from "@ionic/angular";
+import { AnimationController, ModalController } from "@ionic/angular";
 import { ActivitiesModalComponent } from "src/app/components/activities/activities-modal/activities-modal.component";
 import { extractUser } from "src/app/components/database/database.component";
 import { Activity } from "src/app/models/Activity";
@@ -48,6 +48,49 @@ export class ProfileComponent implements OnInit {
   user: User;
   first_name;
   last_name;
+
+  isModalOpen: boolean = false;
+
+  constructor(private animationCtrl: AnimationController, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService, private modal_ctrl: ModalController) {
+
+    const user = extractUser()!;
+
+
+    this.user = user;
+    this.first_name = this.user.first_name;
+    this.last_name = this.user.last_name;
+
+
+
+  }
+
+  enterAnimation = (baseEl: HTMLElement) => {
+    const root = baseEl.shadowRoot!;
+
+    const backdropAnimation = this.animationCtrl
+      .create()
+      .addElement(root.querySelector('ion-backdrop')!)
+      .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+    const wrapperAnimation = this.animationCtrl
+      .create()
+      .addElement(root.querySelector('.modal-wrapper')!)
+      .keyframes([
+        { offset: 0, opacity: '0', transform: 'scale(0)' },
+        { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+      ]);
+
+    return this.animationCtrl
+      .create()
+      .addElement(baseEl)
+      .easing('ease-out')
+      .duration(250)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+
+  leaveAnimation = (baseEl: HTMLElement) => {
+    return this.enterAnimation(baseEl).direction('reverse');
+  };
 
   formatOrder(order: Order) {
 
@@ -104,30 +147,22 @@ export class ProfileComponent implements OnInit {
     return '../../../../assets/food-' + ((index % 8) + 1) + '.jpg';
   }
 
-  constructor(private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService, private modal_ctrl: ModalController) {
-
-    const user = extractUser()!;
-
-
-    this.user = user;
-    this.first_name = this.user.first_name;
-    this.last_name = this.user.last_name;
-
-
-
-  }
   async openModal(data: ProfileModalData) {
 
-    const modal = await this.modal_ctrl.create({
-      component: ProfileModalComponent,
-      componentProps:
-      {
-        data: data
-      }
+    this.isModalOpen = true;
 
-    });
+    // const modal = await this.modal_ctrl.create({
 
-    await modal.present();
+    //   component: ProfileModalComponent,
+    //   componentProps:
+    //   {
+    //     data: data
+    //   },
+    //   cssClass: 'profile-modal'
+
+    // });
+
+    // await modal.present();
   }
   // edit_profile() {
 
