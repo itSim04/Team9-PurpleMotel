@@ -1,8 +1,10 @@
 import { animate, style, transition, trigger } from "@angular/animations";
 import { KeyValue } from "@angular/common";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { ModalController } from "@ionic/angular";
+import { ActivitiesModalComponent } from "src/app/components/activities/activities-modal/activities-modal.component";
 import { extractUser } from "src/app/components/database/database.component";
 import { Activity } from "src/app/models/Activity";
 import { Booking } from "src/app/models/Booking";
@@ -18,6 +20,7 @@ import { RegistrationDatabaseService } from "src/app/services/providers/registra
 import { RoomDatabaseService } from "src/app/services/providers/room-database.service";
 import { AuthenticationDialogService } from "src/app/services/utility/authentication.service";
 import { ProfileService } from "src/app/services/utility/profile.service";
+import { ProfileModalComponent, ProfileModalData } from "./profile-modal/profile-modal.component";
 
 
 @Component({
@@ -74,7 +77,7 @@ export class ProfileComponent implements OnInit {
     return '../../../../assets/food-' + ((index % 8) + 1) + '.jpg';
   }
 
-  constructor(private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService) {
+  constructor(private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService, private modal_ctrl: ModalController) {
 
     const user = extractUser()!;
 
@@ -85,6 +88,19 @@ export class ProfileComponent implements OnInit {
 
 
 
+  }
+  async openModal(data: ProfileModalData) {
+
+    const modal = await this.modal_ctrl.create({
+      component: ProfileModalComponent,
+      componentProps: 
+      {
+        data: data
+      } 
+
+    });
+
+    await modal.present();
   }
   // edit_profile() {
 

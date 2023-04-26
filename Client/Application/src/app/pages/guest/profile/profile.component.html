@@ -75,7 +75,14 @@
                         <div class="square">
                             <img *ngIf="registration_array[x + i * 3]"
                                 [src]="activities.get(registration_array[x + i * 3].activity_id || '0')?.image?.at(0)"
-                                onerror="this.src='assets/placeholder.png'" class="booking-imgs">
+                                onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal({
+
+                                    title: activities?.get(registration_array[x + i * 3].activity_id)?.title,
+                                    body: activities?.get(registration_array[x + i * 3].activity_id)?.description,
+                                    price: activities?.get(registration_array[x + i * 3].activity_id)?.price,
+                                    start_date: activities?.get(registration_array[x + i * 3].activity_id)?.start_date,
+                                    end_date: activities?.get(registration_array[x + i * 3].activity_id)?.end_date
+                                })">
                         </div>
                     </td>
                 </tr>

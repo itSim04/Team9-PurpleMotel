@@ -7,6 +7,7 @@ import { ChangePasswordComponent } from "./change-password/change-password.compo
 import { EditProfileComponent } from "./edit-profile/edit-profile.component";
 import { ProfileComponent } from "./profile.component";
 import { IonicModule } from "@ionic/angular";
+import { ProfileModalComponent } from "./profile-modal/profile-modal.component";
 
 
 
@@ -16,7 +17,8 @@ import { IonicModule } from "@ionic/angular";
   declarations: [
     ProfileComponent,
     EditProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ProfileModalComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { IonicModule } from "@ionic/angular";
   exports: [
     EditProfileComponent,
     ChangePasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProfileModalComponent
   ],
   providers: [
     ProfileService
