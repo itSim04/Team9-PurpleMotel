@@ -47,6 +47,11 @@ export class ProfileComponent implements OnInit {
   last_name;
 
 
+  get booking_array() {
+
+  return Array.from(this.bookings?.values() || [])
+
+  }
 
   keyDescOrder = (a: KeyValue<string, Booking>, b: KeyValue<string, Booking>): number => {
     return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
@@ -129,6 +134,7 @@ export class ProfileComponent implements OnInit {
 
 
   }
+  
 
   reviewRoom(room_id: string) {
 
@@ -222,7 +228,7 @@ export class ProfileComponent implements OnInit {
   selected: 'rooms' | 'services' = 'rooms';
 
   onSegmentChange(event: any) {
-    
+
     const selectedValue = event.detail.value;
 
     if (selectedValue === 'rooms') {
