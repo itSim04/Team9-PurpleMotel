@@ -12,8 +12,6 @@ import { getDatabase } from "firebase/database";
 import { environment } from "src/environments/environment";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
-import { AdminChatsPageModule } from "./chat/admin/chat/chat.module";
-import { GuestChatsPageModule } from "./chat/guest/chat.module";
 import { ActivitiesModule } from "./components/activities/activities.module";
 import { NewsListItemModule } from "./components/news/news-list-item/news-list-item.module";
 import { NewsListPopupModule } from "./components/news/news-list-popup/news-list-popup.module";
@@ -34,10 +32,12 @@ import { AuthenticationModule } from "./pages/authentication/authentication.modu
 import { HomeModule } from "./pages/guest/home/home.module";
 import { ServicesModule } from "./pages/guest/services/services.module";
 import { TabsPage } from "./tabs/tabs.page";
-import { ChatListModule } from "./chat/chat-list/chat-list.module";
 import { RoomsModule } from "./pages/guest/rooms/rooms.module";
 import { RestaurantModule } from "./pages/guest/restaurant/restaurant.module";
 import { ProfileModule } from "./pages/guest/profile/profile.module";
+import { GuestChatsPageModule } from './chat/guest/chat.module';
+import { AdminChatsPageModule } from './chat/admin/chat/chat.module';
+import { ChatListModule } from './chat/chat-list/chat.module';
 
 
 
@@ -52,7 +52,7 @@ import { ProfileModule } from "./pages/guest/profile/profile.module";
     RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
     BrowserModule,
     AuthenticationModule,
-    HttpClientModule,
+    
     IonicModule.forRoot(),
 
     LanguageModule,
@@ -75,14 +75,17 @@ import { ProfileModule } from "./pages/guest/profile/profile.module";
     ServicesModule,
     AdminDashboardModule,
     RoomsModule,
+    
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase()),
+
     GuestChatsPageModule,
     AdminChatsPageModule,
     ChatListModule,
+
     HomeModule,
     ProfileModule,
     RestaurantModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideDatabase(() => getDatabase())
 
   ],
   providers: [
@@ -95,4 +98,6 @@ import { ProfileModule } from "./pages/guest/profile/profile.module";
     RouterModule
   ]
 })
-export class AppModule { }
+export class AppModule { 
+
+}

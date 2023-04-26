@@ -1,3 +1,4 @@
+import { extractUser } from 'src/app/components/database/database.component';
 import { LanguageDatabaseService } from '../providers/language-database.service';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
@@ -8,7 +9,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { extractUser } from 'src/app/components/database/database.component';
 
 export function TranslationLoader(http: HttpClient, translate: TranslateService, language_service: LanguageDatabaseService) {
 

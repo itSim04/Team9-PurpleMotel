@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminChatComponent } from './chat.component';
 import { IonicModule } from '@ionic/angular';
+import { LanguageModule } from 'src/app/services/language/language.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { IonicModule } from '@ionic/angular';
     CommonModule,
     RouterModule,
     FormsModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    LanguageModule
   ],
   exports:[
     AdminChatComponent

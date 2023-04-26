@@ -21,7 +21,7 @@ export class ChatGuard implements CanActivate {
 
       if (user.tier != '0') {
 
-        this.router.navigate(['/adminchat/']);
+        this.router.navigate(['/chat/admin/']);
         return false;
 
       } else if (id == user_id) {
@@ -30,7 +30,7 @@ export class ChatGuard implements CanActivate {
 
       } else {
 
-        this.router.navigate([`/guestchat/${user_id}`]);
+        this.router.navigate([`/chat/guest/${user_id}`]);
         return true;
 
       }

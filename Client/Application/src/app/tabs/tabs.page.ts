@@ -1,10 +1,11 @@
-import { extractUser } from 'src/app/components/database/database.component';
+import { extractUser, extractUserId } from 'src/app/components/database/database.component';
 import { User } from 'src/app/models/User';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -14,20 +15,46 @@ import { IonicModule } from '@ionic/angular';
 export class TabsPage {
 
   session_user: User;
-  constructor(private router: Router) { 
+
+  closeMenu() {
+    this.menuCtrl.close('main-content');
+  }
+  constructor (private menuCtrl: MenuController, private router: Router) {
 
     const user = extractUser();
 
-    if(user) {
+    if (user) {
 
       this.session_user = user;
 
     } else {
 
-      throw new Error('User not found');
       this.router.navigate(['/auth/login']);
+      throw new Error('User not found');
 
     }
+
+  }
+
+  openSupport() {
+
+    const user = extractUser();
+    const id = extractUserId();
+    if(user && id) {
+
+      if(user.tier == '0') {
+
+        this.router.navigate(['chat/guest/' + id])
+
+      } else {
+
+        this.router.navigate(['chat/admin'])
+
+      }
+
+
+    }
+
 
   }
 
@@ -37,11 +64,11 @@ export class TabsPage {
 
   get color() {
 
-    if(this.router.url.includes('services')) {
+    if (this.router.url.includes('services')) {
 
       return '#D6B389';
 
-    } else if(this.router.url.includes('restaurant')) {
+    } else if (this.router.url.includes('restaurant')) {
 
       return '#930000';
 

@@ -19,7 +19,6 @@ import { BrowseServicesComponent } from './pages/guest/services/browse/browse-se
 import { HomeComponent } from './pages/guest/home/home.component';
 import { GuestChatComponent } from './chat/guest/chat.component';
 import { AdminChatComponent } from './chat/admin/chat/chat.component';
-import { ChatListComponent } from './chat/chat-list/chat-list.component';
 import { AdminGuard } from './guards/admin.guard';
 import { GuestGuard } from './guards/guest.guard';
 import { AdminChatGuard } from './guards/admin.chat.guard';
@@ -27,6 +26,7 @@ import { ChatGuard } from './guards/chat.guard';
 import { BrowseRoomsComponent } from './pages/guest/rooms/browse-rooms/browse-rooms.component';
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 import { ProfileComponent } from './pages/guest/profile/profile.component';
+import { ChatListComponent } from './chat/chat-list/chat.component';
 
 
 
@@ -73,7 +73,7 @@ export const routes: Routes = [
 
         path: 'profile',
         component: ProfileComponent
-        
+
 
       },
       {
@@ -121,6 +121,29 @@ export const routes: Routes = [
 
         ]
       },
+      {
+        path: 'chat',
+        children: [
+
+
+          {
+            path: 'guest/:id',
+            canActivate: [ChatGuard],
+            component: GuestChatComponent
+          },
+
+          {
+            path: "admin",
+            canActivate: [AdminChatGuard],
+            component: ChatListComponent,
+          },
+          {
+            path: "admin/:id",
+            canActivate: [AdminChatGuard],
+            component: AdminChatComponent,
+          }
+        ]
+      }
 
     ]
   },
@@ -190,24 +213,9 @@ export const routes: Routes = [
         component: ServiceDatabaseComponent,
       },
 
+
     ]
   },
-  {
-    path: 'support/:id',
-    canActivate: [ChatGuard],
-    component: GuestChatComponent
-  },
-
-  {
-    path: "support",
-    canActivate: [AdminChatGuard],
-    component: ChatListComponent,
-  },
-  {
-    path: "support/:id",
-    canActivate: [AdminChatGuard],
-    component: AdminChatComponent,
-  }
 
 
   //   {
