@@ -1,4 +1,4 @@
-<table class="main">
+<table *ngIf="room" class="main">
     <tr>
         <td colspan="2">
 
@@ -8,22 +8,28 @@
     <tr>
         <td style="padding: 16px; width: 60%;">
 
-            <app-carousel #carousel [background_color]="'#14274A'">
+            <ng-container *ngIf="room?.value?.images?.length">
+                <app-carousel #carousel [background_color]="'#14274A'">
 
-                <ng-container *ngFor="let image of room?.value?.images">
-                    <ng-container *carouselItem>
-                        <img (load)="fixImage()" [src]="image"
-                            onerror="this.src='assets/placeholder.png'" height="480vh">
+                    <ng-container *ngFor="let image of room?.value?.images">
+                        <ng-container *carouselItem>
+                            <img (load)="fixImage()" [src]="image" onerror="this.src='assets/placeholder.png'"
+                                height="480vh">
+                        </ng-container>
                     </ng-container>
-                </ng-container>
 
-            </app-carousel>
+                </app-carousel>
+            </ng-container>
+            <ng-container *ngIf="!room?.value?.images?.length">
+
+                <img src="assets/placeholder.png" height="480vh">
+            </ng-container>
 
         </td>
         <td style="padding: 16px; width: 40%;" *ngIf="room && room_type">
             <div style="display: flex;">
-                <star-rating [showHalfStars]="true" [rating]="room.value.rating || 0"
-                    [readOnly]="true" staticColor="positive"></star-rating>
+                <star-rating [showHalfStars]="true" [rating]="room.value.rating || 0" [readOnly]="true"
+                    staticColor="positive"></star-rating>
             </div>
             <br>
             <div style="vertical-align: middle;">
@@ -61,9 +67,8 @@
 
                         </td>
                         <td>
-                            <app-calendar (result)="addBooking($event)"
-                                style="position: relative; top: 36px" [invisible_input]="true"
-                                #calendar [room_id]="room.key"></app-calendar>
+                            <app-calendar (result)="addBooking($event)" style="position: relative; top: 36px"
+                                [invisible_input]="true" #calendar [room_id]="room.key"></app-calendar>
                             <p (click)="calendar.downloadConflicts()" class="cancel-btn">
                                 {{ 'book' | translate }}
                             </p>

@@ -23,14 +23,16 @@
     </div>
 
     <ion-segment (ionChange)="onSegmentChange($event)">
-        <div [style.borderBottomColor]="selected == 'rooms' ? 'var(--ion-color-primary)' : '#B1B8C3'" style="border-bottom: 1px solid var(--ion-color-primary); width: 50%; margin: 0; transition: all 250ms ease-in-out;">
+        <div [style.borderBottomColor]="selected == 'rooms' ? 'var(--ion-color-primary)' : '#B1B8C3'"
+            style="border-bottom: 1px solid var(--ion-color-primary); width: 50%; margin: 0; transition: all 250ms ease-in-out;">
 
             <ion-segment-button value="rooms">
                 <img style="transition: all 500ms ease-in-out;" height="50%"
                     [src]="selected != 'rooms' ?  '../../../../assets/profile-pics/room-segment.png' : '../../../../assets/profile-pics/room-segment-active.png'">
             </ion-segment-button>
         </div>
-        <div [style.borderBottomColor]="selected == 'services' ? 'var(--ion-color-primary)' : '#B1B8C3'" style="width: 50%; margin: 0; border-bottom: 1px solid var(--ion-color-primary); transition: all 250ms ease-in-out;">
+        <div [style.borderBottomColor]="selected == 'services' ? 'var(--ion-color-primary)' : '#B1B8C3'"
+            style="width: 50%; margin: 0; border-bottom: 1px solid var(--ion-color-primary); transition: all 250ms ease-in-out;">
 
             <ion-segment-button value="services">
                 <img style="transition: all 500ms ease-in-out;" height="50%"
@@ -41,10 +43,19 @@
 
     <table style="width:100%;table-layout: fixed;">
 
-        <tr style="width:100%">
-            <td class="order">1</td>
-            <td class="order">2</td>
-            <td class="order">3</td>
+        <tr *ngFor="let booking of booking_array; let i = index">
+
+
+
+
+
+            <td *ngFor="let x of [0,1,2]" style="margin: 12px;">
+
+
+                <div class="square">
+                <img *ngIf="booking_array[x + i * 3]" [src]="rooms.get(booking_array[x + i * 3].room_id || '0')?.images?.at(0)" onerror="this.src='assets/placeholder.png'" class="booking-imgs">
+                </div>
+            </td>
         </tr>
 
     </table>

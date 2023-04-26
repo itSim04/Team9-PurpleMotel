@@ -1,6 +1,6 @@
 import { PromoCode } from './../../../../models/PromoCode';
 import { KeyValue } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
@@ -19,9 +19,10 @@ export class RoomOverviewComponent implements OnInit {
   promo_code?: KeyValue<string, PromoCode>;
   current_page = 0;
 
-  constructor (private route: ActivatedRoute, private room_service: RoomDatabaseService) { }
+  constructor(private route: ActivatedRoute, private room_service: RoomDatabaseService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+
 
     const key = this.route.snapshot.paramMap.getAll('id')[0];
 
@@ -38,7 +39,8 @@ export class RoomOverviewComponent implements OnInit {
       console.log("Room already exists");
       this.room = JSON.parse(room) as KeyValue<string, Room>;
       this.room_type = JSON.parse(room_type) as KeyValue<string, RoomType>;
-      this.promo_code = (JSON.parse(promo || '') as KeyValue<string, PromoCode>) || undefined;
+      if (promo)
+        this.promo_code = (JSON.parse(promo) as KeyValue<string, PromoCode>) || undefined;
 
 
     } else {
@@ -61,7 +63,10 @@ export class RoomOverviewComponent implements OnInit {
 
         this.promo_code = room.promo_code;
 
+        this.cdr.detectChanges()
 
+
+        console.log(this.room);
         console.log(this.promo_code);
 
 
