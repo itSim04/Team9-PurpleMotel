@@ -49,6 +49,8 @@ export class ProfileComponent implements OnInit {
   first_name;
   last_name;
 
+  active_data?: ProfileModalData;
+
   isModalOpen: boolean = false;
 
   constructor(private animationCtrl: AnimationController, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService, private modal_ctrl: ModalController) {
@@ -92,7 +94,7 @@ export class ProfileComponent implements OnInit {
     return this.enterAnimation(baseEl).direction('reverse');
   };
 
-  formatOrder(order: Order) {
+  formatOrder(order: Order): ProfileModalData {
 
 
     const ingredients = order.food;
@@ -115,7 +117,8 @@ export class ProfileComponent implements OnInit {
     return {
       body: body.join('\n'),
       price: price,
-      start_date: order?.date
+      start_date: order?.date,
+      image: foods[0][1].image
     }
 
   }
@@ -149,20 +152,22 @@ export class ProfileComponent implements OnInit {
 
   async openModal(data: ProfileModalData) {
 
+    this.active_data = undefined;
+
     this.isModalOpen = true;
 
-    // const modal = await this.modal_ctrl.create({
+    this.active_data = data;
+   
+  }
 
-    //   component: ProfileModalComponent,
-    //   componentProps:
-    //   {
-    //     data: data
-    //   },
-    //   cssClass: 'profile-modal'
+  async closeModal() {
 
-    // });
 
-    // await modal.present();
+
+    this.active_data = undefined;
+
+    this.isModalOpen = false;
+   
   }
   // edit_profile() {
 

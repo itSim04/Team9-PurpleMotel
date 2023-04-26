@@ -1,10 +1,9 @@
 import { KeyValue } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
 import { Interface } from 'readline';
 import { Required } from 'src/app/components/database/database.component';
 import { Activity } from 'src/app/models/Activity';
-
 export interface ProfileModalData {
 
   title?: string;
@@ -12,6 +11,7 @@ export interface ProfileModalData {
   price?: number;
   start_date?: string;
   end_date?: string;
+  image?: string;
 
 }
 
@@ -23,18 +23,8 @@ export interface ProfileModalData {
 export class ProfileModalComponent {
 
   @Input() @Required data?: ProfileModalData
+  @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
 
-
-  constructor(private modal_ctrl: ModalController) {
-
-
-
-  }
-
-
-  closeModal() {
-    this.modal_ctrl.dismiss();
-  }
 
 
 

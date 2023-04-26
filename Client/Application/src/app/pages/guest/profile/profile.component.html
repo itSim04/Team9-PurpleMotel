@@ -43,9 +43,9 @@
     </ion-segment>
     <ion-content>
 
-        <ion-modal [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" class="modal" [isOpen]="isModalOpen">
+        <ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" class="modal" [isOpen]="isModalOpen">
             <ng-template>
-              <app-profile-modal style="height: 100%;"></app-profile-modal>
+              <app-profile-modal (closeModal)="closeModal()" [data]="active_data" style="height: 100%;"></app-profile-modal>
             </ng-template>
           </ion-modal>
 
@@ -62,11 +62,12 @@
                             <img *ngIf="booking_array[x + i * 3]"
                                 [src]="rooms.get(booking_array[x + i * 3].room_id || '0')?.images?.at(0)"
                                 onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal({
-                                    title: rooms?.get(booking_array[x + i * 3].room_id)?.label,
-                                    body: rooms?.get(booking_array[x + i * 3].room_id)?.description,
-                                    price: room_types?.get(rooms?.get(booking_array[x + i * 3].room_id)?.type || '0')?.price,
-                                    start_date: booking_array[x + i * 3]?.check_in,
-                                    end_date: booking_array[x + i * 3]?.end_date
+                                    title: rooms.get(booking_array[x + i * 3].room_id)?.label,
+                                    body: rooms.get(booking_array[x + i * 3].room_id)?.description,
+                                    price: room_types.get(rooms.get(booking_array[x + i * 3].room_id)?.type || '0')?.price,
+                                    start_date: booking_array[x + i * 3].check_in,
+                                    end_date: booking_array[x + i * 3].end_date,
+                                    image: rooms.get(booking_array[x + i * 3].room_id)?.images?.at(0)
                                 })">
                         </div>
                     </td>
@@ -90,11 +91,12 @@
                                 [src]="activities.get(registration_array[x + i * 3].activity_id || '0')?.image?.at(0)"
                                 onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal({
 
-                                    title: activities?.get(registration_array[x + i * 3].activity_id)?.title,
-                                    body: activities?.get(registration_array[x + i * 3].activity_id)?.description,
-                                    price: activities?.get(registration_array[x + i * 3].activity_id)?.price,
-                                    start_date: activities?.get(registration_array[x + i * 3].activity_id)?.start_date,
-                                    end_date: activities?.get(registration_array[x + i * 3].activity_id)?.end_date
+                                    title: activities.get(registration_array[x + i * 3].activity_id)?.title,
+                                    body: activities.get(registration_array[x + i * 3].activity_id)?.description,
+                                    price: activities.get(registration_array[x + i * 3].activity_id)?.price,
+                                    start_date: activities.get(registration_array[x + i * 3].activity_id)?.start_date,
+                                    end_date: activities.get(registration_array[x + i * 3].activity_id)?.end_date,
+                                    image: activities.get(registration_array[x + i * 3].activity_id)?.image?.at(0),
                                 })">
                         </div>
                     </td>

@@ -1,7 +1,8 @@
-<ion-fab-button (click)="closeModal()" class="back-btn">
+<ion-fab-button (click)="closeModal.emit(true)" class="back-btn">
   <ion-icon name="arrow-back-outline"></ion-icon>
 </ion-fab-button>
 <div class="container">
-  <ion-text class="title">Movie Night</ion-text>
+  <ion-text class="title">{{data?.title}}</ion-text>
   <hr style="border-bottom: 1px solid #D6B389; width: 95%;">
+  <img style="object-fit: cover; margin-top: 8px;" width="90%" height="40%" [src]="data?.image" onerror="this.src='assets/placeholder.png'">
 </div>
