@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
@@ -53,6 +54,8 @@ import { ProfileModule } from "./pages/guest/profile/profile.module";
     AuthenticationModule,
     HttpClientModule,
     IonicModule.forRoot(),
+
+    LanguageModule,
 
     // Admin
     AnnouncementDatabaseModule,

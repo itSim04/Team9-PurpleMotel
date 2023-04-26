@@ -1,3 +1,5 @@
+import { extractUser } from 'src/app/components/database/database.component';
+import { User } from 'src/app/models/User';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +13,23 @@ import { IonicModule } from '@ionic/angular';
 })
 export class TabsPage {
 
-  constructor(private router: Router) { }
+  session_user: User;
+  constructor(private router: Router) { 
+
+    const user = extractUser();
+
+    if(user) {
+
+      this.session_user = user;
+
+    } else {
+
+      throw new Error('User not found');
+      this.router.navigate(['/auth/login']);
+
+    }
+
+  }
 
   isActive(path: string): boolean {
     return this.router.url.includes(path);

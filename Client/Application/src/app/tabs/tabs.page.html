@@ -1,6 +1,73 @@
+<ion-header>
+
+
+</ion-header>
 <ion-content>
   <ion-router-outlet></ion-router-outlet>
+
+  <ion-menu style="vertical-align: top;" contentId="main-content">
+    <ion-menu-toggle>
+      <ion-fab-button translucent="false" class="burger-btn">
+        <img width="80%" src="../../assets/tabs/menu-btn.png">
+      </ion-fab-button>
+    </ion-menu-toggle>
+    <ion-content>
+      <div style="text-align:center;">
+
+        <ion-text class="user-name">{{session_user.first_name + ' ' +
+          session_user.last_name}}</ion-text>
+        <hr style="border-bottom:1px solid #14274A; width: 80%;">
+      </div>
+      
+      <br>
+      <br>
+      <br>
+      <br>
+      <ion-text class="tabs">
+        {{ 'profile' | translate}}
+      </ion-text>
+      <br>
+      <br>
+      <br>
+      <ion-text class="tabs">
+        {{ 'settings' | translate}}
+      </ion-text>
+      <br>
+      <br>
+      <br>
+      <ion-text class="tabs">
+        {{ 'support' | translate}}
+      </ion-text>
+      
+    </ion-content>
+    <div style="position: relative; bottom: 16px">
+      
+      <hr style="border-bottom:1px solid #14274A; width: 85%;">
+      <br>
+      <ion-text class="bottom">
+        {{'about_us' | translate}}
+      </ion-text>
+      <br>
+      <ion-text class="bottom">
+        {{'terms_conditions' | translate}}
+      </ion-text>
+      <br>
+
+    </div>
+  </ion-menu>
+
+  <div style="position: fixed;" class="ion-page" id="main-content">
+
+    <ion-menu-toggle>
+      <ion-fab-button translucent="false" class="burger-btn">
+        <img width="80%" src="../../assets/tabs/menu-btn.png">
+      </ion-fab-button>
+    </ion-menu-toggle>
+  </div>
+
   <div style="bottom: 0px; position: fixed; width: 100%;">
+
+
     <!-- <ion-toolbar> -->
     <table [style.backgroundColor]="color" class="container" slot="bottom">
       <tr style="position: relative; left: 50%; transform: translateX(-50%);">
@@ -10,7 +77,8 @@
         <td class="cell">
 
           <ion-button [routerLink]="['/home']" fill="clear" class="tab" tab="home">
-            <div [ngClass]="isActive('/home') ? 'block-container-active' : 'block-container-inactive'"
+            <div
+              [ngClass]="isActive('/home') ? 'block-container-active' : 'block-container-inactive'"
               class="block-container">
               <ion-img class="image" [src]="isActive('/home') ? '../../assets/tabs/home-active.png' :
                 '../../assets/tabs/home.png'"></ion-img>
@@ -22,7 +90,8 @@
         <td class="cell">
 
           <ion-button [routerLink]="['/rooms']" fill="clear" class="tab" tab="rooms">
-            <div [ngClass]="isActive('/rooms') ? 'block-container-active' : 'block-container-inactive' "
+            <div
+              [ngClass]="isActive('/rooms') ? 'block-container-active' : 'block-container-inactive' "
               class="block-container">
               <ion-img class="image"
                 [src]="isActive('/rooms') ? '../../assets/tabs/rooms-active.png' : '../../assets/tabs/rooms.png'"></ion-img>
@@ -33,22 +102,26 @@
         <td class="cell">
 
           <ion-button [routerLink]="['/services']" fill="clear" class="tab" tab="services">
-            <div [ngClass]="isActive('/services') ? 'block-container-active' : 'block-container-inactive'"
+            <div
+              [ngClass]="isActive('/services') ? 'block-container-active' : 'block-container-inactive'"
               class="block-container">
               <ion-img class="image"
                 [src]="isActive('/services') ? '../../assets/tabs/services-active.png' : '../../assets/tabs/services.png'"></ion-img>
-              <ion-text style="color: #D6B389" class="text-active" *ngIf="isActive('/services')">Services</ion-text>
+              <ion-text style="color: #D6B389" class="text-active"
+                *ngIf="isActive('/services')">Services</ion-text>
             </div>
           </ion-button>
         </td>
         <td class="cell">
 
           <ion-button [routerLink]="['/restaurant']" fill="clear" class="tab" tab="restaurant">
-            <div [ngClass]="isActive('/restaurant') ? 'block-container-active2' : 'block-container-inactive'"
+            <div
+              [ngClass]="isActive('/restaurant') ? 'block-container-active2' : 'block-container-inactive'"
               class="block-container">
               <ion-img class="image"
                 [src]="isActive('/restaurant') ? '../../assets/tabs/restaurant-active.png' : '../../assets/tabs/restaurant.png'"></ion-img>
-              <ion-text style="color: #930000" class="text-active" *ngIf="isActive('/restaurant')">Restaurant</ion-text>
+              <ion-text style="color: #930000" class="text-active"
+                *ngIf="isActive('/restaurant')">Restaurant</ion-text>
             </div>
           </ion-button>
         </td>
