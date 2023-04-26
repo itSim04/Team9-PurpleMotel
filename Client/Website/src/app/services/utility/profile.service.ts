@@ -6,7 +6,7 @@ import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Observable, map, catchError, throwError } from "rxjs";
 import { extractUserId } from "src/app/components/database/database.component";
-import { Activity } from "src/app/models/Activity";
+import { Activity, ActivityAttributes } from "src/app/models/Activity";
 import { Booking, BookingAttributes } from "src/app/models/Booking";
 import { Food, FoodAttributes } from "src/app/models/Food";
 import { Order, OrderAttributes } from "src/app/models/Order";
@@ -136,7 +136,7 @@ export class ProfileService {
 
                 case 'Activities':
 
-                  user_activities.set(value.id, {...value.attributes as Activity, image: images.activity[value.id]});
+                user_activities.set(value.id, {...value.attributes as ActivityAttributes, image:  images.activity ? images.activity[value.id] : [], registrations: []} );
                   break;
 
                 case 'Registration':

@@ -232,7 +232,7 @@ class UserController extends Controller
             $registrations_id = [];
             foreach ($registrations as $registration) {
                 
-                $images['activity'][$registration->activity_id] = extractImages('Activitiy', $registration->activity_id);
+                $images['activity'][$registration->activity_id] = extractImages('Activity', $registration->activity_id);
                 $registrations_id[] = $registration->activity_id;
             }
 

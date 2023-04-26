@@ -52,6 +52,11 @@ export class ProfileComponent implements OnInit {
   return Array.from(this.bookings?.values() || [])
 
   }
+  get registration_array() {
+
+    return Array.from(this.registrations?.values() || [])
+  
+    }
 
   keyDescOrder = (a: KeyValue<string, Booking>, b: KeyValue<string, Booking>): number => {
     return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
