@@ -49,17 +49,44 @@ export class ProfileComponent implements OnInit {
   first_name;
   last_name;
 
+  formatOrder(order: Order) {
+
+
+    const ingredients = order.food;
+    const food_ids = ingredients.map(t => t.id);
+
+    const foods = Array.from(this.foods).filter(t => food_ids.includes(t[0]));
+
+    const body = [];
+
+    for (let i = 0; i < foods.length; i++) {
+
+      body.push(foods[i][1].label + ' ' + ingredients[i].quantity);
+
+    }
+
+    let price = 0;
+
+    foods.forEach(t => price += t[1].price);
+
+    return {
+      body: body.join('\n'),
+      price: price,
+      start_date: order?.date
+    }
+
+  }
 
   get booking_array() {
 
-  return Array.from(this.bookings?.values() || [])
+    return Array.from(this.bookings?.values() || [])
 
   }
   get registration_array() {
 
     return Array.from(this.registrations?.values() || [])
-  
-    }
+
+  }
 
   keyDescOrder = (a: KeyValue<string, Booking>, b: KeyValue<string, Booking>): number => {
     return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
@@ -93,10 +120,10 @@ export class ProfileComponent implements OnInit {
 
     const modal = await this.modal_ctrl.create({
       component: ProfileModalComponent,
-      componentProps: 
+      componentProps:
       {
         data: data
-      } 
+      }
 
     });
 
@@ -155,7 +182,7 @@ export class ProfileComponent implements OnInit {
 
 
   }
-  
+
 
   reviewRoom(room_id: string) {
 

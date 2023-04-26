@@ -17,7 +17,8 @@
 
             <ng-container *ngIf="order.value.food.length">
 
-                <ion-img class="order-imgs" [src]="foods.get(order.value.food[0].id)?.image"></ion-img>
+                <ion-img class="order-imgs" [src]="foods.get(order.value.food[0].id)?.image" (click)="openModal(formatOrder(order.value))">
+            </ion-img>
             </ng-container>
         </div>
     </div>
