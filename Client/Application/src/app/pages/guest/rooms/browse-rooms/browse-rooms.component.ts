@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, KeyValue } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -39,14 +40,23 @@ export class BrowseRoomsComponent implements OnInit {
       key: room[0],
       value: room[1],
 
-    }
+    };
   }
 
 
-  closeModal() {
+  closeModal($event: boolean) {
 
     this.isModalOpened = false;
     this.active_data = undefined;
+
+    if ($event) {
+      setTimeout(() => {
+
+        this.router.navigate(['profile']);
+
+      }, 1000);
+
+    }
 
   }
 
@@ -66,7 +76,7 @@ export class BrowseRoomsComponent implements OnInit {
   isModalOpened = false;
   active_data?: KeyValue<string, Room>;
 
-  constructor(private rooms_service: RoomDatabaseService) { }
+  constructor (private rooms_service: RoomDatabaseService, private router: Router) { }
 
 
   get data() {
@@ -93,7 +103,7 @@ export class BrowseRoomsComponent implements OnInit {
 
       Array.from(data.rooms).forEach((value) => this.filtered_rooms.push(value));
 
-      console.log(this.filtered_rooms)
+      console.log(this.filtered_rooms);
       this.current_page += this.page_size;
     });
 

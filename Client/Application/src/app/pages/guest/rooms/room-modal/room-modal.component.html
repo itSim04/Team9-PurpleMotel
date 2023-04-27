@@ -6,8 +6,8 @@
 
     <ion-text class="title">{{room?.value?.label}}</ion-text>
     <hr style="border-bottom: 1px solid #D6B389; width: 95%;">
-    <img style="object-fit: cover; margin-top: 8px;" width="100%" height="40%" [src]="room?.value?.images?.at(0)"
-      onerror="this.src='assets/placeholder.png'">
+    <img style="object-fit: cover; margin-top: 8px;" width="100%" height="40%"
+      [src]="room?.value?.images?.at(0)" onerror="this.src='assets/placeholder.png'">
   </div>
   <br>
   <ion-text class="label">{{'description' | translate}}</ion-text>
@@ -16,8 +16,9 @@
   <br>
   <div style="text-align: center; height: 50%">
 
-    <ion-button  class="cancel-btn">
-      {{'Register' | translate}}
+    <app-calendar [room_id]="room?.key" (result)="saveBookingRange($event)"></app-calendar>
+    <ion-button (click)="addBooking()" class="cancel-btn">
+      {{'Book' | translate}}
     </ion-button>
 
   </div>
