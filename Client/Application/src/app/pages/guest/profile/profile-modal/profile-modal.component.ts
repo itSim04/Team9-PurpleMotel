@@ -13,11 +13,13 @@ export interface ProfileModalData {
   end_date?: string;
   image?: string;
   button?: {
-
+    
     label: string;
-    action: () => void;
-
+    action: (...args: unknown[]) => void;
+    
   }
+  stored_data?: unknown;
+  show_num_input?: boolean;
 
 }
 
@@ -31,6 +33,13 @@ export class ProfileModalComponent {
   @Input() @Required data?: ProfileModalData
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
 
+  performAction() {
+
+    if (this.data?.button?.action)
+      this.data.button.action(this.data.stored_data);
+
+
+  }
 
 
 

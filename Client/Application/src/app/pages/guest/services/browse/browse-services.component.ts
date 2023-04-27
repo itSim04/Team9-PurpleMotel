@@ -1,11 +1,14 @@
 import { trigger, transition, style, animate } from "@angular/animations";
 import { KeyValue } from "@angular/common";
-import { Component, OnInit, OnDestroy, ViewChild, Input } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Component, OnInit } from "@angular/core";
+
 import { Activity } from "src/app/models/Activity";
 import { Facility } from "src/app/models/Facility";
 import { Registration } from "src/app/models/Registration";
+
 import { ServiceDatabaseService } from "src/app/services/providers/service-database.service";
+import { ProfileModalData } from "../../profile/profile-modal/profile-modal.component";
+
 
 @Component({
   selector: 'app-services',
@@ -23,8 +26,11 @@ export class BrowseServicesComponent implements OnInit {
   activities: Map<string, Activity> = new Map();
   facilities: Map<string, Facility> = new Map();
   registrations: Map<string, Registration> = new Map();
+  active_data?: ProfileModalData;
+  isModalOpen: boolean = false;
 
   constructor(private services_service: ServiceDatabaseService) { }
+
 
 
 

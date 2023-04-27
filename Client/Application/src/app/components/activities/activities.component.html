@@ -23,10 +23,17 @@
         </td>
       </tr>
 
+      <ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" class="modal"
+      [isOpen]="isModalOpen">
+      <ng-template>
+          <app-profile-modal (closeModal)="closeModal()" [data]="active_data"
+              style="height: 100%;"></app-profile-modal>
+      </ng-template>
+     </ion-modal>
 
     </table>
     <div class="button-container">
 
-      <button class="learn-more-button" (click)="openModal()">Learn More</button>
+      <button class="learn-more-button" (click)="openModal(formatActivity())">Learn More</button>
     </div>
   </div>
