@@ -101,10 +101,14 @@ export class CalendarWrapperComponent {
     const from: CalendarResult = date?.from;
     const to: CalendarResult = date?.to;
 
-    this.start = new Date(from.string);
-    this.end = new Date(to.string);
+    if(from && to) {
 
-    this.emit();
+
+      this.start = new Date(from.string);
+      this.end = new Date(to.string);
+      
+      this.emit();
+    }
 
   }
 

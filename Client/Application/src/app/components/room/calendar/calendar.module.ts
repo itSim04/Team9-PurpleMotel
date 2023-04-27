@@ -22,6 +22,7 @@ import { CalendarModule } from "ion2-calendar";
   imports: [
     CommonModule,
     FormsModule,
+    IonicModule.forRoot(),
     CalendarModule.forRoot({
       doneLabel: 'Save',
       closeIcon: true
