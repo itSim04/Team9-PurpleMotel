@@ -38,7 +38,7 @@
     <ng-container *ngIf="selected == 'facilities'">
 
         <div *ngFor="let facility of facilities | keyvalue: facility_key; let i = index">
-            <app-facilities [facility]="facility.value"
+            <app-facilities [facility]="facility"
                 [title]="facility.value.title"></app-facilities>
 
         </div>

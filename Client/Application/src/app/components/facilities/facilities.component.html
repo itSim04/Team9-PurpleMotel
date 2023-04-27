@@ -1,31 +1,35 @@
+<table>
+
+  <tr>
+    <td colspan="2">
+      <h2 class="img-title">{{facility?.value?.title}}</h2>
+      <img class="main-img" src="../../../assets/services-pics/gym.png">
+    </td>
+
+  </tr>
+
+  <tr>
+    <td>
+      <img class="sub-imgs" src="../../../assets/services-pics/gym.png">
+    </td>
+
+    <td>
+      <img class="sub-imgs" src="../../../assets/services-pics/gym.png">
+    </td>
+  </tr>
+
+  <ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation"
+    class="modal" [isOpen]="isModalOpen">
+    <ng-template>
+      <app-profile-modal (closeModal)="closeModal()" [data]="active_data"
+        style="height: 100%;"></app-profile-modal>
+    </ng-template>
+  </ion-modal>
 
 
-  
-  
-  <table>
-    
-    <tr>
-      <td colspan="2">
-        <h2 class="img-title">{{facility?.title}}</h2>
-        <img class="main-img" src="../../../assets/services-pics/gym.png">
-      </td>
-      
-    </tr>
-    
-    <tr>
-      <td>
-        <img class="sub-imgs" src="../../../assets/services-pics/gym.png">
-      </td>
-      
-      <td>
-        <img class="sub-imgs" src="../../../assets/services-pics/gym.png">
-      </td>
-    </tr>
+</table>
+<div class="button-container">
 
-    
-  </table>
-  <div class="button-container">
+  <button class="learn-more-button" (click)="openModal(formatFacility())">Learn More</button>
 
-    <button class="learn-more-button" (click)="openModal()">Learn More</button>
-   
-  </div>
+</div>
