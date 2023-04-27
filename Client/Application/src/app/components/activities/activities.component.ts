@@ -74,8 +74,9 @@ export class ActivitiesComponent implements OnInit {
 
           });
 
-        }
+        },
       },
+      stored_data: 0,
       show_num_input: true,
     }
   }

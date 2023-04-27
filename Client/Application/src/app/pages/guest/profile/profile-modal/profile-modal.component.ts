@@ -42,9 +42,11 @@ export class ProfileModalComponent {
 
     if (this.data) {
       let seats = this.data.stored_data as number;
+      console.log(seats)
 
       if (seats + change >= 0) {
         seats += change;
+        this.data.stored_data = seats;
       }
     }
 
