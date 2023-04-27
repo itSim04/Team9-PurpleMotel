@@ -1,8 +1,8 @@
-import { AuthenticationService } from './../authentication.service';
 import { Component } from '@angular/core';
 import { validateEmail } from '../authentication.utility';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/utility/authentication.service';
 
 @Component({
   selector: 'app-login-dialog',

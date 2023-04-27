@@ -4,7 +4,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatDateRangeInput, MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthenticationService } from 'src/app/authentication.service';
 import { Booking } from 'src/app/models/Booking';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
@@ -37,7 +36,7 @@ export class CalendarComponent implements OnInit {
   closer?: () => void;
 
 
-  constructor(private router: Router, private room_service: BookingDatabaseService, private snackBar: MatSnackBar, private authentication: AuthenticationService) { }
+  constructor(private router: Router, private room_service: BookingDatabaseService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
 

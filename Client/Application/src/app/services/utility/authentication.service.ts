@@ -11,7 +11,7 @@ import { UrlBuilderService } from './url-builder.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationDialogService {
+export class AuthenticationService {
 
   constructor (public dialog: MatDialog, private http: HttpClient, private url: UrlBuilderService) { }
 
@@ -32,7 +32,7 @@ export class AuthenticationDialogService {
 
   login(user: UserCredentials) {
 
-    return this.http.post<UserResponse>("http://127.0.0.1:8000/api/v1/auth/login", user).pipe(
+    return this.http.post<UserResponse>(this.url.generateUrl('auth/login'), user).pipe(
 
       map(result => {
 
@@ -55,7 +55,7 @@ export class AuthenticationDialogService {
   register(user: UserInformation) {
 
 
-    return this.http.post<UserResponse>("http://127.0.0.1:8000/api/v1/auth/register", user).pipe(
+    return this.http.post<UserResponse>(this.url.generateUrl('auth/register'), user).pipe(
 
       map(result => {
 
@@ -79,7 +79,7 @@ export class AuthenticationDialogService {
 
     try {
 
-      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-1?email=${email}`);
+      return this.http.get<any>(this.url.generateUrl(`auth/auth/forgot-password-1?email=${email}`));
 
     } catch (e: unknown) {
 
@@ -92,7 +92,7 @@ export class AuthenticationDialogService {
 
     try {
 
-      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/send-verify-email?email=${email}`);
+      return this.http.get<any>(this.url.generateUrl(`auth/send-verify-email?email=${email}`));
 
     } catch (e: unknown) {
 
@@ -106,7 +106,7 @@ export class AuthenticationDialogService {
 
     try {
 
-      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/verify-email?token=${token}`);
+      return this.http.get<any>(this.url.generateUrl(`auth/verify-email?token=${token}`));
 
     } catch (e: unknown) {
 
@@ -119,7 +119,7 @@ export class AuthenticationDialogService {
 
     try {
 
-      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-2?password_confirmation=${confirm_password}&password=${password}&token=${token}`);
+      return this.http.get<any>(this.url.generateUrl(`auth/forgot-password-2?password_confirmation=${confirm_password}&password=${password}&token=${token}`));
 
     } catch (e: unknown) {
 
