@@ -18,7 +18,7 @@ import { User } from "src/app/models/User";
 import { BookingDatabaseService } from "src/app/services/providers/booking-database.service";
 import { RegistrationDatabaseService } from "src/app/services/providers/registration-database.service";
 import { RoomDatabaseService } from "src/app/services/providers/room-database.service";
-import { AuthenticationDialogService } from "src/app/services/utility/authentication.service";
+import { AuthenticationService } from "src/app/services/utility/authentication.service";
 import { ProfileService } from "src/app/services/utility/profile.service";
 import { ProfileModalComponent, ProfileModalData } from "./profile-modal/profile-modal.component";
 import { OrderDatabaseService } from "src/app/services/providers/order-database.service";
@@ -113,7 +113,7 @@ formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
 
   isModalOpen: boolean = false;
 
-  constructor(private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService, private modal_ctrl: ModalController) {
+  constructor(private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationService, private modal_ctrl: ModalController) {
 
     const user = extractUser()!;
 

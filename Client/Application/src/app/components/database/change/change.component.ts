@@ -1,4 +1,4 @@
-import { AuthenticationDialogService } from './../../../services/utility/authentication.service';
+import { AuthenticationService } from './../../../services/utility/authentication.service';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -221,7 +221,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   }
 
-  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; all_data: Map<string, Data>; }, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService, private image_service: InformationDatabaseService) {
+  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; all_data: Map<string, Data>; }, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationService, private image_service: InformationDatabaseService) {
 
 
     this.linked_data = injected_data.link;
