@@ -4,12 +4,14 @@ import { IonicModule } from '@ionic/angular';
 import { RestaurantLandingComponent } from './landing/landing-restaurant.component';
 import { LanguageModule } from 'src/app/services/language/language.module';
 import { RouterModule } from '@angular/router';
+import { MenuComponent } from './menu/menu.component';
 
 
 
 @NgModule({
   declarations: [
-    RestaurantLandingComponent
+    RestaurantLandingComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,
