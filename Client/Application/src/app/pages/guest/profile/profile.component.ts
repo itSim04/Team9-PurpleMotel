@@ -4,7 +4,6 @@ import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { AnimationController, ModalController } from "@ionic/angular";
-import { ActivitiesModalComponent } from "src/app/components/activities/activities-modal/activities-modal.component";
 import { extractUser } from "src/app/components/database/database.component";
 import { Activity } from "src/app/models/Activity";
 import { Booking } from "src/app/models/Booking";
@@ -28,12 +27,7 @@ import { OrderDatabaseService } from "src/app/services/providers/order-database.
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  animations: [
-    trigger('fadeOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 })),
-      ])])]
+ 
 })
 export class ProfileComponent implements OnInit {
 formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {

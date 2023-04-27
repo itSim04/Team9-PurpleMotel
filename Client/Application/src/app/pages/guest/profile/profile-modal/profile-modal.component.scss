@@ -81,3 +81,32 @@
     position: absolute;
 
 }
+
+.input {
+
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 12px;
+    line-height: 3vh;
+    color: #14274A;
+    margin: 0px;
+    font-weight: 700;
+    text-transform: capitalize;
+
+}
+.quantity_btn {
+
+    display: inline-block;
+    width: 10px;
+    background-color: white;
+    border: 0px;
+    margin: 16px;
+    --background: #D6B389;
+    height: 20px;
+
+}
+
+.seats{
+    color:#14274A;
+}

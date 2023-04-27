@@ -15,10 +15,24 @@
   <ion-text class="body">{{data?.body}}</ion-text>
   <br>
   <div style="text-align: center; height: 50%">
+    <ng-container *ngIf="data!.show_num_input">
+      <div style="display: flex; width: 70%;">
 
-
-
-    <ion-button *ngIf="data?.button" (click)="data!.button!.action()" class="cancel-btn">
+      
+        <ion-text class="input">
+          {{ 'seats' | translate }}:
+        </ion-text>
+        <div style="display: flex; width: 100%; align-items: center; padding-left: 4px;">
+          <ion-button (click)="changeQuantity(-1)" class="quantity_btn">-</ion-button>
+          <ion-text style="display: inline; margin-left: 16px;">
+            {{data!.stored_data}}
+          </ion-text>
+          <ion-button (click)="changeQuantity(1)" class="quantity_btn">+</ion-button>
+        </div>
+        <br>
+      </div>
+    </ng-container>
+    <ion-button *ngIf="data?.button" (click)="performAction()" class="cancel-btn">
       {{data!.button!.label}}
     </ion-button>
 

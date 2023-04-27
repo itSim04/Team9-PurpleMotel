@@ -5,6 +5,7 @@ import { BrowseServicesComponent } from './browse/browse-services.component';
 import { ActivitiesModule } from '../../../components/activities/activities.module';
 import { IonicModule } from '@ionic/angular';
 import { FacilitiesModule } from 'src/app/components/facilities/facilities.module';
+import { ProfileModule } from '../profile/profile.module';
 
 
 
@@ -16,7 +17,8 @@ import { FacilitiesModule } from 'src/app/components/facilities/facilities.modul
     CommonModule,
     ActivitiesModule,
     FacilitiesModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    ProfileModule
   ],
   exports: [
     BrowseServicesComponent
