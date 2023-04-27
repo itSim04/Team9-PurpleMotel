@@ -6,18 +6,42 @@
         </ion-text>
     </div>
 
-    <h1 class="activities-header">Activities</h1>
+    <ion-segment (ionChange)="onSegmentChange($event)">
 
-    <div *ngFor="let activity of activities | keyvalue: activity_key; let i = index">
-        <app-activities [activity]="{ key: activity.key, value: activity.value }" 
-        [title]="activity.value.title" ></app-activities>
+        <ion-segment-button value="activities">
 
-    </div>
+            <div class="activities-header"
+                style="border-bottom: 1px solid var(--ion-color-primary); width: 100%; margin: 16px; transition: all 250ms ease-in-out;"
+                [style.borderBottomColor]="selected == 'activities' ? 'var(--ion-color-primary)' : '#B1B8C3'">
+                {{ 'Activities' | translate }}
 
-    <h1 class="activities-header">Facilities</h1>
-    <div *ngFor="let facility of facilities | keyvalue: facility_key; let i = index">
-        <app-facilities [facility]="facility.value"[title]="facility.value.title"></app-facilities>
+            </div>
+        </ion-segment-button>
+        <ion-segment-button value="facilities">
+            <div class="activities-header"
+                style="border-bottom: 1px solid var(--ion-color-primary); width: 100%; margin: 16px; transition: all 250ms ease-in-out;"
+                [style.borderBottomColor]="selected == 'facilities' ? 'var(--ion-color-primary)' : '#B1B8C3'">
+                {{ 'Facilities' | translate }}
+            </div>
+        </ion-segment-button>
 
-    </div>
+    </ion-segment>
+    <ng-container *ngIf="selected == 'activities'">
+
+        <div *ngFor="let activity of activities | keyvalue: activity_key; let i = index">
+            <app-activities [activity]="{ key: activity.key, value: activity.value }"
+                [title]="activity.value.title"></app-activities>
+
+        </div>
+
+    </ng-container>
+    <ng-container *ngIf="selected == 'facilities'">
+
+        <div *ngFor="let facility of facilities | keyvalue: facility_key; let i = index">
+            <app-facilities [facility]="facility.value"
+                [title]="facility.value.title"></app-facilities>
+
+        </div>
+    </ng-container>
 
 </ion-content>
