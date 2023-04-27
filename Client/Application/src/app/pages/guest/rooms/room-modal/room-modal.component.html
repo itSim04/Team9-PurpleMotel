@@ -14,7 +14,21 @@
   <br>
   <ion-text class="body">{{room?.value?.description}}</ion-text>
   <br>
-  <div style="text-align: center; height: 50%">
+  <br>
+  <div style="display: flex;">
+
+    <ion-text class="options">{{ 'Start Date' | translate }}</ion-text>
+    <ion-text style="text-align: end;" class="options">{{ 'End Date' | translate }}</ion-text>
+
+  </div>
+  <div style="display: flex;">
+
+    <ion-text class="date">{{formatDate(range?.check_in)}}</ion-text>
+    <ion-text style="text-align: end;" class="date">{{formatDate(range?.check_out)}}</ion-text>
+
+  </div>
+  <div style="text-align: center">
+
 
     <app-calendar [room_id]="room?.key" (result)="saveBookingRange($event)"></app-calendar>
     <ion-button (click)="addBooking()" class="cancel-btn">

@@ -98,8 +98,8 @@ export class CalendarWrapperComponent {
 
     const event: any = await myCalendar.onDidDismiss();
     const date = event.data;
-    const from: CalendarResult = date.from;
-    const to: CalendarResult = date.to;
+    const from: CalendarResult = date?.from;
+    const to: CalendarResult = date?.to;
 
     this.start = new Date(from.string);
     this.end = new Date(to.string);

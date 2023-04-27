@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavParams, ModalController, ToastController } from '@ionic/angular';
 import { Interface } from 'readline';
-import { Required, extractUserId } from 'src/app/components/database/database.component';
+import { Required, extractUserId, formatDate } from 'src/app/components/database/database.component';
 import { Activity } from 'src/app/models/Activity';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { Room } from 'src/app/models/Room';
@@ -47,6 +47,12 @@ export class RoomModalComponent {
 
     this.range = $event;
     console.log($event, this.range);
+
+  }
+
+  formatDate(date: Date | undefined) {
+
+    return date ? parseDate(date).split('-').reverse().join('/') : 'No Date selected';
 
   }
   addBooking() {
