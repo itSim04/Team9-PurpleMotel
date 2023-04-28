@@ -1,5 +1,6 @@
 <ion-header collapse="fade">
     <ion-toolbar>
+
         <ion-item>
             <ion-title class="header">menu</ion-title>
         </ion-item>
@@ -19,52 +20,15 @@
 </ion-header>
 
 
-
-
 <ion-content [fullscreen]="true" class="ion-padding">
 
-    <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
-        <ion-fab-button>
-            <ion-icon name="bag-check-outline" style="color: white;"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
-
-
-
     <div *ngFor="let category of food_categories | keyvalue">
-
-        <p [attr.id]="category.value.label" class="title-2">{{category.value.label}}</p>
-
+        <p [attr.id]="category.value.label" class="header-2">{{category.value.label}}</p>
         <ng-container *ngFor="let food of foods | keyvalue">
-
             <div *ngIf="food.value.category == category.key">
-
                 <app-food-list-item [food]="food"></app-food-list-item>
-
             </div>
-
         </ng-container>
-
     </div>
 
-
-
-
-    <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-        <ion-fab-button id="open-modal">
-            <ion-icon name="bag-check-outline" style="color: white;"></ion-icon>
-        </ion-fab-button>
-    </ion-fab> -->
-
 </ion-content>
-
-
-
-
-<!-- <div class="ion-padding">
-    <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
-        <ng-template>
-            <p class="block">Items that will be in the cart</p>
-        </ng-template>
-    </ion-modal>
-</div> -->

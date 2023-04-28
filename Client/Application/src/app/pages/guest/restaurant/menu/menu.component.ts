@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
 
     this.food_service.getAllFoods().subscribe({next: data => {
-        //console.log(data);
+        console.log(data);
         this.foods = data.foods;
         this.foods_array = Array.from(this.foods);
 
@@ -34,7 +34,6 @@ export class MenuComponent implements OnInit {
         console.error(error);
       }
     });
-    //console.log(this.foods)
   }
 
   scroll(search: string) {
