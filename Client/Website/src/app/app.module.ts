@@ -1,8 +1,9 @@
+import { ImageCachingService } from './services/utility/image-caching.service';
 import { GuestChatsPageModule } from './pages/chat/guest/chat.module';
 import { InformationDatabaseModule } from './pages/admin/information-database/information-database.module';
 import { QuickDialogModule } from './services/dialogs/quick/quick.module';
 import { AdminDashboardModule } from './pages/admin/admin-dashboard/admin-dashboard.module';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { HomeModule } from './pages/guest/home/home.module';;
 import { UserDatabaseModule } from './pages/admin/user-database/user-database.module';
@@ -92,7 +93,12 @@ import { ChatsPageModule } from './pages/chat/admin/chat.module';
 
   ],
   providers: [
-    MatDialogModule
+    MatDialogModule,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ImageCachingService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
