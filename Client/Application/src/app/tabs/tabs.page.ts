@@ -1,4 +1,4 @@
-import { extractUser, extractUserId } from 'src/app/components/database/database.component';
+import { extractAnyPermission, extractUser, extractUserId } from 'src/app/components/database/database.component';
 import { User } from 'src/app/models/User';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -71,7 +71,18 @@ export class TabsPage {
 
   }
 
+  isAdmin(): boolean {
 
+    const user = extractUser();
+
+    if (user) {
+
+      return user.tier === '2' || extractAnyPermission();
+
+    } 
+    return false;
+
+  }
   isActive(path: string): boolean {
     return this.router.url.includes(path);
   }

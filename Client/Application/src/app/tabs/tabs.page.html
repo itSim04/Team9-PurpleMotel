@@ -45,7 +45,7 @@
       <br>
       <br>
       <br>
-      <ng-container>
+      <ng-container *ngIf="isAdmin()">
         <ion-menu-toggle>
           <ion-text (click)="openAdmin()" class="tabs">
             {{ 'admin_panel' | translate}}
