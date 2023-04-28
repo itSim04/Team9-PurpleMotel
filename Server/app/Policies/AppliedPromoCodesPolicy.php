@@ -3,7 +3,7 @@
 namespace App\Policies;
 use App\Models\User;
 
-class BookingPolicy
+class AppliedPromoCodesPolicy
 {
 
     private $permission_name = 'applied-promo-code';

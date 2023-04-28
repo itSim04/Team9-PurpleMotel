@@ -3,7 +3,7 @@
 namespace App\Policies;
 use App\Models\User;
 
-class BookingPolicy
+class EffectPromoCodesPolicy
 {
 
     private $permission_name = 'effect-promo-code';
