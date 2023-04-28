@@ -88,6 +88,12 @@
     border: 0px solid transparent;
 }
 
+.cancel-btn{
+    @extend .add-btn;
+    left: 80%;
+    position: absolute;
+}
+
 .add-btn:hover {
 
     background-color: lightgray;
