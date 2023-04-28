@@ -22,7 +22,7 @@
 
                 <ion-col style="width: 20%;">
                     <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"
-                    color="#930000">Deserts</ion-button>
+                        color="#930000">Deserts</ion-button>
                 </ion-col>
             </ion-row>
         </ion-grid>
@@ -30,57 +30,51 @@
 </ion-header>
 
 
+
 <ion-content [fullscreen]="true" class="ion-padding">
-    <div *ngFor="let food of foods_array">
-        <app-food-list-item [food]="{key: food[0], value: food[1]}"></app-food-list-item>
-    </div>
-    
-    <div>
-        <h2 style="color: #930000; font-family: Monserat;">Starters</h2>
-        <p style="border-bottom: 1px solid #930000; width: 70%;"></p>
-    </div>
 
-    <div>
-        <h2 style="color: #930000; font-family: Monserat;">Mains</h2>
-        <p style="border-bottom: 1px solid #930000; width: 70%;"></p>
-    </div>
-
-    <div>
-        <h2 style="color: #930000; font-family: Monserat;">Sides</h2>
-        <p style="border-bottom: 1px solid #930000; width: 70%;"></p>
-    </div>
-
-    <div>
-        <h2 style="color: #930000; font-family: Monserat;">Deserts</h2>
-        <p style="border-bottom: 1px solid #930000; width: 70%;"></p>
-    </div>
-
-
-
-
-
-
-
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-        <ion-fab-button id="open-modal">
+    <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
+        <ion-fab-button>
             <ion-icon name="bag-check-outline" style="color: white;"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 
-</ion-content>
 
 
+    <div *ngFor="let category of food_categories | keyvalue">
 
+        <p [attr.id]="category.value.label" class="title-2">{{category.value.label}}</p>
 
+        <ng-container *ngFor="let food of foods | keyvalue">
 
+            <div *ngIf="food.value.category == category.key">
 
+                <app-food-list-item [food]="food"></app-food-list-item>
 
-<ion-content>
-    <div class="ion-padding">
-        <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
-            <ng-template>
-                <p class="block">Items that will be in the cart</p>
-            </ng-template>
-        </ion-modal>
+            </div>
+
+        </ng-container>
+
     </div>
+
+
+
+
+    <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button id="open-modal">
+            <ion-icon name="bag-check-outline" style="color: white;"></ion-icon>
+        </ion-fab-button>
+    </ion-fab> -->
+
 </ion-content>
+
+
+
+
+<!-- <div class="ion-padding">
+    <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+        <ng-template>
+            <p class="block">Items that will be in the cart</p>
+        </ng-template>
+    </ion-modal>
+</div> -->

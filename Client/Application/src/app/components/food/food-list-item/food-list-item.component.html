@@ -3,11 +3,22 @@
       <ion-col>
           <h2 style="font-family: Abhaya Libre;">{{food.value.label}}</h2>
           <p style="font-family: Montserrat;">{{food.value.description}}</p>
-          <p style="color: #930000; font-family: Abhaya Libre;">USD {{food.value.price}}</p>
+          <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <p style="color: #930000; font-family: Abhaya Libre;">USD {{food.value.price}}</p>
+                </ion-col>
+                
+                <!-- col for the add -->
+                <ion-col>
+                    <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline" color="#930000">Add</ion-button>
+                </ion-col>
+            </ion-row>
+          </ion-grid>
       </ion-col>
 
-      <ion-col style="display: block;">
-          <img src="../../../../../assets/menu/menu-sample-1.png" style="display: block; margin: auto;">
+      <ion-col class="center-image">
+          <img [src]="food.value.image" style="display: block; margin: auto;" onerror="this.src='assets/placeholder.png'">
       </ion-col>
   </ion-row>
 </ion-grid>
