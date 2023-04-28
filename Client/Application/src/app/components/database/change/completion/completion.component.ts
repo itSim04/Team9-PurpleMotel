@@ -11,6 +11,10 @@ import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 })
 export class CompletionComponent<Data> {
 
+  debug(s: any) {
+    console.log(s);
+  }
+
   @Input() @Required field!: Field<Data>;
 
   @Input() @Required fields!: Field<Data>[];

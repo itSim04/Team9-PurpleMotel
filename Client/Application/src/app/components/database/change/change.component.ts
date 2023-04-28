@@ -13,6 +13,7 @@ import { User } from 'src/app/models/User';
 import { ImagePickerConf, NgpImagePickerComponent } from 'ngp-image-picker';
 import { InformationDatabaseService } from 'src/app/services/providers/information-database.service';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';
+import { AlertController } from '@ionic/angular';
 
 export interface InjectableData<Data> {
 
@@ -229,9 +230,9 @@ export class ChangeComponent<Data> {
 
   }
 
-  @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() closeModal = new EventEmitter<KeyValue<string, Data>>();
   @Input() injected_data!: InjectableData<Data>;
-  constructor (private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationService, private image_service: InformationDatabaseService) { }
+  constructor (private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationService, private image_service: InformationDatabaseService, private alert_controller: AlertController) { }
 
   ngAfterViewInit() {
     console.log(this.injected_data);
@@ -313,7 +314,7 @@ export class ChangeComponent<Data> {
 
   }
 
-  add() {
+  async add() {
 
     if (!this.fieldsCompleteness.length && this.differenceCheck && this.fields && this.data) {
 
@@ -338,39 +339,50 @@ export class ChangeComponent<Data> {
 
       });
 
-      if (this.uniqueness) {
-
-        // const dialogRef = this.confirmation_controller.openDialog(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add", "Cancel");
-        // dialogRef.afterClosed().subscribe(confirmation => {
-
-        //   if (confirmation) {
-
-        //     this.add_service(this.data).subscribe(
-
-        //       {
-        //         next: result => {
-
-        //           this.dialogRef.close({ key: result, value: this.data });
-
-        //         },
-        //         error: error => {
-
-        //           if (error.status == 401) {
-        //             localStorage.removeItem('token');
-        //             localStorage.removeItem('user');
-        //             localStorage.removeItem('id');
-        //             localStorage.removeItem('token_time');
-        //             this.router.navigate(['/home']);
-        //             this.dialogRef.close();
-        //             this.authentication.openDialog('login');
-        //           }
+      if (this.uniqueness && this.identifier) {
 
 
-        //         }
-        //       });
 
-        //   }
-        // });
+        this.presentAlert(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add").then((confirmation) => {
+
+          confirmation.onDidDismiss().then((confirmation) => {
+
+            if (confirmation.role && this.add_service && this.data) {
+
+              this.add_service(this.data).subscribe(
+
+                {
+                  next: result => {
+
+                    this.closeModal.emit({
+
+                      key: result,
+                      value: this.data!
+
+                    });
+
+                  },
+                  error: error => {
+
+                    if (error.status == 401) {
+                      localStorage.removeItem('token');
+                      localStorage.removeItem('user');
+                      localStorage.removeItem('id');
+                      localStorage.removeItem('token_time');
+                      this.closeModal.emit(undefined);
+                      setTimeout(() => {
+
+                        this.router.navigate(['/auth']);
+                      }, 100);
+                    }
+
+
+                  }
+                });
+
+            }
+          });
+        });
       }
     }
 
@@ -452,6 +464,25 @@ export class ChangeComponent<Data> {
     }
   }
 
+  async presentAlert(title: string, body: string, action: string) {
+    const alert = await this.alert_controller.create({
+      header: title,
+      message: body,
+      buttons: [
+        {
+          text: action,
+          role: 'true'
+        },
+        {
+          text: 'Cancel',
+          role: undefined
+        }
+      ],
+    });
+
+    await alert.present();
+    return alert;
+  }
   delete() {
 
 
@@ -739,19 +770,6 @@ export class ChangeComponent<Data> {
     }
 
 
-
-  }
-
-  get iterator() {
-
-    const result = [];
-    let index = clone(this.size);
-    while (index--) {
-
-      result.unshift(index);
-
-    }
-    return result;
 
   }
 

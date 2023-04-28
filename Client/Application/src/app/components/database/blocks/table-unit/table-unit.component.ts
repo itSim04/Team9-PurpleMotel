@@ -68,8 +68,15 @@ export class TableUnitComponent<Data, Data2> {
     return this.enterAnimation(baseEl).direction('reverse');
   };
 
-  closeAdd() {
+  closeAdd(data: KeyValue<string, Data> | undefined) {
 
+    if (data) {
+
+      this.data_map.set(data.key, data.value);
+      this.data.push([data.key, data.value]);
+      this.filtered_data.data = this.data;
+
+    }
     this.active_data = undefined;
     this.isModalOpen = false;
 
