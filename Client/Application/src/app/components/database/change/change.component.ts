@@ -316,461 +316,508 @@ export class ChangeComponent<Data> {
 
   async add() {
 
-    if (!this.fieldsCompleteness.length && this.differenceCheck && this.fields && this.data) {
-
-      this.uniqueness = true;
-      this.fields.forEach(field => {
-
-        if (field.unique) {
-
-
-          this.all_data?.forEach((value, key) => {
-
-            if (value[field.key] == this.data![field.key]) {
-
-              this.uniqueness = false;
-
-            }
-
-          });
-
-
-        }
-
-      });
-
-      if (this.uniqueness && this.identifier) {
-
-
-
-        this.presentAlert(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add").then((confirmation) => {
-
-          confirmation.onDidDismiss().then((confirmation) => {
-
-            if (confirmation.role && this.add_service && this.data) {
-
-              this.add_service(this.data).subscribe(
-
-                {
-                  next: result => {
-
-                    this.closeModal.emit({
-
-                      key: result,
-                      value: this.data!
-
-                    });
-
-                  },
-                  error: error => {
-
-                    if (error.status == 401) {
-                      localStorage.removeItem('token');
-                      localStorage.removeItem('user');
-                      localStorage.removeItem('id');
-                      localStorage.removeItem('token_time');
-                      this.closeModal.emit(undefined);
-                      setTimeout(() => {
-
-                        this.router.navigate(['/auth']);
-                      }, 100);
-                    }
-
-
-                  }
-                });
-
-            }
-          });
-        });
-      }
-    }
-
-  }
-
-  modify() {
-
-
-    if (!this.fieldsCompleteness.length && this.differenceCheck && this.permission) {
-
-
+    if (!this.fieldsCompleteness.length && this.differenceCheck && this.fields && this.data && this.permission) {
 
       if (extractPermission('write', this.permission)) {
 
+        this.uniqueness = true;
+        this.fields.forEach(field => {
+
+          if (field.unique) {
 
 
-        if (this.old_data && this.fields && this.data) {
+            this.all_data?.forEach((value, key) => {
+
+              if (value[field.key] == this.data![field.key]) {
+
+                this.uniqueness = false;
+
+              }
+
+            });
 
 
-          this.uniqueness = true;
-          this.fields.forEach(field => {
+          }
 
-            if (field.unique) {
+        });
+
+        if (this.uniqueness && this.identifier) {
 
 
-              this.all_data?.forEach((value, key) => {
 
-                if (value[field.key] == this.data![field.key] && value[field.key] != this.old_data?.value[field.key]) {
+          this.presentAlert(`Add ${this.data_type}`, `Would you like to add the ${this.data_type} ${this.identifier(this.data)}`, "Add").then((confirmation) => {
 
-                  this.uniqueness = false;
+            confirmation.onDidDismiss().then((confirmation) => {
+
+              if (confirmation.role && this.add_service && this.data) {
+
+                this.add_service(this.data).subscribe(
+
+                  {
+                    next: result => {
+
+                      this.closeModal.emit({
+
+                        key: result,
+                        value: this.data!
+
+                      });
+
+                    },
+                    error: error => {
+
+                      if (error.status == 401) {
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('id');
+                        localStorage.removeItem('token_time');
+                        this.closeModal.emit(undefined);
+                        setTimeout(() => {
+
+                          this.router.navigate(['/auth']);
+                        }, 100);
+                      }
+
+
+                    }
+                  });
+
+              }
+            });
+          });
+        }
+      }
+
+    } else {
+
+      this.snackbar.open('You do not have writing permissions');
+
+    }
+
+    }
+
+    modify() {
+
+
+      if (!this.fieldsCompleteness.length && this.differenceCheck && this.permission && this.data) {
+
+        if (extractPermission('write', this.permission)) {
+
+          if (this.old_data && this.fields && this.data) {
+
+            this.uniqueness = true;
+            this.fields.forEach(field => {
+
+              if (field.unique) {
+                this.all_data?.forEach((value, key) => {
+
+                  if (value[field.key] == this.data![field.key] && value[field.key] != this.old_data?.value[field.key]) {
+
+                    this.uniqueness = false;
+
+                  }
+
+                });
+
+
+              }
+
+            });
+          }
+
+
+
+          if (this.uniqueness && this.identifier && this.old_data) {
+
+
+
+            this.presentAlert(`Add ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.data)}`, "Modify").then((confirmation) => {
+
+              confirmation.onDidDismiss().then((confirmation) => {
+
+                if (confirmation.role && this.modify_service && this.data) {
+
+                  this.modify_service(this.old_data!.key, this.data).subscribe(
+
+                    {
+                      next: result => {
+
+                        this.closeModal.emit({
+
+                          key: this.old_data!.key,
+                          value: this.data!
+
+                        });
+
+                      },
+                      error: error => {
+
+                        if (error.status == 401) {
+                          localStorage.removeItem('token');
+                          localStorage.removeItem('user');
+                          localStorage.removeItem('id');
+                          localStorage.removeItem('token_time');
+                          this.closeModal.emit(undefined);
+                          setTimeout(() => {
+
+                            this.router.navigate(['/auth']);
+                          }, 100);
+                        }
+
+
+                      }
+                    });
 
                 }
-
               });
 
+              // const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
+              // dialogRef.afterClosed().subscribe({
+              //   next: confirmation => {
 
-            }
+              //     if (confirmation && this.old_data) {
 
-          });
+              //       this.modify_service(this.old_data.key, this.data).subscribe(() => {
+              //         if (this.old_data) {
 
-          if (this.uniqueness) {
+              //           this.dialogRef.close({ key: this.old_data.key, value: this.data });
+              //         }
+              //       });
+              //     }
+              //   },
+              //   error: error => {
 
-            // const dialogRef = this.confirmation_controller.openDialog(`Modify ${this.data_type}`, `Would you like to modify the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Modify", "Cancel");
-            // dialogRef.afterClosed().subscribe({
-            //   next: confirmation => {
+              //     if (error.status == 401) {
+              //       localStorage.removeItem('token');
+              //       localStorage.removeItem('user');
+              //       localStorage.removeItem('id');
+              //       localStorage.removeItem('token_time');
+              //       this.dialogRef.close();
+              //       this.router.navigate(['/home']);
+              //       this.authentication.openDialog('login');
+              //     }
 
-            //     if (confirmation && this.old_data) {
+              //   }
+              // });
 
-            //       this.modify_service(this.old_data.key, this.data).subscribe(() => {
-            //         if (this.old_data) {
+            });
 
-            //           this.dialogRef.close({ key: this.old_data.key, value: this.data });
-            //         }
-            //       });
-            //     }
-            //   },
-            //   error: error => {
-
-            //     if (error.status == 401) {
-            //       localStorage.removeItem('token');
-            //       localStorage.removeItem('user');
-            //       localStorage.removeItem('id');
-            //       localStorage.removeItem('token_time');
-            //       this.dialogRef.close();
-            //       this.router.navigate(['/home']);
-            //       this.authentication.openDialog('login');
-            //     }
-
-            //   }
-            // });
           }
+        } else {
+
+          this.snackbar.open('You do not have writing permissions');
+
+        }
+      }
+    }
+
+  async presentAlert(title: string, body: string, action: string) {
+      const alert = await this.alert_controller.create({
+        header: title,
+        message: body,
+        buttons: [
+          {
+            text: action,
+            role: 'true'
+          },
+          {
+            text: 'Cancel',
+            role: undefined
+          }
+        ],
+      });
+
+      await alert.present();
+      return alert;
+    }
+    delete () {
+
+
+      if (this.permission && extractPermission('delete', this.permission)) {
+
+        if (this.old_data) {
+
+          // const dialogRef = this.confirmation_controller.openDialog(`Delete ${this.data_type}`, `Would you like to delete the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Delete", "Cancel");
+          // dialogRef.afterClosed().subscribe(confirmation => {
+
+          //   if (confirmation && this.old_data) {
+
+          //     this.delete_service(this.old_data.key).subscribe({
+          //       next: result => {
+
+          //         if (result.length) {
+
+          //           this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
+
+          //         } else if (this.old_data) {
+
+          //           this.dialogRef.close({ key: this.old_data.key, value: undefined });
+
+          //         }
+
+          //       },
+          //       error: error => {
+
+
+          //         if (error.status == 401) {
+          //           localStorage.removeItem('token');
+          //           localStorage.removeItem('user');
+          //           localStorage.removeItem('id');
+          //           localStorage.removeItem('token_time');
+          //           this.dialogRef.close();
+          //           this.router.navigate(['/home']);
+          //           this.authentication.openDialog('login');
+          //         }
+          //       }
+          //     });
+          //   }
+          // });
         }
       } else {
 
-        this.snackbar.open('You do not have writing permissions');
+        this.snackbar.open('You do not have deletion permissions');
 
       }
-
     }
-  }
 
-  async presentAlert(title: string, body: string, action: string) {
-    const alert = await this.alert_controller.create({
-      header: title,
-      message: body,
-      buttons: [
-        {
-          text: action,
-          role: 'true'
-        },
-        {
-          text: 'Cancel',
-          role: undefined
-        }
-      ],
-    });
+    formatWord(data: string) {
 
-    await alert.present();
-    return alert;
-  }
-  delete() {
-
-
-    if (this.permission && extractPermission('delete', this.permission)) {
-
-      if (this.old_data) {
-
-        // const dialogRef = this.confirmation_controller.openDialog(`Delete ${this.data_type}`, `Would you like to delete the ${this.data_type} ${this.identifier(this.old_data.value)}`, "Delete", "Cancel");
-        // dialogRef.afterClosed().subscribe(confirmation => {
-
-        //   if (confirmation && this.old_data) {
-
-        //     this.delete_service(this.old_data.key).subscribe({
-        //       next: result => {
-
-        //         if (result.length) {
-
-        //           this.warning_controller.openDialog("Unable to Delete", result, 'Ok');
-
-        //         } else if (this.old_data) {
-
-        //           this.dialogRef.close({ key: this.old_data.key, value: undefined });
-
-        //         }
-
-        //       },
-        //       error: error => {
-
-
-        //         if (error.status == 401) {
-        //           localStorage.removeItem('token');
-        //           localStorage.removeItem('user');
-        //           localStorage.removeItem('id');
-        //           localStorage.removeItem('token_time');
-        //           this.dialogRef.close();
-        //           this.router.navigate(['/home']);
-        //           this.authentication.openDialog('login');
-        //         }
-        //       }
-        //     });
-        //   }
-        // });
-      }
-    } else {
-
-      this.snackbar.open('You do not have deletion permissions');
-
+      return formatWord(data);
     }
-  }
 
-  formatWord(data: string) {
+    triggerToggle() {
 
-    return formatWord(data);
-  }
+      if (this.toggle && this.modification_rule && this.data && this.modification_rule(this.data) && this.identifier) {
 
-  triggerToggle() {
+        if (this.modification_mode) {
 
-    if (this.toggle && this.modification_rule && this.data && this.modification_rule(this.data) && this.identifier) {
+          let prompt;
 
-      if (this.modification_mode) {
+          if (this.data[this.toggle.key] as boolean) {
 
-        let prompt;
+            if (this.toggle.on_prompt) {
 
-        if (this.data[this.toggle.key] as boolean) {
-
-          if (this.toggle.on_prompt) {
-
-            prompt = this.toggle.on_prompt;
-            prompt = prompt.replace('$name', this.identifier(this.data));
-
-          } else {
-
-            prompt = `Would you like to ${this.toggle.on_value} the ${this.data_type} ${this.identifier(this.data)}`;
-
-          }
-
-
-
-        } else {
-
-
-          if (this.identifier) {
-
-            if (this.toggle.off_prompt) {
-
-              prompt = this.toggle.off_prompt;
+              prompt = this.toggle.on_prompt;
               prompt = prompt.replace('$name', this.identifier(this.data));
 
             } else {
 
-              prompt = `Would you like to ${this.toggle.off_value} the ${this.data_type} ${this.identifier(this.data)}`;
+              prompt = `Would you like to ${this.toggle.on_value} the ${this.data_type} ${this.identifier(this.data)}`;
 
             }
+
+
+
+          } else {
+
+
+            if (this.identifier) {
+
+              if (this.toggle.off_prompt) {
+
+                prompt = this.toggle.off_prompt;
+                prompt = prompt.replace('$name', this.identifier(this.data));
+
+              } else {
+
+                prompt = `Would you like to ${this.toggle.off_value} the ${this.data_type} ${this.identifier(this.data)}`;
+
+              }
+            }
+
+
           }
 
+          // const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? (this.toggle.off_title || this.toggle.off_value + ' ' + this.data_type) : (this.toggle.on_title || this.toggle.on_value + ' ' + this.data_type)), prompt, !(this.data[this.toggle.key] as boolean) ? (this.toggle.off_confirm || this.toggle.off_value) : (this.toggle.on_confirm || this.toggle.on_value), 'Cancel');
+
+          // dialogRef.afterClosed().subscribe(result => {
+
+          //   if (result && this.toggle) {
+
+          //     (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
+
+          //   }
+
+          // });
+
+        } else {
+
+          (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
 
         }
 
-        // const dialogRef = this.confirmation_controller.openDialog((!(this.data[this.toggle.key] as boolean) ? (this.toggle.off_title || this.toggle.off_value + ' ' + this.data_type) : (this.toggle.on_title || this.toggle.on_value + ' ' + this.data_type)), prompt, !(this.data[this.toggle.key] as boolean) ? (this.toggle.off_confirm || this.toggle.off_value) : (this.toggle.on_confirm || this.toggle.on_value), 'Cancel');
 
-        // dialogRef.afterClosed().subscribe(result => {
 
-        //   if (result && this.toggle) {
 
-        //     (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
-
-        //   }
-
-        // });
-
-      } else {
-
-        (this.data[this.toggle.key] as boolean) = !(this.data[this.toggle.key] as boolean);
 
       }
-
-
-
-
-
     }
-  }
 
-  formatOuterChoice(field: Field<Data>, type: KeyValue<string, unknown>) {
+    formatOuterChoice(field: Field<Data>, type: KeyValue<string, unknown>) {
 
-    if (field.outer_choices && this.outer_data) {
+      if (field.outer_choices && this.outer_data) {
 
-      let temp = field.outer_choices.format(type.value);
+        let temp = field.outer_choices.format(type.value);
 
 
-      if (field.outer_choices.pivot_index && field.outer_choices.pivot_format) {
+        if (field.outer_choices.pivot_index && field.outer_choices.pivot_format) {
 
-        temp = field.outer_choices.pivot_format(this.outer_data[field.outer_choices.pivot_index].get(temp));
+          temp = field.outer_choices.pivot_format(this.outer_data[field.outer_choices.pivot_index].get(temp));
+
+        }
+
+        return temp;
 
       }
-
-      return temp;
-
-    }
-
-    return undefined;
-
-  }
-
-  deleteData(id: number) {
-
-    if (this.data) {
-
-
-      (this.data[this.table!.key] as unknown[]).splice(id, 1);
-      this.table!.data.data = this.data[this.table!.key] as unknown[];
-
-    }
-  }
-
-  pushData() {
-
-    if (this.data) {
-
-
-      (this.data[this.table!.key] as unknown[]).push(clone(this.table?.default_value));
-
-      this.table!.data.data = this.data[this.table!.key] as unknown[];
-
-    }
-  }
-  updateData(col: string, element: any, result: number) {
-
-    element[col] = result;
-
-  }
-  formatTableData(element: any, col: string) {
-
-    return element[col];
-
-  }
-
-  getOuter(id: string, index: number) {
-
-    const temp = this.outer_data?.at(index)?.get(id);
-
-    if (temp) {
-
-      return temp;
-
-    } else {
 
       return undefined;
 
     }
 
+    deleteData(id: number) {
 
-  }
-
-  debug(id: number, row: string, result: boolean) {
-
-    if (this.data) {
+      if (this.data) {
 
 
-      const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
+        (this.data[this.table!.key] as unknown[]).splice(id, 1);
+        this.table!.data.data = this.data[this.table!.key] as unknown[];
 
-      old_permissions[id] = result;
+      }
+    }
 
-      this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
+    pushData() {
+
+      if (this.data) {
+
+
+        (this.data[this.table!.key] as unknown[]).push(clone(this.table?.default_value));
+
+        this.table!.data.data = this.data[this.table!.key] as unknown[];
+
+      }
+    }
+    updateData(col: string, element: any, result: number) {
+
+      element[col] = result;
 
     }
-  }
+    formatTableData(element: any, col: string) {
+
+      return element[col];
+
+    }
+
+    getOuter(id: string, index: number) {
+
+      const temp = this.outer_data?.at(index)?.get(id);
+
+      if (temp) {
+
+        return temp;
+
+      } else {
+
+        return undefined;
+
+      }
+
+
+    }
+
+    debug(id: number, row: string, result: boolean) {
+
+      if (this.data) {
+
+
+        const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
+
+        old_permissions[id] = result;
+
+        this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
+
+      }
+    }
 
 
 
 
-  areEqual(a: any, b: any) {
+    areEqual(a: any, b: any) {
 
-    return areEqual(a, b);
+      return areEqual(a, b);
 
-  }
+    }
 
   get differenceCheck() {
-    return !this.modification_mode || !this.areEqual(this.old_data?.value, this.data);
-  }
+      return !this.modification_mode || !this.areEqual(this.old_data?.value, this.data);
+    }
 
 
   get fieldsCompleteness() {
 
-    let temp = [];
-    if (this.fields && this.data) {
+      let temp = [];
+      if (this.fields && this.data) {
 
-      for (const field of this.fields) {
-
-
-        if (field.condition ? !field.condition(this.data[field.key]) : !this.data[field.key]) {
+        for (const field of this.fields) {
 
 
-          temp.push(field.condition_label || 'Missing ' + this.formatLabel(field.key));
+          if (field.condition ? !field.condition(this.data[field.key]) : !this.data[field.key]) {
+
+
+            temp.push(field.condition_label || 'Missing ' + this.formatLabel(field.key));
+
+          }
 
         }
+      }
+      return temp;
+
+    }
+
+    isNum(val: string) {
+
+      return isNum(val);
+
+    }
+
+    formatLabel(word: string | number | symbol) {
+
+      if (!word) return word;
+
+      const splits = word.toString().replaceAll("_", " ").split(" ");
+
+      for (let i = 0; i < splits.length; i++) {
+
+        splits[i] = splits[i][0].toUpperCase() + splits[i].slice(1).toLowerCase();
 
       }
-    }
-    return temp;
 
-  }
 
-  isNum(val: string) {
-
-    return isNum(val);
-
-  }
-
-  formatLabel(word: string | number | symbol) {
-
-    if (!word) return word;
-
-    const splits = word.toString().replaceAll("_", " ").split(" ");
-
-    for (let i = 0; i < splits.length; i++) {
-
-      splits[i] = splits[i][0].toUpperCase() + splits[i].slice(1).toLowerCase();
-
+      return splits.join(" ");
     }
 
+    parseDate(date: string): any {
 
-    return splits.join(" ");
-  }
+      return parseDate(new Date(date));
 
-  parseDate(date: string): any {
-
-    return parseDate(new Date(date));
-
-  }
+    }
 
   get getDisplayedColumnsKey() {
 
 
-    if (this.table) {
+      if (this.table) {
 
-      const keys = this.table!.columns.map(t => t.key as string);
-      keys.push('buttons');
-      return keys;
+        const keys = this.table!.columns.map(t => t.key as string);
+        keys.push('buttons');
+        return keys;
 
-    } else {
+      } else {
 
-      throw new Error('Table missing information');
+        throw new Error('Table missing information');
+
+      }
+
+
 
     }
 
-
-
   }
-
-}

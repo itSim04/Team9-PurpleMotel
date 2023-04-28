@@ -34,7 +34,7 @@ export class TableUnitComponent<Data, Data2> {
   @Output() download: EventEmitter<void> = new EventEmitter();
   @Output() hover: EventEmitter<[string, Data | undefined]> = new EventEmitter();
 
-  isModalOpen = false;
+  isModalOpen: 0 | 1 | 2 = 0;
 
   active_data?: InjectableData<Data>;
 
@@ -78,7 +78,27 @@ export class TableUnitComponent<Data, Data2> {
 
     }
     this.active_data = undefined;
-    this.isModalOpen = false;
+    this.isModalOpen = 0;
+
+  }
+
+  closeModify(data: KeyValue<string, Data> | undefined) {
+
+    if (data) {
+
+      const index = this.data.findIndex(t => t[0] == data.key);
+
+      if (data.value) {
+        this.data[index] = ([data.key, data.value]);
+        this.filtered_data.data = this.data;
+      } else {
+        this.data.splice(index, 1);
+        this.filtered_data.data = this.data;
+
+      }
+    }
+    this.active_data = undefined;
+    this.isModalOpen = 0;
 
   }
 
@@ -98,18 +118,7 @@ export class TableUnitComponent<Data, Data2> {
           permission: this.data_injection.permission,
 
         };
-        this.isModalOpen = true;
-        // dialogRef.afterClosed().subscribe((result: KeyValue<string, Data>) => {
-
-        //   if (result) {
-
-        //     this.data_map.set(result.key, result.value);
-        //     this.data.push([result.key, result.value]);
-        //     this.filtered_data.data = this.data;
-
-        //   }
-        // });
-
+        this.isModalOpen = 1;
       }
 
     } else {
@@ -125,29 +134,20 @@ export class TableUnitComponent<Data, Data2> {
 
     if (this.change_injection) {
 
-      this.change_injection.affected_data = { key: data[0], value: data[1] as Data };
+      if (this.change_injection) {
 
-      // const dialogRef = this.add_service.openDialog<Data>(ChangeComponent, this.change_injection, this.data_map, this.extra_data_map, this.data_injection.permission, this.outer_data);
-      // dialogRef.afterClosed().subscribe(result => {
+        this.change_injection.affected_data = { key: data[0], value: data[1] as Data };
+        this.active_data = {
 
+          injection: this.change_injection,
+          all_data: this.data_map,
+          outer_data: this.outer_data,
+          link: this.extra_data_map!,
+          permission: this.data_injection.permission,
 
-      //   const index = this.data.findIndex(t => t[0] == data[0]);
-
-      //   if (result) {
-
-      //     if (result.value) {
-
-      //       this.data[index] = ([result.key, result.value]);
-      //       this.filtered_data.data = this.data;
-
-      //     } else {
-
-      //       this.data.splice(index, 1);
-      //       this.filtered_data.data = this.data;
-
-      //     }
-      //   }
-      // });
+        };
+        this.isModalOpen = 2;
+      }
 
     }
 

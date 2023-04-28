@@ -139,8 +139,7 @@
             <ion-grid fixed>
                 <ion-row>
                     <ion-col class="permissions" size="3"></ion-col>
-                    <ion-col class="permissions" *ngFor="let col of permissions?.columns"
-                        size="3">
+                    <ion-col class="permissions" *ngFor="let col of permissions?.columns" size="3">
                         {{col | translate}}
                     </ion-col>
                 </ion-row>
@@ -222,9 +221,6 @@
         <table style="table-layout: fixed; width: 100%;">
             <tr *ngIf="this.data">
                 <td class="padded" style="text-align: right;">
-                    <button style="width: 30%;" (click)="delete()" class="delete-btn" mat-button
-                        color="primary"
-                        *ngIf="modification_rule && modification_rule(this.data) && modification_mode">Delete</button>
                     <button *ngIf="modification_rule && modification_rule(this.data)"
                         style="width: 30%;" class="back-btn"
                         (click)="modification_mode ? modify() : add()"

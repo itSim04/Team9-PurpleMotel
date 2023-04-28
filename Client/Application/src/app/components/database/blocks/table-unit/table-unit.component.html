@@ -19,6 +19,6 @@
 <ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation"
   class="modal" [isOpen]="isModalOpen">
   <ng-template>
-    <app-change (closeModal)="closeAdd($event)" [injected_data]="active_data"></app-change>
+    <app-change (closeModal)="isModalOpen == 1 ? closeAdd($event) : closeModify($event)" [injected_data]="active_data"></app-change>
   </ng-template>
 </ion-modal>
