@@ -1,4 +1,4 @@
-<div class="main">
+<div class="main" [style.backgroundImage]="url.getImage('support-background')">
 
     <app-nav-bar [transparent]="true"></app-nav-bar>
     <mat-progress-bar mode="indeterminate" *ngIf="loading || chat_loading"></mat-progress-bar>

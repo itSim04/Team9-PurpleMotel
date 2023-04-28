@@ -38,6 +38,7 @@ import { environment } from '../environments/environment';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { ChatsPageModule } from './pages/chat/admin/chat.module';
+import { ImageDatabaseModule } from './pages/admin/image-database/image-database.module';
 
 
 @NgModule({
@@ -74,6 +75,8 @@ import { ChatsPageModule } from './pages/chat/admin/chat.module';
     StockDatabaseModule,
     UserDatabaseModule,
     RegistrationDatabaseModule,
+
+    ImageDatabaseModule,
 
     AdminDashboardModule,
 

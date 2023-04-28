@@ -1,3 +1,5 @@
+import { UrlBuilderService } from './../../../../services/utility/url-builder.service';
+import { ImageCachingService } from './../../../../services/utility/image-caching.service';
 import { Component } from '@angular/core';
 import { DisplayDialogService } from 'src/app/services/utility/display.service';
 
@@ -8,5 +10,5 @@ import { DisplayDialogService } from 'src/app/services/utility/display.service';
 })
 export class RestaurantLandingComponent {
 
-  constructor(public display_dialog: DisplayDialogService) {}
+  constructor(public display_dialog: DisplayDialogService, public url: UrlBuilderService) {}
 }

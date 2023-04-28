@@ -1,4 +1,4 @@
-<div class="restaurant-header">
+<div [style.backgroundImage]="'url(' + url.getImage('restaurant-main') + ')'" class="restaurant-header">
     <app-nav-bar [transparent]="true"></app-nav-bar>
     <div class="title-container">
         <p class="title-1">{{"welcome_to" | translate}}</p>
@@ -16,7 +16,7 @@
 </div>
 
 <div class="restaurant-container">
-    <img src="../../../../../assets/chefs-background.jpg" width="100%">
+    <img onerror="this.src='assets/placeholder.png'" [src]="url.getImage('chefs-background')" width="100%">
     <button (click)="display_dialog.openDialog('chef_list', 'chefs')" class="chefs-button">{{"chefs" | translate}}</button>
 </div>
 

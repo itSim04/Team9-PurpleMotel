@@ -39,3 +39,15 @@ export class ImageCachingService implements HttpInterceptor {
     }
   }
 }
+export const image_names = [
+
+  'room-main',
+  'service-main',
+  'restaurant-main',
+  'home-main',
+  'logo',
+  'support-background',
+  'chefs-background'
+
+
+];

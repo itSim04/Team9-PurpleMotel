@@ -1,3 +1,4 @@
+
 import { Router } from '@angular/router';
 import { News } from 'src/app/models/News';
 import { Component } from '@angular/core';
@@ -5,6 +6,7 @@ import { NewsAttributes } from 'src/app/models/News';
 import { Subscription } from 'rxjs';
 import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
 import { RawRoomsPackage, RoomsPackage } from 'src/app/models/Room';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,7 @@ export class HomeComponent {
   filtered_news: [string, News][] = [];
   subscription?: Subscription;
 
-  constructor (private news_service: NewsDatabaseService, private route: Router) { }
+  constructor (private news_service: NewsDatabaseService, private route: Router, public url: UrlBuilderService) { }
 
   get data() {
 

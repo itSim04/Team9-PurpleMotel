@@ -7,6 +7,7 @@ import { RoomType } from 'src/app/models/RoomType';
 import { PageEvent } from '@angular/material/paginator';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { RoomDatabaseService } from 'src/app/services/providers/room-database.service';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 @Component({
   selector: 'app-browse-rooms',
@@ -28,7 +29,7 @@ export class BrowseRoomsComponent implements OnInit, OnDestroy {
 
   page = 0;
 
-  constructor (private room_service: RoomDatabaseService) { }
+  constructor (private room_service: RoomDatabaseService, public url: UrlBuilderService) { }
 
   get data() {
 
