@@ -42,6 +42,16 @@
           {{ 'support' | translate}}
         </ion-text>
       </ion-menu-toggle>
+      <br>
+      <br>
+      <br>
+      <ng-container>
+        <ion-menu-toggle>
+          <ion-text (click)="openAdmin()" class="tabs">
+            {{ 'admin_panel' | translate}}
+          </ion-text>
+        </ion-menu-toggle>
+      </ng-container>
 
     </ion-content>
     <div style="position: relative; bottom: 16px">
@@ -56,6 +66,7 @@
         {{'terms_conditions' | translate}}
       </ion-text>
       <br>
+    
 
     </div>
   </ion-menu>

@@ -19,7 +19,7 @@ export class TabsPage {
   closeMenu() {
     this.menuCtrl.close('main-content');
   }
-  constructor (private menuCtrl: MenuController, private router: Router) {
+  constructor(private menuCtrl: MenuController, private router: Router) {
 
     const user = extractUser();
 
@@ -40,9 +40,9 @@ export class TabsPage {
 
     const user = extractUser();
     const id = extractUserId();
-    if(user && id) {
+    if (user && id) {
 
-      if(user.tier == '0') {
+      if (user.tier == '0') {
 
         this.router.navigate(['chat/guest/' + id])
 
@@ -57,6 +57,20 @@ export class TabsPage {
 
 
   }
+
+  openAdmin() {
+
+    const user = extractUser();
+    const id = extractUserId();
+    if (user && id) {
+
+      this.router.navigate(['/admin'])
+
+    }
+
+
+  }
+
 
   isActive(path: string): boolean {
     return this.router.url.includes(path);
