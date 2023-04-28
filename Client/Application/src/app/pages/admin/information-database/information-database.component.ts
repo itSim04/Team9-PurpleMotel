@@ -19,7 +19,7 @@ export class InformationDatabaseComponent {
   data_injection: DataInjection<Information> = {
     title: 'Informations',
 
-    permission: 'announcement',
+    permission: 'information',
 
     displayed_columns: [
       {

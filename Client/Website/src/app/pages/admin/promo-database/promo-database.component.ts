@@ -19,7 +19,7 @@ export class PromoDatabaseComponent {
 
   data_injection: DataInjection<PromoCode> = {
 
-    permission: 'promo_code',
+    permission: 'promo-code',
     title: 'Promo Codes',
     displayed_columns: [
       {
