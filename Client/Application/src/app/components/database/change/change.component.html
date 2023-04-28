@@ -218,24 +218,20 @@
                 </tr>
             </table>
         </ng-container>
-        <table style="table-layout: fixed; width: 100%;">
-            <tr *ngIf="this.data">
-                <td class="padded" style="text-align: right;">
-                    <button *ngIf="modification_rule && modification_rule(this.data)"
-                        style="width: 30%;" class="back-btn"
-                        (click)="modification_mode ? modify() : add()"
-                        [style.background]="(fieldsCompleteness.length || !differenceCheck) ? 'gray' : '#14274A'"
-                        [matTooltipClass]="'tooltip'" mat-button color="primary"
-                        [matTooltipDisabled]="!fieldsCompleteness.length"
-                        [matTooltip]="fieldsCompleteness.join('\n')">{{modification_mode ?
-                        'Modify' : 'Add'}} {{data_type}}</button>
-                </td>
-                <td *ngIf="toggle" class="padded" style="text-align: left;"> <button
-                        style="width: 30%;" class="back-btn" (click)="triggerToggle()"
-                        [style.background]="!data[toggle.key] ? 'gray' : '#14274A'" mat-button
-                        color="primary">{{data[toggle.key] ? toggle.on_value :
-                        toggle.off_value}}</button> </td>
-            </tr>
-        </table>
+
+        <div style="display: flex">
+            <ion-button class="cancel-btn" *ngIf="modification_rule && modification_rule(this.data)"
+                (click)="modification_mode ? modify() : add()"
+                [ngStyle]="{'--background': (fieldsCompleteness.length || !differenceCheck) ? 'gray' : '#14274A' }"
+                [matTooltipClass]="'tooltip'" mat-button color="primary"
+                [matTooltipDisabled]="!fieldsCompleteness.length"
+                [matTooltip]="fieldsCompleteness.join('\n')">{{modification_mode ?
+                'Modify' : 'Add'}} {{data_type}}</ion-button>
+
+            <button *ngIf="toggle" class="cancel-btn" (click)="triggerToggle()"
+                [style.background]="!data[toggle.key] ? 'gray' : '#14274A'" mat-button
+                color="primary">{{data[toggle.key] ? toggle.on_value :
+                toggle.off_value}}</button>
+        </div>
     </div>
 </div>

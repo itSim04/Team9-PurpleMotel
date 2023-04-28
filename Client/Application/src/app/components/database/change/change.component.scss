@@ -71,6 +71,17 @@
 
 }
 
+.cancel-btn {
+
+    // --background: #D6B389;
+    width: 150px;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+
+}
+
 .padded {
 
     // width: 40%;
@@ -78,33 +89,6 @@
     padding-right: 32px;
     // border: 1px solid black;
 
-}
-
-.back-btn {
-
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-
-    border-radius: 0px;
-
-    padding: 16px;
-    padding-top: 24px;
-    padding-bottom: 24px;
-
-    text-transform: uppercase;
-
-    background-color: #14274A;
-
-    color: white;
-
-}
-
-.back-btn:hover {
-
-    border: 1px solid #4668a6;
-    background: #4668a6;
 }
 
 .delete-btn {
@@ -199,6 +183,8 @@ th {
 
 
 }
+
+
 
 .number-error {
     color: red;

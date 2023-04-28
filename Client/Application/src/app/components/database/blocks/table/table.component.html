@@ -68,8 +68,7 @@
 
         <tr mat-header-row *matHeaderRowDef="getDisplayedColumnsKey; sticky: true">
         </tr>
-        <tr (mouseenter)="hover.emit(row)" (mouseleave)="hover.emit(['-1', undefined]);"
-            (click)="modify_click.emit(row)" mat-row
+        <tr (click)="modify_click.emit(row)" mat-row
             *matRowDef="let row; columns: getDisplayedColumnsKey;">
         </tr>
         <tr *matNoDataRow>
