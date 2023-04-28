@@ -1,10 +1,8 @@
 import { KeyValue } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Food } from 'src/app/models/Food';
-import { Order } from 'src/app/models/Order';
-import { parseDate } from 'src/app/pages/authentication/authentication.utility';
-import { extractUserId } from '../../database/database.component';
 import { FoodListPopupService } from '../food-list-popup/food-list-popup.service';
+import { formatPrice } from 'src/app/pages/admin/room-database/room-database.component';
 
 @Component({
   selector: 'app-food-list-item',
@@ -22,7 +20,13 @@ export class FoodListItemComponent  implements OnInit {
   ngOnInit() {}
 
   openPopup(){
-    const dialogRef = this.food_service.openDialog(this.food.key, this.food.value.label, this.food.value.description, this.food.value.price, this.food.value.is_served)
+    const dialogRef = this.food_service.openDialog(this.food.key, this.food.value.label, this.food.value.description, this.food.value.price, this.food.value.is_served, this.food.value.image,this.quantity)
+    dialogRef.afterClosed().subscribe(result => this.quantity = (result as number));
+  }
+
+  get formatPrice(): string {
+
+    return formatPrice(this.food.value.price);
   }
 
   // addToCart() {

@@ -26,7 +26,7 @@
         <p [attr.id]="category.value.label" class="header-2">{{category.value.label}}</p>
         <ng-container *ngFor="let food of foods | keyvalue">
             <div *ngIf="food.value.category == category.key">
-                <app-food-list-item [food]="food"></app-food-list-item>
+                <app-food-list-item [quantity]="getQuantity(food.key)" [food]="food"></app-food-list-item>
             </div>
         </ng-container>
     </div>

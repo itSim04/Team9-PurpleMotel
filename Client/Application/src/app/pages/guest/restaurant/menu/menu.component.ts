@@ -1,7 +1,11 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { FoodListPopupService } from "src/app/components/food/food-list-popup/food-list-popup.service";
 import { Food } from "src/app/models/Food";
 import { FoodCategory } from "src/app/models/FoodCategory";
+import { Order } from "src/app/models/Order";
 import { FoodDatabaseService } from "src/app/services/providers/food-database.service";
+import { AuthenticationDialogService } from "src/app/services/utility/authentication.service";
 
 
 @Component({
@@ -12,24 +16,28 @@ import { FoodDatabaseService } from "src/app/services/providers/food-database.se
 export class MenuComponent implements OnInit {
 
   foods: Map<string, Food> = new Map();
-  foods_array: [string, Food][] = [];
-
   food_categories: Map<string, FoodCategory> = new Map();
-  food_catagories_array: [string, FoodCategory][] = [];
+  order?: Order;
 
-  constructor(private food_service: FoodDatabaseService) { }
+
+  constructor(private food_service: FoodDatabaseService, private food_dialog: FoodListPopupService, /*private cart_dialog: CartDialogService,*/ private authentication: AuthenticationDialogService, private route: Router) {
+
+    this.downloadCart();
+
+  }
 
   ngOnInit() {
 
-    this.food_service.getAllFoods().subscribe({next: data => {
+    this.food_service.getAllFoods().subscribe({
+      next: data => {
         console.log(data);
         this.foods = data.foods;
-        this.foods_array = Array.from(this.foods);
+
 
         this.food_categories = data.categories;
-        this.food_catagories_array = Array.from(this.food_categories);
+
       },
-      
+
       error: error => {
         console.error(error);
       }
@@ -38,6 +46,32 @@ export class MenuComponent implements OnInit {
 
   scroll(search: string) {
     document.getElementById(search)?.scrollIntoView();
+
+  }
+
+  downloadCart() {
+
+    const cart = localStorage.getItem('cart');
+
+    if (cart) {
+
+      this.order = (JSON.parse(cart) as Order);
+
+    } else {
+
+      this.order = undefined;
+
+    }
+  }
+
+  getQuantity(arg0: string): number {
+
+    if (this.order) {
+      return this.order?.food.find(t => t.id == arg0)?.quantity || 0;
+    } else {
+      return 0;
+
+    }
 
   }
 }
