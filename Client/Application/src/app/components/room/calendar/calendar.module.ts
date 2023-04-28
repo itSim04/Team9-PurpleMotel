@@ -7,21 +7,26 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { IonicModule } from "@ionic/angular";
-import { CalendarComponent } from "./calendar.component";
+import { CalendarWrapperComponent } from "./calendar.component";
 import { LanguageModule } from "src/app/services/language/language.module";
 import { NoopAnimationPlayer } from "@angular/animations";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from "ion2-calendar";
 
 
 
 @NgModule({
   declarations: [
-    CalendarComponent
+    CalendarWrapperComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    // IonicModule.forRoot(),
+    IonicModule.forRoot(),
+    CalendarModule.forRoot({
+      doneLabel: 'Save',
+      closeIcon: true
+    }),
     ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
@@ -31,10 +36,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    
+
   ],
   exports: [
-    CalendarComponent
+    CalendarWrapperComponent
   ]
 })
-export class CalendarModule { }
+export class CalendarWrapperModule { }

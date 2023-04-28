@@ -1,6 +1,5 @@
 import { LanguageModule } from 'src/app/services/language/language.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { CalendarModule } from './../calendar/calendar.module';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgModule } from '@angular/core';
@@ -13,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { DateAdapter, MatNativeDateModule } from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
+import { CalendarWrapperModule } from '../calendar/calendar.module';
 
 
 @NgModule({
@@ -30,7 +30,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatIconModule,
     MatSelectModule,
     FormsModule,
-    CalendarModule,
+    CalendarWrapperModule,
     MatProgressBarModule
   ],
   exports: [

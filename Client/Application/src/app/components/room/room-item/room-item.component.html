@@ -29,7 +29,7 @@
 </div>
 
 <div class="image-bg">
-  <img src="../../../assets/rooms/room-sample.jpg">
+  <img [src]="room?.value?.images?.at(0)" onerror="this.src='assets/placeholder.png'">
 </div>
 
 <!-- <div class="body">

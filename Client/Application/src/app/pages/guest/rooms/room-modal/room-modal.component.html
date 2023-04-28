@@ -1,4 +1,4 @@
-<ion-fab-button (click)="closeModal.emit(true)" class="back-btn">
+<ion-fab-button (click)="closeModal.emit(false)" class="back-btn">
   <ion-icon name="arrow-back-outline"></ion-icon>
 </ion-fab-button>
 <div class="container">
@@ -6,18 +6,33 @@
 
     <ion-text class="title">{{room?.value?.label}}</ion-text>
     <hr style="border-bottom: 1px solid #D6B389; width: 95%;">
-    <img style="object-fit: cover; margin-top: 8px;" width="100%" height="40%" [src]="room?.value?.images?.at(0)"
-      onerror="this.src='assets/placeholder.png'">
+    <img style="object-fit: cover; margin-top: 8px;" width="100%" height="40%"
+      [src]="room?.value?.images?.at(0)" onerror="this.src='assets/placeholder.png'">
   </div>
   <br>
   <ion-text class="label">{{'description' | translate}}</ion-text>
   <br>
   <ion-text class="body">{{room?.value?.description}}</ion-text>
   <br>
-  <div style="text-align: center; height: 50%">
+  <br>
+  <div style="display: flex;">
 
-    <ion-button  class="cancel-btn">
-      {{'Register' | translate}}
+    <ion-text class="options">{{ 'Start Date' | translate }}</ion-text>
+    <ion-text style="text-align: end;" class="options">{{ 'End Date' | translate }}</ion-text>
+
+  </div>
+  <div style="display: flex;">
+
+    <ion-text class="date">{{formatDate(range?.check_in)}}</ion-text>
+    <ion-text style="text-align: end;" class="date">{{formatDate(range?.check_out)}}</ion-text>
+
+  </div>
+  <div style="display: flex;">
+
+
+    <app-calendar [room_id]="room?.key" (result)="saveBookingRange($event)"></app-calendar>
+    <ion-button (click)="addBooking()" class="cancel-btn">
+      {{'Book' | translate}}
     </ion-button>
 
   </div>

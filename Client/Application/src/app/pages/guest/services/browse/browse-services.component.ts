@@ -29,7 +29,9 @@ export class BrowseServicesComponent implements OnInit {
   active_data?: ProfileModalData;
   isModalOpen: boolean = false;
 
-  constructor(private services_service: ServiceDatabaseService) { }
+  selected: 'activities' | 'facilities' = 'activities';
+
+  constructor (private services_service: ServiceDatabaseService) { }
 
 
 
@@ -41,6 +43,12 @@ export class BrowseServicesComponent implements OnInit {
     return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
   };
 
+  onSegmentChange(event: any) {
+
+    const selectedValue = event.detail.value;
+    this.selected = selectedValue;
+
+  }
   ngOnInit() {
 
     this.services_service.getAllActivities().subscribe(data => {
@@ -51,7 +59,7 @@ export class BrowseServicesComponent implements OnInit {
     });
     this.services_service.getAllFacilities().subscribe(data => {
 
-      this.facilities = data.facilities
+      this.facilities = data.facilities;
 
     });
 

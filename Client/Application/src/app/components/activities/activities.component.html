@@ -1,39 +1,37 @@
+<div>
 
 
-  <div>
+  <table>
 
+    <tr>
+      <td colspan="2">
+        <h2 class="img-title">{{activity?.value?.title}}</h2>
+        <img class="main-img" src="../../../assets/services-pics/movie-night.png">
+      </td>
 
-    <table>
+    </tr>
 
-      <tr>
-        <td colspan="2">
-          <h2 class="img-title">{{activity?.value?.title}}</h2>
-          <img class="main-img" src="../../../assets/services-pics/movie-night.png">
-        </td>
+    <tr>
+      <td>
+        <img class="sub-imgs" src="../../../assets/services-pics/movie-night.png">
+      </td>
 
-      </tr>
+      <td>
+        <img class="sub-imgs" src="../../../assets/services-pics/movie-night.png">
+      </td>
+    </tr>
 
-      <tr>
-        <td>
-          <img class="sub-imgs" src="../../../assets/services-pics/movie-night.png">
-        </td>
-
-        <td>
-          <img class="sub-imgs" src="../../../assets/services-pics/movie-night.png">
-        </td>
-      </tr>
-
-      <ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" class="modal"
-      [isOpen]="isModalOpen">
+    <ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation"
+      [leaveAnimation]="leaveAnimation" class="modal" [isOpen]="isModalOpen">
       <ng-template>
-          <app-profile-modal (closeModal)="closeModal()" [data]="active_data"
-              style="height: 100%;"></app-profile-modal>
+        <app-profile-modal (closeModal)="closeModal()" [data]="active_data"
+          style="height: 100%;"></app-profile-modal>
       </ng-template>
-     </ion-modal>
+    </ion-modal>
 
-    </table>
-    <div class="button-container">
+  </table>
+  <div class="button-container">
 
-      <button class="learn-more-button" (click)="openModal(formatActivity())">Learn More</button>
-    </div>
+    <button class="learn-more-button" (click)="openModal(formatActivity())">Learn More</button>
   </div>
+</div>

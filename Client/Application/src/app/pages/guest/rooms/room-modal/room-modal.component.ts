@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavParams, ModalController, ToastController } from '@ionic/angular';
 import { Interface } from 'readline';
-import { Required, extractUserId } from 'src/app/components/database/database.component';
+import { Required, extractUserId, formatDate } from 'src/app/components/database/database.component';
 import { Activity } from 'src/app/models/Activity';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { Room } from 'src/app/models/Room';
@@ -23,7 +23,7 @@ export interface ProfileModalData {
     label: string;
     action: () => void;
 
-  }
+  };
 
 }
 
@@ -36,81 +36,96 @@ export class RoomModalComponent {
 
   @Input() @Required room?: KeyValue<string, Room>;
   @Input() @Required room_type?: KeyValue<string, RoomType>;
-  @Input() @Required promo?: KeyValue<string, PromoCode>;
+  @Input() promo?: KeyValue<string, PromoCode>;
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private router: Router, private booking_service: BookingDatabaseService, private toastController: ToastController) {}
+  range?: { check_in: Date; check_out: Date; };
+  constructor (private router: Router, private booking_service: BookingDatabaseService, private toastController: ToastController) { }
 
 
-  addBooking(range: { check_in: Date, check_out: Date; }) {
+  saveBookingRange($event: { check_in: Date; check_out: Date; }) {
 
-    const user_id = extractUserId();
+    this.range = $event;
+    console.log($event, this.range);
+
+  }
+
+  formatDate(date: Date | undefined) {
+
+    return date ? parseDate(date).split('-').reverse().join('/') : 'No Date selected';
+
+  }
+  addBooking() {
+
+    console.log(this.range);
+    if (this.range) {
+      const user_id = extractUserId();
 
 
-    if (user_id) {
+      if (user_id) {
 
 
-      if (this.room?.key) {
-        this.booking_service.getAllRoomsBookings(this.room.key).subscribe(conflicts => {
+        if (this.room?.key) {
+          this.booking_service.getAllRoomsBookings(this.room.key).subscribe(conflicts => {
 
 
-          const conflicting_bookings = [];
+            const conflicting_bookings = [];
 
-          for (let booking of conflicts.bookings) {
+            for (let booking of conflicts.bookings) {
 
-            if (!(range.check_out < new Date(booking[1].check_in) || range.check_in > new Date(booking[1].end_date))) {
+              if (!(this.range!.check_out < new Date(booking[1].check_in) || this.range!.check_in > new Date(booking[1].end_date))) {
 
-              conflicting_bookings.push(booking[0]);
+                conflicting_bookings.push(booking[0]);
+              }
             }
-          }
 
 
 
-          if (conflicting_bookings.length) {
+            if (conflicting_bookings.length) {
 
-            this.displayToast('Conflicting bookings');
+              this.displayToast('Conflicting bookings');
 
-          } else {
+            } else {
 
-            this.booking_service.addNewBooking({
+              this.booking_service.addNewBooking({
 
-              check_in: parseDate(range.check_in),
-              end_date: parseDate(range.check_out),
-              promo_id: this.promo?.key || '0',
-              exhausted: false,
-              room_id: this.room!.key,
-              user_id: user_id
+                check_in: parseDate(this.range!.check_in),
+                end_date: parseDate(this.range!.check_out),
+                promo_id: this.promo?.key || '0',
+                exhausted: false,
+                room_id: this.room!.key,
+                user_id: user_id
 
-            }).subscribe(data => {
+              }).subscribe(data => {
 
-              this.router.navigate(['profile']);
-              
-            });
-            
-          }
-        });
-        
+                this.closeModal.emit(true);
+
+              });
+
+            }
+          });
+
+        } else {
+
+          console.error('Invalid id or room key');
+
+        }
       } else {
-        
-        console.error('Invalid id or room key');
-        
-      }
-    } else {
-      
-      
-      this.router.navigate(['auth']);
 
+
+        this.router.navigate(['auth']);
+      }
     }
   }
 
   async displayToast(body: string) {
-    
+
     const toast = await this.toastController.create({
       message: body,
       duration: 1500,
       position: 'bottom'
     });
-  
+
     await toast.present();
 
   }

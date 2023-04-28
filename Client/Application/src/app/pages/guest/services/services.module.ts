@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -18,6 +19,7 @@ import { ProfileModule } from '../profile/profile.module';
     ActivitiesModule,
     FacilitiesModule,
     IonicModule.forRoot(),
+    LanguageModule,
     ProfileModule
   ],
   exports: [

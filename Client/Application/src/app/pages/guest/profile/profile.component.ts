@@ -27,12 +27,12 @@ import { OrderDatabaseService } from "src/app/services/providers/order-database.
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
- 
+
 })
 export class ProfileComponent implements OnInit {
-formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
+  formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
 
-  const activity = this.activities.get(registration.value.activity_id)!;
+    const activity = this.activities.get(registration.value.activity_id)!;
 
 
     return {
@@ -46,18 +46,18 @@ formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
       button: {
         label: 'Cancel',
         action: () => {
-            
-            this.registration_service.deleteRegistration(registration.key).subscribe(() => {
-  
-              this.registrations.delete(registration.key);
-              this.closeModal();
-  
-            });
-  
+
+          this.registration_service.deleteRegistration(registration.key).subscribe(() => {
+
+            this.registrations.delete(registration.key);
+            this.closeModal();
+
+          });
+
         }
       }
-    }
-}
+    };
+  }
   formatBooking(booking: KeyValue<string, Booking>): ProfileModalData {
 
     const room = this.rooms.get(booking.value.room_id)!;
@@ -87,7 +87,7 @@ formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
         }
       }
 
-    }
+    };
   }
 
 
@@ -107,7 +107,7 @@ formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
 
   isModalOpen: boolean = false;
 
-  constructor(private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationService, private modal_ctrl: ModalController) {
+  constructor (private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationService, private modal_ctrl: ModalController) {
 
     const user = extractUser()!;
 
@@ -189,17 +189,17 @@ formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
         }
       }
 
-    }
+    };
   }
 
   get booking_array() {
 
-    return Array.from(this.bookings || [])
+    return Array.from(this.bookings || []);
 
   }
   get registration_array() {
 
-    return Array.from(this.registrations || [])
+    return Array.from(this.registrations || []);
 
   }
 
@@ -391,7 +391,7 @@ formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
     if (selectedValue === 'rooms') {
       this.selected = 'rooms';
     } else if (selectedValue === 'services') {
-      this.selected = 'services'
+      this.selected = 'services';
     }
   }
 }
