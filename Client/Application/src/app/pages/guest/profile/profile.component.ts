@@ -50,6 +50,7 @@ export class ProfileComponent implements OnInit {
           this.registration_service.deleteRegistration(registration.key).subscribe(() => {
 
             this.registrations.delete(registration.key);
+            this.registration_array = Array.from(this.registrations || []).reverse();
             this.closeModal();
 
           });
@@ -80,6 +81,7 @@ export class ProfileComponent implements OnInit {
           this.booking_service.deleteBooking(booking.key).subscribe(() => {
 
             this.bookings.delete(booking.key);
+            this.booking_array = Array.from(this.bookings || []).reverse();
             this.closeModal();
 
           });
@@ -117,6 +119,22 @@ export class ProfileComponent implements OnInit {
     this.last_name = this.user.last_name;
 
 
+
+  }
+
+  ionViewDidEnter() {
+
+    const temp = localStorage.getItem('temp_profile_room');
+    if (temp) {
+
+      const booking = JSON.parse(temp) as KeyValue<string, Booking>;
+      this.bookings.set(booking.key, booking.value);
+      localStorage.removeItem('temp_profile_room');
+
+    }
+
+    this.booking_array = Array.from(this.bookings || []).reverse();
+    this.registration_array = Array.from(this.registrations || []).reverse();
 
   }
 
@@ -183,6 +201,7 @@ export class ProfileComponent implements OnInit {
 
 
             this.orders.delete(order.key);
+
             this.closeModal();
 
           });
@@ -192,27 +211,9 @@ export class ProfileComponent implements OnInit {
     };
   }
 
-  get booking_array() {
+  booking_array: [string, Booking][] = [];
 
-    return Array.from(this.bookings || []);
-
-  }
-  get registration_array() {
-
-    return Array.from(this.registrations || []);
-
-  }
-
-  keyDescOrder = (a: KeyValue<string, Booking>, b: KeyValue<string, Booking>): number => {
-    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
-  };
-  activity_key = (a: KeyValue<string, Registration>, b: KeyValue<string, Registration>): number => {
-    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
-  };
-  order_key = (a: KeyValue<string, Order>, b: KeyValue<string, Order>): number => {
-    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
-  };
-
+  registration_array: [string, Registration][] = [];
 
   image(index: number) {
 
@@ -268,7 +269,13 @@ export class ProfileComponent implements OnInit {
         this.promo = data.promo;
 
 
+        this.booking_array = Array.from(this.bookings || []).reverse();
+        this.registration_array = Array.from(this.registrations || []).reverse();
+
+
+
         console.log(data);
+
       },
       error: error => {
 

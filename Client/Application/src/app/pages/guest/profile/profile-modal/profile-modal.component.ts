@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Required, formatPrice } from 'src/app/components/database/database.component';
+import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 
 export interface ProfileModalData {
 
@@ -28,14 +29,20 @@ export interface ProfileModalData {
 
 export class ProfileModalComponent {
 
-  @Input() @Required data?: ProfileModalData
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
+  @Input() @Required data?: ProfileModalData
 
   performAction() {
 
     if (this.data?.button?.action)
       this.data.button.action(this.data.stored_data);
 
+
+  }
+
+  formatDate(date: string | undefined) {
+
+    return date ? date.split('-').reverse().join('/') : 'No Date selected';
 
   }
   changeQuantity(change: number) {
