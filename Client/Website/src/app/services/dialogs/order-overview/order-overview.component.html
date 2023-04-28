@@ -51,6 +51,6 @@
 <div matDialogActions>
   <button class="add-btn" [mat-dialog-close]>{{ 'ok' | translate }}</button>
   <ng-container *ngIf="eligibileCancellation()">
-    <button class="add-btn" [mat-dialog-close]="order?.key">{{ 'cancel' | translate }}</button>
+    <button class="cancel-btn" [mat-dialog-close]="order?.key">{{ 'cancel' | translate }}</button>
   </ng-container>
 </div>
