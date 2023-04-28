@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserType } from 'src/app/models/UserType';
 import { KeyValue } from '@angular/common';
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Field, Toggle, StaticField, ChangeInjection, Column, ExtraColumn } from 'src/app/models/Database';
@@ -14,7 +14,15 @@ import { ImagePickerConf, NgpImagePickerComponent } from 'ngp-image-picker';
 import { InformationDatabaseService } from 'src/app/services/providers/information-database.service';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 
+export interface InjectableData<Data> {
 
+  injection: ChangeInjection<Data>,
+  link: Map<string, unknown>;
+  permission: string;
+  outer_data?: Map<string, unknown>[];
+  all_data: Map<string, Data>;
+
+}
 export function areEqual(a: any, b: any) {
   if (a === b) {
     return true;
@@ -83,67 +91,70 @@ export function clone(obj: any) {
   templateUrl: './change.component.html',
   styleUrls: ['./change.component.scss']
 })
-export class ChangeComponent<Data extends { [key: string]: string | boolean | number | unknown[]; }> {
+export class ChangeComponent<Data> {
 
   onImageChange($event: any, image: { filename: string, base64: string; }, image_id: number) {
 
     // console.log(image, $event);
 
-    if ($event) {
+    if (this.data_type) {
 
-      if (image.filename) {
+      if ($event) {
 
-        const filename = image?.filename!.split('/')!;
-        this.image_service.modifyImage($event, this.data_type, this.old_data?.key!, filename[filename.length - 1]).subscribe((result) => {
+        if (image.filename) {
 
-          this.images[image_id].base64 = $event.split(',')[1];
+          const filename = image?.filename!.split('/')!;
+          this.image_service.modifyImage($event, this.data_type, this.old_data?.key!, filename[filename.length - 1]).subscribe((result) => {
 
-        });
-
-
-      } else {
-
-        this.image_service.storeImage($event, this.data_type, this.old_data?.key!).subscribe((result) => {
-
-
-          this.images[image_id] = {
-
-            filename: result.data.filename,
-            base64: $event.split(',')[1]
-
-          };
-
-          console.log(this.images);
-
-          this.images.push({
-
-            filename: '',
-            base64: '',
+            this.images[image_id].base64 = $event.split(',')[1];
 
           });
 
+
+        } else {
+
+          this.image_service.storeImage($event, this.data_type, this.old_data?.key!).subscribe((result) => {
+
+
+            this.images[image_id] = {
+
+              filename: result.data.filename,
+              base64: $event.split(',')[1]
+
+            };
+
+            console.log(this.images);
+
+            this.images.push({
+
+              filename: '',
+              base64: '',
+
+            });
+
+          });
+        }
+
+      } else {
+
+        const filename = image?.filename!.split('/')!;
+        this.image_service.deleteImage(filename[filename.length - 1], this.data_type, this.old_data?.key!).subscribe((result) => {
+
+          this.images.splice(this.images.findIndex((data) => data.filename === image?.filename), 1);
+
         });
+
+
       }
-
-    } else {
-
-      const filename = image?.filename!.split('/')!;
-      this.image_service.deleteImage(filename[filename.length - 1], this.data_type, this.old_data?.key!).subscribe((result) => {
-
-        this.images.splice(this.images.findIndex((data) => data.filename === image?.filename), 1);
-
-      });
-
-
     }
   }
 
   modification_mode = false;
-  side_panel: 'images' | 'permissions' | 'empty' | 'table' | 'image' | 'mixed';
-  data: Data;
-  data_type: string;
+  side_panel?: 'images' | 'permissions' | 'empty' | 'table' | 'image' | 'mixed';
+  data?: Data;
+  data_type?: string;
   standalone_field?: Field<Data>;
-  fields: Field<Data>[];
+  fields?: Field<Data>[];
   toggle?: Toggle<Data>;
   static_fields?: StaticField<Data>[];
   permissions?: {
@@ -165,20 +176,17 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     default_value: unknown;
 
   };
-  readonly old_data?: KeyValue<string, Data>;
-  readonly add_service: (data: Data) => Observable<string>;
-  readonly modify_service: (key: string, data: Data) => Observable<undefined>;
-  readonly delete_service: (key: string) => Observable<string[]>;
-  readonly identifier: (data: Data) => string;
-  readonly modification_rule;
-  readonly permission;
-
-  readonly size: number;
-
-  readonly outer_data: Map<string, unknown>[] | undefined;
-  readonly all_data: Map<string, Data>;
-
-  readonly linked_data: Map<string, unknown>;
+  old_data?: KeyValue<string, Data>;
+  add_service?: (data: Data) => Observable<string>;
+  modify_service?: (key: string, data: Data) => Observable<undefined>;
+  delete_service?: (key: string) => Observable<string[]>;
+  identifier?: (data: Data) => string;
+  modification_rule?: (data: Data) => boolean;
+  permission?: string;
+  size?: number;
+  outer_data?: Map<string, unknown>[];
+  all_data?: Map<string, Data>;
+  linked_data?: Map<string, unknown>;
 
   uniqueness: boolean = true;
 
@@ -221,35 +229,39 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   }
 
-  constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; all_data: Map<string, Data>; }, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationService, private image_service: InformationDatabaseService) {
+  @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() injected_data!: InjectableData<Data>;
+  constructor (private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationService, private image_service: InformationDatabaseService) { }
+
+  ngAfterViewInit() {
+    console.log(this.injected_data);
+
+    this.linked_data = this.injected_data.link;
+
+    this.add_service = this.injected_data.injection?.add_service;
+    this.modify_service = this.injected_data.injection.modify_service;
+    this.delete_service = this.injected_data.injection.delete_service;
+    this.identifier = this.injected_data.injection.identifier;
 
 
-    this.linked_data = injected_data.link;
+    this.permission = this.injected_data.permission;
+    this.outer_data = this.injected_data.outer_data;
+    this.size = this.injected_data.injection.size || 1;
+    this.all_data = this.injected_data.all_data;
 
-    this.add_service = injected_data.injection?.add_service;
-    this.modify_service = injected_data.injection.modify_service;
-    this.delete_service = injected_data.injection.delete_service;
-    this.identifier = injected_data.injection.identifier;
+    this.permissions = this.injected_data.injection.permissions;
+    this.modification_rule = this.injected_data.injection.modification_rule || (data => true);
+    this.side_panel = this.injected_data.injection.side_panel;
+    this.toggle = this.injected_data.injection.toggle;
+    this.data_type = this.injected_data.injection.data_type;
+    this.fields = this.injected_data.injection.fields;
+    this.standalone_field = this.injected_data.injection.standalone_field;
+    this.static_fields = this.injected_data.injection.static_fields;
 
+    if (this.injected_data.injection.affected_data) {
 
-    this.permission = injected_data.permission;
-    this.outer_data = injected_data.outer_data;
-    this.size = injected_data.injection.size || 1;
-    this.all_data = injected_data.all_data;
-
-    this.permissions = injected_data.injection.permissions;
-    this.modification_rule = injected_data.injection.modification_rule || (data => true);
-    this.side_panel = injected_data.injection.side_panel;
-    this.toggle = injected_data.injection.toggle;
-    this.data_type = injected_data.injection.data_type;
-    this.fields = injected_data.injection.fields;
-    this.standalone_field = injected_data.injection.standalone_field;
-    this.static_fields = injected_data.injection.static_fields;
-
-    if (injected_data.injection.affected_data) {
-
-      this.old_data = injected_data.injection.affected_data;
-      image_service.browseImages(this.data_type, this.old_data?.key!).subscribe({
+      this.old_data = this.injected_data.injection.affected_data;
+      this.image_service.browseImages(this.data_type, this.old_data?.key!).subscribe({
 
         next: (result) => {
 
@@ -258,7 +270,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
           if (result.data)
             this.images = result.data;
 
-          
+
           this.images.push({
 
             filename: '',
@@ -278,22 +290,22 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
       console.log(this.old_data);
 
-      this.data = clone(injected_data.injection.affected_data.value);
+      this.data = clone(this.injected_data.injection.affected_data.value);
       this.modification_mode = true;
 
     } else {
 
       this.old_data = undefined;
-      this.data = clone(injected_data.injection.default_state);
+      this.data = clone(this.injected_data.injection.default_state);
       this.modification_mode = false;
 
     }
-    if (injected_data.injection.table) {
+    if (this.injected_data.injection.table && this.data) {
       this.table = {
 
-        ...injected_data.injection.table,
-        default_value: clone(injected_data.injection.table.default_value),
-        data: new MatTableDataSource(this.data[injected_data.injection.table.key] as unknown[])
+        ...this.injected_data.injection.table,
+        default_value: clone(this.injected_data.injection.table.default_value),
+        data: new MatTableDataSource(this.data[this.injected_data.injection.table.key] as unknown[])
 
       };
     }
@@ -303,7 +315,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   add() {
 
-    if (!this.fieldsCompleteness.length && this.differenceCheck) {
+    if (!this.fieldsCompleteness.length && this.differenceCheck && this.fields && this.data) {
 
       this.uniqueness = true;
       this.fields.forEach(field => {
@@ -311,9 +323,9 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
         if (field.unique) {
 
 
-          this.all_data.forEach((value, key) => {
+          this.all_data?.forEach((value, key) => {
 
-            if (value[field.key] == this.data[field.key]) {
+            if (value[field.key] == this.data![field.key]) {
 
               this.uniqueness = false;
 
@@ -367,7 +379,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   modify() {
 
 
-    if (!this.fieldsCompleteness.length && this.differenceCheck) {
+    if (!this.fieldsCompleteness.length && this.differenceCheck && this.permission) {
 
 
 
@@ -375,7 +387,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
 
 
-        if (this.old_data) {
+        if (this.old_data && this.fields && this.data) {
 
 
           this.uniqueness = true;
@@ -384,9 +396,9 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
             if (field.unique) {
 
 
-              this.all_data.forEach((value, key) => {
+              this.all_data?.forEach((value, key) => {
 
-                if (value[field.key] == this.data[field.key] && value[field.key] != this.old_data?.value[field.key]) {
+                if (value[field.key] == this.data![field.key] && value[field.key] != this.old_data?.value[field.key]) {
 
                   this.uniqueness = false;
 
@@ -442,7 +454,8 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   delete() {
 
-    if (extractPermission('delete', this.permission)) {
+
+    if (this.permission && extractPermission('delete', this.permission)) {
 
       if (this.old_data) {
 
@@ -496,7 +509,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   triggerToggle() {
 
-    if (this.toggle && this.modification_rule(this.data)) {
+    if (this.toggle && this.modification_rule && this.data && this.modification_rule(this.data) && this.identifier) {
 
       if (this.modification_mode) {
 
@@ -520,15 +533,18 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
         } else {
 
 
-          if (this.toggle.off_prompt) {
+          if (this.identifier) {
 
-            prompt = this.toggle.off_prompt;
-            prompt = prompt.replace('$name', this.identifier(this.data));
+            if (this.toggle.off_prompt) {
 
-          } else {
+              prompt = this.toggle.off_prompt;
+              prompt = prompt.replace('$name', this.identifier(this.data));
 
-            prompt = `Would you like to ${this.toggle.off_value} the ${this.data_type} ${this.identifier(this.data)}`;
+            } else {
 
+              prompt = `Would you like to ${this.toggle.off_value} the ${this.data_type} ${this.identifier(this.data)}`;
+
+            }
           }
 
 
@@ -582,17 +598,25 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   deleteData(id: number) {
 
-    (this.data[this.table!.key] as unknown[]).splice(id, 1);
-    this.table!.data.data = this.data[this.table!.key] as unknown[];
+    if (this.data) {
 
+
+      (this.data[this.table!.key] as unknown[]).splice(id, 1);
+      this.table!.data.data = this.data[this.table!.key] as unknown[];
+
+    }
   }
 
   pushData() {
 
-    (this.data[this.table!.key] as unknown[]).push(clone(this.table?.default_value));
+    if (this.data) {
 
-    this.table!.data.data = this.data[this.table!.key] as unknown[];
 
+      (this.data[this.table!.key] as unknown[]).push(clone(this.table?.default_value));
+
+      this.table!.data.data = this.data[this.table!.key] as unknown[];
+
+    }
   }
   updateData(col: string, element: any, result: number) {
 
@@ -624,12 +648,16 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   debug(id: number, row: string, result: boolean) {
 
-    const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
+    if (this.data) {
 
-    old_permissions[id] = result;
 
-    this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
+      const old_permissions: boolean[] = this.permissions?.retrieve(this.data, row) || [false, false, false];
 
+      old_permissions[id] = result;
+
+      this.permissions?.update(this.data, row, Number.parseInt(this.permissions.format(old_permissions)));
+
+    }
   }
 
 
@@ -649,16 +677,19 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
   get fieldsCompleteness() {
 
     let temp = [];
-    for (const field of this.fields) {
+    if (this.fields && this.data) {
+
+      for (const field of this.fields) {
 
 
-      if (field.condition ? !field.condition(this.data[field.key]) : !this.data[field.key]) {
+        if (field.condition ? !field.condition(this.data[field.key]) : !this.data[field.key]) {
 
 
-        temp.push(field.condition_label || 'Missing ' + this.formatLabel(field.key));
+          temp.push(field.condition_label || 'Missing ' + this.formatLabel(field.key));
+
+        }
 
       }
-
     }
     return temp;
 

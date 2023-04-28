@@ -1,291 +1,245 @@
-<div>
-    <table style="table-layout: fixed; width: 100%;">
-        <td>
-            <button style="margin-left: 16px;" class="back-btn" [mat-dialog-close] mat-button
-                color="primary">Go Back
-            </button>
-        </td>
+<ion-fab-button (click)="closeModal.emit(true)" class="back-btn">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+</ion-fab-button>
+<div class="container">
 
-        <td>
-            <p class="title"> {{modification_mode ? 'Modify' : 'Add'}} {{data_type}} </p>
-        </td>
-        <td> </td>
-    </table>
-</div>
-<div style="overflow: hidden;" class="content" mat-dialog-content>
-    <table style="table-layout: fixed; width: 100%;">
-        <tr>
-            <td class="padded" style="text-align: right; vertical-align: top; "
-                *ngIf="side_panel != 'empty' || standalone_field">
-                <table style="table-layout: fixed; overflow-y: scroll;">
+    <div *ngIf="modification_rule && this.data" class="content">
 
+        <!-- Image | Images | Mixed -->
+        <ng-container *ngIf="side_panel == 'images' || side_panel == 'image'">
 
-                    <!-- Image | Images | Mixed -->
-                    <div *ngIf="side_panel == 'images' || side_panel == 'image'">
+            <tr>
+                <td colspan="2">
+                    <ng-container *ngFor="let image of images; let i = index">
 
-                        <tr>
-                            <td colspan="2">
-                                <ng-container *ngFor="let image of images; let i = index">
-
-                                    <ngp-image-picker *ngIf="i == current_image"
-                                        [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
-                                        [_config]="imagePickerConf"
-                                        ($imageChanged)="onImageChange($event, image, i)"></ngp-image-picker>
-
-                                </ng-container>
-
-                            </td>
-                        </tr>
-
-                        <!-- Images -->
-                        <tr *ngIf="side_panel == 'images'">
-                            <td style="padding-right: 0px; width: 50%;"> <button (click)="prev()"
-                                    *ngIf="current_image > 0" class="image-btn">{{ 'previous' |
-                                    translate }}</button> </td>
-                            <td style="padding-left: 0px; width: 50%;"> <button (click)="next()"
-                                    *ngIf="current_image < images.length - 1"
-                                    class="image-btn">{{'next' | translate}}</button>
-                            </td>
-                        </tr>
-                    </div>
-
-                    <!-- Tables | Mixed -->
-                    <div *ngIf="side_panel == 'table' && table">
-
-                        <table mat-table [dataSource]="table.data" style="width: 5%; margin: 32px;">
-
-                            <ng-container *ngFor="let col of table.columns">
-
-                                <ng-container *ngIf="!col || col.type === 'text'"
-                                    [matColumnDef]="col.key">
-                                    <th mat-header-cell *matHeaderCellDef>
-                                        {{col.header_alt || formatWord(col.key)}}
-                                    </th>
-
-                                    <td class="cell" mat-cell *matCellDef="let element">
-                                        <!-- <mat-form-field class="full-width input"> -->
-                                        <input [disabled]="!modification_rule(this.data)"
-                                            class="input" type="number"
-                                            [ngModel]="formatTableData(element, col.key)"
-                                            (ngModelChange)="updateData(col.key, element, $event)"
-                                            matInput>
-                                        <div class="number-error"
-                                            *ngIf="!formatTableData(element, col.key)">
-                                            {{'valid_number' | translate}} </div>
-                                        <!-- </mat-form-field> -->
-
-                                    </td>
-
-                                </ng-container>
-                            </ng-container>
-
-                            <ng-container *ngFor="let col of table.columns">
-
-                                <ng-container *ngIf="!col || col.type === 'boolean'"
-                                    [matColumnDef]="col.key">
-                                    <th mat-header-cell *matHeaderCellDef>
-                                        {{col.header_alt || formatWord(col.key)}}
-                                    </th>
-
-                                    <td class="cell" mat-cell *matCellDef="let element">
-                                        <!-- <mat-form-field class="full-width input"> -->
-                                        <mat-checkbox [disabled]="!modification_rule(this.data)"
-                                            class="input"
-                                            [ngModel]="formatTableData(element, col.key)"
-                                            (ngModelChange)="updateData(col.key, element, $event)"
-                                            matInput>
-                                        </mat-checkbox>
-
-                                    </td>
-
-                                </ng-container>
-                            </ng-container>
-
-                            <ng-container *ngFor="let col of table.columns">
-
-                                <ng-container
-                                    *ngIf="col.type === 'selection' && col.outer_link && outer_data"
-                                    [matColumnDef]="col.key">
-                                    <th mat-header-cell *matHeaderCellDef>
-                                        {{col.header_alt || formatWord(col.key)}}
-                                    </th>
-
-                                    <td class="cell" mat-cell *matCellDef="let element">
-
-                                        <!-- <mat-form-field class="full-width input"> -->
-
-                                        <mat-select class="input"
-                                            [ngModel]="formatTableData(element, col.key)"
-                                            (ngModelChange)="updateData(col.key, element, $event)">
-                                            <mat-option [disabled]="!modification_rule(this.data)"
-                                                class="input"
-                                                *ngFor="let type of outer_data[col.outer_link.index]| keyvalue"
-                                                [value]="type.key">
-                                                {{col.outer_link.format(type)}}
-                                            </mat-option>
-
-                                        </mat-select>
-                                        <!-- </mat-form-field> -->
-                                    </td>
-
-                                </ng-container>
-                            </ng-container>
-
-
-                            <ng-container [matColumnDef]="'buttons'">
-                                <th mat-header-cell *matHeaderCellDef>
-                                    {{'quick_actions' | translate}} </th>
-                                <td class="cell" mat-cell *matCellDef="let element; let i = index"
-                                    style="padding-left: 0px;">
-
-                                    <button (click)="deleteData(i)" class="quick-btn"
-                                        mat-button>{{'delete' | translate}}</button>
-
-                                </td>
-                            </ng-container>
-
-
-                            <tr mat-header-row
-                                *matHeaderRowDef="getDisplayedColumnsKey; sticky: true">
-                            </tr>
-                            <tr mat-row *matRowDef="let row; columns: getDisplayedColumnsKey;">
-                            </tr>
-
-                        </table>
-
-                        <button class="back-btn" (click)="pushData()" mat-button>{{'add_entry' |
-                            translate}}</button>
-
-
-                    </div>
-
-                    <!-- Permissions -->
-                    <ng-container *ngIf="side_panel == 'permissions' && permissions">
-
-                        <table style="table-layout: fixed;">
-
-                            <tr>
-                                <td class="permissions"></td>
-                                <td class="permissions" *ngFor="let col of permissions?.columns">
-                                    {{col | translate}}
-                                </td>
-
-                            </tr>
-
-                            <tr *ngFor="let row of permissions?.rows">
-
-                                <td class="permissions">
-                                    {{row | translate}}
-                                </td>
-                                <td class="permissions"
-                                    *ngFor="let col of permissions?.columns; let i = index">
-
-                                    <mat-checkbox [disabled]="!modification_rule(this.data)"
-                                        (ngModelChange)="debug(i, row, $event)"
-                                        [ngModel]="permissions.retrieve(data, row)[i]"
-                                        class="example-margin">
-                                    </mat-checkbox>
-
-
-                                </td>
-
-                            </tr>
-
-
-                        </table>
+                        <ngp-image-picker *ngIf="i == current_image"
+                            [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
+                            [_config]="imagePickerConf"
+                            ($imageChanged)="onImageChange($event, image, i)"></ngp-image-picker>
 
                     </ng-container>
-                    <tr>
-                        <td style="width: 100%;" colspan="2">
-                            <mat-form-field *ngIf="standalone_field" class="full-width">
-                                <mat-label
-                                    class="label">{{formatLabel(standalone_field.key)}}</mat-label>
-                                <textarea class="input" [(ngModel)]="data[standalone_field.key]"
-                                    name="description" matInput></textarea>
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td class="padded" *ngIf="fields.length" style="text-align: left">
 
-                <!-- Fields -->
+                </td>
+            </tr>
 
-                <table style="table-layout: fixed; width: 90%;">
+            <!-- Images -->
+            <tr *ngIf="side_panel == 'images'">
+                <td style="padding-right: 0px; width: 50%;"> <button (click)="prev()"
+                        *ngIf="current_image > 0" class="image-btn">{{ 'previous' |
+                        translate }}</button> </td>
+                <td style="padding-left: 0px; width: 50%;"> <button (click)="next()"
+                        *ngIf="current_image < images.length - 1" class="image-btn">{{'next'
+                        | translate}}</button>
+                </td>
+            </tr>
+        </ng-container>
 
-                    <tr *ngFor="let field of fields; let i = index">
+        <!-- Tables | Mixed -->
+        <div *ngIf="side_panel == 'table' && table && this.data">
 
-                        <ng-container *ngIf="field.type == 'image' && images[0]">
+            <table mat-table [dataSource]="table.data" style="width: 5%; margin: 32px;">
 
-                            <ngp-image-picker
-                                [_imageSrc]="images[0].base64 ? 'data:image/png;base64,' + images[0].base64 : ''"
-                                [_config]="imagePickerConf"
-                                ($imageChanged)="onImageChange($event, images[0], i)"></ngp-image-picker>
+                <ng-container *ngFor="let col of table.columns">
 
-                        </ng-container>
+                    <ng-container *ngIf="!col || col.type === 'text'" [matColumnDef]="col.key">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{col.header_alt || formatWord(col.key)}}
+                        </th>
 
-                        <ng-container *ngIf="field.type != 'image'">
-
-                            <td *ngFor="let x of iterator">
-
-
-                                <app-completion [uniqueness]="uniqueness"
-                                    *ngIf="fields[x + i * size]" [outer_data]="outer_data"
-                                    [data]="data" [field]="fields[x + i * size]" [fields]="fields"
-                                    [linked_data]="linked_data">
-                                </app-completion>
-                            </td>
-
-                        </ng-container>
-                    </tr>
-                    <tr *ngFor="let field of static_fields">
-
-                        <td>
-
-                            <!-- Readonly -->
-                            <mat-form-field class="full-width input" *ngIf="field.value">
-                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input class="input" [value]="field.value(data) || ''" readonly
-                                    name="occupancy" matInput>
-                            </mat-form-field>
-
-                            <!-- Readonly -->
-                            <mat-form-field class="full-width input"
-                                *ngIf="!field.value && field.link">
-                                <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                                <input class="input"
-                                    [value]="(field.link.format && linked_data.get(data[field.link.value].toString())) ? field.link.format(linked_data.get(data[field.link.value].toString())) : ''"
-                                    readonly name="occupancy" matInput>
-                            </mat-form-field>
+                        <td class="cell" mat-cell *matCellDef="let element">
+                            <!-- <mat-form-field class="full-width input"> -->
+                            <input [disabled]="!modification_rule(this.data)" class="input"
+                                type="number" [ngModel]="formatTableData(element, col.key)"
+                                (ngModelChange)="updateData(col.key, element, $event)" matInput>
+                            <div class="number-error" *ngIf="!formatTableData(element, col.key)">
+                                {{'valid_number' | translate}} </div>
+                            <!-- </mat-form-field> -->
 
                         </td>
 
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-</div>
-<div mat-dialog-actions>
-    <table style="table-layout: fixed; width: 100%;">
-        <tr>
-            <td class="padded" style="text-align: right;">
-                <button style="width: 30%;" (click)="delete()" class="delete-btn" mat-button
-                    color="primary"
-                    *ngIf="modification_rule(this.data) && modification_mode">Delete</button>
-                <button *ngIf="modification_rule(this.data)" style="width: 30%;" class="back-btn"
-                    (click)="modification_mode ? modify() : add()"
-                    [style.background]="(fieldsCompleteness.length || !differenceCheck) ? 'gray' : '#14274A'"
-                    [matTooltipClass]="'tooltip'" mat-button color="primary"
-                    [matTooltipDisabled]="!fieldsCompleteness.length"
-                    [matTooltip]="fieldsCompleteness.join('\n')">{{modification_mode ?
-                    'Modify' : 'Add'}} {{data_type}}</button>
-            </td>
-            <td *ngIf="toggle" class="padded" style="text-align: left;"> <button style="width: 30%;"
-                    class="back-btn" (click)="triggerToggle()"
-                    [style.background]="!data[toggle.key] ? 'gray' : '#14274A'" mat-button
-                    color="primary">{{data[toggle.key] ? toggle.on_value :
-                    toggle.off_value}}</button> </td>
-        </tr>
-    </table>
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngFor="let col of table.columns">
+
+                    <ng-container *ngIf="!col || col.type === 'boolean'" [matColumnDef]="col.key">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{col.header_alt || formatWord(col.key)}}
+                        </th>
+
+                        <td class="cell" mat-cell *matCellDef="let element">
+                            <!-- <mat-form-field class="full-width input"> -->
+                            <mat-checkbox [disabled]="!modification_rule(this.data)" class="input"
+                                [ngModel]="formatTableData(element, col.key)"
+                                (ngModelChange)="updateData(col.key, element, $event)" matInput>
+                            </mat-checkbox>
+
+                        </td>
+
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngFor="let col of table.columns">
+
+                    <ng-container *ngIf="col.type === 'selection' && col.outer_link && outer_data"
+                        [matColumnDef]="col.key">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{col.header_alt || formatWord(col.key)}}
+                        </th>
+
+                        <td class="cell" mat-cell *matCellDef="let element">
+
+                            <!-- <mat-form-field class="full-width input"> -->
+
+                            <mat-select class="input" [ngModel]="formatTableData(element, col.key)"
+                                (ngModelChange)="updateData(col.key, element, $event)">
+                                <mat-option [disabled]="!modification_rule(this.data)" class="input"
+                                    *ngFor="let type of outer_data[col.outer_link.index]| keyvalue"
+                                    [value]="type.key">
+                                    {{col.outer_link.format(type)}}
+                                </mat-option>
+
+                            </mat-select>
+                            <!-- </mat-form-field> -->
+                        </td>
+
+                    </ng-container>
+                </ng-container>
+
+
+                <ng-container [matColumnDef]="'buttons'">
+                    <th mat-header-cell *matHeaderCellDef>
+                        {{'quick_actions' | translate}} </th>
+                    <td class="cell" mat-cell *matCellDef="let element; let i = index"
+                        style="padding-left: 0px;">
+
+                        <button (click)="deleteData(i)" class="quick-btn" mat-button>{{'delete' |
+                            translate}}</button>
+
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="getDisplayedColumnsKey; sticky: true">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: getDisplayedColumnsKey;">
+                </tr>
+
+            </table>
+
+            <button class="back-btn" (click)="pushData()" mat-button>{{'add_entry' |
+                translate}}</button>
+
+
+        </div>
+
+        <!-- Permissions -->
+        <ng-container *ngIf="side_panel == 'permissions' && permissions">
+
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col class="permissions" size="3"></ion-col>
+                    <ion-col class="permissions" *ngFor="let col of permissions?.columns"
+                        size="3">
+                        {{col | translate}}
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let row of permissions.rows">
+                    <ion-col class="permissions" size="3">
+                        {{row | translate}}
+                    </ion-col>
+                    <ion-col class="permissions"
+                        *ngFor="let col of permissions?.columns; let i = index" size="3">
+                        <mat-checkbox [disabled]="!modification_rule(this.data)"
+                            (ngModelChange)="debug(i, row, $event)"
+                            [ngModel]="permissions.retrieve(data, row)[i]" class="example-margin">
+                        </mat-checkbox>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+
+        </ng-container>
+        <mat-form-field *ngIf="standalone_field" class="full-width">
+            <mat-label class="label">{{formatLabel(standalone_field.key)}}</mat-label>
+            <textarea class="input" [(ngModel)]="data[standalone_field.key]" name="description"
+                matInput></textarea>
+        </mat-form-field>
+
+
+        <ng-container class="padded" *ngIf="fields && fields.length && size"
+            style="text-align: left">
+
+            <!-- Fields -->
+
+            <table style="table-layout: fixed; width: 90%;">
+
+                <tr *ngFor="let field of fields; let i = index">
+
+                    <ng-container *ngIf="field.type == 'image' && images[0]">
+
+                        <ngp-image-picker
+                            [_imageSrc]="images[0].base64 ? 'data:image/png;base64,' + images[0].base64 : ''"
+                            [_config]="imagePickerConf"
+                            ($imageChanged)="onImageChange($event, images[0], i)"></ngp-image-picker>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="field.type != 'image'">
+
+                        <app-completion [uniqueness]="uniqueness" [outer_data]="outer_data"
+                            [data]="data" [field]="field" [fields]="fields"
+                            [linked_data]="linked_data">
+                        </app-completion>
+
+                    </ng-container>
+                </tr>
+                <tr *ngFor="let field of static_fields">
+
+                    <td>
+
+                        <!-- Readonly -->
+                        <mat-form-field class="full-width input" *ngIf="field.value">
+                            <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                            <input class="input" [value]="field.value(data) || ''" readonly
+                                name="occupancy" matInput>
+                        </mat-form-field>
+
+                        <!-- Readonly -->
+                        <mat-form-field class="full-width input"
+                            *ngIf="!field.value && field.link && linked_data">
+                            <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
+                            <input class="input"
+                                [value]="(field.link.format && linked_data.get(data[field.link.value] + '')) ? field.link.format(linked_data.get(data[field.link.value] + '')) : ''"
+                                readonly name="occupancy" matInput>
+                        </mat-form-field>
+
+                    </td>
+
+                </tr>
+            </table>
+        </ng-container>
+        <table style="table-layout: fixed; width: 100%;">
+            <tr *ngIf="this.data">
+                <td class="padded" style="text-align: right;">
+                    <button style="width: 30%;" (click)="delete()" class="delete-btn" mat-button
+                        color="primary"
+                        *ngIf="modification_rule && modification_rule(this.data) && modification_mode">Delete</button>
+                    <button *ngIf="modification_rule && modification_rule(this.data)"
+                        style="width: 30%;" class="back-btn"
+                        (click)="modification_mode ? modify() : add()"
+                        [style.background]="(fieldsCompleteness.length || !differenceCheck) ? 'gray' : '#14274A'"
+                        [matTooltipClass]="'tooltip'" mat-button color="primary"
+                        [matTooltipDisabled]="!fieldsCompleteness.length"
+                        [matTooltip]="fieldsCompleteness.join('\n')">{{modification_mode ?
+                        'Modify' : 'Add'}} {{data_type}}</button>
+                </td>
+                <td *ngIf="toggle" class="padded" style="text-align: left;"> <button
+                        style="width: 30%;" class="back-btn" (click)="triggerToggle()"
+                        [style.background]="!data[toggle.key] ? 'gray' : '#14274A'" mat-button
+                        color="primary">{{data[toggle.key] ? toggle.on_value :
+                        toggle.off_value}}</button> </td>
+            </tr>
+        </table>
+    </div>
 </div>

@@ -22,12 +22,12 @@
 <!-- Constraint Text -->
 <mat-form-field *ngIf="field.type === 'digits_string' || field.type === 'positive_digits_string'"
     class="full-width input"
-    [color]="data[field.key] && !isNum(data[field.key].toString()) ? 'warn' : 'primary'">
+    [color]="data[field.key] && !isNum(data[field.key] + '') ? 'warn' : 'primary'">
     <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
     <input [disabled]="field.readonly || !modification_rule(this.data)"
         [min]="field.type === 'positive_digits_string' ? 0 : -999999" class="input"
         [(ngModel)]="data[field.key]" matInput>
-    <div class="number-error" *ngIf="!isNum(data[field.key].toString()) && data[field.key]">
+    <div class="number-error" *ngIf="!isNum(data[field.key] + '') && data[field.key]">
         {{ 'valid_number' | translate }}</div>
 </mat-form-field>
 

@@ -13,6 +13,15 @@
 
 }
 
+.modal {
+
+    width: 100%;
+    height: 100%;
+
+    --background: #d9d9d9d9;
+
+}
+
 .add-btn {
 
     font-family: 'Roboto';
@@ -31,12 +40,12 @@
 
     background: #14274A;
     border: 1px solid #14274A;
-    
+
 }
 
 
 .add-btn:hover {
-    
+
     border: 1px solid #4668a6;
     background: #4668a6;
 }

@@ -51,7 +51,7 @@ export class BookingDatabaseService {
 
                 case 'Rooms':
 
-                  rooms.set(value.id, { ...value.attributes as RoomAttributes, type: value.relationships.room_type.data.id, reviews: [], is_reviewed: false, images: images.rooms[value.id] });
+                  rooms.set(value.id, { ...value.attributes as RoomAttributes, type: value.relationships.room_type.data.id, reviews: [], is_reviewed: false, images: images.rooms ? images.rooms[value.id] : [] });
 
                   break;
 

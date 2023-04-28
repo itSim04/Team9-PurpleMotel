@@ -9,7 +9,7 @@ import { parseDate } from 'src/app/pages/authentication/authentication.utility';
   templateUrl: './completion.component.html',
   styleUrls: ['./completion.component.scss']
 })
-export class CompletionComponent<Data extends { [key: string]: string | boolean | number | unknown[]; }> {
+export class CompletionComponent<Data> {
 
   @Input() @Required field!: Field<Data>;
 
@@ -18,7 +18,7 @@ export class CompletionComponent<Data extends { [key: string]: string | boolean 
   @Input() @Required modification_mode = false;
   @Input() @Required modification_rule = ((data: unknown) => true);
 
-  @Input() @Required linked_data!: Map<string, unknown>;
+  @Input() @Required linked_data?: Map<string, unknown>;
   @Input() @Required outer_data: Map<string, unknown>[] | undefined;
   @Input() @Required uniqueness: boolean = true;
 

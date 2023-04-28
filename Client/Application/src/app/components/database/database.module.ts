@@ -1,3 +1,4 @@
+import { IonicModule } from '@ionic/angular';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -41,6 +42,7 @@ import { NgpImagePickerModule } from 'ngp-image-picker';
 
     CommonModule,
     MatFormFieldModule,
+    IonicModule.forRoot(),
     MatInputModule,
     FormsModule,
     MatOptionModule,

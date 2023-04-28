@@ -51,8 +51,8 @@ export interface UserAttributes {
     email_verified_at?: string;
 }
 
-export interface User extends UserAttributes {
 
+export interface User extends UserAttributes {
     permissions: Map<string, number>;
     type: string;
 

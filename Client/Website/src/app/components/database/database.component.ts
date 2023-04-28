@@ -242,7 +242,7 @@ export function parsePermission(permission: number | undefined): boolean[] {
   templateUrl: './database.component.html',
   styleUrls: ['./database.component.scss'],
 })
-export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
+export class DatabaseComponent<Data extends { [key: string]: string | boolean | number | unknown[]; }, Data2 extends { [key: string]: string | boolean | number | unknown[]; }> implements AfterViewInit, OnInit {
 
   @Input() @Required data_injection!: DataInjection<Data>;
   @Input() dual_fetcher: (() => Observable<[Map<string, Data>, Map<string, Data2>, Map<string, unknown>[] | undefined]>) | undefined;
