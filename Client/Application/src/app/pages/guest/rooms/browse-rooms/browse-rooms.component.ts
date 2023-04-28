@@ -1,3 +1,4 @@
+import { Booking } from 'src/app/models/Booking';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, KeyValue } from '@angular/common';
@@ -44,17 +45,18 @@ export class BrowseRoomsComponent implements OnInit {
   }
 
 
-  closeModal($event: boolean) {
+  closeModal($event: KeyValue<string, Booking>) {
 
     this.isModalOpened = false;
     this.active_data = undefined;
 
     if ($event) {
+      localStorage.setItem('temp_profile_room', JSON.stringify($event));
       setTimeout(() => {
 
         this.router.navigate(['profile']);
 
-      }, 1000);
+      }, 100);
 
     }
 

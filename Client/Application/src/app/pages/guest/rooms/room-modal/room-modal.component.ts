@@ -1,3 +1,4 @@
+import { Booking } from 'src/app/models/Booking';
 import { KeyValue } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
@@ -37,7 +38,7 @@ export class RoomModalComponent {
   @Input() @Required room?: KeyValue<string, Room>;
   @Input() @Required room_type?: KeyValue<string, RoomType>;
   @Input() promo?: KeyValue<string, PromoCode>;
-  @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
+  @Output() closeModal: EventEmitter<KeyValue<string, Booking>> = new EventEmitter();
 
   range?: { check_in: Date; check_out: Date; };
   constructor (private router: Router, private booking_service: BookingDatabaseService, private toastController: ToastController) { }
@@ -57,7 +58,6 @@ export class RoomModalComponent {
   }
   addBooking() {
 
-    console.log(this.range);
     if (this.range) {
       const user_id = extractUserId();
 
@@ -87,7 +87,7 @@ export class RoomModalComponent {
 
             } else {
 
-              this.booking_service.addNewBooking({
+              const booking: Booking = {
 
                 check_in: parseDate(this.range!.check_in),
                 end_date: parseDate(this.range!.check_out),
@@ -96,9 +96,14 @@ export class RoomModalComponent {
                 room_id: this.room!.key,
                 user_id: user_id
 
-              }).subscribe(data => {
+              };
 
-                this.closeModal.emit(true);
+              this.booking_service.addNewBooking(booking).subscribe(data => {
+
+                this.closeModal.emit({
+                  key: data,
+                  value: booking
+                });
 
               });
 

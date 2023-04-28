@@ -14,11 +14,10 @@
   <br>
   <ion-text class="body">{{data?.body}}</ion-text>
   <br>
-  <div style="text-align: center; height: 50%">
+  <div style="text-align: center">
     <ng-container *ngIf="data!.show_num_input">
       <div style="display: flex; width: 70%;">
 
-      
         <ion-text class="input">
           {{ 'seats' | translate }}:
         </ion-text>
@@ -32,9 +31,21 @@
         <br>
       </div>
     </ng-container>
-    <ion-button *ngIf="data?.button" (click)="performAction()" class="cancel-btn">
-      {{data!.button!.label}}
-    </ion-button>
+  </div>
+  <br>
+  <div style="display: flex;">
+
+    <ion-text class="options">{{ 'Start Date' | translate }}</ion-text>
+    <ion-text style="text-align: end;" class="options">{{ 'End Date' | translate }}</ion-text>
 
   </div>
+  <div style="display: flex;">
+
+    <ion-text class="date">{{formatDate(data?.start_date)}}</ion-text>
+    <ion-text style="text-align: end;" class="date">{{formatDate(data?.end_date)}}</ion-text>
+
+  </div>
+  <ion-button *ngIf="data?.button" (click)="performAction()" class="cancel-btn">
+    {{data!.button!.label}}
+  </ion-button>
 </div>
