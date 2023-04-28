@@ -1,66 +1,101 @@
 <?php
 
 namespace App\Policies;
-
-use App\Models\OrderContains;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class OrderContainsPolicy
 {
+
+    private $permission_name = 'order-contains';
+
     /**
-     * Determine whether the user can view any models.
+     * Create a new policy instance.
      */
-    public function viewAny(User $user): bool
+    public function __construct()
     {
         //
     }
 
     /**
      * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
      */
-    public function view(User $user, OrderContains $orderContains): bool
+    public function viewAny(User $user)
     {
-        //
+        if($user->tier == 2) {
+            return true;
+        }
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
+
+            return false;
+
+        } else {
+
+            return $permissions[$this->permission_name][0];
+
+        }
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user_type
+     * @return bool
      */
-    public function create(User $user): bool
+    public function view(User $user): bool
     {
-        //
+
+        if($user->tier == 2) {
+            return true;
+        }
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
+
+            return false;
+
+        } else {
+
+            return $permissions[$this->permission_name][0];
+            
+        }
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, OrderContains $orderContains): bool
-    {
-        //
+    public function update(User $user) {
+
+        if($user->tier == 2) {
+            return true;
+        }
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
+
+            return false;
+
+        } else {
+
+            return $permissions[$this->permission_name][1];
+            
+        }
+
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, OrderContains $orderContains): bool
-    {
-        //
-    }
+    public function delete(User $user) {
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, OrderContains $orderContains): bool
-    {
-        //
-    }
+        if($user->tier == 2) {
+            return true;
+        }
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, OrderContains $orderContains): bool
-    {
-        //
+            return false;
+
+        } else {
+
+            return $permissions[$this->permission_name][2];
+            
+        }
+
     }
 }
