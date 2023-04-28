@@ -20,7 +20,7 @@ export class ActivityListItemComponent {
   @Input() start_date!: string;
   @Input() end_date!: string;
 
-  constructor (private registration_service: RegistrationDatabaseService, private snackBar: MatSnackBar) { }
+  constructor (private registration_service: RegistrationDatabaseService, private router:Router) { }
 
   get formatPrice(): string {
     const activity = this.activity;
@@ -73,7 +73,9 @@ export class ActivityListItemComponent {
 
 
 
-      }).subscribe();
+      }).subscribe(()=>{
+        this.router.navigate(['/profile']);
+      });
 
     } else {
 
