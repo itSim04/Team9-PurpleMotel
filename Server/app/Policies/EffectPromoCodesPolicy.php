@@ -6,7 +6,7 @@ use App\Models\User;
 class BookingPolicy
 {
 
-    private $permission_name = 'eligibility-promo-code';
+    private $permission_name = 'effect-promo-code';
 
     /**
      * Create a new policy instance.
