@@ -1,4 +1,4 @@
-import { extractUser, extractUserId } from 'src/app/components/database/database.component';
+import { extractAnyPermission, extractUser, extractUserId } from 'src/app/components/database/database.component';
 import { User } from 'src/app/models/User';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +19,7 @@ export class TabsPage {
   closeMenu() {
     this.menuCtrl.close('main-content');
   }
-  constructor (private menuCtrl: MenuController, private router: Router) {
+  constructor(private menuCtrl: MenuController, private router: Router) {
 
     const user = extractUser();
 
@@ -40,9 +40,9 @@ export class TabsPage {
 
     const user = extractUser();
     const id = extractUserId();
-    if(user && id) {
+    if (user && id) {
 
-      if(user.tier == '0') {
+      if (user.tier == '0') {
 
         this.router.navigate(['chat/guest/' + id])
 
@@ -55,6 +55,44 @@ export class TabsPage {
 
     }
 
+
+  }
+
+  openAdmin() {
+
+    const user = extractUser();
+    const id = extractUserId();
+    if (user && id) {
+
+      this.router.navigate(['/admin'])
+
+    }
+
+
+  }
+
+  isAdmin(): boolean {
+
+    const user = extractUser();
+
+    if (user) {
+
+      return user.tier === '2' || extractAnyPermission();
+
+    } 
+    return false;
+
+  }
+
+  logout() {
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('id');
+    localStorage.removeItem('token_time');
+    setTimeout(() => {
+      this.router.navigate(['/auth/login']);
+    },250)
 
   }
 

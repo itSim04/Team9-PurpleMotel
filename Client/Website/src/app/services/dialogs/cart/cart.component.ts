@@ -1,9 +1,10 @@
 import { Food } from 'src/app/models/Food';
 import { Order } from 'src/app/models/Order';
 import { Component, Inject, OnInit } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA,MatDialogRef } from '@angular/material/dialog';
 import { formatPrice } from 'src/app/components/database/database.component';
 import { OrderDatabaseService } from '../../providers/order-database.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class CartDialogComponent implements OnInit {
 
     foods: Map<string, Food> = new Map();
 
-    constructor (@Inject(MAT_DIALOG_DATA) public data: { food: Map<string, Food>; }, private order_service: OrderDatabaseService, private dialogRef: MatDialogRef<CartDialogComponent>) {
+    constructor (@Inject(MAT_DIALOG_DATA) public data: { food: Map<string, Food>; }, private order_service: OrderDatabaseService, private dialogRef: MatDialogRef<CartDialogComponent>, private router: Router) {
 
         this.foods = data.food;
 
@@ -62,6 +63,7 @@ export class CartDialogComponent implements OnInit {
 
                     localStorage.removeItem('cart');
                     this.dialogRef.close();
+                    this.router.navigate(['/profile']);
 
                 },
                 error: (err) => {

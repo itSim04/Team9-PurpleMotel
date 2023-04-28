@@ -4,6 +4,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { formatPrice } from 'src/app/components/database/database.component';
 import { OrderDatabaseService } from '../../providers/order-database.service';
+import { KeyValue } from '@angular/common';
 
 
 @Component({
@@ -15,11 +16,11 @@ export class OrderOverviewDialogComponent {
 
 
 
-    order?: Order;
+    order?: KeyValue<string,Order>;
 
     foods: Map<string, Food> = new Map();
 
-    constructor (@Inject(MAT_DIALOG_DATA) public data: { food: Map<string, Food>; order: Order }, private order_service: OrderDatabaseService) {
+    constructor (@Inject(MAT_DIALOG_DATA) public data: { food: Map<string, Food>; order: KeyValue<string,Order> }, private order_service: OrderDatabaseService) {
 
         this.foods = data.food;
         this.order = data.order;
@@ -30,6 +31,10 @@ export class OrderOverviewDialogComponent {
 
         return formatPrice(data * quantity, true);
 
+    }
+
+    eligibileCancellation(){
+       return this.order?.value.status != "2";
     }
 
 

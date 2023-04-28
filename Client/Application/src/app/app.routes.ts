@@ -27,6 +27,7 @@ import { BrowseRoomsComponent } from './pages/guest/rooms/browse-rooms/browse-ro
 import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/landing-restaurant.component';
 import { ProfileComponent } from './pages/guest/profile/profile.component';
 import { ChatListComponent } from './chat/chat-list/chat.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 
 
@@ -143,7 +144,12 @@ export const routes: Routes = [
             component: AdminChatComponent,
           }
         ]
-      }
+      },
+      {
+        path: 'settings',
+        canActivate: [GuestGuard],
+        component: SettingsComponent
+      },
 
     ]
   },
@@ -216,6 +222,8 @@ export const routes: Routes = [
 
     ]
   },
+ 
+
 
 
   //   {

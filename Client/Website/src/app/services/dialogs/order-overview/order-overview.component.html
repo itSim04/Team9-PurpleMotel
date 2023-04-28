@@ -7,7 +7,7 @@
 <div style="width: 35vw;" class="content padded" mat-dialog-content>
   <table style="width: 100%;">
 
-    <ng-container *ngFor="let food of order?.food; let i = index">
+    <ng-container *ngFor="let food of order?.value?.food; let i = index">
 
       <tr style="width: 100%;">
 
@@ -50,4 +50,7 @@
 
 <div matDialogActions>
   <button class="add-btn" [mat-dialog-close]>{{ 'ok' | translate }}</button>
+  <ng-container *ngIf="eligibileCancellation()">
+    <button class="add-btn" [mat-dialog-close]="order?.key">{{ 'cancel' | translate }}</button>
+  </ng-container>
 </div>

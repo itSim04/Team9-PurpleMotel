@@ -23,7 +23,7 @@
         <div class="orders-container">
             <div *ngFor="let order of orders | keyvalue: order_key; let i = index"
                 style="position: relative;padding: 32px;">
-                <div (click)="openOrder(order.value)" class="wrap">
+                <div (click)="openOrder(order)" class="wrap">
                     <img height="40vw" width="40vw" class="order-img" [src]="foods.get(order.value.food.at(0)?.id || '0')?.image" onerror="this.src='assets/placeholder.png'">
                 </div>
                 <h4 class="order-title">{{order.value.date}}</h4>
