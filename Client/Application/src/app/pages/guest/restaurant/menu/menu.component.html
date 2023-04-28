@@ -3,31 +3,21 @@
         <ion-item>
             <ion-title class="header">menu</ion-title>
         </ion-item>
-        <ion-grid style="text-align: center;">
-            <ion-row>
-                <ion-col style="width: 20%;">
-                    <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"
-                        color="#930000">Starters</ion-button>
-                </ion-col>
 
-                <ion-col style="width: 20%;">
-                    <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"
-                        color="#930000">Mains</ion-button>
-                </ion-col>
 
-                <ion-col style="width: 20%;">
-                    <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"
-                        color="#930000">Sides</ion-button>
-                </ion-col>
+        <table style="table-layout: fixed; width: 100%;">
+            <tr>
+                <td style="height:16%; width:16%" *ngFor="let category of food_categories | keyvalue" (click)="scroll(category.value.label)" class="wrap" style="overflow-x: auto;">
+                    <div class="content">
+                        <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"color="#930000">{{ category.value.label | translate }}</ion-button>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
-                <ion-col style="width: 20%;">
-                    <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"
-                        color="#930000">Deserts</ion-button>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
     </ion-toolbar>
 </ion-header>
+
 
 
 
