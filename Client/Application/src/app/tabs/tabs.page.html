@@ -66,8 +66,11 @@
         {{'terms_conditions' | translate}}
       </ion-text>
       <br>
-    
-
+      <ion-menu-toggle>
+      <ion-text class="bottom" (click)="logout()">
+        {{'logout' | translate}}
+      </ion-text>
+    </ion-menu-toggle>
     </div>
   </ion-menu>
 

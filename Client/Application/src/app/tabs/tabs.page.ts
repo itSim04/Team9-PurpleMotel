@@ -83,6 +83,19 @@ export class TabsPage {
     return false;
 
   }
+
+  logout() {
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('id');
+    localStorage.removeItem('token_time');
+    setTimeout(() => {
+      this.router.navigate(['/auth/login']);
+    },250)
+
+  }
+
   isActive(path: string): boolean {
     return this.router.url.includes(path);
   }
