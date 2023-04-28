@@ -43,6 +43,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CalendarComponent } from './components/room/calendar/calendar.component';
+import { SettingsModule } from './pages/settings/settings.module';
+
 
 
 
@@ -96,6 +98,7 @@ import { CalendarComponent } from './components/room/calendar/calendar.component
     HomeModule,
     ProfileModule,
     RestaurantModule,
+    SettingsModule
 
   ],
   providers: [
