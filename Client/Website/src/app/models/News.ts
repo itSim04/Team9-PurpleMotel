@@ -5,6 +5,8 @@ export interface News extends NewsAttributes {
   is_liked: boolean; //whether the user has liked the news or not
   likes: Like[];
 
+  image: string;
+
 }
 export interface NewsAttributes {
 
@@ -29,6 +31,15 @@ export interface SingleNewsResponse {
     attributes: Like;
 
   }[];
+  images: {
+
+    news: {
+
+      [id: string]: string[];
+
+    };
+
+  };
 
 }
 
@@ -53,6 +64,15 @@ export interface NewsResponse {
     type: string;
     attributes: Like;
   }[];
+  images: {
+
+    news: {
+
+      [id: string]: string[];
+
+    };
+
+  };
 
 }
 

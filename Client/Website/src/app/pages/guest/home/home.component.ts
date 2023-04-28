@@ -38,10 +38,6 @@ export class HomeComponent {
 
     ];
 
-
-
-
-
     localStorage.setItem('temp_quick_availability', JSON.stringify(temp));
     this.route.navigate(['/rooms']);
 

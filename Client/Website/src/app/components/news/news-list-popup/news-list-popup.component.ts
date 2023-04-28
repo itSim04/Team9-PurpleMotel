@@ -7,6 +7,7 @@ export interface NewsPopup{
   body: string;
   date: string;
   likes: number;
+  image: string;
 }
 
 @Component({
@@ -22,6 +23,7 @@ export class NewsListPopupComponent {
   body: string;
   date: string;
   likes: number;
+  image: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: NewsPopup, private dialog: MatDialogRef<NewsListPopupComponent>){
     this.id = data.id;
@@ -29,5 +31,6 @@ export class NewsListPopupComponent {
     this.body = data.body;
     this.date = data.date;
     this.likes = data.likes;
+    this.image = data.image;
   }
 }

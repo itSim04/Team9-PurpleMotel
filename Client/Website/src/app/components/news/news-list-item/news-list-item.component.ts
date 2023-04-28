@@ -24,7 +24,7 @@ export class NewsListItemComponent {
 
   openPopup() {
 
-    const dialogRef = this.news_dialog.openDialog(this.news?.key, this.news?.value.title, this.news?.value.body, this.news?.value.date, this.news?.value.likes_number);
+    const dialogRef = this.news_dialog.openDialog(this.news?.key, this.news?.value.title, this.news?.value.body, this.news?.value.date, this.news?.value.likes_number, this.news?.value.image);
 
   }
 

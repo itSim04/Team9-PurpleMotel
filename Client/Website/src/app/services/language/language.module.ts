@@ -218,7 +218,14 @@ export const terms: [string, string][] = [
   ["128", "view_menu"],
   ["129", "weak_password"],
   ["130", "website_name"],
-  ["131", "welcome_to"]
+  ["131", "welcome_to"],
+  ["132", 'room-main'],
+  ["133", 'service-main'],
+  ["134", 'restaurant-main'],
+  ["135", 'home-main'],
+  ["136", 'logo'],
+  ["137", 'support-background'],
+  ["138", 'chefs-background']
 ];
 
 export const information = [

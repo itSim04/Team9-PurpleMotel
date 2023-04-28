@@ -9,7 +9,7 @@ export class NewsListPopupService {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialog<T>(id:string, title: string, body: string, date: string, likes: number){
+  openDialog<T>(id:string, title: string, body: string, date: string, likes: number, image: string){
 
     return this.dialog.open(NewsListPopupComponent, {
       data: {
@@ -17,7 +17,8 @@ export class NewsListPopupService {
         title: title,
         body: body,
         date: date,
-        likes: likes
+        likes: likes,
+        image: image
       }
     })
   }
