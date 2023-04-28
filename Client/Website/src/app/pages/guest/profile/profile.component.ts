@@ -15,6 +15,7 @@ import { Room } from "src/app/models/Room";
 import { RoomType } from "src/app/models/RoomType";
 import { User } from "src/app/models/User";
 import { BookingDatabaseService } from "src/app/services/providers/booking-database.service";
+import { OrderDatabaseService } from "src/app/services/providers/order-database.service";
 import { RegistrationDatabaseService } from "src/app/services/providers/registration-database.service";
 import { RoomDatabaseService } from "src/app/services/providers/room-database.service";
 import { AuthenticationDialogService } from "src/app/services/utility/authentication.service";
@@ -66,7 +67,7 @@ export class ProfileComponent implements OnInit {
   // food from 1 to 8
 
 
-  constructor (private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService, private review_service: ReviewDialogService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService) {
+  constructor (private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private promo_service: PromoDialogService, private booking_service: BookingDatabaseService, private snackBar: MatSnackBar, private confirmation: ConfirmationDialogService, private registration_service: RegistrationDatabaseService, private order: OrderOverviewDialogService, private review_service: ReviewDialogService, private room_service: RoomDatabaseService, private authentication: AuthenticationDialogService, private order_service: OrderDatabaseService) {
 
     const user = extractUser()!;
 
@@ -156,12 +157,22 @@ export class ProfileComponent implements OnInit {
     });
 
   }
-  openOrder(order: Order) {
+  openOrder(order: KeyValue<string, Order>) {
 
-    this.order.openDialog({
+    const order_dialog = this.order.openDialog({
 
       food: this.foods,
       order: order
+
+    });
+
+    order_dialog.afterClosed().subscribe(result => {
+
+      if (result) {
+
+        this.deleteOrder(result);
+
+      }
 
     });
 
@@ -201,6 +212,23 @@ export class ProfileComponent implements OnInit {
 
           this.snackBar.open('Registration deleted', 'Dismiss', { duration: 2000 });
           this.registrations.delete($event);
+        });
+      }
+    });
+
+  }
+  deleteOrder($event: string) {
+
+    const dialogRef = this.confirmation.openDialog('Order Cancellation', 'Are you sure you want to cancel this Order?', 'Delete', 'Cancel');
+
+    dialogRef.afterClosed().subscribe(result => {
+
+
+      if (result) {
+        this.order_service.deleteOrder($event).subscribe(() => {
+
+          this.snackBar.open('Order deleted', 'Dismiss', { duration: 2000 });
+          this.orders.delete($event);
         });
       }
     });
