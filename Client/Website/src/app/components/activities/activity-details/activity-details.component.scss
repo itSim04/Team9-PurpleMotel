@@ -15,13 +15,17 @@
 .details-pic {
 
     // height: 75vh;
-    width: 40vw;
+    width: 50vw;
+    height: 50vh;
     margin: 20px 20px 0px 80px;
     position: relative;
+    object-fit: cover;
+    
 }
 
 
 .activity-info {
+    width: 30vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
