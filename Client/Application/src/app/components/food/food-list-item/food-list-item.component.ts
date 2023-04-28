@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { KeyValue } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { Food } from 'src/app/models/Food';
 
 @Component({
   selector: 'app-food-list-item',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FoodListItemComponent  implements OnInit {
 
-  constructor() { }
+  @Input() food!: KeyValue<string, Food>;
+
+  @Input() quantity = 0;
+
+  constructor() {}
 
   ngOnInit() {}
 

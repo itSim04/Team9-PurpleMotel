@@ -6,28 +6,23 @@
         <ion-grid style="text-align: center;">
             <ion-row>
                 <ion-col style="width: 20%;">
-                    <ion-button style="width: 95%; color:#930000" expand="block" fill="outline"
+                    <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"
                         color="#930000">Starters</ion-button>
                 </ion-col>
 
                 <ion-col style="width: 20%;">
-                    <ion-button style="width: 95%; color:#930000" expand="block" fill="outline"
+                    <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"
                         color="#930000">Mains</ion-button>
                 </ion-col>
 
                 <ion-col style="width: 20%;">
-                    <ion-button style="width: 95%; color:#930000" expand="block" fill="outline"
+                    <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"
                         color="#930000">Sides</ion-button>
                 </ion-col>
 
                 <ion-col style="width: 20%;">
-                    <ion-button style="width: 95%; color:#930000" expand="block" fill="outline"
-                        color="#930000">Deserts</ion-button>
-                </ion-col>
-
-                <ion-col style="width: 20%;">
-                    <ion-button style="width: 95%; color:#930000" expand="block" fill="outline" color="#930000"
-                        id="open-modal">My Cart</ion-button>
+                    <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"
+                    color="#930000">Deserts</ion-button>
                 </ion-col>
             </ion-row>
         </ion-grid>
@@ -36,114 +31,56 @@
 
 
 <ion-content [fullscreen]="true" class="ion-padding">
+    <div *ngFor="let food of foods_array">
+        <app-food-list-item [food]="{key: food[0], value: food[1]}"></app-food-list-item>
+    </div>
+    
+    <div>
+        <h2 style="color: #930000; font-family: Monserat;">Starters</h2>
+        <p style="border-bottom: 1px solid #930000; width: 70%;"></p>
+    </div>
+
+    <div>
+        <h2 style="color: #930000; font-family: Monserat;">Mains</h2>
+        <p style="border-bottom: 1px solid #930000; width: 70%;"></p>
+    </div>
+
+    <div>
+        <h2 style="color: #930000; font-family: Monserat;">Sides</h2>
+        <p style="border-bottom: 1px solid #930000; width: 70%;"></p>
+    </div>
+
+    <div>
+        <h2 style="color: #930000; font-family: Monserat;">Deserts</h2>
+        <p style="border-bottom: 1px solid #930000; width: 70%;"></p>
+    </div>
+
+
+
+
+
+
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button id="open-modal">
+            <ion-icon name="bag-check-outline" style="color: white;"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+</ion-content>
+
+
+
+
+
+
+
+<ion-content>
     <div class="ion-padding">
         <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
             <ng-template>
-                <div class="block">Items in the cart</div>
+                <p class="block">Items that will be in the cart</p>
             </ng-template>
         </ion-modal>
     </div>
-
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <h2 style="font-family: Abhaya Libre;">Pasta ‘N’ Cheese Salad</h2>
-                <p style="font-family: Montserrat;">Wagyu beef, sake, mirin, soy and kombu, soy-cured egg yolk, wasabi
-                    cream cheese
-                <p style="color: #930000; font-family: Abhaya Libre;">USD 150</p>
-            </ion-col>
-
-            <ion-col style="display: block;">
-                <img src="../../../../../assets/menu/menu-sample-1.png" style="display: block; margin: auto;">
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-
-
-
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <h2 style="font-family: Abhaya Libre;">Pasta ‘N’ Cheese Salad</h2>
-                <p style="font-family: Montserrat;">Wagyu beef, sake, mirin, soy and kombu, soy-cured egg yolk, wasabi
-                    cream cheese
-                <p style="color: #930000; font-family: Abhaya Libre;">USD 150</p>
-            </ion-col>
-
-            <ion-col>
-                <img src="../../../../../assets/menu/menu-sample-1.png">
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <h2 style="font-family: Abhaya Libre;">Pasta ‘N’ Cheese Salad</h2>
-                <p style="font-family: Montserrat;">Wagyu beef, sake, mirin, soy and kombu, soy-cured egg yolk, wasabi
-                    cream cheese
-                <p style="color: #930000; font-family: Abhaya Libre;">USD 150</p>
-            </ion-col>
-
-            <ion-col>
-                <img src="../../../../../assets/menu/menu-sample-1.png">
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <h2 style="font-family: Abhaya Libre;">Pasta ‘N’ Cheese Salad</h2>
-                <p style="font-family: Montserrat;">Wagyu beef, sake, mirin, soy and kombu, soy-cured egg yolk, wasabi
-                    cream cheese
-                <p style="color: #930000; font-family: Abhaya Libre;">USD 150</p>
-            </ion-col>
-
-            <ion-col>
-                <img src="../../../../../assets/menu/menu-sample-1.png">
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <h2 style="font-family: Abhaya Libre;">Pasta ‘N’ Cheese Salad</h2>
-                <p style="font-family: Montserrat;">Wagyu beef, sake, mirin, soy and kombu, soy-cured egg yolk, wasabi
-                    cream cheese
-                <p style="color: #930000; font-family: Abhaya Libre;">USD 150</p>
-            </ion-col>
-
-            <ion-col>
-                <img src="../../../../../assets/menu/menu-sample-1.png">
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <h2 style="font-family: Abhaya Libre;">Pasta ‘N’ Cheese Salad</h2>
-                <p style="font-family: Montserrat;">Wagyu beef, sake, mirin, soy and kombu, soy-cured egg yolk, wasabi
-                    cream cheese
-                <p style="color: #930000; font-family: Abhaya Libre;">USD 150</p>
-            </ion-col>
-
-            <ion-col>
-                <img src="../../../../../assets/menu/menu-sample-1.png">
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <h2 style="font-family: Abhaya Libre;">Pasta ‘N’ Cheese Salad</h2>
-                <p style="font-family: Montserrat;">Wagyu beef, sake, mirin, soy and kombu, soy-cured egg yolk, wasabi
-                    cream cheese
-                <p style="color: #930000; font-family: Abhaya Libre;">USD 150</p>
-            </ion-col>
-
-            <ion-col>
-                <img src="../../../../../assets/menu/menu-sample-1.png">
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-
 </ion-content>

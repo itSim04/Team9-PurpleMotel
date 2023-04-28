@@ -1,3 +1,13 @@
-<p>
-  food-list-item works!
-</p>
+<ion-grid>
+  <ion-row>
+      <ion-col>
+          <h2 style="font-family: Abhaya Libre;">{{food.value.label}}</h2>
+          <p style="font-family: Montserrat;">{{food.value.description}}</p>
+          <p style="color: #930000; font-family: Abhaya Libre;">USD {{food.value.price}}</p>
+      </ion-col>
+
+      <ion-col style="display: block;">
+          <img src="../../../../../assets/menu/menu-sample-1.png" style="display: block; margin: auto;">
+      </ion-col>
+  </ion-row>
+</ion-grid>

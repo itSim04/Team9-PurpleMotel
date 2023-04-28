@@ -5,6 +5,7 @@ import { RestaurantLandingComponent } from './landing/landing-restaurant.compone
 import { LanguageModule } from 'src/app/services/language/language.module';
 import { RouterModule } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
+import { FoodListItemModule } from 'src/app/components/food/food-list-item/food-list-item.module';
 
 
 
@@ -17,7 +18,8 @@ import { MenuComponent } from './menu/menu.component';
     CommonModule,
     IonicModule.forRoot(),
     LanguageModule,
-    RouterModule
+    RouterModule,
+    FoodListItemModule
   ],
   exports: [
     RestaurantLandingComponent
