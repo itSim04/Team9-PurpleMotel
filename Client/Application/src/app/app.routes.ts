@@ -144,7 +144,12 @@ export const routes: Routes = [
             component: AdminChatComponent,
           }
         ]
-      }
+      },
+      {
+        path: 'settings',
+        canActivate: [GuestGuard],
+        component: SettingsComponent
+      },
 
     ]
   },
@@ -217,11 +222,7 @@ export const routes: Routes = [
 
     ]
   },
-  {
-    path: 'settings',
-    canActivate: [GuestGuard],
-    component: SettingsComponent
-  },
+ 
 
 
 
