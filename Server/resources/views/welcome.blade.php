@@ -439,7 +439,7 @@
                             <td class="table-content">int</td>
                             <td class="table-content">The id specifices which room to delete.</td>
                         </tr>
-                       
+
                     </table>
                     <h4 style="background-color: #80808041;padding:16px">Description:</h4>
                     <table style="table-layout: auto;width:100%">
@@ -572,7 +572,7 @@
                             <td class="table-col">Error</td>
                             <td class="table-desc">Description</td>
                         </tr>
-                        
+
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -606,7 +606,7 @@
                             <td class="table-content">int</td>
                             <td class="table-content">The id specifices which room's bookings need to be fetched.</td>
                         </tr>
-                       
+
 
                     </table>
                     <h4 style="background-color: #80808041;padding:16px">Description:</h4>
@@ -902,7 +902,7 @@
         <div>
 
         </div>
-        
+
         <div>
             <h2 style="font-size: 4vw;">1.3 show</h2>
             <h3>Get</h3>
@@ -989,7 +989,7 @@
                 <div class="card-body">
                     <table style="table-layout: auto;width:100%">
 
-                    <tr style="height:8px;text-align:center;">
+                        <tr style="height:8px;text-align:center;">
                             <td class="table-content">$adults_capacity</td>
                             <td class="table-content">int</td>
                             <td class="table-content">Optional, refers to the capacity of adults that can be handled.</td>
@@ -1020,7 +1020,7 @@
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">This functions takes an id as a parameter and will look for and display the room type with this id in the database.</td>
+                            <td class="table-content">This functions takes an id as a parameter and will look for the room type with this id in the database.</td>
                         </tr>
 
                     </table>
@@ -1087,7 +1087,7 @@
                             <td class="table-content">int</td>
                             <td class="table-content">The id specifices which room type to delete.</td>
                         </tr>
-                       
+
                     </table>
                     <h4 style="background-color: #80808041;padding:16px">Description:</h4>
                     <table style="table-layout: auto;width:100%">
@@ -1291,7 +1291,163 @@
         <div>
 
         </div>
-        
+    </div>
+
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/stocks/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which stock to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the stock with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen stock's attributes and relationships. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the stock does not exist</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user trying to fetch the stock does not have the required permissions.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/stocks/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the identifier of the stock.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the extra details about the stock.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$available_quantity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional,refers to the remaining quantity of this stock that is available.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$is_ingredient</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Optional, specifies whether the stock is an ingredient or something not edible.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the stock with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen stock along with its modified attributes and relationships. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the stock does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the stock does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
 
 
     </div>
