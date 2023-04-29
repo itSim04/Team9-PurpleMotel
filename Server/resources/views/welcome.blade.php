@@ -757,29 +757,16 @@
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-col">Name</td>
-                            <td class="table-col">Type</td>
-                            <td class="table-desc">Description</td>
+                            <td class="table-content">No Required Parameters</td>
+                            
                         </tr>
-
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$index</td>
-                            <td class="table-content">int</td>
-                            <td class="table-content">The optional index specifies from which index to start fetching.If no index is provided, all room types will be fetched. If no size if provided, it will display all room types starting at the given index until the last index.</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$size</td>
-                            <td class="table-content">int</td>
-                            <td class="table-content">The optional size specifices how many rooms to fetch starting at the given index. If none is provided, it will fetch "size" number of room types starting at 0.</td>
-                        </tr>
-
 
                     </table>
                     <h4 style="background-color: #80808041;padding:16px">Description:</h4>
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">The function returns all the room types if not provided any parameters. If the index is provided, it returns all room types starting at this index. If provided an index and size, it will return all room types starting at this index, along with "size" room types starting at this index.</td>
+                            <td class="table-content">The function returns all the room types.</td>
                         </tr>
 
                     </table>
@@ -1150,30 +1137,18 @@
                 <div class="card-body">
                     <table style="table-layout: auto;width:100%">
 
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-col">Name</td>
-                            <td class="table-col">Type</td>
-                            <td class="table-desc">Description</td>
-                        </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$index</td>
-                            <td class="table-content">int</td>
-                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all stock will be fetched. If no size if provided, it will display all stock starting at the given index until the last index.</td>
+                            <td class="table-content">No Required Parameters</td>
+                            
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$size</td>
-                            <td class="table-content">int</td>
-                            <td class="table-content">The optional size specifices how many stock to fetch starting at the given index. If none is provided, it will fetch "size" number of stock starting at 0.</td>
-                        </tr>
-
 
                     </table>
                     <h4 style="background-color: #80808041;padding:16px">Description:</h4>
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">The function returns all the stock if not provided any parameters. If the index is provided, it returns all stock starting at this index. If provided an index and size, it will return all stock starting at this index, along with "size" stock starting at this index.</td>
+                            <td class="table-content">The function returns all the stock.</td>
                         </tr>
 
                     </table>
@@ -1530,21 +1505,10 @@
                 <div class="card-body">
                     <table style="table-layout: auto;width:100%">
 
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-col">Name</td>
-                            <td class="table-col">Type</td>
-                            <td class="table-desc">Description</td>
-                        </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$index</td>
-                            <td class="table-content">int</td>
-                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all users will be fetched. If no size if provided, it will display all users starting at the given index until the last index.</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$size</td>
-                            <td class="table-content">int</td>
-                            <td class="table-content">The optional size specifices how many users to fetch starting at the given index. If none is provided, it will fetch "size" number of users starting at 0.</td>
+                            <td class="table-content">No Required Parameters</td>
+                            
                         </tr>
 
 
@@ -1553,7 +1517,7 @@
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">The function returns all the users if not provided any parameters. If the index is provided, it returns all users starting at this index. If provided an index and size, it will return all users starting at this index, along with "size" users starting at this index.</td>
+                            <td class="table-content">The function returns all the users.</td>
                         </tr>
 
                     </table>
@@ -1566,7 +1530,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">JSON</td>
-                            <td class="table-content">A JSON object containing the users along with its attributes and relationships. The relationships section contains the user_type which is related to user as it determines the permissions of the user. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                            <td class="table-content">A JSON object containing the users along with its attributes and relationships. The relationships section contains the user_type which is related to user as it determines the permissions of the user. This will result in a 200 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
                         </tr>
 
                     </table>
@@ -2033,21 +1997,10 @@
                 <div class="card-body">
                     <table style="table-layout: auto;width:100%">
 
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-col">Name</td>
-                            <td class="table-col">Type</td>
-                            <td class="table-desc">Description</td>
-                        </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$index</td>
-                            <td class="table-content">int</td>
-                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all user types will be fetched. If no size if provided, it will display all users starting at the given index until the last index.</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$size</td>
-                            <td class="table-content">int</td>
-                            <td class="table-content">The optional size specifices how many user types to fetch starting at the given index. If none is provided, it will fetch "size" number of user types starting at 0.</td>
+                            <td class="table-content">No Required Parameters</td>
+                            
                         </tr>
 
 
@@ -2056,7 +2009,7 @@
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">The function returns all the user types if not provided any parameters. If the index is provided, it returns all user types starting at this index. If provided an index and size, it will return all user types starting at this index, along with "size" user types starting at this index.</td>
+                            <td class="table-content">The function returns all the user types.</td>
                         </tr>
 
                     </table>
@@ -2069,7 +2022,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">JSON</td>
-                            <td class="table-content">A JSON object containing the user types along with its attributes and relationships. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                            <td class="table-content">A JSON object containing the user types along with its attributes and relationships. This will result in a 200 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
                         </tr>
 
                     </table>
@@ -2393,30 +2346,18 @@
                 <div class="card-body">
                     <table style="table-layout: auto;width:100%">
 
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-col">Name</td>
-                            <td class="table-col">Type</td>
-                            <td class="table-desc">Description</td>
-                        </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$index</td>
-                            <td class="table-content">int</td>
-                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all registrations will be fetched. If no size if provided, it will display all registrations starting at the given index until the last index.</td>
+                            <td class="table-content">No Required Parameters</td>
+                            
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$size</td>
-                            <td class="table-content">int</td>
-                            <td class="table-content">The optional size specifices how many registrations to fetch starting at the given index. If none is provided, it will fetch "size" number of registrations starting at 0.</td>
-                        </tr>
-
 
                     </table>
                     <h4 style="background-color: #80808041;padding:16px">Description:</h4>
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">The function returns all the registrations if not provided any parameters. If the index is provided, it returns all registrations starting at this index. If provided an index and size, it will return all registrations starting at this index, along with "size" registrations starting at this index.</td>
+                            <td class="table-content">The function returns all the registration.</td>
                         </tr>
 
                     </table>
@@ -2429,7 +2370,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">JSON</td>
-                            <td class="table-content">A JSON object containing the registrations along with its attributes and relationships. The relationships section contains the user_id which is related to the user that made the Registration. It also contains the activity_id which refers to the activity that the user registered in. This will result in a 201 status code if successful.</td>
+                            <td class="table-content">A JSON object containing the registrations along with its attributes and relationships. The relationships section contains the user_id which is related to the user that made the Registration. It also contains the activity_id which refers to the activity that the user registered in. This will result in a 200 status code if successful.</td>
                         </tr>
 
                     </table>
@@ -2820,7 +2761,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">JSON</td>
-                            <td class="table-content">A JSON object containing the promo codes along with its attributes. This will result in a 201 status code if successful.</td>
+                            <td class="table-content">A JSON object containing the promo codes along with its attributes. This will result in a 200 status code if successful.</td>
                         </tr>
 
                     </table>
@@ -2895,7 +2836,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">JSON</td>
-                            <td class="table-content">A JSON object containing the promo codes along with its attributes. This will result in a 201 status code if successful.</td>
+                            <td class="table-content">A JSON object containing the promo codes along with its attributes. This will result in a 200 status code if successful.</td>
                         </tr>
 
                     </table>
@@ -3378,6 +3319,147 @@
 
             </div>
         </div>
+        <h1 style="text-align: center;">Permission Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/permissions</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the permissions.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the permissions along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the permissions does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/permissions</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$concerned_party</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Defines the user that will get the permissions.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$is_singular</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Specifies if it's one person or a group of people getting the permissions.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the permission's label.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$decided_permissions</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Binary number in octal format referring to the permissions given, in the format of Read, Write, Delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a permission and creates an instance of Permission in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Promo Code resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the promo code does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+
 
 
 
