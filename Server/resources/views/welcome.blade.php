@@ -92,9 +92,14 @@
                         </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$request</td>
-                            <td class="table-content">Request</td>
-                            <td class="table-content">Holds an index and a size. The optional index specifies from which index to start fetching, the optional size specifices how many rooms to fetch starting at this index. This is used for pagination</td>
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all rooms will be fetched. If no size if provided, it will display all rooms starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many rooms to fetch starting at the given index. If none is provided, it will fetch "size" number of rooms starting at 0.</td>
                         </tr>
 
 
@@ -161,29 +166,34 @@
                         </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$request</td>
-                            <td class="table-content">Request</td>
-                            <td class="table-content">Used to validate the attributes passed to it and to fetch needed attributes.</td>
+                            <td class="table-content">$level</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the level the room is at.</td>
                         </tr>
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$model</td>
+                            <td class="table-content">$number</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the number of the room on the current level.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$type</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Foreign Key that refers to the room type of the current room.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$rating</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">There to be read by the users and cannot be manually written by any user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
                             <td class="table-content">string</td>
-                            <td class="table-content">Specifies the type of model passed to the function. Will be used to create an instance of this model.</td>
+                            <td class="table-content">The name that is given to the room.</td>
                         </tr>
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$resource</td>
+                            <td class="table-content">$description</td>
                             <td class="table-content">string</td>
-                            <td class="table-content">Specifies the type of resource passed to the function. Will be used to create an instance of this resource.</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$options</td>
-                            <td class="table-content">array</td>
-                            <td class="table-content">Holds the room attributes.</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$singular</td>
-                            <td class="table-content">bool</td>
-                            <td class="table-content">Specifies if the function should return a single resource or a collection of resources. Returns a single resource by default.</td>
+                            <td class="table-content">Optional, extra details about the room are mentioned here.</td>
                         </tr>
 
 
@@ -327,36 +337,35 @@
                         </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$request</td>
-                            <td class="table-content">Request</td>
-                            <td class="table-content">Used to validate the attributes passed to it and to fetch needed attributes.</td>
+                            <td class="table-content">$level</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the level the room is at.</td>
                         </tr>
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$model</td>
+                            <td class="table-content">$number</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the number of the room on the current level.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$type</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, foreign Key that refers to the room type of the current room.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$rating</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, there to be read by the users and cannot be manually written by any user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
                             <td class="table-content">string</td>
-                            <td class="table-content">Specifies the type of model passed to the function. Will be used to look for the existing model with the provided id.</td>
+                            <td class="table-content">Optional, the name that is given to the room.</td>
                         </tr>
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$resource</td>
+                            <td class="table-content">$description</td>
                             <td class="table-content">string</td>
-                            <td class="table-content">Specifies the type of resource passed to the function. Will be used to create an instance of this resource containing the updated data.</td>
+                            <td class="table-content">Optional, extra details about the room are mentioned here.</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$options</td>
-                            <td class="table-content">array</td>
-                            <td class="table-content">Holds the new room attributes that will replace the old ones.</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$model_table</td>
-                            <td class="table-content">string</td>
-                            <td class="table-content">Null by default.Specifies the table where the model is located. This will be used to modify</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$singular</td>
-                            <td class="table-content">bool</td>
-                            <td class="table-content">Specifies if the function should return a single resource or a collection of resources.</td>
-                        </tr>
-
 
                     </table>
                     <h4 style="background-color: #80808041;padding:16px">Description:</h4>
@@ -426,37 +435,11 @@
                         </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$model</td>
-                            <td class="table-content">string</td>
-                            <td class="table-content">Specifies the type of model passed to the function. Will be used to look for the existing model with the provided id.</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
                             <td class="table-content">$id</td>
                             <td class="table-content">int</td>
                             <td class="table-content">The id specifices which room to delete.</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$safety_check</td>
-                            <td class="table-content">string</td>
-                            <td class="table-content">The name of the model to use for a safety check.</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$foreign_key</td>
-                            <td class="table-content">array</td>
-                            <td class="table-content">The name of the foreign key column to use for the safety check.</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$primary_key</td>
-                            <td class="table-content">bool</td>
-                            <td class="table-content">The name of the primary key column to use for the safety check.</td>
-                        </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$safety_resource</td>
-                            <td class="table-content">string</td>
-                            <td class="table-content">The name of the resource to use for a safety check.</td>
-                        </tr>
-
-
+                       
                     </table>
                     <h4 style="background-color: #80808041;padding:16px">Description:</h4>
                     <table style="table-layout: auto;width:100%">
@@ -525,9 +508,39 @@
                         </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$request</td>
-                            <td class="table-content">Request</td>
-                            <td class="table-content">Holds the filter criteria provided by the user to filter rooms by, some examples are: check_in, check_out, reviews and price.</td>
+                            <td class="table-content">$check_in</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the start date input by the user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$check_out</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the end date input by the user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$adults_capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the capacity of adults that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$kids_capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the capacity of kids that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$adults_with_kids_capacity</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the capacity of adults and kids that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, if input, the filtering starts at this index until the last index if no size was provided.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, if input, the filtering size is "size" and starts at 0 if no index is provided..</td>
                         </tr>
 
                     </table>
@@ -589,10 +602,11 @@
                         </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$request</td>
-                            <td class="table-content">Request</td>
-                            <td class="table-content">Used to hold and validate the room attributes provied by the user.</td>
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which room's bookings need to be fetched.</td>
                         </tr>
+                       
 
                     </table>
                     <h4 style="background-color: #80808041;padding:16px">Description:</h4>
@@ -656,9 +670,34 @@
                         </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$request</td>
-                            <td class="table-content">Request</td>
-                            <td class="table-content">Used to hold and validate the room attributes provied by the user.</td>
+                            <td class="table-content">$room_id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the room that the user wants to review.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the user that is conducting the review.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to the date of the conducted review.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$title</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the header of the review conducted by the user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$content</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the body of the review conducted by the user</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$stars</td>
+                            <td class="table-content">stars</td>
+                            <td class="table-content">Refers to the result of the review conducted by the user</td>
                         </tr>
 
                     </table>
@@ -724,9 +763,14 @@
                         </tr>
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$request</td>
-                            <td class="table-content">Request</td>
-                            <td class="table-content">Holds an index and a size. The optional index specifies from which index to start fetching, the optional size specifices how many room types to fetch starting at this index. This is used for pagination</td>
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching.If no index is provided, all room types will be fetched. If no size if provided, it will display all room types starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many rooms to fetch starting at the given index. If none is provided, it will fetch "size" number of room types starting at 0.</td>
                         </tr>
 
 
@@ -787,37 +831,30 @@
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-col">Name</td>
-                            <td class="table-col">Type</td>
-                            <td class="table-desc">Description</td>
-                        </tr>
-
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$request</td>
-                            <td class="table-content">Request</td>
-                            <td class="table-content">Used to validate the attributes passed to it and to fetch needed attributes.</td>
+                            <td class="table-content">$adults_capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the capacity of adults that can be handled.</td>
                         </tr>
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$model</td>
+                            <td class="table-content">$kids_capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the capacity of kids that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$adults_with_kids_capacity</td>
                             <td class="table-content">string</td>
-                            <td class="table-content">Specifies the type of model passed to the function. Will be used to create an instance of this model.</td>
+                            <td class="table-content">Refers to the capacity of adults and kids that can be handled.</td>
                         </tr>
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$resource</td>
+                            <td class="table-content">$label</td>
                             <td class="table-content">string</td>
-                            <td class="table-content">Specifies the type of resource passed to the function. Will be used to create an instance of this resource.</td>
+                            <td class="table-content">The name that is given to the room type.</td>
                         </tr>
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$options</td>
-                            <td class="table-content">array</td>
-                            <td class="table-content">Holds the room type attributes.</td>
+                            <td class="table-content">$price</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the price per night of the room type.</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">$singular</td>
-                            <td class="table-content">bool</td>
-                            <td class="table-content">Specifies if the function should return a single resource or a collection of resources. Returns a single resource by default.</td>
-                        </tr>
-
 
                     </table>
                     <h4 style="background-color: #80808041;padding:16px">Description:</h4>
