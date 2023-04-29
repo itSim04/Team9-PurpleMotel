@@ -1288,10 +1288,6 @@
 
             </div>
         </div>
-        <div>
-
-        </div>
-    </div>
 
     <div>
         <h2 style="font-size: 4vw;">1.3 show</h2>
@@ -1701,10 +1697,7 @@
                 </div>
 
             </div>
-        </div>
-        <div>
-
-        </div>
+       
     </div>
 
     <div>
@@ -1953,6 +1946,68 @@
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Unauthenticated</td>
                             <td class="table-content">If the user trying to delete the user does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.6 fetchProfile</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/users/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Parameters Provided</td>
+                        </tr>
+
+                        
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The goal of this function is to fetch and return all the data related to the profile of a logged-in user. The function retrieves various types of data, including orders and food, bookings and rooms, room types, registrations and activities, and applied promo codes. The function validates the user's authentication, and then retrieves the data related to the user from the database. After collecting the data, the function uses various resources to format the data in a standard way, and then merges the data into a single response to be returned to the user.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the user does not exist</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
