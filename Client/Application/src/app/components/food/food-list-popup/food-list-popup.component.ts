@@ -1,8 +1,9 @@
+import { AuthenticationService } from './../../../services/utility/authentication.service';
+import { AuthenticationModule } from './../../../pages/authentication/authentication.module';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Order } from 'src/app/models/Order';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';
-import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { extractUserId } from '../../database/database.component';
 
 export interface FoodPopup{
@@ -31,7 +32,7 @@ export class FoodListPopupComponent  implements OnInit {
   image: string;
   quantity = 0;
 
-  constructor (@Inject(MAT_DIALOG_DATA) public data: FoodPopup, private dialog: MatDialogRef<FoodListPopupComponent>, private authentication: AuthenticationDialogService) {
+  constructor (@Inject(MAT_DIALOG_DATA) public data: FoodPopup, private dialog: MatDialogRef<FoodListPopupComponent>) {
     this.id = data.id;
     this.label = data.label;
     this.description = data.description;

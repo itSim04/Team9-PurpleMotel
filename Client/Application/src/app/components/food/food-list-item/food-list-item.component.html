@@ -1,24 +1,27 @@
-<ion-grid>
-  <ion-row>
-      <ion-col>
-          <h2 style="font-family: Abhaya Libre;">{{food.value.label}}</h2>
-          <p style="font-family: Montserrat;">{{food.value.description}}</p>
-          <ion-grid>
-            <ion-row>
-                <ion-col>
-                    <p style="color: #930000; font-family: Abhaya Libre;">USD {{food.value.price}}</p>
-                </ion-col>
-                
-                <!-- col for the add -->
-                <ion-col>
-                    <ion-button (click)="openPopup()" style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline" color="#930000">Add</ion-button>
-                </ion-col>
-            </ion-row>
-          </ion-grid>
-      </ion-col>
+<ion-grid (click)="openModal(formatFood())">
+    <ion-row>
+        <ion-col size="7">
+            <h2 class="label">{{food.value.label}}</h2>
+            <p class="description">{{food.value.description}}</p>
 
-      <ion-col class="center-image">
-          <img [src]="food.value.image" style="display: block; margin: auto;" onerror="this.src='assets/placeholder.png'">
-      </ion-col>
-  </ion-row>
+            <p class="price">{{formatPrice}}</p>
+            <!-- <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block"
+                fill="outline" color="#930000">Add</ion-button> -->
+
+        </ion-col>
+
+        <ion-col size="5" class="center-image">
+            <img width="100%" height="160vh" [src]="food.value.image"
+                style="display: block; margin: auto; object-fit: cover;"
+                onerror="this.src='assets/placeholder.png'">
+        </ion-col>
+    </ion-row>
 </ion-grid>
+
+<ion-modal class="modal" *ngIf="active_data"
+    [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" [isOpen]="isModalOpen">
+    <ng-template>
+        <app-profile-modal (closeModal)="closeModal()" [data]="active_data"
+            style="height: 100%;"></app-profile-modal>
+    </ng-template>
+</ion-modal>

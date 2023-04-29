@@ -9,7 +9,7 @@ import { RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-//import { environment } from "src/environments/environment";
+import { environment } from "src/environments/environment";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 import { ActivitiesModule } from "./components/activities/activities.module";
@@ -45,6 +45,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CalendarWrapperComponent } from './components/room/calendar/calendar.component';
 import { SettingsModule } from './pages/settings/settings.module';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+// import { ScrollChangeColorDirective } from './scroll-change-color.directive';
 
 
 
@@ -53,7 +54,8 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 @NgModule({
   declarations: [
     AppComponent,
-    TabsPage
+    TabsPage,
+    // ScrollChangeColorDirective
   ],
   imports: [
     CommonModule,
