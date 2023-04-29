@@ -295,7 +295,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to add the room does not have the required permissions.</td>
+                            <td class="table-content">If the user trying to fetch the room does not have the required permissions.</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
@@ -864,6 +864,81 @@
         </div>
         <div>
 
+        </div>
+        
+        <div>
+            <h2 style="font-size: 4vw;">1.3 show</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/room_types/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which room type to fetch.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes and id as a parameter and will look for and display the room type with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen room type's attributes and relationships. The relationships section contains the room which is related to this room type. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the room type does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the room type does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
         </div>
 
 
