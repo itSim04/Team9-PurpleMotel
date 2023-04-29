@@ -1,0 +1,122 @@
+<ion-header collapse="fade">
+    <ion-toolbar>
+
+        <ion-item style="--background: transparent; margin: 12px; padding-bottom: 12px; border: 0;"
+            lines="none">
+            <ion-title class="header">{{ 'menu' | translate }}</ion-title>
+            <ion-fab-button style="position: static;" color="tertiary" (click)="invokeCart()">
+                <ion-icon name="cart-outline"></ion-icon>
+            </ion-fab-button>
+
+
+        </ion-item>
+
+        <hr style="border-bottom: 1px solid var(--ion-color-dark); width: 95%;">
+
+        <!-- <table style="table-layout: fixed; width: 100%;"> -->
+        <div style="display: flex;">
+            <div style="height:16%; width:16%" *ngFor="let category of food_categories | keyvalue"
+                (click)="scroll(category.value.label)" class="wrap" style="overflow-x: auto;">
+                <div class="content">
+
+                    <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block"
+                        fill="clear" color="tertiary">{{ category.value.label | translate
+                        }}</ion-button>
+                </div>
+            </div>
+        </div>
+
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-modal class="modal" [isOpen]="isModalOpen" [enterAnimation]="enterAnimation"
+    [leaveAnimation]="leaveAnimation">
+    <ng-template>
+
+        <ion-fab-button (click)="this.isModalOpen = false" class="back-btn">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-fab-button>
+
+        <div class="container">
+
+            <br><br>
+            <ion-text class="header-3">
+
+                {{ 'cart' | translate }}
+
+            </ion-text>
+
+
+            <br><br>
+            <hr style="border-bottom: 1px solid var(--ion-color-primary);">
+            <br>
+
+
+            <ion-content style="height: 67%;">
+
+
+                <ng-container *ngFor="let food of order?.food; let i = index">
+
+
+                    <ion-list>
+
+                        <ion-item>
+
+                            <ion-grid>
+
+                                <ion-row>
+
+                                    <ion-col class="label">{{'label' | translate}}:</ion-col>
+                                    <ion-col class="label">{{'price' | translate}}:</ion-col>
+                                    <ion-col class="label">{{'quantity' | translate}}:</ion-col>
+
+                                </ion-row>
+
+                                <ion-row>
+
+
+                                    <ion-col class="mark"> {{foods.get(food.id)?.label}} </ion-col>
+                                    <ion-col class="mark">
+                                        {{formatPrice(foods.get(food.id)?.price!,food.quantity)}}
+                                    </ion-col>
+                                    <ion-col>
+
+                                        <button (click)="changeQuantity(-1, i)"
+                                            class="quantity_btn">-</button>
+                                        <p style="display: inline;" class="content-2">
+                                            {{food.quantity}}
+                                        </p>
+                                        <button (click)="changeQuantity(1, i)"
+                                            class="quantity_btn">+</button>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+
+                        </ion-item>
+
+                    </ion-list>
+
+                </ng-container>
+
+                
+            </ion-content>
+            <ion-button fill="clear" class="add-btn" (click)="uploadCart()">Order</ion-button>
+        </div>
+    </ng-template>
+</ion-modal>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+
+    <div *ngFor="let category of food_categories | keyvalue">
+        <p [attr.id]="category.value.label" class="header-2">{{category.value.label}}</p>
+        <ng-container *ngFor="let food of foods | keyvalue">
+            <div *ngIf="food.value.category == category.key">
+                <app-food-list-item (open_cart)="invokeCart()" [quantity]="getQuantity(food.key)"
+                    [food]="food"></app-food-list-item>
+            </div>
+        </ng-container>
+    </div>
+
+</ion-content>

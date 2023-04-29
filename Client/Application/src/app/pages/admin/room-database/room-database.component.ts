@@ -20,24 +20,6 @@ export function formatOccupancy(capacity: [number?, number?, number?]): string {
     return "";
   }
 }
-export function formatPrice(price: number | undefined): string {
-
-  if (price) {
-
-    const numStr = price.toString();
-
-    // split the number string into groups of three digits from right to left
-    const numArr = numStr.split('').reverse().join('').match(/(\d{1,3})/g);
-
-    // join the groups with commas and return the result from right to left
-    return (numArr?.join(',')?.split('').reverse().join('') || numStr) + " USD";
-
-  } else {
-
-    return '';
-
-  }
-}
 
 @Component({
   selector: 'app-room-database',
@@ -172,14 +154,14 @@ export class RoomDatabaseComponent {
           link: true,
           format: (choice) => (choice as RoomType).label
         }
-      },      
+      },
       {
         key: 'rating',
         type: 'number',
         readonly: true,
         condition: () => true
       },
-      
+
     ],
     static_fields: [
       {

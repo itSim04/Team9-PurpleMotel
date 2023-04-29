@@ -20,8 +20,7 @@ export class BookingDatabaseService {
 
   getAllBookings(): Observable<BookingsPackage> {
 
-    const token = extractUserId();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.url.generateHeader();
 
     try {
 

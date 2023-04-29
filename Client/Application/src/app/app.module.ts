@@ -44,6 +44,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CalendarWrapperComponent } from './components/room/calendar/calendar.component';
 import { SettingsModule } from './pages/settings/settings.module';
+import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+// import { ScrollChangeColorDirective } from './scroll-change-color.directive';
 
 
 
@@ -52,7 +54,8 @@ import { SettingsModule } from './pages/settings/settings.module';
 @NgModule({
   declarations: [
     AppComponent,
-    TabsPage
+    TabsPage,
+    // ScrollChangeColorDirective
   ],
   imports: [
     CommonModule,
@@ -90,6 +93,7 @@ import { SettingsModule } from './pages/settings/settings.module';
     
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase()),
+    provideMessaging(() => getMessaging()),
 
     GuestChatsPageModule,
     AdminChatsPageModule,
@@ -98,7 +102,7 @@ import { SettingsModule } from './pages/settings/settings.module';
     HomeModule,
     ProfileModule,
     RestaurantModule,
-    SettingsModule
+    SettingsModule,
 
   ],
   providers: [

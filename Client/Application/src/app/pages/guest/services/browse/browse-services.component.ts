@@ -55,8 +55,10 @@ export class BrowseServicesComponent implements OnInit {
 
       this.activities = data.activities;
       this.registrations = data.registrations;
+      console.log(this.activities);
 
     });
+
     this.services_service.getAllFacilities().subscribe(data => {
 
       this.facilities = data.facilities;

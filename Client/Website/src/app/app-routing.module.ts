@@ -29,6 +29,7 @@ import { PromoDatabaseComponent } from './pages/admin/promo-database/promo-datab
 import { BrowseServicesComponent } from './pages/guest/services/browse/browse-services.component';
 import { ChatGuard } from './guards/chat.guard';
 import { ChatsPageComponent } from './pages/chat/admin/chat.component';
+import { ImageDatabaseComponent } from './pages/admin/image-database/image-database.component';
 
 const routes: Routes = [
 
@@ -115,6 +116,10 @@ const routes: Routes = [
       {
         path: "service-database",
         component: ServiceDatabaseComponent,
+      },
+      {
+        path: "image-database",
+        component: ImageDatabaseComponent,
       }
 
     ]

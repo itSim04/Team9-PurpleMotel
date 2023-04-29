@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { AnnouncementsPackage, AnnouncementsResponse, Announcement, AnnouncementPackage, AnnouncementResponse } from "src/app/models/Announcement";
+import { User } from "src/app/models/User";
 import { UrlBuilderService } from "../utility/url-builder.service";
 
 
@@ -22,6 +23,7 @@ export class AnnouncementDatabaseService {
         map((response: AnnouncementsResponse): AnnouncementsPackage => {
 
           const announcements = new Map<string, Announcement>();
+          const users = new Map<string, User>();
 
           response.data.forEach(announcement => {
 
@@ -29,9 +31,20 @@ export class AnnouncementDatabaseService {
 
           });
 
+          if (response.included) {
+
+            response.included.forEach(t => {
+
+              users.set(t.id, { ...t.attributes, type: t.relationships.user_type.data.id, permissions: new Map() });
+
+            });
+
+          }
+
           return {
 
-            announcements: announcements
+            announcements: announcements,
+            users: users
 
           };
 
@@ -60,6 +73,12 @@ export class AnnouncementDatabaseService {
               value: response.data.attributes
 
             },
+            user: {
+
+              key: response.data.attributes.author_id,
+              value: response.included.attributes as User
+
+            }
           };
 
 

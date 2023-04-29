@@ -10,6 +10,8 @@ class Announcements extends Model
     use HasFactory;
     protected $fillable = [
         'label',
-        'body'
+        'body',
+        'concerned_tier',
+        'author_id'
     ];
 }

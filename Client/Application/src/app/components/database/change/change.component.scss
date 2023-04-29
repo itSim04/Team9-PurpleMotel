@@ -73,12 +73,26 @@
 
 .cancel-btn {
 
-    // --background: #D6B389;
     width: 150px;
-    text-align: center;
-    left: 50%;
-    transform: translateX(-50%);
-    position: relative;
+    --background: var(--ion-color-secondary);
+    // --background: #D6B389;
+    // width: 150px;
+    // text-align: center;
+    // left: 50%;
+    // transform: translateX(-50%);
+    // position: relative;
+
+}
+
+.cancel-btn:disabled {
+
+    --background: black;
+    
+}
+
+.cancel-btn-dis {
+    
+    --background: black;
 
 }
 

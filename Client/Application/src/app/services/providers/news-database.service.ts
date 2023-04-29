@@ -1,10 +1,10 @@
+import { extractUser, extractUserId } from 'src/app/components/database/database.component';
 import { KeyValue } from '@angular/common';
 import { SingleNewsResponse, SingleNewsPackage, News, NewsAttributes, NewsPackage, NewsResponse } from './../../models/News';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { UrlBuilderService } from "../utility/url-builder.service";
-import { extractUserId } from 'src/app/components/database/database.component';
 
 @Injectable({
   providedIn: 'root'
@@ -23,14 +23,15 @@ export class NewsDatabaseService {
 
         map((response: NewsResponse): NewsPackage => {
 
-          
+
 
           const news = new Map<string, News>();
+          const images = response.images;
 
           response.data.forEach(data => {
 
     
-            news.set(data.id, { ...data.attributes, is_liked: false, likes: [] });
+            news.set(data.id, { ...data.attributes, is_liked: false, likes: [], image: images.news[data.id]? images.news[data.id][0] : '' });
 
           });
 
@@ -51,7 +52,7 @@ export class NewsDatabaseService {
 
           });
 
-    
+
 
           return {
 
@@ -82,7 +83,7 @@ export class NewsDatabaseService {
           const news: KeyValue<string, News> = {
 
             key: response.data.id,
-            value: { ...response.data.attributes, likes: [], is_liked: false }
+            value: { ...response.data.attributes, likes: [], is_liked: false, image: response.images.news ? response.images.news[response.data.id][0] : '' }
 
           };
 
@@ -94,6 +95,8 @@ export class NewsDatabaseService {
 
 
           });
+
+          console.log(news);
           return {
 
             news: news

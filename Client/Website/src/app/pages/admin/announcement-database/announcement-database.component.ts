@@ -1,8 +1,10 @@
+import { extractUserId } from 'src/app/components/database/database.component';
 import { Component } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Announcement } from 'src/app/models/Announcement';
 import { map } from 'rxjs';
 import { AnnouncementDatabaseService } from 'src/app/services/providers/announcement-database.service';
+import { User } from '../../../../../../Application/src/app/models/User';
 
 @Component({
   selector: 'app-announcement-database',
@@ -18,8 +20,8 @@ export class AnnouncementDatabaseComponent {
 
     permission: 'announcement',
 
-    displayed_columns:[
-    {
+    displayed_columns: [
+      {
         key: 'label',
         type: 'text'
       },
@@ -29,14 +31,16 @@ export class AnnouncementDatabaseComponent {
       }
     ],
 
-    data_fetcher:()=>this.announcement_service.getAllAnnouncements().pipe(map(data => [data.announcements, undefined])) 
-  }
+    data_fetcher: () => this.announcement_service.getAllAnnouncements().pipe(map(data => [data.announcements, [data.users]]))
+  };
 
   change_injection: ChangeInjection<Announcement> = {
 
     data_type: 'announcement',
 
     default_state: {
+      author_id: extractUserId()!,
+      concerned_tier: '',
       label: '',
       body: ''
     },
@@ -51,6 +55,36 @@ export class AnnouncementDatabaseComponent {
       {
         key: 'body',
         type: 'text'
+      },
+      {
+        key: 'author_id',
+        type: 'outer_selection',
+        readonly: true,
+        outer_choices: {
+
+          index: 0,
+          key: (choice) => choice[0],
+          format: (choice) => {
+
+            return (choice as User)?.first_name + ' ' + (choice as User)?.last_name;
+
+          }
+
+        }
+      },
+      {
+        key: 'concerned_tier',
+        type: 'selection',
+        choices: {
+
+          choices: [
+            ['0', 'Guests'],
+            ['1', 'Staff'],
+            ['2', 'Admins']
+          ],
+          key: (choice) => choice[0]
+
+        }
       }
     ],
 

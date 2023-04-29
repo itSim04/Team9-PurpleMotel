@@ -1,3 +1,4 @@
+import { ProfileModule } from './../profile/profile.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -19,7 +20,8 @@ import { NewsListPopupModule } from 'src/app/components/news/news-list-popup/new
     IonicModule.forRoot(),
     NewsListItemModule,
     NewsListPopupModule,
-    LanguageModule
+    LanguageModule,
+    ProfileModule
   ],
   exports: [
     HomeComponent

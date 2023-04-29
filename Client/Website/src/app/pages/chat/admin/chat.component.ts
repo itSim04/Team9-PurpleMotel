@@ -6,6 +6,7 @@ import { extractSessionUser, User } from "src/app/models/User";
 import { Chat, Message } from "src/app/models/Chat";
 import { UserDatabaseService } from "src/app/services/providers/user-database.service";
 import { extractUserId, formatDate } from "src/app/components/database/database.component";
+import { UrlBuilderService } from "src/app/services/utility/url-builder.service";
 
 
 @Component({
@@ -35,7 +36,7 @@ export class ChatsPageComponent implements OnInit {
   db: Database = getDatabase(); // Instance of firebase
   id!: string; // The id of the chat (x-y)
   chat: Map<string, Chat> = new Map(); // The chat this class holds
-  constructor (private router: Router, private database: Database, private userService: UserDatabaseService, private route: ActivatedRoute) { }
+  constructor (public url: UrlBuilderService, private router: Router, private database: Database, private userService: UserDatabaseService, private route: ActivatedRoute) { }
 
   ngOnInit() {
 

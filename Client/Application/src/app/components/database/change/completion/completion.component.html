@@ -100,7 +100,7 @@
 
 <!-- Text -->
 <ion-item *ngIf="field.type === 'text'">
-    <ion-label>{{formatLabel(field.key)}}</ion-label>
+    <ion-label class="label" position="floating">{{formatLabel(field.key)}}</ion-label>
     <ion-input [disabled]="field.readonly || !modification_rule(this.data)"
         [(ngModel)]="data[field.key]"></ion-input>
     <div class="number-error" *ngIf="!uniqueness && field.unique">
@@ -109,7 +109,7 @@
 
 <!-- Number -->
 <ion-item *ngIf="field.type === 'number'">
-    <ion-label>{{formatLabel(field.key)}}</ion-label>
+    <ion-label class="label" position="floating">{{formatLabel(field.key)}}</ion-label>
     <ion-input [disabled]="field.readonly || !modification_rule(this.data)" type="number"
         [(ngModel)]="data[field.key]"></ion-input>
     <div class="number-error"
@@ -121,7 +121,7 @@
 
 <!-- Constraint Text -->
 <ion-item *ngIf="field.type === 'digits_string' || field.type === 'positive_digits_string'">
-    <ion-label>{{formatLabel(field.key)}}</ion-label>
+    <ion-label class="label" position="floating">{{formatLabel(field.key)}}</ion-label>
     <ion-input [disabled]="field.readonly || !modification_rule(this.data)"
         [min]="field.type === 'positive_digits_string' ? 0 : -999999"
         [(ngModel)]="data[field.key]"></ion-input>
@@ -132,7 +132,7 @@
 <!-- Selection -->
 <ion-item
     *ngIf="!field.choices?.link && field.choices && (field.type === 'selection' || field.type === 'choices')">
-    <ion-label>{{formatLabel(field.key)}}</ion-label>
+    <ion-label class="label" position="floating">{{formatLabel(field.key)}}</ion-label>
     <ion-select [multiple]="field.type === 'choices'" [(ngModel)]="data[field.key]">
         <ion-select-option [disabled]="field.readonly || !modification_rule(this.data)"
             *ngFor="let type of field.choices.choices"
@@ -146,7 +146,7 @@
 <!-- Linked Selection -->
 <ion-item
     *ngIf="field.choices?.link && field.choices && (field.type === 'selection' || field.type === 'choices')">
-    <ion-label>{{formatLabel(field.key)}}</ion-label>
+    <ion-label class="label" position="floating">{{formatLabel(field.key)}}</ion-label>
     <ion-select [multiple]="field.type === 'choices'" [(ngModel)]="data[field.key]">
         <ion-select-option [disabled]="field.readonly || !modification_rule(this.data)"
             *ngFor="let type of linked_data | keyvalue"
@@ -160,7 +160,7 @@
 <!-- Outer Linked Selection -->
 <ion-item
     *ngIf="field.outer_choices && (field.type === 'outer_selection' || field.type === 'outer_choices')">
-    <ion-label>{{formatLabel(field.key)}}</ion-label>
+    <ion-label class="label" position="floating">{{formatLabel(field.key)}}</ion-label>
     <ion-select *ngIf="outer_data" [multiple]="field.type === 'outer_choices'"
         [(ngModel)]="data[field.key]">
         <ion-select-option [disabled]="field.readonly || !modification_rule(this.data)"
@@ -173,13 +173,13 @@
 
 <!-- Date -->
 <ion-item *ngIf="field.type === 'date'">
-    <ion-label>{{ 'choose_date' | translate }}</ion-label>
+    <ion-label class="label" position="floating">{{ 'choose_date' | translate }}</ion-label>
     <ion-datetime [ngModel]="data[field.key]"
         (ionChange)="debug($event)" readonly></ion-datetime>
 </ion-item>
 
 <!-- Checkbox -->
 <ion-item *ngIf="field.type === 'toggle'">
-    <ion-label>{{ formatLabel(field.key) }}</ion-label>
+    <ion-label class="label" position="floating">{{ formatLabel(field.key) }}</ion-label>
     <ion-checkbox slot="end" [(ngModel)]="data[field.key]"></ion-checkbox>
 </ion-item>

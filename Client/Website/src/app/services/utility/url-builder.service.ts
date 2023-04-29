@@ -7,12 +7,17 @@ import { extractUserToken } from 'src/app/components/database/database.component
 })
 export class UrlBuilderService {
 
-  master_url = "http://127.0.0.1:8000/api";
+  master_url = "http://127.0.0.1:8000";
   version = "v1";
-  
+
+  getImage(image: 'room-main' | 'service-main' | 'restaurant-main' | 'menu-main' | 'home-main' | 'logo' | 'support-background' | 'chefs-background') {
+
+    return `${this.master_url}/storage/images/assets/website/${image}`;
+
+  }
   generateUrl(path: string) {
 
-    return `${this.master_url}/${this.version}/${path}`
+    return `${this.master_url}/api/${this.version}/${path}`;
 
   }
 

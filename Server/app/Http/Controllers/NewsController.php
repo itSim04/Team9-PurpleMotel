@@ -39,11 +39,13 @@ class NewsController extends Controller
         foreach ($news as $key => $value) {
 
             $news_ids[] = $value->id;
+            $images['news'][$key] = extractImages('News', $key);
         }
+
 
         $included = LikesNewsResource::collection(LikesNews::all()->whereIn('news_id', $news_ids));
 
-        return generateResponse(200, NewsResource::collection($news), $included);
+        return generateResponse(200, NewsResource::collection($news), $included, false, $images);
     }
 
     /**
@@ -60,7 +62,10 @@ class NewsController extends Controller
     public function show(int $id)
     {
 
-        return showTemplate($this->model, $this->resource, $id, LikesNews::class, LikesNewsResource::class, 'news_id');
+        $news = News::find($id);
+        $images['news'][$id] = extractImages('News', $id);
+
+        return generateResponse(200, new NewsResource($news), null, false, $images);
     }
 
     /**
@@ -153,9 +158,8 @@ class NewsController extends Controller
             return generateResponse(200, true, true);
         } else {
 
-            
-            return generateResponse(201, false, true);
 
+            return generateResponse(201, false, true);
         }
     }
 }

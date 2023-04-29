@@ -104,15 +104,15 @@ export class TabsPage {
 
     if (this.router.url.includes('services')) {
 
-      return '#D6B389';
+      return 'var(--ion-color-secondary)';
 
-    } else if (this.router.url.includes('restaurant')) {
+    } else if (this.router.url.includes('rooms')) {
 
-      return '#930000';
+      return 'var(--ion-color-tertiary)';
 
     } else {
 
-      return '#14274A';
+      return 'var(--ion-color-primary)';
 
     }
 

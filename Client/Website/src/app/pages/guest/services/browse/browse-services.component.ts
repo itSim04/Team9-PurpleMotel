@@ -1,3 +1,4 @@
+
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/Activity';
@@ -5,6 +6,7 @@ import { CarouselComponent } from 'src/app/components/general/carousel/carousel.
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Facility, FacilityAttributes } from 'src/app/models/Facility';
 import { ServiceDatabaseService } from 'src/app/services/providers/service-database.service';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 @Component({
   selector: 'app-services',
@@ -26,7 +28,7 @@ export class BrowseServicesComponent implements OnInit, OnDestroy {
   activity_index = 0;
   facility_index = 0;
   isViewInitialized = false;
-  constructor(private service_service: ServiceDatabaseService) {
+  constructor(private service_service: ServiceDatabaseService, public url: UrlBuilderService) {
 
   }
 

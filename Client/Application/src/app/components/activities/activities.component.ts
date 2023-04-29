@@ -15,10 +15,7 @@ import { Facility } from 'src/app/models/Facility';
   templateUrl: './activities.component.html',
   styleUrls: ['./activities.component.scss'],
 })
-export class ActivitiesComponent implements OnInit {
-
-
-  ngOnInit() { }
+export class ActivitiesComponent {
 
   activities: Map<string, Activity> = new Map();
   facilities: Map<string, Facility> = new Map();
@@ -27,7 +24,7 @@ export class ActivitiesComponent implements OnInit {
   isModalOpen: boolean = false;
   @Input() activity?: KeyValue<string, Activity>;
 
-  constructor(private registration_service: RegistrationDatabaseService, private animationCtrl: AnimationController) { }
+  constructor (private registration_service: RegistrationDatabaseService, private animationCtrl: AnimationController) { }
 
 
   formatPrice(price?: number) {
@@ -35,6 +32,39 @@ export class ActivitiesComponent implements OnInit {
     return formatPrice(price);
 
   }
+
+
+  getColor(seed: string) {
+
+    let num_seed = Number.parseInt(seed);
+    const currentRandom = Math.random;
+
+    // Initialize random number generator with given seed
+    Math.random = () => {
+      const x = Math.sin(num_seed++ * 0.7876) * 10000;
+      return x - Math.floor(x);
+    };
+
+    // 60% chance of the first value being picked
+    const pickFirstValue = Math.random() < 0.6;
+
+    // Define three random string values
+    const value1 = '--ion-color-primary';
+    const value2 = '--ion-color-secondary';
+    const value3 = '--ion-color-tertiary';
+
+    // Assign values to an array based on probability
+    if (pickFirstValue) {
+      return value1;
+    } else if (Math.random() < 0.5) {
+      return value2;
+    } else {
+      return value3;
+    }
+  }
+
+
+
 
   get past() {
 
@@ -53,7 +83,7 @@ export class ActivitiesComponent implements OnInit {
       start_date: activity.start_date,
       end_date: activity.end_date,
       seats: 0,
-    }
+    };
     return {
 
       title: activity.title,
@@ -78,7 +108,7 @@ export class ActivitiesComponent implements OnInit {
       },
       stored_data: 0,
       show_num_input: true,
-    }
+    };
   }
 
   async openModal(data: ProfileModalData) {

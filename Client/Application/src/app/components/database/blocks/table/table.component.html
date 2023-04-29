@@ -43,9 +43,8 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
                         {{col.header_alt || formatWord(col.key.toString())}} </th>
                     <td [style.background]="mark(element[1])" class="cell" mat-cell
-                        *matCellDef="let element" style="padding-left: 0px;">
-                        <!-- <star-rating staticColor="ok" [readOnly]="true" [rating]="element[1][col.key]"
-                        [showHalfStars]="true"></star-rating> -->
+                        *matCellDef="let element" style="padding-left: 0px; padding-right: 32px;">
+                        <ion-rating-stars [size]="16" filledColor="'#14274A'" color="'#14274A'" [disabled]="true" [rating]="element[1][col.key]"></ion-rating-stars>
                     </td>
                 </ng-container>
             </ng-container>
@@ -72,11 +71,11 @@
             *matRowDef="let row; columns: getDisplayedColumnsKey;">
         </tr>
         <tr *matNoDataRow>
-            <td *ngIf="!loading" style="padding: 32px;" class="mat-cell"
-                [attr.colspan]="data_injection.displayed_columns.length + (data_injection.buttons ? 1 : 0)">
-                {{ error ? 'denied...' : 'empty_table' }} <div (click)="download.emit()"
-                    class="retry" *ngIf="error">{{'retry_question' | translate }}?</div>
-            </td>
+                <td *ngIf="!loading" style="padding: 32px;" class="mat-cell"
+                    [attr.colspan]="data_injection.displayed_columns.length + (data_injection.buttons ? 1 : 0)">
+                    {{ error ? 'denied...' : 'empty_table' }} <div (click)="download.emit()"
+                        class="retry" *ngIf="error">{{'retry_question' | translate }}?</div>
+                </td>
         </tr>
     </table>
 </div>
