@@ -9,10 +9,12 @@ use App\Http\Resources\FoodResource;
 use App\Http\Resources\OrderContainsResource;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\UserResource;
+use App\Mail\Notifications;
 use App\Models\Food;
 use App\Models\OrderContains;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -100,6 +102,26 @@ class OrderController extends Controller
             }
         }
 
+        
+        $user = User::find($request->input('user_id'));
+
+        switch ($request->input('status', '0')) {
+
+            case '0':
+                $status = 'Pending';
+                break;
+            case '1':
+
+                $status = 'Preparing';
+                break;
+
+            case '2':
+                $status = 'Ready';
+                break;
+        }
+
+        Mail::to($user->email)->send(new Notifications('Order Status Updated', 'New Status: ' . $status));
+
         return $response;
     }
 
@@ -165,6 +187,26 @@ class OrderController extends Controller
                 OrderContains::create($order_contains);
             }
         }
+
+
+        $user = User::find($request->input('user_id'));
+
+        switch ($request->input('status', '0')) {
+
+            case '0':
+                $status = 'Pending';
+                break;
+            case '1':
+
+                $status = 'Preparing';
+                break;
+
+            case '2':
+                $status = 'Ready';
+                break;
+        }
+
+        Mail::to($user->email)->send(new Notifications('Order Status Updated', 'New Status: ' . $status));
 
         return updateTemplate($request, $this->model, $order_id, $this->resource, $this->options, $this->model_name);
     }

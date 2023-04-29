@@ -287,6 +287,7 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
       this.old_data = undefined;
       this.data = clone(injected_data.injection.default_state);
+      console.log(this.data);
       this.modification_mode = false;
 
     }
