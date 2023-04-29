@@ -6233,7 +6233,7 @@
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">This functions takes an id as a parameter and will look for the image with this id in the database.</td>
+                            <td class="table-content">This functions takes an id as a parameter and will look for the food with this id in the database.</td>
                         </tr>
 
                     </table>
@@ -6246,7 +6246,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">JSON</td>
-                            <td class="table-content">A JSON object containing the chosen image along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                            <td class="table-content">A JSON object containing the chosen food along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
                         </tr>
 
                     </table>
@@ -6259,12 +6259,12 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">{id} not in Database</td>
-                            <td class="table-content">If the image does not exist</td>
+                            <td class="table-content">If the food does not exist</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to modify the image does not have the required permissions.</td>
+                            <td class="table-content">If the user trying to modify the food does not have the required permissions.</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
@@ -6280,7 +6280,7 @@
         <div>
             <h2 style="font-size: 4vw;">1.5 destroy</h2>
             <h3>Delete</h3>
-            <h3>http://example.com/api/v1/images/{id}</h3>
+            <h3>http://example.com/api/v1/foods/{id}</h3>
 
             <div class="card mb-3">
                 <div class="card-header">
@@ -6298,7 +6298,7 @@
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">$id</td>
                             <td class="table-content">int</td>
-                            <td class="table-content">The id specifices which image to delete.</td>
+                            <td class="table-content">The id specifices which food to delete.</td>
                         </tr>
 
                     </table>
@@ -6306,7 +6306,7 @@
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">The purpose of the function is to delete an image from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                            <td class="table-content">The purpose of the function is to delete a food item from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
                         </tr>
 
                     </table>
@@ -6332,12 +6332,12 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">{id} not in Database</td>
-                            <td class="table-content">If the image does not exist</td>
+                            <td class="table-content">If the food does not exist</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to delete the image does not have the required permissions.</td>
+                            <td class="table-content">If the user trying to delete the food does not have the required permissions.</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
@@ -6350,6 +6350,127 @@
 
             </div>
         </div>
+        <h1 style="text-align: center;">Food Category Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/food-categories</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the food categories.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the food categories along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/food-categories</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Describes what the food category is.</td>
+                        </tr>
+                        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attribute of a food category and creates an instance of FoodCategory in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the FoodCategory resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the food category does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
 
 
 
