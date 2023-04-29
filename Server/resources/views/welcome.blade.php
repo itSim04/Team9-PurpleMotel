@@ -134,7 +134,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to access the room does not have the required permissions.</td>
+                            <td class="table-content">If the user trying to fetch the room does not have the required permissions.</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
@@ -805,7 +805,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to access the room type does not have the required permissions.</td>
+                            <td class="table-content">If the user trying to fetch the room type does not have the required permissions.</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
@@ -1199,7 +1199,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to access the stock does not have the required permissions.</td>
+                            <td class="table-content">If the user trying to fetch the stock does not have the required permissions.</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
@@ -1579,7 +1579,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to access the users does not have the required permissions.</td>
+                            <td class="table-content">If the user trying to fetch the users does not have the required permissions.</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
@@ -2082,7 +2082,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to access the user types does not have the required permissions.</td>
+                            <td class="table-content">If the user trying to fetch the user types does not have the required permissions.</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
@@ -2442,7 +2442,7 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to access the registrations does not have the required permissions.</td>
+                            <td class="table-content">If the user trying to fetch the registrations does not have the required permissions.</td>
 
                         </tr>
                         <tr style="height:8px;text-align:center;">
@@ -2771,6 +2771,234 @@
 
             </div>
         </div>
+        <h1 style="text-align: center;">Promo Code Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/promocodes</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all promo codes will be fetched. If no size if provided, it will display all promo codes starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many promo codes to fetch starting at the given index. If none is provided, it will fetch "size" number of promo codes starting at 0.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the promo codes if not provided any parameters. If the index is provided, it returns all promo codes starting at this index. If provided an index and size, it will return all promo codes starting at this index, along with "size" promo codes starting at this index.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the promo codes along with its attributes. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the promo codes does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <h2 style="font-size: 4vw;">1.2 full_index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/promocodes</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all promo codes will be fetched. If no size if provided, it will display all promo codes starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many promo codes to fetch starting at the given index. If none is provided, it will fetch "size" number of promo codes starting at 0.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the promo codes if not provided any parameters. If the index is provided, it returns all promo codes starting at this index. If provided an index and size, it will return all promo codes starting at this index, along with "size" promo codes starting at this index.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the promo codes along with its attributes. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the promo codes does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.3 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/promocodes</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$change</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Defines how much the promo code will affect the price.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$code</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">The promo code identifier.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$start_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to the promo code's start.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to the promo code's end.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a promo code and creates an instance of Promo Code in the database, along with a resource. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Promo Code resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the promo code does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+
 
 
     </div>
