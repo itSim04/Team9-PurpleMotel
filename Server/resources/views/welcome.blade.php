@@ -7046,6 +7046,158 @@
 
             </div>
         </div>
+        <h1 style="text-align: center;">Booking Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/bookings</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the bookings.</td>
+                        </tr>
+
+                    </table>
+                    
+                
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the bookings along with its attributes and relationships. The relationships contains the user_id which refers to the user who booked the booking, the room_id that refers to the room booked by the user and finally, the promo_id that refers to the promo code applied on the booking in some cases. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Unauthenticated</td>
+                            <td class="table-desc">If the user is not logged in.</td>
+                        </tr>
+     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/bookings</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$room_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Foreign Key, refers to the booked room.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Foreign Key, refers to the user who performed the booking.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$check_in</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Specifies the start of the booking.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$promo_id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Foreign Key, refers to the promo code applied.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Specifies the end of the booking</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$exhausted</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Specifies if the booking is over or not yet..</td>
+                        </tr>
+                        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attribute of a booking and creates an instance of Booking in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Booking resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the booking does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
 
 
 
