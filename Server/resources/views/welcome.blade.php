@@ -2959,7 +2959,7 @@
                     <table style="table-layout: auto;width:100%">
 
                         <tr style="height:8px;text-align:center;">
-                            <td class="table-content">This functions takes as input the attributes of a promo code and creates an instance of Promo Code in the database, along with a resource. </td>
+                            <td class="table-content">This functions takes as input the attributes of a promo code and creates an instance of Promo Code in the database, along with a resource. Also creates an instance of EligibilityPromoCode and EffectPromoCode in their respective tables. </td>
                         </tr>
 
                     </table>
@@ -2998,6 +2998,235 @@
             </div>
        
     </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.4 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/promocodes/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which promo code to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the promo code with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen promo code's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the promo code does not exist</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user trying to fetch the promo code does not have the required permissions.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.5 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/promocodes/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$change</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, defines how much the promo code will affect the price.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$code</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, acts as the promo code identifier.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$start_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, refers to the promo code's start.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, refers to the promo code's end.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the promo code with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen promo code along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the promo code does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the promo code does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.6 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/promocodes/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which promo code to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a promo code from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the promo code does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the promo code does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
 
 
 
