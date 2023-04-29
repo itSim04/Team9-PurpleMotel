@@ -8,30 +8,26 @@
         <!-- Image | Images | Mixed -->
         <ng-container *ngIf="side_panel == 'images' || side_panel == 'image'">
 
-            <tr>
-                <td colspan="2">
-                    <ng-container *ngFor="let image of images; let i = index">
+            <ng-container *ngFor="let image of images; let i = index">
 
-                        <ngp-image-picker *ngIf="i == current_image"
-                            [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
-                            [_config]="imagePickerConf"
-                            ($imageChanged)="onImageChange($event, image, i)"></ngp-image-picker>
+                <ngp-image-picker style="text-align: center;" *ngIf="i == current_image"
+                    [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
+                    [_config]="imagePickerConf"
+                    ($imageChanged)="onImageChange($event, image, i)"></ngp-image-picker>
 
-                    </ng-container>
+            </ng-container>
 
-                </td>
-            </tr>
 
             <!-- Images -->
-            <tr *ngIf="side_panel == 'images'">
-                <td style="padding-right: 0px; width: 50%;"> <button (click)="prev()"
-                        *ngIf="current_image > 0" class="image-btn">{{ 'previous' |
-                        translate }}</button> </td>
-                <td style="padding-left: 0px; width: 50%;"> <button (click)="next()"
-                        *ngIf="current_image < images.length - 1" class="image-btn">{{'next'
-                        | translate}}</button>
-                </td>
-            </tr>
+            <div style="display: flex; width: 100%;" *ngIf="side_panel == 'images'">
+                <button style="padding-right: 0px; width: 50%;" (click)="prev()"
+                    *ngIf="current_image > 0" class="image-btn">{{ 'previous' |
+                    translate }}</button>
+                <button style="padding-left: 0px; width: 50%;" (click)="next()"
+                    *ngIf="current_image < images.length - 1" class="image-btn">{{'next'
+                    | translate}}</button>
+
+            </div>
         </ng-container>
 
         <!-- Tables | Mixed -->
@@ -159,11 +155,12 @@
 
 
         </ng-container>
-        <mat-form-field *ngIf="standalone_field" class="full-width">
-            <mat-label class="label">{{formatLabel(standalone_field.key)}}</mat-label>
-            <textarea class="input" [(ngModel)]="data[standalone_field.key]" name="description"
-                matInput></textarea>
-        </mat-form-field>
+        <ion-item *ngIf="standalone_field" class="full-width">
+            <ion-label position="floating"
+                class="label">{{formatLabel(standalone_field.key)}}</ion-label>
+            <ion-input class="input" [(ngModel)]="data[standalone_field.key]" name="description"
+                matInput></ion-input>
+        </ion-item>
 
 
         <ng-container class="padded" *ngIf="fields && fields.length && size"
@@ -198,20 +195,22 @@
                     <td>
 
                         <!-- Readonly -->
-                        <mat-form-field class="full-width input" *ngIf="field.value">
-                            <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                            <input class="input" [value]="field.value(data) || ''" readonly
-                                name="occupancy" matInput>
-                        </mat-form-field>
+                        <ion-item class="full-width input" *ngIf="field.value">
+                            <ion-label position="floating"
+                                class="label">{{formatLabel(field.key)}}</ion-label>
+                            <ion-input class="input" [value]="field.value(data) || ''" readonly
+                                name="occupancy" matInput></ion-input>
+                        </ion-item>
 
                         <!-- Readonly -->
-                        <mat-form-field class="full-width input"
+                        <ion-item class="full-width input"
                             *ngIf="!field.value && field.link && linked_data">
-                            <mat-label class="label">{{formatLabel(field.key)}}</mat-label>
-                            <input class="input"
+                            <ion-label position="floating"
+                                class="label">{{formatLabel(field.key)}}</ion-label>
+                            <ion-input class="input"
                                 [value]="(field.link.format && linked_data.get(data[field.link.value] + '')) ? field.link.format(linked_data.get(data[field.link.value] + '')) : ''"
-                                readonly name="occupancy" matInput>
-                        </mat-form-field>
+                                readonly name="occupancy" matInput></ion-input>
+                        </ion-item>
 
                     </td>
 
@@ -219,19 +218,24 @@
             </table>
         </ng-container>
 
-        <div style="display: flex">
+        <div style="display: flex; width: 100%; margin: 32px;">
+            <ion-button *ngIf="toggle" style="width: 300px;" class="cancel-btn" (click)="triggerToggle()"
+                [ngClass]="!data[toggle.key] ? 'cancel-btn' : 'cancel-btn-dis'">{{data[toggle.key]
+                ? toggle.on_value :
+                toggle.off_value}}</ion-button>
+        </div>
+
+        <div style="display: flex; width: 100%; margin: 32px;">
             <ion-button class="cancel-btn" *ngIf="modification_rule && modification_rule(this.data)"
                 (click)="modification_mode ? modify() : add()"
-                [ngStyle]="{'--background': (fieldsCompleteness.length || !differenceCheck) ? 'gray' : '#14274A' }"
-                [matTooltipClass]="'tooltip'" mat-button color="primary"
-                [matTooltipDisabled]="!fieldsCompleteness.length"
+                [disabled]="fieldsCompleteness.length || !differenceCheck"
+                [matTooltipClass]="'tooltip'" [matTooltipDisabled]="!fieldsCompleteness.length"
                 [matTooltip]="fieldsCompleteness.join('\n')">{{modification_mode ?
                 'Modify' : 'Add'}} {{data_type}}</ion-button>
+            <ion-button class="cancel-btn" color="tertiary" 
+                *ngIf="modification_mode && modification_rule && modification_rule(this.data)"
+                (click)="delete()">{{'Delete' | translate}} {{data_type}}</ion-button>
 
-            <button *ngIf="toggle" class="cancel-btn" (click)="triggerToggle()"
-                [style.background]="!data[toggle.key] ? 'gray' : '#14274A'" mat-button
-                color="primary">{{data[toggle.key] ? toggle.on_value :
-                toggle.off_value}}</button>
         </div>
     </div>
 </div>

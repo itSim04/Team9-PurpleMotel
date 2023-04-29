@@ -68,9 +68,9 @@ export class TableUnitComponent<Data, Data2> {
     return this.enterAnimation(baseEl).direction('reverse');
   };
 
-  closeAdd(data: KeyValue<string, Data> | undefined) {
+  closeAdd(data: KeyValue<string, Data | undefined> | undefined) {
 
-    if (data) {
+    if (data && data.value) {
 
       this.data_map.set(data.key, data.value);
       this.data.push([data.key, data.value]);
@@ -82,7 +82,7 @@ export class TableUnitComponent<Data, Data2> {
 
   }
 
-  closeModify(data: KeyValue<string, Data> | undefined) {
+  closeModify(data: KeyValue<string, Data | undefined> | undefined) {
 
     if (data) {
 

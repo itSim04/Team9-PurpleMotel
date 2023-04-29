@@ -150,6 +150,70 @@ export const routes: Routes = [
         canActivate: [GuestGuard],
         component: SettingsComponent
       },
+      {
+        path: 'admin',
+        canActivate: [AdminGuard],
+        children: [
+          {
+    
+            path: "",
+            component: AdminDashboardComponent,
+    
+          },
+          {
+            path: "announcement-database",
+            component: AnnouncementDatabaseComponent,
+          },
+          {
+            path: "booking-database",
+            component: BookingDatabaseComponent,
+          },
+          {
+            path: "food-database",
+            component: FoodDatabaseComponent,
+          },
+          {
+            path: "language-database",
+            component: LanguageDatabaseComponent,
+          },
+          {
+            path: "news-database",
+            component: NewsDatabaseComponent,
+          },
+          {
+            path: "order-database",
+            component: OrderDatabaseComponent,
+          },
+          {
+            path: "promo-database",
+            component: PromoDatabaseComponent,
+          },
+          {
+            path: "registration-database",
+            component: RegistrationDatabaseComponent,
+          },
+          {
+            path: "room-database",
+            component: RoomDatabaseComponent
+          },
+          {
+            path: "stock-database",
+            component: StockDatabaseComponent,
+    
+          },
+          {
+            path: "user-database",
+            component: UserDatabaseComponent,
+          },
+          {
+            path: "service-database",
+            component: ServiceDatabaseComponent,
+          },
+    
+    
+        ]
+      },
+     
 
     ]
   },
@@ -159,70 +223,7 @@ export const routes: Routes = [
   //   component: ProfileComponent,
   // },
 
-  {
-    path: 'admin',
-    canActivate: [AdminGuard],
-    children: [
-      {
-
-        path: "",
-        component: AdminDashboardComponent,
-
-      },
-      {
-        path: "announcement-database",
-        component: AnnouncementDatabaseComponent,
-      },
-      {
-        path: "booking-database",
-        component: BookingDatabaseComponent,
-      },
-      {
-        path: "food-database",
-        component: FoodDatabaseComponent,
-      },
-      {
-        path: "language-database",
-        component: LanguageDatabaseComponent,
-      },
-      {
-        path: "news-database",
-        component: NewsDatabaseComponent,
-      },
-      {
-        path: "order-database",
-        component: OrderDatabaseComponent,
-      },
-      {
-        path: "promo-database",
-        component: PromoDatabaseComponent,
-      },
-      {
-        path: "registration-database",
-        component: RegistrationDatabaseComponent,
-      },
-      {
-        path: "room-database",
-        component: RoomDatabaseComponent
-      },
-      {
-        path: "stock-database",
-        component: StockDatabaseComponent,
-
-      },
-      {
-        path: "user-database",
-        component: UserDatabaseComponent,
-      },
-      {
-        path: "service-database",
-        component: ServiceDatabaseComponent,
-      },
-
-
-    ]
-  },
- 
+  
 
 
 

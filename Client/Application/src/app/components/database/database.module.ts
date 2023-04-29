@@ -25,6 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CompletionComponent } from './change/completion/completion.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgpImagePickerModule } from 'ngp-image-picker';
+import { IonRatingStarsModule } from 'ion-rating-stars';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { NgpImagePickerModule } from 'ngp-image-picker';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
+    IonRatingStarsModule,
     MatSnackBarModule,
     NgpImagePickerModule
     

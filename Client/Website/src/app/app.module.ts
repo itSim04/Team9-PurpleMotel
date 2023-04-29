@@ -44,7 +44,7 @@ import { BrowsingDialogModule } from './services/dialogs/browsing/browsing.modul
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
 
