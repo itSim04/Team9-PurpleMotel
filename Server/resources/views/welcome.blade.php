@@ -132,11 +132,7 @@
                             <td class="table-col">Error</td>
                             <td class="table-desc">Description</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to fetch the room does not have the required permissions.</td>
-
-                        </tr>
+                      
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -303,11 +299,7 @@
                             <td class="table-content">If the room does not exist</td>
 
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to fetch the room does not have the required permissions.</td>
-
-                        </tr>
+                     
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -790,11 +782,7 @@
                             <td class="table-col">Error</td>
                             <td class="table-desc">Description</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to fetch the room type does not have the required permissions.</td>
-
-                        </tr>
+                       
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -949,11 +937,7 @@
                             <td class="table-content">If the room type does not exist</td>
 
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to fetch the room type does not have the required permissions.</td>
-
-                        </tr>
+                        
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -4107,11 +4091,7 @@
                             <td class="table-col">Error</td>
                             <td class="table-desc">Description</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to fetch the news does not have the required permissions.</td>
-
-                        </tr>
+                       
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -4258,11 +4238,7 @@
                         <td class="table-content">If the news does not exist</td>
 
                     </tr>
-                    <tr style="height:8px;text-align:center;">
-                        <td class="table-content">Unauthenticated</td>
-                        <td class="table-content">If the user trying to fetch the news does not have the required permissions.</td>
-
-                    </tr>
+                
                     <tr style="height:8px;text-align:center;">
                         <td class="table-content">Internal Server Error</td>
                         <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -4619,11 +4595,8 @@
                         <tr style="height:8px;text-align:center;">
                             <td class="table-col">Error</td>
                             <td class="table-desc">Description</td>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthorized</td>
-                            <td class="table-content">If the user trying to unlike the news is not logged in.</td>
-
                         </tr>
+                      
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -4683,11 +4656,7 @@
                             <td class="table-col">Error</td>
                             <td class="table-desc">Description</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to fetch the language list does not have the required permissions.</td>
-
-                        </tr>
+                     
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -4824,11 +4793,7 @@
                         <td class="table-content">If the language list does not exist</td>
 
                     </tr>
-                    <tr style="height:8px;text-align:center;">
-                        <td class="table-content">Unauthenticated</td>
-                        <td class="table-content">If the user trying to fetch the language list does not have the required permissions.</td>
-
-                    </tr>
+                   
                     <tr style="height:8px;text-align:center;">
                         <td class="table-content">Internal Server Error</td>
                         <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -5031,11 +4996,7 @@
                             <td class="table-col">Error</td>
                             <td class="table-desc">Description</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to fetch the languages does not have the required permissions.</td>
-
-                        </tr>
+                     
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -5177,11 +5138,7 @@
                         <td class="table-content">If the language does not exist</td>
 
                     </tr>
-                    <tr style="height:8px;text-align:center;">
-                        <td class="table-content">Unauthenticated</td>
-                        <td class="table-content">If the user trying to fetch the language does not have the required permissions.</td>
-
-                    </tr>
+                 
                     <tr style="height:8px;text-align:center;">
                         <td class="table-content">Internal Server Error</td>
                         <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -5389,11 +5346,7 @@
                             <td class="table-col">Error</td>
                             <td class="table-desc">Description</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to fetch the informations does not have the required permissions.</td>
-
-                        </tr>
+                      
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -5530,11 +5483,7 @@
                         <td class="table-content">If the information does not exist</td>
 
                     </tr>
-                    <tr style="height:8px;text-align:center;">
-                        <td class="table-content">Unauthenticated</td>
-                        <td class="table-content">If the user trying to fetch the information does not have the required permissions.</td>
-
-                    </tr>
+                
                     <tr style="height:8px;text-align:center;">
                         <td class="table-content">Internal Server Error</td>
                         <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -5737,11 +5686,7 @@
                             <td class="table-col">Error</td>
                             <td class="table-desc">Description</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to fetch the images does not have the required permissions.</td>
-
-                        </tr>
+                 
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -5878,11 +5823,7 @@
                         <td class="table-content">If the image does not exist</td>
 
                     </tr>
-                    <tr style="height:8px;text-align:center;">
-                        <td class="table-content">Unauthenticated</td>
-                        <td class="table-content">If the user trying to fetch the image does not have the required permissions.</td>
-
-                    </tr>
+            
                     <tr style="height:8px;text-align:center;">
                         <td class="table-content">Internal Server Error</td>
                         <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -6086,11 +6027,7 @@
                             <td class="table-col">Error</td>
                             <td class="table-desc">Description</td>
                         </tr>
-                        <tr style="height:8px;text-align:center;">
-                            <td class="table-content">Unauthenticated</td>
-                            <td class="table-content">If the user trying to fetch the food items does not have the required permissions.</td>
-
-                        </tr>
+     
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
@@ -6183,6 +6120,236 @@
             </div>
        
     </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/foods/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which food to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the food with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen food's attributes and relationships. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the food does not exist</td>
+
+                    </tr>
+              
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/foods/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, describes what the food is.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, additional details regarding the food lie here.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$category</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, Foreign Key, refers to the food category in the food_category table.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$price</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, displays the cost of the food.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$is_served</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Optional, specifies whether the food is served in the menu or not.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the image with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen image along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the image does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the image does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/images/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which image to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete an image from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the image does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the image does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
 
 
 
