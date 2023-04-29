@@ -37,6 +37,9 @@ export class AnnouncementDatabaseComponent {
     data_type: 'announcement',
 
     default_state: {
+
+      author_id: '0',
+      concerned_tier: '0',
       label: '',
       body: ''
     },

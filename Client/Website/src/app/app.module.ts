@@ -39,6 +39,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { ChatsPageModule } from './pages/chat/admin/chat.module';
 import { ImageDatabaseModule } from './pages/admin/image-database/image-database.module';
+import { BrowsingDialogModule } from './services/dialogs/browsing/browsing.module';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { ImageDatabaseModule } from './pages/admin/image-database/image-database
     // Potential
     ConfirmationDialogModule,
     BrowserAnimationsModule,
+    BrowsingDialogModule,
 
     AnnouncementDatabaseModule,
     BookingDatabaseModule,

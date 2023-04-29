@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\AnnouncementsResource;
+use App\Http\Resources\UserResource;
 use App\Models\Announcements;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AnnouncementsController extends Controller
@@ -14,6 +16,8 @@ class AnnouncementsController extends Controller
 
         'label' => 'required|string|max:64',
         'body' => 'string|max:255',
+        'concerned_tier' => 'required|numeric',
+        'author_id' => 'required|numeric'
 
     ];
 
@@ -22,7 +26,12 @@ class AnnouncementsController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource);
+
+        $announcements = Announcements::all();
+
+        $users = UserResource::collection(User::all()->whereIn('id', $announcements->pluck('author_id')));
+
+        return generateResponse(200, AnnouncementsResource::collection($announcements), $users);
     }
 
     /**
@@ -47,7 +56,7 @@ class AnnouncementsController extends Controller
      */
     public function update(Request $request, string $announcements_id)
     {
-       
+
         return updateTemplate($request, $this->model, $announcements_id, $this->resource, $this->options);
     }
 

@@ -1,3 +1,4 @@
+import { BrowsingDialogService } from './../../../services/utility/browsing.service';
 
 import { UserDatabaseService } from './../../../services/providers/user-database.service';
 import { LanguageList } from './../../../models/LanguageList';
@@ -6,6 +7,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { extractAnyPermission, extractUser, extractUserId } from '../../database/database.component';
 import { Router } from '@angular/router';
+import { AnnouncementDatabaseService } from 'src/app/services/providers/announcement-database.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -16,7 +18,7 @@ export class NavBarComponent {
   @Input() transparent = false;
   @Input() hide_auth = false;
   languages: Map<string, LanguageList> = new Map();
-  constructor (private router: Router, private user_service: UserDatabaseService, private authentication_service: AuthenticationDialogService, private language_service: LanguageDatabaseService) { }
+  constructor (private announcement_service: AnnouncementDatabaseService, private browsing: BrowsingDialogService, private router: Router, private user_service: UserDatabaseService, private authentication_service: AuthenticationDialogService, private language_service: LanguageDatabaseService) { }
 
 
   ngOnInit() {
@@ -32,20 +34,30 @@ export class NavBarComponent {
 
     const user = extractUser();
     const id = extractUserId();
-    if(user && id) {
+    if (user && id) {
 
-      if(user.tier == '0') {
+      if (user.tier == '0') {
 
-        this.router.navigate(['guestchat/' + id])
+        this.router.navigate(['guestchat/' + id]);
 
       } else {
 
-        this.router.navigate(['adminchat'])
+        this.router.navigate(['adminchat']);
 
       }
 
 
     }
+
+
+  }
+
+  openNotifications() {
+
+    this.announcement_service.getAllAnnouncements().subscribe((result) => {
+
+      this.browsing.openDialog(Array.from(result.announcements.values()), result.users);
+    });
 
 
   }
