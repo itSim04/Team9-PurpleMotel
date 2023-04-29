@@ -6682,6 +6682,154 @@
 
             </div>
         </div>
+        <h1 style="text-align: center;">Facility Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/facilities</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all facilities will be fetched. If no size if provided, it will display all facilities starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many facilities to fetch starting at the given index. If none is provided, it will fetch "size" number of facilities starting at 0.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the facilities if not provided any parameters. If the index is provided, it returns all facilities starting at this index. If provided an index and size, it will return all facilities starting at this index, along with "size" facilities starting at this index.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the facilities.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the facilities along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/facilities</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$title</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Describes what the facility is.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, gives additional details about the facility.</td>
+                        </tr>
+                        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attribute of a facility and creates an instance of Facility in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Facility resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the facility does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
 
 
 
