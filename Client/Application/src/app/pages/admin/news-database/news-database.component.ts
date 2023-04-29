@@ -39,6 +39,7 @@ export class NewsDatabaseComponent {
 
   change_injection: ChangeInjection<News> = {
     default_state:{
+      image: '',
       title: '',
       is_liked: false,
       likes: [],
@@ -47,9 +48,9 @@ export class NewsDatabaseComponent {
       likes_number: 0
     },
 
-    side_panel: 'empty',
+    side_panel: 'image',
 
-    data_type: 'news',
+    data_type: 'News',
 
     fields:[
       {

@@ -5,7 +5,7 @@
 </div>
 
 <div class="image-bg">
-  <img src="../../../../assets/news-pics/news-sample-pic.png">
+  <img [src]="news.value.image" onerror="this.src='assets/placeholder.png'">
 </div>
 
 <div class="body">
@@ -16,7 +16,7 @@
   <tr>
     <td>
       <div class="button">
-        <ion-button (click)="openPopup()" expand="block" fill="outline" color="#14274A">{{"Explore" | translate}}</ion-button>
+        <ion-button (click)="open_modal.emit(news)" expand="block" fill="outline" color="#14274A">{{"Explore" | translate}}</ion-button>
       </div>
     </td>
 
