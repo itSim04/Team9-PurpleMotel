@@ -17,6 +17,10 @@ export interface ProfileModalData {
 
   
   };
+
+  hide_dates?: boolean;
+
+  custom_height?: string;
   stored_data?: unknown;
   show_num_input?: boolean;
 }

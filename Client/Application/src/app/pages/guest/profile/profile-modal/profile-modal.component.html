@@ -1,7 +1,7 @@
 <ion-fab-button (click)="closeModal.emit(true)" class="back-btn">
   <ion-icon name="arrow-back-outline"></ion-icon>
 </ion-fab-button>
-<div class="container">
+<div class="container" [style.height]="data!.custom_height || '70%'">
   <div style="text-align: center;">
 
     <ion-text class="title">{{data?.title}}</ion-text>
@@ -33,13 +33,13 @@
     </ng-container>
   </div>
   <br>
-  <div style="display: flex;">
+  <div style="display: flex;" *ngIf="!data!.hide_dates">
 
     <ion-text class="options">{{ 'Start Date' | translate }}</ion-text>
     <ion-text style="text-align: end;" class="options">{{ 'End Date' | translate }}</ion-text>
 
   </div>
-  <div style="display: flex;">
+  <div style="display: flex;" *ngIf="!data!.hide_dates">
 
     <ion-text class="date">{{formatDate(data?.start_date)}}</ion-text>
     <ion-text style="text-align: end;" class="date">{{formatDate(data?.end_date)}}</ion-text>

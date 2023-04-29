@@ -42,12 +42,8 @@ export class FacilitiesComponent {
       title: facility.title,
       body: facility.description,
       image: facility.image[0],
-      button: {
-
-        label: 'Close',
-        action: () => this.closeModal()
-
-      }
+      hide_dates: true,
+      custom_height: '50%'
     };
   }
 
@@ -88,6 +84,35 @@ export class FacilitiesComponent {
     return this.enterAnimation(baseEl).direction('reverse');
   };
 
+
+  getColor(seed: string) {
+
+    let num_seed = Number.parseInt(seed);
+    const currentRandom = Math.random;
+
+    // Initialize random number generator with given seed
+    Math.random = () => {
+      const x = Math.sin(num_seed++ * 0.389) * 10000;
+      return x - Math.floor(x);
+    };
+
+    // 60% chance of the first value being picked
+    const pickFirstValue = Math.random() < 0.6;
+
+    // Define three random string values
+    const value1 = '--ion-color-primary';
+    const value2 = '--ion-color-secondary';
+    const value3 = '--ion-color-tertiary';
+
+    // Assign values to an array based on probability
+    if (pickFirstValue) {
+      return value1;
+    } else if (Math.random() < 0.5) {
+      return value2;
+    } else {
+      return value3;
+    }
+  }
 
 
 }

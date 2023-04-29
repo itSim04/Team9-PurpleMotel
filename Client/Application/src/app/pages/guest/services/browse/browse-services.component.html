@@ -26,22 +26,21 @@
         </ion-segment-button>
 
     </ion-segment>
-    <ng-container *ngIf="selected == 'activities'">
+    <div style="margin-bottom: 100px;" *ngIf="selected == 'activities'">
 
         <div *ngFor="let activity of activities | keyvalue: activity_key; let i = index">
-            <app-activities [activity]="{ key: activity.key, value: activity.value }"
-                [title]="activity.value.title"></app-activities>
+
+            <app-activities [activity]="activity" [title]="activity.value.title"></app-activities>
 
         </div>
 
-    </ng-container>
-    <ng-container *ngIf="selected == 'facilities'">
+    </div>
+    <div style="margin-bottom: 100px;" *ngIf="selected == 'facilities'">
 
         <div *ngFor="let facility of facilities | keyvalue: facility_key; let i = index">
-            <app-facilities [facility]="facility"
-                [title]="facility.value.title"></app-facilities>
+            <app-facilities [facility]="facility" [title]="facility.value.title"></app-facilities>
 
         </div>
-    </ng-container>
+    </div>
 
 </ion-content>

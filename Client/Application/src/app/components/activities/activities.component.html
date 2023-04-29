@@ -1,25 +1,34 @@
 <div>
 
 
-  <table>
+  <table style="table-layout: fixed;">
 
-    <tr>
-      <td colspan="2">
-        <h2 class="img-title">{{activity?.value?.title}}</h2>
-        <img class="main-img" src="../../../assets/services-pics/movie-night.png">
-      </td>
+    <div [style.background]="'var(' + getColor(activity?.key || '0') + ')'" class="image-bg" *ngIf="(activity?.value?.image?.length || 0) < 3">
+      <img class="image" [src]="activity?.value?.image?.at(0)"
+        onerror="this.src='assets/placeholder.png'">
+    </div>
+    <ng-container *ngIf="(activity?.value?.image?.length || 0) >= 3">
 
-    </tr>
+      <tr>
+        <td colspan="2">
+          <h2 class="img-title">{{activity?.value?.title}}</h2>
 
-    <tr>
-      <td>
-        <img class="sub-imgs" src="../../../assets/services-pics/movie-night.png">
-      </td>
+          <img class="main-img" [src]="activity?.value?.image?.at(0)"
+            onerror="this.src='assets/placeholder.png'">
+        </td>
 
-      <td>
-        <img class="sub-imgs" src="../../../assets/services-pics/movie-night.png">
-      </td>
-    </tr>
+      </tr>
+
+      <tr>
+        <td>
+          <img class="sub-imgs" [src]="activity?.value?.image?.at(1)">
+        </td>
+
+        <td>
+          <img class="sub-imgs" [src]="activity?.value?.image?.at(2)">
+        </td>
+      </tr>
+    </ng-container>
 
     <ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation"
       [leaveAnimation]="leaveAnimation" class="modal" [isOpen]="isModalOpen">
