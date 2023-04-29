@@ -1,8 +1,8 @@
+import { AuthenticationService } from './../../../services/utility/authentication.service';
 import { ToastController } from '@ionic/angular';
 import { Component } from '@angular/core';
 import { genders, parseDate, validateEmail, validatePassword } from '../authentication.utility';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/utility/authentication.service';
 
 
 @Component({

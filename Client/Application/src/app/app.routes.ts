@@ -1,6 +1,6 @@
-import { VerifyComponent } from './../../../Website/src/app/services/dialogs/authentication/verify/verify.component';
+import { AuthGuard } from './guards/auth.guard';
 import { TabsPage } from './tabs/tabs.page';
-import { Routes } from '@angular/router';
+import { Routes, CanActivate } from '@angular/router';
 import { LoginComponent } from './pages/authentication/login/login.component';
 import { RegisterComponent } from './pages/authentication/register/register.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
@@ -30,6 +30,7 @@ import { ProfileComponent } from './pages/guest/profile/profile.component';
 import { ChatListComponent } from './chat/chat-list/chat.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
+import { VerifyComponent } from './pages/authentication/verify/verify.component';
 
 
 
@@ -53,12 +54,14 @@ export const routes: Routes = [
       },
       {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [AuthGuard]
 
       },
       {
         path: 'register',
-        component: RegisterComponent
+        component: RegisterComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'verify',
