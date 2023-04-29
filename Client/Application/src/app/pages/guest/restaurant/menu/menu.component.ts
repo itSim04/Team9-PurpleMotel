@@ -165,6 +165,7 @@ export class MenuComponent implements OnInit {
     if (this.order) {
 
       this.order_service.addNewOrder(this.order).subscribe({
+        
         next: data => {
 
           localStorage.removeItem('cart');

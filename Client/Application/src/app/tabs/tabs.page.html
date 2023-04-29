@@ -1,10 +1,9 @@
 <ion-content>
   <ion-router-outlet></ion-router-outlet>
 
-  <ion-menu style="vertical-align: top;" contentId="main-content">
+  <ion-menu style="vertical-align: top" contentId="main-content">
     <ion-menu-toggle>
       <ion-fab-button translucent="false" class="burger-btn">
-
 
         <img width="80%" src="../../assets/tabs/menu-btn.png">
 
@@ -77,16 +76,18 @@
     </div>
   </ion-menu>
 
-  <div *ngIf="!isActive('/chat/admin/')" style="position: fixed;height: 10% !important;"
+  <div *ngIf="!isActive('/chat/admin/')" style="position: fixed;height: 8%; width: 20%;"
     id="main-content">
 
-    <ion-menu-toggle>
+    <ion-menu-toggle style="width: 20%; display: block;">
       <ion-fab-button translucent="false" class="burger-btn">
 
         <!-- <div style="position: relative;"> -->
 
-          <img style="position: fixed; top: 15x; left: 16px;" width="80%" src="../../assets/tabs/menu-btn-inactive.png">
-          <img style="position: fixed; top: 16px; left: 16px" width="80%" src="../../assets/tabs/menu-btn.png">
+        <img style="position: fixed; top: 15x; left: 16px;" width="80%"
+          src="../../assets/tabs/menu-btn-inactive.png">
+        <img style="position: fixed; top: 16px; left: 16px" width="80%"
+          src="../../assets/tabs/menu-btn.png">
 
         <!-- </div> -->
 

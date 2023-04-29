@@ -18,6 +18,49 @@
 
 }
 
+.back-btn {
+
+    position: fixed;
+    margin: 16px;
+    --background: transparent;
+    --color: var(--ion-color-light);
+    --box-shadow: none;
+    --background-activated-opacity: 0;
+    --background-focused-opacity: 0;
+
+}
+.back-btn-2 {
+
+    margin: 16px;
+    --background: transparent;
+    --color: var(--ion-color-dark);
+    --box-shadow: none;
+    --background-activated-opacity: 0;
+    --background-focused-opacity: 0;
+
+}
+
+.date-container {
+
+    width: 80%;
+    background-color: white;
+    // width: auto;
+    border-radius: 10px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+}
+
+.modal {
+
+    --background: transparent;
+    width: 100%;
+    height: 100%;
+
+}
+
 
 .labels {
 
