@@ -1,0 +1,30 @@
+$primary-color: #14274A;
+
+.block {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ion-modal {
+    --height: auto;
+}
+
+.header {
+    font-family: 'Asap';
+    font-size: 200%;
+    text-transform: uppercase;
+    border-bottom: #14274A 1px;
+}
+
+.header-2 {
+
+    font-family: 'Abhaya Libre';
+    font-size: 30px;
+    margin: 0px;
+    border-bottom: 1px solid #930000;
+    width: 80%;
+
+}

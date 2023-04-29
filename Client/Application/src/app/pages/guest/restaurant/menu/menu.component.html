@@ -1,0 +1,34 @@
+<ion-header collapse="fade">
+    <ion-toolbar>
+
+        <ion-item>
+            <ion-title class="header">menu</ion-title>
+        </ion-item>
+
+
+        <table style="table-layout: fixed; width: 100%;">
+            <tr>
+                <td style="height:16%; width:16%" *ngFor="let category of food_categories | keyvalue" (click)="scroll(category.value.label)" class="wrap" style="overflow-x: auto;">
+                    <div class="content">
+                        <ion-button style="width: 95%; color:#930000; font-style: Asap;" expand="block" fill="outline"color="#930000">{{ category.value.label | translate }}</ion-button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+    <div *ngFor="let category of food_categories | keyvalue">
+        <p [attr.id]="category.value.label" class="header-2">{{category.value.label}}</p>
+        <ng-container *ngFor="let food of foods | keyvalue">
+            <div *ngIf="food.value.category == category.key">
+                <app-food-list-item [quantity]="getQuantity(food.key)" [food]="food"></app-food-list-item>
+            </div>
+        </ng-container>
+    </div>
+
+</ion-content>

@@ -28,6 +28,7 @@ import { RestaurantLandingComponent } from './pages/guest/restaurant/landing/lan
 import { ProfileComponent } from './pages/guest/profile/profile.component';
 import { ChatListComponent } from './chat/chat-list/chat.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 
 
 
@@ -112,8 +113,10 @@ export const routes: Routes = [
           },
           {
 
-            // path: 'menu',
-            // component: 
+            path: 'menu',
+            component: MenuComponent
+          },
+          {
             path: 'landing',
             component: RestaurantLandingComponent
 
