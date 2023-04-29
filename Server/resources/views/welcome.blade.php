@@ -183,7 +183,7 @@
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">$singular</td>
                             <td class="table-content">bool</td>
-                            <td class="table-content">Specifies if the function should return a single resource or a collection of resources.</td>
+                            <td class="table-content">Specifies if the function should return a single resource or a collection of resources. Returns a single resource by default.</td>
                         </tr>
 
 
@@ -295,6 +295,100 @@
                         </tr>
                         <tr style="height:8px;text-align:center;">
                             <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/rooms/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$request</td>
+                            <td class="table-content">Request</td>
+                            <td class="table-content">Used to validate the attributes passed to it and to fetch needed attributes.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$model</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Specifies the type of model passed to the function. Will be used to look for the existing model with the provided id.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$resource</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Specifies the type of resource passed to the function. Will be used to create an instance of this resource containing the updated data.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$options</td>
+                            <td class="table-content">array</td>
+                            <td class="table-content">Holds the new room attributes that will replace the old ones.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$model_table</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Null by default.Specifies the table where the model is located. This will be used to modify</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$singular</td>
+                            <td class="table-content">bool</td>
+                            <td class="table-content">Specifies if the function should return a single resource or a collection of resources.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for and display the room with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen room along with its modified attributes and relationships. The relationships section contains the room_type which is related to room as it holds the price and capacity of the room. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the room does not exist</td>
+                           
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
                             <td class="table-content">If the connection is lost or if the server crashes.</td>
                         </tr>
 
