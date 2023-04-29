@@ -1,0 +1,14 @@
+<ion-img style="position: fixed;" src="../../../../assets/register/header-1.png"></ion-img>
+<div class="labels">
+
+
+    <ion-text class="title">Verify Email</ion-text>
+    <ion-input [(ngModel)]="email" placeholder="Email" class="input"></ion-input>
+    <ion-button (click)="send()" class="register">Next</ion-button>
+    <ion-text class="login" (click)="logout()">Logout</ion-text>
+    <ion-input [(ngModel)]="verification" class="input">
+        <ion-label position="hover">{{'Verification' | translate}}</ion-label>
+    </ion-input>
+    <ion-button class="register" (click)="verify()">Sign
+        up</ion-button>
+</div>

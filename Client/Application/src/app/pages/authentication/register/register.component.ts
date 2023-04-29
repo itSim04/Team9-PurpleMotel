@@ -152,7 +152,7 @@ export class RegisterComponent {
 
         next: result => {
 
-          this.router.navigate(['/home']);
+          this.router.navigate(['/auth/verify']);
 
         }, error: error => {
 

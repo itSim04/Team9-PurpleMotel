@@ -1,3 +1,4 @@
+import { VerifyComponent } from './../../../Website/src/app/services/dialogs/authentication/verify/verify.component';
 import { TabsPage } from './tabs/tabs.page';
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/authentication/login/login.component';
@@ -58,7 +59,11 @@ export const routes: Routes = [
       {
         path: 'register',
         component: RegisterComponent
-      }
+      },
+      {
+        path: 'verify',
+        component: VerifyComponent
+      },
 
 
     ]
@@ -158,10 +163,10 @@ export const routes: Routes = [
         canActivate: [AdminGuard],
         children: [
           {
-    
+
             path: "",
             component: AdminDashboardComponent,
-    
+
           },
           {
             path: "announcement-database",
@@ -202,7 +207,7 @@ export const routes: Routes = [
           {
             path: "stock-database",
             component: StockDatabaseComponent,
-    
+
           },
           {
             path: "user-database",
@@ -212,11 +217,11 @@ export const routes: Routes = [
             path: "service-database",
             component: ServiceDatabaseComponent,
           },
-    
-    
+
+
         ]
       },
-     
+
 
     ]
   },
@@ -226,7 +231,7 @@ export const routes: Routes = [
   //   component: ProfileComponent,
   // },
 
-  
+
 
 
 

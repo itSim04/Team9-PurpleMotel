@@ -1,3 +1,4 @@
+import { LanguageModule } from './../../services/language/language.module';
 
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +8,7 @@ import { NgModule } from "@angular/core";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { AuthenticationService } from 'src/app/services/utility/authentication.service';
+import { VerifyComponent } from './verify/verify.component';
 
 @NgModule({
   
@@ -14,12 +16,14 @@ import { AuthenticationService } from 'src/app/services/utility/authentication.s
     CommonModule,
     FormsModule,
     IonicModule.forRoot(),
-    RouterModule
+    RouterModule,
+    LanguageModule
   ],
   providers: [
     AuthenticationService,
   ],
   declarations: [
+    VerifyComponent,
     LoginComponent,
     RegisterComponent,
   ]
