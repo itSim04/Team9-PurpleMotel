@@ -1596,6 +1596,191 @@
 
             </div>
         </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/users</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$email</td>
+                            <td class="table-content">email</td>
+                            <td class="table-content">Refers to the user's email.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$password</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the user's password.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$first_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the user's first name.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$last_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the user's last name</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$phone</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the user's phone number.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$gender</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the user's gender.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$date_of_birth</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to when the user was born.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$tier</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Specifies the rank of the user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$type</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the user's type, for instance, if the user is a staff, which type of staff.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$language</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Specifies the preferred language of the user.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a user creates an instance of a user in the database using these attributes, along with a resource. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the user resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the user does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/users/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which user to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the user with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen user's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the user does not exist</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user trying to fetch the user does not have the required permissions.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
 
 
     </div>
