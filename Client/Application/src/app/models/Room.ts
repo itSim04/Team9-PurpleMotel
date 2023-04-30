@@ -14,6 +14,21 @@ export interface Review {
 
 }
 
+export interface IntelAttributes {
+
+  quiet: number,
+  smoke: number,
+  view: number,
+  wifi: number,
+  tv: number,
+  layout: number,
+  proximity: number,
+  bed: number,
+  bathroom: number;
+
+
+}
+
 export interface Room extends RoomAttributes {
   type: string, //A room can be many types; Single, Double, King...
   reviews: Review[];

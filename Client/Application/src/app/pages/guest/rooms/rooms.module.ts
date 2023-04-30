@@ -1,3 +1,4 @@
+import { RecommendModalComponent } from './recommend/recommend.component';
 import { RoomItemModule } from './../../../components/room/room-item/room-item.module';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
@@ -16,7 +17,8 @@ import { QuickAvailabilityModalComponent } from './quick-availability/quick-avai
   declarations: [
     BrowseRoomsComponent,
     RoomModalComponent,
-    QuickAvailabilityModalComponent
+    QuickAvailabilityModalComponent,
+    RecommendModalComponent
 
   ],
   imports: [

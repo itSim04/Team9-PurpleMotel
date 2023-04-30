@@ -1,3 +1,4 @@
+import { IntelAttributes } from './../../../../models/Room';
 import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
 import { ViewChild } from '@angular/core';
 import { Booking } from 'src/app/models/Booking';
@@ -73,6 +74,15 @@ export class BrowseRoomsComponent implements OnInit {
 
     this.isQuickOpened = true;
     this.isModalOpened = false;
+    this.isRecommendOpened = false;
+  }
+  openRecommend() {
+
+    this.active_data = undefined;
+
+    this.isQuickOpened = false;
+    this.isModalOpened = false;
+    this.isRecommendOpened = true;
   }
 
 
@@ -115,6 +125,46 @@ export class BrowseRoomsComponent implements OnInit {
     }
 
   }
+  closeRecommend($event: { intel: IntelAttributes, check_in: string, check_out: string, adults: number, children: number; }) {
+
+
+    if ($event) {
+
+      this.rooms_service.recommendRoom(
+        $event.intel,
+        $event.check_in,
+        $event.check_out,
+        $event.adults,
+        $event.children
+      ).subscribe({
+
+        next: data => {
+
+          this.isRecommendOpened = false;
+
+          this.filtered = true;
+
+          this.filtered_rooms = Array.from(data.rooms);
+
+          data.rooms.forEach((value, key) => this.rooms.set(key, value));
+          data.room_types.forEach((value, key) => this.room_types.set(key, value));
+          data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
+
+        },
+        error: error => {
+
+
+          console.error(error);
+
+        }
+      });
+
+
+
+
+    }
+
+  }
 
   rooms: Map<string, Room> = new Map();
   room_types: Map<string, RoomType> = new Map();
@@ -131,9 +181,10 @@ export class BrowseRoomsComponent implements OnInit {
 
   isModalOpened = false;
   isQuickOpened = false;
+  isRecommendOpened = false;
   active_data?: KeyValue<string, Room>;
 
-  constructor(private rooms_service: RoomDatabaseService, private router: Router, private url: UrlBuilderService, private booking_service: BookingDatabaseService) { }
+  constructor (private rooms_service: RoomDatabaseService, private router: Router, private url: UrlBuilderService, private booking_service: BookingDatabaseService) { }
   @ViewChild(IonInfiniteScroll) scroller!: IonInfiniteScroll;
 
 

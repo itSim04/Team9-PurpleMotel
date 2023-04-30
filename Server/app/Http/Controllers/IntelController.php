@@ -7,6 +7,7 @@ use App\Http\Resources\PromoCodeResource;
 use App\Http\Resources\ReviewResource;
 use App\Http\Resources\RoomTypeResource;
 use App\Models\AppliedPromoCodes;
+use App\Models\Booking;
 use App\Models\EffectPromoCodes;
 use App\Models\Intel;
 use App\Http\Requests\StoreIntelRequest;
@@ -99,7 +100,63 @@ class IntelController extends Controller
 
         $rooms = Room::with('intels')->get();
 
-        $types = $rooms->pluck('type')->toArray();
+        if (isset($request->check_in) && isset($request->check_out)) {
+
+            $start_date = strtotime($request->check_in);
+            $end_date = strtotime($request->check_out);
+
+            $bookings = Booking::all();
+            $conflictingBooking = [];
+            foreach ($bookings as $booking) {
+
+                $current_check_in = strtotime($booking->check_in);
+                $current_end_date = strtotime($booking->end_date);
+
+
+                if (!($end_date < $current_check_in || $start_date > $current_end_date)) {
+
+                    $conflictingBooking[] = $booking->room_id;
+                }
+            }
+
+            if (isset($request->index) && isset($request->size)) {
+
+                $rooms = $rooms->whereNotIn('id', $conflictingBooking)->skip($request->index)->take($request->size);
+            } else {
+
+                $rooms = $rooms->whereNotIn('id', $conflictingBooking);
+            }
+        } else {
+
+            $rooms = Room::all();
+        }
+
+        $types = $rooms->pluck('type');
+
+        $room_type = RoomType::all()
+            ->whereIn('id', $types);
+
+        if ($request->adults_capacity) {
+
+
+            $room_type = $room_type->where('adults_capacity', $request->adults_capacity);
+        }
+        if ($request->kids_capacity) {
+
+
+            $room_type = $room_type
+                ->merge($room_type->where('adults_capacity', $request->adults_capacity)
+                    ->where('kids_capacity', $request->kids_capacity));
+        }
+
+
+
+
+
+        $types = $room_type->pluck('id');
+        $rooms = $rooms->whereIn('type', $types);
+        $types = $types->toArray();
+
         $ids = $rooms->pluck('id')->toArray();
 
 

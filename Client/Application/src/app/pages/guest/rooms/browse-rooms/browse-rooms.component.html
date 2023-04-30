@@ -42,6 +42,13 @@
       <app-quick-availability (closeModal)="closeQuick($event)"></app-quick-availability>
     </ng-template>
   </ion-modal>
+  <ion-modal [isOpen]="isRecommendOpened" class="modal">
+
+
+    <ng-template>
+      <app-recommend (closeModal)="closeRecommend($event)"></app-recommend>
+    </ng-template>
+  </ion-modal>
 
   <ion-infinite-scroll #scroll (ionInfinite)="ngOnInit()">
     <ion-infinite-scroll-content loadingText="Please wait..."
