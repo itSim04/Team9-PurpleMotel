@@ -8,9 +8,10 @@
 
 .header-1 {
 
-    position: fixed;
+    position: absolute;
     top: 3%;
     width: 8%;
+    margin-top: 8px;
 
 }
 
@@ -30,6 +31,7 @@
     line-height: 48px;
     width: 60%;
     margin-bottom: 16px;
+    margin-top: 24px;
 
     color: var(--ion-color-dark);
 }

@@ -1,5 +1,6 @@
-<ion-content style="--background: var(--ion-color-light)">
-    <ion-img style="position: fixed;" [style.backgroundImage]="'url(' + register_bg + ')'"></ion-img>
+<ion-content style="--background: var(--ion-color-light)"> 
+    
+    <ion-img style="position: absolute;" [src]="register_bg" onerror="this.src='assets/placeholder.png'"></ion-img>
     <div class="labels">
 
         <ng-container *ngIf="!final_page">

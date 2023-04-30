@@ -15,7 +15,7 @@
     <!-- Password -->
     <mat-form-field class="full-width input">
         <mat-label class="label">{{'password'|translate}}</mat-label>
-        <input [(ngModel)]="password" matInput>
+        <input [(ngModel)]="password" type="password" matInput>
         <div class="number-error" *ngIf="!validated_credentials">
             {{'invalid_credentials'|translate}} </div>
         <div class="number-error" *ngIf="connection_error">
