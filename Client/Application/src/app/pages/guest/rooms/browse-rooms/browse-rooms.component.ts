@@ -1,9 +1,10 @@
+import { ViewChild } from '@angular/core';
 import { Booking } from 'src/app/models/Booking';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, KeyValue } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonInfiniteScroll } from '@ionic/angular';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { RawRoomsPackage, Room } from 'src/app/models/Room';
 import { Subscription } from 'rxjs';
@@ -33,6 +34,7 @@ export class BrowseRoomsComponent implements OnInit {
 
     this.active_data = undefined;
 
+    this.isQuickOpened = false;
     this.isModalOpened = true;
 
     const room_type = this.room_types.get(room[1].type)!;
@@ -63,6 +65,30 @@ export class BrowseRoomsComponent implements OnInit {
 
   }
   room_bg = this.url.getImage('room-main');
+
+  openQuick() {
+
+    this.active_data = undefined;
+
+    this.isQuickOpened = true;
+    this.isModalOpened = false;
+  }
+
+
+  closeQuick($event: any) {
+
+    this.isModalOpened = false;
+
+    this.active_data = undefined;
+
+    if ($event) {
+
+
+
+    }
+
+  }
+
   rooms: Map<string, Room> = new Map();
   room_types: Map<string, RoomType> = new Map();
   promo_codes: Map<string, PromoCode> = new Map();
@@ -72,14 +98,17 @@ export class BrowseRoomsComponent implements OnInit {
   filtered = false;
 
   current_page: number = 0;
-  page_size: number = 10;
+  page_size: number = 8;
 
   page = 0;
 
   isModalOpened = false;
+  isQuickOpened = false;
   active_data?: KeyValue<string, Room>;
 
-  constructor (private rooms_service: RoomDatabaseService, private router: Router, private url: UrlBuilderService) { }
+  constructor(private rooms_service: RoomDatabaseService, private router: Router, private url: UrlBuilderService) { }
+  @ViewChild(IonInfiniteScroll) scroller!: IonInfiniteScroll;
+
 
 
   get data() {
@@ -88,27 +117,28 @@ export class BrowseRoomsComponent implements OnInit {
 
   }
 
-  // ngOnInit() {
-  //   this.subscription = this.rooms_service.getAllRooms().subscribe(data => {
-  //     this.rooms = data.rooms;
-  //     console.log(this.rooms);
-  //     this.filtered_rooms = Array.from(this.rooms);
-  //   });
-
-  // }
-
-  ngOnInit(): void {
+  download() {
 
     this.subscription = this.rooms_service.getPaginatedRooms(this.current_page, this.page_size).subscribe(data => {
       data.rooms.forEach((value, key) => this.rooms.set(key, value));
       data.room_types.forEach((value, key) => this.room_types.set(key, value));
       data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
 
+
       Array.from(data.rooms).forEach((value) => this.filtered_rooms.push(value));
 
-      console.log(this.filtered_rooms);
-      this.current_page += this.page_size;
+      this.current_page += data.rooms.size;
+      if (data.rooms.size)
+        this.scroller.complete();
     });
+
+  }
+
+  ngOnInit(): void {
+
+    console.log('Loading rooms...');
+    this.download();
+
 
   }
 
@@ -127,16 +157,20 @@ export class BrowseRoomsComponent implements OnInit {
   getEffect(room_id: string, type: string) {
 
 
-    for (let code of this.promo_codes.values()) {
+    for (let code of this.promo_codes.entries()) {
 
 
-      if (code.concerned_everything || code.concerned_rooms.includes(room_id) || code.concerned_room_types.includes(type))
-        return code.change;
+      if (code[1].concerned_everything || code[1].concerned_rooms.includes(room_id) || code[1].concerned_room_types.includes(type))
+        return {
+
+          key: code[0],
+          value: code[1]
+        };
 
 
 
     }
-    return 0;
+    return undefined;
 
 
 

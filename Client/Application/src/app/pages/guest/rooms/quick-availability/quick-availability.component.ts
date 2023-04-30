@@ -11,29 +11,13 @@ import { Room } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
-export interface ProfileModalData {
-
-  title?: string;
-  body?: string;
-  price?: number;
-  start_date?: string;
-  end_date?: string;
-  image?: string;
-  button: {
-
-    label: string;
-    action: () => void;
-
-  };
-
-}
 
 @Component({
-  selector: 'app-room-modal',
-  templateUrl: './room-modal.component.html',
-  styleUrls: ['./room-modal.component.scss'],
+  selector: 'app-quick-availability',
+  templateUrl: './quick-availability.component.html',
+  styleUrls: ['./quick-availability.component.scss'],
 })
-export class RoomModalComponent {
+export class QuickAvailabilityModalComponent {
 
   @Input() @Required room?: KeyValue<string, Room>;
   @Input() @Required room_type?: KeyValue<string, RoomType>;

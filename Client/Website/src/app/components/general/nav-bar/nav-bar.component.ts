@@ -78,6 +78,7 @@ export class NavBarComponent {
     }
 
   }
+  
   extractAnyPermission() {
 
     return extractAnyPermission();

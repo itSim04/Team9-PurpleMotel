@@ -1,3 +1,4 @@
+import { extractUser } from 'src/app/components/database/database.component';
 import { AuthenticationService } from './../../../services/utility/authentication.service';
 import { ToastController } from '@ionic/angular';
 import { Component } from '@angular/core';
@@ -70,7 +71,17 @@ export class VerifyComponent {
 
       next: result => {
 
-        this.router.navigate(['/home']);
+        const user = extractUser();
+        if (user) {
+
+          user.email_verified_at = new Date().toISOString();
+          localStorage.setItem('user', JSON.stringify(user));
+          setTimeout(() => {
+
+
+            this.router.navigate(['/home']);
+          }, 250);
+        }
 
       }, error: error => {
 

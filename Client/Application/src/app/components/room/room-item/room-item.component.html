@@ -30,6 +30,7 @@
 
 <div class="image-bg">
   <img [src]="room?.value?.images?.at(0)" onerror="this.src='assets/placeholder.png'">
+  <ion-button (click)="open_modal.emit()" fill="clear" class="explore">Explore</ion-button>
 </div>
 
 <!-- <div class="body">
@@ -37,19 +38,23 @@
 </div> -->
 
 
-
 <table align="center" style="padding-top: 5%;">
   <tr>
-    <td style="padding-right: 100px;">
-      <div class="button">
-        <ion-button (click)="open_modal.emit()" expand="block" fill="outline" style="--color: white" color="primary">Explore</ion-button>
+    <td style="padding-right: 30px;">
+      <div class="price">
+        USD
+        <div style="display: inline;" [style.textDecoration]="promo ? 'line-through' : 
+                    'none'">{{formatPrice}}</div>
+        <div *ngIf="promo" style="display: inline;"> {{formatNewPrice}}</div>
+
       </div>
     </td>
 
     <td></td>
-    <td style="padding-left: 100px;">
-      <div class="price">
-        {{formatPrice}}
+    <td style="padding-left: 30px;">
+      <div class="rating">
+        <ion-rating-stars [filledColor]="'var(' + '--ion-color-primary' + ')'"
+          [rating]="room?.value?.rating || 0" [disabled]="true"></ion-rating-stars>
       </div>
     </td>
   </tr>

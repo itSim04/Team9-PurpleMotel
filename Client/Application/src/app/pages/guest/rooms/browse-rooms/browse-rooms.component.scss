@@ -6,6 +6,19 @@
     position: relative;
 }
 
+.options {
+
+    --font-family: 'Roboto';
+    --background: var(--ion-color-primary);
+    --border-radius: 50px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+
+    margin: 0px 12px;
+    width: 50%
+}
+
 .title {
 
     font-family: 'Asap';

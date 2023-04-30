@@ -1,4 +1,4 @@
-import { IngredientAttributes } from './../../models/Ingredient';
+import { IngredientAttributes } from '../../models/Ingredient';
 import { PromoCode, PromoCodeAttributes } from 'src/app/models/PromoCode';
 import { ComponentType } from "@angular/cdk/portal";
 import { HttpClient } from "@angular/common/http";
@@ -18,7 +18,7 @@ import { Stock } from "src/app/models/Stock";
 import { ProfilePackage, ProfileResponse } from "src/app/models/User";
 import { ChangePasswordComponent } from "src/app/pages/guest/profile/change-password/change-password.component";
 import { EditProfileComponent } from "src/app/pages/guest/profile/edit-profile/edit-profile.component";
-import { UserDatabaseService } from "../providers/user-database.service";
+import { UserDatabaseService } from "./user-database.service";
 import { UrlBuilderService } from '../utility/url-builder.service';
 
 @Injectable({
