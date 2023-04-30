@@ -1,7 +1,7 @@
 $primary-color: var(--ion-color-primary);
 
 .parent {
-    color: $primary-color;
+    color: var(--ion-color-dark);
     display: block;
     font-family: 'Abhaya Libre';
     font-style: normal;
@@ -68,9 +68,10 @@ hr {
 .likes-nbr{
     //transform: translateX(-10%);
     word-wrap: break-word;
+    color: var(--ion-color-dark);
     max-width: 60px;
 }
 
 // table, tr, td {
-//     border: 1px solid black;
+//     border: 1px solid var(--ion-color-dark);
 // }

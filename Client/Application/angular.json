@@ -37,8 +37,11 @@
               }
             ],
             "styles": [
+              "src/theme/themes.scss",
+              "src/global.scss",
+              "src/theme/theme-dark.scss",
               "src/theme/variables.scss",
-              "src/global.scss"
+              "src/theme/variables-dark.scss"
             ],
             "scripts": []
           },

@@ -1,4 +1,4 @@
-$primary-color: #14274A;
+$primary-color: var(--ion-color-primary);
 
 .parent {
     color: $primary-color;

@@ -33,6 +33,7 @@ if (!Map.prototype.getPair) {
 export class AppComponent {
   title = 'Application';
 
+
   constructor (information_service: InformationDatabaseService) {
 
     information_service.getTerms().subscribe(data => {
@@ -42,5 +43,7 @@ export class AppComponent {
     });
 
   }
+
+  
 
 }

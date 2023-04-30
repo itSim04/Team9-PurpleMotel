@@ -1,5 +1,5 @@
 import { KeyValue } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule, Platform } from '@ionic/angular';
 import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } from '@capacitor/push-notifications';
 import * as firebase from 'firebase/app';
@@ -37,11 +37,18 @@ if (!Map.prototype.getPair) {
 })
 
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   constructor (private platform: Platform) {
     this.initialize();
   }
+
+  ngOnInit() {
+
+    this.syncTheme();
+
+  }
+
 
 
   initialize() {
@@ -51,7 +58,7 @@ export class AppComponent {
         // Register for push notifications
 
         provideFirebaseApp(() => initializeApp(environment.firebase)),
-        PushNotifications.register();
+          PushNotifications.register();
 
         // Listen for push notification events
         PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
@@ -75,7 +82,7 @@ export class AppComponent {
         PushNotifications.register();
       }
     });
-    
+
     PushNotifications.addListener('registration', (token: Token) => {
       console.log('FCM Token:', token.value);
     });
@@ -94,6 +101,47 @@ export class AppComponent {
 
   }
 
+  syncTheme() {
+
+
+    document.body.classList.remove('auto');
+    document.body.classList.remove('dark');
+    document.body.classList.remove('light');
+
+    const theme = localStorage.getItem('theme') || '';
+
+    switch (theme) {
+
+      case 'light':
+        document.body.classList.add('light');
+        break;
+      case 'dark':
+
+        document.body.classList.add('dark');
+        break;
+      case 'system':
+      default:
+
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+        console.log(prefersDark);
+
+        if (prefersDark.matches) {
+
+          document.body.classList.add('dark');
+        } else {
+
+          document.body.classList.remove('light');
+        }
+    }
+
+    setTimeout(() => {
+
+      this.syncTheme();
+
+    }, 10000);
+
+  }
 }
 
 

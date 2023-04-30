@@ -31,7 +31,7 @@
     border-radius: 20px;
     font-family: 'Inter';
     font-style: normal;
-    color: white;
+    color: var(--ion-color-light);
     font-size: 18px;
     line-height: 22px;
     width: calc(100% - 80px);
@@ -39,7 +39,7 @@
 
 .send-area::placeholder {
 
-    color: white;
+    color: var(--ion-color-light);
 
 }
 
@@ -58,7 +58,7 @@
     background: transparent;
     font-family: 'Inter';
     font-style: normal;
-    color: white;
+    color: var(--ion-color-light);
     font-size: 18px;
     line-height: 22px;
 
@@ -72,7 +72,7 @@
     background: #636363C4;
     font-family: 'Inter';
     font-style: normal;
-    color: white;
+    color: var(--ion-color-light);
     padding: 8px;
     text-align: left;
     font-size: 14px;
@@ -88,7 +88,7 @@
     background: #D6B389CC;
     font-family: 'Inter';
     font-style: normal;
-    color: white;
+    color: var(--ion-color-light);
     padding: 8px;
     font-size: 14px;
 
@@ -110,7 +110,7 @@
     width: fit-content;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     --color-hover: #DDDDDD;
-    --color-activated: white;
+    --color-activated: var(--ion-color-light);
     text-transform: none;
 
 

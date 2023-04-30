@@ -44,7 +44,7 @@
                         {{col.header_alt || formatWord(col.key.toString())}} </th>
                     <td [style.background]="mark(element[1])" class="cell" mat-cell
                         *matCellDef="let element" style="padding-left: 0px; padding-right: 32px;">
-                        <ion-rating-stars [size]="16" filledColor="'#14274A'" color="'#14274A'" [disabled]="true" [rating]="element[1][col.key]"></ion-rating-stars>
+                        <ion-rating-stars [size]="16" filledColor="'var(--ion-color-primary)'" color="'var(--ion-color-primary)'" [disabled]="true" [rating]="element[1][col.key]"></ion-rating-stars>
                     </td>
                 </ng-container>
             </ng-container>

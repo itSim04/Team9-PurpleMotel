@@ -15,7 +15,7 @@
     font-size: 24px;
     line-height: 25px;
     letter-spacing: 0.02em;
-    color: #14274A;
+    color: var(--ion-color-primary);
 
 }
 .title-3 {
@@ -35,7 +35,7 @@
     padding-bottom: 6px;
     padding-left: 16px;
     padding-right: 16px;
-    background: white;
+    background: var(--ion-color-light);
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 200;
@@ -47,7 +47,7 @@
     text-transform: uppercase;
     letter-spacing: 0.07em;
 
-    color: #14274A;
+    color: var(--ion-color-primary);
 
-    border: 1px solid #14274A;
+    border: 1px solid var(--ion-color-primary);
 }

@@ -1,20 +1,23 @@
 <ion-content>
   <ion-router-outlet></ion-router-outlet>
 
-  <ion-menu style="vertical-align: top" contentId="main-content">
+  <ion-menu style="--background: var(--ion-color-light); vertical-align: top" contentId="main-content">
     <ion-menu-toggle>
       <ion-fab-button translucent="false" class="burger-btn">
 
-        <img width="80%" src="../../assets/tabs/menu-btn.png">
+        <img style="position: fixed; top: 15x; left: 16px;" width="80%"
+          src="../../assets/tabs/menu-btn-inactive.png">
+        <img style="position: fixed; top: 16px; left: 16px" width="80%"
+          src="../../assets/tabs/menu-btn.png">
 
       </ion-fab-button>
     </ion-menu-toggle>
-    <ion-content>
+    <ion-content style="--background: var(--ion-color-light)">
       <div style="text-align:center;">
 
         <ion-text class="user-name">{{session_user.first_name + ' ' +
           session_user.last_name}}</ion-text>
-        <hr style="border-bottom:1px solid #14274A; width: 80%;">
+        <hr style="border-bottom:1px solid var(--ion-color-dark); width: 80%;">
       </div>
 
       <br>
@@ -58,7 +61,7 @@
     </ion-content>
     <div style="position: relative; bottom: 16px">
 
-      <hr style="border-bottom:1px solid #14274A; width: 85%;">
+      <hr style="border-bottom:1px solid var(--ion-color-dark); width: 85%;">
       <br>
       <ion-text class="bottom">
         {{'about_us' | translate}}
@@ -148,7 +151,7 @@
 
           <ion-button [routerLink]="['/restaurant']" fill="clear" class="tab" tab="restaurant">
             <div
-              [ngClass]="isActive('/restaurant') ? 'block-container-active2' : 'block-container-inactive'"
+              [ngClass]="isActive('/restaurant') ? 'block-container-active' : 'block-container-inactive'"
               class="block-container">
               <ion-img class="image"
                 [src]="isActive('/restaurant') ? '../../assets/tabs/restaurant-active.png' : '../../assets/tabs/restaurant.png'"></ion-img>

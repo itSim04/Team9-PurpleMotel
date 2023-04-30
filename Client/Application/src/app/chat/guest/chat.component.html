@@ -47,7 +47,7 @@
 
                                     <td *ngIf="(i == chat?.messages!.length - 1 || formatDate(chat?.messages![i + 1].date) != formatDate(c.date) || chat?.messages![i + 1].owner_id != c.owner_id)"
                                         class="col" [style.float]="c.owner_id == id ? 'right' : 'left'">
-                                        <p [style.color]="hovered_id == i ? 'white' : 'transparent'"
+                                        <p [style.color]="hovered_id == i ? 'var(--ion-color-light)' : 'transparent'"
                                             style="margin: 0px;" class="date">
                                             {{formatDate(c.date)}}
                                         </p>

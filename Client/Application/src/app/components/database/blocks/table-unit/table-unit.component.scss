@@ -4,7 +4,7 @@
     font-style: normal;
     font-size: 24px;
     letter-spacing: 0.02em;
-    color: #14274A;
+    color: var(--ion-color-primary);
     font-weight: 700;
     text-transform: uppercase;
     width: 100%;
@@ -28,7 +28,7 @@
 
     font-family: 'Roboto';
     font-style: normal;
-    color: white;
+    color: var(--ion-color-light);
 
     font-weight: 400;
     font-size: 16px;
@@ -40,8 +40,8 @@
 
     text-transform: uppercase;
 
-    background: #14274A;
-    border: 1px solid #14274A;
+    background: var(--ion-color-primary);
+    border: 1px solid var(--ion-color-primary);
 
 }
 

@@ -11,8 +11,8 @@ th {
 
     font-family: 'Roboto' !important;
     text-align: center;
-    background-color: #14274A !important;
-    color: white;
+    background-color: var(--ion-color-primary) !important;
+    color: var(--ion-color-light);
     font-weight: 400;
 
 }
@@ -21,14 +21,14 @@ th {
     font-family: 'Roboto' !important;
     text-align: center;
     // background-color: #14274A44 !important;
-    // color: white !important;
+    // color: var(--ion-color-light) !important;
     font-weight: 400;
 
 }
 
 .retry {
 
-    color: #14274A;
+    color: var(--ion-color-primary);
     display: inline;
     text-decoration: underline;
 

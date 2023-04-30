@@ -3,7 +3,7 @@
 
     background-image: url('../../../../../assets/rooms/rooms-bgd-1.png');
     background-size: cover;
-    background-color: #14274A55;
+    background-color: rgba(var(--ion-color-primary), 55);
     background-blend-mode: soft-light;
     height: 70%;
     position: relative;
@@ -17,7 +17,7 @@
     font-size: 34px;
     line-height: 39px;
     text-transform: uppercase;
-    color: white;
+    color: var(--ion-color-light);
     width: fit-content;
     position: absolute;
     left: 50%;
@@ -39,12 +39,12 @@
     text-align: center;
     font-family: 'Roboto';
     font-weight: 500;
-    color: black;
+    color: var(--ion-color-dark);
     
 }
 
 hr {
-    background-color: #14274a;
+    background-color: var(--ion-color-primary);
     width: 80%;
     margin-bottom: 4%;
 }

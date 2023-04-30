@@ -188,7 +188,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
 
       } else {
 
-        return 'white';
+        return 'var(--ion-color-light)';
 
       }
     }

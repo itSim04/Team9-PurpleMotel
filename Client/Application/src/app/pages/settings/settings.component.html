@@ -1,50 +1,76 @@
-<ion-content>
-  <ion-list lines="none" style="margin-top: 5vh;">
-    <ion-item style="display: flex; flex-direction: column;font-family: 'Roboto';">
-      <ion-icon name="color-palette" slot="start" style="font-size: 24px; color: #14274A;"></ion-icon>
+<ion-content style="--background: var(--ion-color-light)">
+  <br><br>
+  <ion-list lines="none" style="margin-top: 5vh; background-color: var(--ion-color-light)">
+    <ion-item
+      style="display: flex; flex-direction: column;font-family: 'Roboto'; --background: transparent">
+      <ion-icon name="color-palette" slot="start"
+        style="font-size: 24px; color: var(--ion-color-primary);"></ion-icon>
       <div>
-        <ion-text style="font-weight: 700; font-size: 18px;">Themes</ion-text>
-        <p style="font-size: 14px;color: rgba(23, 17, 17, 0.716);">Change the color and style of the app to your liking with different themes.</p>
+        <ion-text style="font-weight: 700; font-size: 18px; color: var(--ion-color-dark);">Themes</ion-text>
+        <p style="font-size: 14px;color: var(--ion-color-dark);">Change the color and style of the
+          app to your liking with different themes.</p>
+
+        <ion-item style="--background: transparent; --color: var(--ion-color-dark)">
+          <ion-label>Theme</ion-label>
+          <ion-select [value]="theme" style="color: var(--ion-color-dark);" id="themeSelect" placeholder="Select a theme"
+            (ionChange)="changeTheme($event)">
+            <ion-select-option style="--background: red;" value="light">Light</ion-select-option>
+            <ion-select-option value="dark">Dark</ion-select-option>
+            <ion-select-option value="system">System</ion-select-option>
+          </ion-select>
+        </ion-item>
+
       </div>
     </ion-item>
-    <hr style="border-bottom: 1px solid rgba(0, 0, 0, 0.605); width: 90%;">
+    <hr style="border-bottom: 1px solid var(--ion-color-dark); width: 90%;">
     <ion-item style="display: flex; flex-direction: column;font-family: 'Roboto';">
-      <ion-icon name="language" slot="start" style="font-size: 24px; color: #14274A;"></ion-icon>
+      <ion-icon name="language" slot="start" style="font-size: 24px; color: var(--ion-color-primary);"></ion-icon>
       <div>
-        <ion-text style="font-weight: 700; font-size: 18px;">Languages</ion-text>
-        <p style="font-size: 14px;color: rgba(23, 17, 17, 0.716);">Select your preferred language for the app's user interface and content.</p>
+        <ion-text style="font-weight: 700; font-size: 18px;; color: var(--ion-color-dark);">Languages</ion-text>
+        <p style="font-size: 14px;color: var(--ion-color-dark);">Select your preferred language
+          for the app's user interface and content.</p>
       </div>
     </ion-item>
-    <hr style="border-bottom: 1px solid rgba(0, 0, 0, 0.605); width: 90%;">
+    <hr style="border-bottom: 1px solid var(--ion-color-dark); width: 90%;">
     <ion-item style="display: flex; flex-direction: column;font-family: 'Roboto';">
-      <ion-icon name="notifications" slot="start" style="font-size: 24px; color: #14274A;"></ion-icon>
+      <ion-icon name="notifications" slot="start"
+        style="font-size: 24px; color: var(--ion-color-primary);"></ion-icon>
       <div>
-        <ion-text style="font-weight: 700; font-size: 18px;">Notifications</ion-text>
-        <p style="font-size: 14px;color: rgba(23, 17, 17, 0.716);">Manage your notification settings, including which types of notifications you receive.</p>
+        <ion-text style="font-weight: 700; font-size: 18px;; color: var(--ion-color-dark);">Notifications</ion-text>
+        <p style="font-size: 14px;color: var(--ion-color-dark);">Manage your notification
+          settings, including which types of notifications you receive.</p>
       </div>
     </ion-item>
-    <hr style="border-bottom: 1px solid rgba(0, 0, 0, 0.605); width: 90%;">
+    <hr style="border-bottom: 1px solid var(--ion-color-dark); width: 90%;">
     <ion-item style="display: flex; flex-direction: column;font-family: 'Roboto';">
-      <ion-icon name="pricetag" slot="start" style="font-size: 24px; color: #14274A;"></ion-icon>
+      <ion-icon name="pricetag" slot="start" style="font-size: 24px; color: var(--ion-color-primary);"></ion-icon>
       <div>
-        <ion-text style="font-weight: 700; font-size: 18px;">Promo Code</ion-text>
-        <p style="font-size: 14px;color: rgba(23, 17, 17, 0.716);">Enter a promotional code to receive discounts or other special offers.</p>
+        <ion-text style="font-weight: 700; font-size: 18px;; color: var(--ion-color-dark);">Promo Code</ion-text>
+        <p style="font-size: 14px;color: var(--ion-color-dark);">Enter a promotional code to
+          receive discounts or other special offers.</p>
       </div>
     </ion-item>
-    <hr style="border-bottom: 1px solid rgba(0, 0, 0, 0.605); width: 90%;">
+    <hr style="border-bottom: 1px solid var(--ion-color-dark); width: 90%;">
     <ion-item style="display: flex; flex-direction: column;font-family: 'Roboto';">
-      <ion-icon name="document-text" slot="start" style="font-size: 24px; color: #14274A;"></ion-icon>
+      <ion-icon name="document-text" slot="start"
+        style="font-size: 24px; color: var(--ion-color-primary);"></ion-icon>
       <div>
-        <ion-text style="font-weight: 700; font-size: 18px;">Terms of Service</ion-text>
-        <p style="font-size: 14px;color: rgba(23, 17, 17, 0.716);">View and agree to the app's terms of service and privacy policy.</p>
+        <ion-text style="font-weight: 700; font-size: 18px;; color: var(--ion-color-dark);">Terms of Service</ion-text>
+        <p style="font-size: 14px;color: var(--ion-color-dark);">View and agree to the app's terms
+          of service and privacy policy.</p>
       </div>
     </ion-item>
-    <hr style="border-bottom: 1px solid rgba(0, 0, 0, 0.605); width: 90%;">
+    <hr style="border-bottom: 1px solid var(--ion-color-dark); width: 90%;">
     <ion-item style="display: flex; flex-direction: row;font-family: 'Roboto';">
-      <ion-icon name="information-circle" slot="start" style="font-size: 24px; color: #14274A;"></ion-icon>
-      <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 10px;">
-        <ion-text style="font-weight: 700; font-size: 18px;">About</ion-text>
-        <p style="font-size: 14px;color: rgba(23, 17, 17, 0.716);">Learn more about the app, including version number and developer information.</p>
+      <ion-icon name="information-circle" slot="start"
+        style="font-size: 24px; color: var(--ion-color-primary);"></ion-icon>
+      <div
+        style="display: flex; flex-direction: column; justify-content: center; margin-left: 10px;">
+        <ion-text style="font-weight: 700; font-size: 18px;; color: var(--ion-color-dark);">About</ion-text>
+        <p style="font-size: 14px;color: var(--ion-color-dark);">Learn more about the app,
+          including version number and developer information.</p>
       </div>
     </ion-item>
-    
+    <br><br><br><br><br>
+  </ion-list>
+</ion-content>

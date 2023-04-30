@@ -105,6 +105,8 @@ class UserController extends Controller
         // code to crash.
         $user = Auth::user(); // :)
 
+        $images = [];
+
         if ($user) {
 
             $id = $user->id;

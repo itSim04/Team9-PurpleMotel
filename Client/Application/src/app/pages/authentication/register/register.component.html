@@ -1,56 +1,60 @@
-<ion-img style="position: fixed;" src="../../../../assets/register/header-1.png"></ion-img>
-<div class="labels">
+<ion-content style="--background: var(--ion-color-light)">
+    <ion-img style="position: fixed;" src="../../../../assets/register/header-1.png"></ion-img>
+    <div class="labels">
 
-    <ng-container *ngIf="!final_page">
+        <ng-container *ngIf="!final_page">
 
-        <ion-text class="title">Sign Up</ion-text>
-        <ion-input [(ngModel)]="first_name" placeholder="Name" class="input"></ion-input>
-        <ion-input [(ngModel)]="last_name" placeholder="Last Name" class="input"></ion-input>
-        <ion-input [(ngModel)]="email" placeholder="Email" class="input"></ion-input>
-        <ion-input [(ngModel)]="phone_number" placeholder="Phone Number" class="input"></ion-input>
-        <ion-button (click)="next()" class="register">Next</ion-button>
-        <ion-text class="login">Already have an Account? <a [routerLink]="['../login']"
-                class="login-button">Sign-in</a></ion-text>
+            <ion-text class="title">Sign Up</ion-text>
+            <ion-input [(ngModel)]="first_name" placeholder="Name" class="input"></ion-input>
+            <ion-input [(ngModel)]="last_name" placeholder="Last Name" class="input"></ion-input>
+            <ion-input [(ngModel)]="email" placeholder="Email" class="input"></ion-input>
+            <ion-input [(ngModel)]="phone_number" placeholder="Phone Number"
+                class="input"></ion-input>
+            <ion-button (click)="next()" class="register">Next</ion-button>
+            <ion-text class="login">Already have an Account? <a [routerLink]="['../login']"
+                    class="login-button">Sign-in</a></ion-text>
 
-    </ng-container>
-    <ng-container *ngIf="final_page">
+        </ng-container>
+        <ng-container *ngIf="final_page">
 
-        <ion-fab-button (click)="final_page = false"
-            style="position: absolute; left: 16px; top: -24px;" class="back-btn-2">
-            <ion-icon name="arrow-back-outline"></ion-icon>
-        </ion-fab-button>
-        <ion-text style="display: inline;" class="title">Sign Up</ion-text>
-        <ion-input type="password" [(ngModel)]="password" placeholder="Password" class="input"></ion-input>
-        <ion-input type="password" [(ngModel)]="confirm_password" placeholder="Confirm Password"
-            class="input"></ion-input>
-        <ion-input readonly (click)="date_open = true" [value]="date_of_birth"
-            placeholder="Birthday" class="input"></ion-input>
+            <ion-fab-button (click)="final_page = false"
+                style="position: absolute; left: 16px; top: -24px;" class="back-btn-2">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-text style="display: inline;" class="title">Sign Up</ion-text>
+            <ion-input type="password" [(ngModel)]="password" placeholder="Password"
+                class="input"></ion-input>
+            <ion-input type="password" [(ngModel)]="confirm_password" placeholder="Confirm Password"
+                class="input"></ion-input>
+            <ion-input readonly (click)="date_open = true" [value]="date_of_birth"
+                placeholder="Birthday" class="input"></ion-input>
 
-        <ion-modal class="modal" [isOpen]="date_open">
-            <ng-template>
+            <ion-modal class="modal" [isOpen]="date_open">
+                <ng-template>
 
-                <ion-fab-button (click)="date_open = false" class="back-btn">
-                    <ion-icon name="arrow-back-outline"></ion-icon>
-                </ion-fab-button>
+                    <ion-fab-button (click)="date_open = false" class="back-btn">
+                        <ion-icon name="arrow-back-outline"></ion-icon>
+                    </ion-fab-button>
 
-                <div class="date-container">
+                    <div class="date-container">
 
-                    <ion-datetime style="margin: 0; width: 100%;" doneText="Save"
-                        (ionChange)="updateDate($event)" placeholder="Date of Birth" id="datetime"
-                        class="input"></ion-datetime>
-                </div>
-            </ng-template>
-        </ion-modal>
-        <ion-select [(ngModel)]="gender" placeholder="Gender" class="input">
-            <ion-select-option [value]="i" *ngFor="let g of genders; let i = index">
-                {{g | translate }}
-            </ion-select-option>
+                        <ion-datetime style="margin: 0; width: 100%;" doneText="Save"
+                            (ionChange)="updateDate($event)" placeholder="Date of Birth"
+                            id="datetime" class="input"></ion-datetime>
+                    </div>
+                </ng-template>
+            </ion-modal>
+            <ion-select [(ngModel)]="gender" placeholder="Gender" class="input">
+                <ion-select-option [value]="i" *ngFor="let g of genders; let i = index">
+                    {{g | translate }}
+                </ion-select-option>
 
-        </ion-select>
-        <ion-button (click)="final_page = true" class="register" (click)="register()">Sign
-            up</ion-button>
-        <ion-text class="login">Already have an Account? <a [routerLink]="['../login']"
-                class="login-button">Sign-in</a></ion-text>
+            </ion-select>
+            <ion-button (click)="final_page = true" class="register" (click)="register()">Sign
+                up</ion-button>
+            <ion-text class="login">Already have an Account? <a [routerLink]="['../login']"
+                    class="login-button">Sign-in</a></ion-text>
 
-    </ng-container>
-</div>
+        </ng-container>
+    </div>
+</ion-content>

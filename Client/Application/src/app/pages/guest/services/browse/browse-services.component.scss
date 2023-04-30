@@ -2,7 +2,7 @@
 
     background-image: url('../../../../../assets/services-pics/building.png');
     background-size: cover;
-    background-color: #14274A55;
+    background-color: rgba(var(--ion-color-primary), 55);
     background-blend-mode: soft-light;
     height: 75%;
 
@@ -16,7 +16,7 @@
     font-size: 34px;
     line-height: 39px;
     text-transform: uppercase;
-    color: white;
+    color: var(--ion-color-light);
     width: fit-content;
     position: absolute;
     left: 50%;
@@ -28,7 +28,7 @@ ion-segment {
 
     --border-radius: 0px;
     --border: 0px;
-    --background: white;
+    --background: var(--ion-color-light);
 
 }
 
@@ -50,5 +50,5 @@ ion-segment-button {
     font-weight: 500;
     font-size: 16px;
     text-transform: capitalize;
-    color: black;
+    color: var(--ion-color-dark);
 }

@@ -16,14 +16,14 @@
   <tr>
     <td>
       <div class="button">
-        <ion-button (click)="open_modal.emit(news)" expand="block" fill="outline" color="#14274A">{{"Explore" | translate}}</ion-button>
+        <ion-button (click)="open_modal.emit(news)" expand="block" fill="outline" color="var(--ion-color-primary)">{{"Explore" | translate}}</ion-button>
       </div>
     </td>
 
     <td class="likes-btn">
       <div (click)="like()" fill="clear">
         <ion-icon [name]="news.value.is_liked ? 'heart-outline' : 'heart-dislike-outline'"
-          [style.color]="news.value.is_liked ? '#A4274A' : '#14274A'"></ion-icon>
+          [style.color]="news.value.is_liked ? '#A4274A' : 'var(--ion-color-primary)'"></ion-icon>
       </div>
     </td>
     

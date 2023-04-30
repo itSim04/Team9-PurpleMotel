@@ -2,7 +2,7 @@
 
     height: fit-content;
     width: 95%;
-    background-color: white;
+    background-color: var(--ion-color-light);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     
 }
@@ -31,13 +31,13 @@ td {
     letter-spacing: 0.07em;
 
 
-    color: #14274A;
+    color: var(--ion-color-primary);
 }
 
 .check-btn {
 
     padding: 16px;
-    background: #14274A;
+    background: var(--ion-color-primary);
     font-family: 'Kulim Park';
     font-style: normal;
     font-weight: 200;
