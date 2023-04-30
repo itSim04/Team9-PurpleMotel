@@ -21,5 +21,10 @@ class Room extends Model
         'open',
         'rating'
     ];
+
+    public function intels()
+    {
+        return $this->hasMany(Intel::class);
+    }
     
 }

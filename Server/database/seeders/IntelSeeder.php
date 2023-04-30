@@ -13,6 +13,6 @@ class IntelSeeder extends Seeder
      */
     public function run(): void
     {
-        Intel::factory()->count(1000)->create();
+        Intel::factory()->count(100)->create();
     }
 }
