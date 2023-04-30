@@ -1,11 +1,21 @@
 <ion-content>
+    <ion-segment></ion-segment>
+    <h2>{{'Application Images' | translate}}</h2>
+    <ng-container *ngFor="let image of images[0]; let i = index">
+                
+                <h2>{{ image.filename | translate }}</h2>
+                <ngp-image-picker [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
+                [_config]="imagePickerConf" ($imageChanged)="onImageChange($event, image, i, 'website')"></ngp-image-picker>
+                
+            </ng-container>
+      
+            
+            <h2>{{'Website Images' | translate}}</h2>
+            <ng-container *ngFor="let image of images[1]; let i = index">
 
-    <ng-container *ngFor="let image of images; let i = index">
-        
-        <h2>{{ image.filename | translate }}</h2>
-        <ngp-image-picker [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
-        [_config]="imagePickerConf"
-        ($imageChanged)="onImageChange($event, image, i)"></ngp-image-picker>
-        
-    </ng-container>
+                <h2>{{ image.filename | translate }}</h2>
+                <ngp-image-picker [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
+                    [_config]="imagePickerConf" ($imageChanged)="onImageChange($event, image, i, 'application')"></ngp-image-picker>
+
+            </ng-container>
 </ion-content>

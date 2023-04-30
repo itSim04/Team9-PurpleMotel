@@ -1,7 +1,6 @@
-
+import { InformationDatabaseService } from './../../../services/providers/information-database.service';
 import { Component } from '@angular/core';
 import { ImagePickerConf } from 'ngp-image-picker';
-import { InformationDatabaseService } from 'src/app/services/providers/information-database.service';
 import { image_names } from 'src/app/services/utility/image-caching.service';
 
 @Component({
@@ -11,26 +10,26 @@ import { image_names } from 'src/app/services/utility/image-caching.service';
 })
 export class ImageDatabaseComponent {
 
-  onImageChange($event: any, image: { filename: string, base64: string; }, image_id: number) {
+  onImageChange($event: any, image: { filename: string, base64: string; }, image_id: number, location: 'application' | 'website') {
 
     if ($event) {
 
       if (image.filename) {
 
         const filename = image?.filename!.split('/')!;
-        this.image_service.modifyImage($event, 'Assets', 'application', filename[filename.length - 1]).subscribe((result) => {
+        this.image_service.modifyImage($event, 'Assets', location.toString(), filename[filename.length - 1]).subscribe((result) => {
 
-          this.images[image_id].base64 = $event.split(',')[1];
+          this.images[location == 'application' ? 0 : 1][image_id].base64 = $event.split(',')[1];
 
         });
 
 
       } else {
 
-        this.image_service.storeImage($event, 'Assets', 'application',).subscribe((result) => {
+        this.image_service.storeImage($event, 'Assets', location.toString()).subscribe((result) => {
 
 
-          this.images[image_id] = {
+          this.images[location == 'application' ? 0 : 1][image_id] = {
 
             filename: result.data.filename,
             base64: $event.split(',')[1]
@@ -47,9 +46,9 @@ export class ImageDatabaseComponent {
       console.log(image);
       const filename = image?.filename!;
 
-      this.image_service.deleteImage(filename, 'Assets', 'application',).subscribe((result) => {
+      this.image_service.deleteImage(filename, 'Assets', location.toString()).subscribe((result) => {
 
-        const image = this.images.at(this.images.findIndex((data) => data.filename === image?.filename));
+        const image = this.images[location == 'application' ? 0 : 1].at(this.images[location == 'application' ? 0 : 1].findIndex((data) => data.filename === image?.filename));
 
         if (image)
           image.base64 = '';
@@ -60,7 +59,7 @@ export class ImageDatabaseComponent {
     }
   }
 
-  images: { filename: string, base64: string; }[] = [];
+  images: { filename: string, base64: string; }[][] = [[], []];
 
   imagePickerConf: ImagePickerConf = {
 
@@ -73,16 +72,26 @@ export class ImageDatabaseComponent {
 
   };
 
-  constructor (private image_service: InformationDatabaseService) { }
+  constructor(private image_service: InformationDatabaseService) { }
+
+
 
   ngOnInit() {
 
-    this.image_service.browseImages('Assets', 'application').subscribe((result) => {
+    this.downloadImages(0);
+    this.downloadImages(1);
+
+  }
+
+  downloadImages(index: 0 | 1) {
+
+    const location = index ? 'website' : 'application';
+
+    this.image_service.browseImages('Assets', location).subscribe((result) => {
 
       // console.log(result.data);
-      this.images = result.data.map(t => {
+      this.images[index] = result.data.map(t => {
 
-        console.log(t);
         const name = t.filename.split('/');
         // const raw_name = name.at(name.length - 1)?.split('.');
         return {
@@ -93,11 +102,11 @@ export class ImageDatabaseComponent {
         };
       });
 
-      image_names.forEach((value) => {
+      image_names[index].forEach((value) => {
 
-        if (!this.images.find((data) => data.filename === value)) {
+        if (!this.images[index].find((data) => data.filename === value)) {
 
-          this.images.push({
+          this.images[index].push({
 
             filename: value,
             base64: ''
@@ -109,6 +118,9 @@ export class ImageDatabaseComponent {
       });
 
     });
+
+
+
   }
 
 }
