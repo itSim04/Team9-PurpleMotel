@@ -33,6 +33,7 @@ export class BrowseRoomsComponent implements OnInit {
 
     this.active_data = undefined;
 
+    this.isQuickOpened = false;
     this.isModalOpened = true;
 
     const room_type = this.room_types.get(room[1].type)!;
@@ -62,6 +63,28 @@ export class BrowseRoomsComponent implements OnInit {
     }
 
   }
+  openQuick() {
+
+    this.active_data = undefined;
+
+    this.isQuickOpened = true;
+    this.isModalOpened = false;
+  }
+
+
+  closeQuick($event: any) {
+
+    this.isModalOpened = false;
+
+    this.active_data = undefined;
+
+    if ($event) {
+      
+      
+
+    }
+
+  }
 
   rooms: Map<string, Room> = new Map();
   room_types: Map<string, RoomType> = new Map();
@@ -77,6 +100,7 @@ export class BrowseRoomsComponent implements OnInit {
   page = 0;
 
   isModalOpened = false;
+  isQuickOpened = false;
   active_data?: KeyValue<string, Room>;
 
   @ViewChild(IonInfiniteScroll) scroller!: IonInfiniteScroll;

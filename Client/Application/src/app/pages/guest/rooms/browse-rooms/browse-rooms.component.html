@@ -9,6 +9,14 @@
   <h1 class="rooms-header">Rooms and rates</h1>
   <hr>
 
+  <div style="display: flex;">
+
+    <ion-button (click)="openQuick()" class="options">{{ 'Find' | translate }}</ion-button>
+    <ion-button class="options">{{ 'Recommend' | translate }}</ion-button>
+
+  </div>
+  <br><br>
+
   <div>
     <div *ngFor="let room of filtered_rooms">
       <app-room-item [promo]="getEffect(room[0], room[1].type)?.value?.change"
@@ -27,8 +35,17 @@
     </ng-template>
   </ion-modal>
 
+  <ion-modal [isOpen]="isQuickOpened" class="modal">
+
+
+    <ng-template>
+      <app-quick-availability (closeModal)="closeModal($event)"></app-quick-availability>
+    </ng-template>
+  </ion-modal>
+
   <ion-infinite-scroll #scroll (ionInfinite)="ngOnInit()">
-    <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content loadingText="Please wait..."
+      loadingSpinner="bubbles"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
 </ion-content>
