@@ -169,7 +169,7 @@
         </ion-item>
 
         <ion-item>
-            <ion-card style="margin-bottom: 8vh;">
+            <ion-card>
                 <img alt="Silhouette of mountains" [src]="stock_db" />
                 <ion-card-header>
                     <ion-card-title>Stock Database</ion-card-title>
@@ -180,6 +180,20 @@
                     availability.
                 </ion-card-content>
                 <ion-button fill="clear" [routerLink]="['/admin/stock-database']">Access</ion-button>
+            </ion-card>
+        </ion-item>
+        <ion-item>
+            <ion-card style="margin-bottom: 8vh;">
+                <img alt="Silhouette of mountains" [src]="stock_db" />
+                <ion-card-header>
+                    <ion-card-title>Informations Database</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    A section to manage the informations offered by the app, including titles, descriptions, and
+                    pictrues. This section allows you to add, edit, and remove information, as well as view information details and
+                    availability.
+                </ion-card-content>
+                <ion-button fill="clear" [routerLink]="['/admin/informations-database']">Access</ion-button>
             </ion-card>
         </ion-item>
 

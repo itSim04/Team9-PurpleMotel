@@ -20,4 +20,5 @@ export class AdminDashboardComponent {
   service_db = this.url.getImage('services-db')
   promo_db = this.url.getImage('promo-db')
   stock_db = this.url.getImage('stock-db')
+  informations_db = this.url.getImage('information-db')
 }

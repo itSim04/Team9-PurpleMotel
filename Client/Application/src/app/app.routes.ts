@@ -31,6 +31,7 @@ import { ChatListComponent } from './chat/chat-list/chat.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 import { VerifyComponent } from './pages/authentication/verify/verify.component';
+import { InformationDatabaseComponent } from './pages/admin/information-database/information-database.component';
 
 
 
@@ -219,6 +220,10 @@ export const routes: Routes = [
           {
             path: "service-database",
             component: ServiceDatabaseComponent,
+          },
+          {
+            path: "informations-database",
+            component: InformationDatabaseComponent,
           },
 
 
