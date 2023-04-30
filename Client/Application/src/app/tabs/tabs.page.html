@@ -1,3 +1,69 @@
+<ion-modal class="modal" [isOpen]="isModalOpen" [enterAnimation]="enterAnimation"
+    [leaveAnimation]="leaveAnimation">
+    <ng-template>
+    
+      
+      <div class="annoucements">
+        <ion-fab-button (click)="this.isModalOpen = false" class="back-btn">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-fab-button>
+        
+            <br><br>
+            <ion-text class="header-3">
+              
+              
+                {{ 'announcements' | translate }}
+                
+            </ion-text>
+            
+            
+            <br><br>
+            <hr style="border-bottom: 1px solid var(--ion-color-primary);">
+            <br>
+            
+            
+            <ion-content style="height: 100%;position: absolute; --background: var(--ion-color-light)">
+              
+              
+              <ng-container *ngFor="let announcement of announcements | keyvalue; let i = index">
+
+                
+                <ion-list style=" --background: #d9d9d9d9;">
+
+                  <ion-item style=" --background: #d9d9d9d9;">
+                    
+                    <ion-grid style=" --background: #d9d9d9d9;">
+                      
+                                  <ion-row style=" --background: #d9d9d9d9;">
+
+                                    <ion-col style=" --background: #d9d9d9d9;" class="label">{{'title' | translate}}:</ion-col>
+                                    <ion-col style=" --background: #d9d9d9d9;" class="label">{{'body' | translate}}:</ion-col>
+
+                                  </ion-row>
+
+                                  <ion-row style=" --background: #d9d9d9d9;">
+                                    
+                                    
+                                    <ion-col style=" --background: #d9d9d9d9;" class="mark"> {{announcement.value.label}} </ion-col>
+                                    <ion-col style=" --background: #d9d9d9d9;" class="mark"> {{announcement.value.body}} </ion-col>
+                    
+                                </ion-row>
+                   </ion-grid>
+                            
+                </ion-item>
+                        
+            </ion-list>
+                      
+          </ng-container>
+
+                    
+        </ion-content>
+        </div>
+      </ng-template>
+        
+     
+</ion-modal>
+
 <ion-content>
   <ion-router-outlet></ion-router-outlet>
 
@@ -45,6 +111,14 @@
       <ion-menu-toggle>
         <ion-text (click)="openSupport()" class="tabs">
           {{ 'support' | translate}}
+        </ion-text>
+      </ion-menu-toggle>
+      <br>
+      <br>
+      <br>
+      <ion-menu-toggle>
+        <ion-text (click)="openAnnouncements()" class="tabs">
+          {{ 'annoucements' | translate}}
         </ion-text>
       </ion-menu-toggle>
       <br>
@@ -165,3 +239,6 @@
     <!-- </ion-toolbar> -->
   </div>
 </ion-content>
+
+
+      

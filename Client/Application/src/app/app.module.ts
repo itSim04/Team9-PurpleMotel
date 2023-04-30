@@ -90,7 +90,7 @@ import { ImageDatabaseModule } from './pages/admin/image-database/image-database
     InformationDatabaseModule,
     ImageDatabaseModule,
     RoomsModule,
-
+   
     MatDatepickerModule,
     MatNativeDateModule, 
     MatFormFieldModule,

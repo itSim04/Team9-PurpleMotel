@@ -2,10 +2,10 @@ import { extractAnyPermission, extractUser, extractUserId } from 'src/app/compon
 import { User } from 'src/app/models/User';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { AnimationController, IonicModule } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
+import { AnnouncementDatabaseService } from '../services/providers/announcement-database.service';
+import { Announcement } from '../models/Announcement';
 
 @Component({
   selector: 'app-tabs',
@@ -14,13 +14,16 @@ import { MenuController } from '@ionic/angular';
 })
 export class TabsPage {
 
+  isModalOpen = false;
   session_user: User;
+  announcements: Map<string, Announcement> = new Map();
 
   closeMenu() {
     this.menuCtrl.close('main-content');
   }
-  constructor(private menuCtrl: MenuController, private router: Router) {
-
+  
+  constructor(private menuCtrl: MenuController, private router: Router,private animationCtrl: AnimationController, private announcements_service:AnnouncementDatabaseService) {
+    
     const user = extractUser();
 
     if (user) {
@@ -57,6 +60,63 @@ export class TabsPage {
 
 
   }
+  openAnnouncements() {
+
+    const user = extractUser();
+    const id = extractUserId();
+    if (user && id) {
+      
+        this.isModalOpen = true;
+
+    }
+
+
+  }
+  ngOnInit() {
+    
+
+    this.announcements_service.getAllAnnouncements().subscribe({
+      next: data => {
+        console.log(data);
+        this.announcements = data.announcements;
+
+      },
+
+      error: error => {
+        console.error(error);
+      }
+    });
+  
+}
+enterAnimation = (baseEl: HTMLElement) => {
+  const root = baseEl.shadowRoot!;
+
+  const backdropAnimation = this.animationCtrl
+    .create()
+    .addElement(root.querySelector('ion-backdrop')!)
+    .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+  const wrapperAnimation = this.animationCtrl
+    .create()
+    .addElement(root.querySelector('.modal-wrapper')!)
+    .keyframes([
+      { offset: 0, opacity: '0', transform: 'scale(0)' },
+      { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+    ]);
+
+  return this.animationCtrl
+    .create()
+    .addElement(baseEl)
+    .easing('ease-out')
+    .duration(250)
+    .addAnimation([backdropAnimation, wrapperAnimation]);
+};
+
+leaveAnimation = (baseEl: HTMLElement) => {
+  return this.enterAnimation(baseEl).direction('reverse');
+};
+
+
 
   openAdmin() {
 
@@ -79,7 +139,7 @@ export class TabsPage {
 
       return user.tier === '2' || extractAnyPermission();
 
-    } 
+    }
     return false;
 
   }
@@ -92,7 +152,7 @@ export class TabsPage {
     localStorage.removeItem('token_time');
     setTimeout(() => {
       this.router.navigate(['/auth/login']);
-    },250)
+    }, 250)
 
   }
 
