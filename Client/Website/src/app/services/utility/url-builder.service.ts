@@ -10,9 +10,9 @@ export class UrlBuilderService {
   master_url = "http://127.0.0.1:8000";
   version = "v1";
 
-  getImage(image: 'room-main' | 'service-main' | 'restaurant-main' | 'menu-main' | 'home-main' | 'logo' | 'support-background' | 'chefs-background') {
+  getImage(image: 'room-main' | 'service-main' | 'restaurant-main' | 'menu-main' | 'home-main' | 'logo' | 'support-background' | 'chefs-background', location='website') {
 
-    return `${this.master_url}/storage/images/assets/website/${image}`;
+    return `${this.master_url}/storage/images/assets/${location}/${image}`;
 
   }
   generateUrl(path: string) {

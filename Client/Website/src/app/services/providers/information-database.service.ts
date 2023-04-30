@@ -147,7 +147,9 @@ export class InformationDatabaseService {
     }
 
   }
-  browseImages(model_name: string, id: string): Observable<ImagesResponse> {
+
+  
+  browseImages(model_name: string,  id: string): Observable<ImagesResponse> {
 
     try {
 
@@ -163,7 +165,7 @@ export class InformationDatabaseService {
   }
 
 
-  storeImage(image: string, model_name: string, id: string) {
+  storeImage(image: string, model_name: string,  id: string) {
 
     try {
 
@@ -183,7 +185,7 @@ export class InformationDatabaseService {
 
   }
 
-  deleteImage(filename: string, model_name: string, id: string) {
+  deleteImage(filename: string, model_name: string,  id: string) {
 
     try {
 

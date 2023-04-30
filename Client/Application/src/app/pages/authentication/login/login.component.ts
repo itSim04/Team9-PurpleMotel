@@ -3,6 +3,7 @@ import { validateEmail } from '../authentication.utility';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/utility/authentication.service';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 @Component({
   selector: 'app-login-dialog',
@@ -17,7 +18,9 @@ export class LoginComponent {
   validated_credentials = true;
   connection_error = false;
   loading = false;
-  constructor (private toastController: ToastController, private authentication_service: AuthenticationService, private router: Router) { }
+  login_bg1 = this.url.getImage('login-pic-1')
+  login_bg2 = this.url.getImage('login-pic-2')
+  constructor (private toastController: ToastController, private authentication_service: AuthenticationService, private router: Router, private url: UrlBuilderService) { }
 
   ionViewWillEnter() {
 

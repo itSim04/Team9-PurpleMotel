@@ -1,9 +1,10 @@
-import { UrlBuilderService } from './url-builder.service';
+
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ImagesResponse } from 'src/app/models/Image';
+import { UrlBuilderService } from './url-builder.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,7 @@ export class ImageCachingService implements HttpInterceptor {
 
   private cache: { [url: string]: Blob; } = {};
 
-  constructor (private url: UrlBuilderService, private http: HttpClient) { }
-
-
+  constructor(private url: UrlBuilderService, private http: HttpClient) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (request.url.startsWith('http://localhost:8000/storage/images/')) {
@@ -40,44 +39,42 @@ export class ImageCachingService implements HttpInterceptor {
       return next.handle(request);
     }
   }
+ 
 }
-export const image_names = [ 
 
-  ['room-main',
-  'service-main',
-  'restaurant-main',
-  'home-main',
-  'logo',
-  'support-background',
-  'chefs-background'
-  ],
-  ['register-bg',
-  'room-main',
-  'service-main',
-  'restaurant-main',
-  'home-main',
-  'logo',
-  'chefs-background',
-  'profile-main',
-  'chat-main',
-  'users-db',
-  'rooms-db',
-  'bookings-db',
-  'food-db',
-  'announcement-db',
-  'language-db',
-  'news-db',
-  'order-db',
-  'promo-db',
-  'registration-db',
-  'services-db',
-  'information-db',
-  'image-db',
-  'stock-db',
-  'register-bg',
-  'login-pic-1',
-  'login-pic-2'
+export const image_names = [['room-main',
+'service-main',
+'restaurant-main',
+'home-main',
+'logo',
+'support-background',
+'chefs-background'
+],
+['register-bg',
+'room-main',
+'service-main',
+'restaurant-main',
+'home-main',
+'logo',
+'chefs-background',
+'profile-main',
+'chat-main',
+'users-db',
+'rooms-db',
+'bookings-db',
+'food-db',
+'announcement-db',
+'language-db',
+'news-db',
+'order-db',
+'promo-db',
+'registration-db',
+'services-db',
+'information-db',
+'image-db',
+'stock-db',
+'register-bg',
+'login-pic-1',
+'login-pic-2'
 ]
-
-
-];
+]

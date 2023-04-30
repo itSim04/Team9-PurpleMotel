@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { News } from 'src/app/models/News';
 import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
 import { ProfileModalData } from '../profile/profile-modal/profile-modal.component';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 @Component({
   selector: 'app-home',
@@ -21,9 +22,10 @@ export class HomeComponent implements OnInit {
 
 
 
-  constructor (private news_service: NewsDatabaseService) { }
+  constructor (private news_service: NewsDatabaseService, private url: UrlBuilderService) { }
 
-
+  home_bg = this.url.getImage('home-main');
+  
   get data() {
 
     return Array.from(this.filtered_news);

@@ -1,12 +1,22 @@
 .main {
 
-
-    background-image: url('../../../../../assets/rooms/rooms-bgd-1.png');
-    background-size: cover;
     background-color: rgba(var(--ion-color-primary), 55);
     background-blend-mode: soft-light;
     height: 70%;
     position: relative;
+}
+
+.options {
+
+    --font-family: 'Roboto';
+    --background: var(--ion-color-primary);
+    --border-radius: 50px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+
+    margin: 0px 12px;
+    width: 50%
 }
 
 .title {

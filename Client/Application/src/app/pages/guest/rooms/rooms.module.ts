@@ -7,6 +7,7 @@ import { LanguageModule } from 'src/app/services/language/language.module';
 import { ProfileModule } from '../profile/profile.module';
 import { RoomModalComponent } from './room-modal/room-modal.component';
 import { CalendarWrapperModule } from 'src/app/components/room/calendar/calendar.module';
+import { QuickAvailabilityModalComponent } from './quick-availability/quick-availability.component';
 
 
 
@@ -14,7 +15,8 @@ import { CalendarWrapperModule } from 'src/app/components/room/calendar/calendar
 @NgModule({
   declarations: [
     BrowseRoomsComponent,
-    RoomModalComponent
+    RoomModalComponent,
+    QuickAvailabilityModalComponent
 
   ],
   imports: [
