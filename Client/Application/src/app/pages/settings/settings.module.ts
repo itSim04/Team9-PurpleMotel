@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './settings.component';
 import { IonicModule } from '@ionic/angular';
 import { TabsPage } from 'src/app/tabs/tabs.page';
+import { ProfileModule } from '../guest/profile/profile.module';
 
 
 
@@ -17,6 +18,7 @@ import { TabsPage } from 'src/app/tabs/tabs.page';
     FormsModule,
     LanguageModule,
     IonicModule.forRoot(),
+    ProfileModule
     
   ],
   exports:[

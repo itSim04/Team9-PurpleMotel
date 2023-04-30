@@ -45,6 +45,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CalendarWrapperComponent } from './components/room/calendar/calendar.component';
 import { SettingsModule } from './pages/settings/settings.module';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+import { InformationDatabaseModule } from './pages/admin/information-database/information-database.module';
+import { ImageDatabaseModule } from './pages/admin/image-database/image-database.module';
 // import { ScrollChangeColorDirective } from './scroll-change-color.directive';
 
 
@@ -85,6 +87,8 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
     ActivitiesModule,
     ServicesModule,
     AdminDashboardModule,
+    InformationDatabaseModule,
+    ImageDatabaseModule,
     RoomsModule,
 
     MatDatepickerModule,

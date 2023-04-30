@@ -1,8 +1,9 @@
-<ion-img style="position: fixed;" src="../../../../assets/profile-pics/profile-bg.png"></ion-img>
+
+<img [src]="profile_bg" style="position: absolute;">
 
 <div class="container">
-
-    <ion-text class="name">{{ user.first_name + ' ' + user.last_name}}</ion-text>
+        
+        <ion-text class="name">{{ user.first_name + ' ' + user.last_name}}</ion-text>
     <ion-button class="promo" fill="clear">{{ 'Apply Promo Code' | translate }}</ion-button>
     <div style="display: flex;">
 
@@ -23,85 +24,85 @@
             </ng-container>
         </div>
     </div>
-
+    
     <ion-segment (ionChange)="onSegmentChange($event)">
         <div [style.borderBottomColor]="selected == 'rooms' ? 'var(--ion-color-primary)' : '#B1B8C3'"
-            style="border-bottom: 1px solid var(--ion-color-primary); width: 50%; margin: 0; transition: all 250ms ease-in-out;">
-
-            <ion-segment-button value="rooms">
-                <img style="transition: all 500ms ease-in-out;" height="50%"
-                    [src]="selected != 'rooms' ?  '../../../../assets/profile-pics/room-segment.png' : '../../../../assets/profile-pics/room-segment-active.png'">
-            </ion-segment-button>
-        </div>
-        <div [style.borderBottomColor]="selected == 'services' ? 'var(--ion-color-primary)' : '#B1B8C3'"
-            style="width: 50%; margin: 0; border-bottom: 1px solid var(--ion-color-primary); transition: all 250ms ease-in-out;">
-
-            <ion-segment-button value="services">
-                <img style="transition: all 500ms ease-in-out;" height="50%"
-                    [src]="selected != 'services' ?  '../../../../assets/profile-pics/services-segment.png' : '../../../../assets/profile-pics/services-segment-active.png'">
-            </ion-segment-button>
-        </div>
-    </ion-segment>
-    <ion-content style="--background: var(--ion-color-light)">
+        style="border-bottom: 1px solid var(--ion-color-primary); width: 50%; margin: 0; transition: all 250ms ease-in-out;">
+        
+        <ion-segment-button value="rooms">
+            <img style="transition: all 500ms ease-in-out;" height="50%"
+            [src]="selected != 'rooms' ?  '../../../../assets/profile-pics/room-segment.png' : '../../../../assets/profile-pics/room-segment-active.png'">
+        </ion-segment-button>
+    </div>
+    <div [style.borderBottomColor]="selected == 'services' ? 'var(--ion-color-primary)' : '#B1B8C3'"
+    style="width: 50%; margin: 0; border-bottom: 1px solid var(--ion-color-primary); transition: all 250ms ease-in-out;">
+    
+    <ion-segment-button value="services">
+        <img style="transition: all 500ms ease-in-out;" height="50%"
+        [src]="selected != 'services' ?  '../../../../assets/profile-pics/services-segment.png' : '../../../../assets/profile-pics/services-segment-active.png'">
+    </ion-segment-button>
+</div>
+</ion-segment>
+<ion-content style="--background: var(--ion-color-light)">
 
         <ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" class="modal"
             [isOpen]="isModalOpen">
             <ng-template>
                 <app-profile-modal (closeModal)="closeModal()" [data]="active_data"
-                    style="height: 100%;"></app-profile-modal>
+                style="height: 100%;"></app-profile-modal>
             </ng-template>
         </ion-modal>
-
+        
         <ng-container *ngIf="selected==='rooms'">
-
+            
             <table style="width:100%;table-layout: fixed;">
-
+                
                 <tr *ngFor="let booking of booking_array; let i = index">
-
+                    
                     <td *ngFor="let x of [0,1,2]" style="margin: 12px;">
-
-
+                        
+                        
                         <div class="square">
                             <img *ngIf="booking_array[x + i * 3]"
-                                [src]="rooms.get(booking_array[x + i * 3][1].room_id || '0')?.images?.at(0)"
-                                onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal(formatBooking({
-                                    
-                                    key: booking_array[x + i * 3][0],
-                                    value: booking_array[x + i * 3][1]
-                                }))">
+                            [src]="rooms.get(booking_array[x + i * 3][1].room_id || '0')?.images?.at(0)"
+                            onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal(formatBooking({
+                                
+                                key: booking_array[x + i * 3][0],
+                                value: booking_array[x + i * 3][1]
+                            }))">
                         </div>
                     </td>
                 </tr>
-
+                
             </table>
-
+            
         </ng-container>
-
-
+        
+        
         <ng-container *ngIf="selected==='services'">
 
             <table style="width:100%;table-layout: fixed;">
-
+                
                 <tr *ngFor="let activity of registration_array; let i = index">
-
+                    
                     <td *ngFor="let x of [0,1,2]" style="margin: 12px;">
-
+                        
                         <div class="square">
                             <img *ngIf="registration_array[x + i * 3]"
-                                [src]="activities.get(registration_array[x + i * 3][1].activity_id)?.image?.at(0)"
-                                onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal(formatActivity({
+                            [src]="activities.get(registration_array[x + i * 3][1].activity_id)?.image?.at(0)"
+                            onerror="this.src='assets/placeholder.png'" class="booking-imgs" (click)="openModal(formatActivity({
                                     key: registration_array[x + i * 3][0],
                                     value: registration_array[x + i * 3][1]
                                 }))">
                         </div>
                     </td>
                 </tr>
-
+                
             </table>
-
+            
         </ng-container>
     </ion-content>
-
-
-
+    
+    
+    
 </div>

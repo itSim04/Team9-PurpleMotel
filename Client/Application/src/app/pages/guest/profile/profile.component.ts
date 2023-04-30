@@ -21,6 +21,7 @@ import { AuthenticationService } from "src/app/services/utility/authentication.s
 import { ProfileService } from "src/app/services/utility/profile.service";
 import { ProfileModalComponent, ProfileModalData } from "./profile-modal/profile-modal.component";
 import { OrderDatabaseService } from "src/app/services/providers/order-database.service";
+import { UrlBuilderService } from "src/app/services/utility/url-builder.service";
 
 
 @Component({
@@ -109,7 +110,7 @@ export class ProfileComponent implements OnInit {
 
   isModalOpen: boolean = false;
 
-  constructor (private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationService, private modal_ctrl: ModalController) {
+  constructor (private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationService, private modal_ctrl: ModalController, private url: UrlBuilderService) {
 
     const user = extractUser()!;
 
@@ -121,6 +122,7 @@ export class ProfileComponent implements OnInit {
 
 
   }
+  profile_bg = this.url.getImage('profile-main');
 
   ionViewDidEnter() {
 
