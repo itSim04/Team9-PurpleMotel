@@ -1,12 +1,14 @@
 import { Router } from '@angular/router';
 import { PromoDatabaseService } from 'src/app/services/providers/promo-database.service';
-import { Platform, ToastController } from '@ionic/angular';
+import { AnimationController, Platform, ToastController } from '@ionic/angular';
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { extractUser, extractUserId } from 'src/app/components/database/database.component';
 import { UserDatabaseService } from 'src/app/services/providers/user-database.service';
 import { LanguageList } from 'src/app/models/LanguageList';
 import { LanguageDatabaseService } from 'src/app/services/providers/language-database.service';
+import { ProfileModalData } from '../guest/profile/profile-modal/profile-modal.component';
+
 
 @Component({
   selector: 'app-settings',
@@ -18,7 +20,26 @@ export class SettingsComponent implements OnInit {
   theme = '';
   promo = '';
   languages: Map<string, LanguageList> = new Map();
-  constructor (@Inject(DOCUMENT) private document: Document, private platform: Platform, private toastController: ToastController, private promo_service: PromoDatabaseService, private router: Router, private user_service: UserDatabaseService, private language_service: LanguageDatabaseService) { }
+  active_data?: ProfileModalData;
+  isModalOpen = false;
+
+  getTerm(arg0: string) {
+
+    return (JSON.parse(localStorage.getItem('information')!))[arg0];
+
+  }
+  
+  getEntry(arg0: string): ProfileModalData{
+    let data = {
+      title: arg0,
+      body: this.getTerm(arg0),
+      hide_dates: true,
+      custom_height: '50%'
+    }
+    return data
+  }
+
+  constructor (@Inject(DOCUMENT) private document: Document, private platform: Platform, private toastController: ToastController, private promo_service: PromoDatabaseService, private router: Router, private user_service: UserDatabaseService, private language_service: LanguageDatabaseService, public animationCtrl: AnimationController) { }
 
   ngOnInit() {
 
@@ -28,7 +49,7 @@ export class SettingsComponent implements OnInit {
     this.language_service.getAllLanguageLists().subscribe(data => {
 
       this.languages = data.language_lists;
-      console.log(this.languages);
+      //console.log(this.languages);
     });
 
   }
@@ -150,5 +171,55 @@ export class SettingsComponent implements OnInit {
     return extractUser()?.language;
 
   }
+
+
+
+
+  async openModal(data: ProfileModalData) {
+
+    this.active_data = undefined;
+
+    this.isModalOpen = true;
+
+    this.active_data = data;
+
+  }
+
+  async closeModal() {
+
+
+
+    this.active_data = undefined;
+
+    this.isModalOpen = false;
+
+  }
+  enterAnimation = (baseEl: HTMLElement) => {
+    const root = baseEl.shadowRoot!;
+
+    const backdropAnimation = this.animationCtrl
+      .create()
+      .addElement(root.querySelector('ion-backdrop')!)
+      .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+    const wrapperAnimation = this.animationCtrl
+      .create()
+      .addElement(root.querySelector('.modal-wrapper')!)
+      .keyframes([
+        { offset: 0, opacity: '0', transform: 'scale(0)' },
+        { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+      ]);
+
+    return this.animationCtrl
+      .create()
+      .addElement(baseEl)
+      .easing('ease-out')
+      .duration(250)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+
+  leaveAnimation = (baseEl: HTMLElement) => {
+    return this.enterAnimation(baseEl).direction('reverse');
+  };
 
 }

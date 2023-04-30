@@ -49,7 +49,8 @@ export class InformationDatabaseComponent {
     fields: [
       {
         key: 'record',
-        type: 'text'
+        type: 'text',
+        unique: true
       },
       {
         key: 'value',

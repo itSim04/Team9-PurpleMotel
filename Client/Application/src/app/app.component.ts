@@ -5,6 +5,7 @@ import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } fro
 import * as firebase from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { InformationDatabaseService } from './services/providers/information-database.service';
 
 
 declare global {
@@ -39,8 +40,14 @@ if (!Map.prototype.getPair) {
 
 export class AppComponent implements OnInit {
 
-  constructor (private platform: Platform) {
+  constructor (private platform: Platform, public information_service: InformationDatabaseService) {
     this.initialize();
+
+    information_service.getTerms().subscribe(data => {
+
+      localStorage.setItem('information', JSON.stringify(data));
+
+    });
   }
 
   ngOnInit() {
