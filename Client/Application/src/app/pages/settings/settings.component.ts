@@ -3,6 +3,10 @@ import { PromoDatabaseService } from 'src/app/services/providers/promo-database.
 import { Platform, ToastController } from '@ionic/angular';
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { extractUser, extractUserId } from 'src/app/components/database/database.component';
+import { UserDatabaseService } from 'src/app/services/providers/user-database.service';
+import { LanguageList } from 'src/app/models/LanguageList';
+import { LanguageDatabaseService } from 'src/app/services/providers/language-database.service';
 
 @Component({
   selector: 'app-settings',
@@ -13,11 +17,19 @@ export class SettingsComponent implements OnInit {
 
   theme = '';
   promo = '';
-  constructor (@Inject(DOCUMENT) private document: Document, private platform: Platform, private toastController: ToastController, private promo_service: PromoDatabaseService, private router: Router) { }
+  languages: Map<string, LanguageList> = new Map();
+  constructor (@Inject(DOCUMENT) private document: Document, private platform: Platform, private toastController: ToastController, private promo_service: PromoDatabaseService, private router: Router, private user_service: UserDatabaseService, private language_service: LanguageDatabaseService) { }
 
   ngOnInit() {
 
     this.theme = localStorage.getItem('theme') || 'system';
+
+    
+    this.language_service.getAllLanguageLists().subscribe(data => {
+
+      this.languages = data.language_lists;
+      console.log(this.languages);
+    });
 
   }
 
@@ -115,5 +127,28 @@ export class SettingsComponent implements OnInit {
   }
 
 
+  updateLanguage(arg0: any): any {
+
+
+    const user = extractUser();
+    const user_id = extractUserId();
+    if (user && user_id) {
+
+      user.language = arg0;
+      this.user_service.modifyUser(user_id, user).subscribe(data => {
+
+        localStorage.setItem("user", JSON.stringify(user));
+        window.location.reload();
+      });
+
+    }
+
+  }
+
+  get chosen_language() {
+
+    return extractUser()?.language;
+
+  }
 
 }
