@@ -25,6 +25,7 @@ import { TableComponent } from "./blocks/table/table.component";
 import { ChangeComponent } from "./change/change.component";
 import { CompletionComponent } from "./change/completion/completion.component";
 import { DatabaseComponent } from "./database.component";
+import { NgpImagePickerModule } from "ngp-image-picker";
 
 
 
@@ -63,7 +64,7 @@ import { DatabaseComponent } from "./database.component";
     MatNativeDateModule,
     MatButtonModule,
     MatSnackBarModule,
-    //NgpImagePickerModule
+    NgpImagePickerModule
   ],
   exports: [
     DatabaseComponent
