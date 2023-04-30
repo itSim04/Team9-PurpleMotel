@@ -16,7 +16,7 @@ export class RoomItemComponent {
 
   @Input() room?: KeyValue<string, Room>;
   @Input() room_type?: KeyValue<string, RoomType>;
-  @Input() promo?: KeyValue<string, PromoCode>;
+  @Input() promo?: number;
   @Output() open_modal: EventEmitter<void> = new EventEmitter();
 
   constructor(private router: Router) { }
@@ -30,7 +30,7 @@ export class RoomItemComponent {
 
     if (this.room_type) {
 
-      return Math.round(this.room_type.value.price * ((this.promo?.value?.change || 0) / 100)).toString();
+      return Math.round(this.room_type.value.price * ((this.promo || 0) / 100)).toString();
 
     } else {
 

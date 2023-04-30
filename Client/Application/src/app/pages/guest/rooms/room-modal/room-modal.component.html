@@ -27,6 +27,29 @@
     <ion-text style="text-align: end;" class="date">{{formatDate(range?.check_out)}}</ion-text>
 
   </div>
+  <br><br>
+  <div style="display: flex;">
+
+    <ion-text class="options">{{'Price' | translate}}</ion-text>
+    <ion-text style="text-align: end;" class="options">{{'Total' | translate}}</ion-text>
+
+  </div>
+  <div style="display: flex;">
+
+    <ion-text class="date">
+      USD
+      <div style="display: inline;" [style.textDecoration]="promo?.value?.change ? 'line-through' : 
+                  'none'">{{formatPrice}}</div>
+      <div *ngIf="promo?.value?.change" style="display: inline;"> {{formatNewPrice}}</div>
+    </ion-text>
+    <ion-text style="text-align: end;" class="date">
+      USD
+      <div style="display: inline;" [style.textDecoration]="promo?.value?.change ? 'line-through' : 
+                  'none'">{{formatTotalPrice}}</div>
+      <div *ngIf="promo?.value?.change" style="display: inline;"> {{formatNewTotalPrice}}</div>
+    </ion-text>
+
+  </div>
   <div style="display: flex;">
 
 

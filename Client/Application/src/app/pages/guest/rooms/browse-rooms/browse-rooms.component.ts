@@ -103,6 +103,7 @@ export class BrowseRoomsComponent implements OnInit {
       data.room_types.forEach((value, key) => this.room_types.set(key, value));
       data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
 
+
       Array.from(data.rooms).forEach((value) => this.filtered_rooms.push(value));
 
       console.log(this.filtered_rooms);
@@ -126,16 +127,20 @@ export class BrowseRoomsComponent implements OnInit {
   getEffect(room_id: string, type: string) {
 
 
-    for (let code of this.promo_codes.values()) {
+    for (let code of this.promo_codes.entries()) {
 
 
-      if (code.concerned_everything || code.concerned_rooms.includes(room_id) || code.concerned_room_types.includes(type))
-        return code.change;
+      if (code[1].concerned_everything || code[1].concerned_rooms.includes(room_id) || code[1].concerned_room_types.includes(type))
+        return {
+
+          key: code[0],
+          value: code[1]
+        };
 
 
 
     }
-    return 0;
+    return undefined;
 
 
 

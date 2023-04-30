@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavParams, ModalController, ToastController } from '@ionic/angular';
 import { Interface } from 'readline';
-import { Required, extractUserId, formatDate } from 'src/app/components/database/database.component';
+import { Required, extractUserId, formatDate, formatPrice } from 'src/app/components/database/database.component';
 import { Activity } from 'src/app/models/Activity';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { Room } from 'src/app/models/Room';
@@ -134,5 +134,55 @@ export class RoomModalComponent {
     await toast.present();
 
   }
+
+  get formatPrice(): string {
+    return formatPrice(this.room_type?.value?.price, false, false);
+  }
+  get formatNewPrice(): string | undefined {
+
+    if (this.room_type) {
+
+      return Math.round(this.room_type.value.price * ((this.promo?.value.change || 0) / 100)).toString();
+
+    } else {
+
+      return '';
+
+    }
+  }
+
+  daysBetween(startDate: Date | undefined, endDate: Date| undefined): number {
+
+    if(startDate && endDate) {
+
+      const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
+      const start = new Date(startDate.getTime()); // Copy start date to avoid modifying it
+      start.setHours(0, 0, 0, 0); // Set start date to the beginning of the day
+      const end = new Date(endDate.getTime()); // Copy end date to avoid modifying it
+      end.setHours(0, 0, 0, 0); // Set end date to the beginning of the day
+      const diffDays = Math.round(Math.abs((end.getTime() - start.getTime()) / oneDay));
+      return diffDays;
+    }
+    return 0;
+  }
+
+  get formatTotalPrice(): string {
+    return formatPrice((this.room_type?.value?.price || 0) * this.daysBetween(this.range?.check_in, this.range?.check_out), false, false);
+  }
+  get formatNewTotalPrice(): string | undefined {
+
+    if (this.room_type) {
+
+      return Math.round(this.room_type.value.price * this.daysBetween(this.range?.check_in, this.range?.check_out) * ((this.promo?.value.change || 0) / 100)).toString();
+
+    } else {
+
+      return '';
+
+    }
+  }
+
+
+
 
 }
