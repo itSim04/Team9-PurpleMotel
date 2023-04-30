@@ -57,6 +57,18 @@ export class TabsPage {
 
 
   }
+  openAnnouncements() {
+
+    const user = extractUser();
+    const id = extractUserId();
+    if (user && id) {
+
+        this.router.navigate(['/announcements']);
+
+    }
+
+
+  }
 
   openAdmin() {
 
@@ -79,7 +91,7 @@ export class TabsPage {
 
       return user.tier === '2' || extractAnyPermission();
 
-    } 
+    }
     return false;
 
   }
@@ -92,7 +104,7 @@ export class TabsPage {
     localStorage.removeItem('token_time');
     setTimeout(() => {
       this.router.navigate(['/auth/login']);
-    },250)
+    }, 250)
 
   }
 

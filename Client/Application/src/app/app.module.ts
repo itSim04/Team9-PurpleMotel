@@ -47,6 +47,7 @@ import { SettingsModule } from './pages/settings/settings.module';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { InformationDatabaseModule } from './pages/admin/information-database/information-database.module';
 import { ImageDatabaseModule } from './pages/admin/image-database/image-database.module';
+import { AnnouncementsModule } from './pages/guest/announcements/announcements.module';
 // import { ScrollChangeColorDirective } from './scroll-change-color.directive';
 
 
@@ -90,6 +91,7 @@ import { ImageDatabaseModule } from './pages/admin/image-database/image-database
     InformationDatabaseModule,
     ImageDatabaseModule,
     RoomsModule,
+    AnnouncementsModule,
 
     MatDatepickerModule,
     MatNativeDateModule, 

@@ -33,6 +33,7 @@ import { MenuComponent } from './pages/guest/restaurant/menu/menu.component';
 import { VerifyComponent } from './pages/authentication/verify/verify.component';
 import { InformationDatabaseComponent } from './pages/admin/information-database/information-database.component';
 import { ImageDatabaseComponent } from './pages/admin/image-database/image-database.component';
+import { AnnouncementsComponent } from './pages/guest/announcements/announcements.component';
 
 
 
@@ -109,6 +110,10 @@ export const routes: Routes = [
       {
         path: 'services',
         component: BrowseServicesComponent
+      },
+      {
+        path: 'announcements',
+        component: AnnouncementsComponent
       },
       {
         path: 'restaurant',
