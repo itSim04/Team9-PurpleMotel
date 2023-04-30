@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { PromoCodesPackage, PromoCodesResponse, PromoCode, PromoCodePackage, PromoCodeResponse, AppliedPromoCodes, EffectPromoCodes, EligiblityPromoCodes, FullPromoCodesPackage, FullPromoCodesResponse } from "src/app/models/PromoCode";
+import { PromoCodesPackage, PromoCodesResponse, PromoCode, PromoCodePackage, PromoCodeResponse, AppliedPromoCodes, EffectPromoCodes, EligiblityPromoCodes, FullPromoCodesPackage, FullPromoCodesResponse, PromoCodeApplicationResponse } from "src/app/models/PromoCode";
 import { UrlBuilderService } from "../utility/url-builder.service";
 import { Room, RoomAttributes } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
@@ -18,7 +18,7 @@ export class PromoDatabaseService {
 
   getAllPromoCodes(): Observable<PromoCodesPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -143,7 +143,7 @@ export class PromoDatabaseService {
   }
   getAllFullPromoCodes(): Observable<FullPromoCodesPackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -197,7 +197,7 @@ export class PromoDatabaseService {
                   const eligiblity_temp = promo_codes.get((data.attributes as EligiblityPromoCodes).promo_id);
 
                   if (eligiblity_temp) {
-                    
+
                     console.log(data.attributes);
                     switch ((data.attributes as EligiblityPromoCodes).type) {
 
@@ -307,7 +307,7 @@ export class PromoDatabaseService {
   }
   getOnePromoCode(id: string): Observable<PromoCodePackage> {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -338,7 +338,7 @@ export class PromoDatabaseService {
 
   addNewPromoCode(promo_code: PromoCode) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -362,7 +362,7 @@ export class PromoDatabaseService {
 
   modifyPromoCode(promo_code_id: string, promo_code: PromoCode) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -378,7 +378,7 @@ export class PromoDatabaseService {
 
   deletePromoCode(key: string) {
 
-    const headers = this.url.generateHeader()
+    const headers = this.url.generateHeader();
 
     try {
 
@@ -391,4 +391,28 @@ export class PromoDatabaseService {
     }
 
   }
+
+  applyPromoCode(code: string) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.get<PromoCodeApplicationResponse>(this.url.generateUrl(`applyPromo/${code}`), { headers: headers }).pipe(
+
+        map((response: PromoCodeApplicationResponse): number => {
+
+
+          return response.data; // return the status code as a number
+
+        }));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+  }
+
+
 }
