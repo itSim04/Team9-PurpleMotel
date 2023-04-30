@@ -6,7 +6,7 @@
     </p>
   </div>
 
-  <h1 class="rooms-header">Rooms and rates</h1>
+  <h1 class="rooms-header">{{ filtered ? (filtered_rooms.length + ' found') : 'Rooms and rates'}}</h1>
   <hr>
 
   <div style="display: flex;">
@@ -39,7 +39,7 @@
 
 
     <ng-template>
-      <app-quick-availability (closeModal)="closeModal($event)"></app-quick-availability>
+      <app-quick-availability (closeModal)="closeQuick($event)"></app-quick-availability>
     </ng-template>
   </ion-modal>
 

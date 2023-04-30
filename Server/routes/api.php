@@ -25,6 +25,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\IntelController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LanguageListController;
 use App\Http\Controllers\NewsController;
@@ -78,6 +79,8 @@ Route::prefix('v1')->group(function () {
     Route::post('store-images', [ImageController::class, 'store']);
     Route::get('delete-images', [ImageController::class, 'destroy']);
     Route::post('modify-images', [ImageController::class, 'update']);
+
+    Route::post('recommend', [IntelController::class, 'recommendRoom']);
 
 
     Route::controller(PromoCodeController::class)->group(function () {
