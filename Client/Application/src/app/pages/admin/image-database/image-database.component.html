@@ -1,21 +1,56 @@
 <ion-content>
-    <ion-segment></ion-segment>
-    <h2>{{'Application Images' | translate}}</h2>
-    <ng-container *ngFor="let image of images[0]; let i = index">
-                
-                <h2>{{ image.filename | translate }}</h2>
-                <ngp-image-picker [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
-                [_config]="imagePickerConf" ($imageChanged)="onImageChange($event, image, i, 'website')"></ngp-image-picker>
-                
-            </ng-container>
-      
-            
-            <h2>{{'Website Images' | translate}}</h2>
-            <ng-container *ngFor="let image of images[1]; let i = index">
+    <ion-header class="image-header">
+        {{'Image Database' | translate}}
+        <hr class="divider">
+    </ion-header>
+    <ion-segment (ionChange)="onSegmentChange($event)">
+        <div [style.borderBottomColor]="selected == 'application' ? 'var(--ion-color-primary)' : '#B1B8C3'"
+            style="border-bottom: 1px solid var(--ion-color-primary); width: 50%; margin: 0; transition: all 250ms ease-in-out;">
 
-                <h2>{{ image.filename | translate }}</h2>
-                <ngp-image-picker [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
-                    [_config]="imagePickerConf" ($imageChanged)="onImageChange($event, image, i, 'application')"></ngp-image-picker>
+            <ion-segment-button value="application">
+                <img style="transition: all 500ms ease-in-out;" height="50%"
+                    [src]="selected != 'application' ?  '../../../../assets/profile-pics/room-segment.png' : '../../../../assets/profile-pics/room-segment-active.png'">
+            </ion-segment-button>
+        </div>
+        <div [style.borderBottomColor]="selected == 'website' ? 'var(--ion-color-primary)' : '#B1B8C3'"
+            style="width: 50%; margin: 0; border-bottom: 1px solid var(--ion-color-primary); transition: all 250ms ease-in-out;">
 
-            </ng-container>
+            <ion-segment-button value="website">
+                <img style="transition: all 500ms ease-in-out;" height="50%"
+                    [src]="selected != 'website' ?  '../../../../assets/profile-pics/services-segment.png' : '../../../../assets/profile-pics/services-segment-active.png'">
+            </ion-segment-button>
+        </div>
+    </ion-segment>
+
+    <ng-container *ngIf="selected == 'application'">
+
+        
+
+        <h2 class="image-header">{{'Application Images' | translate}}</h2>
+        <hr class="divider">
+        <ng-container *ngFor="let image of images[0]; let i = index">
+
+            <h2>{{ image.filename | translate }}</h2>
+            <ngp-image-picker [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
+                [_config]="imagePickerConf"
+                ($imageChanged)="onImageChange($event, image, i, 'website')"></ngp-image-picker>
+
+        </ng-container>
+
+
+    </ng-container>
+
+    <ng-container *ngIf="selected == 'website'">
+
+        <h2 class="image-header">{{'Website Images' | translate}}</h2>
+        <hr class="divider">
+        <ng-container *ngFor="let image of images[1]; let i = index">
+
+            <h2>{{ image.filename | translate }}</h2>
+            <ngp-image-picker [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
+                [_config]="imagePickerConf"
+                ($imageChanged)="onImageChange($event, image, i, 'application')"></ngp-image-picker>
+
+        </ng-container>
+    </ng-container>
 </ion-content>

@@ -83,6 +83,20 @@ export class ImageDatabaseComponent {
 
   }
 
+  selected: 'application' | 'website' = 'application';
+
+  onSegmentChange(event: any) {
+
+    const selectedValue = event.detail.value;
+
+
+    if (selectedValue === 'application') {
+      this.selected = 'application';
+    } else if (selectedValue === 'website') {
+      this.selected = 'website';
+    }
+  }
+
   downloadImages(index: 0 | 1) {
 
     const location = index ? 'website' : 'application';
