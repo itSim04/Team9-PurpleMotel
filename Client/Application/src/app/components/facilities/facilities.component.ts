@@ -8,6 +8,7 @@ import { ModalController } from '@ionic/angular';
 import { FacilitiesModalComponent } from './facilities-modal/facilities-modal.component';
 import { ProfileModalData } from 'src/app/pages/guest/profile/profile-modal/profile-modal.component';
 import { extractUserId } from '../database/database.component';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 @Component({
   selector: 'app-facilities',
@@ -21,7 +22,7 @@ export class FacilitiesComponent {
   active_data?: ProfileModalData;
   isModalOpen: boolean = false;
 
-  constructor (private modal_ctrl: ModalController, private animationCtrl: AnimationController) { }
+  constructor (private modal_ctrl: ModalController, private animationCtrl: AnimationController, private url: UrlBuilderService) { }
   async openModal(data: ProfileModalData) {
 
     this.active_data = undefined;

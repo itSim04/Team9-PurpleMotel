@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, Observable, Subject } from 'rxjs';
 import { DataInjection, Column, ChangeInjection } from 'src/app/models/Database';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 export function extractUser(validity_check: boolean = true) {
 
@@ -279,7 +280,7 @@ export class DatabaseComponent<Data, Data2> implements AfterViewInit, OnInit {
   error: boolean = false;
 
 
-  constructor (private cdr: ChangeDetectorRef, public router: Router, private information_service: InformationDatabaseService) {
+  constructor (private cdr: ChangeDetectorRef, public router: Router, private information_service: InformationDatabaseService, private url: UrlBuilderService) {
 
     this.mouseMove$ = this.mouseMoveSubject.asObservable().pipe(
 

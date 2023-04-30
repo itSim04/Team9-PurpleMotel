@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 
 
@@ -9,5 +10,5 @@ import { Component } from '@angular/core';
 })
 export class RestaurantLandingComponent {
 
-  constructor() {}
+  constructor(private url: UrlBuilderService) {}
 }

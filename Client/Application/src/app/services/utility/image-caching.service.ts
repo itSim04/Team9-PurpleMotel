@@ -43,7 +43,7 @@ export class ImageCachingService implements HttpInterceptor {
 }
 
 export const image_names = [
-
+  'register-background',
   'room-main',
   'service-main',
   'restaurant-main',

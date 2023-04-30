@@ -8,6 +8,7 @@ import { Registration } from "src/app/models/Registration";
 
 import { ServiceDatabaseService } from "src/app/services/providers/service-database.service";
 import { ProfileModalData } from "../../profile/profile-modal/profile-modal.component";
+import { UrlBuilderService } from "src/app/services/utility/url-builder.service";
 
 
 @Component({
@@ -31,7 +32,7 @@ export class BrowseServicesComponent implements OnInit {
 
   selected: 'activities' | 'facilities' = 'activities';
 
-  constructor (private services_service: ServiceDatabaseService) { }
+  constructor (private services_service: ServiceDatabaseService, private url: UrlBuilderService) { }
 
 
 

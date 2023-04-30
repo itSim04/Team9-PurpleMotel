@@ -13,6 +13,7 @@ import { RoomDatabaseService } from 'src/app/services/providers/room-database.se
 import { ProfileModalData } from '../../profile/profile-modal/profile-modal.component';
 import { extractUserId } from 'src/app/components/database/database.component';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 @Component({
   selector: 'app-browse-rooms',
@@ -78,7 +79,7 @@ export class BrowseRoomsComponent implements OnInit {
   isModalOpened = false;
   active_data?: KeyValue<string, Room>;
 
-  constructor (private rooms_service: RoomDatabaseService, private router: Router) { }
+  constructor (private rooms_service: RoomDatabaseService, private router: Router, private url: UrlBuilderService) { }
 
 
   get data() {

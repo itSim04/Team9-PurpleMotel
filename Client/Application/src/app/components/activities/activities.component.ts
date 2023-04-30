@@ -7,6 +7,7 @@ import { extractUserId, formatPrice } from '../database/database.component';
 import { RegistrationDatabaseService } from 'src/app/services/providers/registration-database.service';
 import { ProfileModalData } from 'src/app/pages/guest/profile/profile-modal/profile-modal.component';
 import { Facility } from 'src/app/models/Facility';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 
 
@@ -24,7 +25,7 @@ export class ActivitiesComponent {
   isModalOpen: boolean = false;
   @Input() activity?: KeyValue<string, Activity>;
 
-  constructor (private registration_service: RegistrationDatabaseService, private animationCtrl: AnimationController) { }
+  constructor (private registration_service: RegistrationDatabaseService, private animationCtrl: AnimationController, private url: UrlBuilderService) { }
 
 
   formatPrice(price?: number) {
