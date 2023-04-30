@@ -1,9 +1,10 @@
+import { ViewChild } from '@angular/core';
 import { Booking } from 'src/app/models/Booking';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, KeyValue } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonInfiniteScroll } from '@ionic/angular';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { RawRoomsPackage, Room } from 'src/app/models/Room';
 import { Subscription } from 'rxjs';
@@ -71,12 +72,14 @@ export class BrowseRoomsComponent implements OnInit {
   filtered = false;
 
   current_page: number = 0;
-  page_size: number = 10;
+  page_size: number = 8;
 
   page = 0;
 
   isModalOpened = false;
   active_data?: KeyValue<string, Room>;
+
+  @ViewChild(IonInfiniteScroll) scroller!: IonInfiniteScroll;
 
   constructor (private rooms_service: RoomDatabaseService, private router: Router) { }
 
@@ -87,16 +90,7 @@ export class BrowseRoomsComponent implements OnInit {
 
   }
 
-  // ngOnInit() {
-  //   this.subscription = this.rooms_service.getAllRooms().subscribe(data => {
-  //     this.rooms = data.rooms;
-  //     console.log(this.rooms);
-  //     this.filtered_rooms = Array.from(this.rooms);
-  //   });
-
-  // }
-
-  ngOnInit(): void {
+  download() {
 
     this.subscription = this.rooms_service.getPaginatedRooms(this.current_page, this.page_size).subscribe(data => {
       data.rooms.forEach((value, key) => this.rooms.set(key, value));
@@ -106,9 +100,18 @@ export class BrowseRoomsComponent implements OnInit {
 
       Array.from(data.rooms).forEach((value) => this.filtered_rooms.push(value));
 
-      console.log(this.filtered_rooms);
-      this.current_page += this.page_size;
+      this.current_page += data.rooms.size;
+      if (data.rooms.size)
+        this.scroller.complete();
     });
+
+  }
+
+  ngOnInit(): void {
+
+    console.log('Loading rooms...');
+    this.download();
+
 
   }
 

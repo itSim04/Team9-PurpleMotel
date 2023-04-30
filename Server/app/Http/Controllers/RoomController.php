@@ -54,6 +54,7 @@ class RoomController extends Controller
 
         $types = [];
         $ids = [];
+        $images = [];
 
         foreach ($room as $key => $value) {
 
