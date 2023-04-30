@@ -129,10 +129,9 @@ class RoomController extends Controller
                 ->all());
         }
 
-        foreach($ids as $id) {
+        foreach ($ids as $id) {
 
             $images['rooms'][$id] = extractImages('Room', $id);
-
         }
 
 
@@ -244,35 +243,35 @@ class RoomController extends Controller
     public function filter(Request $request)
     {
 
-        $request->validate([
+        if (isset($request->check_in) && isset($request->check_out)) {
 
-            'check_in' => 'required|date',
-            'check_out' => 'required|date'
-        ]);
+            $start_date = strtotime($request->check_in);
+            $end_date = strtotime($request->check_out);
 
-        $start_date = strtotime($request->check_in);
-        $end_date = strtotime($request->check_out);
+            $bookings = Booking::all();
+            $conflictingBooking = [];
+            foreach ($bookings as $booking) {
 
-        $bookings = Booking::all();
-        $conflictingBooking = [];
-        foreach ($bookings as $booking) {
-
-            $current_check_in = strtotime($booking->check_in);
-            $current_end_date = strtotime($booking->end_date);
+                $current_check_in = strtotime($booking->check_in);
+                $current_end_date = strtotime($booking->end_date);
 
 
-            if (!($end_date < $current_check_in || $start_date > $current_end_date)) {
+                if (!($end_date < $current_check_in || $start_date > $current_end_date)) {
 
-                $conflictingBooking[] = $booking->room_id;
+                    $conflictingBooking[] = $booking->room_id;
+                }
             }
-        }
 
-        if (isset($request->index) && isset($request->size)) {
+            if (isset($request->index) && isset($request->size)) {
 
-            $room = Room::all()->whereNotIn('id', $conflictingBooking)->skip($request->index)->take($request->size);
+                $room = Room::all()->whereNotIn('id', $conflictingBooking)->skip($request->index)->take($request->size);
+            } else {
+
+                $room = Room::all()->whereNotIn('id', $conflictingBooking);
+            }
         } else {
 
-            $room = Room::all()->whereNotIn('id', $conflictingBooking);
+            $room = Room::all();
         }
 
         $types = $room->pluck('type');
@@ -280,24 +279,26 @@ class RoomController extends Controller
         $room_type = RoomType::all()
             ->whereIn('id', $types);
 
-        if ($request->adults_capacity || $request->kids_capacity) {
-
-            if (!$request->kids_capacity) {
-
-                $room_type = $room_type->where('adults_capacity', $request->adults_capacity);
-            } else if (!$request->adults_capacity) {
-
-                $room_type = $room_type->where('kids_capacity', $request->kids_capacity);
-            } else {
-
-                $room_type = $room_type->where('adults_capacity', $request->adults_capacity)
-                    ->where('kids_capacity', $request->kids_capacity);
-            }
+        if ($request->adults_capacity) {
 
 
-            $types = $room_type->pluck('id');
-            $room = $room->whereIn('type', $types);
+            $room_type = $room_type->where('adults_capacity', $request->adults_capacity);
         }
+        if ($request->kids_capacity) {
+
+
+            $room_type = $room_type
+                ->merge($room_type->where('adults_capacity', $request->adults_capacity)
+                    ->where('kids_capacity', $request->kids_capacity));
+        }
+
+
+
+
+
+        $types = $room_type->pluck('id');
+        $room = $room->whereIn('type', $types);
+
 
         $ids = $room->pluck('id');
 

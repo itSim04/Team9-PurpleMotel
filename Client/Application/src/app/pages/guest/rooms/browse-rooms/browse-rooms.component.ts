@@ -1,3 +1,4 @@
+import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
 import { ViewChild } from '@angular/core';
 import { Booking } from 'src/app/models/Booking';
 import { Router } from '@angular/router';
@@ -72,15 +73,41 @@ export class BrowseRoomsComponent implements OnInit {
   }
 
 
-  closeQuick($event: any) {
+  closeQuick($event: { check_in: string, check_out: string, adults: number, children: number; }) {
 
-    this.isModalOpened = false;
-
-    this.active_data = undefined;
 
     if ($event) {
-      
-      
+
+      this.booking_service.filterBookings(
+        $event.check_in,
+        $event.check_out,
+        $event.adults,
+        $event.children
+      ).subscribe({
+
+        next: data => {
+
+          this.isQuickOpened = false;
+
+          this.filtered = true;
+
+          this.filtered_rooms = Array.from(data.rooms);
+
+          data.rooms.forEach((value, key) => this.rooms.set(key, value));
+          data.room_types.forEach((value, key) => this.room_types.set(key, value));
+          data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
+
+        },
+        error: error => {
+
+
+          console.error(error);
+
+        }
+      });
+
+
+
 
     }
 
@@ -105,7 +132,7 @@ export class BrowseRoomsComponent implements OnInit {
 
   @ViewChild(IonInfiniteScroll) scroller!: IonInfiniteScroll;
 
-  constructor (private rooms_service: RoomDatabaseService, private router: Router) { }
+  constructor (private rooms_service: RoomDatabaseService, private router: Router, private booking_service: BookingDatabaseService) { }
 
 
   get data() {
@@ -116,19 +143,23 @@ export class BrowseRoomsComponent implements OnInit {
 
   download() {
 
-    this.subscription = this.rooms_service.getPaginatedRooms(this.current_page, this.page_size).subscribe(data => {
-      data.rooms.forEach((value, key) => this.rooms.set(key, value));
-      data.room_types.forEach((value, key) => this.room_types.set(key, value));
-      data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
+    if (!this.filtered) {
 
 
-      Array.from(data.rooms).forEach((value) => this.filtered_rooms.push(value));
+      this.subscription = this.rooms_service.getPaginatedRooms(this.current_page, this.page_size).subscribe(data => {
+        data.rooms.forEach((value, key) => this.rooms.set(key, value));
+        data.room_types.forEach((value, key) => this.room_types.set(key, value));
+        data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
 
-      this.current_page += data.rooms.size;
-      if (data.rooms.size)
-        this.scroller.complete();
-    });
 
+        Array.from(data.rooms).forEach((value) => this.filtered_rooms.push(value));
+
+        this.current_page += data.rooms.size;
+        if (data.rooms.size)
+          this.scroller.complete();
+      });
+
+    }
   }
 
   ngOnInit(): void {
