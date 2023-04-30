@@ -88,6 +88,13 @@ export class ProfileComponent implements OnInit {
           });
 
         }
+      },
+      custom_action: {
+
+        icon: 'bar-chart-outline',
+        id: booking.value.room_id,
+        display: !room.is_reviewed
+
       }
 
     };

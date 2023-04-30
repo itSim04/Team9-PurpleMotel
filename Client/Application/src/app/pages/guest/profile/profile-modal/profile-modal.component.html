@@ -48,4 +48,13 @@
   <ion-button *ngIf="data?.button" (click)="performAction()" class="cancel-btn">
     {{data!.button!.label}}
   </ion-button>
+  <ion-icon size="large" class="review" (click)="openReview()" *ngIf="data?.custom_action?.display" [name]="data!.custom_action!.icon"></ion-icon>
+
+  <ion-modal [isOpen]="isReviewOpened" class="modal">
+
+
+    <ng-template>
+      <app-review (closeModal)="closeReview($event)"></app-review>
+    </ng-template>
+  </ion-modal>
 </div>

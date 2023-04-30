@@ -1,3 +1,5 @@
+import { IonRatingStarsModule } from 'ion-rating-stars';
+import { ReviewModalComponent } from './review/review.component';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -18,7 +20,8 @@ import { ProfileModalComponent } from "./profile-modal/profile-modal.component";
     ProfileComponent,
     EditProfileComponent,
     ChangePasswordComponent,
-    ProfileModalComponent
+    ProfileModalComponent,
+    ReviewModalComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +29,7 @@ import { ProfileModalComponent } from "./profile-modal/profile-modal.component";
     // BookingDetailsModule,
     // ActivityDetailsModule,
     FormsModule,
+    IonRatingStarsModule,
     IonicModule.forRoot()
     
    

@@ -600,13 +600,28 @@ export class RoomDatabaseService {
     }
 
   }
-  addReview(review: Review) {
+  addReview(review: Review, intel?: IntelAttributes) {
 
     const headers = this.url.generateHeader();
 
+    let body: any = review;
+
+    if(intel) {
+
+      body = {
+
+
+        ...review,
+        ...intel
+      }
+
+      console.log(body);
+
+    }
+
     try {
 
-      return this.http.post<RoomResponse>(this.url.generateUrl('postReview'), review, { headers: headers }).pipe(
+      return this.http.post<RoomResponse>(this.url.generateUrl('postReview'), body, { headers: headers }).pipe(
 
         map(result => {
 

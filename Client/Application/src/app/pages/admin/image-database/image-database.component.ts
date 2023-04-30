@@ -99,7 +99,7 @@ export class ImageDatabaseComponent {
 
   downloadImages(index: 0 | 1) {
 
-    const location = index ? 'website' : 'application';
+    const location = !index ? 'website' : 'application';
 
     this.image_service.browseImages('Assets', location).subscribe((result) => {
 
@@ -115,6 +115,8 @@ export class ImageDatabaseComponent {
 
         };
       });
+
+      console.log(this.images);
 
       image_names[index].forEach((value) => {
 

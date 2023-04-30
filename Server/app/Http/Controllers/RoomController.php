@@ -18,6 +18,7 @@ use App\Http\Resources\RoomTypeResource;
 use App\Models\AppliedPromoCodes;
 use App\Models\Booking;
 use App\Models\EffectPromoCodes;
+use App\Models\Intel;
 use App\Models\PromoCode;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
@@ -400,6 +401,39 @@ class RoomController extends Controller
             'content' => 'required|string',
             'date' => 'required|date'
         ]);
+
+        if (isset($request->quiet) && isset($request->smoke) && isset($request->view) && isset($request->wifi) && isset($request->tv) && isset($request->layout) && isset($request->proximity) && isset($request->bed) && isset($request->bathroom)) {
+
+            $request->validate([
+
+                'quiet' => 'required|integer',
+                'smoke' => 'required|integer',
+                'view' => 'required|integer',
+                'wifi' => 'required|integer',
+                'tv' => 'required|integer',
+                'layout' => 'required|integer',
+                'proximity' => 'required|integer',
+                'bed' => 'required|integer',
+                'bathroom' => 'required|integer',
+            ]);
+
+            Intel::create([
+
+                'room_id' => $request->room_id,
+                'quiet' => $request->quiet,
+                'smoke' => $request->smoke,
+                'view' => $request->view,
+                'wifi' => $request->wifi,
+                'tv' => $request->tv,
+                'layout' => $request->layout,
+                'proximity' => $request->proximity,
+                'bed' => $request->bed,
+                'bathroom' => $request->bathroom,
+                'user_id' => $request->user_id
+
+
+            ]);
+        }
 
 
         $review = Review::all()->where('room_id', $request->room_id)->where('user_id', $request->user_id)->first();

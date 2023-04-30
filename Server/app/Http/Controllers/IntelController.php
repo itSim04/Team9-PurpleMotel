@@ -41,7 +41,7 @@ class IntelController extends Controller
         'bed' => 'required|integer',
         'bathroom' => 'required|integer',
     ];
-
+    
     /**
      * Display a listing of the resource.
      */
