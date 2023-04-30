@@ -77,7 +77,7 @@
 
 
     <hr style="border-bottom: 1px solid var(--ion-color-dark); width: 90%;">
-    <ion-item style="display: flex; flex-direction: row;font-family: 'Roboto';">
+    <ion-item (click)="openModal(getEntry('about_us'))" style="display: flex; flex-direction: row;font-family: 'Roboto';">
       <ion-icon name="information-circle" slot="start"
         style="font-size: 24px; color: var(--ion-color-primary);"></ion-icon>
       <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 10px;">
