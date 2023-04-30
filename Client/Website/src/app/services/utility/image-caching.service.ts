@@ -14,6 +14,8 @@ export class ImageCachingService implements HttpInterceptor {
 
   constructor (private url: UrlBuilderService, private http: HttpClient) { }
 
+
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (request.url.startsWith('http://localhost:8000/storage/images/')) {
 
@@ -39,15 +41,43 @@ export class ImageCachingService implements HttpInterceptor {
     }
   }
 }
-export const image_names = [
+export const image_names = [ 
 
-  'room-main',
+  ['room-main',
   'service-main',
   'restaurant-main',
   'home-main',
   'logo',
   'support-background',
   'chefs-background'
+  ],
+  ['register-bg',
+  'room-main',
+  'service-main',
+  'restaurant-main',
+  'home-main',
+  'logo',
+  'chefs-background',
+  'profile-main',
+  'chat-main',
+  'users-db',
+  'rooms-db',
+  'bookings-db',
+  'food-db',
+  'announcement-db',
+  'language-db',
+  'news-db',
+  'order-db',
+  'promo-db',
+  'registration-db',
+  'services-db',
+  'information-db',
+  'image-db',
+  'stock-db',
+  'register-bg',
+  'login-pic-1',
+  'login-pic-2'
+]
 
 
 ];
