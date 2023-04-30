@@ -43,14 +43,12 @@ export class ImageCachingService implements HttpInterceptor {
 }
 
 export const image_names = [
-  'register-background',
+  'register-bg',
   'room-main',
   'service-main',
   'restaurant-main',
-  'menu-main',
   'home-main',
   'logo',
-  'support-background',
   'chefs-background',
   'profile-main',
   'chat-main',
@@ -66,6 +64,7 @@ export const image_names = [
   'registration-db',
   'services-db',
   'information-db',
+  'image-db',
   'stock-db',
   'register-bg',
   'login-pic-1',
