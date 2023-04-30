@@ -11,4 +11,6 @@ import { UrlBuilderService } from 'src/app/services/utility/url-builder.service'
 export class RestaurantLandingComponent {
 
   constructor(private url: UrlBuilderService) {}
+  chefs = this.url.getImage('chefs-background')
+  restaurant = this.url.getImage('restaurant-main')
 }

@@ -62,7 +62,7 @@ export class BrowseRoomsComponent implements OnInit {
     }
 
   }
-
+  room_bg = this.url.getImage('room-main');
   rooms: Map<string, Room> = new Map();
   room_types: Map<string, RoomType> = new Map();
   promo_codes: Map<string, PromoCode> = new Map();

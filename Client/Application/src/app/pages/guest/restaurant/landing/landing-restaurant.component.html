@@ -1,6 +1,6 @@
 <ion-content style="margin-bottom: 100px; --background: var(--ion-color-light)">
 
-<div class="main">
+<div class="main" [style.backgroundImage]="restaurant">
     <p class="title">
         This is it.
     </p>
@@ -26,7 +26,7 @@
 <p class="header-2">The Chefs</p>
 <div class="image-bg">
     <div class="image-container">
-        <img src="../../../../../assets/rooms/chefs2.jpg">
+        <img [src]="chefs">
         <div class="overlay-text">Click here to view</div>
     </div>
 </div>

@@ -1,8 +1,8 @@
 <div style="height: 100%; background-color: var(--ion-color-light)">
 
 
-    <ion-img class="header-1 center" src="../../../../assets/login/header-2.png"></ion-img>
-    <ion-img class="header-2 center" src="../../../../assets/login/header-1.png"></ion-img>
+    <ion-img class="header-1 center" [src]="login_bg1"></ion-img>
+    <ion-img class="header-2 center" [src]="login_bg2"></ion-img>
     <div class="labels">
         <ion-text class="title">Login Now</ion-text>
         <ion-input [(ngModel)]="email" placeholder="Email" class="input"></ion-input>

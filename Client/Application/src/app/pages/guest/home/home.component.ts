@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit {
 
   constructor (private news_service: NewsDatabaseService, private url: UrlBuilderService) { }
 
-
+  home_bg = this.url.getImage('home-main');
+  
   get data() {
 
     return Array.from(this.filtered_news);

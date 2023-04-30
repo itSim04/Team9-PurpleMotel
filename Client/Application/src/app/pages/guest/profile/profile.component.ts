@@ -122,6 +122,7 @@ export class ProfileComponent implements OnInit {
 
 
   }
+  profile_bg = this.url.getImage('profile-main');
 
   ionViewDidEnter() {
 

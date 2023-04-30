@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { genders, parseDate, validateEmail, validatePassword } from '../authentication.utility';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/utility/authentication.service';
+import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 
 @Component({
@@ -33,11 +34,11 @@ export class RegisterComponent {
   loading = false;
   gender = '';
   password_match = true;
-
   final_page = false;
-
-  constructor (private authentication_service: AuthenticationService, private toast_controller: ToastController, private router: Router) { }
-
+  
+  constructor (private authentication_service: AuthenticationService, private toast_controller: ToastController, private router: Router, private url:UrlBuilderService) { }
+  
+  register_bg = this.url.getImage('register-bg')
   parseDate(date: Date) {
 
     return parseDate(date);

@@ -65,7 +65,10 @@ export const image_names = [
   'promo-db',
   'registration-db',
   'services-db',
-  'stock-db'
+  'stock-db',
+  'register-bg',
+  'login-pic-1',
+  'login-pic-2'
 
 
 ];

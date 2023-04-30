@@ -35,7 +35,7 @@ export class BrowseServicesComponent implements OnInit {
   constructor (private services_service: ServiceDatabaseService, private url: UrlBuilderService) { }
 
 
-
+  services_bg = this.url.getImage('service-main');
 
   activity_key = (a: KeyValue<string, Activity>, b: KeyValue<string, Activity>): number => {
     return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
