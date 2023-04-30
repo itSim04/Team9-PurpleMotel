@@ -101,9 +101,9 @@ export class BrowseRoomsComponent implements OnInit {
         next: data => {
 
           this.isQuickOpened = false;
-
+          
           this.filtered = true;
-
+          
           this.filtered_rooms = Array.from(data.rooms);
 
           data.rooms.forEach((value, key) => this.rooms.set(key, value));
@@ -112,15 +112,19 @@ export class BrowseRoomsComponent implements OnInit {
 
         },
         error: error => {
-
-
+          
+          
           console.error(error);
-
+          
         }
       });
-
-
-
+      
+      
+      
+      
+    } else {
+      
+      this.isQuickOpened = false;
 
     }
 
@@ -161,6 +165,11 @@ export class BrowseRoomsComponent implements OnInit {
 
 
 
+
+    } else {
+
+
+      this.isRecommendOpened = false;
 
     }
 

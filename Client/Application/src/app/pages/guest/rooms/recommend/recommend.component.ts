@@ -56,6 +56,11 @@ export class RecommendModalComponent {
   range?: { check_in: Date; check_out: Date; };
   constructor (private router: Router, private booking_service: BookingDatabaseService, private toastController: ToastController) { }
 
+  get properties() {
+
+    return Object.keys(this.intel) as (keyof IntelAttributes)[];
+
+  }
 
   updateCheckin(s: Event) {
 

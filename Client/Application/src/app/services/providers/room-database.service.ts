@@ -153,7 +153,7 @@ export class RoomDatabaseService {
 
     try {
 
-      return this.http.post<RoomsResponse>(this.url.generateUrl('recomment-room'), {
+      return this.http.post<RoomsResponse>(this.url.generateUrl('recommend-room'), {
 
         ...intel,
         check_in: check_in,

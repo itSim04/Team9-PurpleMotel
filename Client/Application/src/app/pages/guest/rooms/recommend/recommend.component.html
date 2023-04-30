@@ -1,120 +1,128 @@
-<div class="container">
+<ion-content>
+
   <ion-fab-button (click)="closeModal.emit(undefined)" class="back-btn">
     <ion-icon name="close-outline"></ion-icon>
   </ion-fab-button>
+  <div class="container">
 
-  <div style="width: 100%; text-align: center;">
+    <div style="width: 100%; text-align: center;">
+    </div>
+    <ion-text class="title">{{'explore your options' | translate}}</ion-text>
+    <hr style="border-bottom: 1px solid var(--ion-color-primary);">
+    <ion-grid>
+
+      <ion-row>
+
+        <ion-col>
+          <br><br>
+          <ion-text class="label">{{'Adults' | translate }}</ion-text>
+          <br>
+          <ion-text class="sublabel">{{'(8 years and above)' | translate }}</ion-text>
+          <br><br>
+        </ion-col>
+        <ion-col style="align-items: center; display: flex;">
+          <ion-fab-button (click)="adults = (adults ? adults - 1 : 0)" class="quantity-btn"
+            fill="outline" size="small">
+            <ion-icon name="remove-outline"></ion-icon>
+          </ion-fab-button>
+          <ion-text class="number">{{adults}}</ion-text>
+          <ion-fab-button (click)="adults = adults + 1" class="quantity-btn" fill="outline"
+            size="small">
+            <ion-icon name="add-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row>
+
+        <ion-col>
+
+          <br><br>
+          <ion-text class="label">{{'Children' | translate }}</ion-text>
+          <br>
+          <ion-text class="sublabel">{{'(3-7 years)' | translate }}</ion-text>
+          <br><br>
+        </ion-col>
+        <ion-col style="align-items: center; display: flex;">
+          <ion-fab-button (click)="children = (children ? children - 1 : 0)" class="quantity-btn"
+            fill="outline" size="small">
+            <ion-icon name="remove-outline"></ion-icon>
+          </ion-fab-button>
+          <ion-text class="number">{{children}}</ion-text>
+          <ion-fab-button (click)="children = children + 1" class="quantity-btn" fill="outline"
+            size="small">
+            <ion-icon name="add-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+
+      </ion-row>
+
+    </ion-grid>
+    <hr style="border-bottom: 1px solid var(--ion-color-primary);">
+    <br><br>
+    <ion-text class="label">{{'Check-in Date' | translate }}</ion-text>
+    <ion-input readonly (click)="check_in_open = true" [value]="check_in" placeholder="Check-in"
+      class="input"></ion-input>
+
+    <br><br>
+    <ion-text class="label">{{'Check-out Date' | translate }}</ion-text>
+    <br><br>
+    <ion-input readonly (click)="check_out_open = true" [value]="check_out" placeholder="Check-out"
+      class="input"></ion-input>
+
+    <hr style="border-bottom: 1px solid var(--ion-color-primary);">
+
+    <ng-container *ngFor="let p of properties">
+
+      <br><br>
+      <ion-text style="text-transform: capitalize;" class="label">{{p | translate }}</ion-text>
+      <br><br>
+      <ion-range [(ngModel)]="intel[p]"></ion-range>
+
+    </ng-container>
+
+    <ion-button (click)="closeModal.emit({
+  
+  intel: intel,
+  check_in: check_in,
+  check_out: check_out,
+  adults: adults,
+  children: children
+  
+})" class="submit">{{'Recommend' | translate}}</ion-button>
+
+    <ion-modal class="modal" [isOpen]="check_in_open">
+      <ng-template>
+
+        <ion-fab-button (click)="check_in_open = false" class="back-btn-2">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-fab-button>
+
+        <div class="date-container">
+
+          <ion-datetime style="margin: 0; width: 100%;" doneText="Save"
+            (ionChange)="updateCheckin($event)" placeholder="Date of Birth" id="datetime"
+            class="input"></ion-datetime>
+        </div>
+      </ng-template>
+    </ion-modal>
+    <ion-modal class="modal" [isOpen]="check_out_open">
+      <ng-template>
+
+        <ion-fab-button (click)="check_out_open = false" class="back-btn-2">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-fab-button>
+
+        <div class="date-container">
+
+          <ion-datetime style="margin: 0; width: 100%;" doneText="Save"
+            (ionChange)="updateCheckout($event)" placeholder="Date of Birth" id="datetime"
+            class="input"></ion-datetime>
+        </div>
+      </ng-template>
+    </ion-modal>
+
+
   </div>
-  <ion-text class="title">{{'explore your options' | translate}}</ion-text>
-  <hr style="border-bottom: 1px solid var(--ion-color-primary);">
-  <ion-grid>
-
-    <ion-row>
-
-      <ion-col>
-        <br><br>
-        <ion-text class="label">{{'Adults' | translate }}</ion-text>
-        <br>
-        <ion-text class="sublabel">{{'(8 years and above)' | translate }}</ion-text>
-        <br><br>
-      </ion-col>
-      <ion-col style="align-items: center; display: flex;">
-        <ion-fab-button (click)="adults = (adults ? adults - 1 : 0)" class="quantity-btn"
-          fill="outline" size="small">
-          <ion-icon name="remove-outline"></ion-icon>
-        </ion-fab-button>
-        <ion-text class="number">{{adults}}</ion-text>
-        <ion-fab-button (click)="adults = adults + 1" class="quantity-btn" fill="outline"
-          size="small">
-          <ion-icon name="add-outline"></ion-icon>
-        </ion-fab-button>
-      </ion-col>
-
-    </ion-row>
-
-    <ion-row>
-
-      <ion-col>
-
-        <br><br>
-        <ion-text class="label">{{'Children' | translate }}</ion-text>
-        <br>
-        <ion-text class="sublabel">{{'(3-7 years)' | translate }}</ion-text>
-        <br><br>
-      </ion-col>
-      <ion-col style="align-items: center; display: flex;">
-        <ion-fab-button (click)="children = (children ? children - 1 : 0)" class="quantity-btn"
-          fill="outline" size="small">
-          <ion-icon name="remove-outline"></ion-icon>
-        </ion-fab-button>
-        <ion-text class="number">{{children}}</ion-text>
-        <ion-fab-button (click)="children = children + 1" class="quantity-btn" fill="outline"
-          size="small">
-          <ion-icon name="add-outline"></ion-icon>
-        </ion-fab-button>
-      </ion-col>
-
-    </ion-row>
-
-  </ion-grid>
-  <hr style="border-bottom: 1px solid var(--ion-color-primary);">
-  <br><br>
-  <ion-text class="label">{{'Check-in Date' | translate }}</ion-text>
-  <ion-input readonly (click)="check_in_open = true" [value]="check_in" placeholder="Birthday"
-    class="input"></ion-input>
-
-  <br><br>
-  <ion-text class="label">{{'Check-out Date' | translate }}</ion-text>
-  <br><br>
-  <ion-input readonly (click)="check_out_open = true" [value]="check_out" placeholder="Birthday"
-    class="input"></ion-input>
-
-  <hr style="border-bottom: 1px solid var(--ion-color-primary);">
-  <br><br>
-  <ion-text class="label">{{'Check-out Date' | translate }}</ion-text>
-  <br><br>
-
-
-  <ion-button (click)="closeModal.emit({
-      
-    intel: intel,
-      check_in: check_in,
-      check_out: check_out,
-      adults: adults,
-      children: children
-      
-    })" class="submit">{{'check_availability' | translate}}</ion-button>
-
-  <ion-modal class="modal" [isOpen]="check_in_open">
-    <ng-template>
-
-      <ion-fab-button (click)="check_in_open = false" class="back-btn-2">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-      </ion-fab-button>
-
-      <div class="date-container">
-
-        <ion-datetime style="margin: 0; width: 100%;" doneText="Save"
-          (ionChange)="updateCheckin($event)" placeholder="Date of Birth" id="datetime"
-          class="input"></ion-datetime>
-      </div>
-    </ng-template>
-  </ion-modal>
-  <ion-modal class="modal" [isOpen]="check_out_open">
-    <ng-template>
-
-      <ion-fab-button (click)="check_out_open = false" class="back-btn-2">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-      </ion-fab-button>
-
-      <div class="date-container">
-
-        <ion-datetime style="margin: 0; width: 100%;" doneText="Save"
-          (ionChange)="updateCheckout($event)" placeholder="Date of Birth" id="datetime"
-          class="input"></ion-datetime>
-      </div>
-    </ng-template>
-  </ion-modal>
-
-
-</div>
+</ion-content>

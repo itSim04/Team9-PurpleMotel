@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { RecommendModalComponent } from './recommend/recommend.component';
 import { RoomItemModule } from './../../../components/room/room-item/room-item.module';
 import { IonicModule } from '@ionic/angular';
@@ -23,6 +24,7 @@ import { QuickAvailabilityModalComponent } from './quick-availability/quick-avai
   ],
   imports: [
     CommonModule,
+    FormsModule,
     IonicModule.forRoot(),
     RoomItemModule,
     CalendarWrapperModule,
