@@ -124,8 +124,6 @@ export class AppComponent implements OnInit {
 
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-        console.log(prefersDark);
-
         if (prefersDark.matches) {
 
           document.body.classList.add('dark');
