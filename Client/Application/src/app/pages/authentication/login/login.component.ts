@@ -19,7 +19,16 @@ export class LoginComponent {
   loading = false;
   constructor (private toastController: ToastController, private authentication_service: AuthenticationService, private router: Router) { }
 
+  ionViewWillEnter() {
 
+    this.email = '';
+    this.password = '';
+    this.validated_email = true;
+    this.validated_credentials = true;
+    this.connection_error = false;
+    this.loading = false;
+
+  }
 
   async login() {
 
@@ -38,11 +47,11 @@ export class LoginComponent {
         next: result => {
 
           console.log(result);
-          this.router.navigate(['/home'])
+          this.router.navigate(['/home']);
 
         }, error: error => {
 
-          console.error(error)
+          console.error(error);
           this.loading = false;
 
           if (error.status == 401) {
@@ -51,11 +60,11 @@ export class LoginComponent {
             localStorage.removeItem('user');
             this.validated_credentials = false;
 
-            this.display_toast('Incorrect Credentials')
-            
+            this.display_toast('Incorrect Credentials');
+
           } else {
-            
-            this.display_toast('Connection Error')
+
+            this.display_toast('Connection Error');
             this.connection_error = true;
 
           }
@@ -63,19 +72,19 @@ export class LoginComponent {
       });
     } else {
 
-      this.display_toast('Invalid Email')
-      
+      this.display_toast('Invalid Email');
+
     }
   }
-  
+
   async display_toast(body: string) {
-    
+
     const toast = await this.toastController.create({
       message: body,
       duration: 1500,
       position: 'bottom'
     });
-  
+
     await toast.present();
 
   }

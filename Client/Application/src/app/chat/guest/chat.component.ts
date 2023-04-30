@@ -29,7 +29,7 @@ export class GuestChatComponent implements OnInit {
   db: Database = getDatabase(); // Instance of firebase
   id!: string; // The id of the chat (x-y)
   chat?: Chat; // The chat this class holds
-  constructor(private router: Router, private database: Database, private userService: UserDatabaseService, private route: ActivatedRoute) { }
+  constructor (private router: Router, private database: Database, private userService: UserDatabaseService, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -46,60 +46,79 @@ export class GuestChatComponent implements OnInit {
 
     };
 
-    this.userService.getOneUser(this.id).subscribe(u => {
+    this.userService.getOneUser(this.id).subscribe({
 
-      this.chat = {
+      next: u => {
 
-        user_1: this.session_user,
-        user_2: u.user,
-        lastMessage: {
+        this.chat = {
 
-          content: '',
-          owner_id: '-1',
-          date: new Date()
+          user_1: this.session_user,
+          user_2: u.user,
+          lastMessage: {
 
-        },
-        messages: [],
-        start: new Date()
+            content: '',
+            owner_id: '-1',
+            date: new Date()
 
-      };
+          },
+          messages: [],
+          start: new Date()
 
-      const commentsRef = ref(this.db, 'messages/' + this.id);
+        };
 
-      setTimeout(() => {
+        const commentsRef = ref(this.db, 'messages/' + this.id);
 
-        this.loading = false
+        setTimeout(() => {
 
-      }, 2000);
-      onChildAdded(commentsRef, (snapshot) => {
+          this.loading = false;
 
-        this.loading = false;
+        }, 2000);
+        onChildAdded(commentsRef, (snapshot) => {
 
-        const data = snapshot.val();
+          this.loading = false;
 
-        this.chat?.messages.push({
+          const data = snapshot.val();
 
-          content: data["message"],
-          date: new Date(data["timestamp"]),
-          owner_id: data["sender"]
+          this.chat?.messages.push({
+
+            content: data["message"],
+            date: new Date(data["timestamp"]),
+            owner_id: data["sender"]
+
+
+          });
+
+          setTimeout(() => {
+
+            this.container.nativeElement.scrollTo({ left: 0, top: this.container.nativeElement.scrollHeight, behavior: 'smooth' });
+
+          }, 100);
 
 
         });
 
-        setTimeout(() => {
+      },
+      error: error => {
 
-          this.container.nativeElement.scrollTo({left: 0 , top: this.container.nativeElement.scrollHeight, behavior: 'smooth'});
-
-        }, 100)
+        if (error.status == 401) {
 
 
-      });
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('id');
+          localStorage.removeItem('token_time');
+          this.router.navigate(['/auth']);
 
+        }
+
+
+
+      }
     });
   }
 
   isSpecial(str: string): boolean {
-    const emojiRegex = /^\p{Emoji}$/u // regular expression to match a single Unicode emoji
+    const emojiRegex = /^\p{Emoji}$/u; // regular expression to match a single Unicode emoji
     return emojiRegex.test(str.trim());
   }
 
@@ -126,7 +145,7 @@ export class GuestChatComponent implements OnInit {
 
   keyStroke($event: KeyboardEvent) {
 
-    if($event.key == "Enter") {
+    if ($event.key == "Enter") {
 
       this.postMessage();
 

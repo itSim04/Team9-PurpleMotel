@@ -95,7 +95,7 @@
     </ion-menu-toggle>
   </div>
 
-  <div *ngIf="isActive('/chat/guest') || !isActive('/chat/admin/')"
+  <div *ngIf="!isActive('/chat/guest') && !isActive('/chat/admin/')"
     style="bottom: 0px; position: fixed; width: 100%;">
 
 

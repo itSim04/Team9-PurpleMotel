@@ -1,29 +1,23 @@
 <ion-content>
-    <div class="main">
-    
-    
-      <table style="background: #00000045;height: 100%; width: 100%;">
-          
-              <td [style.visibility]="chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 100%; max-height: 50px;">
-    
-                  <div style="overflow-y: auto; height: 100%;">
-    
-                      <div (click)="routeTo(guest.key)" style="padding: 16px;" *ngFor="let guest of active_guests; let i = index">
-                          
-                          <p class="chat-last" style="float: right;">{{formatDateString(active_last_messages[i].lastDate)}}</p>
-                          <p class="chat-name">{{guest.value.first_name + ' ' + guest.value.last_name}}</p>
-                          <p class="chat-last">{{active_last_messages[i].lastMessage}}</p>
-                          
-                          
-                      </div>
-                  </div>
-    
-    
-              </td>
-              <td [style.visibility]="loading || chat_loading ? 'hidden' : 'visible'" style="vertical-align: top; width: 70%">
-    
-              </td>
-          
-      </table>
+    <div class="main" style="background-blend-mode: soft-light; background-color: #00000045;height: 100%; width: 100%;">
+        <div style="overflow-y: auto; height: 100%;">
+
+            <br><br><br>
+            <ion-card [color]="getColor(i)" (click)="routeTo(guest.key)" style="padding: 16px;"
+                *ngFor="let guest of active_guests; let i = index">
+
+                <ion-card-subtitle class="chat-last"
+                    style="float: right;">{{formatDateString(active_last_messages[i].lastDate)}}</ion-card-subtitle>
+                <ion-card-title class="chat-name">{{guest.value.first_name + ' ' +
+                    guest.value.last_name}}</ion-card-title>
+                <ion-card-content
+                    class="chat-last">{{active_last_messages[i].lastMessage}}</ion-card-content>
+
+
+            </ion-card>
+            <br><br><br><br><br>
+        </div>
+
+
     </div>
-    </ion-content>
+</ion-content>

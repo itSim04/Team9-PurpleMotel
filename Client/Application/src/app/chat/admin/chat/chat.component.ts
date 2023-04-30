@@ -50,47 +50,66 @@ export class AdminChatComponent implements OnInit {
 
     };
 
-    this.userService.getAllUsers().subscribe(u => {
-
-      this.all_users = u.users;
-
-      const chatsRef = ref(this.db, 'chats/');
-
-      onChildAdded(chatsRef, (snapshot) => {
+    this.userService.getAllUsers().subscribe({
 
 
-        const temp = this.all_users.get(snapshot.key || '');
+      next: u => {
+
+        this.all_users = u.users;
+
+        const chatsRef = ref(this.db, 'chats/');
+
+        onChildAdded(chatsRef, (snapshot) => {
 
 
-        if (temp) {
+          const temp = this.all_users.get(snapshot.key || '');
 
-          if (snapshot.key == this.id) {
 
-            this.chat_loading = true;
+          if (temp) {
 
-          } else {
-            this.chat_loading = false;
+            if (snapshot.key == this.id) {
 
-            this.active_guests.push({ key: snapshot.key || '0', value: temp });
-            this.active_last_messages.push((snapshot.val() as { lastDate: string, lastMessage: string; }));
+              this.chat_loading = true;
 
+            } else {
+              this.chat_loading = false;
+
+              this.active_guests.push({ key: snapshot.key || '0', value: temp });
+              this.active_last_messages.push((snapshot.val() as { lastDate: string, lastMessage: string; }));
+
+            }
           }
+
+        });
+
+
+        if (this.id != '0') {
+
+          this.download();
+
+        } else {
+
+          this.loading = false;
         }
 
-      });
 
 
-      if (this.id != '0') {
+      },
+      error: error => {
 
-        this.download();
 
-      } else {
+        if (error.status) {
 
-        this.loading = false;
+
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('id');
+          localStorage.removeItem('token_time');
+          this.router.navigate(['/auth']);
+
+        }
+
       }
-
-
-
     });
   }
 

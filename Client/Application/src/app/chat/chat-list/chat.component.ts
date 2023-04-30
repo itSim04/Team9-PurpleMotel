@@ -50,48 +50,92 @@ export class ChatListComponent implements OnInit {
 
     };
 
-    this.userService.getAllUsers().subscribe(u => {
+    this.userService.getAllUsers().subscribe({
 
-      this.all_users = u.users;
+      next: u => {
 
-      const chatsRef = ref(this.db, 'chats/');
+        this.all_users = u.users;
 
-      onChildAdded(chatsRef, (snapshot) => {
+        const chatsRef = ref(this.db, 'chats/');
+
+        onChildAdded(chatsRef, (snapshot) => {
 
 
-        const temp = this.all_users.get(snapshot.key || '');
+          const temp = this.all_users.get(snapshot.key || '');
 
 
-        if (temp) {
+          if (temp) {
 
-          if (snapshot.key == this.id) {
+            if (snapshot.key == this.id) {
 
-            this.chat_loading = true;
+              this.chat_loading = true;
 
-          } else {
-            this.chat_loading = false;
+            } else {
+              this.chat_loading = false;
 
-            this.active_guests.push({ key: snapshot.key || '0', value: temp });
-            this.active_last_messages.push((snapshot.val() as { lastDate: string, lastMessage: string; }));
+              this.active_guests.push({ key: snapshot.key || '0', value: temp });
+              this.active_last_messages.push((snapshot.val() as { lastDate: string, lastMessage: string; }));
 
+            }
           }
+
+        });
+
+
+        if (this.id != '0') {
+
+          this.download();
+
+        } else {
+
+          this.loading = false;
         }
 
-      });
 
 
-      if (this.id != '0') {
+      },
+      error: error => {
 
-        this.download();
+        if (error.status) {
 
-      } else {
 
-        this.loading = false;
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('id');
+          localStorage.removeItem('token_time');
+          this.router.navigate(['/auth']);
+
+        }
+
+
       }
-
-
-
     });
+  }
+
+  getColor(seed: number) {
+
+    let num_seed = seed;
+    const currentRandom = Math.random;
+
+    // Initialize random number generator with given seed
+    Math.random = () => {
+      const x = Math.sin(num_seed++ * 0.7876) * 10000;
+      return x - Math.floor(x);
+    };
+
+    // 60% chance of the first value being picked
+    const pickFirstValue = Math.random() < 0.6;
+
+    // Define three random string values
+    const value1 = 'primary';
+    const value2 = 'secondary';
+
+    // Assign values to an array based on probability
+    if (pickFirstValue) {
+      return value1;
+    } else {
+      return value2;
+    }
   }
 
   download() {
