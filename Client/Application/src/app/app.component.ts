@@ -1,3 +1,4 @@
+import { LanguageDatabaseService } from 'src/app/services/providers/language-database.service';
 import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
@@ -103,7 +104,6 @@ export class AppComponent implements OnInit {
 
   syncTheme() {
 
-
     document.body.classList.remove('auto');
     document.body.classList.remove('dark');
     document.body.classList.remove('light');
@@ -137,7 +137,7 @@ export class AppComponent implements OnInit {
 
       this.syncTheme();
 
-    }, 10000);
+    }, 100);
 
   }
 }

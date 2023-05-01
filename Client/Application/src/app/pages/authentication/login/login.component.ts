@@ -18,9 +18,9 @@ export class LoginComponent {
   validated_credentials = true;
   connection_error = false;
   loading = false;
-  login_bg1 = this.url.getImage('login-pic-1')
-  login_bg2 = this.url.getImage('login-pic-2')
-  
+  login_bg1 = this.url.getImage('login-pic-1');
+  login_bg2 = this.url.getImage('login-pic-2');
+
   constructor (private toastController: ToastController, private authentication_service: AuthenticationService, private router: Router, private url: UrlBuilderService) { }
 
   ionViewWillEnter() {
@@ -57,7 +57,11 @@ export class LoginComponent {
           console.error(error);
           this.loading = false;
 
-          if (error.status == 401) {
+          if (error.status == 429) {
+
+            this.display_toast('Too many requests, please try again later');
+
+          } else if (error.status == 401) {
 
             localStorage.removeItem('token');
             localStorage.removeItem('user');

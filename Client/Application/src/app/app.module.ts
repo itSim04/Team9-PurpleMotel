@@ -62,9 +62,8 @@ import { ImageDatabaseModule } from './pages/admin/image-database/image-database
     
     IonicModule.forRoot(),
 
-    LanguageModule,
     BrowserAnimationsModule,
-
+    
     // Admin
     AnnouncementDatabaseModule,
     BookingDatabaseModule,
@@ -97,12 +96,14 @@ import { ImageDatabaseModule } from './pages/admin/image-database/image-database
     GuestChatsPageModule,
     AdminChatsPageModule,
     ChatListModule,
-
+    
     HomeModule,
     ProfileModule,
     RestaurantModule,
     SettingsModule,
-
+    
+    LanguageModule,
+    
   ],
   providers: [
     HttpClientModule
