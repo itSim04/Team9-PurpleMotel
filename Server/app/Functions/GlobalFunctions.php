@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 function generateResponse(int $code, $collection = [], $included = [], bool $error = false, array $images = [])
 {
+
     $response = ['status' => $error ? 'error' : 'success'];
 
     // if ($collection) {

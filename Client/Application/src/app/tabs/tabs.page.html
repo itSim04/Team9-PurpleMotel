@@ -1,73 +1,84 @@
 <ion-modal class="modal" [isOpen]="isModalOpen" [enterAnimation]="enterAnimation"
-    [leaveAnimation]="leaveAnimation">
-    <ng-template>
-    
-      
-      <div class="annoucements">
-        <ion-fab-button (click)="this.isModalOpen = false" class="back-btn">
-          <ion-icon name="arrow-back-outline"></ion-icon>
+  [leaveAnimation]="leaveAnimation">
+  <ng-template>
+
+
+    <div class="annoucements">
+      <ion-fab-button (click)="this.isModalOpen = false" class="back-btn">
+        <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-fab-button>
-        
-            <br><br>
-            <ion-text class="header-3">
-              
-              
-                {{ 'announcements' | translate }}
-                
-            </ion-text>
-            
-            
-            <br><br>
-            <hr style="border-bottom: 1px solid var(--ion-color-primary);">
-            <br>
-            
-            
-            <ion-content style="height: 100%;position: absolute; --background: var(--ion-color-light)">
-              
-              
-              <ng-container *ngFor="let announcement of announcements | keyvalue; let i = index">
 
-                
-                <ion-list style=" --background: #d9d9d9d9;">
+      <br><br>
+      <ion-text class="header-3">
 
-                  <ion-item style=" --background: #d9d9d9d9;">
-                    
-                    <ion-grid style=" --background: #d9d9d9d9;">
-                      
-                                  <ion-row style=" --background: #d9d9d9d9;">
 
-                                    <ion-col style=" --background: #d9d9d9d9;" class="label">{{'title' | translate}}:</ion-col>
-                                    <ion-col style=" --background: #d9d9d9d9;" class="label">{{'body' | translate}}:</ion-col>
+        {{ 'announcements' | translate }}
 
-                                  </ion-row>
+      </ion-text>
 
-                                  <ion-row style=" --background: #d9d9d9d9;">
-                                    
-                                    
-                                    <ion-col style=" --background: #d9d9d9d9;" class="mark"> {{announcement.value.label}} </ion-col>
-                                    <ion-col style=" --background: #d9d9d9d9;" class="mark"> {{announcement.value.body}} </ion-col>
-                    
-                                </ion-row>
-                   </ion-grid>
-                            
-                </ion-item>
-                        
-            </ion-list>
-                      
-          </ng-container>
 
-                    
-        </ion-content>
-        </div>
-      </ng-template>
-        
-     
+      <br><br>
+      <hr style="border-bottom: 1px solid var(--ion-color-primary);">
+      <br>
+
+
+      <ion-content style="height: 100%;position: absolute; --background: var(--ion-color-light)">
+
+
+        <ng-container *ngFor="let announcement of announcements | keyvalue; let i = index">
+
+
+          <ion-list style=" --background: transparent;">
+
+            <ion-item style=" --background: transparent;">
+
+              <ion-grid style=" --background: transparent;">
+
+                <ion-row style=" --background: transparent;">
+
+                  <ion-col style=" --background: #d9d9d9d9;" class="label">{{'title' |
+                    translate}}:</ion-col>
+                  <ion-col style=" --background: #d9d9d9d9;" class="label">{{'body' |
+                    translate}}:</ion-col>
+
+                </ion-row>
+
+                <ion-row style=" --background: #d9d9d9d9;">
+
+
+                  <ion-col style=" --background: #d9d9d9d9;" class="mark">
+                    {{announcement.value.label}} </ion-col>
+                  <ion-col style=" --background: #d9d9d9d9;" class="mark">
+                    {{announcement.value.body}} </ion-col>
+
+                </ion-row>
+              </ion-grid>
+
+            </ion-item>
+
+          </ion-list>
+
+        </ng-container>
+
+        <br><br><br>
+        <br><br><br>
+        <br><br><br>
+        <br><br><br>
+        <br><br><br>
+
+
+      </ion-content>
+    </div>
+  </ng-template>
+
+
 </ion-modal>
 
 <ion-content>
   <ion-router-outlet></ion-router-outlet>
 
-  <ion-menu style="--background: var(--ion-color-light); vertical-align: top" contentId="main-content">
+  <ion-menu style="--background: var(--ion-color-light); vertical-align: top"
+    contentId="main-content">
     <ion-menu-toggle>
       <ion-fab-button translucent="false" class="burger-btn">
 
@@ -137,7 +148,7 @@
 
       <hr style="border-bottom:1px solid var(--ion-color-dark); width: 85%;">
       <br>
- 
+
       <ion-menu-toggle>
         <ion-text class="bottom" (click)="logout()">
           {{'logout' | translate}}
@@ -152,13 +163,12 @@
     <ion-menu-toggle style="width: 20%; display: block;">
       <ion-fab-button translucent="false" class="burger-btn">
 
-      
+
         <img style="position: fixed; top: 15x; left: 16px;" width="80%"
           src="../../assets/tabs/menu-btn-inactive.png">
         <img style="position: fixed; top: 16px; left: 16px" width="80%"
           src="../../assets/tabs/menu-btn.png">
 
-    
 
       </ion-fab-button>
     </ion-menu-toggle>
@@ -168,7 +178,6 @@
     style="bottom: 0px; position: fixed; width: 100%;">
 
 
- 
     <table [style.backgroundColor]="color" class="container" slot="bottom">
       <tr style="position: relative; left: 50%; transform: translateX(-50%);">
 
@@ -224,12 +233,9 @@
             </div>
           </ion-button>
         </td>
-   
+
       </tr>
     </table>
 
   </div>
 </ion-content>
-
-
-      

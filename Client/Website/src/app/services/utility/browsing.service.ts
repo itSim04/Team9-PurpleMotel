@@ -1,7 +1,6 @@
-import { User } from './../../../../../Application/src/app/models/User';
-import { Announcement } from './../../../../../Application/src/app/models/Announcement';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { User } from 'src/app/models/User';
 import { BrowsingDialogComponent } from '../dialogs/browsing/browsing.component';
 
 @Injectable({

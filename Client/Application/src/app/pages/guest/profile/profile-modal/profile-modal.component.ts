@@ -33,6 +33,10 @@ export interface ProfileModalData {
   custom_height?: string;
   stored_data?: unknown;
   show_num_input?: boolean;
+  num_name?: string;
+
+  hide_description?: boolean;
+  hide_image?: boolean;
 }
 
 @Component({

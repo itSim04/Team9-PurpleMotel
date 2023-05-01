@@ -6,11 +6,11 @@
 
     <ion-text class="title">{{data?.title}}</ion-text>
     <hr style="border-bottom: 1px solid #D6B389; width: 95%;">
-    <img style="object-fit: cover; margin-top: 8px;" width="100%" height="40%" [src]="data?.image"
+    <img *ngIf="!data!.hide_image" style="object-fit: cover; margin-top: 8px;" width="100%" height="40%" [src]="data?.image"
       onerror="this.src='assets/placeholder.png'">
   </div>
   <br>
-  <ion-text class="label">{{'description' | translate}}</ion-text>
+  <ion-text *ngIf="!data!.hide_description" class="label">{{'description' | translate}}</ion-text>
   <br>
   <ion-text class="body">{{data?.body}}</ion-text>
   <br>
@@ -19,7 +19,7 @@
       <div style="display: flex; width: 70%;">
 
         <ion-text class="input">
-          {{ 'seats' | translate }}:
+          {{ data?.num_name || '' | translate }}:
         </ion-text>
         <div style="display: flex; width: 100%; align-items: center; padding-left: 4px;">
           <ion-button (click)="changeQuantity(-1)" class="quantity_btn">-</ion-button>

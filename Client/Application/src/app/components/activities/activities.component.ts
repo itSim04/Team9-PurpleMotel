@@ -91,6 +91,7 @@ export class ActivitiesComponent {
       body: activity.description,
       price: activity.price,
       start_date: activity.start_date,
+      num_name: 'Seats',
       end_date: activity.end_date,
       image: activity.image[0],
       button: {

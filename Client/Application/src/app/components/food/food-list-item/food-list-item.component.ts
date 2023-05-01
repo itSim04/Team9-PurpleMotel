@@ -45,6 +45,7 @@ export class FoodListItemComponent implements OnInit {
       price: food.price,
       hide_dates: true,
       image: food.image,
+      num_name: 'Quantity',
       button: {
         label: 'Add To Cart',
         action: (num: unknown) => {

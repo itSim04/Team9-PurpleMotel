@@ -31,7 +31,8 @@ export class RestaurantLandingComponent {
       title: arg0,
       body: this.display,
       hide_dates: true,
-      custom_height: '50%'
+      custom_height: '50%',
+      
     }
     return data
   }
