@@ -20,7 +20,8 @@ class RoomTypeController extends Controller
         'price' => 'required|numeric',
         'adults_capacity' => 'required|integer|min:0',
         'adults_with_kids_capacity' => 'required|integer|min:0',
-        'kids_capacity' => 'required|integer|min:0'
+        'kids_capacity' => 'required|integer|min:0',
+        'description' => 'string'
 
     ];
 

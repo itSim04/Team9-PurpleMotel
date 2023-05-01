@@ -28,6 +28,48 @@ export class AnnouncementDatabaseComponent {
       {
         key: 'body',
         type: 'text'
+      },
+      {
+        key: 'author_id',
+        type: 'outer_link',
+        outer_link: {
+
+          index: 0,
+          format: (value) => (value as User)?.first_name + " " + (value as User)?.last_name,
+          key: 'author_id'
+
+        }
+      },
+      {
+        key: 'concerned_tier',
+        type: 'custom',
+        custom: (data) => {
+
+
+          switch (data.concerned_tier.toString()) {
+
+            case '0':
+
+              return 'Guest';
+              
+            case '1':
+
+              return 'Staff';
+              
+            case '2':
+
+              return 'Admin';
+              
+
+            default:
+
+              throw new Error('Invalid tier');
+
+
+
+          }
+
+        }
       }
     ],
 
@@ -42,7 +84,7 @@ export class AnnouncementDatabaseComponent {
       author_id: extractUserId()!,
       concerned_tier: '',
       label: '',
-      body: ''
+      body: '',
     },
 
     side_panel: 'empty',

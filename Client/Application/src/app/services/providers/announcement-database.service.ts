@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { AnnouncementsPackage, AnnouncementsResponse, Announcement, AnnouncementPackage, AnnouncementResponse } from "src/app/models/Announcement";
@@ -64,26 +64,28 @@ export class AnnouncementDatabaseService {
     const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<AnnouncementResponse>(this.url.generateUrl(`announcements/${id}`), {headers: headers}).pipe(
+      return this.http.get<AnnouncementResponse>(this.url.generateUrl(`announcements/${id}`), { headers: headers }).pipe(
         map((response: AnnouncementResponse): AnnouncementPackage => {
 
-          return {
+          if (response.included) {
+            return {
 
-            announcement: {
+              announcement: {
 
-              key: response.data.id,
-              value: response.data.attributes
+                key: response.data.id,
+                value: response.data.attributes
 
-            },
-            user: {
+              },
+              user: {
 
-              key: response.data.attributes.author_id,
-              value: response.included.attributes as User
+                key: response.data.attributes.author_id,
+                value: response.included.attributes as User
 
-            }
-          };
+              }
+            };
+          }
 
-
+          throw new Error('No user found');
         })
       );
 
@@ -100,7 +102,7 @@ export class AnnouncementDatabaseService {
     const headers = this.url.generateHeader();
     try {
 
-      return this.http.post<AnnouncementResponse>(this.url.generateUrl('announcements'), announcement, {headers: headers}).pipe(
+      return this.http.post<AnnouncementResponse>(this.url.generateUrl('announcements'), announcement, { headers: headers }).pipe(
 
         map(result => {
 
@@ -123,7 +125,7 @@ export class AnnouncementDatabaseService {
     const headers = this.url.generateHeader();
     try {
 
-      return this.http.put(this.url.generateUrl(`announcements/${announcement_id}`), announcement, {headers: headers}).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`announcements/${announcement_id}`), announcement, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -138,7 +140,7 @@ export class AnnouncementDatabaseService {
     const headers = this.url.generateHeader();
     try {
 
-      return this.http.delete(this.url.generateUrl(`announcements/${key}`), {headers: headers}).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`announcements/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 

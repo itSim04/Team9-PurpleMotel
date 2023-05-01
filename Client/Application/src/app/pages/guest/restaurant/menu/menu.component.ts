@@ -112,7 +112,11 @@ export class MenuComponent implements OnInit {
 
       this.downloadCart();
 
-      this.isModalOpen = true;
+      console.log(this.order);
+      setTimeout (() => {
+
+        this.isModalOpen = true;
+      }, 100);
 
     } else {
 

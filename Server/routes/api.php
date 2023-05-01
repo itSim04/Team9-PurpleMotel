@@ -61,13 +61,14 @@ Route::prefix('v1')->group(function () {
     });
 
 
+    
+    
     Gate::policy(User::class, UserPolicy::class);
     Gate::policy(UserType::class, UserTypePolicy::class);
     Gate::policy(Stocks::class, StocksPolicy::class);
     Gate::policy(Food::class, FoodPolicy::class);
     Gate::policy(Room::class, RoomPolicy::class);
     Gate::policy(Order::class, OrderPolicy::class);
-    Gate::policy(Booking::class, BookingPolicy::class);
     Gate::policy(Registration::class, RegistrationPolicy::class);
     Gate::policy(PromoCode::class, PromoCodePolicy::class);
     Gate::policy(Announcements::class, AnnouncementsPolicy::class);
@@ -129,10 +130,8 @@ Route::prefix('v1')->group(function () {
     Route::get('browse-images', [ImageController::class, 'browse']);
 
     Route::middleware('auth:api')->group(function () {
-
-
-        Route::post('recommend-room', [IntelController::class, 'recommendRoom']);
-
+    Route::apiResource('announcements', AnnouncementsController::class);
+    Route::apiResource('food-categories', FoodCategoryController::class);
         Route::prefix('announcements')->controller(AnnouncementsController::class)->group(function () {
 
             Route::get('', 'index');

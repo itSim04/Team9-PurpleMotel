@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CustomCustomEvent;
 use App\Http\Resources\ActivityResource;
 use App\Http\Resources\BookingResource;
 use App\Http\Resources\FoodResource;
@@ -31,6 +32,7 @@ use App\Models\Room;
 use App\Models\RoomType;
 use App\Models\Stocks;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,7 +69,45 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return storeTemplate($request, $this->model, $this->resource, $this->options);
+        $request->validate($this->options);
+
+        $credentials = $request->only(array_keys($this->options));
+
+
+        try {
+
+            $data = $this->model::create($credentials);
+
+            $formatted_permissions = [];
+            if (isset($request->permissions)) {
+
+                $permissions = [];
+                foreach ($request->permissions as $key => $permission) {
+
+                    $permission = addPermissions($key, $data->id, $permission, true);
+
+                    if ($permission) {
+
+                        $permissions[] = $permission;
+                    }
+                }
+
+
+                foreach ($permissions as $permission) {
+
+                    $formatted_permissions[] = ucwords($permission['label']) . ': ' . $permission['read'] . ' ' . $permission['write'] . ' ' . $permission['delete'];
+                }
+
+                Permission::insert($permissions);
+                
+            }
+            CustomCustomEvent::dispatch(null, $data, $formatted_permissions, $this->model_name, 4);
+
+            return generateResponse(201, new $this->resource($data));
+        } catch (Exception $e) {
+
+            return generateResponse(500, $e->getMessage(), true);
+        }
     }
 
     /**
@@ -82,10 +122,78 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $user_id)
+    public function update(Request $request, string $id)
     {
 
-        return updateTemplate($request, $this->model, $user_id, $this->resource, $this->options, $this->model_name, true);
+        $options = str_replace('required|', '', $this->options);
+
+        $options = str_replace('|unique:' . $this->model_name, '', $options);
+
+        $options = str_replace('|unique:' . $this->model_name, '', $options);
+
+        $request->validate($options);
+
+        $old = $this->model::find($id);
+
+        $credentials = $request->only(array_keys($options));
+
+        $updateData = [];
+
+        foreach ($credentials as $key => $value) {
+
+            if ($old->{$key} !== $value) {
+
+                $updateData[$key] = $value;
+            }
+        }
+
+        try {
+
+            $formatted_permissions = [];
+            if (isset($request->permissions)) {
+
+                Permission::where('concerned_party', $id)->delete();
+                $permissions = [];
+                foreach ($request->permissions as $key => $permission) {
+
+                    $permission = addPermissions($key, $id, $permission, true);
+
+                    if ($permission) {
+
+                        $permissions[] = $permission;
+                    }
+                }
+
+
+                foreach ($permissions as $permission) {
+
+                    $formatted_permissions[] = ucwords($permission['label']) . ' permissions for user ' . $id . ' changed: ' . $permission['read'] . ' ' . $permission['write'] . ' ' . $permission['delete'];
+                }
+
+                Permission::insert($permissions);
+            }
+
+            if (!empty($updateData)) {
+
+                $old_data = clone $old;
+                $data = $old->update($updateData);
+
+
+                if ($data) {
+
+                    CustomCustomEvent::dispatch($old_data, $updateData, $formatted_permissions, $this->model_name, 3);
+                    return generateResponse(201, new $this->resource($old));
+                } else {
+
+                    return generateResponse(500, "An error occured", true);
+                }
+            } else {
+                return generateResponse(200);
+            }
+        } catch (Exception $e) {
+
+            return generateResponse(500, $e->getMessage(), true);
+        }
     }
 
     /**
