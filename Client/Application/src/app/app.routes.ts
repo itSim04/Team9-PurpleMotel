@@ -1,3 +1,4 @@
+import { TutorialComponent } from './pages/tutorial/tutorial.component';
 import { ChangePasswordComponent } from 'src/app/pages/guest/profile/change-password/change-password.component';
 import { ForgotComponent } from './pages/authentication/forgot/forgot.component';
 import { EditProfileComponent } from 'src/app/pages/guest/profile/edit-profile/edit-profile.component';
@@ -45,6 +46,12 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full'
+  },
+  {
+
+    path: 'tutorial',
+    component: TutorialComponent
+
   },
   {
 

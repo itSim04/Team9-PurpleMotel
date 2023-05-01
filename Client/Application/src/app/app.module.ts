@@ -44,6 +44,7 @@ import { SettingsModule } from './pages/settings/settings.module';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { InformationDatabaseModule } from './pages/admin/information-database/information-database.module';
 import { ImageDatabaseModule } from './pages/admin/image-database/image-database.module';
+import { TutorialModule } from './pages/tutorial/tutorial.module';
 
 
 
@@ -94,6 +95,7 @@ import { ImageDatabaseModule } from './pages/admin/image-database/image-database
     provideMessaging(() => getMessaging()),
 
     GuestChatsPageModule,
+    TutorialModule,
     AdminChatsPageModule,
     ChatListModule,
     
