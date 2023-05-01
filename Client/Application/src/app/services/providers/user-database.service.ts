@@ -1,8 +1,6 @@
 import { UserChange } from './../../models/User';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, switchMap, throwError } from 'rxjs';
-import { RoomsPackage, RoomsResponse, Room, RoomPackage, RoomResponse } from 'src/app/models/Room';
-import { RoomType } from 'src/app/models/RoomType';
+import { Observable, map} from 'rxjs';
 import { UserType, UserTypeResponse, UserTypesPackage, UserTypesResponse } from 'src/app/models/UserType';
 import { HttpClient } from '@angular/common/http';
 import { UsersPackage, UsersResponse, User, UserPackage, UserResponse, UserAttributes } from 'src/app/models/User';

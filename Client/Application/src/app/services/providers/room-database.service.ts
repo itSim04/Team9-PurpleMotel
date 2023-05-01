@@ -1,7 +1,7 @@
 import { KeyValue } from '@angular/common';
 import { Review, IntelAttributes } from './../../models/Room';
 import { EffectPromoCodes, PromoCode, PromoCodeAttributes } from 'src/app/models/PromoCode';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient} from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { RoomsResponse, Room, RoomResponse, RoomPackage, RoomsPackage } from "src/app/models/Room";

@@ -4,7 +4,7 @@ import { User, UserAttributes } from 'src/app/models/User';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { BookingsPackage, BookingsResponse, Booking, BookingPackage, BookingResponse, BookingAttributes, RawBookingsPackage } from 'src/app/models/Booking';
+import { BookingsPackage, BookingsResponse, Booking, BookingPackage, BookingResponse, RawBookingsPackage } from 'src/app/models/Booking';
 import { RawRoomsPackage, Review, Room, RoomAttributes, RoomsPackage, RoomsResponse } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
 import { UrlBuilderService } from '../utility/url-builder.service';

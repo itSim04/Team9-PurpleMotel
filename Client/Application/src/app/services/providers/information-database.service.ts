@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { InformationsPackage, InformationsResponse, Information, InformationPackage, InformationResponse } from "src/app/models/Information";
 import { UrlBuilderService } from "../utility/url-builder.service";
-import { Image, ImagePackage, ImageResponse, ImagesPackage, ImagesResponse } from "src/app/models/Image";
+import { ImageResponse, ImagesResponse } from "src/app/models/Image";
 
 
 

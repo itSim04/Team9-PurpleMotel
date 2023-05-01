@@ -1,11 +1,9 @@
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserChange } from './../../../../models/User';
-import { extractUser, extractPermission } from 'src/app/components/database/database.component';
+import { extractUser} from 'src/app/components/database/database.component';
 import { extractUserId } from 'src/app/components/database/database.component';
-import { UserAttributes, UserInformation } from 'src/app/models/User';
 import { UserDatabaseService } from 'src/app/services/providers/user-database.service';
 import { Component } from '@angular/core';
-import { User } from 'src/app/models/User';
 import { areEqual, clone } from 'src/app/components/database/change/change.component';
 import { parseDate, validateEmail, genders, validatePassword } from 'src/app/pages/authentication/authentication.utility';
 import { ToastController } from '@ionic/angular';

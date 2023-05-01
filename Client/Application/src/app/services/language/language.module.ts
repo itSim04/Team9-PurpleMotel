@@ -4,13 +4,11 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-export function TranslationLoader(http: HttpClient, translate: TranslateService, language_service: LanguageDatabaseService) {
+export function TranslationLoader(translate: TranslateService, language_service: LanguageDatabaseService) {
 
   return () => {
     return new Promise<void>((resolve, reject) => {
@@ -28,17 +26,6 @@ export function TranslationLoader(http: HttpClient, translate: TranslateService,
     });
   };
 
-  // this.language_service.getTerms().subscribe(data => {
-
-  //   this.translation_service.setTranslation('en', data);
-
-  // });
-
-  // return new TranslateHttpLoader(http,
-
-  //   './assets/i18n/',
-
-  //   '.json');
 
 }
 
@@ -55,16 +42,6 @@ export function TranslationLoader(http: HttpClient, translate: TranslateService,
     TranslateModule.forRoot({
 
       defaultLanguage: 'en',
-
-      // loader: {
-
-      //   provide: TranslateLoader,
-
-      //   // useFactory: HttpLoaderFactory,
-
-      //   deps: [HttpClient],
-
-      // },
 
     }),
 
