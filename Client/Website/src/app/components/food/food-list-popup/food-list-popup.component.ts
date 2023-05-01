@@ -45,7 +45,7 @@ export class FoodListPopupComponent {
 
   }
 
-
+  
   get formatTotalPrice(): string {
     const numStr = (this.price * this.quantity).toString();
 

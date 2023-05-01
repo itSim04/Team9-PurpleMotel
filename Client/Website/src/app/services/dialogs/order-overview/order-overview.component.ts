@@ -16,11 +16,11 @@ export class OrderOverviewDialogComponent {
 
 
 
-    order?: KeyValue<string,Order>;
+    order?: KeyValue<string, Order>;
 
     foods: Map<string, Food> = new Map();
 
-    constructor (@Inject(MAT_DIALOG_DATA) public data: { food: Map<string, Food>; order: KeyValue<string,Order> }, private order_service: OrderDatabaseService) {
+    constructor (@Inject(MAT_DIALOG_DATA) public data: { food: Map<string, Food>; order: KeyValue<string, Order>; }, private order_service: OrderDatabaseService) {
 
         this.foods = data.food;
         this.order = data.order;
@@ -33,8 +33,31 @@ export class OrderOverviewDialogComponent {
 
     }
 
-    eligibileCancellation(){
-       return this.order?.value.status != "2";
+    eligibileCancellation() {
+        return this.order?.value.status != "2";
+    }
+
+    get status() {
+
+        switch (Number.parseInt(this.order?.value.status || '0')) {
+
+            case 0:
+
+                return 'Pending';
+
+            case 1:
+
+                return 'Preparing';
+
+            case 2:
+
+                return 'Ready';
+
+            case 3:
+
+                return 'Delivering';
+        }
+        return '';
     }
 
 

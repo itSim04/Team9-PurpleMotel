@@ -195,7 +195,10 @@ export class ProfileComponent implements OnInit {
 
     foods.forEach(t => price += t[1].price);
 
+
+
     return {
+      title: this.getStatus(Number.parseInt(order.value.status || '0')),
       body: body.join('\n'),
       price: price,
       start_date: order?.value.date,
@@ -219,6 +222,30 @@ export class ProfileComponent implements OnInit {
 
     };
   }
+
+  getStatus(code: number) {
+
+    switch (code) {
+
+      case 0:
+
+        return 'Pending';
+
+      case 1:
+
+        return 'Preparing';
+
+      case 2:
+
+        return 'Ready';
+
+      case 3:
+
+        return 'Delivering';
+    }
+    return '';
+  }
+
 
   booking_array: [string, Booking][] = [];
 

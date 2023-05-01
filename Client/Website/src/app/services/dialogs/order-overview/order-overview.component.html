@@ -1,6 +1,6 @@
 <div mat-dialog-title class="title padded">
 
-  {{ 'order_overview' | translate }}
+  {{ 'order_overview' | translate }} {{ status? ' | ' + status : ''}}
   <hr style="border-color: #14274A;">
 
 </div>
@@ -27,11 +27,11 @@
 
         <td>
 
-          
+
           <p style="display: inline;" class="content-2">
             {{food.quantity}}
           </p>
-      
+
 
         </td>
 
