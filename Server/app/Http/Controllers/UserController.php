@@ -212,7 +212,7 @@ class UserController extends Controller
         // Fetches the id of the logged in user extracted from a token. This needs
         // more validation as the lack of a token in the request will cause this
         // code to crash.
-        $user = Auth::user(); // :)
+        $user = Auth::user();
 
         $images = [];
 

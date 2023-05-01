@@ -11,13 +11,6 @@ import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 })
 export class CompletionComponent<Data> {
 
-  updateDate(s: any) {
-
-    this.data[this.field.key] = (s as CustomEvent).detail.value;
-
-  }
-
-
   @Input() @Required field!: Field<Data>;
 
   @Input() @Required fields!: Field<Data>[];
@@ -78,6 +71,11 @@ export class CompletionComponent<Data> {
 
   }
 
+  updateDate(s: any) {
+
+    this.data[this.field.key] = (s as CustomEvent).detail.value;
+
+  }
   get fieldsCompleteness() {
 
     for (const field of this.fields) {
