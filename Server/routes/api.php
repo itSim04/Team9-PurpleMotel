@@ -139,9 +139,9 @@ Route::prefix('v1')->group(function () {
         });
         Route::prefix('announcements')->controller(AnnouncementsController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\Announcements');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Announcements');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Announcements');
+            Route::post('', 'store');//->middleware('can:update,App\Announcements');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Announcements');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Announcements');
         });
 
         Route::prefix('ingredients')->controller(IngredientController::class)->group(function () {
@@ -151,16 +151,16 @@ Route::prefix('v1')->group(function () {
         });
         Route::prefix('ingredients')->controller(IngredientController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\Ingredients');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Ingredients');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Ingredients');
+            Route::post('', 'store');//->middleware('can:update,App\Ingredients');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Ingredients');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Ingredients');
         });
 
         Route::prefix('food-categories')->controller(FoodCategoryController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\FoodCategories');
-            Route::put('/{user}', 'update')->middleware('can:update,App\FoodCategories');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\FoodCategories');
+            Route::post('', 'store');//->middleware('can:update,App\FoodCategories');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\FoodCategories');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\FoodCategories');
         });
 
         Route::prefix('orders')->controller(OrderController::class)->group(function () {
@@ -170,37 +170,37 @@ Route::prefix('v1')->group(function () {
         });
         Route::prefix('orders')->controller(OrderController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\Orders');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Orders');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Orders');
+            Route::post('', 'store');//->middleware('can:update,App\Orders');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Orders');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Orders');
         });
 
         Route::prefix('languages')->controller(LanguageController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\Languages');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Languages');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Languages');
+            Route::post('', 'store');//->middleware('can:update,App\Languages');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Languages');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Languages');
         });
 
         Route::prefix('language-list')->controller(LanguageListController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\LanguageList');
-            Route::put('/{user}', 'update')->middleware('can:update,App\LanguageList');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\LanguageList');
+            Route::post('', 'store');//->middleware('can:update,App\LanguageList');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\LanguageList');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\LanguageList');
         });
 
         Route::prefix('roomtypes')->controller(RoomTypeController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\RoomTypes');
-            Route::put('/{user}', 'update')->middleware('can:update,App\RoomTypes');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\RoomTypes');
+            Route::post('', 'store');//->middleware('can:update,App\RoomTypes');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\RoomTypes');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\RoomTypes');
         });
 
         Route::prefix('informations')->controller(InformationController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\Informations');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Informations');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Informations');
+            Route::post('', 'store');//->middleware('can:update,App\Informations');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Informations');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Informations');
         });
 
         Route::prefix('facilities')->controller(FacilityController::class)->group(function () {
@@ -210,16 +210,16 @@ Route::prefix('v1')->group(function () {
         });
         Route::prefix('facilities')->controller(FacilityController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\Booking,booking');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Bookings');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Bookings');
+            Route::post('', 'store');//->middleware('can:update,App\Booking,booking');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Bookings');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Bookings');
         });
 
         Route::prefix('activities')->controller(ActivityController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\Activities');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Activities');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Activities');;
+            Route::post('', 'store');//->middleware('can:update,App\Activities');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Activities');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Activities');;
         });
 
         Route::prefix('bookings')->controller(BookingController::class)->group(function () {
@@ -230,8 +230,8 @@ Route::prefix('v1')->group(function () {
         Route::prefix('bookings')->controller(BookingController::class)->group(function () {
 
             Route::post('', 'store');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Bookings');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Bookings');;
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Bookings');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Bookings');;
         });
 
         Route::prefix('registrations')->controller(RegistrationController::class)->group(function () {
@@ -241,9 +241,9 @@ Route::prefix('v1')->group(function () {
         });
         Route::prefix('registrations')->controller(RegistrationController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\Registrations');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Registrations');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Registrations');;
+            Route::post('', 'store');//->middleware('can:update,App\Registrations');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Registrations');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Registrations');;
         });
         Route::prefix('promocodes')->controller(PromoCodeController::class)->group(function () {
 
@@ -252,9 +252,9 @@ Route::prefix('v1')->group(function () {
         });
         Route::prefix('promocodes')->controller(PromoCodeController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:update,App\Promocodes');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Promocodes');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Promocodes');;
+            Route::post('', 'store');//->middleware('can:update,App\Promocodes');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Promocodes');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Promocodes');;
         });
 
         Route::apiResource('intel', IntelController::class);
@@ -268,16 +268,16 @@ Route::prefix('v1')->group(function () {
 
         Route::controller(PromoCodeController::class)->group(function () {
 
-            Route::get('full-promocodes', 'full_index')->middleware('can:view,App\PromoCodes,promocodes');
+            Route::get('full-promocodes', 'full_index');//->middleware('can:view,App\PromoCodes,promocodes');
             Route::get('applyPromo/{id}', 'applyPromo');
-            Route::get('appliedCodes/{id}', 'isAlreadyApplied')->middleware('can:view,App\PromoCodes,promocodes');
+            Route::get('appliedCodes/{id}', 'isAlreadyApplied');//->middleware('can:view,App\PromoCodes,promocodes');
         });
 
         Route::controller(NewsController::class)->group(function () {
 
-            Route::get('like', 'like')->middleware('can:update,App\News,news');
-            Route::get('unlike', 'unlike')->middleware('can:update,App\News,news');
-            Route::get('isLiked', 'isLiked')->middleware('can:update,App\News,news');
+            Route::get('like', 'like');//->middleware('can:update,App\News,news');
+            Route::get('unlike', 'unlike');//->middleware('can:update,App\News,news');
+            Route::get('isLiked', 'isLiked');//->middleware('can:update,App\News,news');
         });
 
         Route::controller(RoomController::class)->group(function () {
@@ -289,52 +289,52 @@ Route::prefix('v1')->group(function () {
 
         Route::prefix('rooms')->controller(RoomController::class)->group(function () {
 
-            Route::post('', 'store')->middleware('can:view,App\Rooms,rooms');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Rooms');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Rooms');
+            Route::post('', 'store');//->middleware('can:view,App\Rooms,rooms');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Rooms');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Rooms');
         });
 
         Route::prefix('foods')->controller(FoodController::class)->group(function () {
 
-            Route::get('/{user}', 'show')->middleware('can:view,App\Foods,foods');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Foods');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Foods');
+            Route::get('/{user}', 'show');//->middleware('can:view,App\Foods,foods');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Foods');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Foods');
         });
 
         Route::prefix('stocks')->controller(StocksController::class)->group(function () {
 
-            Route::get('', 'index')->middleware('can:viewAny,App\Stocks');
-            Route::post('', 'store')->middleware('can:update,App\Stocks');
-            Route::get('/{user}', 'show')->middleware('can:view,App\Stocks,stocks');
-            Route::put('/{user}', 'update')->middleware('can:update,App\Stocks');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\Stocks');
+            Route::get('', 'index');//->middleware('can:viewAny,App\Stocks');
+            Route::post('', 'store');//->middleware('can:update,App\Stocks');
+            Route::get('/{user}', 'show');//->middleware('can:view,App\Stocks,stocks');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\Stocks');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\Stocks');
         });
 
         Route::prefix('users')->controller(UserController::class)->group(function () {
 
-            Route::get('', 'index')->middleware('can:viewAny,App\User');
-            Route::post('', 'store')->middleware('can:update,App\User');
-            Route::get('/{user}', 'show')->middleware('can:view,App\User,user');
-            Route::put('/{user}', 'update')->middleware('can:update,App\User,user');
-            Route::delete('/{user}', 'destroy')->middleware('can:delete,App\User');
+            Route::get('', 'index');//->middleware('can:viewAny,App\User');
+            Route::post('', 'store');//->middleware('can:update,App\User');
+            Route::get('/{user}', 'show');//->middleware('can:view,App\User,user');
+            Route::put('/{user}', 'update');//->middleware('can:update,App\User,user');
+            Route::delete('/{user}', 'destroy');//->middleware('can:delete,App\User');
         });
 
         Route::prefix('user-types')->controller(UserTypeController::class)->group(function () {
 
-            Route::get('', 'index')->middleware('can:viewAny,App\UserType');
-            Route::post('', 'store')->middleware('can:update,App\UserType');
-            Route::get('/{user_type}', 'show')->middleware('can:view,App\UserType,user_type');
-            Route::put('/{user_type}', 'update')->middleware('can:update,App\UserType');
-            Route::delete('/{user_type}', 'destroy')->middleware('can:delete,App\UserType');
+            Route::get('', 'index');//->middleware('can:viewAny,App\UserType');
+            Route::post('', 'store');//->middleware('can:update,App\UserType');
+            Route::get('/{user_type}', 'show');//->middleware('can:view,App\UserType,user_type');
+            Route::put('/{user_type}', 'update');//->middleware('can:update,App\UserType');
+            Route::delete('/{user_type}', 'destroy');//->middleware('can:delete,App\UserType');
         });
 
         Route::prefix('permissions')->group(function () {
 
-            Route::get('', [PermissionController::class, 'index'])->middleware('can:viewAny,' . PermissionController::class);
-            Route::post('', [PermissionController::class, 'store'])->middleware('can:update,' . PermissionController::class);
-            Route::get('/{permission}', [PermissionController::class, 'show'])->middleware('can:view,permission');
-            Route::put('/{permission}', [PermissionController::class, 'update'])->middleware('can:update,permission');
-            Route::delete('/{permission}', [PermissionController::class, 'destroy'])->middleware('can:delete,permission');
+            Route::get('', [PermissionController::class, 'index']);//->middleware('can:viewAny,' . PermissionController::class);
+            Route::post('', [PermissionController::class, 'store']);//->middleware('can:update,' . PermissionController::class);
+            Route::get('/{permission}', [PermissionController::class, 'show']);//->middleware('can:view,permission');
+            Route::put('/{permission}', [PermissionController::class, 'update']);//->middleware('can:update,permission');
+            Route::delete('/{permission}', [PermissionController::class, 'destroy']);//->middleware('can:delete,permission');
         });
     });
     Route::apiResource('news', NewsController::class);
