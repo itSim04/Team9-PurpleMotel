@@ -74,12 +74,12 @@ export class RegistrationDatabaseComponent {
     fields: [
       {
         key: 'start_date',
-        condition: (data) => (data as number) > 0,
+        condition: (data) => true,
         type: 'date'
       },
       {
         key: 'end_date',
-        condition: (data) => (data as number) > 0,
+        condition: (data) => true,
         type: 'date'
       },
       {
@@ -106,6 +106,10 @@ export class RegistrationDatabaseComponent {
 
 
         }
+      },
+      {
+        key: 'seats',
+        type: 'number'
       }
     ],
     add_service: registration => this.registration_service.addNewRegistration(registration),

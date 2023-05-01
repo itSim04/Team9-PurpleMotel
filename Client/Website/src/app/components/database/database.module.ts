@@ -1,3 +1,4 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -50,6 +51,7 @@ import { NgpImagePickerModule } from "ngp-image-picker";
     FooterModule,
     MatTooltipModule,
     LanguageModule,
+    MatCheckboxModule,
     StarRatingModule,
     MatTableModule,
     MatPaginatorModule,

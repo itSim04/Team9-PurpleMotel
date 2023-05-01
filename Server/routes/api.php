@@ -115,17 +115,18 @@ Route::prefix('v1')->group(function () {
         Route::get('/{user}', 'show');
     });
     Route::prefix('activities')->controller(ActivityController::class)->group(function () {
-
+        
         Route::get('', 'index');
         Route::get('/{user}', 'show');
     });
     Route::prefix('informations')->controller(InformationController::class)->group(function () {
-
+        
         Route::get('', 'index');
         Route::get('/{user}', 'show');
     });
     Route::get('information', [InformationController::class, 'getInformation']);
     Route::get('terms', [LanguageController::class, 'getTerms']);
+    Route::get('browse-images', [ImageController::class, 'browse']);
 
     Route::middleware('auth:api')->group(function () {
 
@@ -259,7 +260,6 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('intel', IntelController::class);
 
-        Route::get('browse-images', [ImageController::class, 'browse']);
         Route::post('store-images', [ImageController::class, 'store']);
         Route::get('delete-images', [ImageController::class, 'destroy']);
         Route::post('modify-images', [ImageController::class, 'update']);

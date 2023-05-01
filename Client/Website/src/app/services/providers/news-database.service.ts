@@ -30,20 +30,20 @@ export class NewsDatabaseService {
 
           response.data.forEach(data => {
 
-    
-            news.set(data.id, { ...data.attributes, is_liked: false, likes: [], image: images.news[data.id]? images.news[data.id][0] : '' });
+
+            news.set(data.id, { ...data.attributes, is_liked: false, likes: [], image: images.news[data.id] ? images.news[data.id][0] : '' });
 
           });
 
-          
+
           response.included.forEach(like => {
 
             const temp = news.get(like.attributes.news_id);
-            
+
 
             if (temp) {
 
-              
+
               if (extractUserId() == like.attributes.user_id) temp.is_liked = true;
 
               temp.likes.push(like.attributes);
@@ -115,9 +115,17 @@ export class NewsDatabaseService {
 
     const headers = this.url.generateHeader();
 
+
+
     try {
 
-      return this.http.post<SingleNewsResponse>(this.url.generateUrl('news'), news, { headers: headers }).pipe(
+      return this.http.post<SingleNewsResponse>(this.url.generateUrl('news'), {
+
+        title: news.title,
+        body: news.body,
+        date: news.date,
+        likes: news.likes_number
+      }, { headers: headers }).pipe(
 
         map(result => {
 

@@ -36,10 +36,11 @@ class NewsController extends Controller
             $news = News::all();
         }
 
+
         foreach ($news as $key => $value) {
 
             $news_ids[] = $value->id;
-            $images['news'][$key] = extractImages('News', $key);
+            $images['news'][$value->id] = extractImages('News', $value->id);
         }
 
 
@@ -53,6 +54,7 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+
         return storeTemplate($request, $this->model, $this->resource, $this->options);
     }
 

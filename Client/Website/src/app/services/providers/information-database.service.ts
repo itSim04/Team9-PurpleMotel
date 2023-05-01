@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { InformationsPackage, InformationsResponse, Information, InformationPackage, InformationResponse } from "src/app/models/Information";
 import { UrlBuilderService } from "../utility/url-builder.service";
-import { Image, ImagePackage, ImageResponse, ImagesPackage, ImagesResponse } from "src/app/models/Image";
+import { ImageResponse, ImagesResponse } from "src/app/models/Image";
 
 
 
@@ -39,9 +39,10 @@ export class InformationDatabaseService {
 
   getAllInformations(): Observable<InformationsPackage> {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<InformationsResponse>(this.url.generateUrl('informations')).pipe(
+      return this.http.get<InformationsResponse>(this.url.generateUrl('informations'), { headers: headers }).pipe(
 
         map((response: InformationsResponse): InformationsPackage => {
 
@@ -71,9 +72,10 @@ export class InformationDatabaseService {
   }
   getOneInformation(id: string): Observable<InformationPackage> {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<InformationResponse>(this.url.generateUrl(`informations/${id}`)).pipe(
+      return this.http.get<InformationResponse>(this.url.generateUrl(`informations/${id}`), { headers: headers }).pipe(
         map((response: InformationResponse): InformationPackage => {
 
           return {
@@ -100,9 +102,10 @@ export class InformationDatabaseService {
 
   addNewInformation(information: Information) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.post<InformationResponse>(this.url.generateUrl('informations'), information).pipe(
+      return this.http.post<InformationResponse>(this.url.generateUrl('informations'), information, { headers: headers }).pipe(
 
         map(result => {
 
@@ -122,9 +125,10 @@ export class InformationDatabaseService {
 
   modifyInformation(information_id: string, information: Information) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.put(this.url.generateUrl(`informations/${information_id}`), information).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`informations/${information_id}`), information, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -136,9 +140,10 @@ export class InformationDatabaseService {
 
   deleteInformation(key: string) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.delete(this.url.generateUrl(`informations/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`informations/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 
@@ -147,13 +152,12 @@ export class InformationDatabaseService {
     }
 
   }
+  browseImages(model_name: string, id: string): Observable<ImagesResponse> {
 
-  
-  browseImages(model_name: string,  id: string): Observable<ImagesResponse> {
-
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<ImagesResponse>(this.url.generateUrl(`browse-images?model_name=${model_name}&id=${id}`));
+      return this.http.get<ImagesResponse>(this.url.generateUrl(`browse-images?model_name=${model_name}&id=${id}`), { headers: headers });
 
     } catch (e: unknown) {
 
@@ -165,8 +169,9 @@ export class InformationDatabaseService {
   }
 
 
-  storeImage(image: string, model_name: string,  id: string) {
+  storeImage(image: string, model_name: string, id: string) {
 
+    const headers = this.url.generateHeader();
     try {
 
       return this.http.post<ImageResponse>(this.url.generateUrl('store-images'), {
@@ -175,7 +180,7 @@ export class InformationDatabaseService {
         model_name: model_name,
         id: id
 
-      });
+      }, { headers: headers });
 
     } catch (e: unknown) {
 
@@ -185,11 +190,12 @@ export class InformationDatabaseService {
 
   }
 
-  deleteImage(filename: string, model_name: string,  id: string) {
+  deleteImage(filename: string, model_name: string, id: string) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<ImagesResponse>(this.url.generateUrl(`delete-images?filename=${filename}&model_name=${model_name}&id=${id}`));
+      return this.http.get<ImagesResponse>(this.url.generateUrl(`delete-images?filename=${filename}&model_name=${model_name}&id=${id}`), { headers: headers });
 
     } catch (e: unknown) {
 
@@ -201,6 +207,9 @@ export class InformationDatabaseService {
 
   modifyImage(image: string, model_name: string, id: string, filename: string) {
 
+
+    const headers = this.url.generateHeader();
+
     try {
 
       return this.http.post<ImagesResponse>(this.url.generateUrl('modify-images'), {
@@ -210,7 +219,7 @@ export class InformationDatabaseService {
         id: id,
         filename: filename
 
-      });
+      }, { headers: headers });
 
     } catch (e: unknown) {
 

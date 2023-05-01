@@ -1,3 +1,4 @@
+import { extractUserId } from 'src/app/components/database/database.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
@@ -129,7 +130,7 @@ export class RegistrationDatabaseService {
     const headers = this.url.generateHeader()
 
     try {
-      return this.http.post<RegistrationResponse>(this.url.generateUrl('registrations'), { ...registration, activity_id: registration.activity_id, user_id: registration.activity_id }, { headers: headers }).pipe(
+      return this.http.post<RegistrationResponse>(this.url.generateUrl('registrations'), { ...registration, activity_id: registration.activity_id, user_id: extractUserId()! }, { headers: headers }).pipe(
 
         map(result => {
 

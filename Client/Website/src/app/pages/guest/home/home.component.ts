@@ -47,6 +47,7 @@ export class HomeComponent {
     this.subscription = this.news_service.getAllNews().subscribe(data => {
       this.news = data.news;
       this.filtered_news = Array.from(this.news);
+      console.log(this.news);
     });
   }
 }
