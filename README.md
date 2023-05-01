@@ -1,3 +1,119 @@
+# Purple Motel
+
+This hotel management app is designed to streamline and optimize various aspects of hotel operations. With its restaurant management functionality, users can easily book tables, place orders, and manage reservations for dining services. The activity registration system enables guests to sign up for various activities, such as spa treatments or tours, and provides a centralized platform for managing these bookings.
+
+The app's news feed feature keeps users informed of the latest updates and events, including promotions and upcoming activities. Users can also engage with the news feed by liking and sharing posts, further enhancing the app's social functionality.
+
+In addition, the app includes a support system that allows users to report issues or request assistance from the hotel staff. This feature helps ensure that any concerns or issues are quickly addressed, resulting in a more positive guest experience.
+
+Both the application and website versions of the app include an admin panel, providing hotel staff with easy access to the app's database. This feature enables staff to manage bookings, reservations, and other aspects of hotel operations, making it easier to provide high-quality services to guests.
+
+Overall, this hotel management app is a powerful tool that enhances the guest experience and streamlines hotel operations. With its comprehensive range of features and user-friendly dAesign, it is an essential tool for any hotel looking to optimize its operations and provide a high-quality experience for its guests.
+
+# Design
+
+![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/splash.png)
+![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/HomePage.mp4)
+![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/RoomsPage.mp4)
+![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/menu-page.png)
+![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/profile-page.png)
+![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/restaurant-page.png)
+![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/room-page.png)
+![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/services-page.png)
+
+
+# Contributors
+
+https://github.com/itSim04<br />
+https://github.com/charbellgg<br />
+https://github.com/CodeSouls-Remastered<br />
+https://github.com/elitek7<br />
+
+# 
+
+# Stacks
+
+## Languages
+- TypeScript
+- PHP
+- SQL
+- SCSS
+- Blade
+
+## Frameworks
+- Ionic
+- Angular
+
+## Tools
+- Firebase
+
+# Use Cases
+
+![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/UseCase.png)
+
+
+# APIs
+
+https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/API_documentation.html)
+
+# How To Run
+
+Clone the repository to your local machine by running the following command in your terminal:
+
+`git clone <repository-url>`
+
+Replace <repository-url> with the URL of the GitHub repository.
+
+Navigate to the Client/Website directory in the repository and run the following command to install the necessary dependencies:
+
+`npm install`
+
+This will install all the required packages for the Angular/Ionic client.
+
+Next, navigate to the Client/Application directory and run the following command to install the necessary dependencies:
+
+`npm install`
+
+This will install all the required packages for the Ionic client.
+
+Navigate to the Server directory and run the following command to install the necessary dependencies:
+
+`composer install`
+
+This will install all the required packages for the Laravel server.
+
+Create a .env file in the Server directory by running the following command:
+
+`cp .env.example .env`
+
+This will create a new .env file based on the example file.
+
+Generate a new application key by running the following command:
+
+`php artisan key:generate`
+
+In the .env file, update the DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, and DB_PASSWORD values to match your local database configuration.
+
+Run the following command to create the necessary tables in your database:
+
+`php artisan migrate`
+
+Start the Laravel server by running the following command:
+
+`php artisan serve`
+
+In a separate terminal window, navigate to the Client/Website directory and run the following command to start the Angular/Ionic client:
+
+`ionic serve`
+
+This will start the client and open it in your default web browser.
+
+# SQL
+
+![ER](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/Hotels-ER_Diagram.png)
+
+# User Requirements
+
 ### 1.1 Login User
 The users shall be able to login using their emails and password.
 
