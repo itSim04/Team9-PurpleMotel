@@ -1,7 +1,7 @@
 import { KeyValue } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Database, DatabaseReference, getDatabase, onChildAdded, onValue, push, ref, runTransaction, set, update } from '@angular/fire/database';
+import { Database, DatabaseReference, getDatabase, onChildAdded,push, ref, runTransaction, set, update } from '@angular/fire/database';
 import { extractSessionUser, User } from "src/app/models/User";
 import { Chat, Message } from "src/app/models/Chat";
 import { UserDatabaseService } from "src/app/services/providers/user-database.service";

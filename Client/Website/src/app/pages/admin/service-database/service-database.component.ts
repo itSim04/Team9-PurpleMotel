@@ -1,9 +1,7 @@
-import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { Component } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Activity } from 'src/app/models/Activity';
 import { map } from 'rxjs';
-import { Data } from '@angular/router';
 import { Facility, FacilityAttributes } from 'src/app/models/Facility';
 import { ServiceDatabaseService } from 'src/app/services/providers/service-database.service';
 
