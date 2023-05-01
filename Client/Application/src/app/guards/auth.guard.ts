@@ -13,6 +13,13 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const user = extractUser();
+      if(!localStorage.getItem('tutorial')) {
+        
+        this.router.navigate(['/tutorial']);
+        return false;
+
+      }
+
     if (user) {
 
       if (!user.email_verified_at) {

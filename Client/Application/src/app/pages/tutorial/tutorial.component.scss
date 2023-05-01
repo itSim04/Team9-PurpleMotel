@@ -1,0 +1,15 @@
+.back-btn {
+
+    margin: 16px;
+    --background: transparent;
+    position: fixed;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    --color: var(--ion-color-dark);
+    --box-shadow: none;
+    --background-activated-opacity: 0;
+    --background-focused-opacity: 0;
+
+}
