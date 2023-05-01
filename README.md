@@ -113,7 +113,7 @@ This will start the client and open it in your default web browser.
 
 # SQL
 
-![ER](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/Hotels-ER_Diagram.png)
+![ER](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/Hotels_ER_Diagram.png)
 
 # User Requirements
 
