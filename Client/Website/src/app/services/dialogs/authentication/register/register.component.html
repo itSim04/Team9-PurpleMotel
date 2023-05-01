@@ -50,7 +50,7 @@
                 <!-- Password -->
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'password'|translate}}</mat-label>
-                    <input [(ngModel)]="password" matInput>
+                    <input type="password" [(ngModel)]="password" matInput>
                     <div class="number-error" *ngIf="!validated_password">
                         {{'weak_password'|translate}} </div>
                 </mat-form-field>
@@ -59,7 +59,7 @@
                 <!-- Confirm Password -->
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'confirm_password'|translate}}</mat-label>
-                    <input [(ngModel)]="confirm_password" matInput>
+                    <input type="password" [(ngModel)]="confirm_password" matInput>
                     <div class="number-error" *ngIf="!password_match">
                         {{'password_match'|translate}} </div>
                 </mat-form-field>
@@ -71,14 +71,22 @@
                 <mat-form-field class="full-width input">
                     <mat-label class="label">{{'phone_number'|translate}}</mat-label>
                     <input [(ngModel)]="phone_number" matInput>
+                    {{first_name|json}}
+                    {{last_name|json}}
+                    {{email|json}}
+                    {{password|json}}
+                    {{confirm_password|json}}
+                    {{date_of_birth|json}}
+                    {{phone_number|json}}
+                    {{gender|json}}
 
                 </mat-form-field>
             </td>
             <td>
                 <!-- Gender -->
                 <mat-form-field class="full-width input">
-                    <mat-label class="label">{{'gender'|translate}}</mat-label>          
-                        <mat-select>
+                    <mat-label class="label">{{'gender'|translate}}</mat-label> 
+                        <mat-select [(ngModel)]="gender">
                           <mat-option *ngFor="let gender of genders;let i = index" [value]="i">
                             {{gender|translate}}
                           </mat-option>
@@ -104,8 +112,8 @@
 </div>
 <div mat-dialog-actions>
     <button style="width: 30%;" class="back-btn" (click)="register()"
-        [disabled]="!email || !password || !first_name || !last_name || !date_of_birth || !phone_number || !gender"
-        [style.background]="(!email || !password || !first_name || !last_name || !date_of_birth || !phone_number || !gender) ? 'gray' : '#14274A'"
+        [disabled]="!email || !password || !first_name || !last_name || !date_of_birth || !phone_number"
+        [style.background]="(!email || !password || !first_name || !last_name || !date_of_birth || !phone_number) ? 'gray' : '#14274A'"
         mat-button color="primary">
         {{'sign_up'|translate}}
     </button>

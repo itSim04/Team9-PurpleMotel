@@ -1,15 +1,11 @@
 import { extractUser } from 'src/app/components/database/database.component';
 import { LanguageDatabaseService } from '../providers/language-database.service';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-
-export function TranslationLoader(translate: TranslateService, language_service: LanguageDatabaseService) {
-
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+export function TranslationLoader(http: HttpClient, translate: TranslateService, language_service: LanguageDatabaseService) {
   return () => {
     return new Promise<void>((resolve, reject) => {
       language_service.getTerms(extractUser()?.language || '1').subscribe({
@@ -25,27 +21,27 @@ export function TranslationLoader(translate: TranslateService, language_service:
       });
     });
   };
-
+  // this.language_service.getTerms().subscribe(data => {
+  //   this.translation_service.setTranslation('en', data);
+  // });
+  // return new TranslateHttpLoader(http,
+  //   './assets/i18n/',
+  //   '.json');
 }
-
 @NgModule({
-
   declarations: [],
-
   imports: [
-
     CommonModule,
-
     HttpClientModule,
-
     TranslateModule.forRoot({
-
       defaultLanguage: 'en',
-
+      // loader: {
+      //   provide: TranslateLoader,
+      //   // useFactory: HttpLoaderFactory,
+      //   deps: [HttpClient],
+      // },
     }),
-
   ],
-
   providers: [
     {
       provide: APP_INITIALIZER,
@@ -53,15 +49,11 @@ export function TranslationLoader(translate: TranslateService, language_service:
       deps: [HttpClient, TranslateService, LanguageDatabaseService],
       multi: true
     }
+
   ],
-
   exports: [TranslateModule],
-
 })
-
 export class LanguageModule { }
-
-
 export const terms: [string, string][] = [
 
   ["1", "about_us"],
@@ -194,14 +186,7 @@ export const terms: [string, string][] = [
   ["128", "view_menu"],
   ["129", "weak_password"],
   ["130", "website_name"],
-  ["131", "welcome_to"],
-  ["132", 'room-main'],
-  ["133", 'service-main'],
-  ["134", 'restaurant-main'],
-  ["135", 'home-main'],
-  ["136", 'logo'],
-  ["137", 'support-background'],
-  ["138", 'chefs-background']
+  ["131", "welcome_to"]
 ];
 
 export const information = [
