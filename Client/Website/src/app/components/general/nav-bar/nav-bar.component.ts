@@ -32,7 +32,6 @@ export class NavBarComponent {
     this.language_service.getAllLanguageLists().subscribe(data => {
 
       this.languages = data.language_lists;
-      console.log(this.languages);
     });
 
   }

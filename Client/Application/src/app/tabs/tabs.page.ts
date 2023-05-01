@@ -21,7 +21,21 @@ export class TabsPage {
   closeMenu() {
     this.menuCtrl.close('main-content');
   }
-  
+
+  ionViewWillEnter() {
+    const user = extractUser();
+
+    if (user) {
+
+      this.session_user = user;
+
+    } else {
+
+      this.router.navigate(['/auth/login']);
+      throw new Error('User not found');
+
+    }
+  }
   constructor(private menuCtrl: MenuController, private router: Router,private animationCtrl: AnimationController, private announcements_service:AnnouncementDatabaseService) {
     
     const user = extractUser();
@@ -77,7 +91,7 @@ export class TabsPage {
 
     this.announcements_service.getAllAnnouncements().subscribe({
       next: data => {
-        console.log(data);
+      
         this.announcements = data.announcements;
 
       },

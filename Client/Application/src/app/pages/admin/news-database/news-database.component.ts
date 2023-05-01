@@ -3,6 +3,8 @@ import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { News} from 'src/app/models/News';
 import { map } from 'rxjs';
 import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
+import { parseDate } from '../../authentication/authentication.utility';
+
 
 @Component({
   selector: 'app-news-database',
@@ -44,7 +46,7 @@ export class NewsDatabaseComponent {
       is_liked: false,
       likes: [],
       body: '',
-      date: '',
+      date: parseDate(new Date()),
       likes_number: 0
     },
 
@@ -63,11 +65,14 @@ export class NewsDatabaseComponent {
       },
       {
         key: 'date',
-        type: 'date'
+        type: 'text',
+        readonly: true
       },
       {
         key: 'likes_number',
-        type: 'number'
+        type: 'number',
+        readonly: true,
+        condition: () => true
       }
     ],
 
