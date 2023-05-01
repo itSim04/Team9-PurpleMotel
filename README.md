@@ -13,8 +13,11 @@ Overall, this hotel management app is a powerful tool that enhances the guest ex
 # Design
 
 ![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/splash.png)
-![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/HomePage.mp4)
-![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/RoomsPage.mp4)
+
+https://user-images.githubusercontent.com/43381860/235527971-60362a51-5a8a-4642-a16a-cac6edf2cc81.mp4
+
+https://user-images.githubusercontent.com/43381860/235528049-bf09b009-9bb4-4844-a961-3adc3ae2f6b7.mp4
+
 ![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/menu-page.png)
 ![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/profile-page.png)
 ![Design](https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/restaurant-page.png)
@@ -54,7 +57,7 @@ https://github.com/elitek7<br />
 
 # APIs
 
-https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/API_documentation.html)
+https://github.com/itSim04/Team9-PurpleMotel/blob/main/Design/API_documentation.html
 
 # How To Run
 
