@@ -30,23 +30,23 @@ export class BrowseRoomsComponent implements OnInit {
   rooms: Map<string, Room> = new Map();
   room_types: Map<string, RoomType> = new Map();
   promo_codes: Map<string, PromoCode> = new Map();
-  
+
   filtered_rooms: [string, Room][] = [];
   subscription?: Subscription;
   filtered = false;
-  
+
   current_page: number = 0;
   page_size: number = 8;
-  
+
   page = 0;
 
   isModalOpened = false;
   isQuickOpened = false;
   isRecommendOpened = false;
   active_data?: KeyValue<string, Room>;
-  
+
   room_bg = this.url.getImage('room-main');
-  
+
   constructor (private rooms_service: RoomDatabaseService, private router: Router, private url: UrlBuilderService, private booking_service: BookingDatabaseService) { }
   @ViewChild(IonInfiniteScroll) scroller!: IonInfiniteScroll;
 
@@ -84,11 +84,11 @@ export class BrowseRoomsComponent implements OnInit {
     }
 
   }
-  
+
   openQuick() {
 
     this.active_data = undefined;
-    
+
     this.isQuickOpened = true;
     this.isModalOpened = false;
     this.isRecommendOpened = false;
@@ -113,44 +113,52 @@ export class BrowseRoomsComponent implements OnInit {
         $event.check_out,
         $event.adults,
         $event.children
-        ).subscribe({
+      ).subscribe({
 
         next: data => {
 
           this.isQuickOpened = false;
-          
+
           this.filtered = true;
-          
+
           this.filtered_rooms = Array.from(data.rooms);
-          
+
           data.rooms.forEach((value, key) => this.rooms.set(key, value));
           data.room_types.forEach((value, key) => this.room_types.set(key, value));
           data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
-          
+
         },
         error: error => {
-          
-          
+
+          if (error.status == 401) {
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('id');
+            localStorage.removeItem('token_time');
+            this.router.navigate(['/auth']);
+
+          }
           console.error(error);
-          
+
         }
       });
-      
-      
-      
-      
+
+
+
+
     } else {
-      
+
       this.isQuickOpened = false;
-      
+
     }
 
   }
   closeRecommend($event: { intel: IntelAttributes, check_in: string, check_out: string, adults: number, children: number; }) {
 
-    
+
     if ($event) {
-      
+
       this.rooms_service.recommendRoom(
         $event.intel,
         $event.check_in,
@@ -158,13 +166,13 @@ export class BrowseRoomsComponent implements OnInit {
         $event.adults,
         $event.children
       ).subscribe({
-        
+
         next: data => {
-          
+
           this.isRecommendOpened = false;
-          
+
           this.filtered = true;
-          
+
           this.filtered_rooms = Array.from(data.rooms);
 
           data.rooms.forEach((value, key) => this.rooms.set(key, value));
@@ -174,26 +182,32 @@ export class BrowseRoomsComponent implements OnInit {
         },
         error: error => {
 
-          
-          console.error(error);
-          
+          if (error.status == 401) {
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('id');
+            localStorage.removeItem('token_time');
+            this.router.navigate(['/auth']);
+
+          }
         }
       });
 
-      
 
-      
+
+
     } else {
-      
+
 
       this.isRecommendOpened = false;
-      
+
     }
 
   }
-  
-  
-  
+
+
+
 
 
   get data() {

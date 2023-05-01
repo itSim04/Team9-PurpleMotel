@@ -65,7 +65,7 @@ export class ImageDatabaseComponent {
 
     borderRadius: '4px',
     language: 'en',
-    width: '30vw',
+    width: '100%',
     height: '30vh',
     aspectRatio: 8 / 6,
     hideAddBtn: true,
