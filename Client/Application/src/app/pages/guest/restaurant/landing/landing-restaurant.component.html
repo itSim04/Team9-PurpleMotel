@@ -25,8 +25,8 @@
 
 <p class="header-2">The Chefs</p>
 <div class="image-bg">
-    <div class="image-container">
-        <img [src]="chefs">
+    <div class="image-container" (click)="openModal(getEntry('chefs'))">
+        <img [src]="chefs" >
         <div class="overlay-text">Click here to view</div>
     </div>
 </div>
@@ -53,3 +53,10 @@
 <br><br><br><br><br><br>
 
 </ion-content>
+
+<ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" class="modal"
+      [isOpen]="isModalOpen">
+      <ng-template>
+        <app-profile-modal (closeModal)="closeModal()" [data]="active_data" style="height: 100%;"></app-profile-modal>
+      </ng-template>
+</ion-modal>
