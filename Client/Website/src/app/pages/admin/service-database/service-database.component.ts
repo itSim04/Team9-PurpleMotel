@@ -66,7 +66,8 @@ export class ServiceDatabaseComponent {
       },
       {
         key: 'price',
-        type: 'price'
+        type: 'price',
+        
       },
       {
         key: 'capacity'
@@ -143,7 +144,8 @@ export class ServiceDatabaseComponent {
       },
       {
         key: 'price',
-        type: 'number'
+        type: 'number',
+        condition: () => true
       },
       {
         key: 'start_date',

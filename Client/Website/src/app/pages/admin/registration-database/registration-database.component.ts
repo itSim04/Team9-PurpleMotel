@@ -74,12 +74,12 @@ export class RegistrationDatabaseComponent {
     fields: [
       {
         key: 'start_date',
-        condition: (data) => true,
+        condition: (data) => (data as number) > 0,
         type: 'date'
       },
       {
         key: 'end_date',
-        condition: (data) => true,
+        condition: (data) => (data as number) > 0,
         type: 'date'
       },
       {

@@ -1,5 +1,5 @@
 import { KeyValue } from "@angular/common";
-import { User, UserAttributes } from './User';
+import { User, UserAttributes } from "./User";
 
 export interface Announcement {
 

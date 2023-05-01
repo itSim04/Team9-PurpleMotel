@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { AnnouncementsPackage, AnnouncementsResponse, Announcement, AnnouncementPackage, AnnouncementResponse } from "src/app/models/Announcement";
@@ -28,7 +28,7 @@ export class AnnouncementDatabaseService {
 
           response.data.forEach(announcement => {
 
-            announcements.set(announcement.id, announcement.attributes);
+            announcements.set(announcement.id, { ...announcement.attributes, author_id: announcement.relationships.user.data.id });
 
           });
 
@@ -67,12 +67,13 @@ export class AnnouncementDatabaseService {
       return this.http.get<AnnouncementResponse>(this.url.generateUrl(`announcements/${id}`), {headers: headers}).pipe(
         map((response: AnnouncementResponse): AnnouncementPackage => {
 
-          return {
+          if (response.included) {
+            return {
 
-            announcement: {
+              announcement: {
 
-              key: response.data.id,
-              value: response.data.attributes
+                key: response.data.id,
+                value: { ...response.data.attributes, author_id: response.data.relationships.user.data.id }
 
             },
             user: {
