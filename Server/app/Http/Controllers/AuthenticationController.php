@@ -110,27 +110,6 @@ class AuthenticationController extends Controller
             ]
         ], 201);
     }
-    public function logout()
-    {
-        Auth::logout();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Successfully logged out',
-        ]);
-    }
-
-    public function refresh()
-    {
-        return response()->json([
-            'status' => 'success',
-            'user' => Auth::user(),
-            'authorisation' => [
-                'token' => Auth::refresh(),
-                'type' => 'bearer',
-            ]
-        ]);
-    }
-
     public function forgotPassword1(Request $request)
     {
 

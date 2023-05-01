@@ -736,7 +736,7 @@ ChangeComponent<Data> {
 
   }
 
-  debug(id: number, row: string, result: boolean) {
+  updatePermissions(id: number, row: string, result: boolean) {
 
     if (this.data) {
 
