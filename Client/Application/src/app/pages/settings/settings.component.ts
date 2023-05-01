@@ -60,7 +60,9 @@ export class SettingsComponent implements OnInit {
       title: arg0,
       body: this.getTerm(arg0),
       hide_dates: true,
-      custom_height: '50%'
+      custom_height: '50%',
+      hide_description: true,
+      hide_image: true
     };
     return data;
   }
