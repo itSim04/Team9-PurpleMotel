@@ -28,6 +28,7 @@ class UserResource extends JsonResource
                 'tier' => $this->tier,
                 'type' => $this->tier,
                 'email_verified_at' => $this->email_verified_at,
+                'notifications' => $this->notifications,
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at
                 

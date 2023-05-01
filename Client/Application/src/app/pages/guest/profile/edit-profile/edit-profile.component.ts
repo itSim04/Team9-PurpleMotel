@@ -47,7 +47,8 @@ export class EditProfileComponent {
         email: user.email,
         phone: user.phone,
         date_of_birth: user.date_of_birth,
-        gender: user.gender
+        gender: user.gender,
+        notifications: user.notifications
 
       };
 
@@ -58,7 +59,8 @@ export class EditProfileComponent {
         email: clone(user.email),
         phone: clone(user.phone),
         date_of_birth: clone(user.date_of_birth),
-        gender: clone(user.gender)
+        gender: clone(user.gender),
+        notifications: clone(user.notifications)
 
       };
 

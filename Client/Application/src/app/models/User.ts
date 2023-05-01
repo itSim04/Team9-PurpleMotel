@@ -29,6 +29,7 @@ export interface UserChange {
     gender: number,
     phone: string,
     date_of_birth: string;
+    notifications: string;
 
 }
 export interface UserInformation extends UserChange {
@@ -44,6 +45,7 @@ export interface UserAttributes {
     email: string;
     gender: number,
     phone: string,
+    notifications: string,
     language: string,
     date_of_birth: string,
     tier: string,

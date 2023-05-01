@@ -64,8 +64,6 @@ class BookingPolicy
     public function update(User $user, Booking $model)
     {
 
-        echo $model;
-
         if ($user->tier == 2 || $user->id == $model->id) {
             return true;
         }

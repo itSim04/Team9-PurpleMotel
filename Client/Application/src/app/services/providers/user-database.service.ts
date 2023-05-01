@@ -1,6 +1,6 @@
 import { UserChange } from './../../models/User';
 import { Injectable } from '@angular/core';
-import { Observable, map} from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { UserType, UserTypeResponse, UserTypesPackage, UserTypesResponse } from 'src/app/models/UserType';
 import { HttpClient } from '@angular/common/http';
 import { UsersPackage, UsersResponse, User, UserPackage, UserResponse, UserAttributes } from 'src/app/models/User';
@@ -157,6 +157,21 @@ export class UserDatabaseService {
     try {
 
       return this.http.put(this.url.generateUrl(`users/${user_id}`), user_request, { headers: headers }).pipe(map(() => undefined));
+
+    } catch (e: unknown) {
+
+      throw new Error(JSON.stringify(e));
+
+    }
+
+  }
+  modifyNotifications(user_id: string, user: { notifications: string; }) {
+
+    const headers = this.url.generateHeader();
+
+    try {
+
+      return this.http.put(this.url.generateUrl(`users/${user_id}`), user, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 

@@ -60,7 +60,6 @@ class SendCustomTriggerEmail extends Mailable
 
         foreach ($old_array as $key => $value) {
 
-            echo $key;
             if ($key != 'updated_at' && array_key_exists($key, $new_values)) {
 
                 $changes[] = [ucwords($key), $value, $new_values[$key]];

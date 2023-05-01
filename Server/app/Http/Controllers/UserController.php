@@ -52,6 +52,7 @@ class UserController extends Controller
         'date_of_birth' => 'required|date',
         'tier' => 'required|between:0,2|numeric',
         'type' => 'required|numeric',
+        'notifications' => 'boolean',
         'language' => 'required|numeric'
 
     ];

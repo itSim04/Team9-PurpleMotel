@@ -23,22 +23,46 @@ export class SettingsComponent implements OnInit {
   active_data?: ProfileModalData;
   isModalOpen = false;
 
+  session_user = extractUser();
+
+  ionViewWillEnter() {
+
+    this.session_user = extractUser();
+
+  }
+
   constructor (@Inject(DOCUMENT) private document: Document, private platform: Platform, private toastController: ToastController, private promo_service: PromoDatabaseService, private router: Router, private user_service: UserDatabaseService, private language_service: LanguageDatabaseService, public animationCtrl: AnimationController) { }
-  
+
+  debug(s: any) {
+
+
+    this.user_service.modifyNotifications(extractUserId()!, { notifications: s.detail.checked ? '1' : '0' }).subscribe(data => {
+
+      this.session_user!.notifications = s.detail.checked ? '1' : '0';
+      localStorage.setItem('user', JSON.stringify(this.session_user));
+
+      if (data) {
+
+        this.displayToast('Notifications updated: ');
+      }
+
+    });
+
+  }
   getTerm(arg0: string) {
 
     return (JSON.parse(localStorage.getItem('information')!))[arg0];
 
   }
-  
-  getEntry(arg0: string): ProfileModalData{
+
+  getEntry(arg0: string): ProfileModalData {
     let data = {
       title: arg0,
       body: this.getTerm(arg0),
       hide_dates: true,
       custom_height: '50%'
-    }
-    return data
+    };
+    return data;
   }
 
 
@@ -46,11 +70,11 @@ export class SettingsComponent implements OnInit {
 
     this.theme = localStorage.getItem('theme') || 'system';
 
-    
+
     this.language_service.getAllLanguageLists().subscribe(data => {
 
       this.languages = data.language_lists;
-   
+
     });
 
   }
@@ -213,6 +237,6 @@ export class SettingsComponent implements OnInit {
 
   leaveAnimation = (baseEl: HTMLElement) => {
     return this.enterAnimation(baseEl).direction('reverse');
-  };
+  };
 
 }

@@ -1,4 +1,3 @@
-import { PromoDatabaseModule } from './../../../Application/src/app/pages/admin/promo-database/promo-database.module';
 import { ImageCachingService } from './services/utility/image-caching.service';
 import { GuestChatsPageModule } from './pages/chat/guest/chat.module';
 import { InformationDatabaseModule } from './pages/admin/information-database/information-database.module';
@@ -40,6 +39,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { ChatsPageModule } from './pages/chat/admin/chat.module';
 import { ImageDatabaseModule } from './pages/admin/image-database/image-database.module';
 import { BrowsingDialogModule } from './services/dialogs/browsing/browsing.module';
+import { PromoDatabaseModule } from './pages/admin/promo-database/promo-database.module';
 
 
 @NgModule({

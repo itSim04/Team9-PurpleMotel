@@ -44,6 +44,7 @@
         <ion-text style="font-weight: 700; font-size: 18px;; color: var(--ion-color-dark);">Notifications</ion-text>
         <p style="font-size: 14px;color: var(--ion-color-dark);">Manage your notification
           settings, including which types of notifications you receive.</p>
+          <ion-checkbox [ngModel]="(session_user?.notifications || '0') == '1'" (ionChange)="debug($event)"></ion-checkbox>
       </div>
     </ion-item>
 

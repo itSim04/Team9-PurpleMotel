@@ -142,6 +142,7 @@ export class UserDatabaseComponent {
     default_state: {
 
       date_of_birth: '1970-01-01',
+      notifications: '0',
       email: '',
       first_name: '',
       gender: 0,
