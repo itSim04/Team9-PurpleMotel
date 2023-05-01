@@ -17,6 +17,7 @@ export class LoginComponent {
   validated_credentials = true;
   connection_error = false;
   loading = false;
+  
   constructor (private dialogRef: MatDialogRef<LoginComponent>, private authentication_service: AuthenticationDialogService) { }
 
 

@@ -11,13 +11,6 @@
 <mat-divider style="margin-right: 64px;margin-left: 64px;margin-bottom: 16px; border-top-color: #14274A"></mat-divider>
 <p class="sub-header">{{'services_introduction' | translate }} </p>
 
-<!-- <div style="display: flex; flex-wrap: wrap;">
-    <div *ngFor="let activity of activities | keyvalue" style="width: 50%;">
-        <app-activity-list-item class="item" [activity]="activity"></app-activity-list-item>
-        <mat-divider
-            style="margin-right: 64px; margin-left: 64px; margin: 16px; border-top-color: #14274a40"></mat-divider>
-    </div> -->
-<!-- </div> -->
 <div style="width:100%">
     <app-carousel [background_color]="'white'" #carousel>
         <ng-container *ngFor="let activity of activities | keyvalue; let i = index">

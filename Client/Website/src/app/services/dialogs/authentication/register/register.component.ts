@@ -10,6 +10,7 @@ import { AuthenticationDialogService } from 'src/app/services/utility/authentica
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  
   first_name = "";
   last_name = "";
   email = "";

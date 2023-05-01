@@ -14,7 +14,9 @@ export interface ConfirmationDialogData {
     styleUrls: ['confirmation.component.scss']
 })
 export class ConfirmationDialogComponent {
+
     content: ConfirmationDialogData;
+    
     constructor (@Inject(MAT_DIALOG_DATA) public data: ConfirmationDialogData) {
         this.content = data;
     }
