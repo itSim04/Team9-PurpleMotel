@@ -53,8 +53,7 @@
             <br>
 
 
-            <ion-content style="height: 60%; --background: var(--ion-color-light)">
-
+            <div style="height: 60%; background: var(--ion-color-light); overflow-y: auto;">
 
                 <ng-container *ngFor="let food of order?.food; let i = index">
 
@@ -100,7 +99,9 @@
                 </ng-container>
 
 
-            </ion-content>
+
+            </div>
+            <br><br>
             <ion-button fill="clear" class="add-btn" (click)="uploadCart()">Order</ion-button>
         </div>
     </ng-template>

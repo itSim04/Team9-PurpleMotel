@@ -42,7 +42,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         CustomCustomEvent::class => [
             SendCustomNotifications::class,
-        ]
+        ],
         
         LikesNewsCreated::class => [
             LikesTrigger::class

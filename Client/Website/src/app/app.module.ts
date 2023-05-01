@@ -1,3 +1,4 @@
+import { PromoDatabaseModule } from './../../../Application/src/app/pages/admin/promo-database/promo-database.module';
 import { ImageCachingService } from './services/utility/image-caching.service';
 import { GuestChatsPageModule } from './pages/chat/guest/chat.module';
 import { InformationDatabaseModule } from './pages/admin/information-database/information-database.module';

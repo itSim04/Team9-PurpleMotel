@@ -28,7 +28,7 @@ export class AnnouncementDatabaseService {
 
           response.data.forEach(announcement => {
 
-            announcements.set(announcement.id, { ...announcement.attributes, author_id: announcement.relationships.user.data.id });
+            announcements.set(announcement.id, announcement.attributes);
 
           });
 
@@ -64,7 +64,7 @@ export class AnnouncementDatabaseService {
     const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<AnnouncementResponse>(this.url.generateUrl(`announcements/${id}`), {headers: headers}).pipe(
+      return this.http.get<AnnouncementResponse>(this.url.generateUrl(`announcements/${id}`), { headers: headers }).pipe(
         map((response: AnnouncementResponse): AnnouncementPackage => {
 
           if (response.included) {
@@ -73,18 +73,19 @@ export class AnnouncementDatabaseService {
               announcement: {
 
                 key: response.data.id,
-                value: { ...response.data.attributes, author_id: response.data.relationships.user.data.id }
+                value: response.data.attributes
 
-            },
-            user: {
+              },
+              user: {
 
-              key: response.data.attributes.author_id,
-              value: response.included.attributes as User
+                key: response.data.attributes.author_id,
+                value: response.included.attributes as User
 
-            }
-          };
+              }
+            };
+          }
 
-
+          throw new Error('No user found');
         })
       );
 
@@ -101,7 +102,7 @@ export class AnnouncementDatabaseService {
     const headers = this.url.generateHeader();
     try {
 
-      return this.http.post<AnnouncementResponse>(this.url.generateUrl('announcements'), announcement, {headers: headers}).pipe(
+      return this.http.post<AnnouncementResponse>(this.url.generateUrl('announcements'), announcement, { headers: headers }).pipe(
 
         map(result => {
 
@@ -124,7 +125,7 @@ export class AnnouncementDatabaseService {
     const headers = this.url.generateHeader();
     try {
 
-      return this.http.put(this.url.generateUrl(`announcements/${announcement_id}`), announcement, {headers: headers}).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`announcements/${announcement_id}`), announcement, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -139,7 +140,7 @@ export class AnnouncementDatabaseService {
     const headers = this.url.generateHeader();
     try {
 
-      return this.http.delete(this.url.generateUrl(`announcements/${key}`), {headers: headers}).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`announcements/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 
