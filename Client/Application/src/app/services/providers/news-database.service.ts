@@ -1,7 +1,7 @@
-import { extractUserId } from 'src/app/components/database/database.component';
+import { extractUser, extractUserId } from 'src/app/components/database/database.component';
 import { KeyValue } from '@angular/common';
 import { SingleNewsResponse, SingleNewsPackage, News, NewsAttributes, NewsPackage, NewsResponse } from './../../models/News';
-import { HttpClient} from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { UrlBuilderService } from "../utility/url-builder.service";
@@ -30,20 +30,20 @@ export class NewsDatabaseService {
 
           response.data.forEach(data => {
 
-    
-            news.set(data.id, { ...data.attributes, is_liked: false, likes: [], image: images.news[data.id]? images.news[data.id][0] : '' });
+
+            news.set(data.id, { ...data.attributes, is_liked: false, likes: [], image: images.news[data.id] ? images.news[data.id][0] : '' });
 
           });
 
-          
+
           response.included.forEach(like => {
 
             const temp = news.get(like.attributes.news_id);
-            
+
 
             if (temp) {
 
-              
+
               if (extractUserId() == like.attributes.user_id) temp.is_liked = true;
 
               temp.likes.push(like.attributes);
@@ -95,8 +95,6 @@ export class NewsDatabaseService {
 
 
           });
-
-          console.log(news);
           return {
 
             news: news
@@ -117,9 +115,17 @@ export class NewsDatabaseService {
 
     const headers = this.url.generateHeader();
 
+
+
     try {
 
-      return this.http.post<SingleNewsResponse>(this.url.generateUrl('news'), news, { headers: headers }).pipe(
+      return this.http.post<SingleNewsResponse>(this.url.generateUrl('news'), {
+
+        title: news.title,
+        body: news.body,
+        date: news.date,
+        likes: news.likes_number
+      }, { headers: headers }).pipe(
 
         map(result => {
 
@@ -157,7 +163,7 @@ export class NewsDatabaseService {
 
     try {
 
-      return this.http.get<any>(this.url.generateUrl(`unlike?news_id=${news_id}&user_id=${user_id}`), { headers: headers });
+      return this.http.get<any>(this.url.generateUrl(`unlike?news_id=${news_id}&user_id=${user_id}`), {headers: headers });
     } catch (e: unknown) {
 
       throw new Error(JSON.stringify(e));
@@ -172,7 +178,17 @@ export class NewsDatabaseService {
 
     try {
 
-      return this.http.put(this.url.generateUrl(`news/${news_id}`), news, { headers: headers }).pipe(map(() => undefined));
+      return this.http.put<any>(this.url.generateUrl(`news/${news_id}`), {
+
+        title: news.title,
+        body: news.body,
+        date: news.date,
+        likes: news.likes_number
+      }, { headers: headers }).pipe(map(result => {
+
+        return result.data.id;
+
+      }));
 
     } catch (e: unknown) {
 

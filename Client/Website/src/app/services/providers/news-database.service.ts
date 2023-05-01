@@ -178,7 +178,17 @@ export class NewsDatabaseService {
 
     try {
 
-      return this.http.put(this.url.generateUrl(`news/${news_id}`), news, { headers: headers }).pipe(map(() => undefined));
+      return this.http.put<any>(this.url.generateUrl(`news/${news_id}`), {
+
+        title: news.title,
+        body: news.body,
+        date: news.date,
+        likes: news.likes_number
+      }, { headers: headers }).pipe(map(result => {
+
+        return result.data.id;
+
+      }));
 
     } catch (e: unknown) {
 

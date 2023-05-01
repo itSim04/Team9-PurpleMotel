@@ -390,7 +390,7 @@ export class RoomDatabaseService {
 
           }
 
-          console.log(rooms);
+      
 
           return {
 
