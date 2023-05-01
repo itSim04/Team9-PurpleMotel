@@ -63,7 +63,6 @@
                                     </th>
 
                                     <td class="cell" mat-cell *matCellDef="let element">
-                                        <!-- <mat-form-field class="full-width input"> -->
                                         <input [disabled]="!modification_rule(this.data)"
                                             class="input" type="number"
                                             [ngModel]="formatTableData(element, col.key)"
@@ -72,7 +71,7 @@
                                         <div class="number-error"
                                             *ngIf="!formatTableData(element, col.key)">
                                             {{'valid_number' | translate}} </div>
-                                        <!-- </mat-form-field> -->
+
 
                                     </td>
 
@@ -88,7 +87,6 @@
                                     </th>
 
                                     <td class="cell" mat-cell *matCellDef="let element">
-                                        <!-- <mat-form-field class="full-width input"> -->
                                         <mat-checkbox [disabled]="!modification_rule(this.data)"
                                             class="input"
                                             [ngModel]="formatTableData(element, col.key)"
@@ -112,7 +110,6 @@
 
                                     <td class="cell" mat-cell *matCellDef="let element">
 
-                                        <!-- <mat-form-field class="full-width input"> -->
 
                                         <mat-select class="input"
                                             [ngModel]="formatTableData(element, col.key)"
@@ -125,7 +122,6 @@
                                             </mat-option>
 
                                         </mat-select>
-                                        <!-- </mat-form-field> -->
                                     </td>
 
                                 </ng-container>

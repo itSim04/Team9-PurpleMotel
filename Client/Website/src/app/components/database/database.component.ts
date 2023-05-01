@@ -1,7 +1,5 @@
-import { information } from './../../services/language/language.module';
 import { InformationDatabaseService } from '../../services/providers/information-database.service';
 import { Router } from '@angular/router';
-import { Route } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { Component, Input, OnInit, AfterViewInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -176,16 +174,6 @@ export function formatPrice(price: number | undefined, reversed = false, visible
   if (price) {
 
     const temp = Math.ceil(price).toLocaleString();
-
-    // var str = price.toString().split('.');
-    // if (str[0].length >= 5) {
-    //   str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, '$1,');
-    // }
-    // if (str[1] && str[1].length >= 5) {
-    //   str[1] = str[1].replace(/(\d{3})/g, '$1 ');
-    // }
-
-    // const temp = str.join('.');
 
     if (visible) {
 

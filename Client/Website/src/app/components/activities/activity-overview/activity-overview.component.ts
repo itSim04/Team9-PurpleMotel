@@ -16,11 +16,6 @@ export class ActivityOverviewComponent {
 
   @Input() image!: string[];
 
-  /*get formatRange(): string {
-
-    return `${DAYS[this.date.getDay()].substring(0, 3)} ${this.date.getDate()} ${MONTHS[this.date.getMonth()]}`;
-
-  }*/
 
   get formatPrice(): string {
     const numStr = this.price.toString();

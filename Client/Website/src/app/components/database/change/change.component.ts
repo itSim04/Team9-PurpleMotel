@@ -2,18 +2,17 @@ import { AuthenticationDialogService } from './../../../services/utility/authent
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserType } from 'src/app/models/UserType';
 import { KeyValue } from '@angular/common';
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { Field, Toggle, StaticField, ChangeInjection, Column, ExtraColumn } from 'src/app/models/Database';
+import { Field, Toggle, StaticField, ChangeInjection,ExtraColumn } from 'src/app/models/Database';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { extractPermission, formatWord, isNum } from '../database.component';
 import { User } from 'src/app/models/User';
 import { ConfirmationDialogService } from 'src/app/services/utility/confirmation.service';
 import { WarningDialogService } from 'src/app/services/utility/warning.service';
-import { ImagePickerConf, NgpImagePickerComponent } from 'ngp-image-picker';
+import { ImagePickerConf} from 'ngp-image-picker';
 import { InformationDatabaseService } from 'src/app/services/providers/information-database.service';
 
 
@@ -89,7 +88,6 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
   onImageChange($event: any, image: { filename: string, base64: string; }, image_id: number) {
 
-    // console.log(image, $event);
 
     if ($event) {
 
@@ -201,15 +199,15 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
     hideAddBtn: true,
 
   };
-
+  
   current_image = 0;
-
+  
   next() {
 
     if (this.current_image + 1 < this.images.length) {
-
+      
       this.current_image++;
-
+      
     }
 
   }
@@ -220,12 +218,12 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
       this.current_image--;
 
     }
-
+    
   }
-
+  
+  
   constructor (@Inject(MAT_DIALOG_DATA) public injected_data: { injection: ChangeInjection<Data>, link: Map<string, unknown>; permission: string; outer_data: Map<string, unknown>[] | undefined; all_data: Map<string, Data>; }, private confirmation_controller: ConfirmationDialogService, private warning_controller: WarningDialogService, public dialog: MatDialog, private dialogRef: MatDialogRef<ChangeComponent<Data>>, private snackbar: MatSnackBar, private router: Router, private authentication: AuthenticationDialogService, private image_service: InformationDatabaseService) {
-
-
+  
     this.linked_data = injected_data.link;
 
     this.add_service = injected_data.injection?.add_service;
@@ -278,7 +276,6 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
       });
 
-      console.log(this.old_data);
 
       this.data = clone(injected_data.injection.affected_data.value);
       this.modification_mode = true;
@@ -287,7 +284,6 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
       this.old_data = undefined;
       this.data = clone(injected_data.injection.default_state);
-      console.log(this.data);
       this.modification_mode = false;
 
     }
@@ -300,7 +296,6 @@ export class ChangeComponent<Data extends { [key: string]: string | boolean | nu
 
       };
     }
-    console.log((this.data as unknown as User).gender);
 
   }
 
