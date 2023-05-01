@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ContentChildren, Directive, ElementRef, Input, OnChanges, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
-// import { CarouselItemDirective } from './carousel-item.directive';
+import { AfterViewInit, Component, ContentChildren, Directive, ElementRef, Input, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { animate, AnimationBuilder, AnimationFactory, AnimationPlayer, style } from '@angular/animations';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
+  
   selector: '[carouselItem]'
 })
 export class CarouselDirective {
@@ -14,7 +13,7 @@ export class CarouselDirective {
 
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
+  
   selector: '.carousel-item'
 })
 export class CarouselElementDirective {
@@ -32,6 +31,8 @@ export class CarouselComponent implements AfterViewInit {
   @ViewChildren(CarouselElementDirective, { read: ElementRef }) private itemsElements !: QueryList<ElementRef>;
   @ViewChild('carousel') private carousel !: ElementRef;
   @Input() timing = '250ms ease-in';
+
+  @Input() background_color = 'white';
   @Input() showControls = true;
   @Input() browsePopup!: () => void;
 
@@ -62,11 +63,11 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   prev() {
+
     if (this.currentSlide === 0) return;
 
     this.currentSlide = ((this.currentSlide - 1) + this.items.length) % this.items.length;
     const offset = this.currentSlide * this.itemWidth;
-
     const myAnimation: AnimationFactory = this.buildAnimation(offset);
     this.player = myAnimation.create(this.carousel.nativeElement);
     this.player.play();
@@ -107,7 +108,6 @@ export class CarouselComponent implements AfterViewInit {
   }
   fixRatio() {
 
-    this.initiateCarousel();
 
     const offset = this.currentSlide * this.itemWidth;
 

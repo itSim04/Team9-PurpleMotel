@@ -1,140 +1,8199 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <title>API documentation</title>
 
-        <!-- Styles -->
-        <style>
-            /* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Figtree, sans-serif;font-feature-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::-webkit-backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.relative{position:relative}.mx-auto{margin-left:auto;margin-right:auto}.mx-6{margin-left:1.5rem;margin-right:1.5rem}.ml-4{margin-left:1rem}.mt-16{margin-top:4rem}.mt-6{margin-top:1.5rem}.mt-4{margin-top:1rem}.-mt-px{margin-top:-1px}.mr-1{margin-right:0.25rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.h-16{height:4rem}.h-7{height:1.75rem}.h-6{height:1.5rem}.h-5{height:1.25rem}.min-h-screen{min-height:100vh}.w-auto{width:auto}.w-16{width:4rem}.w-7{width:1.75rem}.w-6{width:1.5rem}.w-5{width:1.25rem}.max-w-7xl{max-width:80rem}.shrink-0{flex-shrink:0}.scale-100{--tw-scale-x:1;--tw-scale-y:1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.items-center{align-items:center}.justify-center{justify-content:center}.gap-6{gap:1.5rem}.gap-4{gap:1rem}.self-center{align-self:center}.rounded-lg{border-radius:0.5rem}.rounded-full{border-radius:9999px}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity))}.bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242 / var(--tw-bg-opacity))}.bg-dots-darker{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E")}.from-gray-700\/50{--tw-gradient-from:rgb(55 65 81 / 0.5);--tw-gradient-to:rgb(55 65 81 / 0);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:rgb(0 0 0 / 0);--tw-gradient-stops:var(--tw-gradient-from), transparent, var(--tw-gradient-to)}.bg-center{background-position:center}.stroke-red-500{stroke:#ef4444}.stroke-gray-400{stroke:#9ca3af}.p-6{padding:1.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.text-center{text-align:center}.text-right{text-align:right}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.font-semibold{font-weight:600}.leading-relaxed{line-height:1.625}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-gray-500\/20{--tw-shadow-color:rgb(107 114 128 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.selection\:bg-red-500 *::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.selection\:bg-red-500::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-gray-900:hover{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.hover\:text-gray-700:hover{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity))}.focus\:rounded-sm:focus{border-radius:0.125rem}.focus\:outline:focus{outline-style:solid}.focus\:outline-2:focus{outline-width:2px}.focus\:outline-red-500:focus{outline-color:#ef4444}.group:hover .group-hover\:stroke-gray-600{stroke:#4b5563}@media (prefers-reduced-motion: no-preference){.motion-safe\:hover\:scale-\[1\.01\]:hover{--tw-scale-x:1.01;--tw-scale-y:1.01;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}}@media (prefers-color-scheme: dark){.dark\:bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity))}.dark\:bg-gray-800\/50{background-color:rgb(31 41 55 / 0.5)}.dark\:bg-red-800\/20{background-color:rgb(153 27 27 / 0.2)}.dark\:bg-dots-lighter{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E")}.dark\:bg-gradient-to-bl{background-image:linear-gradient(to bottom left, var(--tw-gradient-stops))}.dark\:stroke-gray-600{stroke:#4b5563}.dark\:text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.dark\:text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.dark\:shadow-none{--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.dark\:ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.dark\:ring-inset{--tw-ring-inset:inset}.dark\:ring-white\/5{--tw-ring-color:rgb(255 255 255 / 0.05)}.dark\:hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.group:hover .dark\:group-hover\:stroke-gray-400{stroke:#9ca3af}}@media (min-width: 640px){.sm\:fixed{position:fixed}.sm\:top-0{top:0px}.sm\:right-0{right:0px}.sm\:ml-0{margin-left:0px}.sm\:flex{display:flex}.sm\:items-center{align-items:center}.sm\:justify-center{justify-content:center}.sm\:justify-between{justify-content:space-between}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:gap-8{gap:2rem}.lg\:p-8{padding:2rem}}
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                    @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                        @endif
-                    @endauth
+    <!-- Styles -->
+    <style>
+        body {
+            font-family: 'figtree', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #930000;
+            color: #fff;
+            text-align: center;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .table-col {
+
+            padding: 12px;
+            border: 1px solid #e5e5e5;
+            background-color: #14274Ae1;
+            color: white;
+        }
+
+        .table-desc {
+
+            padding: 12px;
+            border: 1px solid #e5e5e5;
+            background-color: #14274Ae1;
+            color: white;
+        }
+
+        .table-content {
+            padding: 12px;
+            border: 1px solid #14274Ae1;
+            background-color: #80808011;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        API Documentation
+    </div>
+    <div class="container">
+        <div>
+
+            <h1 style="text-align: center;">Rooms Controller</h1>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/rooms</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
                 </div>
-            @endif
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
 
-            <div class="max-w-7xl mx-auto p-6 lg:p-8">
-                <div class="flex justify-center">
-                    <svg viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto bg-gray-100 dark:bg-gray-900">
-                        <path d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716 63.8838 24.6467 63.8689 24.6205 63.8589C24.5657 63.8389 24.5084 63.8215 24.456 63.7916L0.501061 49.9987C0.348882 49.9113 0.222437 49.7853 0.134469 49.6334C0.0465019 49.4816 0.000120578 49.3092 0 49.1337L0 8.10652C0 8.01678 0.0124642 7.92953 0.0348998 7.84477C0.0423783 7.8161 0.0598282 7.78993 0.0697995 7.76126C0.0884958 7.70891 0.105946 7.65531 0.133367 7.6067C0.152063 7.5743 0.179485 7.54812 0.20192 7.51821C0.230588 7.47832 0.256763 7.43719 0.290416 7.40229C0.319084 7.37362 0.356476 7.35243 0.388883 7.32751C0.425029 7.29759 0.457436 7.26518 0.498568 7.2415L12.4779 0.345059C12.6296 0.257786 12.8015 0.211853 12.9765 0.211853C13.1515 0.211853 13.3234 0.257786 13.475 0.345059L25.4531 7.2415H25.4556C25.4955 7.26643 25.5292 7.29759 25.5653 7.32626C25.5977 7.35119 25.6339 7.37362 25.6625 7.40104C25.6974 7.43719 25.7224 7.47832 25.7523 7.51821C25.7735 7.54812 25.8021 7.5743 25.8196 7.6067C25.8483 7.65656 25.8645 7.70891 25.8844 7.76126C25.8944 7.78993 25.9118 7.8161 25.9193 7.84602C25.9423 7.93096 25.954 8.01853 25.9542 8.10652V33.7317L35.9355 27.9844V14.8846C35.9355 14.7973 35.948 14.7088 35.9704 14.6253C35.9792 14.5954 35.9954 14.5692 36.0053 14.5405C36.0253 14.4882 36.0427 14.4346 36.0702 14.386C36.0888 14.3536 36.1163 14.3274 36.1375 14.2975C36.1674 14.2576 36.1923 14.2165 36.2272 14.1816C36.2559 14.1529 36.292 14.1317 36.3244 14.1068C36.3618 14.0769 36.3942 14.0445 36.4341 14.0208L48.4147 7.12434C48.5663 7.03694 48.7383 6.99094 48.9133 6.99094C49.0883 6.99094 49.2602 7.03694 49.4118 7.12434L61.3899 14.0208C61.4323 14.0457 61.4647 14.0769 61.5021 14.1055C61.5333 14.1305 61.5694 14.1529 61.5981 14.1803C61.633 14.2165 61.6579 14.2576 61.6878 14.2975C61.7103 14.3274 61.7377 14.3536 61.7551 14.386C61.7838 14.4346 61.8 14.4882 61.8199 14.5405C61.8312 14.5692 61.8474 14.5954 61.8548 14.6253ZM59.893 27.9844V16.6121L55.7013 19.0252L49.9104 22.3593V33.7317L59.8942 27.9844H59.893ZM47.9149 48.5566V37.1768L42.2187 40.4299L25.953 49.7133V61.2003L47.9149 48.5566ZM1.99677 9.83281V48.5566L23.9562 61.199V49.7145L12.4841 43.2219L12.4804 43.2194L12.4754 43.2169C12.4368 43.1945 12.4044 43.1621 12.3682 43.1347C12.3371 43.1097 12.3009 43.0898 12.2735 43.0624L12.271 43.0586C12.2386 43.0275 12.2162 42.9888 12.1887 42.9539C12.1638 42.9203 12.1339 42.8916 12.114 42.8567L12.1127 42.853C12.0903 42.8156 12.0766 42.7707 12.0604 42.7283C12.0442 42.6909 12.023 42.656 12.013 42.6161C12.0005 42.5688 11.998 42.5177 11.9931 42.4691C11.9881 42.4317 11.9781 42.3943 11.9781 42.3569V15.5801L6.18848 12.2446L1.99677 9.83281ZM12.9777 2.36177L2.99764 8.10652L12.9752 13.8513L22.9541 8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133 9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219 31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z" fill="#FF2D20"/>
-                    </svg>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all rooms will be fetched. If no size if provided, it will display all rooms starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many rooms to fetch starting at the given index. If none is provided, it will fetch "size" number of rooms starting at 0.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the rooms if not provided any parameters. If the index is provided, it returns all rooms starting at this index. If provided an index and size, it will return all rooms starting at this index, along with "size" rooms starting at this index. If it had any reviews or promo codes applied to it, it will also fetch these.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the room along with its attributes and relationships. The relationships section contains the room_type which is related to room as it holds the price and capacity of the room. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                      
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
                 </div>
 
-                <div class="mt-16">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                        <a href="https://laravel.com/docs" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Documentation</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel has wonderful documentation covering every aspect of the framework. Whether you are a newcomer or have prior experience with Laravel, we recommend reading our documentation from beginning to end.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <a href="https://laracasts.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laracasts</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <a href="https://laravel-news.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laravel News</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Forge</a>, <a href="https://vapor.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Vapor</a>, <a href="https://nova.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Nova</a>, and <a href="https://envoyer.io" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Telescope</a>, and more.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
-                        <div class="flex items-center gap-4">
-                            <a href="https://github.com/sponsors/taylorotwell" class="group inline-flex items-center hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="-mt-px mr-1 w-5 h-5 stroke-gray-400 dark:stroke-gray-600 group-hover:stroke-gray-600 dark:group-hover:stroke-gray-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                </svg>
-                                Sponsor
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
-                </div>
             </div>
         </div>
-    </body>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/rooms</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$level</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the level the room is at.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$number</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the number of the room on the current level.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$type</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Foreign Key that refers to the room type of the current room.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$rating</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">There to be read by the users and cannot be manually written by any user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">The name that is given to the room.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, extra details about the room are mentioned here.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a room and creates an instance of a room in the database using these attributes, along with a resource. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the room resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the room does not have the required permissions.</td>
+
+                        </tr>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.3 show</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/rooms/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which room to fetch.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes and id as a parameter and will look for and display the room with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen room's attributes and relationships. The relationships section contains the room_type which is related to room as it holds the price and capacity of the room. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the room does not exist</td>
+
+                        </tr>
+                     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/rooms/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$level</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the level the room is at.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$number</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the number of the room on the current level.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$type</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, foreign Key that refers to the room type of the current room.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$rating</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, there to be read by the users and cannot be manually written by any user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, the name that is given to the room.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, extra details about the room are mentioned here.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for and display the room with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen room along with its modified attributes and relationships. The relationships section contains the room_type which is related to room as it holds the price and capacity of the room. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the room does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the room does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/rooms/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which room to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a record from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the room does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the room does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.6 filter</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/rooms/</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$check_in</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the start date input by the user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$check_out</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the end date input by the user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$adults_capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the capacity of adults that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$kids_capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the capacity of kids that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$adults_with_kids_capacity</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the capacity of adults and kids that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, if input, the filtering starts at this index until the last index if no size was provided.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, if input, the filtering size is "size" and starts at 0 if no index is provided..</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of this function is to handle a filter request made to the server by a client. It takes in a request object that includes a list of criterias, and uses this information to filter rooms that are available for booking during that period. The function then returns a response to the client, including a collection of RoomResource objects representing the available rooms, as well as any related resources such as RoomTypeResource objects and PromoCodeResource objects that may be applicable to the client's request</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Returns a JSON object containing the available rooms for booking. This will result in a 200 status code if successful. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.7 roomBookings</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/rooms/</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which room's bookings need to be fetched.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This function takes in a request holding a room and returns a collection of Booking resources that match the room_id provided in the request. It first validates the request to ensure that the room_id parameter is present and is a valid number. Then it retrieves all Booking records from the database and filters them based on the room_id parameter before returning the collection of Booking resources.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Returns a JSON object containing all the bookings found for this room.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthorized</td>
+                            <td class="table-content">If the user is not a guest.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.8 postReview</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/rooms/</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$room_id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the room that the user wants to review.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the user that is conducting the review.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to the date of the conducted review.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$title</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the header of the review conducted by the user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$content</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the body of the review conducted by the user</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$stars</td>
+                            <td class="table-content">stars</td>
+                            <td class="table-content">Refers to the result of the review conducted by the user</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This function request containing information about a review, validates the request data, and then either creates a new review in the database or returns an error message indicating that the user has already posted a review for that room. If a review is found, the function returns a 400 error with a message indicating that the user has already posted a review. If no review is found, the function creates a new review in the database using the data from the request. The new review is then returned in a 200 response.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Returns a JSON object containing the review that the user posted along with a 200 status if successful. If the user has already reviewed the room, a 400 status is returned along with an informative message.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthorized</td>
+                            <td class="table-content">If the user is not a guest.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Room Types Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/room_types</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the room types.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the room type along with its attributes.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                       
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/room_types</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$adults_capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the capacity of adults that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$kids_capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the capacity of kids that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$adults_with_kids_capacity</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the capacity of adults and kids that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">The name that is given to the room type.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$price</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the price per night of the room type.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a room type and creates an instance of a room type in the database using these attributes, along with a resource. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the room type resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the room does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+
+        </div>
+
+        <div>
+            <h2 style="font-size: 4vw;">1.3 show</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/room_types/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which room type to fetch.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes and id as a parameter and will look for and display the room type with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen room type's attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the room type does not exist</td>
+
+                        </tr>
+                        
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/rooms_types/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$adults_capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the capacity of adults that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$kids_capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the capacity of kids that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$adults_with_kids_capacity</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the capacity of adults and kids that can be handled.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the name that is given to the room type.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$price</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the price per night of the room type.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the room type with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen room type along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the room type does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the room type does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/room_types/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which room type to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a room type from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the room type does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the room type does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Stock Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/stocks</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the stock.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the stock along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the stock does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/stocks</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the identifier of the stock.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, extra details about the stock are mentioned here.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$available_quantity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the remaining quantity of this stock that is available.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$is_ingredient</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Specifies whether the stock is an ingredient or something not edible.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a stock item and creates an instance of a stock item in the database using these attributes, along with a resource. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the stock item resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the stock does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/stocks/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which stock to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the stock with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen stock's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the stock does not exist</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user trying to fetch the stock does not have the required permissions.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/stocks/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the identifier of the stock.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the extra details about the stock.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$available_quantity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional,refers to the remaining quantity of this stock that is available.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$is_ingredient</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Optional, specifies whether the stock is an ingredient or something not edible.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the stock with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen stock along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the stock does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the stock does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/stocks/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which stock to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a stock from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the stock does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the stock does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">User Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/users</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the users.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the users along with its attributes and relationships. The relationships section contains the user_type which is related to user as it determines the permissions of the user. This will result in a 200 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the users does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/users</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$email</td>
+                            <td class="table-content">email</td>
+                            <td class="table-content">Refers to the user's email.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$password</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the user's password.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$first_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the user's first name.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$last_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the user's last name</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$phone</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the user's phone number.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$gender</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the user's gender.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$date_of_birth</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to when the user was born.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$tier</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Specifies the rank of the user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$type</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the user's type, for instance, if the user is a staff, which type of staff.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$language</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Specifies the preferred language of the user.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a user creates an instance of a user in the database using these attributes, along with a resource. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the user resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the user does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/users/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which user to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the user with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen user's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the user does not exist</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user trying to fetch the user does not have the required permissions.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/users/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$email</td>
+                            <td class="table-content">email</td>
+                            <td class="table-content">Optional, refers to the user's email.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$password</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the user's password.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$first_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the user's first name.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$last_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the user's last name</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$phone</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the user's phone number.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$gender</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the user's gender.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$date_of_birth</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, refers to when the user was born.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$tier</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, specifies the rank of the user.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$type</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the user's type, for instance, if the user is a staff, which type of staff.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$language</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, specifies the preferred language of the user.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the user with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen user along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the user does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the user does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/users/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which user to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a user from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the user does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the user does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.6 fetchProfile</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/users/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Parameters Provided</td>
+                        </tr>
+
+                        
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The goal of this function is to fetch and return all the data related to the profile of a logged-in user. The function retrieves various types of data, including orders and food, bookings and rooms, room types, registrations and activities, and applied promo codes. The function validates the user's authentication, and then retrieves the data related to the user from the database. After collecting the data, the function uses various resources to format the data in a standard way, and then merges the data into a single response to be returned to the user.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the user does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">User Type Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/user_types</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the user types.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the user types along with its attributes and relationships. This will result in a 200 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the user types does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/user_types</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the user type's identifier, for instance, if the user is a staff, which type of staff.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, extra details about the user type is mentioned here.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a user type creates an instance of a user type in the database using these attributes, along with a resource. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the user type resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the user type does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/user_types/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which user type to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the user type with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen user type's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the user type does not exist</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user trying to fetch the user type does not have the required permissions.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/user-types/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the user type's identifier, for instance, if the user is a staff, which type of staff.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, extra details about the user type is mentioned here.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the user type with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen user type along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the user type does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the user type does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/user_types/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which user type to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a user type from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the user type does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the user type does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Registration Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/registrations</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the registration.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the registrations along with its attributes and relationships. The relationships section contains the user_id which is related to the user that made the Registration. It also contains the activity_id which refers to the activity that the user registered in. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the registrations does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/registrations</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Foreign Key, refers to the registered user's id.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$activity_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Foreign Key, refers to the activity that the user's registered in.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$start_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to the registrations's start.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to the registrations's end.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$seats</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the number of places the user wants to register.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the identifiers of a user and activity and creates an instance of Activity with the combination of their attributes in the database, along with a resource. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Registration resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the registration does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/registrations/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which registration to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the registration with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen registration's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the user type does not exist</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user trying to fetch the registration does not have the required permissions.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/registrations/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, Foreign Key, refers to the registered user's id.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$activity_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, Foreign Key, refers to the activity that the user's registered in.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$start_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, refers to the registrations's start.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, refers to the registrations's end.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$seats</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the number of places the user wants to register.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the registration with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen registration along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the registration does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the registration does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/registrations/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which registration to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a registration from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the registration does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the registration does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Promo Code Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/promocodes</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all promo codes will be fetched. If no size if provided, it will display all promo codes starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many promo codes to fetch starting at the given index. If none is provided, it will fetch "size" number of promo codes starting at 0.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the promo codes if not provided any parameters. If the index is provided, it returns all promo codes starting at this index. If provided an index and size, it will return all promo codes starting at this index, along with "size" promo codes starting at this index.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the promo codes along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the promo codes does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <h2 style="font-size: 4vw;">1.2 full_index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/promocodes</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all promo codes will be fetched. If no size if provided, it will display all promo codes starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many promo codes to fetch starting at the given index. If none is provided, it will fetch "size" number of promo codes starting at 0.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the promo codes if not provided any parameters. If the index is provided, it returns all promo codes starting at this index. If provided an index and size, it will return all promo codes starting at this index, along with "size" promo codes starting at this index.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the promo codes along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the promo codes does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.3 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/promocodes</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$change</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Defines how much the promo code will affect the price.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$code</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">The promo code identifier.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$start_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to the promo code's start.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to the promo code's end.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a promo code and creates an instance of Promo Code in the database, along with a resource. Also creates an instance of EligibilityPromoCode and EffectPromoCode in their respective tables. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Promo Code resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the promo code does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.4 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/promocodes/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which promo code to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the promo code with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen promo code's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the promo code does not exist</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user trying to fetch the promo code does not have the required permissions.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.5 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/promocodes/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$change</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, defines how much the promo code will affect the price.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$code</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, acts as the promo code identifier.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$start_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, refers to the promo code's start.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, refers to the promo code's end.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the promo code with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen promo code along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the promo code does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the promo code does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.6 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/promocodes/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which promo code to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a promo code from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the promo code does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the promo code does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.7 applyPromo</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/promocodes/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which promo code to apply.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to apply a promo code from the database to a specific user's account.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 201 status code if the promo code was not already applied to the user's account and the is eligible. Will result in a 200 status code if the promo code was not already applied to the user's account but the user is not eligible. Will result in a 200 status if the user had already applied the promo code. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the promo code does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Invalid Type</td>
+                            <td class="table-content">If the user, user type or tier does not exist.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the promo code does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.8 isAlreadyApplied</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/promocodes/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">The id specifices which promo code to check if already applied.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to check if a promo code is already applied to a user, user type or tier.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Returns a JSON object containing the promo codes that are already applied on the designated user's account, along with a status of 200 if successful. Will result in a 200 status code if no applied promo codes records were found.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the promo code does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the applied promo code does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Permission Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/permissions</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the permissions.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the permissions along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the permissions does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/permissions</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$concerned_party</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Defines the user that will get the permissions.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$is_singular</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Specifies if it's one person or a group of people getting the permissions.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the permission's label.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$decided_permissions</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Binary number in octal format referring to the permissions given, in the format of Read, Write, Delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a permission and creates an instance of Permission in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Permission resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the permission does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/permissions/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which permission to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the permission with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen permission's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the permission does not exist</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user trying to fetch the permission does not have the required permissions.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/permissions/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$concerned_party</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, defines the user that will get the permissions.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$is_singular</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Optional, specifies if it's one person or a group of people getting the permissions.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the permission's label.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$decided_permissions</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, this binary number is in octal format and refers to the permissions given, in the format of Read, Write, Delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the permission with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen permission along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the permission does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the permission does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/permissions/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which permission to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a permission from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the permission does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the permission does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Order Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/orders</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the orders.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the orders along with its attributes along with its relationships. The relationships contain the user that made the order. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to fetch the orders does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/orders</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Defines when the order was ordered.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Specifies which user made the order.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$status</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the order's status.</td>
+                        </tr>
+                       
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of an order and creates an instance of Order in the database, along with a resource. In this case, the ingredients are removed from to the stock table</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Order resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the order does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/orders/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which order to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the order with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen order's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the order does not exist</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user trying to fetch the order does not have the required permissions.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/orders/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, defines when the order was ordered.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, specifies which user made the order.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$status</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the order's status.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the order with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen order along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the order does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the order does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/orders/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which order to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a order from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. In this case, the ingredients are added back to the stock table. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the order does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the order does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">News Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/news</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all news will be fetched. If no size if provided, it will display all news starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many news to fetch starting at the given index. If none is provided, it will fetch "size" number of news starting at 0.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the news if not provided any parameters. If the index is provided, it returns all news starting at this index. If provided an index and size, it will return all news starting at this index, along with "size" news starting at this index.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the news along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                       
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/news</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$title</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the header of the news.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$body</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the main chunk of the news.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$date</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the news' post date.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$likes</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the news' like count. Cannot be manually input and is there only for reading purposes.</td>
+                        </tr>
+                       
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a news article and creates an instance of News in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the News resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the news does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/news/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which news to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the news with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen news' attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the news does not exist</td>
+
+                    </tr>
+                
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/news/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$title</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, represents the header of the news.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$body</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, represents the main chunk of the news.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$date</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the news' post date.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$likes</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the news' like count. Cannot be manually input and is there only for reading purposes.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the news with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen news along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the news does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the news does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/news/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which news to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a news article from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the news does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the news does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.6 like</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/news</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$news_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the user that liked the news.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the news that was liked by the user.</td>
+                        </tr>
+                       
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the identifiers of a user and a news article and creates an instance of LikeNews in the database with the combination of their attributes, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the LikesNews resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthorized</td>
+                            <td class="table-content">If the user trying to like the news is not logged in.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.7 unlike</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/news</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$news_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the user to check.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the news to check.</td>
+                        </tr>
+                       
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the identifiers of a user and a news article and checks if there exists an instance of LikeNews in the database that has these identifiers.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">Returns a JSON object potraying the LikesNews resource along with a 200 status code if successful. Will result in a 201 status code if it was not liked by the user.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                            <tr style="height:8px;text-align:center;">
+                                <td class="table-content">User not in database</td>
+                                <td class="table-content">If the user does not exist.</td>
+                            </tr>
+                            <tr style="height:8px;text-align:center;">
+                                <td class="table-content">News not in database</td>
+                                <td class="table-content">If the news does not exist.</td>
+                            </tr>
+                            <tr style="height:8px;text-align:center;">
+                                <td class="table-content">Unauthorized</td>
+                                <td class="table-content">If the user trying to check the likes does not have the required permissions</td>
+                            </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.8 isLiked</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/news</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$news_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the user that unliked the news.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the news that was unliked by the user.</td>
+                        </tr>
+                       
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the identifiers of a user and a news article and deletes the instance of LikeNews in the database, along with its resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the LikesNews resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                      
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <h1 style="text-align: center;">Language List Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/language-list</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the language lists.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the language list along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/language-list</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$language_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the name of the language.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$code_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the code of the language.</td>
+                        </tr>
+        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a language list and creates an instance of LanguageList in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the LanguageList resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the language list does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/language-list/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which language list to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the language list with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen language lists' attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the language list does not exist</td>
+
+                    </tr>
+                   
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/language-list/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$language_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, represents the name of the language.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$code_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, represents the code of the language.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the language list with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen language list along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the language list does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the language list does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/language-list/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which language list to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a language list from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the language list does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the language list does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Language Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/languages</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the languages.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the language along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/languages</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$language</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Foreign Key, represents the language in the language list table.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$term</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the vocabulary of the language.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$value</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the value of the language.</td>
+                        </tr>
+        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a language and creates an instance of Language in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Language resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the language does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/languages/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which language to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the language with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen language'S attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the language does not exist</td>
+
+                    </tr>
+                 
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/languages/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$language</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, Foreign Key, represents the language in the language list table.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$term</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, represents the vocabulary of the language.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$value</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, represents the value of the language.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the language with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen language along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the language does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the language does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/languages/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which language to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a language from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the language does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the language does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Information Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/informations</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the informations.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the information along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                      
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/informations</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$record</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the record of the information item.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$value</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Represents the information item itself.</td>
+                        </tr>
+        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of an information item and creates an instance of Information in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Information resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the information does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/informations/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which information to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the information with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen information's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the information does not exist</td>
+
+                    </tr>
+                
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/informations/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$record</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, represents the record of the information item.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$value</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, represents the information item itself.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the information with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen information along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the information does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the information does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/informations/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which information to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete an information item from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the information does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the information does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Image Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/images</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the images.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the image along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                 
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/images</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$model_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Describes what the image represents.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$url</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">The url of the image.</td>
+                        </tr>
+        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of an image and creates an instance of Image in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Image resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the image does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/images/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which image to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the image with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen images's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the image does not exist</td>
+
+                    </tr>
+            
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/images/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$model_name</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, describes what the image represents.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$url</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, represents the url of the image.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the image with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen image along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the image does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the image does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/images/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which image to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete an image from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the image does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the image does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Food Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/foods</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the food items.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the food along with its attributes and relationships. The relationships contains food_category that holds the label. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/foods</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Describes what the food is.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, additional details regarding the food lie here.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$category</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Foreign Key, refers to the food category in the food_category table.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$price</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Displays the cost of the food.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$is_served</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Specifies whether the food is served in the menu or not.</td>
+                        </tr>
+        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attributes of a food item and creates an instance of Food in the database, along with a resource. A new instance of ingredients is then also created and added to the ingredients table.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Food resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the food does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/foods/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which food to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the food with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen food's attributes and relationships. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the food does not exist</td>
+
+                    </tr>
+              
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/foods/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, describes what the food is.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, additional details regarding the food lie here.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$category</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, Foreign Key, refers to the food category in the food_category table.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$price</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, displays the cost of the food.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$is_served</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Optional, specifies whether the food is served in the menu or not.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the food with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen food along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the food does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the food does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/foods/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which food to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a food item from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the food does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the food does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Food Category Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/food-categories</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the food categories.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the food categories along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/food-categories</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Describes what the food category is.</td>
+                        </tr>
+                        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attribute of a food category and creates an instance of FoodCategory in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the FoodCategory resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the food category does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/food-categories/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which food category to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the food category with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen food category's attribute. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the food category does not exist</td>
+
+                    </tr>
+              
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/food-categories/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, describes what the food category is.</td>
+                    </tr>
+                        
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the food category with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen food category along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the food category does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the food category does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/food-categories/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which food category to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a food category from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the food category does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the food category does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Facility Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/facilities</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all facilities will be fetched. If no size if provided, it will display all facilities starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many facilities to fetch starting at the given index. If none is provided, it will fetch "size" number of facilities starting at 0.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the facilities if not provided any parameters. If the index is provided, it returns all facilities starting at this index. If provided an index and size, it will return all facilities starting at this index, along with "size" facilities starting at this index.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the facilities.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the facilities along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/facilities</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$title</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Describes what the facility is.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, gives additional details about the facility.</td>
+                        </tr>
+                        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attribute of a facility and creates an instance of Facility in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Facility resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the facility does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/facilities/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which facility to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the facility with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen facility's attribute. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the facility does not exist</td>
+
+                    </tr>
+              
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/facilities/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$title</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, describes what the facility is.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, gives additional details about the facility.</td>
+                        </tr>
+                        
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the facility with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen facility along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the facility does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the facility does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/facilities/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which facility to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a facility from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the facility does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the facility does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Booking Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/bookings</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the bookings.</td>
+                        </tr>
+
+                    </table>
+                    
+                
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the bookings along with its attributes and relationships. The relationships contains the user_id which refers to the user who booked the booking, the room_id that refers to the room booked by the user and finally, the promo_id that refers to the promo code applied on the booking in some cases. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Unauthenticated</td>
+                            <td class="table-desc">If the user is not logged in.</td>
+                        </tr>
+     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/bookings</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$room_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Foreign Key, refers to the booked room.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Foreign Key, refers to the user who performed the booking.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$check_in</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Specifies the start of the booking.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$promo_id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Foreign Key, refers to the promo code applied.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Specifies the end of the booking</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$exhausted</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Specifies if the booking is over or not yet..</td>
+                        </tr>
+                        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attribute of a booking and creates an instance of Booking in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Booking resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the booking does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/bookings/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which booking to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the booking with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen booking's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user is not logged in.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the booking does not exist.</td>
+
+                    </tr>
+              
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/bookings/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$room_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, Foreign Key, refers to the booked room.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$user_id</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, Foreign Key, refers to the user who performed the booking.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$check_in</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, specifies the start of the booking.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$promo_id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, Foreign Key, refers to the promo code applied.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, specifies the end of the booking</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$exhausted</td>
+                            <td class="table-content">boolean</td>
+                            <td class="table-content">Optional, specifies if the booking is over or not yet..</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the booking with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen booking along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the booking does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the booking does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/bookings/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which booking to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete a booking from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the booking does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the booking does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Announcement Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/announcements</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">No Required Parameters</td>
+                            
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the announcements.</td>
+                        </tr>
+
+                    </table>
+                    
+                
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the announcements along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Unauthenticated</td>
+                            <td class="table-desc">If the user is not logged in.</td>
+                        </tr>
+     
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/announcements</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the title of the announcement.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$body</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the main chunk of the announcement.</td>
+                        </tr>
+                        
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attribute of an announcement and creates an instance of Announcement in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Announcement resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the announcement does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/announcements/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which announcement to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the announcement with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen announcement's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Unauthenticated</td>
+                        <td class="table-content">If the user is not logged in.</td>
+
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the announcement does not exist.</td>
+
+                    </tr>
+              
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/announcements/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$label</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the title of the announcement.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$body</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the main chunk of the announcement.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the announcement with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen announcement along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the announcement does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the announcement does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/announcement/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which announcement to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete an announcement from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the announcement does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the announcement does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <h1 style="text-align: center;">Activity Controller</h1>
+        <div>
+            <h2 style="font-size: 4vw;">1.1 index</h2>
+            <h3>Get</h3>
+            <h3>http://example.com/api/v1/activities</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$index</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional index specifies from which index to start fetching. If no index is provided, all activities will be fetched. If no size if provided, it will display all activities starting at the given index until the last index.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$size</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The optional size specifices how many activities to fetch starting at the given index. If none is provided, it will fetch "size" number of activities starting at 0.</td>
+                        </tr>
+
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The function returns all the activities if not provided any parameters. If the index is provided, it returns all activities starting at this index. If provided an index and size, it will return all activities starting at this index, along with "size" activities starting at this index.</td>
+                        </tr>
+
+                    </table>
+                    
+                
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the activities along with its attributes. This will result in a 200 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.2 store</h2>
+            <h3>Post</h3>
+            <h3>http://example.com/api/v1/activities</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$title</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Refers to the title of the activity.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, additional information about the activity will lie here.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the maximum capacity of the activity.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$price</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Refers to the fees of the activity.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$start_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to the start of the activity.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Refers to the end of the activity.</td>
+                        </tr>
+
+                    </table>
+
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes as input the attribute of an activity and creates an instance of Activity in the database, along with a resource.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object potraying the Activity resource. This will result in a 201 status code if successful.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to add the activity does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+       
+    </div>
+    <div>
+        <h2 style="font-size: 4vw;">1.3 show</h2>
+        <h3>Get</h3>
+        <h3>http://example.com/api/v1/activities/{id}</h3>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+            </div>
+            <div class="card-body">
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Name</td>
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">$id</td>
+                        <td class="table-content">int</td>
+                        <td class="table-content">The id specifices which activity to fetch.</td>
+                    </tr>
+
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">This functions takes and id as a parameter and will look for and display the activity with this id in the database.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Type</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">JSON</td>
+                        <td class="table-content">A JSON object containing the chosen activity's attributes. This will result in a 200 status code if successful.</td>
+                    </tr>
+
+                </table>
+                <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-col">Error</td>
+                        <td class="table-desc">Description</td>
+                    </tr>
+            
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">{id} not in Database</td>
+                        <td class="table-content">If the activity does not exist.</td>
+
+                    </tr>
+              
+                    <tr style="height:8px;text-align:center;">
+                        <td class="table-content">Internal Server Error</td>
+                        <td class="table-content">If the connection is lost or if the server crashes.</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div>
+            <h2 style="font-size: 4vw;">1.4 update</h2>
+            <h3>Put</h3>
+            <h3>http://example.com/api/v1/activities/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                    <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$title</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, refers to the title of the activity.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$description</td>
+                            <td class="table-content">string</td>
+                            <td class="table-content">Optional, additional information about the activity will lie here.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$capacity</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the maximum capacity of the activity.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$price</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">Optional, refers to the fees of the activity.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$start_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, refers to the start of the activity.</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$$end_date</td>
+                            <td class="table-content">date</td>
+                            <td class="table-content">Optional, refers to the end of the activity.</td>
+                        </tr>
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">This functions takes an id as a parameter and will look for the activity with this id in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content">A JSON object containing the chosen activity along with its modified attributes. This will result in a 201 status code if successful. Will result in a 200 status code with no JSON object if the user did not pass any data to modify.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the activity does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to modify the activity does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">An error occured</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h2 style="font-size: 4vw;">1.5 destroy</h2>
+            <h3>Delete</h3>
+            <h3>http://example.com/api/v1/activities/{id}</h3>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 style="background-color: #80808041;padding:16px">Parameters</h4>
+                </div>
+                <div class="card-body">
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">$id</td>
+                            <td class="table-content">int</td>
+                            <td class="table-content">The id specifices which activity to delete.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Description:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">The purpose of the function is to delete an activity from the database using the specified model and ID. If the $safety_check parameter is provided, the function will perform a safety check to ensure that the record can be safely deleted. The safety check involves finding related records in the $safety_check model using the foreign key and primary key columns. If related records are found, the function will return a response containing a collection of related records using the specified $safety_resource resource. If no related records are found, the function will proceed with deleting the record using the specified model and ID. If the delete operation is successful, the function will return a response indicating success. If the delete operation fails, the function will return a response indicating that the specified ID was not found in the database.</td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Returns:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Type</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">JSON</td>
+                            <td class="table-content"> Will result in a 200 status code if no related records were found. Returns a 200 status code along with the related records otherwise. </td>
+                        </tr>
+
+                    </table>
+                    <h4 style="background-color: #80808041;padding:16px">Errors:</h4>
+                    <table style="table-layout: auto;width:100%">
+
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-col">Error</td>
+                            <td class="table-desc">Description</td>
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">{id} not in Database</td>
+                            <td class="table-content">If the activity does not exist</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Unauthenticated</td>
+                            <td class="table-content">If the user trying to delete the activity does not have the required permissions.</td>
+
+                        </tr>
+                        <tr style="height:8px;text-align:center;">
+                            <td class="table-content">Internal Server Error</td>
+                            <td class="table-content">If the connection is lost or if the server crashes.</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+</body>
+
 </html>

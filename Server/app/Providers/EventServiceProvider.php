@@ -2,6 +2,19 @@
 
 namespace App\Providers;
 
+use App\Events\CustomCreateEvent;
+use App\Events\CustomDeleteEvent;
+use App\Events\CustomCustomEvent;
+use App\Events\CustomUpdateEvent;
+use App\Listeners\SendCustomNotifications;
+use App\Listeners\SendNotifications;
+use App\Mail\SendCustomTriggerEmail;
+use App\Mail\SendTriggerEmail;
+use App\Events\LikesNewsCreated;
+use App\Events\LikesNewsDeleted;
+use App\Events\ReviewCreated;
+use App\Listeners\LikesTrigger;
+use App\Listeners\ReviewTrigger;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +31,29 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        CustomUpdateEvent::class => [
+            SendNotifications::class,
+        ],
+        CustomCreateEvent::class => [
+            SendNotifications::class,
+        ],
+        CustomDeleteEvent::class => [
+            SendNotifications::class,
+        ],
+        CustomCustomEvent::class => [
+            SendCustomNotifications::class,
+        ],
+        
+        LikesNewsCreated::class => [
+            LikesTrigger::class
+        ],
+        LikesNewsDeleted::class => [
+            LikesTrigger::class
+        ],
+        ReviewCreated::class => [
+            ReviewTrigger::class
+        ]
+
     ];
 
     /**

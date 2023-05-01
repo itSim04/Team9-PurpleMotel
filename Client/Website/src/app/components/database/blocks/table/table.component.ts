@@ -1,11 +1,9 @@
-import { QuickDialogService } from './../../../../services/dialogs/quick/quick.service';
-import { QuickDialogModule } from './../../../../services/dialogs/quick/quick.module';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Data } from '@angular/router';
 import { Button, Column, DataInjection } from 'src/app/models/Database';
+import { QuickDialogService } from 'src/app/services/utility/quick.service';
 import { formatPrice, formatWord, Required } from '../../database.component';
 
 @Component({
@@ -22,6 +20,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
   @Input() @Required filtered_data!: MatTableDataSource<[string, Data], MatPaginator>;
   @Input() @Required extra_data: [string, Data2][] | undefined = [];
   @Input() @Required loading: boolean = false;
+  @Input() @Required error: boolean = false;
 
   @Input() outer_data: Map<unknown, unknown>[] | undefined;
 
@@ -31,6 +30,7 @@ export class TableComponent<Data, Data2> implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
 
   hovered = '-1';
 

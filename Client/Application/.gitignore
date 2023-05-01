@@ -31,6 +31,7 @@ log.txt
 
 # Node
 /node_modules
+/envirionments
 npm-debug.log
 yarn-error.log
 
@@ -66,3 +67,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

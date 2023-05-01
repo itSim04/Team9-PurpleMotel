@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Room } from 'src/app/models/Room';
-import { RoomDatabaseService } from './room-database.service';
 import { map, Observable } from 'rxjs';
 import { RoomType } from 'src/app/models/RoomType';
+import { RoomDatabaseService } from 'src/app/services/providers/room-database.service';
 
 export function formatOccupancy(capacity: [number?, number?, number?]): string {
   const adults = capacity[0];
@@ -126,20 +126,22 @@ export class RoomDatabaseComponent {
 
   change_injection: ChangeInjection<Room> = {
 
-    side_panel: 'images',
 
     default_state: {
+
+      images: [],
+      is_reviewed: false,
+      reviews: [],
       label: '',
       description: '',
       number: '',
       level: '',
       type: '',
       rating: 0,
-      image_path: '',
       open: true
     },
 
-    //side_panel: 'empty',
+    side_panel: 'images',
 
     data_type: 'Room',
 
@@ -164,21 +166,22 @@ export class RoomDatabaseComponent {
         type: 'digits_string'
       },
       {
-        key: 'rating',
-        type: 'number'
-      },
-      {
         key: 'type',
         type: 'selection',
         choices: {
           link: true,
           format: (choice) => (choice as RoomType).label
         }
-      }
-
+      },      
+      {
+        key: 'rating',
+        type: 'number',
+        readonly: true,
+        condition: () => true
+      },
+      
     ],
     static_fields: [
-
       {
         key: 'price',
         link: {
@@ -229,7 +232,6 @@ export class RoomDatabaseComponent {
       adults_capacity: 0,
       adults_with_kids_capacity: 0,
     },
-
     data_type: 'Room Type',
 
     fields: [

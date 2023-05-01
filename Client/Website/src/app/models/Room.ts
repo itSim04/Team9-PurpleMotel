@@ -1,8 +1,25 @@
+import { EffectPromoCodes, PromoCodeAttributes } from './PromoCode';
+import { PromoCode } from 'src/app/models/PromoCode';
 import { KeyValue } from '@angular/common';
 import { RoomType } from "./RoomType";
 
+export interface Review {
+
+  room_id: string,
+  user_id: string,
+  stars: number,
+  date: string,
+  title: string,
+  content: string;
+
+}
+
 export interface Room extends RoomAttributes {
   type: string, //A room can be many types; Single, Double, King...
+  reviews: Review[];
+  is_reviewed: boolean;
+
+  images: string[];
 
 }
 
@@ -13,24 +30,9 @@ export interface RoomAttributes {
   number: string, //Room Number
   open: boolean; //Is that room currently open or restricted?
   rating: number; //A rating out of  of said room
-  image_path: string;
 
 
 }
-
-/*export interface RoomPackage {
-
-  room: KeyValue<string, Room>;
-  room_type: KeyValue<string, RoomType>;
-
-
-}
-export interface RoomsPackage {
-
-  rooms: Map<string, Room>;
-  room_types: Map<string, RoomType>;
-
-}*/
 
 export interface RoomResponse {
   status: string,
@@ -47,11 +49,19 @@ export interface RoomResponse {
       };
     };
   };
+  images: {
+
+    rooms: {
+
+      [id: string]: string[];
+    };
+
+  };
   included?: {
 
     id: string;
-    type: string;
-    attributes: RoomType;
+    type: 'RoomTypes' | 'Review' | 'PromoCodes';
+    attributes: RoomType | Review | PromoCodeAttributes;
 
   }[];
 }
@@ -79,18 +89,31 @@ export interface RoomsResponse {
   included?: {
 
     id: string;
-    type: string;
-    attributes: RoomType;
+    type: 'PromoCodes' | 'RoomTypes' | 'EffectPromoCodes' | 'Review';
+    attributes: RoomType | PromoCodeAttributes | EffectPromoCodes | Review;
 
   }[];
+  images: {
+
+    rooms: {
+
+      [id: string]: string[];
+    };
+
+  };
 }
 
-export interface RoomPackage{
-  room: KeyValue<string,Room>;
-  room_type: KeyValue<string,RoomType>;
+export interface RoomPackage {
+  room: KeyValue<string, Room>;
+  room_type: KeyValue<string, RoomType>;
+  promo_code: KeyValue<string, PromoCode>;
 }
 
-export interface RoomsPackage{
-  rooms: Map<string,Room>;
-  room_types: Map<string,RoomType>;
+export interface RoomsPackage {
+  rooms: Map<string, Room>;
+  room_types: Map<string, RoomType>;
+  promo_codes: Map<string, PromoCode>;
+}
+export interface RawRoomsPackage {
+  rooms: Map<string, Room>;
 }

@@ -1,10 +1,6 @@
 .main {
-    // padding: 16px;
     border-radius: 50px;
     width: fit-content;
-    // margin: 16px;
-    // padding: 16px;
-    // height: 50%;
     background-color: white;
 
 
@@ -91,7 +87,7 @@
     font-weight: 400;
     font-size: 24px;
 
-    
+
 }
 
 .mat-mdc-dialog-content {
@@ -114,7 +110,13 @@
 
     text-transform: uppercase;
     color: white;
-    border: 1px solid #14274A;
+    border: 0px solid #14274A;
+}
+
+.add-btn:disabled {
+
+    background-color: lightgray;
+    color: #14274A;
 }
 
 .add-btn:hover {

@@ -9,10 +9,12 @@ use App\Http\Resources\FoodResource;
 use App\Http\Resources\OrderContainsResource;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\UserResource;
+use App\Mail\Notifications;
 use App\Models\Food;
 use App\Models\OrderContains;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -53,6 +55,7 @@ class OrderController extends Controller
         foreach ($foods as $id => $food) {
 
             $food_id[] = $food->food_id;
+            $images['food'][$food->id] = extractImages('Food', $food->id);
         }
 
         $food_id = collect($food_id)->unique()->values()->all();
@@ -66,7 +69,7 @@ class OrderController extends Controller
             $included[] = $item;
         }
 
-        return generateResponse(200, OrderResource::collection($orders), $included);
+        return generateResponse(200, OrderResource::collection($orders), $included, false, $images);
     }
 
     /**
@@ -99,9 +102,27 @@ class OrderController extends Controller
             }
         }
 
+
+        $user = User::find($request->input('user_id'));
+
+        switch ($request->input('status', '0')) {
+
+            case '0':
+                $status = 'Pending';
+                break;
+            case '1':
+
+                $status = 'Preparing';
+                break;
+
+            case '2':
+                $status = 'Ready';
+                break;
+        }
+
+        Mail::to($user->email)->send(new Notifications('Order Status Updated', 'New Status: ' . $status));
+
         return $response;
-
-
     }
 
     /**
@@ -122,20 +143,21 @@ class OrderController extends Controller
             $food_id[] = $food->food_id;
         }
 
-        $food_id = collect($food_id)->unique()->values()->all();
+        $food_ids = collect($food_id)->unique()->values()->all();
 
-        $foods = FoodResource::collection(Food::all()->whereIn('id', $food_id));
+        $foods = FoodResource::collection(Food::all()->whereIn('id', $food_ids));
 
-        // echo json_encode($foods);
-        // echo json_encode($order_contains);
-        // echo json_encode($user);
+        foreach ($food_ids as $food_id) {
+
+            $images['food'][$food_id] = extractImages('Food', $food_id);
+        }
 
         $included = $foods->merge(OrderContainsResource::collection($order_contains));
 
         $included[] = $user;
 
 
-        return generateResponse(200, $order, $included);
+        return generateResponse(200, $order, $included, false, $images);
     }
 
     /**
@@ -165,6 +187,30 @@ class OrderController extends Controller
                 OrderContains::create($order_contains);
             }
         }
+
+
+        $user = User::find($request->input('user_id'));
+
+        switch ($request->input('status', '0')) {
+
+            case '0':
+                $status = 'Pending';
+                break;
+            case '1':
+
+                $status = 'Preparing';
+                break;
+
+            case '2':
+                $status = 'Ready';
+                break;
+
+            default:
+
+                $status = 'Pending';
+        }
+
+        Mail::to($user->email)->send(new Notifications('Order Status Updated', 'New Status: ' . $status));
 
         return updateTemplate($request, $this->model, $order_id, $this->resource, $this->options, $this->model_name);
     }

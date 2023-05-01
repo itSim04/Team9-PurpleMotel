@@ -1,0 +1,24 @@
+<table class="main">
+  <tr>
+      <td style="padding: 16px; height:60vh;">
+
+          <img style="object-fit: cover; height: 90%;" src="../../../../assets/services-pics/gym.png">
+
+      </td>
+      <td style="padding: 16px; height: 50vh; width: 40%; ">
+          <div style="vertical-align: middle; margin: 0px;">
+              <p class="title-1">{{facility.title}}</p>
+              <hr class="divider">
+              <br>
+              <br>
+              <p class="content-1">
+                  Description:
+              </p>
+              <p class="content-2">
+                  {{facility.description}}
+              </p>
+          </div>
+      </td>
+  </tr>
+</table>
+<button class="back-btn" (click)="closeModal()">Back</button>

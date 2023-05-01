@@ -1,0 +1,39 @@
+.mat-mdc-row:hover .mat-mdc-cell {
+    background-color: lightgray;
+}
+
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
+th {
+
+    font-family: 'Roboto' !important;
+    text-align: center;
+    background-color: var(--ion-color-primary) !important;
+    color: var(--ion-color-light);
+    font-weight: 400;
+
+}
+.quick-btn {
+
+    font-family: 'Roboto' !important;
+    text-align: center;
+    font-weight: 400;
+
+}
+
+.retry {
+
+    color: var(--ion-color-primary);
+    display: inline;
+    text-decoration: underline;
+
+}
+
+table {
+
+    width: 100%;
+
+}

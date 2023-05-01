@@ -1,0 +1,36 @@
+<div>
+  <ion-text class="header">
+    {{room?.value?.label}}
+  </ion-text>
+</div>
+
+<div class="image-bg">
+  <img [src]="room?.value?.images?.at(0)" onerror="this.src='assets/placeholder.png'">
+  <ion-button (click)="open_modal.emit()" fill="clear" class="explore">Explore</ion-button>
+</div>
+
+<table align="center" style="padding-top: 5%;">
+  <tr>
+    <td style="padding-right: 30px;">
+      <div class="price">
+        USD
+        <div style="display: inline;" [style.textDecoration]="promo ? 'line-through' : 
+                    'none'">{{formatPrice}}</div>
+        <div *ngIf="promo" style="display: inline;"> {{formatNewPrice}}</div>
+
+      </div>
+    </td>
+
+    <td></td>
+    <td style="padding-left: 30px;">
+      <div class="rating">
+        <ion-rating-stars [filledColor]="'var(' + '--ion-color-primary' + ')'"
+          [rating]="room?.value?.rating || 0" [disabled]="true"></ion-rating-stars>
+      </div>
+    </td>
+  </tr>
+  <tr>
+  </tr>
+</table>
+
+<hr>

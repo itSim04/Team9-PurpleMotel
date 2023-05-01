@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ActivityResource;
+use App\Http\Resources\RegistrationResource;
 use App\Models\Activity;
+use App\Models\Registration;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -13,12 +15,12 @@ class ActivityController extends Controller
     protected $model_name = 'Activities';
     protected $options = [
 
-        'title' =>'required|string',
-        'description' =>'required|string|max:255',
-        'capacity' =>'required|numeric',
+        'title' => 'required|string',
+        'description' => 'required|string|max:255',
+        'capacity' => 'required|numeric',
         'price' => 'required|numeric',
-        'start_date'=>'required|date',
-        'end_date'=>'required|date'
+        'start_date' => 'required|date',
+        'end_date' => 'required|date'
 
     ];
 
@@ -27,7 +29,18 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return indexTemplate($this->model, $this->resource);
+
+        $activities = Activity::all();
+
+        $registration = Registration::all()->whereIn('activity_id', $activities->pluck('id'));
+
+        foreach ($activities->pluck('id') as $id) {
+
+            $images['activities'][$id] = extractImages('Activity', $id);
+        }
+
+        return generateResponse(200, ActivityResource::collection($activities), RegistrationResource::collection($registration), false, $images);
+        // return indexTemplate($this->model, $this->resource, [Registration::class => RegistrationResource::class]);
     }
 
     /**
@@ -44,7 +57,12 @@ class ActivityController extends Controller
     public function show(int $id)
     {
 
-        return showTemplate($this->model, $this->resource, $id);
+        $activities = Activity::find($id);
+        $registration = Registration::all()->where('activity_id', $id);
+
+        $images['activities'][$id] = extractImages('Activity', $id);
+
+        return generateResponse(200, new ActivityResource($activities), new RegistrationResource($registration), false, $images);
     }
 
     /**
@@ -52,7 +70,7 @@ class ActivityController extends Controller
      */
     public function update(Request $request, string $activity_id)
     {
-       
+
         return updateTemplate($request, $this->model, $activity_id, $this->resource, $this->options, $this->model_name);
     }
 

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "purple-motel": {
+      "hosting": {
+        "app": [
+          "purple-motel"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "purple-motel"
+  }
+}

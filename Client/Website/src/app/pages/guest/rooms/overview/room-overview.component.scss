@@ -1,0 +1,78 @@
+.main {
+
+    background-color: #14274A;
+    width: 100%;
+    height: inherit;
+
+}
+
+.testimonial-title {
+
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    font-weight: 400;
+    margin-top: 32px;
+    font-size: 40px;
+    line-height: 51px;
+    width: auto;
+    margin: auto;
+    text-align: center;
+    color: white;
+
+}
+
+.testimonial-content {
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 37px;
+    width: auto;
+    margin: auto;
+    text-align: center;
+    color: white;
+    padding: 16px;
+
+}
+
+.testimonial-author {
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
+
+
+    width: auto;
+    margin: auto;
+    text-align: center;
+    color: white;
+    padding: 16px;
+
+}
+
+.quantity-btn {
+
+    font-family: 'Roboto';
+    font-style: normal;
+    color: #14274A;
+
+    font-weight: 700;
+    font-size: 16px;
+    padding: 16px;
+    text-align: center;
+    margin: 16px;
+    margin-bottom: 64px;
+
+    text-transform: uppercase;
+
+    background: #FFFFFF;
+    border-radius: 10px;
+    border: 1px solid #14274A;
+}
+
+.quantity-container {
+    text-align: center;
+}

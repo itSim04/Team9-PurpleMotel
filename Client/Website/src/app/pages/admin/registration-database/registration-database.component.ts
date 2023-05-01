@@ -5,7 +5,7 @@ import { DataInjection, ChangeInjection } from 'src/app/models/Database';
 import { Registration } from 'src/app/models/Registration';
 import { User } from 'src/app/models/User';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
-import { RegistrationDatabaseService } from './registration-database.service';
+import { RegistrationDatabaseService } from 'src/app/services/providers/registration-database.service';
 
 @Component({
   selector: 'app-registration-database',
@@ -43,6 +43,9 @@ export class RegistrationDatabaseComponent {
 
       },
       {
+        key: 'seats'
+      },
+      {
         key: 'start_date'
       },
       {
@@ -57,14 +60,15 @@ export class RegistrationDatabaseComponent {
     }))
 
   };
-  
+
   change_injection: ChangeInjection<Registration> = {
     side_panel: 'empty',
     default_state: {
       start_date: parseDate(new Date()),
       end_date: parseDate(new Date()),
       activity_id: '0',
-      user_id: '0'
+      user_id: '0',
+      seats: 0
     },
     data_type: 'Registration',
     fields: [
@@ -84,7 +88,7 @@ export class RegistrationDatabaseComponent {
         outer_choices: {
 
           format: (choice) => (choice as User)?.first_name + ' ' + (choice as User)?.last_name,
-          index: 3
+          index: 2
 
 
         }
@@ -98,10 +102,14 @@ export class RegistrationDatabaseComponent {
 
             return (choice as Activity)?.title;
           },
-          index: 1
+          index: 0
 
 
         }
+      },
+      {
+        key: 'seats',
+        type: 'number'
       }
     ],
     add_service: registration => this.registration_service.addNewRegistration(registration),

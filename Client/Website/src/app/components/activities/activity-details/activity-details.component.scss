@@ -1,0 +1,117 @@
+.activities-container {
+    display: flex;
+    background-color: #14274A;
+
+}
+
+.details-title {
+    color: white;
+    font-weight: 600;
+    font-family: 'Robotto';
+    font-size: 30px;
+    margin: 20px 20px 0px 80px;
+}
+
+.details-pic {
+
+    width: 50vw;
+    height: 50vh;
+    margin: 20px 20px 0px 80px;
+    position: relative;
+    object-fit: cover;
+    
+}
+
+
+.activity-info {
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.properties {
+    align-self: flex-start;
+    margin-left: 32px;
+}
+
+.activity-title {
+    @extend .properties;
+    color: white;
+    font-weight: 100;
+    font-family: 'Robotto';
+    font-size: 40px;
+    margin-left: 36px;
+    margin-bottom: 0px
+    
+}
+
+
+.properties-title {
+    @extend .properties;
+    color: white;
+    margin-bottom: 0px;
+    font-weight: 700;
+    font-family: 'Montserrat';
+    
+}
+
+.properties-info {
+    @extend .properties;
+    font-family: 'Montserrat';
+    margin-bottom: 64px;
+    font-weight: 400;
+    color: white;
+
+}
+.properties-main {
+    @extend .properties;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+
+}
+
+.properties-total {
+    @extend .properties;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+    font-family: 'Montserrat';
+    margin-top: 32px;
+}
+
+.properties-price {
+    @extend .properties;
+    color: white;
+    font-weight: 600;
+    font-size: 40px;
+    font-family: 'Robotto';
+    margin-top: 0px;
+
+}
+
+.cancel-button {
+    color: #14274A;
+    width: 200px;
+    height: 50px;
+    margin-left: 25px;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.pic-container {
+    position: relative;
+}
+
+.pic-label {
+    position: absolute;
+    color: #14274A;
+    background-color: white;
+    bottom: 2%;
+    left: 45%;
+    width: 200px;
+    text-align: center;
+    padding: 5px;
+
+}

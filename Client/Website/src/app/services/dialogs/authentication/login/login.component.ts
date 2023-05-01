@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { AuthenticationDialogService } from '../authentication.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { validateEmail } from '../authentication.utility';
 
 @Component({
@@ -11,13 +11,14 @@ import { validateEmail } from '../authentication.utility';
 })
 export class LoginComponent {
 
-  email = 'clovis.prosacco@example.com';
-  password = 'password';
+  email = '';
+  password = '';
   validated_email = true;
   validated_credentials = true;
   connection_error = false;
   loading = false;
-  constructor(private dialogRef: MatDialogRef<LoginComponent>, private authentication_service: AuthenticationDialogService) { }
+  
+  constructor (private dialogRef: MatDialogRef<LoginComponent>, private authentication_service: AuthenticationDialogService) { }
 
 
   login() {
@@ -53,12 +54,22 @@ export class LoginComponent {
 
           }
         }
-      })
+      });
     }
   }
-  goToRegister(){
+  goToRegister() {
     this.dialogRef.close();
-    this.authentication_service.openDialog('register');
+    setTimeout(() => {
+
+      this.authentication_service.openDialog('register');
+    }, 300);
+  }
+
+  forgotPassword() {
+
+    this.dialogRef.close();
+    this.authentication_service.openDialog('forgot-password');
+
   }
 
 }

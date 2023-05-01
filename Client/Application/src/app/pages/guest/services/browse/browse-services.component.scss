@@ -1,0 +1,52 @@
+.header {
+
+    background-color: rgba(var(--ion-color-primary), 55);
+    background-blend-mode: soft-light;
+    height: 75%;
+
+}
+
+.title {
+
+    font-family: 'Asap';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 39px;
+    text-transform: uppercase;
+    color: white;
+    width: fit-content;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+ion-segment {
+
+    --border-radius: 0px;
+    --border: 0px;
+    --background: var(--ion-color-light);
+
+}
+
+
+ion-segment-button {
+
+    box-shadow: none;
+    --background-focused: transparent;
+    --border-radius-focused: 0;
+    border: none;
+    --indicator-box-shadow: 0;
+    transition: all 250ms ease-in-out;
+}
+
+.activities-header {
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: capitalize;
+    color: var(--ion-color-dark);
+}

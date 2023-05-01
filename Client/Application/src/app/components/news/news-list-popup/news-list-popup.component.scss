@@ -1,0 +1,48 @@
+$primary-color: var(--ion-color-primary);
+
+.parent {
+    color: $primary-color;
+    display: block;
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    position: relative;
+    margin-right: 2%;
+}
+
+.image {
+    padding-left: 5%;
+    padding-right: 5%;
+
+}
+
+.title {
+    @extend .parent;
+    font-size: 22px;
+    margin-left: 2%;
+    text-align: center;
+}
+
+.date {
+    @extend .parent;
+    font-size: 14px;
+    margin-left: 2%;
+    text-align: center;
+}
+
+.description {
+    @extend .parent;
+    font-size: 16px;
+    margin-left: 2%;
+    text-align: center;
+}
+
+.likes-number {
+    @extend .parent;
+    font-size: 16px;
+    text-align: right;
+}
+
+hr {
+    background-color: $primary-color;
+    width: 60%;
+}

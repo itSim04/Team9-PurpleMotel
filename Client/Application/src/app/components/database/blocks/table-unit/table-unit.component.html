@@ -1,0 +1,24 @@
+<p class="title-1">
+  {{data_injection.title}} {{'database' | translate}}
+</p>
+<mat-divider class="divider"></mat-divider>
+
+<!-- <app-filter [other_data]="extra_data" [data]="data" [data_injection]="data_injection"
+[filtered_data]="filtered_data"></app-filter> -->
+
+
+<app-table [error]="error" [outer_data]="outer_data" (download)="download.emit()"
+  [loading]="loading" [data]="data" [data_injection]="data_injection" [extra_data]="extra_data"
+  [filtered_data]="filtered_data" (hover)="hover.emit($event)"
+  (modify_click)="displayModify($event)"></app-table>
+
+<button *ngIf="change_injection && !loading" class="add-btn" (click)="displayAdd()">{{'add' |
+  translate}}
+  {{data_injection.title}}</button>
+
+<ion-modal *ngIf="active_data" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation"
+  class="modal" [isOpen]="isModalOpen">
+  <ng-template>
+    <app-change (closeModal)="isModalOpen == 1 ? closeAdd($event) : closeModify($event)" [injected_data]="active_data"></app-change>
+  </ng-template>
+</ion-modal>

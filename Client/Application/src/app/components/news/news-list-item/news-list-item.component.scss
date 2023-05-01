@@ -1,0 +1,72 @@
+$primary-color: var(--ion-color-primary);
+
+.parent {
+    color: var(--ion-color-dark);
+    display: block;
+    font-family: 'Abhaya Libre';
+    font-style: normal;
+    margin: 0 auto;
+    position: relative;
+    font-weight: 500;
+    text-align: center;
+}
+
+.header {
+    @extend .parent;
+    font-size: 20px;
+    margin-bottom: 2%;
+    text-transform: uppercase;
+}
+
+.body {
+    @extend .parent;
+    font-size: 13px;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    width: 65%;
+}
+
+img {
+    box-sizing: border-box;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+    transform: translateY(-17%);
+}
+
+.image-bg {
+    background-color: $primary-color;
+    block-size: fit-content;
+    height: fit-content;
+    margin-top: 12%;
+}
+
+hr {
+    background-color: $primary-color;
+    width: 50%;
+    margin-bottom: 4%;
+}
+
+
+.button {
+    @extend .parent;
+    font-size: 13px;
+    margin-top: 2%;
+    text-transform: uppercase;
+    width: fit-content;
+    padding-bottom: 6%;
+}
+
+.likes-btn {
+    width: 30%; 
+    text-align: right; 
+    max-width: 40%; 
+    transform: translateX(-10%);
+}
+
+.likes-nbr{
+    word-wrap: break-word;
+    color: var(--ion-color-dark);
+    max-width: 60px;
+}

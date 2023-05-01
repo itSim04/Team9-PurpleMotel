@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('check_in');
             $table->string('end_date');
+            $table->string('promo_id');
             $table->boolean('exhausted');
             $table->timestamps();
         });

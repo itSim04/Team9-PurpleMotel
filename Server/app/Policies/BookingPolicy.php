@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Policies;
+
+use App\Models\Booking;
 use App\Models\User;
 
 class BookingPolicy
@@ -24,18 +26,16 @@ class BookingPolicy
      */
     public function viewAny(User $user)
     {
-        if($user->tier == 2) {
+        if ($user->tier == 2) {
             return true;
         }
         $permissions = extractPermissions($user->id, $user->type);
         if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
-
         } else {
 
             return $permissions[$this->permission_name][0];
-
         }
     }
 
@@ -48,54 +48,48 @@ class BookingPolicy
     public function view(User $user): bool
     {
 
-        if($user->tier == 2) {
+        if ($user->tier == 2) {
             return true;
         }
         $permissions = extractPermissions($user->id, $user->type);
         if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
-
         } else {
 
             return $permissions[$this->permission_name][0];
-            
         }
     }
 
-    public function update(User $user) {
+    public function update(User $user, Booking $model)
+    {
 
-        if($user->tier == 2) {
+        if ($user->tier == 2 || $user->id == $model->id) {
             return true;
         }
         $permissions = extractPermissions($user->id, $user->type);
         if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
-
         } else {
 
             return $permissions[$this->permission_name][1];
-            
         }
-
     }
 
-    public function delete(User $user) {
+    public function delete(User $user)
+    {
 
-        if($user->tier == 2) {
+        if ($user->tier == 2) {
             return true;
         }
         $permissions = extractPermissions($user->id, $user->type);
         if (!array_key_exists($this->permission_name, $permissions)) {
 
             return false;
-
         } else {
 
             return $permissions[$this->permission_name][2];
-            
         }
-
     }
 }

@@ -1,0 +1,13 @@
+<div class="title" mat-dialog-title>{{ 'apply_promo' | translate }}</div>
+<div mat-dialog-content>
+  <p class="text">
+    {{ 'enter_code' | translate }}
+  </p>
+  <input class="input" matInput [(ngModel)]="promo">
+  <p class="error text">{{message}}</p>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">{{ 'cancel' | translate }}</button>
+  <button mat-button (click)="apply()" cdkFocusInitial>{{ 'apply' | translate }}</button>
+</div>

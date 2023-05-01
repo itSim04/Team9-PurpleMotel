@@ -1,0 +1,65 @@
+<div class="main">
+
+    <div class="flex">
+
+
+        <table style="width: 90%">
+
+            <tr>
+
+                <td>
+                    <p class="content">{{'stay'| translate }}</p>
+                </td>
+
+                <td>
+                    <p class="content">{{ 'adults' | translate }}</p>
+                </td>
+
+                <td>
+                    <p class="content">{{ 'kids' | translate }}</p>
+                </td>
+
+                <td rowspan="2">
+                    <button [disabled]="(!start_date_value || !end_date_value) && !adults_value && !kids_value"
+                        (click)="checkAvailability()" class="check-btn">
+                        {{ 'check_availability' | translate }}
+                    </button>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    <app-calendar
+                        (result)="start_date_value = $event.check_in; end_date_value = $event.check_out"></app-calendar>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label class="selectors">{{ 'number_input' | translate }}</mat-label>
+                        <mat-select [(ngModel)]="adults_value" matInput>
+
+                            <mat-option *ngFor="let capacity of adult_capacity" [value]="capacity">
+                                {{capacity}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label class="selectors">{{ 'number_input' | translate }}</mat-label>
+                        <mat-select [(ngModel)]="kids_value" matInput>
+
+                            <mat-option *ngFor="let capacity of kids_capacity" [value]="capacity">
+                                {{capacity}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+
+            </tr>
+
+        </table>
+    </div>
+    <div>
+        <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    </div>

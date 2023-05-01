@@ -1,0 +1,54 @@
+<ion-content>
+
+  <ion-fab-button (click)="closeModal.emit(undefined)" class="back-btn">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+  <div class="container">
+
+    <div style="width: 100%; text-align: center;">
+    </div>
+    <ion-text class="title">{{"we're here for you" | translate}}</ion-text>
+    <hr style="border-bottom: 1px solid var(--ion-color-primary);">
+    <br><br>
+    <ion-text class="label">{{'Title' | translate }}</ion-text>
+    <br>
+    <ion-input label="..." labelPlacement="fade" [(ngModel)]="title" placeholder="Title"
+      class="input"></ion-input>
+
+    <br><br>
+    <ion-text class="label">{{'Review' | translate }}</ion-text>
+    <br>
+    <ion-input label="..." labelPlacement="fade" [(ngModel)]="review" placeholder="Review"
+      class="input"></ion-input>
+
+    <br><br>
+
+    <hr style="border-bottom: 1px solid var(--ion-color-primary);">
+    <ion-text class="label">{{'Rating' | translate }}</ion-text>
+    <br><br>
+    <ion-rating-stars [rating]="rating"  placeholder="Rating" (ratingChange)="rating = $event"
+      class="input"></ion-rating-stars>
+
+    <hr style="border-bottom: 1px solid var(--ion-color-primary);">
+
+    <ng-container *ngFor="let p of properties">
+
+      <br><br>
+      <ion-text style="text-transform: capitalize;" class="label">{{p | translate }}</ion-text>
+      <br><br>
+      <ion-range [(ngModel)]="intel[p]"></ion-range>
+
+    </ng-container>
+
+    <ion-button (click)="closeModal.emit({
+  
+  intel: intel,
+  review: review,
+  rating: rating,
+  title: title
+  
+})" class="submit">{{'Submit' | translate}}</ion-button>
+
+  
+  </div>
+</ion-content>

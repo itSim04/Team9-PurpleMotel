@@ -1,0 +1,53 @@
+.footer {
+
+    display: inline;
+    table-layout: fixed;
+    display: flex;
+    justify-content: center;
+
+}
+.title {
+
+
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 24px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: var(--ion-color-primary);
+
+}
+.title-3 {
+
+    @extend .title;
+    font-size: smaller;
+    display: inline;
+    text-align: right;
+    margin: 3vw;
+    font-weight: 400;
+    text-transform: uppercase;
+
+}
+.check-btn {
+
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background: var(--ion-color-light);
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 25px;
+    margin-left: 30px;
+    margin-top: 20px;
+
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+
+    color: var(--ion-color-primary);
+
+    border: 1px solid var(--ion-color-primary);
+}

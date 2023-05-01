@@ -1,9 +1,9 @@
-<table (click)="openPopup()"  class="main">
+<table (click)="openPopup()" class="main">
     <tr>
         <td style="padding: 16px; width: 20%;" rowspan="2">
 
             <img style="vertical-align: middle; object-fit: cover;" width="256vh" height="256vh"
-                [src]="image">
+                [src]="food.value.image" onerror="this.src='assets/placeholder.png'">
 
         </td>
         <td>

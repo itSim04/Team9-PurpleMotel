@@ -1,3 +1,4 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,9 +15,11 @@ import { NewsListPopupComponent } from './news-list-popup.component';
   imports: [
     CommonModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    LanguageModule
   ],
   exports: [
+    NewsListPopupComponent
   ]
 })
 export class NewsListPopupModule { }

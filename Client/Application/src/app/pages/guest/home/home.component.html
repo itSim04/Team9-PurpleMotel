@@ -1,0 +1,37 @@
+<ion-content style="--background: var(--ion-color-light)">
+  <div class="header" [style.backgroundImage]="'url(' + home_bg + ')'">
+    <ion-text class="title">
+      {{'This is it.' | translate}}
+    </ion-text>
+  </div>
+  
+  <div>
+    <ion-text class="body-title">
+      {{'News Feed' | translate}}
+    </ion-text>
+  </div>
+  
+  <div>
+    <!-- the news component will go here -->
+    <div *ngFor="let news of filtered_news">
+      <app-news-list-item (open_modal)="openModal({
+
+        title: $event.value.title,
+        body: $event.value.body,
+        image: $event.value.image,
+        hide_dates: true,
+        custom_height: '50%'
+
+      })" [news]="{key: news[0], value: news[1]}"></app-news-list-item>
+  </div>
+  </div>
+
+</ion-content>
+
+<ion-modal [isOpen]="isModalOpen" *ngIf="active_data" class="modal">
+  
+  
+  <ng-template>
+    <app-profile-modal [data]="active_data" (closeModal)="closeModal()"></app-profile-modal>
+  </ng-template>
+</ion-modal>

@@ -1,0 +1,46 @@
+<ion-content style="--background: var(--ion-color-light)">
+
+    <div class="header" [style.backgroundImage]="'url(' + services_bg + ')'">
+        <ion-text class="title">
+            This is it.
+        </ion-text>
+    </div>
+
+    <ion-segment (ionChange)="onSegmentChange($event)">
+
+        <ion-segment-button value="activities">
+
+            <div class="activities-header"
+                style="border-bottom: 1px solid var(--ion-color-primary); width: 100%; margin: 16px; transition: all 250ms ease-in-out;"
+                [style.borderBottomColor]="selected == 'activities' ? 'var(--ion-color-primary)' : '#B1B8C3'">
+                {{ 'Activities' | translate }}
+
+            </div>
+        </ion-segment-button>
+        <ion-segment-button value="facilities">
+            <div class="activities-header"
+                style="border-bottom: 1px solid var(--ion-color-primary); width: 100%; margin: 16px; transition: all 250ms ease-in-out;"
+                [style.borderBottomColor]="selected == 'facilities' ? 'var(--ion-color-primary)' : '#B1B8C3'">
+                {{ 'Facilities' | translate }}
+            </div>
+        </ion-segment-button>
+
+    </ion-segment>
+    <div style="margin-bottom: 100px;" *ngIf="selected == 'activities'">
+
+        <div *ngFor="let activity of activities | keyvalue: activity_key; let i = index">
+
+            <app-activities [activity]="activity" [title]="activity.value.title"></app-activities>
+
+        </div>
+
+    </div>
+    <div style="margin-bottom: 100px;" *ngIf="selected == 'facilities'">
+
+        <div *ngFor="let facility of facilities | keyvalue: facility_key; let i = index">
+            <app-facilities [facility]="facility" [title]="facility.value.title"></app-facilities>
+
+        </div>
+    </div>
+
+</ion-content>

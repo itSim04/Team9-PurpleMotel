@@ -1,5 +1,7 @@
 {
-  "name": "Purple Motel",
-  "integrations": {},
+  "name": "Purple-Motel",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

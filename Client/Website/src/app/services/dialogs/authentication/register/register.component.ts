@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { genders, parseDate, validateEmail, validatePassword } from '../authentication.utility';
-import { AuthenticationDialogService } from '../authentication.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 
 
 @Component({
@@ -10,29 +10,32 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  first_name = "charbel";
-  last_name = "gerges";
-  email = "charfbe@ex.com";
-  password = "chacA$4ds";
-  confirm_password = "chacA$4ds";
-  phone_number = "12213";
+  
+  first_name = "";
+  last_name = "";
+  email = "";
+  password = "";
+  confirm_password = "";
+  phone_number = "";
   date_of_birth = new Date();
   validated_email = true;
   validated_password = true;
   connection_error = false;
   loading = false;
-  gender = "2";
+  gender = "";
   password_match = true;
+  used_credentials = false;
 
-  constructor(private authentication_service: AuthenticationDialogService, private dialogRef: MatDialogRef<RegisterComponent>){}
+  constructor (private authentication_service: AuthenticationDialogService, private dialogRef: MatDialogRef<RegisterComponent>) { }
 
   register() {
 
     this.connection_error = false;
+    this.used_credentials = false;
     this.validated_email = validateEmail(this.email);
     this.validated_password = validatePassword(this.password);
     this.password_match = this.password === this.confirm_password;
-    console.log(parseDate(this.date_of_birth))
+    console.log(parseDate(this.date_of_birth));
     if (this.validated_email && this.password_match && this.validated_password) {
       this.loading = true;
       this.authentication_service.register({
@@ -49,15 +52,20 @@ export class RegisterComponent {
         next: result => {
 
           this.dialogRef.close();
-        
+
         }, error: error => {
 
           this.loading = false;
-          console.error(error)
+          console.error(error);
           if (error.status == 401) {
 
             localStorage.removeItem('token');
             localStorage.removeItem('user');
+
+          } else if (error.status == 422) {
+
+            this.used_credentials = true;
+
 
           } else {
 
@@ -65,18 +73,21 @@ export class RegisterComponent {
 
           }
         }
-      })
+      });
     }
   }
 
-  get genders(){
+  get genders() {
     return genders;
   }
 
-  goToLogin(){
+  goToLogin() {
     this.dialogRef.close();
-    this.authentication_service.openDialog('login');
+
+    setTimeout(() => {
+      this.authentication_service.openDialog('login');
+    }, 300);
   }
 
-  
+
 }

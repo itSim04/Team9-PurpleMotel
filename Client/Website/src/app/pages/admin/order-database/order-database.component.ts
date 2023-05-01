@@ -1,13 +1,12 @@
-import { OrderContains } from './../../../models/OrderContains';
 import { Food } from 'src/app/models/Food';
 import { User } from 'src/app/models/User';
 import { Component } from '@angular/core';
 import { Order } from 'src/app/models/Order';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
-import { OrderDatabaseService } from './order-database.service';
 import { map } from 'rxjs';
 import { parseDate } from 'src/app/services/dialogs/authentication/authentication.utility';
 import { KeyValue } from '@angular/common';
+import { OrderDatabaseService } from 'src/app/services/providers/order-database.service';
 
 @Component({
   selector: 'app-order-database',
@@ -70,9 +69,8 @@ export class OrderDatabaseComponent {
           key: 'id',
           index: 0,
           format: (value) => {
-           
-            
-            return (value as KeyValue<string, Food>)?.value.label
+
+            return (value as KeyValue<string, Food>)?.value.label;
 
           }
 
@@ -83,8 +81,15 @@ export class OrderDatabaseComponent {
 
         type: 'text',
         key: 'quantity'
-      
-    }],
+
+      }],
+
+      default_value: {
+
+        id: '0',
+        quantity: 0
+
+      },
       key: 'food'
 
     },
@@ -111,23 +116,6 @@ export class OrderDatabaseComponent {
           index: 1
         }
       },
-      // {
-      //   key: 'food',
-      //   readonly: false,
-      //   type: 'outer_choices',
-      //   outer_choices: {
-      //     retriever: (choice) => {
-      //       return (choice as {id: string, quantity: number}[]).map(t => t.id);
-
-      //     },
-
-      //     format: (choice) => {
-
-      //       return (choice as Food)?.label;
-      //     },
-      //     index: 0
-      //   }
-      // },
       {
         key: 'status',
         type: 'number'

@@ -1,0 +1,56 @@
+<div mat-dialog-title class="title padded">
+
+  {{ 'order_overview' | translate }} {{ status? ' | ' + status : ''}}
+  <hr style="border-color: #14274A;">
+
+</div>
+<div style="width: 35vw;" class="content padded" mat-dialog-content>
+  <table style="width: 100%;">
+
+    <ng-container *ngFor="let food of order?.value?.food; let i = index">
+
+      <tr style="width: 100%;">
+
+
+        <td>
+          <p class="label">{{'label' | translate }}:</p>
+          <p class="mark">
+            {{foods.get(food.id)?.label}}
+          </p>
+
+          <br>
+
+          <p class="label">{{'price' | translate}}:</p>
+          <p class="mark">
+            {{formatPrice(foods.get(food.id)?.price!, food.quantity)}}
+          </p>
+
+        <td>
+
+
+          <p style="display: inline;" class="content-2">
+            {{food.quantity}}
+          </p>
+
+
+        </td>
+
+
+      </tr>
+      <tr>
+
+        <td colspan="2">
+
+          <hr style="margin-top: 24px; width:100%; border-color: #14274A;">
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+</div>
+
+<div matDialogActions>
+  <button class="add-btn" [mat-dialog-close]>{{ 'ok' | translate }}</button>
+  <ng-container *ngIf="eligibileCancellation()">
+    <button class="cancel-btn" [mat-dialog-close]="order?.key">{{ 'cancel' | translate }}</button>
+  </ng-container>
+</div>

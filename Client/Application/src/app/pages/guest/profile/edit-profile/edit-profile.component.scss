@@ -1,0 +1,139 @@
+.input {
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    size: 14px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    line-height: 14px;
+    --padding-start: 16px;
+    border-radius: 8px;
+
+    width: 80%;
+    background-color: rgba(217, 217, 217, 0.4);
+    margin-bottom: 16px;
+
+}
+
+.back-btn {
+
+    position: fixed;
+    margin: 16px;
+    --background: transparent;
+    --color: var(--ion-color-light);
+    --box-shadow: none;
+    --background-activated-opacity: 0;
+    --background-focused-opacity: 0;
+
+}
+
+.back-btn-2 {
+
+    margin: 16px;
+    --background: transparent;
+    --color: var(--ion-color-dark);
+    --box-shadow: none;
+    --background-activated-opacity: 0;
+    --background-focused-opacity: 0;
+
+}
+
+.date-container {
+
+    width: 80%;
+    background-color: var(--ion-color-light);
+    // width: auto;
+    border-radius: 10px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+}
+
+.modal {
+
+    --background: transparent;
+    width: 100%;
+    height: 100%;
+
+}
+
+
+.labels {
+
+    position: relative;
+    padding-top: 64px;
+    padding-bottom: 64px;
+    top: 25%;
+    height: 60%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--ion-color-light);
+
+}
+
+
+.title {
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 48px;
+    width: 55%;
+    margin-bottom: 16px;
+
+    color: var(--ion-color-dark);
+}
+
+
+.register {
+
+    --padding: 16px;
+    --padding-top: 30px;
+    --padding-bottom: 30px;
+    text-transform: capitalize;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    line-height: 70px;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+    width: 80%;
+
+    --background: #930000;
+    --border-radius: 100px;
+
+}
+
+.login {
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    margin-top: 16px;
+    line-height: 23px;
+
+    color: var(--ion-color-dark);
+
+}
+
+.login-button {
+
+    color: #930000;
+    font-weight: 700;
+    text-decoration: none;
+}

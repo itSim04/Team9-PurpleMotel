@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "ngx-infinite-scroll": "^15.0.0",
+    "simplebar": "^6.2.4"
+  }
+}

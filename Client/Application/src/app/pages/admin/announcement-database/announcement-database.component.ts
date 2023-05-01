@@ -1,0 +1,65 @@
+import { Component } from '@angular/core';
+import { ChangeInjection, DataInjection } from 'src/app/models/Database';
+import { Announcement } from 'src/app/models/Announcement';
+import { map } from 'rxjs';
+import { AnnouncementDatabaseService } from 'src/app/services/providers/announcement-database.service';
+
+@Component({
+  selector: 'app-announcement-database',
+  templateUrl: './announcement-database.component.html',
+  styleUrls: ['./announcement-database.component.scss']
+})
+export class AnnouncementDatabaseComponent {
+
+  constructor (private announcement_service: AnnouncementDatabaseService) { }
+
+  data_injection: DataInjection<Announcement> = {
+    title: 'Announcements',
+
+    permission: 'announcement',
+
+    displayed_columns:[
+    {
+        key: 'label',
+        type: 'text'
+      },
+      {
+        key: 'body',
+        type: 'text'
+      }
+    ],
+
+    data_fetcher:()=>this.announcement_service.getAllAnnouncements().pipe(map(data => [data.announcements, undefined])) 
+  }
+
+  change_injection: ChangeInjection<Announcement> = {
+
+    data_type: 'announcement',
+
+    default_state: {
+
+      author_id: '0',
+      concerned_tier: '0',
+      label: '',
+      body: ''
+    },
+
+    side_panel: 'empty',
+
+    fields: [
+      {
+        key: 'label',
+        type: 'text'
+      },
+      {
+        key: 'body',
+        type: 'text'
+      }
+    ],
+
+    add_service: announcement => this.announcement_service.addNewAnnouncement(announcement),
+    modify_service: (key, data) => this.announcement_service.modifyAnnouncement(key, data),
+    delete_service: (key) => this.announcement_service.deleteAnnouncement(key),
+    identifier: data => data.label
+  };
+}

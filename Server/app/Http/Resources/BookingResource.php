@@ -34,6 +34,12 @@ class BookingResource extends JsonResource
                         'id' => (string)$this->user_id,
                         "type" => "user"
                     ]
+                ],
+                'promo' => [
+                    'data' => [
+                        'id' => (string)$this->promo_id,
+                        "type" => "promo"
+                    ]
                 ]
             ]
         ];

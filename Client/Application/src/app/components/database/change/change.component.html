@@ -1,0 +1,241 @@
+<ion-fab-button (click)="closeModal.emit(undefined)" class="back-btn">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+</ion-fab-button>
+<div class="container">
+
+    <div *ngIf="modification_rule && this.data" class="content">
+
+        <!-- Image | Images | Mixed -->
+        <ng-container *ngIf="side_panel == 'images' || side_panel == 'image'">
+
+            <ng-container *ngFor="let image of images; let i = index">
+
+                <ngp-image-picker style="text-align: center;" *ngIf="i == current_image"
+                    [_imageSrc]="image.base64 ? 'data:image/png;base64,' + image.base64 : ''"
+                    [_config]="imagePickerConf"
+                    ($imageChanged)="onImageChange($event, image, i)"></ngp-image-picker>
+
+            </ng-container>
+
+
+            <!-- Images -->
+            <div style="display: flex; width: 100%;" *ngIf="side_panel == 'images'">
+                <button style="padding-right: 0px; width: 50%;" (click)="prev()"
+                    *ngIf="current_image > 0" class="image-btn">{{ 'previous' |
+                    translate }}</button>
+                <button style="padding-left: 0px; width: 50%;" (click)="next()"
+                    *ngIf="current_image < images.length - 1" class="image-btn">{{'next'
+                    | translate}}</button>
+
+            </div>
+        </ng-container>
+
+        <!-- Tables | Mixed -->
+        <div *ngIf="side_panel == 'table' && table && this.data">
+
+            <table mat-table [dataSource]="table.data" style="width: 5%; margin: 32px;">
+
+                <ng-container *ngFor="let col of table.columns">
+
+                    <ng-container *ngIf="!col || col.type === 'text'" [matColumnDef]="col.key">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{col.header_alt || formatWord(col.key)}}
+                        </th>
+
+                        <td class="cell" mat-cell *matCellDef="let element">
+                            <!-- <mat-form-field class="full-width input"> -->
+                            <input [disabled]="!modification_rule(this.data)" class="input"
+                                type="number" [ngModel]="formatTableData(element, col.key)"
+                                (ngModelChange)="updateData(col.key, element, $event)" matInput>
+                            <div class="number-error" *ngIf="!formatTableData(element, col.key)">
+                                {{'valid_number' | translate}} </div>
+                            <!-- </mat-form-field> -->
+
+                        </td>
+
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngFor="let col of table.columns">
+
+                    <ng-container *ngIf="!col || col.type === 'boolean'" [matColumnDef]="col.key">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{col.header_alt || formatWord(col.key)}}
+                        </th>
+
+                        <td class="cell" mat-cell *matCellDef="let element">
+                            <!-- <mat-form-field class="full-width input"> -->
+                            <mat-checkbox [disabled]="!modification_rule(this.data)" class="input"
+                                [ngModel]="formatTableData(element, col.key)"
+                                (ngModelChange)="updateData(col.key, element, $event)" matInput>
+                            </mat-checkbox>
+
+                        </td>
+
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngFor="let col of table.columns">
+
+                    <ng-container *ngIf="col.type === 'selection' && col.outer_link && outer_data"
+                        [matColumnDef]="col.key">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{col.header_alt || formatWord(col.key)}}
+                        </th>
+
+                        <td class="cell" mat-cell *matCellDef="let element">
+
+                            <!-- <mat-form-field class="full-width input"> -->
+
+                            <mat-select class="input" [ngModel]="formatTableData(element, col.key)"
+                                (ngModelChange)="updateData(col.key, element, $event)">
+                                <mat-option [disabled]="!modification_rule(this.data)" class="input"
+                                    *ngFor="let type of outer_data[col.outer_link.index]| keyvalue"
+                                    [value]="type.key">
+                                    {{col.outer_link.format(type)}}
+                                </mat-option>
+
+                            </mat-select>
+                            <!-- </mat-form-field> -->
+                        </td>
+
+                    </ng-container>
+                </ng-container>
+
+
+                <ng-container [matColumnDef]="'buttons'">
+                    <th mat-header-cell *matHeaderCellDef>
+                        {{'quick_actions' | translate}} </th>
+                    <td class="cell" mat-cell *matCellDef="let element; let i = index"
+                        style="padding-left: 0px;">
+
+                        <button (click)="deleteData(i)" class="quick-btn" mat-button>{{'delete' |
+                            translate}}</button>
+
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="getDisplayedColumnsKey; sticky: true">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: getDisplayedColumnsKey;">
+                </tr>
+
+            </table>
+
+            <button class="back-btn" (click)="pushData()" mat-button>{{'add_entry' |
+                translate}}</button>
+
+
+        </div>
+
+        <!-- Permissions -->
+        <ng-container *ngIf="side_panel == 'permissions' && permissions">
+
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col class="permissions" size="3"></ion-col>
+                    <ion-col class="permissions" *ngFor="let col of permissions?.columns" size="3">
+                        {{col | translate}}
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let row of permissions.rows">
+                    <ion-col class="permissions" size="3">
+                        {{row | translate}}
+                    </ion-col>
+                    <ion-col class="permissions"
+                        *ngFor="let col of permissions?.columns; let i = index" size="3">
+                        <mat-checkbox [disabled]="!modification_rule(this.data)"
+                            (ngModelChange)="debug(i, row, $event)"
+                            [ngModel]="permissions.retrieve(data, row)[i]" class="example-margin">
+                        </mat-checkbox>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+
+        </ng-container>
+        <ion-item *ngIf="standalone_field" class="full-width">
+            <ion-label position="floating"
+                class="label">{{formatLabel(standalone_field.key)}}</ion-label>
+            <ion-input class="input" [(ngModel)]="data[standalone_field.key]" name="description"
+                matInput></ion-input>
+        </ion-item>
+
+
+        <ng-container class="padded" *ngIf="fields && fields.length && size"
+            style="text-align: left">
+
+            <!-- Fields -->
+
+            <table style="table-layout: fixed; width: 90%;">
+
+                <tr *ngFor="let field of fields; let i = index">
+
+                    <ng-container *ngIf="field.type == 'image' && images[0]">
+
+                        <ngp-image-picker
+                            [_imageSrc]="images[0].base64 ? 'data:image/png;base64,' + images[0].base64 : ''"
+                            [_config]="imagePickerConf"
+                            ($imageChanged)="onImageChange($event, images[0], i)"></ngp-image-picker>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="field.type != 'image'">
+
+                        <app-completion [uniqueness]="uniqueness" [outer_data]="outer_data"
+                            [data]="data" [field]="field" [fields]="fields"
+                            [linked_data]="linked_data">
+                        </app-completion>
+
+                    </ng-container>
+                </tr>
+                <tr *ngFor="let field of static_fields">
+
+                    <td>
+
+                        <!-- Readonly -->
+                        <ion-item class="full-width input" *ngIf="field.value">
+                            <ion-label position="floating"
+                                class="label">{{formatLabel(field.key)}}</ion-label>
+                            <ion-input class="input" [value]="field.value(data) || ''" readonly
+                                name="occupancy" matInput></ion-input>
+                        </ion-item>
+
+                        <!-- Readonly -->
+                        <ion-item class="full-width input"
+                            *ngIf="!field.value && field.link && linked_data">
+                            <ion-label position="floating"
+                                class="label">{{formatLabel(field.key)}}</ion-label>
+                            <ion-input class="input"
+                                [value]="(field.link.format && linked_data.get(data[field.link.value] + '')) ? field.link.format(linked_data.get(data[field.link.value] + '')) : ''"
+                                readonly name="occupancy" matInput></ion-input>
+                        </ion-item>
+
+                    </td>
+
+                </tr>
+            </table>
+        </ng-container>
+
+        <div style="display: flex; width: 100%; margin: 32px;">
+            <ion-button *ngIf="toggle" style="width: 300px;" class="cancel-btn" (click)="triggerToggle()"
+                [ngClass]="!data[toggle.key] ? 'cancel-btn' : 'cancel-btn-dis'">{{data[toggle.key]
+                ? toggle.on_value :
+                toggle.off_value}}</ion-button>
+        </div>
+
+        <div style="display: flex; width: 100%; margin: 32px;">
+            <ion-button class="cancel-btn" *ngIf="modification_rule && modification_rule(this.data)"
+                (click)="modification_mode ? modify() : add()"
+                [disabled]="fieldsCompleteness.length || !differenceCheck"
+                [matTooltipClass]="'tooltip'" [matTooltipDisabled]="!fieldsCompleteness.length"
+                [matTooltip]="fieldsCompleteness.join('\n')">{{modification_mode ?
+                'Modify' : 'Add'}} {{data_type}}</ion-button>
+            <ion-button class="cancel-btn" color="tertiary" 
+                *ngIf="modification_mode && modification_rule && modification_rule(this.data)"
+                (click)="delete()">{{'Delete' | translate}} {{data_type}}</ion-button>
+
+        </div>
+    </div>
+</div>

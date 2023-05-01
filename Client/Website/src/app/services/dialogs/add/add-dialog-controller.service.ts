@@ -11,7 +11,7 @@ export class AddDialogControllerService {
 
   constructor (public dialog: MatDialog) { }
 
-  openDialog<Data>(component: ComponentType<unknown>, injection: ChangeInjection<Data>, link: Map<string, unknown> | undefined = undefined, permission: string, outer: Map<unknown, unknown>[] | undefined) {
+  openDialog<Data>(component: ComponentType<unknown>, injection: ChangeInjection<Data>, all_map: Map<string, Data>, link: Map<string, unknown> | undefined = undefined, permission: string, outer: Map<unknown, unknown>[] | undefined) {
 
     if (injection) {
 
@@ -23,7 +23,8 @@ export class AddDialogControllerService {
           injection: injection,
           link: link,
           permission: permission,
-          outer_data: outer
+          outer_data: outer,
+          all_data: all_map
 
         }
       });

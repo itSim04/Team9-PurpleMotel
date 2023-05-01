@@ -1,0 +1,146 @@
+.unselectable {
+
+    user-select: none;
+
+}
+
+.main {
+
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: 50%;
+    background-blend-mode: soft-light;
+    background-color: #00000045;
+
+}
+
+.header {
+    height: 80px;
+}
+
+.send-area {
+
+    background-color: #D6B389CC;
+    width: 95%;
+    border: transparent;
+    padding: 16px;
+    border-radius: 20px;
+    font-family: 'Inter';
+    font-style: normal;
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.send-area::placeholder {
+
+    color: white;
+
+}
+
+.send {
+
+
+    padding: 8px;
+
+}
+
+.input {
+
+    height: 200%;
+    background: transparent;
+    font-family: 'Inter';
+    font-style: normal;
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
+
+}
+
+.received-message {
+
+    transition: all 250ms ease-in-out;
+    margin-bottom: 1%;
+    overflow: hidden;
+    background: #636363C4;
+    font-family: 'Inter';
+    font-style: normal;
+    color: white;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+
+}
+
+
+.sent-message {
+
+    transition: all 250ms ease-in-out;
+    margin-bottom: 1%;
+    overflow: hidden;
+    background: #D6B389CC;
+    font-family: 'Inter';
+    font-style: normal;
+    color: white;
+    padding: 8px;
+    font-size: 14px;
+
+}
+
+.col {
+
+    padding: 0px;
+
+}
+
+.multi {
+
+    transition: all 250ms ease-in-out;
+    user-select: none;
+    max-width: 80%;
+    margin: 2px;
+    min-width: 10%;
+    width: fit-content;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    --color-hover: #DDDDDD;
+    --color-activated: white;
+    text-transform: none;
+
+
+}
+
+.date {
+
+    font-family: 'Inter';
+    text-align: left;
+    margin-bottom: 5%;
+    display: inline-block;
+    font-size: 9px;
+    text-align: right;
+
+}
+
+
+.title {
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+
+    
+    color: #FFFFFF;
+}
+
+.empty {
+
+    font-size: 14px;
+    color: gray;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}

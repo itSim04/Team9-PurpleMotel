@@ -1,66 +1,101 @@
 <?php
 
 namespace App\Policies;
-
-use App\Models\Annoucements;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
-class AnnoucementsPolicy
+class AnnouncementsPolicy
 {
+
+    private $permission_name = 'announcement';
+
     /**
-     * Determine whether the user can view any models.
+     * Create a new policy instance.
      */
-    public function viewAny(User $user): bool
+    public function __construct()
     {
         //
     }
 
     /**
      * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
      */
-    public function view(User $user, Annoucements $annoucements): bool
+    public function viewAny(User $user)
     {
-        //
+        if($user->tier == 2) {
+            return true;
+        }
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
+
+            return false;
+
+        } else {
+
+            return $permissions[$this->permission_name][0];
+
+        }
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user_type
+     * @return bool
      */
-    public function create(User $user): bool
+    public function view(User $user): bool
     {
-        //
+
+        if($user->tier == 2) {
+            return true;
+        }
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
+
+            return false;
+
+        } else {
+
+            return $permissions[$this->permission_name][0];
+            
+        }
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Annoucements $annoucements): bool
-    {
-        //
+    public function update(User $user) {
+
+        if($user->tier == 2) {
+            return true;
+        }
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
+
+            return false;
+
+        } else {
+
+            return $permissions[$this->permission_name][1];
+            
+        }
+
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Annoucements $annoucements): bool
-    {
-        //
-    }
+    public function delete(User $user) {
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Annoucements $annoucements): bool
-    {
-        //
-    }
+        if($user->tier == 2) {
+            return true;
+        }
+        $permissions = extractPermissions($user->id, $user->type);
+        if (!array_key_exists($this->permission_name, $permissions)) {
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Annoucements $annoucements): bool
-    {
-        //
+            return false;
+
+        } else {
+
+            return $permissions[$this->permission_name][2];
+            
+        }
+
     }
 }

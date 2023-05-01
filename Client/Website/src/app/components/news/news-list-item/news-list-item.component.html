@@ -3,20 +3,28 @@
     </tr>
     <tr>
         <td class="body_left_col">
-            <p class="body_table_header">{{news?.value?.title}}</p>
-            <p class="body_table_content">{{news?.value?.body}}</p>
+            <p class="body_table_header">{{news.value.title}}</p>
+            <p class="body_table_content">{{news.value.body}}</p>
             <div>
                 <button class="button" (click)="openPopup()">
-                    Learn More
+                    {{ 'learn_more' | translate }}
                 </button>
-                <p class="likes">{{news?.value?.likes}} Likes</p>
+                <div class="likes">
+                    <div style="display: inline; vertical-align: middle;" (click)="like()">
+                        <mat-icon class="like_icon"
+                            [style.color]="news.value.is_liked ? '#A4274A' : '#14274A'">thumb_up_alt</mat-icon>
+
+                    </div>
+                    {{news.value.likes_number}} {{ 'likes' | translate }}
+                </div>
             </div>
         </td>
 
         <td style="width: 30px;">
             <!-- for spacing -->
-        </td>   
+        </td>
         <td class="body_right_col">
+            <img height="300vw" [src]="news.value.image" onerror="this.src='assets/placeholder.png'">
         </td>
     </tr>
 </table>

@@ -1,0 +1,42 @@
+<div>
+  <ion-text class="header">
+    {{news.value.title}}
+  </ion-text>
+</div>
+
+<div class="image-bg">
+  <img [src]="news.value.image" onerror="this.src='assets/placeholder.png'">
+</div>
+
+<div class="body">
+  {{news.value.body}}
+</div>
+
+<table align="center" style="padding-top: 5%;">
+  <tr>
+    <td>
+      <div class="button">
+        <ion-button (click)="open_modal.emit(news)" expand="block" fill="outline" color="var(--ion-color-primary)">{{"Explore" | translate}}</ion-button>
+      </div>
+    </td>
+
+    <td class="likes-btn">
+      <div (click)="like()" fill="clear">
+        <ion-icon [name]="news.value.is_liked ? 'heart-outline' : 'heart-dislike-outline'"
+          [style.color]="news.value.is_liked ? '#A4274A' : 'var(--ion-color-primary)'"></ion-icon>
+      </div>
+    </td>
+    
+    <td>
+      <div class="likes-nbr">
+        {{news.value.likes_number}} {{"Likes" | translate}}
+      </div>
+    </td>
+  </tr>
+  <tr>
+  </tr>
+</table>
+
+
+<hr>
+

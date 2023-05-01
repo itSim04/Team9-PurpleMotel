@@ -1,0 +1,12 @@
+<p class="title">Announcements</p>
+
+<div style="height: 60vh; overflow-y: auto; padding: 16px;">
+
+    <ng-container *ngFor="let item of list">
+
+        <div class="label">{{ item.label }} <p style="font-size: small; display: inline;">by {{ users.get(item.author_id)?.last_name || 'unknown' }}</p></div>
+        <p class="body">{{ item.body }}</p>
+        <hr style="border-bottom: 1px solid #14274A;">
+
+    </ng-container>
+</div>

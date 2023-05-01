@@ -1,23 +1,9 @@
-.main {
-    // padding: 16px;
-    border-radius: 20px;
-    width: fit-content;
-    margin: 16px;
-    padding: 16px;
-    // height: 50%;
-    background-color: white;
-
-
-}
-
-
 .label {
 
     font-family: 'Abhaya Libre';
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
-    // line-height: 71px;
     padding-left: 16px;
     padding-top: 16px;
     color: #14274A;
@@ -58,11 +44,16 @@
 
 }
 
+.quantity_btn:hover {
+
+    background-color: lightgray
+}
+
 .content {
 
     font-family: 'Montserrat';
     font-style: normal;
-    font-size: 12px;
+    font-size: 18px;
     line-height: 3vh;
     color: #14274A;
     margin: 0px;
@@ -107,4 +98,41 @@
     text-transform: uppercase;
     color: white;
     border: 1px solid #14274A;
+}
+
+.cancel-btn:hover {
+
+    background-color: #14274ad0
+}
+
+.cancel-btn:disabled {
+
+    background-color: gray;
+    border: transparent;
+
+}
+
+.main {
+
+    display: flex;
+    background-color: white;
+
+}
+
+.details-title {
+    color: #14274A;
+    font-weight: 600;
+    font-family: 'Robotto';
+    font-size: 30px;
+    margin: 20px 20px 0px 80px;
+}
+
+.details-pic {
+
+    width: 55vw;
+    margin: 0px 20px 0px 80px;
+}
+
+.facility-info {
+    width: 25vw;
 }

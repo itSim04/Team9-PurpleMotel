@@ -1,21 +1,40 @@
 <?php
 
+use App\Events\CustomCustomEvent;
+use App\Events\CustomEvent;
+use App\Events\CustomUpdateEvent;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-function generateResponse(int $code, $collection = null, $included = [], bool $error = false)
+function generateResponse(int $code, $collection = [], $included = [], bool $error = false, array $images = [])
 {
+
     $response = ['status' => $error ? 'error' : 'success'];
 
-    if ($collection) {
+    // if ($collection) {
 
-        $response[$error ? 'message' : 'data'] = $collection;
-        $response['included'] = $included;
-    }
+    $response[$error ? 'message' : 'data'] = $collection;
+    $response['included'] = $included;
+    $response['images'] = $images;
+    // }
 
     return response()->json($response, $code);
 }
+
+function extractImages($model_name, $id): array
+{
+    // Get all the image files in the public/images directory
+    $files = Storage::disk('public')->allFiles('images/' . $model_name . '/' . $id);
+
+    $imageData = [];
+    foreach ($files as $file) {
+        $imageData[] = Storage::disk('public')->url($file);
+    }
+    return $imageData;
+}
+
 
 function extractPermissions($id, $type)
 {
@@ -46,13 +65,13 @@ function extractPermissions($id, $type)
     return $permissions_final;
 }
 
-function indexTemplate(string $model, string $resource, array $extra_model = [], string $condition = null, $condition_value = null)
+function indexTemplate(string $model, string $resource, array $extra_model = [], string $condition = null, $condition_value = null, $pagination_index = null, $page_size = null)
 {
 
     $included = [];
 
     if ($condition) {
-        
+
         foreach ($extra_model as $key => $extra) {
 
             foreach ($extra::collection($key::all()->where($condition, $condition_value)) as $item) {
@@ -60,7 +79,6 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
                 $included[] = $item;
             }
         }
-
     } else {
 
         foreach ($extra_model as $key => $extra) {
@@ -72,9 +90,16 @@ function indexTemplate(string $model, string $resource, array $extra_model = [],
         }
     }
 
-    
 
-    return generateResponse(200, $resource::collection($model::all()), $included);
+    if ($pagination_index && $page_size) {
+
+        $result = $resource::collection($model::all()->skip($pagination_index)->take($page_size));
+    } else {
+
+        $result = $resource::collection($model::all());
+    }
+
+    return generateResponse(200, $result, $included);
 }
 
 function updateTemplate(Request $request, string $model, string $id, string $resource, array $options, string $model_table = null, bool $singular = true)
@@ -117,13 +142,6 @@ function updateTemplate(Request $request, string $model, string $id, string $res
 
     try {
 
-        if (isset($request->permissions)) {
-            foreach ($request->permissions as $key => $permission) {
-
-                addPermissions($key, $id, $permission, $singular);
-            }
-        }
-
         if (!empty($updateData)) {
 
             $data = $old->update($updateData);
@@ -131,13 +149,13 @@ function updateTemplate(Request $request, string $model, string $id, string $res
 
             if ($data) {
 
-
                 return generateResponse(201, new $resource($old));
             } else {
 
                 return generateResponse(500, "An error occured", true);
             }
         } else {
+
             return generateResponse(200);
         }
     } catch (Exception $e) {
@@ -162,13 +180,32 @@ function addPermissions($label, string $concerned, $permission, bool $singular)
     ];
 
     if (!$old) {
-
-        $new = Permission::create($new);
         return $new;
     } else {
 
-        $old->update($new);
-        return $old;
+        return null;
+    }
+}
+function updatePermissions($label, string $concerned, $permission, bool $singular)
+{
+    $old = Permission::where('concerned_party', $concerned)->where('label', $label)->first();
+    $permissions = sprintf("%03d", decbin(intval($permission)));
+    $new = [
+
+        'label' => $label,
+        'concerned_party' => $concerned,
+        'read' => $permissions[2],
+        'write' => $permissions[1],
+        'delete' => $permissions[0],
+        'is_singular' => $singular
+
+    ];
+
+    if (!$old) {
+        return null;
+    } else {
+
+        return [$old->id, $new];
     }
 }
 function storeTemplate(Request $request, string $model, string $resource, array $options, bool $singular = true)
@@ -182,15 +219,7 @@ function storeTemplate(Request $request, string $model, string $resource, array 
 
         $data = $model::create($credentials);
 
-        if (isset($request->permissions)) {
-            foreach ($request->permissions as $key => $permission) {
-
-                addPermissions($key, $data->id, $permission, $singular);
-            }
-        }
-
         return generateResponse(201, new $resource($data));
-
     } catch (Exception $e) {
 
         return generateResponse(500, $e->getMessage(), true);
@@ -204,28 +233,27 @@ function showTemplate(string $model, string $resource, int $id, string $extra_mo
 
     if ($data) {
 
-        return generateResponse(200, new $resource($data), $extra_resource && $extra_model && $concerned_key ? [$extra_resource::collection($extra_model::where($concerned_key, $data->id)->get())] : []);
+        return generateResponse(200, new $resource($data), $extra_resource && $extra_model && $concerned_key ? $extra_resource::collection($extra_model::where($concerned_key, $data->id)->get()) : []);
     } else {
 
         return generateResponse(404, $id . " not in Database", true);
     }
-}
+} {
+    function destroyTemplate(string $model, int $id, string $safety_check = null, string $foreign_key = null, string $primary_key = null, string $safety_resource = null)
+    {
+        if ($safety_check) {
 
-function destroyTemplate(string $model, int $id, string $safety_check = null, string $foreign_key = null, string $primary_key = null, string $safety_resource = null)
-{
+            $data = $model::find($id);
 
-    if ($safety_check) {
+            return generateResponse(200, $safety_resource::collection($safety_check::where($foreign_key, $data->$primary_key)->get()), [], true);
+        }
 
-        $data = $model::find($id);
+        if ($model::destroy($id)) {
 
-        return generateResponse(200, $safety_resource::collection($safety_check::where($foreign_key, $data->$primary_key)->get()), [], true);
-    }
+            return generateResponse(200, null);
+        } else {
 
-    if ($model::destroy($id)) {
-
-        return generateResponse(200, null);
-    } else {
-
-        return generateResponse(404, $id . ' not in database', true);
+            return generateResponse(404, $id . ' not in database', true);
+        }
     }
 }

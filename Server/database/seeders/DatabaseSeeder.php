@@ -30,5 +30,13 @@ class DatabaseSeeder extends Seeder
         $this->call(OrderContainsSeeder::class);
         $this->call(NewsSeeder::class);
         $this->call(PromoCodeSeeder::class);
+        $this->call(EligibilityPromoCodesSeeder::class);
+        $this->call(AppliedPromoCodesSeeder::class);
+        $this->call(EffectPromoCodesSeeder::class);
+        $this->call(LikesNewsSeeder::class);
+        $this->call(ReviewSeeder::class);
+        $this->call(ImageSeeder::class);
+
+        $this->call(IntelSeeder::class);
     }
 }

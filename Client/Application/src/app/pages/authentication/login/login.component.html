@@ -1,0 +1,16 @@
+<div style="height: 100%; background-color: var(--ion-color-light)">
+
+
+    <ion-img [src]="login_bg2" style="position: absolute;margin-top: 16px;" class="header1 center"></ion-img>
+    <ion-img [src]="login_bg1" style="position: absolute;top: 36%;transform: translateY(-64%);margin: 0px 16px 32px 16px;" ></ion-img>
+    <div class="labels">
+        <ion-text class="title">Login Now</ion-text>
+        <ion-input [(ngModel)]="email" placeholder="Email" class="input"></ion-input>
+        <ion-input type="password" [(ngModel)]="password" placeholder="Password"
+            class="input"></ion-input>
+        <ion-text [routerLink]="['/auth/forgot']" class="password">Forgot Password?</ion-text>
+        <ion-button (click)="login()" class="login">Login</ion-button>
+        <ion-text class="register">Don't have an Account <a [routerLink]="['../register']"
+                class="register-button">Sign-up</a></ion-text>
+    </div>
+</div>

@@ -1,9 +1,10 @@
+import { LanguageModule } from 'src/app/services/language/language.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartDialogService } from './cart.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CartDialogComponent } from './cart.component';
+import { CartDialogService } from '../../utility/cart.service';
 
 
 
@@ -14,7 +15,8 @@ import { CartDialogComponent } from './cart.component';
   imports: [
     CommonModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    LanguageModule
   ],
   exports: [
     CartDialogComponent

@@ -1,0 +1,35 @@
+<div class="main">
+    <div style="background: #14274A;">
+        <img [src]="room?.value?.images?.at(0)" onerror="this.src='assets/placeholder.png'"  height="400vh"
+            width="100%" style="object-fit: cover;">
+        <div style="vertical-align: center; display: flex; flex-direction: column;">
+            <p class="label">{{room?.value?.label}}</p>
+        </div>
+    </div>
+
+
+    <table class="footer">
+        <tr>
+            <td>
+                <div class="price">
+                    USD
+                <div style="display: inline;" [style.textDecoration]="promo?.value?.change ? 'line-through' : 
+                    'none'">{{formatPrice}}</div> <div *ngIf="promo?.value?.change" style="display: inline;"> {{formatNewPrice}}</div>
+                </div>
+            </td>
+            <td>
+                <button class="check-btn" (click)="route()">
+                    {{ 'view_details' | translate }}
+                </button>
+            </td>
+            <td>
+
+                <star-rating [showHalfStars]="true" [rating]="room?.value?.rating || 0"
+                    staticColor="ok" [readOnly]="true"></star-rating>
+
+            </td>
+        </tr>
+    </table>
+
+
+</div>

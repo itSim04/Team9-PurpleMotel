@@ -36,7 +36,13 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": [
+              "src/theme/theme.scss",
+              "src/global.scss",
+              "src/theme/theme-dark.scss",
+              "src/theme/variables.scss",
+              "src/theme/variables-dark.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -116,7 +122,10 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": [
+              "src/theme/variables.scss",
+              "src/global.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -129,14 +138,30 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "app:build:production",
+            "firebaseProject": "purple-motel",
+            "firebaseHostingSite": "purple-motel"
           }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": ["@ionic/angular-toolkit"]
+    "schematicCollections": [
+      "@ionic/angular-toolkit"
+    ],
+    "analytics": "caa9db41-b197-42b3-b30e-a4b6f3b23804"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

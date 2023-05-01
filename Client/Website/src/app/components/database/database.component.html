@@ -56,7 +56,7 @@
           </td>
           <td style="text-align: center;">
 
-            <app-table-unit [outer_data]="all_data_outer"
+            <app-table-unit [error]="error" [outer_data]="all_data_outer"
               (download)="dual_fetcher ? loadBothData() : loadPrimaryData()" [loading]="loading"
               [change_injection]="change_injection" [data_map]="all_data_map"
               [extra_data_map]="all_extra_map" [data]="all_data" [data_injection]="data_injection"
@@ -82,7 +82,7 @@
           </td>
           <td *ngIf="extra_injection" style="text-align: center;">
 
-            <app-table-unit (download)="dual_fetcher ? loadBothData() : loadSecondaryData()"
+            <app-table-unit [error]="error" (download)="dual_fetcher ? loadBothData() : loadSecondaryData()"
               [loading]="extra_loading" [change_injection]="extra_change_injection"
               [data_map]="all_extra_map!" [extra_data_map]="undefined" [data]="all_extra!"
               [data_injection]="extra_injection" [extra_data]="all_extra"
@@ -98,3 +98,4 @@
   </tr>
 
 </table>
+<app-footer main_color="#14274A" font_color="white"></app-footer>

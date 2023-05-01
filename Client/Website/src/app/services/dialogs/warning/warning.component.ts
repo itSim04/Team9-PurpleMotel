@@ -12,7 +12,9 @@ export interface WarningDialogData {
     templateUrl: 'warning.component.html',
 })
 export class WarningDialogComponent {
+
     content: WarningDialogData;
+    
     constructor (@Inject(MAT_DIALOG_DATA) public data: WarningDialogData) {
         this.content = data;
     }

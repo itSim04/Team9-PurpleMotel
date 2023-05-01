@@ -1,0 +1,60 @@
+<ion-fab-button (click)="closeModal.emit(true)" class="back-btn">
+  <ion-icon name="arrow-back-outline"></ion-icon>
+</ion-fab-button>
+<div class="container" [style.height]="data!.custom_height || '70%'">
+  <div style="text-align: center;">
+
+    <ion-text class="title">{{data?.title}}</ion-text>
+    <hr style="border-bottom: 1px solid #D6B389; width: 95%;">
+    <img *ngIf="!data!.hide_image" style="object-fit: cover; margin-top: 8px;" width="100%" height="40%" [src]="data?.image"
+      onerror="this.src='assets/placeholder.png'">
+  </div>
+  <br>
+  <ion-text *ngIf="!data!.hide_description" class="label">{{'description' | translate}}</ion-text>
+  <br>
+  <ion-text class="body">{{data?.body}}</ion-text>
+  <br>
+  <div style="text-align: center">
+    <ng-container *ngIf="data!.show_num_input">
+      <div style="display: flex; width: 70%;">
+
+        <ion-text class="input">
+          {{ data?.num_name || '' | translate }}:
+        </ion-text>
+        <div style="display: flex; width: 100%; align-items: center; padding-left: 4px;">
+          <ion-button (click)="changeQuantity(-1)" class="quantity_btn">-</ion-button>
+          <ion-text style="display: inline; margin-left: 16px;">
+            {{data!.stored_data}}
+          </ion-text>
+          <ion-button (click)="changeQuantity(1)" class="quantity_btn">+</ion-button>
+        </div>
+        <br>
+      </div>
+    </ng-container>
+  </div>
+  <br>
+  <div style="display: flex;" *ngIf="!data!.hide_dates">
+
+    <ion-text class="options">{{ 'Start Date' | translate }}</ion-text>
+    <ion-text style="text-align: end;" class="options">{{ 'End Date' | translate }}</ion-text>
+
+  </div>
+  <div style="display: flex;" *ngIf="!data!.hide_dates">
+
+    <ion-text class="date">{{formatDate(data?.start_date)}}</ion-text>
+    <ion-text style="text-align: end;" class="date">{{formatDate(data?.end_date)}}</ion-text>
+
+  </div>
+  <ion-button *ngIf="data?.button" (click)="performAction()" class="cancel-btn">
+    {{data!.button!.label}}
+  </ion-button>
+  <ion-icon size="large" class="review" (click)="openReview()" *ngIf="data?.custom_action?.display" [name]="data!.custom_action!.icon"></ion-icon>
+
+  <ion-modal [isOpen]="isReviewOpened" class="modal">
+
+
+    <ng-template>
+      <app-review (closeModal)="closeReview($event)"></app-review>
+    </ng-template>
+  </ion-modal>
+</div>

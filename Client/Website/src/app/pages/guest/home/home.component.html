@@ -1,17 +1,18 @@
-<div class="nav">
+<div class="nav" [style.backgroundImage]="'url(' + url.getImage('home-main') + ')'">
     <app-nav-bar [transparent]="true"></app-nav-bar>
-    <div class="nav_title">
-        <p class="nav_title_1">Welcome To</p>
-        <p class="nav_title_2">Purple</p>
-        <p class="nav_title_3">Motel</p>
-        <p class="nav_title_4">Book your stay and enjoy Luxury<br>
-            redefined at the most affordable rates</p>
+    <div class="title-container">
+        <p class="title-1">{{ 'welcome' | translate }}</p>
+        <p class="title-2">{{ 'name1' | translate }}</p>
+        <p class="title-3">{{ 'name2' | translate }}</p>
+        <p class="title-4">{{'hotel_introduction' | translate }}</p>
     </div>
+    <app-quick-availability (result)="filterRooms($event)"
+        class="quick-container"></app-quick-availability>
 </div>
 
 <div>
     <div>
-        <p class="body_title">News Feed</p>
+        <p class="body_title">{{ 'news_feed' | translate }}</p>
         <hr class="line">
     </div>
     <div *ngFor="let news of filtered_news">

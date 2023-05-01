@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, TemplateRef } from '@angular/core';
 
 @Directive({

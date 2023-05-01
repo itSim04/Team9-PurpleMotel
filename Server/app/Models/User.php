@@ -7,6 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use App\Events\CustomCreateEvent;
+use App\Events\CustomDeleteEvent;
+use App\Events\CustomUpdateEvent;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -27,7 +30,9 @@ class User extends Authenticatable implements JWTSubject
         'type',
         'phone',
         'language',
-        'date_of_birth'
+        'notifications',
+        'date_of_birth',
+        'email_verified_at'
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -46,6 +51,10 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $dispatchesEvents = [
+        'deleted'=> CustomDeleteEvent::class
     ];
 
      /**
@@ -67,4 +76,6 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    
 }

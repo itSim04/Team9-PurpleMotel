@@ -1,5 +1,6 @@
-import { ChefListDialogService } from './../../../../services/dialogs/chef-list/chef-list.service';
+import { UrlBuilderService } from './../../../../services/utility/url-builder.service';
 import { Component } from '@angular/core';
+import { DisplayDialogService } from 'src/app/services/utility/display.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
 })
 export class RestaurantLandingComponent {
 
-  constructor(public chef_dialog: ChefListDialogService) {}
+  constructor(public display_dialog: DisplayDialogService, public url: UrlBuilderService) {}
 }

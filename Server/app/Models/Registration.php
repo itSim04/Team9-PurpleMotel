@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Registration extends Model
+class Registration extends BaseModel
 {
     use HasFactory;
     protected $fillable = [
@@ -13,5 +13,6 @@ class Registration extends Model
         'user_id',
         'start_date',
         'end_date',
+        'seats'
     ];
 }

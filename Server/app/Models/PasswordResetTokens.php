@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PasswordResetTokens extends Model
+class PasswordResetTokens extends BaseModel
 {
     use HasFactory;
 
     const UPDATED_AT = null;
-    protected $primaryKey = 'email';
+    protected $primaryKey = 'token';
+
+    public $incrementing = false;
 
     protected $fillable = [
 
