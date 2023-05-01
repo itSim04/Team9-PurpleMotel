@@ -11,9 +11,12 @@ import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 })
 export class CompletionComponent<Data> {
 
-  debug(s: any) {
-    console.log(s);
+  updateDate(s: any) {
+
+    this.data[this.field.key] = (s as CustomEvent).detail.value;
+
   }
+
 
   @Input() @Required field!: Field<Data>;
 

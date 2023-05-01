@@ -175,7 +175,7 @@
 <ion-item *ngIf="field.type === 'date'">
     <ion-label class="label" position="floating">{{ 'choose_date' | translate }}</ion-label>
     <ion-datetime [ngModel]="data[field.key]"
-        (ionChange)="debug($event)" readonly></ion-datetime>
+        (ionChange)="updateDate($event)"></ion-datetime>
 </ion-item>
 
 <!-- Checkbox -->
