@@ -13,21 +13,23 @@
     background-color: #00000045;
 
 }
+
 .chat-name {
 
 
     font-family: 'Inter';
-font-style: normal;
-font-weight: 500;
-font-size: 22px;
-line-height: 25px;
-/* identical to box height */
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 25px;
 
 
-color: #FFFFFF;
+
+    color: #FFFFFF;
 
 
 }
+
 .chat-last {
 
 
@@ -38,7 +40,7 @@ color: #FFFFFF;
     line-height: 20px;
 
     color: #FFFFFF;
-    
+
 
 }
 
@@ -70,13 +72,13 @@ color: #FFFFFF;
 
 
     padding: 8px;
-    // padding-left: 13%;
+ 
 
 }
 
 .input {
 
-    // border: 0px;
+
     height: 200%;
     background: transparent;
     font-family: 'Inter';
@@ -84,8 +86,6 @@ color: #FFFFFF;
     color: var(--ion-color-light);
     font-size: 18px;
     line-height: 22px;
-    // --padding-start: 10px;
-    // border-radius: 50px;
 
 }
 
@@ -161,7 +161,7 @@ color: #FFFFFF;
     font-size: 20px;
     line-height: 24px;
 
-    
+
     color: #FFFFFF;
 }
 

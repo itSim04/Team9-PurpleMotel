@@ -1,9 +1,7 @@
 import { OrderDatabaseService } from './../../../../services/providers/order-database.service';
 import { AnimationController } from '@ionic/angular';
-import { AuthenticationService } from './../../../../services/utility/authentication.service';
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { FoodListPopupService } from "src/app/components/food/food-list-popup/food-list-popup.service";
 import { Food } from "src/app/models/Food";
 import { FoodCategory } from "src/app/models/FoodCategory";
 import { Order } from "src/app/models/Order";
@@ -62,7 +60,7 @@ export class MenuComponent implements OnInit {
 
     this.food_service.getAllFoods().subscribe({
       next: data => {
-        console.log(data);
+        
         this.foods = data.foods;
 
 
@@ -116,18 +114,10 @@ export class MenuComponent implements OnInit {
 
       this.isModalOpen = true;
 
-
-      //   const dialogRef = this.cart_dialog.openDialog({ food: this.foods });
-      //   dialogRef.afterClosed().subscribe(data => {
-
-      //     if (data) this.route.navigate(['/profile']);
-      //   });
-
     } else {
 
       this.router.navigate(['auth']);
-      //   this.authentication.openDialog('login');
-
+   
     }
   }
 

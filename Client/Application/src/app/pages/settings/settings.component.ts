@@ -23,6 +23,8 @@ export class SettingsComponent implements OnInit {
   active_data?: ProfileModalData;
   isModalOpen = false;
 
+  constructor (@Inject(DOCUMENT) private document: Document, private platform: Platform, private toastController: ToastController, private promo_service: PromoDatabaseService, private router: Router, private user_service: UserDatabaseService, private language_service: LanguageDatabaseService, public animationCtrl: AnimationController) { }
+  
   getTerm(arg0: string) {
 
     return (JSON.parse(localStorage.getItem('information')!))[arg0];
@@ -39,7 +41,6 @@ export class SettingsComponent implements OnInit {
     return data
   }
 
-  constructor (@Inject(DOCUMENT) private document: Document, private platform: Platform, private toastController: ToastController, private promo_service: PromoDatabaseService, private router: Router, private user_service: UserDatabaseService, private language_service: LanguageDatabaseService, public animationCtrl: AnimationController) { }
 
   ngOnInit() {
 
@@ -49,16 +50,10 @@ export class SettingsComponent implements OnInit {
     this.language_service.getAllLanguageLists().subscribe(data => {
 
       this.languages = data.language_lists;
-      //console.log(this.languages);
+   
     });
 
   }
-
-  // async ionViewDidEnter() {
-  //   await this.platform.ready().then(() => {
-  //     document.body.classList.toggle('dark', true);
-  //   });
-  // }
 
   changeTheme(theme: Event) {
 
@@ -81,8 +76,6 @@ export class SettingsComponent implements OnInit {
       default:
 
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-
-        console.log(prefersDark);
 
         if (prefersDark.matches) {
 

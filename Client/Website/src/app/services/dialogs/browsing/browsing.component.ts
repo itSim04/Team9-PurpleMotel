@@ -25,11 +25,8 @@ export class BrowsingDialogComponent {
 
         const tier = extractUser()?.tier || '-1';
 
-        console.log(tier, data.announcements.at(0)?.concerned_tier);
         this.list = data.announcements.filter(t => t.concerned_tier.toString() == tier?.toString()).reverse();
         this.users = data.users;
-
-        console.log(this.list, this.users);
 
     }
 }

@@ -31,11 +31,11 @@ export class BrowseServicesComponent implements OnInit {
   isModalOpen: boolean = false;
 
   selected: 'activities' | 'facilities' = 'activities';
+  services_bg = this.url.getImage('service-main');
 
   constructor (private services_service: ServiceDatabaseService, private url: UrlBuilderService) { }
 
 
-  services_bg = this.url.getImage('service-main');
 
   activity_key = (a: KeyValue<string, Activity>, b: KeyValue<string, Activity>): number => {
     return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
@@ -56,7 +56,6 @@ export class BrowseServicesComponent implements OnInit {
 
       this.activities = data.activities;
       this.registrations = data.registrations;
-      console.log(this.activities);
 
     });
 

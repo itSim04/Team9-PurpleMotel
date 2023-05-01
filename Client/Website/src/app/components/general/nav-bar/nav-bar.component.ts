@@ -18,6 +18,7 @@ export class NavBarComponent {
   @Input() transparent = false;
   @Input() hide_auth = false;
   languages: Map<string, LanguageList> = new Map();
+  
   constructor (private announcement_service: AnnouncementDatabaseService, private browsing: BrowsingDialogService, private router: Router, private user_service: UserDatabaseService, private authentication_service: AuthenticationDialogService, private language_service: LanguageDatabaseService) { }
 
 

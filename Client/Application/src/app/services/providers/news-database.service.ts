@@ -1,7 +1,7 @@
-import { extractUser, extractUserId } from 'src/app/components/database/database.component';
+import { extractUserId } from 'src/app/components/database/database.component';
 import { KeyValue } from '@angular/common';
 import { SingleNewsResponse, SingleNewsPackage, News, NewsAttributes, NewsPackage, NewsResponse } from './../../models/News';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient} from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { UrlBuilderService } from "../utility/url-builder.service";

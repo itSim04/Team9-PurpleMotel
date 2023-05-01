@@ -244,7 +244,6 @@ export class ProfileService {
 
       }), catchError(error => {
 
-        // handle error response
 
         return throwError(error);
 
@@ -252,19 +251,6 @@ export class ProfileService {
 
     );
   }
-
-
-
-  // resetPassword(email: string, token: string, newPassword: string): Observable<void> {
-  //   const resetRequest = {
-  //     email: email,
-  //     token: token,
-  //     password: newPassword
-  //   };
-
-  //   return this.http.post<void>('http://example.com/api/reset-password', resetRequest);
-  // }
-
 
 
 }

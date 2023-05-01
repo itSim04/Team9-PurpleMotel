@@ -22,6 +22,7 @@ export class VerifyComponent {
   invalid_email = false;
   invalid_code = false;
   loading = false;
+  
   constructor (private dialogRef: MatDialogRef<VerifyComponent>, private authentication_service: AuthenticationDialogService, private snackbar: MatSnackBar) { }
 
 

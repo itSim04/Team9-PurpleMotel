@@ -1,8 +1,6 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { User } from 'src/app/models/User';
-import { UserDatabaseService } from 'src/app/services/providers/user-database.service';
 import { AuthenticationService } from 'src/app/services/utility/authentication.service';
 
 @Component({
@@ -20,7 +18,7 @@ export class ChangePasswordComponent {
   loading = false;
   password_match = true;
 
-  constructor (private dialogRef: MatDialogRef<ChangePasswordComponent>, private user_service: UserDatabaseService, private authentication_service: AuthenticationService, private router: Router) { }
+  constructor (private dialogRef: MatDialogRef<ChangePasswordComponent>, private authentication_service: AuthenticationService, private router: Router) { }
 
   reset() {
     this.connection_error = false;
@@ -59,38 +57,6 @@ export class ChangePasswordComponent {
         }
 
       });
-      // if (!user_id) {
-      //   throw new Error('User ID not found');
-      // }
-
-      // const updatedUser: User = {
-      //   tier,
-      //   language,
-      //   type,
-      //   email,
-      //   first_name,
-      //   last_name,
-      //   date_of_birth,
-      //   phone,
-      //   gender,
-      //   password: this.new_password,
-      //   permissions: new Map<string, number>()
-
-      // };
-
-      // return this.userDatabaseService.modifyUser(user_id, updatedUser).subscribe({
-
-      //   next: result => {
-
-      //     this.dialogRef.close();
-
-      //   }, error: error => {
-
-      //     this.loading = false;
-      //     console.error(error)
-
-      //   }
-      // })
     }
 
   }

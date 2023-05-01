@@ -93,7 +93,6 @@ import { BrowsingDialogModule } from './services/dialogs/browsing/browsing.modul
 
     ChatsPageModule,
     GuestChatsPageModule,
-    //provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase())
 
   ],

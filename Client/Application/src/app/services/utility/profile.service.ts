@@ -1,6 +1,5 @@
 import { IngredientAttributes } from './../../models/Ingredient';
 import { PromoCode, PromoCodeAttributes } from 'src/app/models/PromoCode';
-import { ComponentType } from "@angular/cdk/portal";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";

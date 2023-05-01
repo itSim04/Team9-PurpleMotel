@@ -4,9 +4,6 @@
         <tr>
             <td style="text-align:start">
 
-                <!-- <p class="title-2"> -->
-
-                <!-- <mat-form-field appearance="outline"> -->
                     <select (ngModelChange)="updateLanguage($event)"
                         [ngModel]="chosen_language">
                         <option class="title-2" *ngFor="let list of languages | keyvalue" [value]="list.key">
@@ -14,7 +11,6 @@
                         </option>
                     </select>
         
-                <!-- </mat-form-field> -->
                 <img (click)="openNotifications()" style="padding-left: 40px;" src="../../../assets/phone-icon.png" width="20vw">
                 <img style="padding-left: 48px;" src="../../../assets/message-icon.png"
                     width="20vw">

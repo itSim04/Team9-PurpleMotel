@@ -1,4 +1,3 @@
-import { OrderContains } from './../../../models/OrderContains';
 import { Food } from 'src/app/models/Food';
 import { User } from 'src/app/models/User';
 import { Component } from '@angular/core';
@@ -117,23 +116,6 @@ export class OrderDatabaseComponent {
           index: 1
         }
       },
-      // {
-      //   key: 'food',
-      //   readonly: false,
-      //   type: 'outer_choices',
-      //   outer_choices: {
-      //     retriever: (choice) => {
-      //       return (choice as {id: string, quantity: number}[]).map(t => t.id);
-
-      //     },
-
-      //     format: (choice) => {
-
-      //       return (choice as Food)?.label;
-      //     },
-      //     index: 0
-      //   }
-      // },
       {
         key: 'status',
         type: 'number'

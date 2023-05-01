@@ -123,8 +123,6 @@ export class PromoDatabaseService {
             });
           }
 
-          console.log(promo_codes);
-
           return {
 
             promo_codes: promo_codes
@@ -182,8 +180,6 @@ export class PromoDatabaseService {
 
             response.included.forEach(data => {
 
-              // console.log(data.type, data.attributes);
-
               switch (data.type) {
 
                 case 'AppliedPromoCodes':
@@ -224,7 +220,6 @@ export class PromoDatabaseService {
                     }
 
                   }
-                  // console.log(eligiblity_temp)
 
                   break;
 
@@ -283,7 +278,6 @@ export class PromoDatabaseService {
             });
           }
 
-          console.log(promo_codes);
 
           return {
 

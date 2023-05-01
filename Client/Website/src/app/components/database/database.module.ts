@@ -58,7 +58,6 @@ import { NgpImagePickerModule } from "ngp-image-picker";
     MatDividerModule,
     MatDialogModule,
     MatSelectModule,
-    //MatCheckboxModule,
     CarouselModule,
     MatDatepickerModule,
     MatNativeDateModule,

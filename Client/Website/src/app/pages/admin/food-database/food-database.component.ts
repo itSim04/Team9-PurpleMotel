@@ -1,5 +1,4 @@
 import { Stock } from './../../../models/Stock';
-import { Ingredient } from './../../../models/Ingredient';
 import { Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';

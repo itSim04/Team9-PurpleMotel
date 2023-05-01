@@ -103,11 +103,10 @@ export class ImageDatabaseComponent {
 
     this.image_service.browseImages('Assets', location).subscribe((result) => {
 
-      // console.log(result.data);
       this.images[index] = result.data.map(t => {
 
         const name = t.filename.split('/');
-        // const raw_name = name.at(name.length - 1)?.split('.');
+     
         return {
 
           filename: name.at(name.length - 1)!,

@@ -1,6 +1,5 @@
 import { RoomDatabaseService } from './../../../services/providers/room-database.service';
-import { RoomType } from './../../../models/RoomType';
-import { RawRoomsPackage, RoomsPackage } from './../../../models/Room';
+import { RoomsPackage } from './../../../models/Room';
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { BookingDatabaseService } from 'src/app/services/providers/booking-database.service';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';

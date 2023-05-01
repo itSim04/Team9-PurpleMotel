@@ -1,8 +1,8 @@
 import { extractAnyPermission, extractUser, extractUserId } from 'src/app/components/database/database.component';
 import { User } from 'src/app/models/User';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { AnimationController, IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { Component} from '@angular/core';
+import { AnimationController} from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
 import { AnnouncementDatabaseService } from '../services/providers/announcement-database.service';
 import { Announcement } from '../models/Announcement';

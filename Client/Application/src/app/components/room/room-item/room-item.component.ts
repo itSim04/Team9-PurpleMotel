@@ -1,4 +1,3 @@
-import { PromoCode } from './../../../models/PromoCode';
 import { KeyValue } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Room } from 'src/app/models/Room';

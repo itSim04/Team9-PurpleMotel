@@ -4,18 +4,14 @@ import { ViewChild } from '@angular/core';
 import { Booking } from 'src/app/models/Booking';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, KeyValue } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule, IonInfiniteScroll } from '@ionic/angular';
+import { KeyValue } from '@angular/common';
+import { IonInfiniteScroll } from '@ionic/angular';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { RawRoomsPackage, Room } from 'src/app/models/Room';
 import { Subscription } from 'rxjs';
 import { PromoCode } from 'src/app/models/PromoCode';
 import { RoomType } from 'src/app/models/RoomType';
 import { RoomDatabaseService } from 'src/app/services/providers/room-database.service';
-import { ProfileModalData } from '../../profile/profile-modal/profile-modal.component';
-import { extractUserId } from 'src/app/components/database/database.component';
-import { parseDate } from 'src/app/pages/authentication/authentication.utility';
 import { UrlBuilderService } from 'src/app/services/utility/url-builder.service';
 
 @Component({
@@ -31,6 +27,28 @@ import { UrlBuilderService } from 'src/app/services/utility/url-builder.service'
 })
 export class BrowseRoomsComponent implements OnInit {
 
+  rooms: Map<string, Room> = new Map();
+  room_types: Map<string, RoomType> = new Map();
+  promo_codes: Map<string, PromoCode> = new Map();
+  
+  filtered_rooms: [string, Room][] = [];
+  subscription?: Subscription;
+  filtered = false;
+  
+  current_page: number = 0;
+  page_size: number = 8;
+  
+  page = 0;
+
+  isModalOpened = false;
+  isQuickOpened = false;
+  isRecommendOpened = false;
+  active_data?: KeyValue<string, Room>;
+  
+  room_bg = this.url.getImage('room-main');
+  
+  constructor (private rooms_service: RoomDatabaseService, private router: Router, private url: UrlBuilderService, private booking_service: BookingDatabaseService) { }
+  @ViewChild(IonInfiniteScroll) scroller!: IonInfiniteScroll;
 
   openModal(room: [string, Room]) {
 
@@ -66,12 +84,11 @@ export class BrowseRoomsComponent implements OnInit {
     }
 
   }
-  room_bg = this.url.getImage('room-main');
-
+  
   openQuick() {
 
     this.active_data = undefined;
-
+    
     this.isQuickOpened = true;
     this.isModalOpened = false;
     this.isRecommendOpened = false;
@@ -96,7 +113,7 @@ export class BrowseRoomsComponent implements OnInit {
         $event.check_out,
         $event.adults,
         $event.children
-      ).subscribe({
+        ).subscribe({
 
         next: data => {
 
@@ -105,11 +122,11 @@ export class BrowseRoomsComponent implements OnInit {
           this.filtered = true;
           
           this.filtered_rooms = Array.from(data.rooms);
-
+          
           data.rooms.forEach((value, key) => this.rooms.set(key, value));
           data.room_types.forEach((value, key) => this.room_types.set(key, value));
           data.promo_codes.forEach((value, key) => this.promo_codes.set(key, value));
-
+          
         },
         error: error => {
           
@@ -125,15 +142,15 @@ export class BrowseRoomsComponent implements OnInit {
     } else {
       
       this.isQuickOpened = false;
-
+      
     }
 
   }
   closeRecommend($event: { intel: IntelAttributes, check_in: string, check_out: string, adults: number, children: number; }) {
 
-
+    
     if ($event) {
-
+      
       this.rooms_service.recommendRoom(
         $event.intel,
         $event.check_in,
@@ -141,13 +158,13 @@ export class BrowseRoomsComponent implements OnInit {
         $event.adults,
         $event.children
       ).subscribe({
-
+        
         next: data => {
-
+          
           this.isRecommendOpened = false;
-
+          
           this.filtered = true;
-
+          
           this.filtered_rooms = Array.from(data.rooms);
 
           data.rooms.forEach((value, key) => this.rooms.set(key, value));
@@ -157,46 +174,26 @@ export class BrowseRoomsComponent implements OnInit {
         },
         error: error => {
 
-
+          
           console.error(error);
-
+          
         }
       });
 
+      
 
-
-
+      
     } else {
-
+      
 
       this.isRecommendOpened = false;
-
+      
     }
 
   }
-
-  rooms: Map<string, Room> = new Map();
-  room_types: Map<string, RoomType> = new Map();
-  promo_codes: Map<string, PromoCode> = new Map();
-
-  filtered_rooms: [string, Room][] = [];
-  subscription?: Subscription;
-  filtered = false;
-
-  current_page: number = 0;
-  page_size: number = 8;
-
-  page = 0;
-
-  isModalOpened = false;
-  isQuickOpened = false;
-  isRecommendOpened = false;
-  active_data?: KeyValue<string, Room>;
-
-  constructor (private rooms_service: RoomDatabaseService, private router: Router, private url: UrlBuilderService, private booking_service: BookingDatabaseService) { }
-  @ViewChild(IonInfiniteScroll) scroller!: IonInfiniteScroll;
-
-
+  
+  
+  
 
 
   get data() {

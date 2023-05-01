@@ -1,7 +1,5 @@
-import { animate, style, transition, trigger } from "@angular/animations";
 import { KeyValue } from "@angular/common";
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { Component, OnInit} from "@angular/core";
 import { Router } from "@angular/router";
 import { AnimationController, ModalController } from "@ionic/angular";
 import { extractUser } from "src/app/components/database/database.component";
@@ -19,7 +17,7 @@ import { RegistrationDatabaseService } from "src/app/services/providers/registra
 import { RoomDatabaseService } from "src/app/services/providers/room-database.service";
 import { AuthenticationService } from "src/app/services/utility/authentication.service";
 import { ProfileService } from "src/app/services/utility/profile.service";
-import { ProfileModalComponent, ProfileModalData } from "./profile-modal/profile-modal.component";
+import { ProfileModalData } from "./profile-modal/profile-modal.component";
 import { OrderDatabaseService } from "src/app/services/providers/order-database.service";
 import { UrlBuilderService } from "src/app/services/utility/url-builder.service";
 
@@ -31,8 +29,43 @@ import { UrlBuilderService } from "src/app/services/utility/url-builder.service"
 
 })
 export class ProfileComponent implements OnInit {
+  
+  bookings!: Map<string, Booking>;
+  orders!: Map<string, Order>;
+  rooms!: Map<string, Room>;
+  foods!: Map<string, Food>;
+  room_types!: Map<string, RoomType>;
+  activities!: Map<string, Activity>;
+  registrations!: Map<string, Registration>;
+  promo: Map<string, PromoCode> = new Map();
+  user: User;
+  first_name;
+  
+  booking_array: [string, Booking][] = [];
+  
+  registration_array: [string, Registration][] = [];
+  last_name;
+  
+  active_data?: ProfileModalData;
+  
+  isModalOpen: boolean = false;
+  profile_bg = this.url.getImage('profile-main');
+  selected: 'rooms' | 'services' = 'rooms';
+  
+  constructor(private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private url: UrlBuilderService) {
+  
+    const user = extractUser()!;
+  
+  
+    this.user = user;
+    this.first_name = this.user.first_name;
+    this.last_name = this.user.last_name;
+  
+  
+  
+  }
   formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
-
+    
     const activity = this.activities.get(registration.value.activity_id)!;
 
 
@@ -94,42 +127,13 @@ export class ProfileComponent implements OnInit {
         icon: 'bar-chart-outline',
         id: booking.value.room_id,
         display: !room.is_reviewed
-
+        
       }
 
     };
   }
 
 
-  bookings!: Map<string, Booking>;
-  orders!: Map<string, Order>;
-  rooms!: Map<string, Room>;
-  foods!: Map<string, Food>;
-  room_types!: Map<string, RoomType>;
-  activities!: Map<string, Activity>;
-  registrations!: Map<string, Registration>;
-  promo: Map<string, PromoCode> = new Map();
-  user: User;
-  first_name;
-  last_name;
-
-  active_data?: ProfileModalData;
-
-  isModalOpen: boolean = false;
-
-  constructor (private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private browsing_service: BookingDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private room_service: RoomDatabaseService, private authentication: AuthenticationService, private modal_ctrl: ModalController, private url: UrlBuilderService) {
-
-    const user = extractUser()!;
-
-
-    this.user = user;
-    this.first_name = this.user.first_name;
-    this.last_name = this.user.last_name;
-
-
-
-  }
-  profile_bg = this.url.getImage('profile-main');
 
   ionViewDidEnter() {
 
@@ -247,10 +251,6 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  booking_array: [string, Booking][] = [];
-
-  registration_array: [string, Registration][] = [];
-
   image(index: number) {
 
     return '../../../../assets/food-' + ((index % 8) + 1) + '.jpg';
@@ -275,21 +275,7 @@ export class ProfileComponent implements OnInit {
     this.isModalOpen = false;
 
   }
-  // edit_profile() {
-
-  //   this.profile_service.openDialog("edit_profile");
-
-  // }
-
-  // change_password() {
-
-  //   this.profile_service.openDialog("change_password");
-
-  // }
-
-
-
-
+ 
   ngOnInit() {
 
     this.profile_service.getAllData().subscribe({
@@ -307,10 +293,6 @@ export class ProfileComponent implements OnInit {
 
         this.booking_array = Array.from(this.bookings || []).reverse();
         this.registration_array = Array.from(this.registrations || []).reverse();
-
-
-
-        console.log(data);
 
       },
       error: error => {
@@ -335,85 +317,6 @@ export class ProfileComponent implements OnInit {
 
   }
 
-
-  reviewRoom(room_id: string) {
-
-    console.log(room_id);
-
-    // const dialog = this.review_service.openDialog(room_id);
-
-    // dialog.afterClosed().subscribe(result => {
-
-    //   if (result) {
-
-    //     this.room_service.addReview(result).subscribe(() => {
-
-    //       const room = this.rooms.get(room_id);
-    //       if (room) room.is_reviewed = true;
-    //       this.snackBar.open('Review added', 'Dismiss', { duration: 2000 });
-
-    //     });
-
-    //   }
-
-    // });
-
-  }
-  openOrder(order: Order) {
-
-    // this.order.openDialog({
-
-    //   food: this.foods,
-    //   order: order
-
-    // });
-
-  }
-
-  deleteBooking($event: string) {
-
-    // const dialogRef = this.confirmation.openDialog('Booking Cancellation', 'Are you sure you want to cancel this booking?', 'Delete', 'Cancel');
-
-    // dialogRef.afterClosed().subscribe(result => {
-
-
-    //   if (result) {
-    //     this.booking_service.deleteBooking($event).subscribe(() => {
-
-    //       this.snackBar.open('Booking deleted', 'Dismiss', { duration: 2000 });
-    //       this.bookings.delete($event);
-    //       if (this.carousel.currentSlide >= this.bookings.size) {
-
-    //         this.carousel.currentSlide = this.bookings.size - 1;
-    //         this.carousel.initiateCarousel();
-    //       }
-    //     });
-    //   }
-    // });
-
-  }
-  deleteRegistration($event: string) {
-
-    // const dialogRef = this.confirmation.openDialog('Registration Cancellation', 'Are you sure you want to cancel this registration?', 'Delete', 'Cancel');
-
-    // dialogRef.afterClosed().subscribe(result => {
-
-
-    //   if (result) {
-    //     this.registration_service.deleteRegistration($event).subscribe(() => {
-
-    //       this.snackBar.open('Registration deleted', 'Dismiss', { duration: 2000 });
-    //       this.registrations.delete($event);
-    //     });
-    //   }
-    // });
-
-  }
-
-  applyCode() {
-    // this.promo_service.openDialog();
-  }
-
   logout() {
 
     localStorage.removeItem('token');
@@ -425,7 +328,6 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  selected: 'rooms' | 'services' = 'rooms';
 
   onSegmentChange(event: any) {
 

@@ -1,5 +1,5 @@
 import { AnimationController } from '@ionic/angular';
-import { ChangeComponent, InjectableData } from './../../change/change.component';
+import { InjectableData } from './../../change/change.component';
 import { ChangeInjection } from './../../../../models/Database';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';

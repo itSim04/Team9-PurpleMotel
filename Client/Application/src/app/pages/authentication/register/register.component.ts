@@ -35,10 +35,10 @@ export class RegisterComponent {
   gender = '';
   password_match = true;
   final_page = false;
+  register_bg = this.url.getImage('register-bg')
   
   constructor (private authentication_service: AuthenticationService, private toast_controller: ToastController, private router: Router, private url:UrlBuilderService) { }
   
-  register_bg = this.url.getImage('register-bg')
   parseDate(date: Date) {
 
     return parseDate(date);

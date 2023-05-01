@@ -1,6 +1,6 @@
 import { DataInjection, ChangeInjection } from 'src/app/models/Database';
 import { Component } from '@angular/core';
-import { User, UserAttributes } from 'src/app/models/User';
+import { User} from 'src/app/models/User';
 import { map } from 'rxjs';
 import { UserType } from 'src/app/models/UserType';
 import { UserDatabaseService } from 'src/app/services/providers/user-database.service';

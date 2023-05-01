@@ -1,10 +1,8 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationDialogService } from 'src/app/services/utility/authentication.service';
 import { validateEmail } from '../authentication.utility';
-import { extractUser } from 'src/app/components/database/database.component';
 
 @Component({
   selector: 'app-login-dialog',

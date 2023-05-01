@@ -3,7 +3,6 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, Htt
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ImagesResponse } from 'src/app/models/Image';
 import { UrlBuilderService } from './url-builder.service';
 
 @Injectable({

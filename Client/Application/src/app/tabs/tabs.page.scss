@@ -2,7 +2,6 @@
 
     transition: all 250ms ease-in-out;
     border-radius: 40px;
-    // margin-bottom: 10px;
     width: 90%;
     display: flex;
     position: relative;
@@ -41,8 +40,6 @@
     width: 100%;
     height: 100%;
     justify-content: center;
-    // padding: 8px 16px;
-    // padding: 12px;
     border-radius: 40px;
 
 }
@@ -52,9 +49,7 @@
     padding: 0px 8px;
     background-color: white;
     width: 100%;
-    // height: 100%;
     
-
 }
 
 .block-container-active2 {
@@ -63,15 +58,12 @@
     padding: 8px 2px 8px 8px;
     background-color: var(--ion-color-light);
     width: 100%;
-    // height: 100%;
-    
     
 }
 
 .block-container-inactive {
     
     transition: all 250ms ease-in-out;
-    // padding: 6px 0px;
     background-color: transparent;
     
 }
@@ -112,7 +104,6 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 10px;
-    /* identical to box height */
     display: inline-block;
 
 

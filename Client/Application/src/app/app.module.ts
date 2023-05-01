@@ -13,8 +13,6 @@ import { environment } from "src/environments/environment";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 import { ActivitiesModule } from "./components/activities/activities.module";
-import { NewsListItemModule } from "./components/news/news-list-item/news-list-item.module";
-import { NewsListPopupModule } from "./components/news/news-list-popup/news-list-popup.module";
 import { AdminDashboardModule } from "./pages/admin/admin-dashboard/admin-dashboard.module";
 import { AnnouncementDatabaseModule } from "./pages/admin/announcement-database/announcement-database.module";
 import { BookingDatabaseModule } from "./pages/admin/booking-database/booking-database.module";
@@ -42,12 +40,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CalendarWrapperComponent } from './components/room/calendar/calendar.component';
 import { SettingsModule } from './pages/settings/settings.module';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { InformationDatabaseModule } from './pages/admin/information-database/information-database.module';
 import { ImageDatabaseModule } from './pages/admin/image-database/image-database.module';
-// import { ScrollChangeColorDirective } from './scroll-change-color.directive';
 
 
 
@@ -57,7 +53,6 @@ import { ImageDatabaseModule } from './pages/admin/image-database/image-database
   declarations: [
     AppComponent,
     TabsPage,
-    // ScrollChangeColorDirective
   ],
   imports: [
     CommonModule,

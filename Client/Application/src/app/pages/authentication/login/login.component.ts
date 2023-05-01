@@ -20,6 +20,7 @@ export class LoginComponent {
   loading = false;
   login_bg1 = this.url.getImage('login-pic-1')
   login_bg2 = this.url.getImage('login-pic-2')
+  
   constructor (private toastController: ToastController, private authentication_service: AuthenticationService, private router: Router, private url: UrlBuilderService) { }
 
   ionViewWillEnter() {
@@ -49,7 +50,6 @@ export class LoginComponent {
 
         next: result => {
 
-          console.log(result);
           this.router.navigate(['/home']);
 
         }, error: error => {

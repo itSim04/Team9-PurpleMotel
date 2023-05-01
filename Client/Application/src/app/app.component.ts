@@ -1,8 +1,7 @@
 import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { IonicModule, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } from '@capacitor/push-notifications';
-import * as firebase from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { InformationDatabaseService } from './services/providers/information-database.service';
@@ -76,12 +75,6 @@ export class AppComponent implements OnInit {
       }
     });
   }
-
-  // initializeApp() {
-  //   this.platform.ready().then(() => {
-  //     this.initPushNotifications();
-  //   });
-  // }
 
   initPushNotifications() {
     PushNotifications.requestPermissions().then(result => {

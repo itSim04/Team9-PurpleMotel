@@ -7,7 +7,6 @@ import { UrlBuilderService } from 'src/app/services/utility/url-builder.service'
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent {
-  constructor (private url: UrlBuilderService) {}
   users_db = this.url.getImage('users-db')
   rooms_db = this.url.getImage('rooms-db')
   announcement_db = this.url.getImage('announcement-db')
@@ -22,4 +21,5 @@ export class AdminDashboardComponent {
   stock_db = this.url.getImage('stock-db')
   informations_db = this.url.getImage('information-db')
   images_db = this.url.getImage('image-db')
+  constructor (private url: UrlBuilderService) {}
 }
