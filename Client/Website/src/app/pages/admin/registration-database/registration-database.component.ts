@@ -74,7 +74,7 @@ export class RegistrationDatabaseComponent {
     fields: [
       {
         key: 'start_date',
-        condition: (data) => (data as number) > 0,
+        condition: (data) => true,
         type: 'date'
       },
       {

@@ -1,3 +1,4 @@
+import { SplashComponent } from './pages/splash/splash.component';
 import { TutorialComponent } from './pages/tutorial/tutorial.component';
 import { ChangePasswordComponent } from 'src/app/pages/guest/profile/change-password/change-password.component';
 import { ForgotComponent } from './pages/authentication/forgot/forgot.component';
@@ -44,13 +45,19 @@ export const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'splash',
     pathMatch: 'full'
   },
   {
 
     path: 'tutorial',
     component: TutorialComponent
+
+  },
+  {
+
+    path: 'splash',
+    component: SplashComponent
 
   },
   {
