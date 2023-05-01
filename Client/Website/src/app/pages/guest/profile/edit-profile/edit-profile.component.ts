@@ -81,7 +81,11 @@ export class EditProfileComponent {
           if (user) {
 
             localStorage.setItem('user', JSON.stringify(user));
-            this.dialog.close();
+            setTimeout(() => {
+
+              window.location.reload();
+
+            }, 100);
 
           }
 

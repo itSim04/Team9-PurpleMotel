@@ -16,7 +16,7 @@
     <table style="table-layout: fixed; width: 100%;">
         <tr>
             <td class="padded" style="text-align: right; vertical-align: top; "
-                *ngIf="side_panel != 'empty' || standalone_field">
+                *ngIf="standalone_field || (modification_mode && (side_panel == 'image' || side_panel == 'images')) || side_panel == 'table' || side_panel == 'permissions'">
                 <table style="table-layout: fixed; overflow-y: scroll;">
 
 

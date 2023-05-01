@@ -1,3 +1,4 @@
+import { User } from 'src/app/models/User';
 import { BrowsingDialogService } from './../../../services/utility/browsing.service';
 
 import { UserDatabaseService } from './../../../services/providers/user-database.service';
@@ -15,20 +16,29 @@ import { AnnouncementDatabaseService } from 'src/app/services/providers/announce
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+
   @Input() transparent = false;
   @Input() hide_auth = false;
   languages: Map<string, LanguageList> = new Map();
-  
+
+  session_user?: User;
+
   constructor (private announcement_service: AnnouncementDatabaseService, private browsing: BrowsingDialogService, private router: Router, private user_service: UserDatabaseService, private authentication_service: AuthenticationDialogService, private language_service: LanguageDatabaseService) { }
 
 
   ngOnInit() {
 
+    this.session_user = extractUser();
     this.language_service.getAllLanguageLists().subscribe(data => {
 
       this.languages = data.language_lists;
       console.log(this.languages);
     });
+
+  }
+  extractUser(): any {
+
+    extractUser();
 
   }
   openSupport() {
@@ -79,7 +89,7 @@ export class NavBarComponent {
     }
 
   }
-  
+
   extractAnyPermission() {
 
     return extractAnyPermission();

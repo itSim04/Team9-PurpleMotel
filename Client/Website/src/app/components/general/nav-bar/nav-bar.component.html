@@ -4,16 +4,20 @@
         <tr>
             <td style="text-align:start">
 
-                    <select (ngModelChange)="updateLanguage($event)"
-                        [ngModel]="chosen_language">
-                        <option class="title-2" *ngFor="let list of languages | keyvalue" [value]="list.key">
-                            {{list.value.code_name}}
-                        </option>
-                    </select>
-        
-                <img (click)="openNotifications()" style="padding-left: 40px;" src="../../../assets/phone-icon.png" width="20vw">
-                <img style="padding-left: 48px;" src="../../../assets/message-icon.png"
-                    width="20vw">
+                <select (ngModelChange)="updateLanguage($event)" [ngModel]="chosen_language">
+                    <option class="title-2" *ngFor="let list of languages | keyvalue"
+                        [value]="list.key">
+                        {{list.value.code_name}}
+                    </option>
+                </select>
+
+                <img *ngIf="session_user" (click)="openNotifications()" style="padding-left: 40px;"
+                    src="../../../assets/phone-icon.png" width="20vw">
+
+                <a href="mailto:team9.byblos@gmail.com">
+                    <img style="padding-left: 48px;" src="../../../assets/message-icon.png"
+                        width="20vw">
+                </a>
             </td>
             <td style="text-align:center">
                 <p class="title-1">
@@ -24,7 +28,7 @@
                 <button *ngIf="extractAnyPermission()" [routerLink]="['/admin']" class="check-btn">
                     {{ "admin_panel" | translate}}
                 </button>
-                <button (click)="openSupport()" class="check-btn">
+                <button *ngIf="session_user" (click)="openSupport()" class="check-btn">
                     {{ "support" | translate}}
                 </button>
             </td>

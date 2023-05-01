@@ -20,7 +20,7 @@
                 </td>
 
                 <td rowspan="2">
-                    <button [disabled]="!start_date_value || !end_date_value"
+                    <button [disabled]="(!start_date_value || !end_date_value) && !adults_value && !kids_value"
                         (click)="checkAvailability()" class="check-btn">
                         {{ 'check_availability' | translate }}
                     </button>

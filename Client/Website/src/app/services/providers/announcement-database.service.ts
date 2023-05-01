@@ -16,9 +16,11 @@ export class AnnouncementDatabaseService {
 
   getAllAnnouncements(): Observable<AnnouncementsPackage> {
 
+    const headers = this.url.generateHeader();
+
     try {
 
-      return this.http.get<AnnouncementsResponse>(this.url.generateUrl('announcements')).pipe(
+      return this.http.get<AnnouncementsResponse>(this.url.generateUrl('announcements'), { headers: headers }).pipe(
 
         map((response: AnnouncementsResponse): AnnouncementsPackage => {
 
@@ -60,9 +62,10 @@ export class AnnouncementDatabaseService {
   }
   getOneAnnouncement(id: string): Observable<AnnouncementPackage> {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<AnnouncementResponse>(this.url.generateUrl(`announcements/${id}`)).pipe(
+      return this.http.get<AnnouncementResponse>(this.url.generateUrl(`announcements/${id}`), { headers: headers }).pipe(
         map((response: AnnouncementResponse): AnnouncementPackage => {
 
           return {
@@ -95,9 +98,10 @@ export class AnnouncementDatabaseService {
 
   addNewAnnouncement(announcement: Announcement) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.post<AnnouncementResponse>(this.url.generateUrl('announcements'), announcement).pipe(
+      return this.http.post<AnnouncementResponse>(this.url.generateUrl('announcements'), announcement, { headers: headers }).pipe(
 
         map(result => {
 
@@ -117,9 +121,10 @@ export class AnnouncementDatabaseService {
 
   modifyAnnouncement(announcement_id: string, announcement: Announcement) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.put(this.url.generateUrl(`announcements/${announcement_id}`), announcement).pipe(map(() => undefined));
+      return this.http.put(this.url.generateUrl(`announcements/${announcement_id}`), announcement, { headers: headers }).pipe(map(() => undefined));
 
     } catch (e: unknown) {
 
@@ -131,9 +136,10 @@ export class AnnouncementDatabaseService {
 
   deleteAnnouncement(key: string) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.delete(this.url.generateUrl(`announcements/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`announcements/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 

@@ -42,22 +42,22 @@ export class QuickAvailabilityComponent implements OnInit {
 
   checkAvailability() {
 
-    if (this.start_date_value && this.end_date_value) {
-  
-      this.loading = true;
-      this.booking_service.filterBookings(
-        parseDate(this.start_date_value),
-        parseDate(this.end_date_value),
-        this.adults_value,
-        this.kids_value
-      ).subscribe(data => {
 
 
-        this.result.emit(data);
-        this.loading = false;
+    this.loading = true;
+    this.booking_service.filterBookings(
+      this.start_date_value ? parseDate(this.start_date_value) : undefined,
+      this.end_date_value ? parseDate(this.end_date_value) : undefined,
+      this.adults_value ? this.adults_value : undefined,
+      this.kids_value ? this.kids_value : undefined
+    ).subscribe(data => {
 
-      });
 
-    }
+      this.result.emit(data);
+      this.loading = false;
+
+    });
+
+
   }
 }

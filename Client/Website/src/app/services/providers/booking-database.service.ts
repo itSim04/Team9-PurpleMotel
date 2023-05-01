@@ -142,13 +142,20 @@ export class BookingDatabaseService {
 
   }
 
-  filterBookings(check_in: string, check_out: string, adults_capacity: number, kids_capacity: number): Observable<RoomsPackage> {
+  filterBookings(check_in?: string, check_out?: string, adults_capacity?: number, kids_capacity?: number): Observable<RoomsPackage> {
 
     const headers = this.url.generateHeader();
 
+    let query: any = {};
+
+    if (check_in) query.check_in = check_in;
+    if (check_out) query.check_out = check_out;
+    if (adults_capacity) query.adults_capacity = adults_capacity;
+    if (kids_capacity) query.kids_capacity = kids_capacity;
+
     try {
 
-      return this.http.post<RoomsResponse>(this.url.generateUrl(`filter`), { check_in: check_in, check_out: check_out, adults_capacity: adults_capacity, kids_capacity: kids_capacity }, { headers: headers }).pipe(
+      return this.http.post<RoomsResponse>(this.url.generateUrl(`filter`), query, { headers: headers }).pipe(
 
 
         map((response: RoomsResponse): RoomsPackage => {
