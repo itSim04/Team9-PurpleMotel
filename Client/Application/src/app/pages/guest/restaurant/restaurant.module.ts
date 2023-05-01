@@ -6,6 +6,7 @@ import { LanguageModule } from 'src/app/services/language/language.module';
 import { RouterModule } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
 import { FoodListItemModule } from 'src/app/components/food/food-list-item/food-list-item.module';
+import { ProfileModule } from '../profile/profile.module';
 
 
 
@@ -19,6 +20,7 @@ import { FoodListItemModule } from 'src/app/components/food/food-list-item/food-
     IonicModule.forRoot(),
     LanguageModule,
     RouterModule,
+    ProfileModule,
     FoodListItemModule
   ],
   exports: [

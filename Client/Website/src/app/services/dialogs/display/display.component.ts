@@ -14,7 +14,7 @@ export class DisplayDialogComponent {
     title: string;
     constructor (@Inject(MAT_DIALOG_DATA) public data: {term: string, title: string}) {
 
-        console.log(data);
+      
         this.term = data.term;
         this.title = data.title;
 
