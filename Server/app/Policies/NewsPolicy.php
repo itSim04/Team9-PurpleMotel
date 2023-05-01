@@ -65,6 +65,7 @@ class NewsPolicy
 
     public function update(User $user) {
 
+
         if($user->tier == 2) {
             return true;
         }
