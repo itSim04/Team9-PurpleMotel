@@ -255,8 +255,6 @@ export class RoomDatabaseService {
 
           }
 
-          console.log(rooms);
-
           return {
 
             rooms: rooms,
@@ -310,8 +308,6 @@ export class RoomDatabaseService {
 
           let room_type: KeyValue<string, RoomType> | undefined = undefined;
 
-
-          console.log(response.included);
           response.included?.forEach(data => {
 
             switch (data.type) {

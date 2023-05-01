@@ -95,8 +95,6 @@ export class NewsDatabaseService {
 
 
           });
-
-          console.log(news);
           return {
 
             news: news

@@ -241,35 +241,7 @@ export class UserDatabaseService {
 
 
   }
-  getOneUserType(id: string): void {
-
-    // try {
-
-    //   return this.http.get<UserTypeResponse>(this.url.generateUrl(`user-types/${id}`)).pipe(
-    //     map((response: UserTypeResponse): UserTypePackage => {
-
-    //       return {
-
-    //         user: {
-
-    //           key: response.data.id,
-    //           value: response.data.attributes
-
-    //         },
-    //       };
-
-
-    //     })
-    //   );
-
-    // } catch (e: unknown) {
-
-    //   throw new Error(JSON.stringify(e));
-
-    // }
-
-  };
-
+ 
   addNewUserType(user: UserType) {
 
     const permissions: any = {};

@@ -129,7 +129,6 @@ export class OrderDatabaseService {
     const headers = this.url.generateHeader()
 
     try {
-      console.log(order);
       return this.http.post<OrderResponse>(this.url.generateUrl('orders'), order, { headers: headers }).pipe(
 
         map(result => {
@@ -152,7 +151,6 @@ export class OrderDatabaseService {
 
     const headers = this.url.generateHeader()
 
-    console.log(order);
     try {
 
       return this.http.put(this.url.generateUrl(`orders/${order_id}`), order, { headers: headers }).pipe(map(() => undefined));

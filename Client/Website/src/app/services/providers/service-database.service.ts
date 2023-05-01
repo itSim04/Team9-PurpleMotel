@@ -26,7 +26,6 @@ export class ServiceDatabaseService {
 
         map((response: ActivitiesResponse): ActivitiesPackage => {
 
-          console.log(response);
 
           const activities = new Map<string, Activity>();
           const registrations = new Map<string, Registration>();
@@ -51,7 +50,6 @@ export class ServiceDatabaseService {
 
           }
 
-          console.log(activities, registrations);
 
           return {
 

@@ -129,7 +129,6 @@ export class RegistrationDatabaseService {
     const headers = this.url.generateHeader()
 
     try {
-      console.log(registration);
       return this.http.post<RegistrationResponse>(this.url.generateUrl('registrations'), { ...registration, activity_id: registration.activity_id, user_id: registration.activity_id }, { headers: headers }).pipe(
 
         map(result => {
