@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component} from '@angular/core';
 import { ChangeInjection, DataInjection } from 'src/app/models/Database';
 import { Room } from 'src/app/models/Room';
 import { map, Observable } from 'rxjs';

@@ -13,7 +13,6 @@
 
         <hr style="border-bottom: 1px solid var(--ion-color-dark); width: 95%;">
 
-        <!-- <table style="table-layout: fixed; width: 100%;"> -->
         <div style="display: flex;">
             <div style="height:16%; width:16%" *ngFor="let category of food_categories | keyvalue"
                 (click)="scroll(category.value.label)" class="wrap" style="overflow-x: auto;">

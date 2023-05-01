@@ -19,12 +19,12 @@ export class HomeComponent implements OnInit {
   active_data?: ProfileModalData;
 
   isModalOpen: boolean = false;
+  home_bg = this.url.getImage('home-main');
 
 
 
   constructor (private news_service: NewsDatabaseService, private url: UrlBuilderService) { }
 
-  home_bg = this.url.getImage('home-main');
   
   get data() {
 
@@ -35,12 +35,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.news_service.getAllNews().subscribe(data => {
       this.news = data.news;
-      console.log(this.news);
       this.filtered_news = Array.from(this.news);
     });
 
-    // for(let key of this.news) 
-    //   console.log(key);
 
   }
 

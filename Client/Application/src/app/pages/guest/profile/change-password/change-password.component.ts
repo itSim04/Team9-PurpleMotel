@@ -59,38 +59,6 @@ export class ChangePasswordComponent {
         }
 
       });
-      // if (!user_id) {
-      //   throw new Error('User ID not found');
-      // }
-
-      // const updatedUser: User = {
-      //   tier,
-      //   language,
-      //   type,
-      //   email,
-      //   first_name,
-      //   last_name,
-      //   date_of_birth,
-      //   phone,
-      //   gender,
-      //   password: this.new_password,
-      //   permissions: new Map<string, number>()
-
-      // };
-
-      // return this.userDatabaseService.modifyUser(user_id, updatedUser).subscribe({
-
-      //   next: result => {
-
-      //     this.dialogRef.close();
-
-      //   }, error: error => {
-
-      //     this.loading = false;
-      //     console.error(error)
-
-      //   }
-      // })
     }
 
   }
