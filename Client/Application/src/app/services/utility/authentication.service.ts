@@ -79,7 +79,7 @@ export class AuthenticationService {
 
     try {
 
-      return this.http.get<any>(this.url.generateUrl(`auth/auth/forgot-password-1?email=${email}`));
+      return this.http.get<any>(this.url.generateUrl(`auth/forgot-password-1?email=${email}`));
 
     } catch (e: unknown) {
 

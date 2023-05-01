@@ -1,3 +1,4 @@
+import { ForgotComponent } from './forgot/forgot.component';
 import { LanguageModule } from './../../services/language/language.module';
 
 import { RouterModule } from '@angular/router';
@@ -25,6 +26,7 @@ import { VerifyComponent } from './verify/verify.component';
   declarations: [
     VerifyComponent,
     LoginComponent,
+    ForgotComponent,
     RegisterComponent,
   ]
 })

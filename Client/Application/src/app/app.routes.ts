@@ -1,3 +1,4 @@
+import { ForgotComponent } from './pages/authentication/forgot/forgot.component';
 import { EditProfileComponent } from 'src/app/pages/guest/profile/edit-profile/edit-profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { TabsPage } from './tabs/tabs.page';
@@ -70,6 +71,11 @@ export const routes: Routes = [
         path: 'verify',
         component: VerifyComponent
       },
+      {
+        path: 'forgot',
+        component: ForgotComponent
+      },
+
 
 
     ]
