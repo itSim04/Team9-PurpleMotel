@@ -60,7 +60,7 @@ export class MenuComponent implements OnInit {
 
     this.food_service.getAllFoods().subscribe({
       next: data => {
-        console.log(data);
+        
         this.foods = data.foods;
 
 

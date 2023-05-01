@@ -169,7 +169,7 @@ export class ChatListComponent implements OnInit {
 
       if (data["sender"] == this.session_user.key || data["sender"] == this.id) {
 
-        // console.log(data["sender"], this.session_user.key, this.id)
+    
         this.chat?.messages.push({
 
           content: data["message"],
