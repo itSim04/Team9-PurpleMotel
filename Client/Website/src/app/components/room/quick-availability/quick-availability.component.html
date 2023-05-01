@@ -11,10 +11,6 @@
                     <p class="content">{{'stay'| translate }}</p>
                 </td>
 
-                <!-- <td>
-                    <p class="content">Check-out</p>
-                </td> -->
-
                 <td>
                     <p class="content">{{ 'adults' | translate }}</p>
                 </td>
@@ -37,16 +33,6 @@
                     <app-calendar
                         (result)="start_date_value = $event.check_in; end_date_value = $event.check_out"></app-calendar>
                 </td>
-                <!-- <td>
-                    <mat-form-field appearance="fill">
-                        <mat-label class="selectors">Choose a date</mat-label>
-                        <input [(ngModel)]="start_date_value" matInput [matDatepicker]="checkin">
-                        <mat-datepicker-toggle matIconSuffix [for]="checkin">
-                            <mat-icon color="primary" matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                        </mat-datepicker-toggle>
-                        <mat-datepicker #checkin></mat-datepicker>
-                    </mat-form-field>
-                </td> -->
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label class="selectors">{{ 'number_input' | translate }}</mat-label>
@@ -56,7 +42,6 @@
                                 {{capacity}}
                             </mat-option>
                         </mat-select>
-                        <!-- <mat-icon color="primary" matIconSuffix>keyboard_arrow_down</mat-icon> -->
                     </mat-form-field>
                 </td>
                 <td>

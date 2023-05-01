@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ContentChildren, Directive, ElementRef, Input, OnChanges, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
-// import { CarouselItemDirective } from './carousel-item.directive';
+import { AfterViewInit, Component, ContentChildren, Directive, ElementRef, Input, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { animate, AnimationBuilder, AnimationFactory, AnimationPlayer, style } from '@angular/animations';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
+  
   selector: '[carouselItem]'
 })
 export class CarouselDirective {
@@ -14,7 +13,7 @@ export class CarouselDirective {
 
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
+  
   selector: '.carousel-item'
 })
 export class CarouselElementDirective {
@@ -109,7 +108,6 @@ export class CarouselComponent implements AfterViewInit {
   }
   fixRatio() {
 
-    // this.initiateCarousel();
 
     const offset = this.currentSlide * this.itemWidth;
 

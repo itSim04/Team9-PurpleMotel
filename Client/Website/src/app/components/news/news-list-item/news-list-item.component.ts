@@ -3,9 +3,8 @@ import { extractUserId } from 'src/app/components/database/database.component';
 import { NewsDatabaseService } from 'src/app/services/providers/news-database.service';
 import { KeyValue } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { News, NewsAttributes } from 'src/app/models/News';
+import { News} from 'src/app/models/News';
 import { NewsListPopupService } from 'src/app/services/utility/news-list-popup.service';
-import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-news-list-item',

@@ -1,4 +1,3 @@
-import { FoodListItemComponent } from './../food-list-item/food-list-item.component';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FoodListPopupComponent } from './food-list-popup.component';

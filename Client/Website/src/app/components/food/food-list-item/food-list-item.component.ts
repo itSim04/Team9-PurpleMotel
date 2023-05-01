@@ -1,6 +1,5 @@
 import { FoodListPopupService } from './../food-list-popup/food-list-popup.service';
-import { Order } from './../../../models/Order';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { formatPrice } from '../../database/database.component';
 import { KeyValue } from '@angular/common';
 import { Food } from 'src/app/models/Food';

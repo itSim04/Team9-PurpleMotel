@@ -1,11 +1,8 @@
 .main {
-    // padding: 16px;
     border-radius: 20px;
     width: fit-content;
     margin: 16px;
     padding: 16px;
-    // // height: 50%;
-    // background-color: white;
 
     transition: background-color 0.2s, color 0.2s;
 
@@ -29,10 +26,8 @@
     font-style: normal;
     font-weight: 700;
     font-size: 36px;
-    // line-height: 71px;
     padding-left: 16px;
     padding-top: 16px;
-    // color: white; //#14274A;
 }
 
 .title {
@@ -42,7 +37,6 @@
     font-size: 2vw;
     line-height: 3.5vh;
     letter-spacing: 0.02em;
-    // color: white; //#14274A;
 
 }
 
@@ -64,7 +58,6 @@
 
     display: inline-block;
     width: 10px;
-    // background-color: white;
     border: 0px;
     padding: 8px;
 
@@ -76,7 +69,6 @@
     font-style: normal;
     font-size: 18px;
     line-height: 3vh;
-    // color: white;
     margin: 0px;
 }
 
@@ -95,9 +87,6 @@
     @extend .content;
     font-weight: 400;
     font-size: 30px;
-    // max-width: 40vh;
-
-
 }
 
 .content-3 {

@@ -17,8 +17,6 @@ export class RoomItemComponent {
   @Input() room_type?: KeyValue<string, RoomType>;
   @Input() promo?: KeyValue<string, PromoCode>;
 
-  // write a function that generates a random number between 1 and 6 and then returns the number
-  // then use that number to generate the path
   path = '../../../../assets/room-' + Math.floor(Math.random() * 6 + 1) + '.png';
 
   
