@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { Activity } from 'src/app/models/Activity';
 import { Registration } from 'src/app/models/Registration';
-import { AnimationController, ModalController } from '@ionic/angular';
+import { AnimationController} from '@ionic/angular';
 import { KeyValue } from '@angular/common';
 import { extractUserId, formatPrice } from '../database/database.component';
 import { RegistrationDatabaseService } from 'src/app/services/providers/registration-database.service';

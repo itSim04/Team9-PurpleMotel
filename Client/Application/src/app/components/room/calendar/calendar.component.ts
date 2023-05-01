@@ -1,9 +1,6 @@
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Component, Output, EventEmitter, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { MatDateRangeInput, MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { MatInput } from '@angular/material/input';
+import { Component, Output, EventEmitter, Input} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Booking } from 'src/app/models/Booking';
 import { parseDate } from 'src/app/pages/authentication/authentication.utility';
@@ -121,7 +118,7 @@ export class CalendarWrapperComponent {
   closer?: () => void;
 
 
-  constructor (private router: Router, private room_service: BookingDatabaseService, private snackBar: MatSnackBar, private modalCtrl: ModalController) { }
+  constructor (private router: Router, private room_service: BookingDatabaseService,private modalCtrl: ModalController) { }
 
   isDateInRange(date: string, startDate: string, endDate: string): boolean {
 

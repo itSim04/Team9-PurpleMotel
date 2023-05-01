@@ -12,7 +12,6 @@ export interface FoodPopup{
   description: string
   price: number
   is_served: boolean
-  //ingredients: Ingredient[]
   image: string
   quantity: number
 }
@@ -118,7 +117,6 @@ export class FoodListPopupComponent  implements OnInit {
     } else {
 
       this.dialog.close(0);
-      //this.authentication.openDialog('login');
 
     }
   }

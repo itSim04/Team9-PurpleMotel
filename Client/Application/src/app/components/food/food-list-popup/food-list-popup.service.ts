@@ -9,7 +9,7 @@ export class FoodListPopupService {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialog<T>(id: string, label:string, description: string, price:number, is_served: boolean, /*ingredients: string[],*/ image: string, quantity: number) {
+  openDialog<T>(id: string, label:string, description: string, price:number, is_served: boolean,image: string, quantity: number) {
     return this.dialog.open(FoodListPopupComponent, {
       data: {
         id: id,
@@ -17,7 +17,6 @@ export class FoodListPopupService {
         description: description,
         price: price,
         is_served: is_served,
-        //ingredients: ingredients,
         image: image,
         quantity: quantity
       }
