@@ -92,7 +92,8 @@ export function clone(obj: any) {
   templateUrl: './change.component.html',
   styleUrls: ['./change.component.scss']
 })
-export class ChangeComponent<Data> {
+export class 
+ChangeComponent<Data> {
 
   onImageChange($event: any, image: { filename: string, base64: string; }, image_id: number) {
 

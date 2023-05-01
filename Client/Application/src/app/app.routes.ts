@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from 'src/app/pages/guest/profile/change-password/change-password.component';
 import { ForgotComponent } from './pages/authentication/forgot/forgot.component';
 import { EditProfileComponent } from 'src/app/pages/guest/profile/edit-profile/edit-profile.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -74,6 +75,10 @@ export const routes: Routes = [
       {
         path: 'forgot',
         component: ForgotComponent
+      },
+      {
+        path: 'change',
+        component: ChangePasswordComponent
       },
 
 
