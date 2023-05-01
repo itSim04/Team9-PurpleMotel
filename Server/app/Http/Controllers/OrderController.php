@@ -102,7 +102,7 @@ class OrderController extends Controller
             }
         }
 
-        
+
         $user = User::find($request->input('user_id'));
 
         switch ($request->input('status', '0')) {
@@ -204,6 +204,10 @@ class OrderController extends Controller
             case '2':
                 $status = 'Ready';
                 break;
+
+            default:
+
+                $status = 'Pending';
         }
 
         Mail::to($user->email)->send(new Notifications('Order Status Updated', 'New Status: ' . $status));

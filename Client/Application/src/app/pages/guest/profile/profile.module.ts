@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { IonRatingStarsModule } from 'ion-rating-stars';
 import { ReviewModalComponent } from './review/review.component';
 import { CommonModule } from "@angular/common";
@@ -26,6 +27,7 @@ import { ProfileModalComponent } from "./profile-modal/profile-modal.component";
   imports: [
     CommonModule,
     LanguageModule,
+    RouterModule,
     // BookingDetailsModule,
     // ActivityDetailsModule,
     FormsModule,

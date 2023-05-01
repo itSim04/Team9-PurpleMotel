@@ -2,57 +2,38 @@
     <ion-img style="position: fixed;" src="../../../../assets/register/header-1.png"></ion-img>
     <div class="labels">
 
-        <ng-container *ngIf="!final_page">
+        <br><br><br><br><br><br>
+        <ion-text class="title">Edit Profile</ion-text>
+        <ion-input [(ngModel)]="user.first_name" placeholder="Name" class="input"></ion-input>
+        <ion-input [(ngModel)]="user.last_name" placeholder="Last Name" class="input"></ion-input>
+        <ion-input [(ngModel)]="user.email" placeholder="Email" class="input"></ion-input>
+        <ion-input [(ngModel)]="user.phone" placeholder="Phone Number" class="input"></ion-input>
+        <ion-input readonly (click)="date_open = true" [value]="user.date_of_birth"
+            placeholder="Birthday" class="input"></ion-input>
 
-            <ion-text class="title">Edit Profile</ion-text>
-            <ion-input [(ngModel)]="first_name" placeholder="Name" class="input"></ion-input>
-            <ion-input [(ngModel)]="last_name" placeholder="Last Name" class="input"></ion-input>
-            <ion-input [(ngModel)]="email" placeholder="Email" class="input"></ion-input>
-            <ion-input [(ngModel)]="phone_number" placeholder="Phone Number"
-                class="input"></ion-input>
-            <ion-button (click)="next()" class="register">Next</ion-button>
+        <ion-modal class="modal" [isOpen]="date_open">
+            <ng-template>
 
+                <ion-fab-button (click)="date_open = false" class="back-btn">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                </ion-fab-button>
 
-        </ng-container>
-        <ng-container *ngIf="final_page">
+                <div class="date-container">
 
-            <ion-fab-button (click)="final_page = false"
-                style="position: absolute; left: 16px; top: -24px;" class="back-btn-2">
-                <ion-icon name="arrow-back-outline"></ion-icon>
-            </ion-fab-button>
-            <ion-text style="display: inline;" class="title">Edit Profile</ion-text>
+                    <ion-datetime style="margin: 0; width: 100%;" doneText="Save"
+                        (ionChange)="updateDate($event)" placeholder="Date of Birth" id="datetime"
+                        class="input"></ion-datetime>
+                </div>
+            </ng-template>
+        </ion-modal>
+        <ion-select [(ngModel)]="user.gender" placeholder="Gender" class="input">
+            <ion-select-option [value]="i" *ngFor="let g of genders; let i = index">
+                {{g | translate }}
+            </ion-select-option>
 
-            <ion-input readonly (click)="date_open = true" [value]="date_of_birth"
-                placeholder="Birthday" class="input"></ion-input>
+        </ion-select>
+        <ion-button (click)="final_page = true" class="register"
+            (click)="confirmChanges(user)">Confirm Changes</ion-button>
 
-            <ion-modal class="modal" [isOpen]="date_open">
-                <ng-template>
-
-                    <ion-fab-button (click)="date_open = false" class="back-btn">
-                        <ion-icon name="arrow-back-outline"></ion-icon>
-                    </ion-fab-button>
-
-                    <div class="date-container">
-
-                        <ion-datetime style="margin: 0; width: 100%;" doneText="Save"
-                            (ionChange)="updateDate($event)" placeholder="Date of Birth"
-                            id="datetime" class="input"></ion-datetime>
-                    </div>
-                </ng-template>
-            </ion-modal>
-            <ion-select [(ngModel)]="gender" placeholder="Gender" class="input">
-                <ion-select-option [value]="i" *ngFor="let g of genders; let i = index">
-                    {{g | translate }}
-                </ion-select-option>
-
-            </ion-select>
-            <ion-button (click)="final_page = true" class="register" (click)="confirmChanges(user)">Confirm Changes</ion-button>
-
-
-        </ng-container>
     </div>
 </ion-content>
-
-
-
-  

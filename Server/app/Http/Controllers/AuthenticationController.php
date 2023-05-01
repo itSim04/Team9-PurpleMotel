@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use App\Mail\ForgotPasswordSend;
 use App\Mail\VerifySend;
+use App\Models\LoginAttempts;
 use App\Models\PasswordResetTokens;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
@@ -19,6 +21,17 @@ class AuthenticationController extends Controller
     public function login(Request $request)
     {
 
+        $last24Hours = Carbon::now()->subHours(24);
+
+        $attempts = LoginAttempts::where('ip', $request->ip())->get()
+            ->where('created_at', '>=', $last24Hours);
+
+
+        if (sizeof($attempts) >= 5) {
+
+            return generateResponse(429);
+        }
+
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
@@ -27,6 +40,17 @@ class AuthenticationController extends Controller
 
         $token = Auth::attempt($credentials);
         if (!$token) {
+
+            $user = User::all()->firstWhere('email', $request->input('email'));
+            if ($user) {
+
+                LoginAttempts::create([
+
+                    'user_id' => $user->id,
+                    'ip' => $request->ip()
+
+                ]);
+            }
 
             return response()->json([
 
@@ -39,6 +63,8 @@ class AuthenticationController extends Controller
         $user = Auth::user();
 
         $permissions = extractPermissions($user->id, $user->type);
+
+        LoginAttempts::where('ip', $request->ip())->delete();
 
         return response()->json([
             'status' => 'success',

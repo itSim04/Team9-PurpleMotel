@@ -8,7 +8,7 @@
         <ion-button class="promo" fill="clear">{{ 'Apply Promo Code' | translate }}</ion-button>
         <div style="display: flex;">
 
-            <ion-button class="options">{{ 'Edit Profile' | translate }}</ion-button>
+            <ion-button [routerLink]="['/profile/edit']" class="options">{{ 'Edit Profile' | translate }}</ion-button>
             <ion-button class="options">{{ 'Change Password' | translate }}</ion-button>
 
         </div>

@@ -9,6 +9,7 @@ import { User } from 'src/app/models/User';
 import { areEqual, clone } from 'src/app/components/database/change/change.component';
 import { parseDate, validateEmail, genders, validatePassword } from 'src/app/pages/authentication/authentication.utility';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -20,19 +21,11 @@ export class EditProfileComponent {
   date_open = false;
   updateDate(s: Event) {
 
-    this.date_of_birth = this.parseDate(new Date((s as CustomEvent).detail.value));
+    this.user.date_of_birth = this.parseDate(new Date((s as CustomEvent).detail.value));
 
     this.date_open = false;
 
   }
-  first_name = "";
-  last_name = "";
-  email = "";
-  password = "";
-  confirm_password = "";
-  phone_number = "";
-  date_of_birth = '';
-  gender = '';
 
   validated_email = true;
   connection_error = false;
@@ -42,21 +35,22 @@ export class EditProfileComponent {
   user: UserChange;
   old_user: UserChange;
 
-  constructor (private dialog: MatDialogRef<EditProfileComponent>, private toast_controller: ToastController, private user_service: UserDatabaseService) {
+  constructor (private router: Router, private toast_controller: ToastController, private user_service: UserDatabaseService) {
 
     const user = extractUser();
-    
+
     if (user) {
-      
+
+
       this.user = {
-        
+
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
         phone: user.phone,
         date_of_birth: user.date_of_birth,
         gender: user.gender
-        
+
       };
 
       this.old_user = {
@@ -79,34 +73,62 @@ export class EditProfileComponent {
     }
 
   }
-  
+
   extractConflicts() {
 
-    if (validatePassword(this.password)) {
+    if (areEqual(this.user, this.old_user)) {
 
-      return 'Weak Password';
-
-    }
-    if (this.password != this.confirm_password) {
-
-      return 'Passwords should match';
+      return 'You did not change anything!';
 
     }
-    if (this.phone_number.length <= 5) {
+    if (this.user.phone.length <= 5) {
 
       return 'Invalid Phone Number';
 
     }
-    if (!validateEmail(this.email)) {
+    if (!validateEmail(this.user.email)) {
 
       return 'Invalid Email';
 
     }
+    if (this.user.first_name.length <= 2) {
+
+      return 'Invalid First Name';
+
+    }
+    if (this.user.last_name.length <= 2) {
+
+      return 'Invalid Last Name';
+
+    }
+    if (!this.user.gender) {
+
+      return 'Gender field Missing';
+
+    }
+    if (!this.user.date_of_birth) {
+
+      return 'Date of birth missing';
+
+    }
+    if (!this.isAdult(this.user.date_of_birth)) {
+
+      return 'Ask an adult to make the account';
+    }
+
+
     return undefined;
 
 
 
   }
+
+  isAdult(birthday: string): boolean {
+    const ageInMillis = Date.now() - Date.parse(birthday);
+    const ageInYears = ageInMillis / (365 * 24 * 60 * 60 * 1000);
+    return ageInYears >= 18;
+  }
+
 
   next() {
 
@@ -143,11 +165,11 @@ export class EditProfileComponent {
 
   confirmChanges(user: UserChange) {
 
-    this.taken_information = false;
-    this.connection_error = false;
-    this.validated_email = validateEmail(this.user.email);
+    const conflict = this.extractConflicts();
 
-    if (this.validated_email) {
+
+
+    if (!conflict) {
 
       this.user_service.editProfile(extractUserId()!, user).subscribe({
 
@@ -156,12 +178,19 @@ export class EditProfileComponent {
           if (user) {
 
             localStorage.setItem('user', JSON.stringify(user));
-            this.dialog.close();
+            this.router.navigate(['/profile']);
+
+            setTimeout(() => {
+
+              window.location.reload();
+            }, 250);
 
           }
 
         },
         error: error => {
+
+          console.error(error);
 
           if (error.status == 422) {
 
@@ -175,6 +204,10 @@ export class EditProfileComponent {
         }
 
       });
+    } else {
+
+      this.displayToast(conflict);
+
     }
   }
 

@@ -1,3 +1,4 @@
+import { EditProfileComponent } from 'src/app/pages/guest/profile/edit-profile/edit-profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { TabsPage } from './tabs/tabs.page';
 import { Routes, CanActivate } from '@angular/router';
@@ -84,7 +85,20 @@ export const routes: Routes = [
       {
 
         path: 'profile',
-        component: ProfileComponent
+        children: [
+
+          {
+            path: '',
+            component: ProfileComponent
+
+          },
+          {
+            path: 'edit',
+            component: EditProfileComponent
+          }
+
+        ]
+
 
 
       },
