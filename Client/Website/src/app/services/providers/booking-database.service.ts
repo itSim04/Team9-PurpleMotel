@@ -4,12 +4,12 @@ import { User, UserAttributes } from 'src/app/models/User';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { BookingsPackage, BookingsResponse, Booking, BookingPackage, BookingResponse, BookingAttributes, RawBookingsPackage } from 'src/app/models/Booking';
+import { BookingsPackage, BookingsResponse, Booking, BookingPackage, BookingResponse, RawBookingsPackage } from 'src/app/models/Booking';
 import { RawRoomsPackage, Review, Room, RoomAttributes, RoomsPackage, RoomsResponse } from 'src/app/models/Room';
 import { RoomType } from 'src/app/models/RoomType';
-import { extractUserId } from 'src/app/components/database/database.component';
 import { UrlBuilderService } from '../utility/url-builder.service';
 import { PromoCode, EffectPromoCodes, PromoCodeAttributes } from 'src/app/models/PromoCode';
+import { extractUserId } from 'src/app/components/database/database.component';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,7 @@ export class BookingDatabaseService {
           const room_types = new Map<string, RoomType>();
           const users = new Map<string, User>();
           const user_types = new Map<string, UserType>();
-          const images  = response.images;
+          const images = response.images;
 
           response.data.forEach(booking => {
 
@@ -50,7 +50,7 @@ export class BookingDatabaseService {
 
                 case 'Rooms':
 
-                  rooms.set(value.id, { ...value.attributes as RoomAttributes, type: value.relationships.room_type.data.id, reviews: [], is_reviewed: false, images: images.rooms[value.id] });
+                  rooms.set(value.id, { ...value.attributes as RoomAttributes, type: value.relationships.room_type.data.id, reviews: [], is_reviewed: false, images: images.rooms ? images.rooms[value.id] : [] });
 
                   break;
 
@@ -162,7 +162,7 @@ export class BookingDatabaseService {
           response.data.forEach(room => {
 
             const roomType = room.relationships?.room_type?.data?.id;
-            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false, images: images.rooms[room.id] });
+            rooms.set(room.id, { ...room.attributes, type: roomType, reviews: [], is_reviewed: false, images: images.rooms ? images.rooms[room.id] : [] });
 
           });
 
