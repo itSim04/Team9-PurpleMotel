@@ -19,6 +19,8 @@ export class ImageDatabaseComponent {
         const filename = image?.filename!.split('/')!;
         this.image_service.modifyImage($event, 'Assets', location.toString(), filename[filename.length - 1]).subscribe((result) => {
 
+          if (!this.images[location == 'application' ? 0 : 1][image_id])
+            this.images[location == 'application' ? 0 : 1][image_id] = { filename: image.filename, base64: $event.split(',')[1] };
           this.images[location == 'application' ? 0 : 1][image_id].base64 = $event.split(',')[1];
 
         });
@@ -36,22 +38,21 @@ export class ImageDatabaseComponent {
 
           };
 
-          console.log(this.images);
+  
 
         });
       }
 
     } else {
 
-      console.log(image);
       const filename = image?.filename!;
 
       this.image_service.deleteImage(filename, 'Assets', location.toString()).subscribe((result) => {
 
-        const image = this.images[location == 'application' ? 0 : 1].at(this.images[location == 'application' ? 0 : 1].findIndex((data) => data.filename === image?.filename));
+        const image_old = this.images[location == 'application' ? 0 : 1].at(this.images[location == 'application' ? 0 : 1].findIndex((data) => data?.filename === image?.filename));
 
-        if (image)
-          image.base64 = '';
+        if (image_old)
+          image_old.base64 = '';
 
       });
 
@@ -72,11 +73,11 @@ export class ImageDatabaseComponent {
 
   };
 
-  constructor(private image_service: InformationDatabaseService) { }
+  constructor (private image_service: InformationDatabaseService) { }
 
 
 
-  ngOnInit() {
+  ionViewWillEnter() {
 
     this.downloadImages(0);
     this.downloadImages(1);
@@ -106,7 +107,7 @@ export class ImageDatabaseComponent {
       this.images[index] = result.data.map(t => {
 
         const name = t.filename.split('/');
-     
+
         return {
 
           filename: name.at(name.length - 1)!,
@@ -115,7 +116,6 @@ export class ImageDatabaseComponent {
         };
       });
 
-      console.log(this.images);
 
       image_names[index].forEach((value) => {
 

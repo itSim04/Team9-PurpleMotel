@@ -32,6 +32,8 @@ export class RestaurantLandingComponent {
       body: this.display,
       hide_dates: true,
       custom_height: '50%',
+      hide_image: true,
+      hide_description: true
       
     }
     return data
@@ -39,7 +41,7 @@ export class RestaurantLandingComponent {
 
   get display() {
 
-    return (JSON.parse(localStorage.getItem('information')!))['chef_list'].split('\\n');
+    return (JSON.parse(localStorage.getItem('information')!))['chef_list'];
 
   }
 

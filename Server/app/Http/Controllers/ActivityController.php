@@ -34,6 +34,8 @@ class ActivityController extends Controller
 
         $registration = Registration::all()->whereIn('activity_id', $activities->pluck('id'));
 
+        $images = [];
+
         foreach ($activities->pluck('id') as $id) {
 
             $images['activities'][$id] = extractImages('Activity', $id);

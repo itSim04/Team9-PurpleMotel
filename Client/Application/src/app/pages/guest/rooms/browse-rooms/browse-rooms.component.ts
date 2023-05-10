@@ -68,13 +68,16 @@ export class BrowseRoomsComponent implements OnInit {
   }
 
 
-  closeModal($event: KeyValue<string, Booking>) {
+  closeModal($event: KeyValue<string, [Booking, Room, RoomType]>) {
 
     this.isModalOpened = false;
     this.active_data = undefined;
 
     if ($event) {
-      localStorage.setItem('temp_profile_room', JSON.stringify($event));
+      localStorage.setItem('temp_profile_booking', JSON.stringify({ key: $event.key, value: $event.value[0] }));
+      localStorage.setItem('temp_profile_room', JSON.stringify({ key: $event.key, value: $event.value[1] }));
+      localStorage.setItem('temp_profile_room_type', JSON.stringify({ key: $event.key, value: $event.value[2] }));
+
       setTimeout(() => {
 
         this.router.navigate(['profile']);

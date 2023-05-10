@@ -67,6 +67,7 @@ export class AuthenticationDialogService {
 
   login(user: UserCredentials) {
 
+    
     return this.http.post<UserResponse>("http://127.0.0.1:8000/api/v1/auth/login", user).pipe(
 
       map(result => {
@@ -112,9 +113,10 @@ export class AuthenticationDialogService {
 
   savePasswordVerificationCode(email: string) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-1?email=${email}`);
+      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-1?email=${email}`, {headers: headers});
 
     } catch (e: unknown) {
 
@@ -125,9 +127,10 @@ export class AuthenticationDialogService {
   }
   saveEmailVerificationCode(email: string) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/send-verify-email?email=${email}`);
+      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/send-verify-email?email=${email}`, {headers: headers});
 
     } catch (e: unknown) {
 
@@ -139,9 +142,10 @@ export class AuthenticationDialogService {
 
   verifyEmail(token: string) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/verify-email?token=${token}`);
+      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/verify-email?token=${token}`, {headers: headers});
 
     } catch (e: unknown) {
 
@@ -152,9 +156,10 @@ export class AuthenticationDialogService {
   }
   forgotPassword(token: string, password: string, confirm_password: string) {
 
+    const headers = this.url.generateHeader();
     try {
 
-      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-2?password_confirmation=${confirm_password}&password=${password}&token=${token}`);
+      return this.http.get<any>(`http://127.0.0.1:8000/api/v1/auth/forgot-password-2?password_confirmation=${confirm_password}&password=${password}&token=${token}`, {headers: headers});
 
     } catch (e: unknown) {
 

@@ -66,6 +66,15 @@ export class ProfileModalComponent {
 
   }
 
+  get body() {
+
+    
+
+      return this.data?.body?.split('\\n')
+
+  
+
+  }
   constructor (private room_service: RoomDatabaseService) { }
 
   closeReview($event: { intel: IntelAttributes, review: string, rating: number, title: string; }) {

@@ -47,16 +47,18 @@ class FoodController extends Controller
             $images['food'][$food->id] = extractImages('Food', $food->id);
         }
 
-        $categories = collect($categories)->unique()->values()->all();
+        $categories = FoodCategory::all()->pluck('id')->toArray();// collect($categories)->unique()->values()->all();
 
         foreach ($categories as $category) {
 
             $images['food_categories'][$category] = extractImages('Food Category', $category);
         }
 
-        $food_categories = FoodCategoryResource::collection(FoodCategory::all()->whereIn('id', $categories));
+        $food_categories = FoodCategoryResource::collection(FoodCategory::all());
 
         $ingredients = Ingredient::all()->whereIn('food_id', $food_id);
+
+        $stock_id = [];
 
         foreach ($ingredients as $id => $ingredient) {
 

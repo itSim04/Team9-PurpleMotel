@@ -116,7 +116,8 @@ export class FoodDatabaseComponent {
     fields: [
       {
         key: 'image',
-        type: 'image'
+        type: 'image',
+        condition: () => true
       },
       {
         key: 'label',

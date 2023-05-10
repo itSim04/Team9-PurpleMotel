@@ -25,6 +25,8 @@ class FacilityController extends Controller
 
         $facilities = Facility::all();
 
+        $images = [];
+
         foreach ($facilities->pluck('id') as $id) {
 
             $images['facilities'][$id] = extractImages('Facility', $id);

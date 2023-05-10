@@ -170,7 +170,7 @@ export class MenuComponent implements OnInit {
 
             this.router.navigate(['/profile']);
 
-          });
+          }, 200);
 
         },
         error: (err) => {

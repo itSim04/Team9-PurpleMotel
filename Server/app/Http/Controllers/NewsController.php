@@ -36,6 +36,9 @@ class NewsController extends Controller
             $news = News::all();
         }
 
+        $images = [];
+        $news_ids = [];
+
 
         foreach ($news as $key => $value) {
 

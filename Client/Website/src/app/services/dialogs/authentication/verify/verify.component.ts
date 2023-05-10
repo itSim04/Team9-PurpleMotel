@@ -13,7 +13,7 @@ import { extractUser } from 'src/app/components/database/database.component';
 })
 export class VerifyComponent {
 
-  email = 'clovis.prosacco@example.com';
+  email = '';
   verification = '';
   validated_email = true;
   successful_email = false;

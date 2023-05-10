@@ -41,14 +41,11 @@ export class ChatsPageComponent implements OnInit {
       const chatsRef = ref(this.db, 'chats/');
       onChildAdded(chatsRef, (snapshot) => {
         const temp = this.all_users.get(snapshot.key || '');
+        console.log(temp, snapshot.key, this.id);
         if (temp) {
-          if (snapshot.key == this.id) {
-            this.chat_loading = true;
-          } else {
             this.chat_loading = false;
             this.active_guests.push({ key: snapshot.key || '0', value: temp });
             this.active_last_messages.push((snapshot.val() as { lastDate: string, lastMessage: string; }));
-          }
         }
       });
       if (this.id != '0') {
@@ -75,7 +72,10 @@ export class ChatsPageComponent implements OnInit {
         start: new Date()
       });
       this.active_ids.push(this.id);
+      console.log(commentsRef);
       onChildAdded(commentsRef, (snapshot) => {
+
+        console.log('Child added', snapshot.val());
         this.loading = false;
         const data = snapshot.val();
         if (data["sender"] == this.session_user.key || data["sender"] == this.id) {

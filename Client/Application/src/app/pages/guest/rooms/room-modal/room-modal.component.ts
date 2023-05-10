@@ -36,7 +36,7 @@ export class RoomModalComponent {
   @Input() @Required room?: KeyValue<string, Room>;
   @Input() @Required room_type?: KeyValue<string, RoomType>;
   @Input() promo?: KeyValue<string, PromoCode>;
-  @Output() closeModal: EventEmitter<KeyValue<string, Booking>> = new EventEmitter();
+  @Output() closeModal: EventEmitter<KeyValue<string, [Booking, Room, RoomType]>> = new EventEmitter();
 
   range?: { check_in: Date; check_out: Date; };
 
@@ -101,7 +101,7 @@ export class RoomModalComponent {
 
                 this.closeModal.emit({
                   key: data,
-                  value: booking
+                  value: [booking, this.room!.value, this.room_type!.value]
                 });
 
               });

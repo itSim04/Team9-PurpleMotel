@@ -8,7 +8,6 @@
     <mat-form-field class="full-width input">
         <mat-label class="label">{{'email'|translate}}</mat-label>
         <input [(ngModel)]="email" matInput>
-
         <div class="number-error" *ngIf="!validated_email || invalid_email">
             {{'invalid_email'|translate}} </div>
         <div class="number-error" *ngIf="successful_email">

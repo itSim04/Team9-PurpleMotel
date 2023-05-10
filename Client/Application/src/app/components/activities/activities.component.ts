@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, Input} from '@angular/core';
 import { Activity } from 'src/app/models/Activity';
 import { Registration } from 'src/app/models/Registration';
@@ -25,7 +26,7 @@ export class ActivitiesComponent {
   isModalOpen: boolean = false;
   @Input() activity?: KeyValue<string, Activity>;
 
-  constructor (private registration_service: RegistrationDatabaseService, private animationCtrl: AnimationController, private url: UrlBuilderService) { }
+  constructor (private registration_service: RegistrationDatabaseService, private animationCtrl: AnimationController, private url: UrlBuilderService, private router: Router) { }
 
 
   formatPrice(price?: number) {
@@ -103,6 +104,12 @@ export class ActivitiesComponent {
 
             this.registrations.set(data, registration);
             this.closeModal();
+
+            setTimeout(() => {
+
+              this.router.navigate(['profile']);
+      
+            }, 100);
 
           });
 

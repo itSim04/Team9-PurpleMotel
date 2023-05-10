@@ -11,9 +11,9 @@ import { AuthenticationService } from 'src/app/services/utility/authentication.s
   styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent {
-  old_password = "12345";
-  new_password = "123456";
-  confirm_new_password = "123456";
+  old_password = "";
+  new_password = "";
+  confirm_new_password = "";
   validated_old_password = true;
   validated_new_password = true;
   connection_error = false;

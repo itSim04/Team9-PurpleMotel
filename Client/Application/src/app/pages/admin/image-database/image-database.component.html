@@ -8,16 +8,14 @@
             style="border-bottom: 1px solid var(--ion-color-primary); width: 50%; margin: 0; transition: all 250ms ease-in-out;">
 
             <ion-segment-button value="application">
-                <img style="transition: all 500ms ease-in-out;" height="50%"
-                    [src]="selected != 'application' ?  '../../../../assets/profile-pics/room-segment.png' : '../../../../assets/profile-pics/room-segment-active.png'">
+                <ion-icon size="large" name="logo-apple-appstore"></ion-icon>
             </ion-segment-button>
         </div>
         <div [style.borderBottomColor]="selected == 'website' ? 'var(--ion-color-primary)' : '#B1B8C3'"
             style="width: 50%; margin: 0; border-bottom: 1px solid var(--ion-color-primary); transition: all 250ms ease-in-out;">
 
             <ion-segment-button value="website">
-                <img style="transition: all 500ms ease-in-out;" height="50%"
-                    [src]="selected != 'website' ?  '../../../../assets/profile-pics/services-segment.png' : '../../../../assets/profile-pics/services-segment-active.png'">
+                <ion-icon size="large" name="laptop-outline"></ion-icon>
             </ion-segment-button>
         </div>
     </ion-segment>

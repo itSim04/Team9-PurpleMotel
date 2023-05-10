@@ -24,9 +24,10 @@ class SendNotifications
      */
     public function handle(CustomEvent $event): void
     {
-        if ($event->user->notifications) {
 
-            Mail::to('mm@gmail.com')->send(new SendTriggerEmail($event->data, $event->user->email, $event->type));
+        if ($event->user && $event->user->notifications) {
+
+            Mail::to($event->user->email)->send(new SendTriggerEmail($event->data, $event->user->email, $event->type));
         }
     }
 }

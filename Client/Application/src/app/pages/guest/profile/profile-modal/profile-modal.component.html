@@ -4,15 +4,15 @@
 <div class="container" [style.height]="data!.custom_height || '70%'">
   <div style="text-align: center;">
 
-    <ion-text class="title">{{data?.title}}</ion-text>
+    <ion-text class="title">{{(data?.title || '') | translate}}</ion-text>
     <hr style="border-bottom: 1px solid #D6B389; width: 95%;">
-    <img *ngIf="!data!.hide_image" style="object-fit: cover; margin-top: 8px;" width="100%" height="40%" [src]="data?.image"
-      onerror="this.src='assets/placeholder.png'">
+    <img *ngIf="!data!.hide_image" style="object-fit: cover; margin-top: 8px;" width="100%"
+      height="250vh" [src]="data?.image" onerror="this.src='assets/placeholder.png'">
   </div>
   <br>
   <ion-text *ngIf="!data!.hide_description" class="label">{{'description' | translate}}</ion-text>
   <br>
-  <ion-text class="body">{{data?.body}}</ion-text>
+  <ion-text *ngFor="let text of body" class="body">{{text}}<br></ion-text>
   <br>
   <div style="text-align: center">
     <ng-container *ngIf="data!.show_num_input">
@@ -48,7 +48,8 @@
   <ion-button *ngIf="data?.button" (click)="performAction()" class="cancel-btn">
     {{data!.button!.label}}
   </ion-button>
-  <ion-icon size="large" class="review" (click)="openReview()" *ngIf="data?.custom_action?.display" [name]="data!.custom_action!.icon"></ion-icon>
+  <ion-icon size="large" class="review" (click)="openReview()" *ngIf="data?.custom_action?.display"
+    [name]="data!.custom_action!.icon"></ion-icon>
 
   <ion-modal [isOpen]="isReviewOpened" class="modal">
 

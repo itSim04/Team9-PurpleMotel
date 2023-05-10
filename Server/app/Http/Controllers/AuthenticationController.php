@@ -96,7 +96,8 @@ class AuthenticationController extends Controller
             'phone' => $validatedData['phone'],
             'gender' => $validatedData['gender'],
             'date_of_birth' => $validatedData['date_of_birth'],
-            'tier' => 0
+            'tier' => 0,
+            'notifications' => 0
         ]);
 
         $token = Auth::login($user);

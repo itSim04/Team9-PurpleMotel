@@ -1,5 +1,5 @@
 import { KeyValue } from "@angular/common";
-import { Component, OnInit} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AnimationController, ModalController } from "@ionic/angular";
 import { extractUser } from "src/app/components/database/database.component";
@@ -29,7 +29,7 @@ import { UrlBuilderService } from "src/app/services/utility/url-builder.service"
 
 })
 export class ProfileComponent implements OnInit {
-  
+
   bookings!: Map<string, Booking>;
   orders!: Map<string, Order>;
   rooms!: Map<string, Room>;
@@ -40,32 +40,32 @@ export class ProfileComponent implements OnInit {
   promo: Map<string, PromoCode> = new Map();
   user: User;
   first_name;
-  
+
   booking_array: [string, Booking][] = [];
-  
+
   registration_array: [string, Registration][] = [];
   last_name;
-  
+
   active_data?: ProfileModalData;
-  
+
   isModalOpen: boolean = false;
   profile_bg = this.url.getImage('profile-main');
   selected: 'rooms' | 'services' = 'rooms';
-  
-  constructor(private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private url: UrlBuilderService) {
-  
+
+  constructor (private animationCtrl: AnimationController, private order_service: OrderDatabaseService, private profile_service: ProfileService, private router: Router, private booking_service: BookingDatabaseService, private registration_service: RegistrationDatabaseService, private url: UrlBuilderService) {
+
     const user = extractUser()!;
-  
-  
+
+
     this.user = user;
     this.first_name = this.user.first_name;
     this.last_name = this.user.last_name;
-  
-  
-  
+
+
+
   }
   formatActivity(registration: KeyValue<string, Registration>): ProfileModalData {
-    
+
     const activity = this.activities.get(registration.value.activity_id)!;
 
 
@@ -127,7 +127,7 @@ export class ProfileComponent implements OnInit {
         icon: 'bar-chart-outline',
         id: booking.value.room_id,
         display: !room.is_reviewed
-        
+
       }
 
     };
@@ -135,14 +135,25 @@ export class ProfileComponent implements OnInit {
 
 
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
 
-    const temp = localStorage.getItem('temp_profile_room');
-    if (temp) {
+    const temp_booking = localStorage.getItem('temp_profile_booking');
+    const temp_room = localStorage.getItem('temp_profile_room');
+    const temp_room_type = localStorage.getItem('temp_profile_room_type');
 
-      const booking = JSON.parse(temp) as KeyValue<string, Booking>;
+    if (temp_booking && temp_room && temp_room_type) {
+
+      const booking = JSON.parse(temp_booking) as KeyValue<string, Booking>;
       this.bookings.set(booking.key, booking.value);
+      localStorage.removeItem('temp_profile_booking');
+
+      const room = JSON.parse(temp_booking) as KeyValue<string, Room>;
+      this.rooms.set(room.key, room.value);
       localStorage.removeItem('temp_profile_room');
+
+      const room_type = JSON.parse(temp_booking) as KeyValue<string, RoomType>;
+      this.room_types.set(room_type.key, room_type.value);
+      localStorage.removeItem('temp_profile_room_type');
 
     }
 
@@ -275,7 +286,7 @@ export class ProfileComponent implements OnInit {
     this.isModalOpen = false;
 
   }
- 
+
   ngOnInit() {
 
     this.profile_service.getAllData().subscribe({

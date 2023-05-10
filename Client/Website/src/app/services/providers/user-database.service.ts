@@ -241,9 +241,10 @@ export class UserDatabaseService {
 
 
   }
- 
+
   addNewUserType(user: UserType) {
 
+    const headers = this.url.generateHeader();
     const permissions: any = {};
     user.permissions.forEach((permission, label) => {
 
@@ -254,7 +255,7 @@ export class UserDatabaseService {
     console.log(permissions);
     try {
 
-      return this.http.post<UserTypeResponse>(this.url.generateUrl('user-types'), { label: user.label, description: user.description, permissions: permissions }).pipe(
+      return this.http.post<UserTypeResponse>(this.url.generateUrl('user-types'), { label: user.label, description: user.description, permissions: permissions }, { headers: headers }).pipe(
 
         map(result => {
 
@@ -297,9 +298,11 @@ export class UserDatabaseService {
 
   deleteUserType(key: string) {
 
+    const headers = this.url.generateHeader();
+
     try {
 
-      return this.http.delete(this.url.generateUrl(`user-types/${key}`)).pipe(map(() => []));
+      return this.http.delete(this.url.generateUrl(`user-types/${key}`), { headers: headers }).pipe(map(() => []));
 
     } catch (e: unknown) {
 
